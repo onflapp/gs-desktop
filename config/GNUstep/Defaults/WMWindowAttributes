@@ -1,8 +1,0 @@
-{
-  groupLeader.WPrefs = {
-    Icon = groupLeader.WPrefs.xpm;
-  };
-  "gnome-terminal-server.Gnome-terminal-server" = {
-    Icon = "gnome-terminal-server.Gnome-terminal-server.xpm";
-  };
-}

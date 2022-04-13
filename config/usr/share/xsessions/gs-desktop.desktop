@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=GNUstep Desktop
+Comment=This session logs you into GNUstep Desktop
+Exec=/usr/bin/xterm
+# no icon yet, only the top three are currently used
+Icon=
+Keywords=GNUstep Desktop
+Type=Application

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export WMAKER_USER_ROOT=$HOME/Library/WindowMaker
+export PATH=/System/bin:$PATH
+
+source /Developer/Makefiles/GNUstep.sh
+
+/System/bin/wmaker

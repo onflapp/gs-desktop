@@ -1,6 +1,6 @@
 {
   TextureList = ();
-  NoXSetStuff = YES;
+  NoXSetStuff = NO;
   ColorList = (
     "#000000",
     "#292929",
@@ -27,5 +27,4 @@
     "#ce29c6",
     "#ce2973"
   );
-  BalloonHelp = NO;
 }
