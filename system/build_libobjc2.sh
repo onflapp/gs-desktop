@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd ../../libobjc2 || exit 1
+
 rm -R _build 2>/dev/null
 mkdir -p _build
 cd ./_build
@@ -19,6 +20,7 @@ cmake .. \
 	-DCMAKE_BUILD_TYPE=Release \
 	|| exit 1
 
-make clean
-make -j2 install || exit 1
-ldconfig
+make -j2 || exit 1
+
+sudo -E make install
+sudo -E ldconfig

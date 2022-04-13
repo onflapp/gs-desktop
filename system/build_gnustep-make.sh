@@ -1,11 +1,10 @@
 #!/bin/bash
-set -e
 
 . ./BUILD_SETTINGS.sh
 
 cp ./gs-desktop.layout ../../gnustep-make/FilesystemLayouts/
 
-cd ../../gnustep-make
+cd ../../gnustep-make || exit 1
 
 make clean
 ./configure \
@@ -17,4 +16,5 @@ make clean
 	    --enable-debug-by-default \
 	    --with-library-combo=ng-gnu-gnu
 
-make install
+make || exit 1
+sudo -E make install

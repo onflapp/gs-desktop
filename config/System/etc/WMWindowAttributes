@@ -1,8 +1,0 @@
-{
-  xterm.XTerm = {
-    Icon = xterm.XTerm.xpm;
-  };
-  GWorkspace.GNUstep = {
-    Icon = GWorkspace.GNUstep.xpm;
-  };
-}

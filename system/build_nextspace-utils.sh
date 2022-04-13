@@ -1,12 +1,13 @@
 #!/bin/bash
-set -e
 D=`pwd`
 
 . /Developer/Makefiles/GNUstep.sh
 
 cd ../../nextspace/Applications/Preferences || exit 1
 
-make -j2 install
-ldconfig
+make clean
+make -j2 || exit 1
+
+sudo -E make install
 
 cd "$D"

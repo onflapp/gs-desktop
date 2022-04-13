@@ -15,6 +15,7 @@ cmake .. \
 	-DENABLE_TESTING=OFF \
 	-DUSE_GOLD_LINKER=YES
 
-make clean
-make -j2 install
-ldconfig
+make -j2 || exit 1
+
+sudo -E make install
+sudo -E ldconfig

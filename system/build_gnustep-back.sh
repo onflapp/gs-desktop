@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 . /Developer/Makefiles/GNUstep.sh
 
@@ -10,4 +9,5 @@ make clean
   --enable-graphics=art \
   --with-name=art
 
-make fonts=no install
+make fonts=no || exit 1
+sudo -E make install

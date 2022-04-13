@@ -1,11 +1,11 @@
 #!/bin/bash
-set -e
 
 . /Developer/Makefiles/GNUstep.sh
 
 cd ../../gnustep-gui || exit 1
 
 make clean
-./configure
+./configure || exit 1
 
-make install
+make || exit 1
+sudo -E make install
