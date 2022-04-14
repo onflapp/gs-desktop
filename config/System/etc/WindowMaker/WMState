@@ -1,0 +1,131 @@
+{
+  Dock = {
+    Applications760 = (
+      {
+        Forced = No;
+        Name = Logo.WMDock;
+        BuggyApplication = No;
+        AutoLaunch = No;
+        Position = "0,0";
+        Lock = Yes;
+        Command = "/System/bin/WPrefs";
+      },
+      {
+        Forced = No;
+        Name = GWorkspace.GNUstep;
+        DropCommand = "/Applications/GWorkspace.app/GWorkspace %d";
+        BuggyApplication = No;
+        AutoLaunch = Yes;
+        Position = "0,1";
+        Lock = Yes;
+        PasteCommand = "/Applications/GWorkspace.app/GWorkspace %s";
+        Command = "/Applications/GWorkspace.app/GWorkspace";
+      },
+      {
+        Forced = No;
+        Name = Preferences.GNUstep;
+        DropCommand = "/Applications/Preferences.app/Preferences %d";
+        BuggyApplication = No;
+        AutoLaunch = Yes;
+        Position = "0,2";
+        Lock = No;
+        PasteCommand = "/Applications/Preferences.app/Preferences %s";
+        Command = "/Applications/Preferences.app/Preferences";
+      }
+    );
+    AutoRaiseLower = No;
+    Applications = (
+      {
+        Forced = No;
+        Name = Logo.WMDock;
+        BuggyApplication = No;
+        AutoLaunch = No;
+        Position = "0,0";
+        Lock = Yes;
+        Command = "/System/bin/WPrefs";
+      },
+      {
+        Forced = No;
+        Name = GWorkspace.GNUstep;
+        DropCommand = "/Applications/GWorkspace.app/GWorkspace %d";
+        BuggyApplication = No;
+        AutoLaunch = Yes;
+        Position = "0,1";
+        Lock = Yes;
+        PasteCommand = "/Applications/GWorkspace.app/GWorkspace %s";
+        Command = "/Applications/GWorkspace.app/GWorkspace";
+      },
+      {
+        Forced = No;
+        Name = Preferences.GNUstep;
+        DropCommand = "/Applications/Preferences.app/Preferences %d";
+        BuggyApplication = No;
+        AutoLaunch = No;
+        Position = "0,2";
+        Lock = No;
+        PasteCommand = "/Applications/Preferences.app/Preferences %s";
+        Command = "/Applications/Preferences.app/Preferences";
+      }
+    );
+    Lowered = No;
+    Position = "-64,0";
+  };
+  Clip = {
+    Forced = No;
+    Name = Logo.WMClip;
+    DropCommand = "wmsetbg -u -t %d";
+    BuggyApplication = No;
+    AutoLaunch = No;
+    Position = "0,0";
+    Lock = No;
+    Command = "-";
+  };
+  Applications = (
+    {
+      Name = xterm.XTerm;
+      Shaded = No;
+      Miniaturized = No;
+      Command = "/usr/bin/xterm";
+      Geometry = "484x316+500+277";
+      Hidden = No;
+      Workspace = Main;
+      ShortcutMask = 0;
+    },
+    {
+      Name = xterm.XTerm;
+      Shaded = No;
+      Miniaturized = No;
+      Command = "/usr/bin/xterm";
+      Geometry = "484x316+123+377";
+      Hidden = No;
+      Workspace = Main;
+      ShortcutMask = 0;
+    },
+    {
+      Dock = Dock;
+      Name = Preferences.GNUstep;
+      Shaded = No;
+      Miniaturized = No;
+      Command = "/Applications/Preferences.app/Preferences";
+      Geometry = "400x373+183+134";
+      Hidden = Yes;
+      Workspace = Main;
+      ShortcutMask = 0;
+    }
+  );
+  Drawers = ();
+  Workspaces = (
+    {
+      Clip = {
+        AutoRaiseLower = No;
+        AutoCollapse = No;
+        Applications = ();
+        Collapsed = No;
+        AutoAttractIcons = No;
+        Lowered = Yes;
+      };
+      Name = Main;
+    }
+  );
+  Workspace = Main;
+}

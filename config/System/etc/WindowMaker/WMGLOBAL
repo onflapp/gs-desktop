@@ -1,0 +1,10 @@
+{
+  MouseWheelDown = Button5;
+  AntialiasedText = Yes;
+  BoldSystemFont = "Sans:weight=200:pixelsize=11";
+  DefaultFontSize = 11;
+  DoubleClickTime = 250;
+  FloppyPath = "/media/floppy";
+  SystemFont = "Sans:pixelsize=11";
+  MouseWheelUp = Button4;
+}

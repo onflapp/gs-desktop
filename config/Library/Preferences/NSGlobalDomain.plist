@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>GSBackend</key>
+    <string>art</string>
+    <key>NSLanguages</key>
+    <array>
+	<string>English</string>
+	<string>Ukrainian</string>
+	<string>German</string>
+	<string>Dutch</string>
+	<string>Spanish</string>
+	<string>French</string>
+	<string>Italian</string>
+	<string>Slovak</string>
+	<string>Hungarian</string>
+	<string>Russian</string>
+	<string>TraditionalChinese</string>
+	<string>Korean</string>
+    </array>
+    <key>NSMeasurementUnit</key>
+    <string>Centimeters</string>
+</dict>
+</plist>
