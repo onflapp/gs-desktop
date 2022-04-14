@@ -61,3 +61,4 @@ libwebkit2gtk-4.0-dev
 texi2html
 texinfo
 texlive
+libreadline-dev
