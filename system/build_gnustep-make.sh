@@ -14,6 +14,7 @@ make clean
 	    --enable-native-objc-exceptions \
 	    --enable-objc-arc \
 	    --enable-debug-by-default \
+      --with-runtime-abi \
 	    --with-library-combo=ng-gnu-gnu
 
 make || exit 1

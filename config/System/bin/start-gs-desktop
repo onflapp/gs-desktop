@@ -2,7 +2,13 @@
 
 export WMAKER_USER_ROOT=$HOME/Library/WindowMaker
 export PATH=/System/bin:$PATH
+export RUNTIME_VERSION="gnustep-2.0"
 
 source /Developer/Makefiles/GNUstep.sh
+
+if [ ! -f "$HOME/Library/Preferences/NSGlobalDomain.plist" ];then
+  mkdir "$HOME/Library/Preferences" 2>/dev/null
+  cp /Library/Preferences/* "$HOME/Library/Preferences/"
+fi
 
 /System/bin/wmaker
