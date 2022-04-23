@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function cleanup {
+  rm /tmp/$UID-gsworkspace.pid 2>/dev/null
+ }
+
 function start_services {
   echo "making services"
   /Library/bin/make_services
@@ -34,5 +38,12 @@ function start_workspace {
   fi
 }
 
-start_services
-start_workspace
+if [ -f "/tmp/$UID-gsworkspace.pid" ];then
+  echo "Workspace is running already"
+  gopen /Application/GWorkspace.app
+else
+  echo "$$" > /tmp/$UID-gsworkspace.pid
+  start_services
+  start_workspace
+  cleanup
+fi 
