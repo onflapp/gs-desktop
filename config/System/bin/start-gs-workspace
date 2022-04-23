@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 
 function cleanup {
   rm /tmp/$UID-gsworkspace.pid 2>/dev/null
@@ -24,17 +24,17 @@ function start_workspace {
   PID=`cat /tmp/$UID-wm.pid`
   if [ -n "x$PID" ];then
     echo "Workspace finished, killing WM at $PID"
-    kill $PID
+    kill $PID 2> /dev/null
   fi
 
   PID=`cat /tmp/$UID-gdnc.pid`
   if [ -n "x$PID" ];then
-    kill -9 $PID
+    kill -9 $PID 2> /dev/null
   fi
 
   PID=`cat /tmp/$UID-gpbs.pid`
   if [ -n "x$PID" ];then
-    kill -9 $PID
+    kill -9 $PID 2> /dev/null
   fi
 }
 
