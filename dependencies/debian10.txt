@@ -14,9 +14,9 @@ flite1-dev
 libcups2-dev
 libgl1-mesa-dev
 util-linux-locales
-clang-7
-lldb-7
-lld-7
+clang
+lldb
+lld
 cmake
 autoconf
 libtool
@@ -57,7 +57,6 @@ libxft-dev
 libxpm-dev
 libssl-dev
 libart-2.0-dev
-libwebkit2gtk-4.0-dev
 texi2html
 texinfo
 texlive
