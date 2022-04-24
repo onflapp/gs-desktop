@@ -1,8 +1,56 @@
 #!/bin/bash
 
-if [ "$1" == "--safe" ];then
+function start_windowmanager {
+  (/System/bin/wmaker $WM_ARGS) &
+  WM_PID=$!
+
+  echo "WM is running on $WM_PID"
+  export GS_DESKTOP_WM_PID="$WM_PID"
+}
+
+function stop_windowmanager {
+  echo "stopping WM on $WM_PID"
+  if [ -n "$WM_PID" ];then
+    pkill -P "$WM_PID" 2>/dev/null
+  fi
+}
+
+function run_workspace {
+  /Applications/GWorkspace.app/GWorkspace
+}
+
+function start_services {
+  echo "making services"
+  /Library/bin/make_services
+
+  echo "about to start Notification Center"
+  /Library/bin/gdnc --daemon &
+  echo "$!" > /tmp/$UID-gdnc.pid
+
+  echo "about to start Pasteboard Service"
+  /Library/bin/gpbs --daemon &
+  echo "$!" > /tmp/$UID-gpbs.pid
+}
+
+function stop_services {
+  echo "about to stop Notification Center"
+  PID=`cat /tmp/$UID-gdnc.pid`
+  if [ -n "x$PID" ];then
+    kill $PID 2> /dev/null && /tmp/$UID-gdnc.pid
+  fi
+
+  echo "about to stop Pasteboard Service"
+  PID=`cat /tmp/$UID-gpbs.pid`
+  if [ -n "x$PID" ];then
+    kill $PID 2> /dev/null && rm /tmp/$UID-gpbs.pid
+  fi
+}
+
+echo "starting GS Desktop"
+
+if [ "$1" == "--safe-mode" ];then
   export GS_DESKTOP_SAFEMODE="safe"
-  exec xterm -e "$0" --safe-ask
+  exec xterm -e /bin/sh
 fi
 
 export WMAKER_USER_ROOT=$HOME/Library/WindowMaker
@@ -12,29 +60,22 @@ export GS_DESKTOP_LOG=/tmp/$UID-gs-desktop.log
 
 source /Developer/Makefiles/GNUstep.sh
 
-if [ "$1" == "--safe-ask" ];then
-  echo "running in a SAFE mode"
-  read
-  exec $SHELL
-fi
-
 if [ -n "$GS_DESKTOP_SAFEMODE" ];then
+  echo "running in SAFE mode"
   WM_ARGS="--static --dont-restore"
-  export GS_DESKTOP_LOG=/dev/stdout
 fi
-
-echo "starting GS Desktop"             > "$GS_DESKTOP_LOG"
 
 if [ ! -f "$HOME/Library/Preferences/NSGlobalDomain.plist" ];then
   mkdir "$HOME/Library/Preferences" 2>/dev/null
   cp /Library/Preferences/* "$HOME/Library/Preferences/"
 fi
 
-(/System/bin/wmaker $WM_ARGS >> "$GS_DESKTOP_LOG" 2>&1) &
-WM_PID=$!
+start_services               
+start_windowmanager
 
-echo "WM is running on $WM_PID"       >> "$GS_DESKTOP_LOG"
-echo "$WM_PID" > /tmp/$UID-wm.pid
-wait "$WM_PID"
+sleep 1
+run_workspace > $GS_DESKTOP_LOG 2>&1
+sleep 1
 
-echo "finishing GS Desktop"           >> "$GS_DESKTOP_LOG"
+stop_services
+stop_windowmanager
