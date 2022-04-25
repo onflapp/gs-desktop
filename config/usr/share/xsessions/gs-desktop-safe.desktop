@@ -1,7 +1,7 @@
 [Desktop Entry]
 Name=GNUstep Desktop - SAFE
 Comment=This session logs you into GNUstep Desktop SAFE mode
-Exec=/System/bin/startgsde --safe
+Exec=/System/bin/startgsde --safe-mode
 # no icon yet, only the top three are currently used
 Icon=
 Keywords=GNUstep Desktop

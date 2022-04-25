@@ -46,6 +46,30 @@ function stop_services {
   fi
 }
 
+function init_config {
+  if [ ! -f "$HOME/Library/WindowMaker/Defaults/WindowMaker" ];then
+    echo "init WindowMaker defaults"
+    /System/bin/wmaker.inst --batch
+  fi
+  if [ ! -f "$HOME/Library/Preferences/NSGlobalDomain.plist" ];then
+    echo "init user preferences defaults"
+    mkdir "$HOME/Library/Preferences" 2>/dev/null
+    cp /Library/Preferences/* "$HOME/Library/Preferences/"
+  fi
+}
+
+function main_process {
+  start_services
+  start_windowmanager
+
+  sleep 1
+  run_workspace
+  sleep 1
+
+  stop_services
+  stop_windowmanager
+}
+
 echo "starting GS Desktop"
 
 if [ "$1" == "--safe-mode" ];then
@@ -65,17 +89,5 @@ if [ -n "$GS_DESKTOP_SAFEMODE" ];then
   WM_ARGS="--static --dont-restore"
 fi
 
-if [ ! -f "$HOME/Library/Preferences/NSGlobalDomain.plist" ];then
-  mkdir "$HOME/Library/Preferences" 2>/dev/null
-  cp /Library/Preferences/* "$HOME/Library/Preferences/"
-fi
-
-start_services               
-start_windowmanager
-
-sleep 1
-run_workspace > $GS_DESKTOP_LOG 2>&1
-sleep 1
-
-stop_services
-stop_windowmanager
+init_config
+main_process > $GS_DESKTOP_LOG 2>&1

@@ -1,37 +1,68 @@
 {
   Dock = {
+    AutoRaiseLower = No;
     Applications = (
       {
         Forced = No;
-        Name = Logo.WMDock;
+        Name = GWorkspace.GNUstep;
+        DropCommand = "/Applications/GWorkspace.app/GWorkspace %d";
         BuggyApplication = No;
         AutoLaunch = No;
         Position = "0,0";
-        Lock = Yes;
-        Command = "/System/bin/WPrefs";
-      },
-      {
-        Forced = No;
-        Name = GWorkspace.GNUstep;
-        DropCommand = "";
-        BuggyApplication = No;
-        AutoLaunch = Yes;
-        Position = "0,1";
         Lock = No;
-        PasteCommand = "";
-        Command = "/System/bin/start-gs-workspace";
+        PasteCommand = "/Applications/GWorkspace.app/GWorkspace %s";
+        Command = "/Applications/GWorkspace.app/GWorkspace";
       },
       {
         Forced = No;
         Name = Preferences.GNUstep;
         DropCommand = "/Applications/Preferences.app/Preferences %d";
         BuggyApplication = No;
-        AutoLaunch = Yes;
-        Position = "0,2";
+        AutoLaunch = No;
+        Position = "0,1";
         Lock = No;
         PasteCommand = "/Applications/Preferences.app/Preferences %s";
         Command = "/Applications/Preferences.app/Preferences";
+      },
+      {
+        Forced = No;
+        Name = Terminal.GNUstep;
+        DropCommand = "/Applications/Terminal.app/Terminal %d";
+        BuggyApplication = No;
+        AutoLaunch = No;
+        Position = "0,2";
+        Lock = No;
+        PasteCommand = "/Applications/Terminal.app/Terminal %s";
+        Command = "/Applications/Terminal.app/Terminal";
       }
     );
+    Lowered = No;
+    Position = "-64,0";
   };
-};
+  Clip = {
+    Forced = No;
+    Name = Logo.WMClip;
+    DropCommand = "wmsetbg -u -t %d";
+    BuggyApplication = No;
+    AutoLaunch = No;
+    Position = "0,0";
+    Lock = No;
+    Command = "-";
+  };
+  Applications = ();
+  Drawers = ();
+  Workspaces = (
+    {
+      Clip = {
+        AutoRaiseLower = No;
+        AutoCollapse = No;
+        Applications = ();
+        Collapsed = No;
+        AutoAttractIcons = No;
+        Lowered = Yes;
+      };
+      Name = Main;
+    }
+  );
+  Workspace = Main;
+}

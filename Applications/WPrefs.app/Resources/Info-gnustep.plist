@@ -1,0 +1,6 @@
+{
+  NSExecutable = "WPrefs";
+  NSIcon = "WPrefs.tiff";
+  NSRole = "Viewer";
+  XAppWrapper = YES;
+}
