@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>GSBackend</key>
-    <string>art</string>
+    <string>cairo</string>
     <key>NSLanguages</key>
     <array>
 	<string>English</string>

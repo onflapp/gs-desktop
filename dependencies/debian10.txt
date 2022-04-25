@@ -61,3 +61,6 @@ texi2html
 texinfo
 texlive
 libreadline-dev
+libcairo2-dev
+libglx-dev
+libopengl-dev
