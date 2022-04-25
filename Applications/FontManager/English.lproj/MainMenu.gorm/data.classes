@@ -1,0 +1,52 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "changeSampleText:",
+	    "changeSize:",
+	    "setDataSource:"
+	);
+	Super = NSObject;
+    };
+    PQController = {
+	Actions = (
+	);
+	Outlets = (
+	    fontList,
+	    fontsInfoField,
+	    groupList,
+	    sampleController,
+	    fontsBox,
+	    groupsBox,
+	    sampleBox,
+	    splitView,
+	    window
+	);
+	Super = NSObject;
+    };
+    PQFontSampleView = {
+	Actions = (
+	    "setDataSource:"
+	);
+	Outlets = (
+	    dataSource
+	);
+	Super = NSView;
+    };
+    PQSampleController = {
+	Actions = (
+	    "changeSize:",
+	    "changeColor:",
+	    "changeSampleText:"
+	);
+	Outlets = (
+	    sizeSlider,
+	    backgroundColorWell,
+	    foregroundColorWell,
+	    sampleField,
+	    sampleView,
+	    sizeField
+	);
+	Super = NSObject;
+    };
+}

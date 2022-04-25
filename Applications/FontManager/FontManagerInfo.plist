@@ -1,0 +1,20 @@
+{
+	ApplicationDescription = "A Font Previewer/Installer";
+	ApplicationName = "Font Manager";
+	ApplicationIcon = "FontManager.tif";
+	ApplicationRelease = "Font Manager 0.1";
+	Authors = ("Isaiah Beerbower <public@ipaqah.com>");
+	Copyright = "Copyright 2007 Isaiah Beerbower";
+	CopyrightDescription = "Released under the 3-Clause BSD licence";
+	NSIcon = "FontManager.tif";
+	NSRole = "Viewer";
+	NSTypes = (
+	{
+		NSName = "PQFontDocument";
+		NSHumanReadableName = "Font Document";
+		NSUnixExtensions = ("ttf");
+		NSRole = "Viewer";
+		NSDocumentClass = PQFontDocument;
+		NSIcon = "Document-Font.tif";
+	} );
+}

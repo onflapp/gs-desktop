@@ -1,0 +1,216 @@
+2008-10-02  Isaiah Beerbower <public@ipaqah.com>
+	* PQCharactersView.*: View which shows a grid of characters.
+	* PQCharactersController.*: Changed to support PQCharactersView.
+	* PQCharacterView.*: Minor changes.
+	* GNUmakefile: Updated to include last files.
+	* README: Changed version.
+	* Resources/UnicodeBlockNames.plist
+	* Resources/UnicodeBlocks.plist
+	* English.lproj/FontDocument.gorm: Added Characters View
+	* English.lproj/FontDocument.nib: Same as above.
+
+2008-02-20  Isaiah Beerbower <public@ipaqah.com>
+	* PQController.m: Use PQFontManager.
+	* PQMain.m: Use PQFontManager.
+	* PQSampleController.m: Fix some small issues.
+	* PQCharactersController.*: Controls character samples.
+	* PQCharacterView.*: Shows a single character.
+	* PQFontManager.*: Subclass of NSFontManager to add more functionality.
+	* PQFontDocument.*: Removed some test code. Still more.
+	* GNUmakefile: Updated to include last files.
+	* FontManager.xcode: Xcode project for panther.
+	* English.lproj/InfoPlist.strings: Updated strings.
+	
+	  Fixed some issues in gorm/nib files:
+	* English.lproj/MainMenu.gorm
+	* English.lproj/FontDocument.gorm
+	* English.lproj/MainMenu.nib
+	* English.lproj/FontDocument.nib
+
+2007-12-05  Isaiah Beerbower <public@ipaqah.com>
+	* FontManagerInfo.plist: Added reference to font document icon
+	  Document-Font.tif.
+	* GNUmakefile: Added Document-Font.tif to build.
+	* Info.plist: Added reference to font document icon Document-Font.icns.
+	* FontManager.xcodeproj: Added Document-Font.icns to build.
+
+2007-12-02  Isaiah Beerbower <public@ipaqah.com>
+	* PQCharacterView.*: Made character drawing actually work.
+	* English.lproj/FontDocument.nib: Fixed resizing issues. Added scroller under
+	  character view.
+
+2007-12-01  Isaiah Beerbower <public@ipaqah.com>
+	* PQCharacterView.m: Tweaked to compile on Mac OS X.
+	* FontManager.xcodeproj: Added PQCharacterView.* to build.
+	* PQFontDocument.m: Tweaked to compile on Mac OS X.
+	* English.lproj/FontDocument.nib: Added a PQCharacterView under the
+	  "Characters" tab.
+
+2007-12-01  Isaiah Beerbower <public@ipaqah.com>
+	* PQController.m ([-awakeFromNib]): Changed localized string names from
+	  PQFamily and PQFamilies to family and families.
+	* PQSampleController.m: Fixed bug introduced in last commit. Implemented
+	  custom text option for font document samples.
+	* PQCharacterView.*: Added PQCharacterView class which will show a fonts glyph
+	  for a supplied character.
+	* PQFontDocument.*: Added support for Mac OS X. (Incomplete)
+	* FontManager.xcodeproj: Updated build on Mac OS X. (Still doesn't work)
+	* English.lproj/Localizable.strings: Changed localized string names from
+	  PQFamily and PQFamilies to family and families. Added a paragraph of Lorem
+		ipsum and a alphabet/numeral sample.
+	* Info.plist: Added font document type.
+	* English.lproj/FontDocument.nib: Added font document interface for Mac OS X.
+	* English.lproj/MainMenu.gorm: Changed name  of groups view to "Collections"
+	  (display only, not in code). Fixed odd coloration problem in collections
+		view and fonts view headers.
+	* English.lproj/FontDocument.gorm: Added a PQCharacterView under the
+	  "Characters" tab.
+	* GNUmakefile: Added PQCharacterView.* to build.
+
+2007-11-30  Isaiah Beerbower <public@ipaqah.com>
+	* Info.plist: Change version number from 1.0 to 0.1 (the first was a mistake).
+	* PQSampleController.*: Adapt to single font sampling, as well as multiple
+	  font sampling.
+	* PQFontDocument.*: Add font document controller.
+	* FontManagerInfo.plist: Updated my email address and added font document
+	  type.
+	* English.lproj/FontDocument.gorm: Add font document interface.
+	* GNUmakefile: Added FontDocument.gorm and PQFontDocument.m to build.
+
+2007-07-06  Quentin Mathe <qmathe@club-internet.fr>
+	* Info.plist: Modified CFBundleIdentifier to be valid and added 
+	FontManager.tif icon reference.
+	* FontManagerInfo.plist: Added ApplicationIcon and NSIcon.
+	* GNUmakefile. Updated.
+
+2007-07-04  Isaiah Beerbower <public@ipaqah.com>
+	* Info.plist: Fix "Can't create document" error message on Mac OS X.
+	* PQController.*: Add NSSplitView delegate methods.
+	* English.lproj/MainMenu.nib/*: Set PQController as NSSplitView's delegate.
+	* English.lproj/MainMenu.gorm/*: Same.
+	* PQFontSampleView.m ([-drawRect:]): Moved some code back because it was
+	  causing a drawing bug when moved. (:
+
+2007-06-22  Isaiah Beerbower <public@ipaqah.com>
+	* PQFontSampleView.m ([-drawRect:]): Moved some code for performance reasons.
+
+2007-06-22  Isaiah Beerbower <public@ipaqah.com>
+	* PQFontSampleView.m ([-drawRect:]): Worked around problem with GNUstep's
+		[-displayName].
+	* PQFontSampleView.m ([-drawRect:]): Fix a drawing bug caused by auto resize.
+
+2007-06-21  Isaiah Beerbower <public@ipaqah.com>
+	* PQSampleController.*: Removed some commented out code.
+	* PQController.m: Better method for finding style name.
+
+2007-06-21  Isaiah Beerbower <public@ipaqah.com>
+	* English.lproj/MainMenu.gorm: Totally redid the gorm file.
+	* *.m: Various small additions.
+
+2007-06-20  Isaiah Beerbower <public@ipaqah.com>
+	* PQSampleController.*: Simplified unnecessarily complex code.
+	* English.lproj/MainMenu.nib: Totally redid the nib.
+
+2007-06-19  Isaiah Beerbower <public@ipaqah.com>
+	* PQController.m: Put parentheses around 'assignment used as truth value'.
+	* PQSampleController.*: Added -changeSize.
+	* English.lproj/MainMenu.nib: Added connection between size slider and sample
+	  controller's -changeSize.
+	* README: A README.
+
+2007-06-17  Isaiah Beerbower <public@ipaqah.com>
+	* PQFontSampleView.m: Handles changing colors.
+	* PQSampleController.m: Handles changing colors.
+
+2007-06-17  Isaiah Beerbower <public@ipaqah.com>
+	* PQFontSampleView.*: Only generates font sample if it needs to.
+	* PQSampleController.*: Remembers if fonts need updating or not.
+
+2007-06-16  Isaiah Beerbower <public@ipaqah.com>
+	* PQFontSampleView.*: Added auto resize methods, and changed drawRect: to use
+	  them.
+
+2007-06-16  Isaiah Beerbower <public@ipaqah.com>
+	* PQFontSampleView.m: Some small changes.
+
+2007-06-11  Isaiah Beerbower <public@ipaqah.com>
+	* PQFontSampleView.m ([-drawRect:]): Changed almost everything.
+
+2007-06-07  Isaiah Beerbower <public@ipaqah.com>
+	* PQSampleController.m: Added method -updateControls, and call it from
+		-awakeFromNib so controls will be updated on startup.
+
+2007-06-07  Isaiah Beerbower <public@ipaqah.com>
+	* PQFontSampleView.*: Font sampling view to replace text view.
+	* PQSampleController.m: Changed to use PQFontSampleView instead of a
+	  text view.
+	* GNUmakefile: Makefile for GNUstep.
+	* English.lproj/MainMenu.gorm*: Interface for GNUstep.
+
+2007-05-28  Isaiah Beerbower <public@ipaqah.com>
+	* PQSampleController.m: Implemented -updateSampleText.
+
+2007-05-28  Isaiah Beerbower <public@ipaqah.com>
+	* PQSampleController.*: Replaced -update with -updateFonts, -updateSampleText,
+	  & -updateSize.
+
+2007-05-28  Isaiah Beerbower <public@ipaqah.com>
+	* PQController.m ([-outlineView:objectValueForTableColumn:byItem:]): Fixed
+		possible range exception.
+
+2007-05-27  Isaiah Beerbower <public@ipaqah.com>
+	* PQController.*: Added text field showing number of fonts.
+	* English.lproj/MainMenu.nib/*:
+	* PQSampleController.m: Fixed small problem with size combo box.
+
+2007-05-26  Isaiah Beerbower <public@ipaqah.com>
+	* PQSampleController: Internal cleanup.
+
+2007-05-26  Isaiah Beerbower <public@ipaqah.com>
+	* PQSampleController.m: Added to combo box datasource methods.
+	* PQSampleController.h:
+	* English.lproj/MainMenu.nib/*: Small amount of tweaking.
+
+2007-05-25  Isaiah Beerbower <public@ipaqah.com>
+	* PQController.m ([-awakeFromNib]): Updates font sample after nib is loaded.
+	* PQSampleController.m: Added -controlTextDidEndEditing: method.
+	* PQSampleController.m: Default sample text is moved to Localizable.strings.
+	* English.lproj/Localizable.strings: See above.
+
+2007-05-25  Isaiah Beerbower <public@ipaqah.com>
+	* COPYING: Added license.
+	* PQSampleController.*: Sampling is now implemented.
+	* PQController.*: Now handles the font sample controller.
+	* PQSampleController.*: Added sample text history.
+	* PQSampleController.m: Fixed memory leak.
+	* PQController.m ([PQController -dealloc]): Release objects when done.
+
+2007-05-24  Isaiah Beerbower <public@ipaqah.com>
+	* PQController.h: Comments.
+	* PQSampleController.m: NSComboBoxDataSource methods added.
+	* English.lproj/MainMenu.nib/*: Combo boxes no use data source.
+
+2007-05-24  Isaiah Beerbower <public@ipaqah.com>
+	* PQController.m: Added sorting of fonts.
+	* PQFontFamily.h: Added -caseInsensitiveCompare: for sorting.
+	* PQFontFamily.m: Same.
+
+2007-05-24  Isaiah Beerbower <public@ipaqah.com>
+	* English.lproj/MainMenu.nib/*: Update nib
+
+2007-05-24  Isaiah Beerbower <public@ipaqah.com>
+	* ChangeLog:
+	* PQSampleController.h:
+	* PQSampleController.m:
+	* PQController.h:
+	* PQController.m:
+	* PQFontFamily.h:
+	* PQFontFamily.m:
+	* PQCompat.h:
+	* PQMain.m:
+	* Info.plist:
+	* English.lproj/:
+	* English.lproj/MainMenu.nib/*:
+	* InfoPlist.strings:
+	* FontManager.xcodeproj/*:
+	Initial import of Font Manager.

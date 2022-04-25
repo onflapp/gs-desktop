@@ -1,0 +1,81 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "changeCharSize:",
+	    "changeSampleText:",
+	    "changeSize:",
+	    "install:",
+	    "installAll:",
+	    "changeUnicodeBlock:",
+	    "selectFace:",
+	    "setDataSource:",
+	    "setDelegate:"
+	);
+	Super = NSObject;
+    };
+    PQCharacterView = {
+	Actions = (
+	);
+	Outlets = (
+	    guideColor
+	);
+	Super = NSView;
+    };
+    PQCharactersController = {
+	Actions = (
+	    "changeCharSize:",
+	    "changeUnicodeBlock:"
+	);
+	Outlets = (
+	    charSizeSlider,
+	    charView,
+	    charsView,
+	    unicodeBlockPopUpButton
+	);
+	Super = NSObject;
+    };
+    PQCharactersView = {
+	Actions = (
+	    "setDataSource:",
+	    "setDelegate:"
+	);
+	Outlets = (
+	    dataSource,
+	    delegate,
+	    width
+	);
+	Super = NSView;
+    };
+    PQFontDocument = {
+	Actions = (
+	    "install:",
+	    "installAll:",
+	    "selectFace:"
+	);
+	Outlets = (
+	);
+	Super = NSDocument;
+    };
+    PQFontSampleView = {
+	Actions = (
+	    "setDataSource:"
+	);
+	Outlets = (
+	    dataSource
+	);
+	Super = NSView;
+    };
+    PQSampleController = {
+	Actions = (
+	    "changeSize:",
+	    "changeColor:",
+	    "changeSampleText:"
+	);
+	Outlets = (
+	    sampleView,
+	    sizeSlider
+	);
+	Super = NSObject;
+    };
+}

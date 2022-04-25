@@ -1,0 +1,59 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = NSObject; LANGUAGE = ObjC; }, 
+        {
+            ACTIONS = {changeSize = id; }; 
+            CLASS = PQCharacterView; 
+            LANGUAGE = ObjC; 
+            SUPERCLASS = NSView; 
+        }, 
+        {
+            ACTIONS = {changeCharSize = id; changeUnicodeBlock = id; }; 
+            CLASS = PQCharactersController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                charView = PQCharacterView; 
+                charsView = PQCharactersView; 
+                unicodeBlockPopUpButton = NSPopUpButton; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = PQCharactersView; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {dataSource = id; delegate = id; }; 
+            SUPERCLASS = NSView; 
+        }, 
+        {
+            ACTIONS = {install = id; installAll = id; selectFace = id; }; 
+            CLASS = PQFontDocument; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                charactersController = PQCharactersController; 
+                facePopUpButton = NSPopUpButton; 
+                infoView = NSTableView; 
+                installAllButton = NSButton; 
+                installButton = NSButton; 
+                sampleController = PQSampleController; 
+                tabView = NSTabView; 
+            }; 
+            SUPERCLASS = NSDocument; 
+        }, 
+        {
+            ACTIONS = {changeColor = id; changeSampleText = id; changeSize = id; }; 
+            CLASS = PQSampleController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                backgroundColorWell = NSColorWell; 
+                foregroundColorWell = NSColorWell; 
+                samplePopUpButton = NSPopUpButton; 
+                sampleView = id; 
+                sizeField = NSComboBox; 
+                sizeSlider = NSSlider; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}
