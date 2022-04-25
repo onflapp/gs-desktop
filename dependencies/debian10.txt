@@ -64,3 +64,9 @@ libreadline-dev
 libcairo2-dev
 libglx-dev
 libopengl-dev
+libcups2-dev
+libgif-dev
+libao-dev
+libsndfile1-dev
+libmagickcore-dev
+libcurl4-gnutls-dev
