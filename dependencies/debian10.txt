@@ -70,3 +70,5 @@ libao-dev
 libsndfile1-dev
 libmagickcore-dev
 libcurl4-gnutls-dev
+libicu-dev
+icu-devtools
