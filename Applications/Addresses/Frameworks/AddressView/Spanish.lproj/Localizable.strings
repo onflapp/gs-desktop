@@ -1,0 +1,54 @@
+/***
+Spanish.lproj/Localizable.strings
+updated by make_strings 2004-03-13 21:20:34 -0500
+add comments above this one
+***/
+
+
+/*** Keys found in multiple places ***/
+
+/* File: ADPersonView.m:457 */
+
+/* File: ADPersonView.m:465 */
+
+"Me" = "Yo";
+
+
+/*** Unmatched/untranslated keys ***/
+
+/* File: ADPersonView.m:255 */
+
+"Notes:" = "Notas:";
+
+/* File: ADPersonView.m:419 */
+
+"No Person Selected" = "No hay persona seleccionada";
+
+/* File: ADPersonView.m:578 */
+
+"Error Loading Image" = "Error cargando la im\u00e1gen";
+
+/* File: ADPersonView.m:580 */
+
+"The image file %@ could not be loaded."
+= "El archivo de im\u00e1gen %@ no pudo ser cargado.";
+
+/* File: ADPersonView.m:581 */
+
+"OK" = "OK";
+
+/* File: ADSinglePropertyView.m:93 */
+
+" (Me)" = " (Yo)";
+
+/* File: ADSinglePropertyView.m:219 */
+
+"Person Name" = "Nombre de la persona";
+
+/* File: ADSinglePropertyView.m:484 */
+
+"Groups" = "Grupos";
+
+/* File: ADSinglePropertyView.m:497 */
+
+"All" = "Todos";

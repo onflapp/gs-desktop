@@ -1,0 +1,6 @@
+/* Localized versions of Info.plist keys */
+
+CFBundleName = "Pantomime";
+CFBundleShortVersionString = "Pantomime version 1.2.0";
+CFBundleGetInfoString = "Pantomime version 1.2.0, Copyright 2001-2004 Ludovic Marcotte.";
+NSHumanReadableCopyright = "Copyright 2001-2004 Ludovic Marcotte.";

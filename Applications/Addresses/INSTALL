@@ -1,0 +1,36 @@
+1. Make sure you have sourced the file
+
+      $GNUSTEP_ROOT/System/Library/Makefiles/GNUstep.sh
+
+   You can test this by typing "echo $GNUSTEP_ROOT". If that gives an
+   empty line, you need to source the mentioned file.
+
+2. Type 
+
+       make
+
+
+   This will build everything for you. If you encounter an error
+   please send mail to <bjoern@giesler.de>. (Warnings are sort of OK
+   :-))
+
+3. As root, type
+
+      make install
+
+4. As a normal user again, type
+
+      openapp AddressManager
+
+Bingo!
+
+There are a couple of things in the subdirectory Goodies, which for
+some reason aren't built by default. You can build all of them in
+precisely the same way (make, make install), or you can just type
+"make goodies" followed by "make goodies-install" in the main
+directory. Look at Goodies/README for details
+
+If you have toubles parsing certain VCF files because of special characters, be sure your LANG settings.
+For example, to get UTF8 and Italian support:
+
+setenv LANG "it_IT.UTF-8"

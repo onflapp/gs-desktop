@@ -1,0 +1,76 @@
+#
+#  GNUmakefile
+#
+#  This makefile is used to integrate the build of xpdf in the GNUstep
+#  build process. It guarantees that xpdf is configured and then build.
+#
+#	Copyright (C) 2004 Stefan Kleine Stegemann <stefan@wms-network.de>
+#
+#	This Makefile is free software; you can redistribute it and/or
+#	modify it under the terms of the GNU General Public License
+#	as published by the Free Software Foundation; either version 2
+#	of the License, or (at your option) any later version.
+#
+#	This program is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+#	See the GNU General Public License for more details.
+#
+
+include $(GNUSTEP_MAKEFILES)/common.make
+
+CC=@CC@
+CXX=@CXX@
+
+LDFLAGS := $(LIB_FREETYPE_LDFLAGS)
+export LDFLAGS
+
+# Pick up C++ flags set by gnustep-make in CCFLAGS
+CXXFLAGS := $(CCFLAGS) $(CXXFLAGS) 
+
+CFLAGS := $(CFLAGS) -fPIC $(LIB_FREETYPE_CFLAGS)
+CXXFLAGS := $(CXXFLAGS) -fPIC $(LIB_FREETYPE_CFLAGS)
+
+CXXFLAGS := $(CXXFLAGS) -Wno-write-strings
+
+ifeq ($(findstring openbsd, $(GNUSTEP_TARGET_OS)), openbsd)
+CXXFLAGS := $(CXXFLAGS) -I$(LIB_FREETYPE_INCLUDES)
+endif
+
+ifeq ($(findstring freebsd, $(GNUSTEP_TARGET_OS)), freebsd)
+CXXFLAGS := $(CXXFLAGS) -I$(LIB_FREETYPE_INCLUDES)
+endif
+
+# -Wno-deprecated-writable-strings gets rid of profuse warning messages
+# from clang++, but is an invalid argument to g++
+ifeq ($(CXX),clang++)
+  CXXFLAGS := $(CXXFLAGS) -Wno-deprecated-writable-strings
+endif
+
+export CFLAGS CXXFLAGS
+
+defaut: all
+
+all: compile
+
+configure: Makefile
+
+Makefile:
+	CC=$(CC) CXX=$(CXX) CPPFLAGS='$(CPPFLAGS)' LDFLAGS='$(LDFLAGS)' CXXFLAGS='$(CXXFLAGS)' ./configure --without-x --without-libpaper-library 
+
+compile: configure
+	$(MAKE) -f Makefile pdfkit
+
+distclean: configure
+	$(MAKE) -f Makefile distclean
+	rm -f GNUmakefile
+
+clean: configure
+	$(MAKE) -f Makefile clean
+
+install:
+
+uninstall:
+
+-include GNUmakefile.postamble

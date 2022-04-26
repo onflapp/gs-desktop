@@ -1,0 +1,155 @@
+/***
+English.lproj/Localizable.strings
+updated by make_strings 2003-10-21 14:39:23 +0200
+add comments above this one
+***/
+
+
+/*** Strings from Controller.m ***/
+/* File: Controller.m:765 */
+" (Me)" = " (Ik)";
+/* File: Controller.m:887 */
+"'%@' could not be added to '%@'" = "'%@' kon niet worden toegevoegd aan '%@'";
+/* File: Controller.m:857 */
+/* File: Controller.m:846 */
+/* File: Controller.m:556 */
+"Addresses" = "Adressen";
+/* File: Controller.m:851 */
+"Addresses*" = "Adressen*";
+/* File: Controller.m:728 */
+/* File: Controller.m:702 */
+/* File: Controller.m:727 */
+/* File: Controller.m:726 */
+/* File: Controller.m:753 */
+"All" = "Iedereen";
+/* File: Controller.m:476 */
+"Can only store a single person\nin files of type %@"
+= "Alleen een enkelvoudige persoon\nkan worden opgeslagen in bestanden van type %@";
+/* File: Controller.m:467 */
+"Cannot export files of type %@" = "Kan geen bestanden exporteren van type %@";
+/* File: Controller.m:889 */
+"Could not add member!" = "Kon persoon niet toevoegen!";
+/* File: Controller.m:502 */
+"Could not create group!" = "Kon de groep niet aanmaken!";
+/* File: Controller.m:491 */
+"Could not write file %@.\nPermissions error?"
+= "Kon de file %@ niet bewaren.\nPermissie probleem?";
+/* File: Controller.m:913 */
+/* File: Controller.m:552 */
+"Couldn't save" = "Kon niet opslaan";
+/* File: Controller.m:524 */
+"Delete Group?" = "Groep verwijderen?";
+/* File: Controller.m:329 */
+"Delete Person?" = "Persoon verwijderen?";
+/* File: Controller.m:337 */
+"Delete Persons?" = "Personen verwijderen?";
+/* File: Controller.m:713 */
+/* File: Controller.m:705 */
+"Disallowed" = "Niet toegestaan";
+/* File: Controller.m:236 */
+"Discard Person?" = "Persoon niet bewaren?";
+/* File: Controller.m:607 */
+/* File: Controller.m:824 */
+"Do not share these people" = "Deze personen niet delen?";
+/* File: Controller.m:826 */
+/* File: Controller.m:609 */
+"Do not share this person" = "Deze persoon niet delen";
+/* File: Controller.m:327 */
+"Do you really want to delete %@ from \"All\" and all groups?"
+= "Wilt u echt %@ verwijderen van \"Iedereen\" en alle groepen?";
+/* File: Controller.m:335 */
+"Do you really want to delete the %d selected persons from \"All\" and all groups?"
+= "Wilt u echt de %d geselecteerde personen van \"Iedereen\" en alle groepen verwijderen?";
+/* File: Controller.m:522 */
+"Do you really want to delete the group '%@'?"
+= "Wilt u echt de groep '%@' verwijderen?";
+/* File: Controller.m:404 */
+"Don't insert" = "Niet toevoegen";
+/* File: Controller.m:907 */
+"Don't quit" = "Niet stoppen";
+/* File: Controller.m:243 */
+"Edit Person" = "Wijzig persoon";
+/* File: Controller.m:221 */
+"End editing" = "Beeindig wijzigen";
+/* File: Controller.m:533 */
+/* File: Controller.m:502 */
+"Error" = "Probleem";
+/* File: Controller.m:646 */
+/* File: Controller.m:108 */
+/* File: Controller.m:107 */
+"Everything" = "Alles";
+/* File: Controller.m:402 */
+"Existing person?" = "Bestaande persoon?";
+/* File: Controller.m:446 */
+"Export %d records to..." = "Exporteer %d records naar...";
+/* File: Controller.m:450 */
+"Export '%@' to..." = "Exporteer '%@' naar...";
+/* File: Controller.m:54 */
+"Group" = "Groep";
+/* File: Controller.m:371 */
+"Import..." = "Importeer...";
+/* File: Controller.m:403 */
+"Insert anyway" = "Toch toevoegen";
+/* File: Controller.m:478 */
+/* File: Controller.m:469 */
+"Invalid File Type" = "Onbekend bestands type";
+/* File: Controller.m:55 */
+"Name" = "Naam";
+/* File: Controller.m:500 */
+"New Group" = "Nieuwe Groep";
+/* File: Controller.m:525 */
+/* File: Controller.m:340 */
+/* File: Controller.m:239 */
+"No" = "Nee";
+/* File: Controller.m:493 */
+/* File: Controller.m:478 */
+/* File: Controller.m:469 */
+/* File: Controller.m:503 */
+/* File: Controller.m:554 */
+/* File: Controller.m:533 */
+/* File: Controller.m:719 */
+/* File: Controller.m:708 */
+/* File: Controller.m:915 */
+/* File: Controller.m:890 */
+"OK" = "OK";
+/* File: Controller.m:906 */
+"Quit without saving" = "Afsluiten zonder opslaan";
+/* File: Controller.m:403 */
+"Replace" = "Vervangen";
+/* File: Controller.m:903 */
+"Save Changes?" = "Wijzigingen opslaan?";
+/* File: Controller.m:906 */
+"Save and Quit" = "Opslaan en afsluiten";
+/* File: Controller.m:831 */
+/* File: Controller.m:614 */
+"Share these people" = "Deze personen delen";
+/* File: Controller.m:833 */
+/* File: Controller.m:616 */
+"Share this person" = "Deze persoon delen";
+/* File: Controller.m:914 */
+/* File: Controller.m:553 */
+"The database could not be saved!" = "De database kon niet worden opgeslagen!";
+/* File: Controller.m:531 */
+"The group '%@` could not be deleted."
+= "De groep '%@` kon niet worden verwijderd.";
+/* File: Controller.m:238 */
+"The person you have edited has no first or last\nnames. Would you like to discard this person?"
+= "The persoon die u heeft gewijzigd heeft geen voor- of achternaam.\nWilt u deze persoon niet bewaren?";
+/* File: Controller.m:400 */
+"Trying to import person named '%@',\nwhich already exists in the database."
+= "Persoon met de naam '%@',\nbestaat al in de database.";
+/* File: Controller.m:493 */
+"Write Failed" = "Opslaan mislukt";
+/* File: Controller.m:525 */
+/* File: Controller.m:340 */
+/* File: Controller.m:239 */
+"Yes" = "Ja";
+/* File: Controller.m:707 */
+"You cannot rename a group to \"All\",\nsince that name is reserved by the system."
+= "U kunt een groep niet hernoemen als \"Iedereen\",\nomdat het een systeem groep is.";
+/* File: Controller.m:718 */
+"You cannot rename this group to \"%@\",\nsince a group of that name already exists."
+= "U kunt een groep niet hernoemen als \"%@\",\nomdat de groep al bestaat.";
+/* File: Controller.m:905 */
+"You have made changes to the database.\nShould these changes be saved?"
+= "U heeft veranderingen gemaakt in de database.\nMoeten deze worden opgeslagen?";

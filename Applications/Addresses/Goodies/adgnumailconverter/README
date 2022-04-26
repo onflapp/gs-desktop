@@ -1,0 +1,16 @@
+This is just a quick hack... call it with the path to your GNUMail
+address book (usually ~/GNUstep/Library/GNUMail/AddressBook). It will
+try to read everything from there and put it into Addresses format.
+
+The program uses the following heuristic to split GNUMail's name field
+into Addresses's first/last name fields:
+
+1. Name contains a ",": Split it at the "," and put the first part
+   into last name and the second part into first name.
+
+	"Müller, Fritz" -> "Müller", "Fritz"
+
+2. Name doesn't contain a ",": Split it at spaces and put the last
+   part into last name and everything else into first name.
+
+	"Johnny B. Goode" -> "Goode", "Johnny B."

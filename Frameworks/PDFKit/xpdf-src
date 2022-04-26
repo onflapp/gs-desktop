@@ -1,0 +1,2 @@
+# which xpdf sources should be used?
+XPDF_SRC=xpdf-3.04

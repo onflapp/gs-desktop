@@ -1,0 +1,118 @@
+/***
+English.lproj/Localizable.strings
+updated by make_strings 2004-11-27 10:18:22 -0500
+add comments above this one
+***/
+
+"PantomimeReferencePrefix" = "aw:";
+"PantomimeResponsePrefix" = "aw :";
+
+/*** Unmatched/untranslated keys ***/
+
+/* File: CWCharset.m:158 */
+/* Flag: untranslated */
+"Western European (ISO Latin 1)" = "Westeuropäisch (ISO Latin 1)";
+
+/* File: CWCharset.m:159 */
+/* Flag: untranslated */
+"Western European (ISO Latin 9)" = "Westeuropäisch (ISO Latin 9)";
+
+/* File: CWCharset.m:160 */
+/* Flag: untranslated */
+"Western European (Windows Latin 1)" = "Westeuropäisch (Windows Latin 1)";
+
+/* File: CWCharset.m:162 */
+/* Flag: untranslated */
+"Japanese (ISO 2022-JP)" = "Japanisch (ISO 2022-JP)";
+
+/* File: CWCharset.m:163 */
+/* Flag: untranslated */
+"Japanese (EUC-JP)" = "Japanisch (EUC-JP)";
+
+/* File: CWCharset.m:165 */
+/* Flag: untranslated */
+"Traditional Chinese (BIG5)" = "Traditionelles Chinesisch (BIG5)";
+
+/* File: CWCharset.m:167 */
+/* Flag: untranslated */
+"Arabic (ISO 8859-6)" = "Arabisch (ISO 8859-6)";
+
+/* File: CWCharset.m:169 */
+/* Flag: untranslated */
+"Greek (ISO 8859-7)" = "Griechisch (ISO 8859-7)";
+
+/* File: CWCharset.m:170 */
+/* Flag: untranslated */
+"Greek (Windows)" = "Griechisch (Windows)";
+
+/* File: CWCharset.m:172 */
+/* Flag: untranslated */
+"Hebrew (ISO 8859-8)" = "Hebräisch (ISO 8859-8)";
+
+/* File: CWCharset.m:174 */
+/* Flag: untranslated */
+"Cyrillic (ISO 8859-5)" = "Kyrillisch (ISO 8859-5)";
+
+/* File: CWCharset.m:175 */
+/* Flag: untranslated */
+"Cyrillic (KOI8-R)" = "Kyrillisch (KOI8-R)";
+
+/* File: CWCharset.m:176 */
+/* Flag: untranslated */
+"Cyrillic (Windows)" = "Kyrillisch (Windows)";
+
+/* File: CWCharset.m:178 */
+/* Flag: untranslated */
+"Thai (ISO 8859-11)" = "Thailändisch (ISO 8859-11)";
+
+/* File: CWCharset.m:180 */
+/* Flag: untranslated */
+"Central European (ISO Latin 2)" = "Zentraleuropäisch (ISO Latin 2)";
+
+/* File: CWCharset.m:181 */
+/* Flag: untranslated */
+"Central European (Windows Latin 2)" = "Zentraleuropäisch (Windows Latin 2)";
+
+/* File: CWCharset.m:183 */
+/* Flag: untranslated */
+"Turkish (Latin 5)" = "Türkisch (Latin 5)";
+
+/* File: CWCharset.m:184 */
+/* Flag: untranslated */
+"Turkish (Windows)" = "Türkisch (Windows)";
+
+/* File: CWCharset.m:186 */
+/* Flag: untranslated */
+"South European (ISO Latin 3)" = "Südeuropäisch (ISO Latin 3)";
+
+/* File: CWCharset.m:187 */
+/* Flag: untranslated */
+"North European (ISO Latin 4)" = "Nordeuropäisch (ISO Latin 4)";
+
+/* File: CWCharset.m:189 */
+/* Flag: untranslated */
+"Nordic (ISO Latin 6)" = "Nordisch (ISO Latin 6)";
+
+/* File: CWCharset.m:190 */
+/* Flag: untranslated */
+"Baltic Rim (ISO Latin 7)" = "Baltisch (ISO Latin 7)";
+
+/* File: CWCharset.m:191 */
+/* Flag: untranslated */
+"Celtic (ISO Latin 8)" = "Keltisch (ISO Latin 8)";
+
+/* File: CWCharset.m:193 */
+/* Flag: untranslated */
+"Simplified Chinese (GB2312)" = "Vereinfachtes Chinesisch (GB2312)";
+
+/* File: CWCharset.m:194 */
+/* Flag: untranslated */
+"UTF-8" = "UTF-8";
+
+/* File: CWCharset.m:197 */
+/* Flag: untranslated */
+"Korean (EUC-KR/KS C 5601)" = "Koreanisch (EUC-KR/KS C 5601)";
+
+/* File: CWCharset.m:198 */
+/* Flag: untranslated */
+"Japanese (Win/Mac)" = "Japanisch (Win/Mac)";

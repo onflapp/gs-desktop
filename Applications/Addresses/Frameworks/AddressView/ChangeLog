@@ -1,0 +1,3 @@
+2007-05-02  Nicola Pero  <nicola.pero@meta-innovation.com>
+
+	* GNUmakefile (debug): Do not set.

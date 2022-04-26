@@ -1,0 +1,155 @@
+Current version is 0.4.8
+
+
+Since 0.4.8:
+==============
+
+  o relative link during framework installing, helps building in a separate
+    root, like when building RPMs
+  o fixed some portability issues of the Framework to solaris and windows
+  o handle also PNG images
+  o fixed a link in the framework from absolute to relative, for FHS
+    (fix by Richard Stonehouse)
+  o Many fixes in VCFviewer GWorkspace inspector, thanks also to Philippe Roussel
+  o use GSMimeDocument to decode base64 instead of custom code
+  o Makefiles work on windows
+  o Birthday support (for SimpleAgenda)
+  o fixes in VCF import (encoding, CR-LF)
+  o fixed deleting of a person
+
+Since 0.4.7:
+============
+
+  o Updated Makefiles to GNUstep Make 2.0
+  o Fixed text editing to work with current GNUstep gui
+  o Improved import of VCF files: tries to interpret HEX (by Guenther
+    Noack) and the escape \, from Apple cards
+
+Since 0.4.6:
+============
+
+  o Fixed output that caused broken database files
+
+Since 0.4.5:
+============
+
+  o Major bug fixed that caused the program to break with recent CVS
+    versions of GNUstep, throwing "GSMutableStrting does not recognize
+    count". This came from a broken save routine which would produce
+    broken database files. Should work now, and should auto-correct
+    errors introduced by the old version.
+  o Some other bugs and minor annoyances fixed
+  o Spanish localization added thanks to Pablo di Noto
+  o Beginnings of LDAP backend added
+
+Since 0.4.4:
+============
+
+  o More bugfixes
+  o Nicer save format for local address book
+  o Re-opens previously selected group/user on startup
+  o Made VCF importing more foolproof; semi-silently ignores most
+    errors now. I'm not *quite* sure that this is a good thing; it may
+    lead to subtle breakage for "experts", but it's certainly better
+    than crashing, and it might be argued that if you put garbage in
+    you may just as well get garbage out. Thanks to Calvin M. for
+    providing me with a broken VCF file.
+
+
+Since 0.4.3:
+============
+
+  o Drag-and-Drop rewritten, unified and much enhanced: People and
+    properties can now be dragged from almost anywhere to almost
+    everywhere 
+  o New Goody: VCFViewer, a GWorkspace inspector for VCF files. Allows
+    dragging of people out of VCF files directly into AddressManager
+  o View classes cleaned up & delegatizified
+  o More bugs fixed
+
+Since 0.4.2:
+============
+
+  o Added GWorkspace inspector bundle for VCFs, it's under Goodies.
+  o Some more bugs fixed
+
+Since 0.4.1:
+============
+
+  o Drag and Drop: ADPersonView accepts Images, VCF files and VCard data
+  o VCF files will be opened with AddressManager
+  o Localization: Dutch, French
+  o Some bugfixes
+  o Build structure has changed so the entire tree can be built with
+    just a single "make"... no need for the unintuitive "install.sh"
+    any more
+
+Since 0.4.0:
+============
+
+  o Some bugfixes
+  o More C99 fixes, more Linuxisms removed
+  o Duplicating of addresses
+  o Cut/copy/paste works
+  o Initial server support
+
+Since 0.3:
+==========
+
+General:
+--------
+  o Code cleanups
+  o Pre-C99 fixes; Linux'isms cleaned up
+
+AddressesFramework:
+-------------------
+  o Added shared, readonly attributes
+  o no mutable dictionaries, arrays, multivalues anymore
+  o re-added picture handling, extension for GNUstep's broken NSImage*
+  o lots of cleanups & bugfixes
+  o VCF export
+
+AddressViewFramework:
+---------------------
+  o Layout and edit AD[Multi]Dictionaries
+  o Edit of ADMultiValues
+  o Edit Notes
+  o images re-added
+  o clicking on email/url uses NSPerformService() again (w/newest GNUstep CVS)
+  o lots of cleanups & bugfixes
+
+AddressManager:
+---------------
+  o Preferences panel added
+  o lots of cleanups & bugfixes
+
+
+Since 0.2:
+==========
+
+AddressesFramework:
+-------------------
+  o Enabled images
+  o Fixed ADDatabaseChangedExternallyNotification sending
+  o New globals: ADImageType, ADShared
+
+AddressManager:
+---------------
+  o Sourced out view(s) into separate framework
+  o Many cleanups & bugfixes
+
+AddressViewFramework:
+---------------------
+  o Made views into separate framework
+  o Added ADSinglePropertyView
+  o Enabled images
+  o Fixed a number of UI warts
+
+Since 0.1:
+==========
+
+  o Fixed Firstname/Lastname bug
+  o Tab, Backtab, Return navigate between fields
+  o Some cleanups and bugfixes
+  o Made Apple API compatible addresses framework
+

@@ -1,0 +1,19 @@
+For 0.5:
+========
+
+General:
+  o Sync via Bluetooth
+  o Configurability:
+      o Number and order of entries in view
+  o Search
+  o Preferred Identifier
+
+Later:
+======
+
+General:
+  o Act as (cascadable?) server (*)
+  o Import from OpenStep, Apple Address Book(*)
+  o Talk with LDAP(*), MS Exchange(*)...
+
+

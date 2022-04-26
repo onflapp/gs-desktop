@@ -1,0 +1,52 @@
+#
+# GNUmakefile
+#
+# Compile the part of the xpdf backend that connects xpdf
+# to the Objective-C layer.
+#
+# Copyright (C) 2003 Stefan Kleine Stegemann <stefan@wms-network.de>
+#
+# This Makefile is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+#
+# See the GNU General Public License for more details.
+#
+
+include $(GNUSTEP_MAKEFILES)/common.make
+include ../../xpdf-src
+
+CC=@CC@
+CXX=@CXX@
+
+SUBPROJECT_NAME=xpdfbridge
+
+xpdfbridge_CFLAGS = \
+	-I.. \
+	-I../$(XPDF_SRC) \
+	-I../$(XPDF_SRC)/xpdf \
+	-I../$(XPDF_SRC)/splash \
+	-I../$(XPDF_SRC)/goo \
+	-I../$(XPDF_SRC)/fofi \
+	-g
+
+xpdfbridge_CCFLAGS = -Wno-write-strings
+
+ifeq ($(findstring clang++, $(CXX)),clang++)
+  xpdfbridge_CCFLAGS += -Wno-deprecated-writable-strings -Wno-unknown-pragmas
+endif
+
+xpdfbridge_OBJC_FILES = \
+	Locking.m 	\
+	DPS.m		\
+	CountingRef.m
+
+xpdfbridge_CC_FILES = \
+	XPDFBridge.cc 
+
+include $(GNUSTEP_MAKEFILES)/subproject.make

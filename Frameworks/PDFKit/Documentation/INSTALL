@@ -1,0 +1,49 @@
+###############################
+####### PDFKit DEPENDS ########
+###############################
+
+GNUstep
+ - gnustep-make
+ - gnustep-base (Foundation Kit)
+ - gnustep-gui  (Application Kit)
+see http://www.gnustep.org 
+
+ - freetype2 (required by PDFKit),
+   available from http://www.freetype.org/
+
+
+##############################
+######## COMPILE #############
+##############################
+
+Freetype Note (for non-FreeBSD users):
+If your freetype installation is not detected automatically by configure, 
+you can pass the following arguments to configure:
+
+--with-freetype2-library=DIR
+where DIR is the directory containing the freetype2 library.
+
+--with-freetype2-includes=DIR
+where DIR is the directory containing the freetype2 headers,
+for example /usr/local/include/freetype2/freetype.
+
+--with-freetype2-add-includes=DIR
+where DIR is a directory to use when the freetype2 headers 
+are spread among various directories,
+for example /usr/local/include/freetype2.
+
+
+FreeBSD users should install the freetype2 port or package
+and everything should work fine. 
+
+
+* From command line.
+unarchive PDFKit :
+tar xvfz pdfkit-X.Y.tar.gz
+
+cd PDFKit-X-Y
+make install
+
+Note that gnu make is needed. On some system, gnu make is 
+installed as gmake.
+

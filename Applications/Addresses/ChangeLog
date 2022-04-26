@@ -1,0 +1,167 @@
+2014-03-09 Riccardo Mottola <rm@gnu.org>
+
+	* Frameworks/Addresses/ADLocalAddressBook.m
+	Return nil, not NO
+
+2013-10-19 Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+
+	* Goodies/VCFViewer/VCFViewer.m
+	Cast count to ints to please the format string
+	* Goodies/adserver/adserver.m
+	add missing parameter to format string
+
+2013-09-03 Riccardo Mottola <rm@gnu.org>
+
+	* Frameworks/Addresses/ADRecord.m
+	Cast the result of copy which is itself to avoid warning.
+
+2013-09-01 Riccardo Mottola <rm@gnu.org>
+
+	* Frameworks/Addresses/AddressView/ADSinglePropertyView.m
+	Check for class and then cast. By spec, the Record should be a Group.
+
+2013-08-30 Riccardo Mottola <rm@gnu.org>
+
+	* Frameworks/Addresses/ADRecord.m
+	Fix warning.
+
+2013-08-30 Riccardo Mottola <rm@gnu.org>
+
+	* Frameworks/Addresses/ADLocalAddressBook.m
+	Fix format string to unsigned long.
+
+2013-05-15 Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+	* Frameworks/Addresses/ADImageLoading.h
+	  add safeguard to prevent double inclusion
+	* GNUmakefile, AddressManager/AddressManagerInfo.plist 
+	  VERSION 0.4.9
+
+2013-02-23 Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+	* Frameworks/AddressView/ADImageView.m
+	* Frameworks/AddressView/ADPersonPropertyView+Events.m
+	* Frameworks/AddressView/ADPersonView.m
+	* Adapt to use NSDragOperation
+
+2013-02-10 Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+	* AddressManager/Controller.m
+	* AddressManager/DragDropMatrix.h
+	* AddressManager/DragDropMatrix.m
+	* Frameworks/AddressView/ADPersonView.m
+	* Frameworks/AddressView/ADSinglePropertyView.m
+	* Frameworks/Addresses/ADPerson.m
+	* Goodies/adserver/adserver.m
+	  (unsigned) int -> NS(U)Integer and float -> CGFloat
+	  and get rid of some other warnings emitted by clang
+
+2012-04-24 Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+
+	* Goodies/GNUmakefile
+	  allow explicit disabling of Goodies to be installed
+
+2012-04-02 Riccardo Mottola <rm@gnu.org>
+
+	* Frameworks/AddressView/ADPersonView.h
+	* Frameworks/Addresses/ADAddressBook.h
+	* Frameworks/Addresses/ADPublicAddressBook.h
+	* Frameworks/Addresses/ADTypedefs.h
+	* Frameworks/Addresses/ADVCFConverter.h
+	Clean up header imports
+
+2012-03-28 Riccardo Mottola <rm@gnu.org>
+
+	* Frameworks/AddressView/ADSinglePropertyView.h
+	* Frameworks/AddressView/ADSinglePropertyView.m
+	* Frameworks/AddressView/Main.m
+	* Frameworks/Addresses/ADAddressBook.h
+	Change include to import.
+
+2012-03-27 Riccardo Mottola <rm@gnu.org>
+
+	* Frameworks/Addresses/ADGlobals.h
+	* Frameworks/Addresses/ADGlobals.m
+	* Frameworks/Addresses/ADPlugin.h
+	* Frameworks/Addresses/ADPlugin.m
+	* Frameworks/Addresses/ADPublicAddressBook.h
+	* Frameworks/Addresses/ADPublicAddressBook.m
+	* Frameworks/Addresses/AddressBook.h
+	* Frameworks/Addresses/Addresses.h
+	Change from include to import.
+
+2012-03-27 Riccardo Mottola <rm@gnu.org>
+
+	* Frameworks/Addresses/ADAddressBook.m
+	* Frameworks/Addresses/ADConverter.h
+	* Frameworks/Addresses/ADConverter.m
+	* Frameworks/Addresses/ADEnvelopeAddressBook.h
+	* Frameworks/Addresses/ADEnvelopeAddressBook.m
+	* Frameworks/Addresses/ADGroup.h
+	* Frameworks/Addresses/ADGroup.m
+	* Frameworks/Addresses/ADImageLoading.h
+	* Frameworks/Addresses/ADImageLoading.m
+	* Frameworks/Addresses/ADLocalAddressBook.h
+	* Frameworks/Addresses/ADLocalAddressBook.m
+	* Frameworks/Addresses/ADPListConverter.h
+	* Frameworks/Addresses/ADPListConverter.m
+	* Frameworks/Addresses/ADPerson.h
+	* Frameworks/Addresses/ADPerson.m
+	* Frameworks/Addresses/ADRecord.h
+	* Frameworks/Addresses/ADRecord.m
+	* Frameworks/Addresses/ADSearchElement.h
+	* Frameworks/Addresses/ADSearchElement.m
+	Use import for headers and fix warnings.
+
+2012-03-26 Riccardo Mottola <rm@gnu.org>
+
+	* Frameworks/AddressView/ADPersonPropertyView+Events.m
+	* Frameworks/AddressView/ADPersonPropertyView.h
+	* Frameworks/AddressView/ADPersonPropertyView.m
+	* Frameworks/Addresses/ADMultiValue.h
+	* Frameworks/Addresses/ADMultiValue.m
+	Use NSUInteger as index.
+
+2012-03-20 Riccardo Mottola <rm@gnu.org>
+
+	* Frameworks/AddressView/ADPersonView.m
+	When calculating size, take care not to generate negative sizes.
+
+2012-03-07 Riccardo Mottola <rm@gnu.org>
+
+	* Goodies/adgnumailconverter/GNUmakefile
+	* Goodies/adserver/GNUmakefile
+	* Goodies/adtool/GNUmakefile
+	Use TOOL_LIBS instead of LDFLAGS to link the framework library.
+
+	* Goodies/VCFViewer/GNUmakefile
+	Use TOOL and GUI libs to link frameworks
+
+2012-02-20: Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+	* GNUmakefiles of the Goodies: Add the ${GNUSTEP_INSTANCE}_INCLUDE_DIRS
+	  where necessary, and fix the ${GNUSTEP_INSTANCE}_LDFLAGS where necessary
+2012-01-28: Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+	* Frameworks/AddressView/ADPersonView.m
+	  setPerson: return if aPerson == nil
+	  use NSInteger instead of int to compare safely with
+	  NSNotFound
+	* Frameworks/AddressView/ADPersonPropertyView.m
+	  use NSInteger instead of int to compare safely with
+	  NSNotFound
+	* Frameworks/Addresses/ADLocalAddressBook.m
+	  fix format string
+	* AddressManager/Controller.m
+	  use NSApplicationTerminateReply, NSTerminateNow, and
+	  NSTerminateCancel in applicationShouldTerminate:
+	  use NSInteger instead of int to compare safely with
+	  NSNotFound
+	* Frameworks/Addresses/ADMultiValue.{h|m}
+	  Switch return value of -count from unsigned int to
+          NSUInteger
+
+2012-01-28 Riccardo Mottola <rm@gnu.org>
+
+	* Frameworks/AddressView/ADPersonView.m:
+	Do not set string if note is nil.
+
+2011-05-18 Riccardo Mottola <rm@gnu.org>
+
+	* Frameworks/Addresses/ADRecord.h
+	Warning fix (match implementation)

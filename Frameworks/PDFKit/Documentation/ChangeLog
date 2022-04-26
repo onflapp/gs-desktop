@@ -1,0 +1,424 @@
+2017-04-09  Riccardo Mottola <rm@gnu.org>
+
+	* configure
+	* configure.ac
+	update mintor to 1.0.1 version
+
+2017-03-31  Riccardo Mottola <rm@gnu.org>
+
+	* xpdf/bridge/XPDFBridge.h
+	* xpdf/bridge/XPDFBridge.cc
+	Rename variable to avoid aliasing and fix bug introduced when static var was removed.
+
+2017-03-20  Riccardo Mottola <rm@gnu.org>
+
+	* GNUmakefile.in
+	Correct order of LDFLAGS.
+
+2016-12-21  Riccardo Mottola <rm@gnu.org>
+
+	* xpdf/bridge/XPDFBridge.h
+	* xpdf/bridge/XPDFBridge.cc
+	* PDFDocument.m
+	Differentiate betweem Media and Crop sizes and use the latter for sizing the document.
+
+2016-12-14  Riccardo Mottola <rm@gnu.org>
+
+	* GNUmakefile.in
+	Reinstantiate OpenBSD specific LDFLAG.
+
+2016-12-08  Riccardo Mottola <rm@gnu.org>
+
+	* configure
+	* configure.ac
+	Remove freetype options, makefiles now use freetype-config
+
+2016-12-08  Riccardo Mottola <rm@gnu.org>
+
+	* GNUmakefile.in
+	* xpdf/xpdf-3.04/GNUmakefile.in
+	Rely on freetype-config CFLAGS and LDFLAGS instead of manually building directories, fixes NetBSD
+
+2016-12-07  Riccardo Mottola <rm@gnu.org>
+
+	* configure
+	* configure.ac
+	Remove special netbsd case and use freetype-config.
+
+2016-12-06  Riccardo Mottola <rm@gnu.org>
+
+	* xpdf/bridge/XPDFBridge.cc
+	Set string encoding to UTF-8
+
+	* PDFDocument.m
+	Allocate text string using length and not null term.
+
+
+2016-12-02  Riccardo Mottola <rm@gnu.org>
+
+	* PDFDocument.h
+	* PDFDocument.m
+	Provide pageCount and wrap countPages around it for compatibility.
+
+2016-12-01  Riccardo Mottola <rm@gnu.org>
+
+	* PDFDocument.h
+	* PDFDocument.m
+	* xpdf/bridge/XPDFBridge.cc
+	* xpdf/bridge/XPDFBridge.h
+	Transform static variable documentInfo in an IVAR and add extra argument passing to the bridge functions.
+
+2016-12-01  Riccardo Mottola <rm@gnu.org>
+
+	* PDFDocument.h
+	* PDFDocument.m
+	* xpdf/bridge/XPDFBridge.cc
+	* xpdf/bridge/XPDFBridge.h
+	Transform static variable textContents in an IVAR and add extra argument passing to the bridge functions.
+
+2016-11-30  Riccardo Mottola <rm@gnu.org>
+
+	* PDFFontManager.h
+	* PDFFontManager.m
+	Remove FontType from methods, since it is no longer needed.
+
+2016-11-30  Riccardo Mottola <rm@gnu.org>
+
+	* PDFFontManager.h
+	* PDFFontManager.m
+	* xpdf/bridge/XPDFBridge.cc
+	* xpdf/bridge/XPDFBridge.h
+	Remove old DisplayFont calls since no longer in xpdf, adapt Bridge and DFontManager.
+
+2016-11-30  Riccardo Mottola <rm@gnu.org>
+
+	* configure
+	* configure.ac
+	Bump major release number, since we are getting API incompatible.
+
+2016-11-30  Riccardo Mottola <rm@gnu.org>
+
+	* configure
+	* configure.ac
+	* xpdf/bridge/XPDFBridge.cc
+	* xpdf/bridge/XPDFBridge.h
+	* xpdf-src
+	Upgrade to use xpdf 3.04 sources. New interfaces used, old DisplayFont parameters adapted (fallback provided).
+
+2015-11-25 Riccardo Mottola <rm@gnu.org>
+
+	* configure
+	* configure.ac
+	Pick up compilers specified during gnustep configure, if available and not manually overridden.
+
+2013-09-17 Riccardo Mottola <rm@gnu.org>
+
+	* PDFDocument.m
+	Move interface declaration up instead of using forward declaration.
+
+2013-09-05 Riccardo Mottola <rm@gnu.org>
+
+	* xpdf/xpdf-3.02/GNUmakefile.in
+	Patch by Richard S.: explicitely pass c/C++ compiler and merge CXX/CC flags.
+
+2013-09-03 Riccardo Mottola <rm@gnu.org>
+
+	* xpdf/xpdf-3.02/xpdf/SplashOutputDev.cc
+	Import OpenBSD patch to fix heap overflow.
+
+2013-09-03 Riccardo Mottola <rm@gnu.org>
+
+	* xpdf/xpdf-3.02/splash/SplashXPath.cc
+	* xpdf/xpdf-3.02/xpdf/Stream.cc
+	Import patches from openbsd, undescribed.
+
+2013-09-03 Riccardo Mottola <rm@gnu.org>
+
+	* xpdf/xpdf-3.02/splash/SplashXPathScanner.cc
+	Import patch from OpenBSD
+	http://www.mail-archive.com/ports@openbsd.org/msg23488.html
+
+2013-08-16 Riccardo Mottola <rm@gnu.org>
+
+	* xpdf/bridge/GNUmakefile.in
+	* xpdf/xpdf-3.02/GNUmakefile.in
+	Get CC and CXX variables, silence some warnings.
+
+2012-06-13 Riccardo Mottola <rm@gnu.org>
+
+	* GNUmakefile.in
+	For clang add -lstdc++ at linking stage.
+
+2012-06-02 Riccardo Mottola <rm@gnu.org>
+
+	* GNUmakefile.in
+	On OpenBSD, embed freetype path with -rpath
+
+2012-06-02 Riccardo Mottola <rm@gnu.org>
+
+	* GNUmakefile.in
+	Use C++ to link.
+
+2012-05-31 Riccardo Mottola <rm@gnu.org>
+
+	* GNUmakefile.in
+	* configure
+	* configure.ac
+	* xpdf/GNUmakefile.in
+	* xpdf/bridge/GNUmakefile.in
+	* xpdf/xpdf-3.02/GNUmakefile.in
+	Do not force g++, pass compiler flags correctly.
+
+2012-05-31 Riccardo Mottola <rm@gnu.org>
+
+	* GNUmakefile.in
+	Pass additional flags.
+
+	* configure.ac
+	Better handling of freetype flags for openbsd
+
+	* configure
+	regenerated
+
+2012-02-27 Riccardo Mottola <rm@gnu.org>
+
+	* PDFImageRep.m:
+	Clean up imports.
+
+2012-02-27 Riccardo Mottola <rm@gnu.org>
+
+	* PDFImageRep.m:
+	Subclass -draw (suggested by Eric W. to make cario work again)
+
+2011-08-30 Sebastian Reitenbach
+
+	* xpdf/bridge/CountingRef.h
+	* PDFDocument.m
+	Patch for gcc 2.95 build
+
+2006-06-09 Enrico Sersale (enrico at fibernet dot ro)
+
+	* version 0.9.
+	* PDFKit is now based on the xpdf-3.01 sources.
+
+2004-11-06 18:52  stefankst
+
+	* xpdf/xpdf-3.00/xpdf/XRef.cc: applied xpdf patch to fix various
+	  buffer overflows
+
+2004-10-11 19:29  stefankst
+
+	* Documentation/ChangeLog: updated for v0.8
+
+2004-10-11 19:26  stefankst
+
+	* xpdf/xpdf-3.00/GNUmakefile: use $(MAKE) instead of gmake
+
+2004-10-11 19:25  stefankst
+
+	* Documentation/INSTALL: added notes about gnu make
+
+2004-10-11 19:24  stefankst
+
+	* GNUmakefile: set framework version
+
+2004-10-07 23:43  stefankst
+
+	* config.make: improved freetype detection (thanks to Rob Burns)
+
+2004-10-07 23:23  stefankst
+
+	* Documentation/Contributors.txt: cvs import
+
+2004-10-05 18:38  stefankst
+
+	* GNUmakefile: added PDFPrintView.m,.h
+
+2004-10-05 18:36  stefankst
+
+	* PDFPrintView.h, PDFPrintView.m: cvs import
+
+2004-10-05 18:35  stefankst
+
+	* PDFDocument.h, PDFDocument.m, PDFOutline.h, PDFOutline.m: wrap
+	  the xpdf document with a counting reference
+
+2004-10-05 18:33  stefankst
+
+	* xpdf/bridge/: CountingRef.h, CountingRef.m, DPS.h, DPS.m,
+	  PSOutputDev.cc, PSOutputDev.h: cvs import
+
+2004-10-05 18:20  stefankst
+
+	* xpdf/bridge/: XPDFBridge.cc, XPDFBridge.h: first, rudimental
+	  support for printing
+
+2004-10-05 18:19  stefankst
+
+	* xpdf/bridge/GNUmakefile: added DPS.m, CountingRef.m,
+	  PSOutputDev.c
+
+2004-08-21 14:35  stefankst
+
+	* PDFDocument.h, PDFDocument.m, xpdf/bridge/XPDFBridge.cc,
+	  xpdf/bridge/XPDFBridge.h: Improved searching in pdf documents. A
+	  search context object is used to hold some data between to
+	  subsequent searches in a document.  This increases speed a bit.
+
+2004-06-28 22:24  stefankst
+
+	* config.make: removed erroneous -L switch from LIB_FREETYPE_LIBS
+	  in linux configuration
+
+2004-03-31 23:39  stefankst
+
+	* GNUmakefile, PDFDocument.h, PDFDocument.m, PDFFontManager.h,
+	  PDFFontManager.m, PDFImageRep.h, PDFImageRep.m, PDFOutline.h,
+	  PDFOutline.m, config.make, Documentation/COPYING,
+	  Documentation/ChangeLog, Documentation/INSTALL,
+	  Documentation/README.license, Fonts/d050000l.pfb,
+	  Fonts/n019003l.pfb, Fonts/n019004l.pfb, Fonts/n019023l.pfb,
+	  Fonts/n019024l.pfb, Fonts/n021003l.pfb, Fonts/n021004l.pfb,
+	  Fonts/n021023l.pfb, Fonts/n021024l.pfb, Fonts/n022003l.pfb,
+	  Fonts/n022004l.pfb, Fonts/n022023l.pfb, Fonts/n022024l.pfb,
+	  Fonts/s050000l.pfb, xpdf/GNUmakefile, xpdf/bridge/GNUmakefile,
+	  xpdf/bridge/Locking.m, xpdf/bridge/XPDFBridge.cc,
+	  xpdf/bridge/XPDFBridge.h, xpdf/xpdf-3.00/ANNOUNCE,
+	  xpdf/xpdf-3.00/CHANGES, xpdf/xpdf-3.00/COPYING,
+	  xpdf/xpdf-3.00/GNUmakefile,
+	  xpdf/xpdf-3.00/GNUmakefile.wo_freetype, xpdf/xpdf-3.00/INSTALL,
+	  xpdf/xpdf-3.00/Makefile.in, xpdf/xpdf-3.00/README,
+	  xpdf/xpdf-3.00/aclocal.m4, xpdf/xpdf-3.00/aconf-dj.h,
+	  xpdf/xpdf-3.00/aconf-win32.h, xpdf/xpdf-3.00/aconf.h.in,
+	  xpdf/xpdf-3.00/aconf2.h, xpdf/xpdf-3.00/configure,
+	  xpdf/xpdf-3.00/dj_make.bat, xpdf/xpdf-3.00/install-sh,
+	  xpdf/xpdf-3.00/ms_make.bat, xpdf/xpdf-3.00/vms_make.com,
+	  xpdf/xpdf-3.00/fofi/FoFiBase.cc, xpdf/xpdf-3.00/fofi/FoFiBase.h,
+	  xpdf/xpdf-3.00/fofi/FoFiEncodings.cc,
+	  xpdf/xpdf-3.00/fofi/FoFiEncodings.h,
+	  xpdf/xpdf-3.00/fofi/FoFiTrueType.cc,
+	  xpdf/xpdf-3.00/fofi/FoFiTrueType.h,
+	  xpdf/xpdf-3.00/fofi/FoFiType1.cc,
+	  xpdf/xpdf-3.00/fofi/FoFiType1.h,
+	  xpdf/xpdf-3.00/fofi/FoFiType1C.cc,
+	  xpdf/xpdf-3.00/fofi/FoFiType1C.h, xpdf/xpdf-3.00/fofi/Makefile,
+	  xpdf/xpdf-3.00/fofi/Makefile.dep,
+	  xpdf/xpdf-3.00/fofi/Makefile.in,
+	  xpdf/xpdf-3.00/fofi/vms_make.com, xpdf/xpdf-3.00/goo/GHash.cc,
+	  xpdf/xpdf-3.00/goo/GHash.h, xpdf/xpdf-3.00/goo/GList.cc,
+	  xpdf/xpdf-3.00/goo/GList.h, xpdf/xpdf-3.00/goo/GMutex.h,
+	  xpdf/xpdf-3.00/goo/GString.cc, xpdf/xpdf-3.00/goo/GString.h,
+	  xpdf/xpdf-3.00/goo/Makefile.dep, xpdf/xpdf-3.00/goo/Makefile.in,
+	  xpdf/xpdf-3.00/goo/gfile.cc, xpdf/xpdf-3.00/goo/gfile.h,
+	  xpdf/xpdf-3.00/goo/gmem.c, xpdf/xpdf-3.00/goo/gmem.h,
+	  xpdf/xpdf-3.00/goo/gmempp.cc, xpdf/xpdf-3.00/goo/gtypes.h,
+	  xpdf/xpdf-3.00/goo/parseargs.c, xpdf/xpdf-3.00/goo/parseargs.h,
+	  xpdf/xpdf-3.00/goo/vms_directory.c,
+	  xpdf/xpdf-3.00/goo/vms_dirent.h, xpdf/xpdf-3.00/goo/vms_make.com,
+	  xpdf/xpdf-3.00/goo/vms_sys_dirent.h,
+	  xpdf/xpdf-3.00/goo/vms_unix_time.h,
+	  xpdf/xpdf-3.00/goo/vms_unix_times.c,
+	  xpdf/xpdf-3.00/goo/vms_unlink.c, xpdf/xpdf-3.00/splash/Makefile,
+	  xpdf/xpdf-3.00/splash/Makefile.dep,
+	  xpdf/xpdf-3.00/splash/Makefile.in,
+	  xpdf/xpdf-3.00/splash/Splash.cc, xpdf/xpdf-3.00/splash/Splash.h,
+	  xpdf/xpdf-3.00/splash/SplashBitmap.cc,
+	  xpdf/xpdf-3.00/splash/SplashBitmap.h,
+	  xpdf/xpdf-3.00/splash/SplashClip.cc,
+	  xpdf/xpdf-3.00/splash/SplashClip.h,
+	  xpdf/xpdf-3.00/splash/SplashErrorCodes.h,
+	  xpdf/xpdf-3.00/splash/SplashFTFont.cc,
+	  xpdf/xpdf-3.00/splash/SplashFTFont.h,
+	  xpdf/xpdf-3.00/splash/SplashFTFontEngine.cc,
+	  xpdf/xpdf-3.00/splash/SplashFTFontEngine.h,
+	  xpdf/xpdf-3.00/splash/SplashFTFontFile.cc,
+	  xpdf/xpdf-3.00/splash/SplashFTFontFile.h,
+	  xpdf/xpdf-3.00/splash/SplashFont.cc,
+	  xpdf/xpdf-3.00/splash/SplashFont.h,
+	  xpdf/xpdf-3.00/splash/SplashFontEngine.cc,
+	  xpdf/xpdf-3.00/splash/SplashFontEngine.h,
+	  xpdf/xpdf-3.00/splash/SplashFontFile.cc,
+	  xpdf/xpdf-3.00/splash/SplashFontFile.h,
+	  xpdf/xpdf-3.00/splash/SplashFontFileID.cc,
+	  xpdf/xpdf-3.00/splash/SplashFontFileID.h,
+	  xpdf/xpdf-3.00/splash/SplashGlyphBitmap.h,
+	  xpdf/xpdf-3.00/splash/SplashMath.h,
+	  xpdf/xpdf-3.00/splash/SplashPath.cc,
+	  xpdf/xpdf-3.00/splash/SplashPath.h,
+	  xpdf/xpdf-3.00/splash/SplashPattern.cc,
+	  xpdf/xpdf-3.00/splash/SplashPattern.h,
+	  xpdf/xpdf-3.00/splash/SplashScreen.cc,
+	  xpdf/xpdf-3.00/splash/SplashScreen.h,
+	  xpdf/xpdf-3.00/splash/SplashState.cc,
+	  xpdf/xpdf-3.00/splash/SplashState.h,
+	  xpdf/xpdf-3.00/splash/SplashT1Font.cc,
+	  xpdf/xpdf-3.00/splash/SplashT1Font.h,
+	  xpdf/xpdf-3.00/splash/SplashT1FontEngine.cc,
+	  xpdf/xpdf-3.00/splash/SplashT1FontEngine.h,
+	  xpdf/xpdf-3.00/splash/SplashT1FontFile.cc,
+	  xpdf/xpdf-3.00/splash/SplashT1FontFile.h,
+	  xpdf/xpdf-3.00/splash/SplashTypes.h,
+	  xpdf/xpdf-3.00/splash/SplashXPath.cc,
+	  xpdf/xpdf-3.00/splash/SplashXPath.h,
+	  xpdf/xpdf-3.00/splash/SplashXPathScanner.cc,
+	  xpdf/xpdf-3.00/splash/SplashXPathScanner.h,
+	  xpdf/xpdf-3.00/splash/vms_make.com, xpdf/xpdf-3.00/xpdf/Annot.cc,
+	  xpdf/xpdf-3.00/xpdf/Annot.h, xpdf/xpdf-3.00/xpdf/Array.cc,
+	  xpdf/xpdf-3.00/xpdf/Array.h, xpdf/xpdf-3.00/xpdf/BuiltinFont.cc,
+	  xpdf/xpdf-3.00/xpdf/BuiltinFont.h,
+	  xpdf/xpdf-3.00/xpdf/BuiltinFontTables.cc,
+	  xpdf/xpdf-3.00/xpdf/BuiltinFontTables.h,
+	  xpdf/xpdf-3.00/xpdf/CMap.cc, xpdf/xpdf-3.00/xpdf/CMap.h,
+	  xpdf/xpdf-3.00/xpdf/Catalog.cc, xpdf/xpdf-3.00/xpdf/Catalog.h,
+	  xpdf/xpdf-3.00/xpdf/CharCodeToUnicode.cc,
+	  xpdf/xpdf-3.00/xpdf/CharCodeToUnicode.h,
+	  xpdf/xpdf-3.00/xpdf/CharTypes.h, xpdf/xpdf-3.00/xpdf/Decrypt.cc,
+	  xpdf/xpdf-3.00/xpdf/Decrypt.h, xpdf/xpdf-3.00/xpdf/Dict.cc,
+	  xpdf/xpdf-3.00/xpdf/Dict.h, xpdf/xpdf-3.00/xpdf/Error.cc,
+	  xpdf/xpdf-3.00/xpdf/Error.h, xpdf/xpdf-3.00/xpdf/ErrorCodes.h,
+	  xpdf/xpdf-3.00/xpdf/FontEncodingTables.cc,
+	  xpdf/xpdf-3.00/xpdf/FontEncodingTables.h,
+	  xpdf/xpdf-3.00/xpdf/Function.cc, xpdf/xpdf-3.00/xpdf/Function.h,
+	  xpdf/xpdf-3.00/xpdf/Gfx.cc, xpdf/xpdf-3.00/xpdf/Gfx.h,
+	  xpdf/xpdf-3.00/xpdf/GfxFont.cc, xpdf/xpdf-3.00/xpdf/GfxFont.h,
+	  xpdf/xpdf-3.00/xpdf/GfxState.cc, xpdf/xpdf-3.00/xpdf/GfxState.h,
+	  xpdf/xpdf-3.00/xpdf/GlobalParams.cc,
+	  xpdf/xpdf-3.00/xpdf/GlobalParams.h,
+	  xpdf/xpdf-3.00/xpdf/JArithmeticDecoder.cc,
+	  xpdf/xpdf-3.00/xpdf/JArithmeticDecoder.h,
+	  xpdf/xpdf-3.00/xpdf/JBIG2Stream.cc,
+	  xpdf/xpdf-3.00/xpdf/JBIG2Stream.h,
+	  xpdf/xpdf-3.00/xpdf/JPXStream.cc,
+	  xpdf/xpdf-3.00/xpdf/JPXStream.h, xpdf/xpdf-3.00/xpdf/Lexer.cc,
+	  xpdf/xpdf-3.00/xpdf/Lexer.h, xpdf/xpdf-3.00/xpdf/Link.cc,
+	  xpdf/xpdf-3.00/xpdf/Link.h, xpdf/xpdf-3.00/xpdf/Makefile.dep,
+	  xpdf/xpdf-3.00/xpdf/Makefile.in,
+	  xpdf/xpdf-3.00/xpdf/NameToCharCode.cc,
+	  xpdf/xpdf-3.00/xpdf/NameToCharCode.h,
+	  xpdf/xpdf-3.00/xpdf/NameToUnicodeTable.h,
+	  xpdf/xpdf-3.00/xpdf/Object.cc, xpdf/xpdf-3.00/xpdf/Object.h,
+	  xpdf/xpdf-3.00/xpdf/Outline.cc, xpdf/xpdf-3.00/xpdf/Outline.h,
+	  xpdf/xpdf-3.00/xpdf/OutputDev.cc,
+	  xpdf/xpdf-3.00/xpdf/OutputDev.h, xpdf/xpdf-3.00/xpdf/PDFDoc.cc,
+	  xpdf/xpdf-3.00/xpdf/PDFDoc.h,
+	  xpdf/xpdf-3.00/xpdf/PDFDocEncoding.cc,
+	  xpdf/xpdf-3.00/xpdf/PDFDocEncoding.h,
+	  xpdf/xpdf-3.00/xpdf/PSTokenizer.cc,
+	  xpdf/xpdf-3.00/xpdf/PSTokenizer.h, xpdf/xpdf-3.00/xpdf/Page.cc,
+	  xpdf/xpdf-3.00/xpdf/Page.h, xpdf/xpdf-3.00/xpdf/Parser.cc,
+	  xpdf/xpdf-3.00/xpdf/Parser.h,
+	  xpdf/xpdf-3.00/xpdf/SplashOutputDev.cc,
+	  xpdf/xpdf-3.00/xpdf/SplashOutputDev.h,
+	  xpdf/xpdf-3.00/xpdf/Stream-CCITT.h,
+	  xpdf/xpdf-3.00/xpdf/Stream.cc, xpdf/xpdf-3.00/xpdf/Stream.h,
+	  xpdf/xpdf-3.00/xpdf/TextOutputDev.cc,
+	  xpdf/xpdf-3.00/xpdf/TextOutputDev.h, xpdf/xpdf-3.00/xpdf/UTF8.h,
+	  xpdf/xpdf-3.00/xpdf/UnicodeMap.cc,
+	  xpdf/xpdf-3.00/xpdf/UnicodeMap.h,
+	  xpdf/xpdf-3.00/xpdf/UnicodeMapTables.h,
+	  xpdf/xpdf-3.00/xpdf/UnicodeTypeTable.cc,
+	  xpdf/xpdf-3.00/xpdf/UnicodeTypeTable.h,
+	  xpdf/xpdf-3.00/xpdf/XRef.cc, xpdf/xpdf-3.00/xpdf/XRef.h,
+	  xpdf/xpdf-3.00/xpdf/config.h, xpdf/xpdf-3.00/xpdf/vms_make.com,
+	  xpdf/xpdf-3.00/xpdf/xpdf.cc: cvs import
+

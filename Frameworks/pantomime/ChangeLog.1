@@ -1,0 +1,5091 @@
+2007-04-22      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Modified CWMessage: -setReplyTo: / -replyTo
+	  to deal with an address list instead of a single
+	  address value.
+	* Added a TLS example in SimpleSMTP and also documented
+	  some GMail behaviors.
+
+
+2007-04-08      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We now respect the "content" parameter when creating
+	  a maildir-type mailbox.
+
+
+2007-04-07      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Removed the pre2 compatibility for cache files
+	  and cleaned up the code.
+        * Patches from Annard Brouwer
+          <abrouwer@devon-technologies.com> that fixes:
+	  - compiler warnings wrt PERFORM_SELECTOR_1
+ 	  - compiler warnings in CWIMAPCacheManager,
+	    in CWLocalCacheManager, in CWPOP3CacheManager,
+	    in CWPOP3Store and in CWParser.
+	  - CWLocalFolder+mbox: -unfoldLinesStartingWith: fileStream:
+	    when getting 8-bit input.
+	  - Now uses the enhanced capabilities of CoreFoundation
+	    for string decoding.
+	  - Parsing issues for addresses like "Joe" User <joe@acme.com>
+	* Added -setEnforceModes:/-isEnforcingMode in CWLocalStore
+	  to enforce or not secure file permissions for mailboxes.
+	  By default, secure permissions are enforced. Also
+	  removed the code to enforce permissions when
+	  opending the local store.
+	* We no longer automatically assign a CWLocalCacheManager
+	  instance to the CWLocalFolder instance. It's up to the
+	  callee now to set one before calling -parse:.
+	* Fixed addresses parsing in CWParser: +parseDestination: ...
+	  for addresses like "Bar, Foo" <foo@bar.com>.
+	* Fixed CWParser: +parseReferences: ... so that the Reference
+	  header is correctly parsed when loaded from cache files.
+	  Also fixed CWParser: +parseInReplyTo: ... to not include
+	  leading junk after the 1*msg-id.
+	
+
+2007-03-27      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Cleanups and updates to the documentation.
+
+
+2007-03-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We also now return the unmodified data when posting
+	  the notification (or calling the delegate method)
+	  upon IMAP message append operations.
+	* We close the fd after -connectionLost: has been
+	  called for cleanups purposes.
+
+
+2007-03-23      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We now correctly handle entries set in /etc/hosts
+
+
+2007-03-21      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Small adjustment in previous commit. We now use
+	  the supplied data instead of the newly constructed
+	  one when posting the notificatoin / calling the delegate
+	  in CWLocalFolder: -appendMessageFromRawSource: flags:
+
+
+2007-03-17      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Cleaned up CWLocalFolder and finalized the error
+	  handling support in -appendMessageFromRawSource: flags:
+	* Documentation fixes.
+	* Additional cleanups.
+
+
+2007-03-16      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* We now correctly free up the memory used by
+	  our CFRunLoopSource objects.
+
+
+2007-03-12      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Small optimization in unique_id().
+
+
+2007-03-11	Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Added -lresolv in Xcode additional linking
+	  flags for the Pantomime target.
+	* We now avoid using NSString: -cStringUsingEncoding:
+	  to preserve Mac OS X 10.3 compatibility.
+
+
+2007-03-09      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Simplified CWDNSManager: -_parseResolvFile.
+	  Patch from Chris Vetter.
+
+
+2007-03-04      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed endian issues in CWDNSManager and ported
+	  the code to Mac OS X.
+
+
+2007-03-01      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We make sure we have at least one nameserver
+	  defined before trying to send our DNS request.
+
+
+2007-02-26      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Renamed timezone to _timezone in CWParser
+	  to avoid compilation errors on OpenBSD.
+	* Implemented read/write timeouts support
+	  in CWService.
+	* Removed NSData+Extensions: -dataWithCString:
+	  as it wasn't used anywhere.
+	* Implemented and documented a new asynchronous
+	  UDP-based DNS resolver in CWDNSManager.
+
+2007-02-05      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Small cleanups.
+	* Tagged the source tree with revision
+          c04a7f3e69aa5aa286dd3443c98c11ef42467c85 and
+          tag name v1.2.0pre3.
+
+
+2007-02-03      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* We now re-thread correctly our threaded local
+	  mailbox after an expunge.
+
+
+2007-02-01      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a patch from Christian Niles to improve
+	  parsing of malformated internet addresses.
+
+
+2007-01-31      Ludovic Marcotte <ludovic@Sophos.ca>
+
+       	* Added a patch from Christian Niles <christian.niles@gmail.com>
+	  that adds support of internal date while appending messages
+	  to an IMAP mailbox. 
+
+
+2007-01-29      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* We now correctly return an error in case
+	  of a SSL handshake error.
+
+2007-01-28      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* We no longer abort if we can't create the local
+	  cache file. This can happen when reading from
+	  a mail spool file.
+	* Added delegate / notification in CWIMAPStore
+	  (testing for now) in order to know when
+	  a command was sent and when it has completed.
+	* Modified CWLocalFolder: -parse: so that we
+	  consider messages in /new and /tmp when opening
+	  a maildir-based mailbox using a cache.
+	* Fixes to the Pantomime Xcode project files.
+	* Modified the short/integer reading routines
+	  (from memory) to correct endianness.
+
+
+2007-01-23      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* We now correctly expunge the IMAP cache when we
+	  either receive an untagged EXPUNGE response or
+	  when we sync our cache with our IMAP folder when
+	  opening the mailbox.
+	* Performed some cleanups.
+
+
+2007-01-21      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Removed Documentation/LICENSE.ELM
+	* Added the PantomimeContentDisposition enum and
+	  refactored the CWPart class to use it.
+	* We now post notifications on success / error
+	  when opening a local mailbox.
+
+
+2007-01-20      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Modified CWIMAPStore to not break when
+	  parsing only the initial set of headers.
+	* Removed all the ELM code and rewrote the
+	  parts that were using it. Removed the following
+	  files: atonum.c date_util.c getword.c len_next.c 
+	  parsarpdat.c parsarpmbox.c rfc822tlen.c strfcpy.c 
+	  strincmp.c striparens.c elm_defs.h elm_lib.h
+	  and parseaddrs.h
+	* Don't cache the array of IP addresses from
+	  a DNS name if it's empty.
+	* Don't send the FETCH BODY.PEEK[HEADER.FIELDS.NOT
+	  ... IMAP command if we already sent it once. This
+	  prevents from adding headers continously to a
+	  message if it gets expired.
+	* We now correctly inform our delegate and we post
+	  a notification if we can't expunge an IMAP mailbox.
+	* Improved the randomness of the maildir filenames.
+ 	* We now correctly empty the IMAP queue after handling
+	  a BAD response.
+	* Removed the CWCacheManager (and subclasses)
+	  +cacheWithPath: method.
+	* Dropped Framework/Pantomime/English.lproj and
+	  its content.
+	* Implemented a brand new mailbox caching code
+	  for POP3, IMAP and local (mbox/maildir) type
+	  of mailboxes. Previously POP3 cache files
+	  are converted correctly, while IMAP and local
+	  ones are ignored.
+
+
+2006-10-13      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified CWContainer: -setParent to avoid
+	  a loop.
+
+
+2006-10-12      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* We now call NSAssert2() if the stream isn't
+	  closed properly if if the file descriptor
+	  hasn't been closed in CWLocalFolder: -dealloc.
+	  Patch from Aaron Burghardt <aburgh@mac.com>.
+	* Prevent a potential crash in NSData+Extensions
+	  -decodeBase64: for incorrectly formatted
+	  base64 content.
+	* Rewrote CWPart: -dataValue so it's much
+	  simpler and faster. That is now part of the
+	  new Pantomime message encoder.
+	* Cleaned up the CWMessage/CWPart interfaces
+	  and removed ivars.
+
+
+2006-10-06      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Documentation fixes. Many thanks goes
+	  to Christian Niles.
+	* We can now forward messages as inline or
+	  as an attachment.
+	* Implemented a consumer of RFC2231 output.
+	* Added a boolean parameter to CWLocalFolder: -parse
+	  so we can now partially parse local mailboxes
+	  or fully parse them (at the headers level).
+	* Modified NSData+Extensions: -dataByTrimmingWhiteSpaces
+	  to also trim tab characters.
+	* Modified CWIMAPStore to break when we parsed the
+	  appropriate message part.
+	* New Pantomime message decoding engine. Much more
+	  simpler than before, faster and more robust.
+	  Everything is now dedoced to a NSData, CWMessage
+	  or CWMIMEMultipart instance.
+	* Patches from Annard Brouwer 
+	  <abrouwer@devon-technologies.com> that fixes:
+	  - Fixed a bug where an instance from the wrong 
+	    class was allocated in CWMIMEUtility.
+	  - Now use -UTF8String instead of -cString for
+	    all UNIX filenames.
+	  - Corrected CWContainer: -count to return the
+	    real children count.
+	  - Add comparison support to CWInternetAddress.
+	  - "unknown" charset support (buggy Outlook output)
+	  - added support for localized response and
+	    reference prefixes that are used in
+	    NSString+Extensions: -hasREPrefix.
+
+
+2006-09-28      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Tagged the source tree with revision
+	  81da7b5c5004326fc2476cb3f7c7637eff152aff and
+	  tag name v1.2.0pre2.
+	* Fixed a memory leak in CWMessage.
+ 
+
+2006-09-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * RELEASE v1.2.0pre2.
+
+
+2006-09-24      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Updated the documentation.
+
+
+2006-09-19      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Updated the documentation.
+	* Modified CWPOP3Message: -setFlags:
+	  to call [super setFlags: ...] and make
+	  sure that we have tasks in the queue
+	  before trying to empty it in CWPOP3Store.
+	  Suggestions from Matt Bendiksen. 
+
+
+2006-09-16      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* We now properly call delegate (and post
+	  notifications) if the TLS code failed
+	  in CWSMTP.
+	* Modified CWMessage: -dataValue so that
+	  we also include the User-Agent header in
+	  our list of additional headers that are
+	  being sent.
+	* Cleaned up the POP3 code. Replaced
+	  CWPOP3Folder: -deleteMessageAtIndex: with
+	  CWPOP3Message: -setFlags: and CWPOP3Folder:
+	  -prefetchMessageAtIndex: with CWPOP3Message:
+	  -rawSource and -setInitialized:  Also updated
+	  SimplePOP3 to reflect those changes.
+
+
+2006-09-08      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Improved the documentation with regard to the
+	  SMTP RSET call.
+	* Improved examples
+	* We now initialize the message with its content
+	  after a RETR over POP3 instead of just setting
+	  the raw source of the message.
+	* We now correctly destroy the connection timer
+	  when we cancel the actual request when we
+	  are connecting to a service.
+		
+
+2006-09-05      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Commented out unused define in elm_defs.h to
+	  avoid compilation error with OpenSSL. Bug
+	  reported by Marcelo Bezerra <mosca@inova.net>.
+
+
+2006-09-04      Ludovic Marcotte <ludovic@Sophos.ca>
+	
+	* Fixed CWPOP3Folder: _deleteOldMessages. It
+	  was incorrectly using a 0-based index.
+	* Modified CWMIMEUtility: unique_id() so we
+	  make sure we don't go out of bounds in
+	  the hexDigit array. Also improved the
+	  randomness of the ID. Patches from
+	  Matt Bendiksen <matt@perceptiveautomation.com>.
+	* Modified CWSMTP to correctly destroy recipients,
+	  message and message data when we are
+	  setting again those values.
+	* Applied patches from Matt Bendiksen so that
+	  we correctly determine the byte border in
+	  CWMD5 and we now build Pantomime as
+	  the Universal Binary framework. 
+	
+	
+2006-09-02      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* We now handle correctly EXPUNGE responses
+	  over IMAP when we haven't yet had the time
+	  to FETCH expunged messages.
+
+
+2006-06-11      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Applied a patch from Lorenz Mösenlechner
+          <moesenle@in.tum.de> to set the maximum
+	  number of bytes to write when using SSL
+	  to 1024 in order to prevent a strange
+	  bug in SSL_write() under Mac OS X.
+
+
+2006-06-06      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Cleaned a bit the IMAP code.
+
+
+2006-05-28      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Improved the message reply code to consider
+	  all text parts.
+
+
+2006-05-15      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Cleaned all the notification / perform
+	  selector code.
+	* Removed the old Xcode project file and added
+	  the new one.
+
+
+2006-05-10      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified CWMessage: -headerValueForName to perform
+	  the search in a case-insensitive way.
+
+
+2006-05-07      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* We now handle correctly "fast IMAP folder switching".
+	* We now handly correctly messages with the broken
+	  iso8859_1 charset specification.
+	* Fixed any potential memleaks in NSString+Extensions:
+	  +stringWithData: charset: and if we can't use
+	  iconv_open(), we fall back to US-ASCII.
+	* Moved CWIMAPStore -capabilities to CWService and
+	  implemented it in CWPOP3Store and CWSMTP.
+	* Documented CWFolder.
+	* Modified CWService: -updateRead to replace the
+	  malloc/free call with a static buffer.
+
+
+2006-04-30      Ludovic Marcotte <ludovic@Sophos.ca>
+	
+	* Fixes some issues on MingW with local mailboxes.
+
+
+2006-04-29      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* More cleanups.
+	* Fixed a bug in CWIMAPMessage: -setInitialized where
+	  we really set the message as an initialized one
+	  when it's finished loading. Also modified CWIMAPStore
+	  to handle this.
+
+
+2006-04-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a potential crashing bug in CWLocalStore:
+	  -folderForName: (if we are passing nil values).
+
+
+2006-04-24      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Some cleanups.
+	* We now use recv()/send() instead of read()/write()
+	  in CWTCPConnection (on sockets) so that the same
+	  code can be used on both UNIX and win32.
+	* Fixed a bug CWLocalFolder+mbox:
+	  -numberOfMessagesFromData.
+	* Fully ported Pantomime to MingW. This is an initial
+	  port that seems to work rather well so far. It likely
+	  contains some bugs and it needs a lot of testing
+	  and love, of course.
+
+
+2006-04-09      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Corrected the notification names posted in
+	  the CWSMTP and CWSendmail classes. We were
+	  using PantomimeTransportMessageSent and
+	  PantomimeTransportMessageNotSent instead
+	  of PantomimeMessageSent and PantomimeMessageNotSent.
+	* Modified CWFolder: -expunge - removed the parameter
+	  to return deleted messages. This logic should
+	  be done in the callee.
+	* Defined all notification names as constants. Improved
+	  the documentation.
+	* Fixed some compiler warnings with gcc 4.x
+
+
+2006-04-08      Ludovic Marcotte <ludovic@Sophos.ca>
+        
+	* Fixed the IMAP code so that we if send an empty
+	  password and the server doesn't accept it, we
+	  inform our delegate that the authentication failed.
+	* Fixes when informing the delegate on search
+	  completion and more.
+	* Added notification/delegate methods to handle
+	  a SMTP transaction reset.
+	* Improved the SimpleSMTP example to show how to
+	  send the same message over the same connection
+	  more than once.
+
+
+2006-03-31      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* It's now possible to obtain the last command
+	  sent by any CWService subclasses.
+
+
+2006-03-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added initial TLS support for IMAP, POP3
+	  and SMTP services.
+
+
+2005-12-23      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We now correctly strip Lotus Notes' and
+	  Novell GroupWise "re" prefix in the Subject
+	  when replying to a mail.
+
+
+2005-12-22      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We correctly set the SONAME to 1.2. Bug reported
+	  by Hubert Chan <hubert@uhoreg.ca>.
+
+
+2005-12-19      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Fixed the CWSMTP class in order to not remove
+	  the original recipients list when sending
+	  the message.
+	* Rewrote the CWInternetAddress class to not
+	  use the old ELM address parsing code. More
+	  refactorings are to come with regard to this
+	  old ELM code, which doesn't support non-ASCII
+	  characters too well.
+	* Fixed the non-blocking connect code in TCPConnection.m
+
+
+2005-08-14      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a missing include in CWDNSManager for OS X.
+	* Added a new version of striphtml(). Patch from
+	  Richard Frith-Macdonald <richard@brainstorm.co.uk>.
+
+
+2005-03-20	Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Lots of small cleanups (wrt warnings) and
+	  documentation improvements.
+	* Modified CWSMTP to post notifications before
+	  invoking the delegate methods.
+	* Modified CWService: -writeData: so that we
+	  don't try to enable the write callback if
+	  we are not connected to the remote host.
+
+
+2005-03-13      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Modified CWService: -cancelRequest to flush the command
+	  queue and CWIMAPStore: -reconnect to flush the read/write
+	  buffers before attempting to reconnect.
+ 
+
+2005-03-02      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified CWFolder: -dealloc to set the CWMessage's
+	  instances folder to nil in case something was
+	  retaining those instances and try to access the
+	  _folder ivar.
+
+
+2005-02-27      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Moved the timeout definition code from CWConnection
+	  to CWService.
+
+
+2005-02-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified CWService: -_removeWatchers so we
+	  immediately return if we are not connected.
+
+
+2005-02-23	Francis Lachapelle <francis@Sophos.ca>
+
+	* Updated the XCode project file; added
+	  NSScanner+Extensions.{h,m}
+
+2005-02-23      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Implemented service's disconnection support
+	  and IMAP reconnection support. Documented everything.
+
+
+2005-02-06      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Improved CWLocalStore: -createFolderWithName:
+	  type: contents:
+
+
+2005-01-24      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified CWSMTP: -authenticate:... so that if
+	  an unknown / unsupported mechanism is provided,
+	  we call -authenticationFailed: (and post
+	  the notification)
+	* Modified CWService to post the notifcation
+	  before calling the delegate method. Same
+	  in CWConstants.h.
+	* Added a note in CWService.h to clear up the
+	  deallocation process of CWService instances.
+	* Modified CWService: _tick so that we honor
+	  the connection timeout of the CWTCPConnection
+	  instance (default to 60 seconds).
+
+
+2005-01-22      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified CWIMAPStore: _folderNameFromString:
+	  to handle better literal responses.
+
+
+2005-01-16      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Added NSScaner+Extensions in order to define the
+	  -scanUnsignedInt: method, which we implement.
+	  Those files need to be added to the PB and Xcode
+	  project files.
+	* Added a patch from "Konstantin B. Bukharov" <bkb@sw.ru>
+	  that replaces all occurences of int by unsigned
+	  int wrt the UID IMAP code in order to support
+	  very large UID:s.
+	* Fixed the code that renamed maildir mailboxes.
+	* Updated the PB project file. The Xcode project
+	  file NEEDS to be also updated.
+	* Added a small fix to the NSScanner extension
+	  to not generate exceptions when -scanUnsignedInt:
+	  reaches the very end of the string.
+
+
+2005-01-15      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* We now post a PantomimeFolderCloseCompleted (and
+	  call -folderCloseCompleted: on the delegate) when
+	  we close a local or IMAP folder.
+	
+
+2005-01-10	Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified CWSMTP to improve the data transparency
+	  code (in speed) and also to remove the Bcc: header
+	  before sending the DATA to the server. Some
+	  servers (like qmail) don't automatically remove it.
+
+
+2005-01-09      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified CWService: -cancelRequest to unconditionally
+	  close the connection and remove the watchers even
+	  if we are not yet connected.
+
+
+2005-01-08      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added fixes to parse 8-bit mailbox names
+	  in CWIMAPStore: -_parseLIST and -_parseLSUB.
+
+
+2005-01-02      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Set the tag to v1_2_0pre1
+	* Released 1.2.0pre1.
+
+
+2005-01-01	Ludovic Marcotte <ludovic@Sophos.ca>
+        
+	* Modified CWIMAPStore: -sendCommand: ... so that
+	  we do NOT skip the command if it's an IMAP APPEND
+	  command which has the same parameters as an existing
+	  command in the command queue.
+
+
+2004-12-26      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Modified the macros so they all accept the
+	  delegate.
+	* Modified CWServer: -updateRead so that if we
+	  are connected and we read 0 byte, we call
+	  -connectionLost: and post the associated notification.
+	* Modified CWService: -_removeWatchers to remove
+	  all ALL watchers, for all modes.
+
+
+2004-12-24      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed the message appending code in CWLocalFolder
+	  so it accepts messages composed of only headers.
+
+
+2004-12-23      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added code to obtain messages from a mail
+	  spool file.
+	* Reviewed the mbox locking code so it is
+ 	  more robust and don't rely (unless we
+	  are on Linux) on flock().
+	* Small fixes so things compile on Solaris
+
+
+2004-12-22      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* We now use gethostname() instead of
+	  [[NSHost currentHost] name] since this causes
+	  problems on Cocoa when DNS resolutions can't
+	  be done properly.
+	* Added some notes wrt using Pantomime in your
+	  application, especially on OS X with the
+	  -DMACOSX compiler flag.
+
+
+2004-12-19      Ludovic Marcotte <ludovic@Sophos.ca>	
+
+	* Modified CWMessage: -setRecipients: to always
+	  remove the previous recipients.
+
+
+2004-12-13      Ludovic Marcotte <ludovic@Sophos.ca>
+	
+	* Cleaned up some more the maildir code. Moved
+	  the generation of the "info" string into CWFlags
+	  (added the method -maildirString).
+	* Modified the maildir and mbox code to return
+	  deleted messages in the notification. Updated
+	  the documentation.
+	* Moved the code that parses the maildir's info
+	  string from CWLocalFolder+mbox (shared with
+	  the mbox code) to CWFlags's addFlagsFromData:
+	  for which the "format:" parameter was added.
+	  Updated the documentation.
+
+
+2004-12-07      Ludovic Marcotte <ludovic@Sophos.ca>
+	
+	* Modified CWPart: -dataValue so we don't add
+	  an empty filename for no good reason when we
+	  deal with application/*, audio/*... parts.
+        
+
+2004-12-08      Ludovic Marcotte <ludovic@Sophos.ca>    
+
+        * Modified NSString+Extensions so we correctly
+	  cast the returned value of iconv_open() to
+	  a signed type. Patch from
+	  Robert L. Masterson <rlm@sss.com>
+
+
+2004-12-06      Ludovic Marcotte <ludovic@Sophos.ca>	
+
+	* Modified CWLocalStore so we include the number
+ 	  of messages in the mbox we import (if any) when
+	  creating a mailbox.
+	  Added CWLocalFolder+mbox: +numberOfMessagesFromData:
+	  to help doing this.
+
+
+2004-11-28      Ludovic Marcotte <ludovic@Sophos.ca>	
+
+	* Updated the documentation.
+	* Renamed CWMessagew: -mimeVersion to -MIMEVersion
+	  and -setMimeVersion: to -setMIMEVersion:
+	* Renamed CWPart: -isMimeType: subType: to
+	  -isMIMEType: subType:
+	* Renamed Parser: +parseMimeVersion: inMessage:
+	  to +parseMIMEVersion: inMessage:
+	* CWStore: -initWithURL: now accepts a CWURLName
+	  instead of a NSString instance.
+	* Updated the XCode project file. Thanks goes
+	  to Julian Mayer.
+
+	
+2004-11-27      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Reoganized and reimported the sources.
+	* Converted to a Framework under GNUstep.
+	* Bumped the official version number (for
+	  the underlying libs) to 1.2.0.
+	* Optimized the maildir code. It's now fully
+	  usable with large mailboxes.
+	* Added the "CW" prefix to all classes.
+	* Updated the OS X port and the PB file.
+	* Fixed a bug in CWCacheManager. We now decode
+	  CacheManager as CWCacheManager. This issue was
+	  only occurring on OS X.
+
+
+2004-11-22      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified the GNUmakefile files for the
+	  Examples so they work on OS X.
+        * Improved the async I/O code by listening in
+          all modes for write availability. This change
+          affects only GNUstep users as it was already
+          working well and this way on OS X.
+
+
+2004-11-21      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Protected InternetAddress: -initWithString:
+	  against nil values.
+	* Cleaned up the code related to the mbox
+	  message separator generation.
+
+
+2004-11-09      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Cleaned quite a bit the documentation and added
+	  informal protocols (TransportClient, SMTPClient
+	  and ServiceClient).
+	* Added examples! See the Examples directory.
+
+
+2004-11-07      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Modified IMAPFolder: -close to set the folder
+	  to 'nil' for all messages.
+
+
+2004-10-31      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We now assume that an empty charset is like
+	  iso-8859-1 when decoding messages. This is useful
+	  to prevent lame Ximian Evolution bugs.
+
+
+2004-10-30      Ludovic Marcotte <ludovic@Sophos.ca>
+	
+	* We now cache correctly the Message-ID when
+	  generating a new message.
+
+
+2004-10-10      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Fixed a small bug in LocalFolder: _findPart:...
+	  in which we were inverting the behavior of
+	  the PantomimeCaseInsensitiveSearch constraint.
+        
+
+2004-09-26      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* We now space-stuff the "\nFrom " lines
+	  instead of inserting a > in LocalFolder:
+	  -appendMessageFromRawSource:.
+	* Renamed -stringByReplacingOccurrencesOfString: withString:
+	  to stringByReplacingOccurrencesOfCharacter: withCharacter:
+	  in the NSString extension.
+	* We now return a char instead of a NSString when calling
+	  -folderSeparator on a Store instance.
+
+
+2004-09-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We now listen in all common modes (instead of just
+	  the default mode) for socket activity.
+
+
+2004-09-18      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We correctly post the notification that the list
+	  of folders (or subscribed folders) is loaded
+	  in both IMAPStore and LocalStore.
+
+
+2004-09-12      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We now correctly close the socket in case a name
+	  resolution (or an other error) occurs in
+	  TCPConnection: -initWithName: port: ...
+
+
+2004-09-11      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Added a missing "break" in IMAPStore: -_parseNO
+	* We correctly remove the folder from the list of
+	  open folders if we weren't able to open it.
+
+
+2004-08-22      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Optimized the IMAP message expunge code when the
+	  folder is threaded.
+
+
+2004-08-15      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Updated the OS X project file (PB).
+
+
+2004-08-12      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added code to set back the flags to messages
+	  after a STORE operation. We also now post
+	  a notification when the STORE operation has
+	  completed.
+
+
+2004-07-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Enhanced the fetch and search IMAP code.
+
+
+2004-07-23	Ujwal S. Setlur <ujwal@setlur.org>
+
+	* Fixed a freeze problem by correcting CFSocket 
+	  release method from free() from CFRelease() 
+	  in Service.
+
+
+2004-07-20      Ujwal S. Setlur <ujwal@setlur.org>
+
+	* Fixed bug in NSRunLoop:-removeEvent.
+
+
+2004-07-13      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We include Constants.h in DNSManager.m so the
+	  compilation won't fail on OS X.
+
+
+2004-07-12      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Added a small DNS cache manager to Pantomime.
+	  It will eventually also offer async DNS resolutions. 
+	  For now, it only cache DNS values returned by
+	  gethostbyname().
+	* Improved the code in IMAPStore that deals with
+	  creating, deleting and renaming mailboxes.
+
+
+2004-07-05      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Added two new notifications/delegate methods:
+	  - PantomimeFolderOpenCompleted/-folderOpenCompleted:
+	  - PantomimeFolderOpenFailed/-folderOpenFailed: 
+	  in order to correctly and asynchronously handle
+	  folder open operations.
+	* Added some range checks in Message:
+	  (Private) -_computeBaseSubject.
+	* Enabled partial writes support in SSL for well
+	  supporting progress indication.
+
+
+2004-06-29      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Modified Service.m to support adding more
+	  runloop modes for network events.        
+
+
+2004-06-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We now handle untagged responses after a folder
+	  has been closed. Fixes a crash issue.
+
+
+2004-06-15      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Some documentation fixes.
+
+
+2004-06-09      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified the GNUmakefile and the README
+	  wrt RedHat 9 / Fedore / RHEL and their
+	  kerberos'ised OpenSSL packages.
+	* Rewrote the code in POP3Store: -updateRead
+	  in order to handly errors properly and
+	  be a little bit faster than before.
+	* Replaced the [_queue removeObject: [_queue lastObject]]
+	  calls to [_queue removeLastObject].
+
+	
+2004-06-06      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Removed some NSLog() calls.
+
+
+2004-06-04      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Documented Constants.h and improved the code
+	  wrt those changes.
+
+
+2004-06-03      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPStore so that we now set a default
+	  empty body to messages for which we have read
+	  no literals.
+
+
+2004-06-02      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a bug in the handling of untagged responses
+	  AFTER tagged responses. We were assuming that for
+	  a FETCH untagged responses occuring after a tagged
+	  FETCH response, a _currentQueueObject was present.
+	  This occurs with the NetMail server.
+	* Updated the OS X project file wrt previous changes.
+	* Renamed LocalFolderCacheManager to LocalCacheManager
+          to match other CacheManager subclasses's name.
+	* Updated again the OS X project file.
+	* Removed Pantomime's SSL bundle. This code is no longer
+	  used as the SSL code is directly integrated into
+	  the framework (ie., no longer requires a bundle).
+
+
+2004-05-31      Ludovic Marcotte <ludovic@Sophos.ca>	
+
+	* Added CacheManager and refactored LocalFolderCacheManager,
+	  POP3CacheManager and IMAPCacheManager to use the new
+	  superclass which does most of the work.
+        * Documented io.h, URLName, CacheManager, LocalFolderCacheManager,
+	  IMAPCacheManager and POP3CacheManager.
+        * Refactored a lot of code wrt the introduction of
+	  the CacheManager class.
+
+
+2004-05-29      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Service.m (the NSRunLoop's OS X extension)
+	  so that we don't deal with callbacks methods if
+	  the connection hasn't yet been established. This
+	  can happen on OS X and lead to a crash.
+	* Modified Container: -childAtIndex: to be sure we
+	  don't get past the end of the child list.
+
+
+2004-05-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Service: _removeWatchers to correctly
+	  invalidate the _socket ivar on OS X and also
+	  remove the key/value from the fd_to_cfsocket
+	  map table. This should fix quite a lot of bugs
+	  in the new async I/O code on OS X. We also
+	  free the _socket ivar.
+
+
+2004-05-24      Ludovic Marcotte <ludovic@Sophos.ca>
+
+ 	* More documentation: MimeUtility, Part, Message,
+	  MimeMultipart, IMAPFolder, POP3Folder, LocalFolder,
+	  Store, LocalStore, LocalMessage, Container
+	  and Charset
+	* Some refactorings, cleanups and optimizations.
+	* Removed Charset: -characterForCode: since it
+	  was unused.
+
+
+2004-05-23      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * More documentation: FolderInformation, MacOSXGlue,
+	  UUFile, InternetAddress, MD5, NSFileManager+Extensions,
+	  Connection, TCPConnection, Transport, SMTP, Service,
+	  Sendmail, POP3Store, IMAPStore, IMAPMessage, POP3Message.
+	* Changed MD5: -initWithString: encoding: to simply
+	  -initWithData: and modified the callers.
+	* Refactored the Sendmail class.
+
+
+2004-05-18      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added TCPConnection: -isSSL so we can later know
+	  if we are using or not a SSL connection.
+
+
+2004-05-17      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a small mem leak in Message: -dataValue.
+          The code to obtain "aCalendarDate" was incorrect.
+          Also did some tidyups.
+	* Documented more classes/categories in Pantomime. In particular,
+	  NSString+Extensions, NSData+Extensions, CWRegEx, Parser and Flags. 
+	* Fixed a potential bug in CWRegEx: -initWithPattern: flags:
+	  in case an error was occuring.
+
+
+2004-05-15      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: +encodeWordUsingQuotedPrintable:
+          prefixLength: to correctly fold line using quoted printable
+          by always adding a leading space, ignoring the fact if
+  	  one was there or not since it's actually part of the string,
+ 	  so it must NOT be considered as a folded line indicator
+	  (space or tab character).
+
+
+2004-05-11      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a missing #import in Folder.h so things
+	  compile on OS X.
+
+
+2004-05-10      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Added a two range checks in NSString+Extensions:
+	  -unwrapWithQuoteWrappingLimit:
+	* Modified the IMAP code to fetch the Content-Type
+	  (and cache it) instead of the Mime-Version. This
+	  should fix strange issues when the Content-Type
+	  is folded on > 1 lines. This is still experimental
+	  and could change back over time.
+
+
+2004-05-08      Ludovic Marcotte <ludovic@Sophos.ca>        
+
+	* Added more documentation to Folder.h
+
+
+2004-05-03      Ludovic Marcotte <ludovic@Sophos.ca>	
+
+	* Lots of cleanups and refactorings.
+	* Added support for non-ASCII passwords
+	  in IMAP.
+	* Modified IMAPStore: -sendCommand::: so we
+	  never send a command that is already in queue.
+	* Added a _selectedFolder ivar to IMAPStore and we
+	  now make use of it. Also, the folders that are open
+	  but not selected still get into the _openFolders ivar.
+	* Added Folder: -propertyForKey: and -setProperty: forKey:
+	  so a developer can not set extra properties on Folder
+	  objects, much like it's possible on Message objects.
+	* Modified LocalStore and IMAPStore to no longer return
+	  nil when a folder is already open and we ask to open
+	  it again. We rather send a reference to the open folder.
+	* Added more documentation to Folder.h
+
+
+2004-04-23      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPStore: -_parseOK to handle weird
+	  SEARCH untagged responses from UW IMAPd.
+
+
+2004-04-20      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Improved the reading of the rest of FETCH
+	  responses for funky responses Microsoft
+	  Exchange can return.
+	* Lots of refactorings and more documentation.
+
+
+2004-04-18      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Finished all the big IMAP refactorisations
+	  and did even more optimizations.
+	* We now correctly free the runloop source on
+	  OS X and its context.
+	* Some refactorings in LocalFolder: -parse.
+        
+
+2004-04-15      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Removed the TCPSSLConnection target from the OS X
+	  project file and tested everything under OS X.
+ 
+
+2004-04-14      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Refactored a good amount of code so that the
+	  SSL bundle is no longer used (will soon be removed).
+	  This also allows us to have full non-blocking
+	  SSL connect and handshaking (blocking call
+	  but not code).
+
+
+2004-04-10      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Added a commands queue in the SMTP class. That
+	  will ease the use of this class for some other
+	  developers. Also refactored some code to move
+	  the _queue ivar up to the Service class.
+        
+
+2004-04-08      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Updated the OS X port, finally!
+	* Minor cleanups.
+
+
+2004-03-30      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Noticeable optimization in InternetAddress.
+	* Fixed the #include in io.h so it works under BSD.
+
+
+2004-03-29      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added io.c/.h and moved some POSIX stuff there.
+
+
+2004-03-26      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Refactored and cleaned even more code. Moved
+	  the mbox/maildir code in its own separate
+	  categories. More cleanups are still to come.
+	* Added WHOIS to list contributors.
+        
+
+2004-03-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Corrected a small issue in Pantomime.h. Bug reported
+	  by Alexandre Carlhian <alex@mosx.net>. 
+	* Renamed +generateBoundary to +globallyUniqueBoundary
+	  and +generateOSID to +globallyUniqueID in
+	  MimeUtility. Also refactored some code.
+
+
+2004-03-24      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Moved +allCharsets from MimeUtility to Charset.
+	* More refactorings and cleanups.
+
+
+2004-03-23      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * More cleanups.
+	* Removed the UTF8 class which was useless.
+
+
+2004-03-22      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Continued the cleanups.
+
+
+2004-03-21      Ludovic Marcotte <ludovic@Sophos.ca>
+	
+	* Did a bunch of cleanups everywhere.
+        
+
+2004-03-17      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a small memory leak in MimeUtility:
+	  +plainTextContentFromPart:. "bytes" was
+	  never freed properly.
+
+
+2004-03-16      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We now enforce the 0600 mode after writing the
+	  message on disk in Sendmail.m
+
+
+2004-03-14      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Folder: -thread to set an extra property
+	  to each messages (its container). This is experimental.
+	* Modified Folder: -thread to use Map Tables instead of
+	  NSMutableDictionary:s. This should speedup things.
+	* Removed the "visible" stuff from Container and also
+	  the comparing category. Those are now useless.
+	* Added Folder: -unthread. That might change in a soon
+	  future so don't rely on this.
+
+
+2004-03-12      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Refactored some code in Flags and added the support
+	  to write the Flagged flag to the mbox file when
+	  expunging a local mailbox.
+	* Many small refactorings and small optimizations.
+
+
+2004-03-11      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPStore to correctly update the cache
+	  files for \Flagged message flag updates when
+	  opening a mailbox.
+
+
+2004-03-10      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPCache: -_parseEXPUNGE to no longer
+	  synchronize the IMAP cache. Left the code there
+	  if that causes any problems (but it should
+	  definitively not and should greatly improve
+	  the performance of expunging IMAP mailboxes!).
+ 
+
+2004-03-08      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Lots of cleanups and refactorings.
+	* More cleanups, wrt the URLName class.
+	* Added some code in MimeUtility: -decodeHeader...
+	  to detect the ISO-2022-JP announcer sequence in order
+	  to correctly decode that 7-bit encoding format.
+	* Set the version number on OS X to 1.2.0.
+
+
+2004-03-07      Ludovic Marcotte <ludovic@Sophos.ca>
+	
+	* Modified InternetAddress to NOT use NSString: -cString
+	  but rather -UTF8String (and -stringWithUTF8String).
+	  Also refactored all the code in this class.
+	* Started to cleanup the "local" mbox/maildir code.
+	* Refactored IMAPCacheManager and greatly optimized it.
+
+
+2004-03-05      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Fixed an IMAP bug. With some servers (like UW IMAP),
+	  we get the FLAGS update as an other untagged
+	  response instead of getting them in the same
+	  untagged FETCH response.
+	* Did some cleanups and refactorings in the IMAP code.
+	* Small POP3 optimizations.
+        
+
+2004-03-04      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Did some minor refactorings.
+	* We now post a notification when the FETCH RFC822
+	  completed in IMAP.
+
+
+2004-03-02      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Service: -updateRead so that we read
+	  until we are done.
+
+
+2004-03-01      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Replaced random() by rand() in MimeUtility since
+	  random() isn't available on MinGW. That increases
+	  the portability.
+	* Moved +fileFromUUEncodedString and
+	  +rangeOfUUEncodedStringFromString: range:
+	  from MimeUtility to UUFile (and all the related
+	  stuff).
+	* Moved MimeUtility: +isASCIIString: to
+	  NSString+Extensions: -is7bitSafe.
+	* Reworked a little bit NSString+Extensions:
+	  -stringByTrimmingWhiteSpaces in order to avoid
+	  a method call under GNUstep. This will slightly
+ 	  optimize things on GNUstep.
+	* Fixed a bug in IMAPStore: is_stub() that would lead
+	  to memory corruption and unpredictable results (would
+	  return 1 when it should have returned 0).
+
+
+2004-02-27      Ludovic Marcotte <ludovic@Sophos.ca>
+
+       	* Optimized MimeUtility: -allCharsets
+	* Cleaned up UUFile.
+	* We now post a notification when the
+	  message's data was fully prefetched.
+ 
+
+2004-02-24      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Commented out the NSLog() calls in POP3Store
+	  and IMAPStore.
+	* Bumped up the version number to 1.2.0.
+        * Commented out NSLog() calls in IMAPFolder.m
+	
+
+2004-02-22      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPStore and LocalStore to bring back support
+	  for creating/deleting/renaming mailboxes. Work needs
+	  to be done wrt error handling.
+	* Also cleaned and optimized IMAPStore some more.
+	* Modified Service: -updateWrite: to correctly reenable
+	  the write callback on OS X.
+
+
+2004-02-20      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Improved the parsing of FETCH responses. We can
+	  now parse the rest of the response (ie., the
+	  bytes following the bytes that are considered
+	  part of the literal value).
+	* Modified IMAPStore: _parseSTATUS so that we
+	  correctly react in case STATUS failed on
+	  a mailbox. 
+	* Corrected a small issue wrt previous commit.
+	* Did some cleanups in IMAPStore.m
+
+
+2004-02-18      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Updated the code to parse deprecated 8bit values
+	  when issuing a LIST/LSUB command.
+
+
+2004-02-17      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a small bug in the SMTP code wrt the
+	  previous commit.
+	* We correctly set the _connected flag to NO
+	  in Service: -_removeWatchers.
+	* Updated the TODO
+
+
+2004-02-16      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Did more cleanups to the IMAPStore class.
+	* Added the code for fully support connecting to
+	  services in background for regular TCP connections.
+	  That will NOT work right now for SSL connection.
+
+
+2004-02-15      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Updated the OS X project file to add the new
+	  NSFileManager+Extensions files.
+	* Moved the initialization of the map table in Service.m
+	  to a safer place.
+	* Fixed an IMAP flags update bug.
+	* Cleaned the new IMAP code.
+	* Moved and renamed some declarations of "constants"
+	  from LocalStore.h to Constants.h
+        
+
+2004-02-14      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Added NSFileManager+Extensions.{h,m} and refactored
+	  a lot of code.
+	* Changed the BIG_ENDIAN check in MD5.m to be:
+	  #if defined BIG_ENDIAN || MACOSX
+	* Cleaned the POP3 code.
+
+
+2004-02-13      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Implemented more missing functionnalities in the
+	  new IMAP code (create, rename, delete mailboxes,
+	  LOGIN/CRAM-MD5 authentication support and more).
+	* LOTS of other improvements!
+        
+
+2004-02-12      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * General improvements to the SSL bundle. It's now
+	  using non-blocking I/O and the new I/O code should
+	  also fully work under OS X!
+	* Fixed a bunch of small issues in the new IMAP code.
+
+
+2004-02-11      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Same as yesterday :)
+
+
+2004-02-10      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Again, LOTS of improvements on top of the 
+          previous commit.
+
+
+2004-02-09      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Massively modified the IMAP code to use non-blocking
+	  I/O. THE CODE WILL NOT WORK RIGHT NOW SO DON'T USE IT.
+	* LOTS of improvements on top of the previous commit.
+
+
+2004-02-08      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added CWRegEx.{h,m} and Service.m to the OS X project file.
+          Also removed NSRegEx.{h,m} from the OS X project file.
+	* Updated the OS X port wrt all changes made in the
+	  last weeks. It does NOT work right now, it just compiles.
+
+
+2004-02-07      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Reworded some things in the SMTP class so we no
+	  longer use the word "bounce" but rather "redirect"
+	  to avoid any confusion.
+	* Minor cleanups and enhancements to the SSL bundle.
+	  There's still a strange segfault in openssl when
+	  using it with non-blocking I/O (still disabled...)
+	* Some cleanups in LocalStore.h
+	* Added a workaround for a lame bug in Eudora which
+	  sometimes sends mails using "0" as the charset. We
+	  now treat that as ISO-8859-1.
+	
+
+2004-02-05      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added Service: -cancelRequest so we are now able
+	  to immediately "stop" a running request. This is
+	  initial support and will shortly evolve.
+
+
+2004-02-02      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Removed #define CRLF / LF from Constants.h and Messages.m and
+	  added the LF #define in Part.m and Message.m
+	* Removed the boolean return value for the methods in the
+	  Transport protocol.
+	* Moved the BCC/CC/TO/RESENT-* defines from InternetAddress.h
+	  to Constants.h (in an enum {}). Updated all the code wrt this.
+	* Added Service.m (and moved this protocol to a real
+	  interface/implementation)
+	* Added some methods to the Transport protocol.
+	* Made TCPSSLConnection a subclass of TCPConnection and cleaned
+	  up both classes A LOT.
+	* Converted the SMTP and POP3 code to use the new Service
+	  class and use the new non-blocking I/O scheme.
+	  IT WILL NOT WORK RIGHT NOW UNDER OS X.
+
+
+2004-01-19      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Renamed NSRegEx to CWRegEx. The OS X project file needs to
+	  be updated.
+
+
+2004-01-18      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Added NSString+Extensions: 
+	  -stringByDeletingLastPathComponentWithSeparator:
+	  and: -stringByDeletingFirstPathSeparator:
+	* Modified LocalStore and IMAPStore: -renameFolderWithName:
+	  toName: so it uses the -stringByDeletingFirstPathSeparator:
+	  to cleanup potentially invalid paths and to return an error
+	  in case theName or theNewName are either nil or have a length
+	  of 0.
+
+
+2004-01-11      Ludovic Marcotte <ludovic@Sophos.ca>
+	
+	* Reworked the flags in Pantomime (moved the defines to
+	  an enum) and did the same for nearly all other #define:s.
+	* Updated all the code wrt the changes in Constants.h.
+
+
+2004-01-02      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Bumped up the OS X version number to 1.1.3.
+	  Also modified Constants.h wrt this.
+	* Removed the NSDebugLog macro definition from MacOSXGlue.h
+	  and removed ALL calls to NSDebugLog.
+	* Reactivated pch support in the OS X project file, removed
+	  -I/sw/... and -DBIG_ENDIAN.
+
+
+2004-01-01      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added support for renaming open local/IMAP mailboxes.
+	  Also made a bunch of other small modifications.
+	  THIS STUFF IS RATHER EXPERIMENTAL. IT WORKS BUT USE
+	  IT AT YOUR OWN RISK!
+
+
+2003-12-30      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added new capabilites in the Message's replying code.
+	  You can now do "simple" replies (ie., w/o a content)
+	  or normal replies by combining a reply all or not option.
+	* Added Constants.m and cleaned its header.
+	* Added a new class: VirtualFolder which implements the
+	  idea of a virtual folder. It's not yet finished but the
+	  innards are there.
+	* Updated the OS X project file wrt the previous changes.
+
+
+2003-12-26      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added an improvement in the IMAP parsing code (_parseFetch:)
+	  so it works better with lame servers like Exchange.
+	* Set the CVS tag to v1_1_2
+        * RELEASED VERSION 1.1.2
+
+
+2003-12-21      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added Folder: -setFlags: messages: and implemented a
+	  version in IMAPFolder to optimize deletion of messages.
+	  Modified IMAPMessage: -setFlags: to use that new method.
+
+
+2003-12-13      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We now correctly decode/encode the Organization header
+	  using quoted-printable.
+
+
+2003-12-07      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Removed Testing/*. The tests were old and broken and
+	  the small test framework should be replaced by a real
+	  framework, like OCUnit.
+	* Modified the GNUmakefile.postamble file to remove
+	  the references to the Testing directory.
+
+
+2003-12-06      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Added some notes (in the README) to properly compile and
+	  install Pantomime on RedHat 9 / Fedora.
+        
+
+2003-11-30      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Permuted the RETAIN/RELEASE calls in Message: -setFlags:.
+	  Bug reported by Alexandre Carlhian <alex@mosx.net>.
+ 
+
+2003-11-29      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a bug in Parser: +_parameterValueUsingLine: range:.
+
+
+2003-11-26      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Finally commited a fix for the reply bork when a attachment
+	  is put between to text/plain parts in a multipart/mixed
+	  message (only the first part was used in the reply).
+
+
+2003-11-08      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility to add support on OS X for
+	  Hebrew, Arabic, BalticRim and Vietnamese encodings
+	  using the CoreFoundation.
+
+
+2003-10-15      Ludovic Marcotte <ludovic@Sophos.ca>
+	
+	* Fixed a small bug in my previous commit on 2003-10-08.
+
+
+2003-10-13      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a small issue in POP3Folder: -lengthOfMessageAtIndex:
+	  Bug reported by Alexandre Carlhian <alex@mosx.net>.
+	* Modified NSData+Extensions: -dataFromQuotedData to be sure
+	  that our initial data length has length of at least 2 (since
+	  if we had only '"' we would get an range exception).
+
+
+2003-10-12      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: -stringEncodingForPart: so that
+	  if we get _at best_ NSASCIIStringEncoding from the
+	  part, we use NSISOLatin1StringEncoding instead in order
+	  to give us more success when decoding things.
+
+
+2003-10-11      Ludovic Marcotte <ludovic@Sophos.ca>
+
+ 	* Added POP3Folder: -prefetchMessageAtIndex: numberOfLines: and
+	  added a small cache for the message sizes.
+       
+
+2003-10-10      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Renamed -authenticateWithUsername: ... to
+	  -authenticate: password: mechanism: and implemented in
+	  the SMTP, POP3Store and IMAPStore classes.
+	* Added -supportedMechanisms to the Service protocol and
+	  implemented in all the classes above.
+	* Removed POP3Store: -setUseAPOP: / -useAPOP and -setTimestamp:
+	* Added LOGIN and CRAM-MD5 SASL authentication mechanisms support
+	  in the IMAP code.
+	* Added -DBIG_ENDIAN to the list of compiler flags on OS X so that
+	  the CRAM-MD5 code works. 
+ 	* Updated the OS X project to set the version number to 1.1.2.	
+
+
+2003-10-08      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Moved -isConnected from Connection to Store. Implemented
+	  in IMAPStore and provided a dumb implementations for LocalStore
+	  and POP3Store. Refactored all the code to use the Store's method
+	  instead of the TCPConnection's implementation. Much of the code
+	  in GNUMail will have to be retested wrt the handling of being
+	  disconnected from the IMAP server.
+	* Added a hack so things work well with header prefetching when we
+	  are using a Novell IMAP server (which is utterly broken).
+	* Added and implemented IMAPStore: -capabilities to return an array
+	  of the server's capabilities (result of the CAPABILITY command).
+        
+
+2003-10-05	Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Added a "contents" parameter to Store: -createFolderWithName: type:
+	  so we are now able to create a folder with an initial content.
+	  Implemented in all Store subclasses but the only implementation
+	  that works right now is the LocalStore one using the standard
+	  mailbox format (maildir won't work).
+	* Bumped version number to 1.1.2 in Constants.h
+
+
+2003-09-28     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Updated the README for the release.
+	* Set the CVS tag to v1_1_1
+        * RELEASED VERSION 1.1.1
+
+
+2003-09-21     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Moved Message (Private): _-plainTextContentFromPart:
+	  to MimeUtility: +plainTextContentFromPart:.
+	* Enhanced (and simplified) the code in Message: -forward
+	  to strip the html content of text/html part when forwarding
+	  an email.
+
+
+2003-09-18     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: +stringFromCharset: so that
+	  under GNUstep, we define utf-7 and unicode-1-1-utf-7
+	  to use NSUTF7StringEncoding. The latter is to prevent
+	  a bug (sort of) in MS Hotmail.
+
+
+2003-09-12     Ludovic Marcotte <ludovic@Sophos.ca>
+	
+	* Bumped up the version number to 1.1.1.
+	* Same thing in OS X project file.
+        
+
+2003-09-06     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Removed a bunch of variable declarations in elm_defs.h
+	  (#if 0'ed them all). This was causing problems under OS X
+	  when -DMACOSX wasn't added to the compiler flags (we don't
+	  need them anyway so let's get rid of them). 
+
+
+2003-09-01     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added support for read-only IMAP folders. More work needs to be
+	  done wrt this. Added Folder: -mode (and an ivar) and implemented
+	  this method in subclasses. Refactored IMAPStore so it's cleaner.
+	* Modified Part: -initWithCoder: to remove support for older version
+	  (we now support only version 2).
+
+
+2003-08-31     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added an excellent patch from Ken Ferry <kenferry@mac.com>
+	  to support the concept of "base subject" as described
+	  in http://www.ietf.org/internet-drafts/draft-ietf-imapext-sort-13.txt.
+	  The subject sorting code is now based on this concept.
+	* Modified the message threading code to use the new -baseSubject
+	  accessor (for performing MT and for sorting containers).
+	* Removed NSString+Extensions: -stringByRemovingRE
+	* Modified Message: -initWithCoder: to remove support for the version 1
+	  of the cache.
+
+
+2003-08-22     Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Modified Message: -initWithData: to return nil if the call
+	  to Part: -initWithData failed.
+	* Modified MimeUtility: +setContentFromRawSource: inPart:
+          to verify if the message/rfc822 is base64 encoded and if it is,
+	  we decode it properly (and we also replace \r\n by \n if the MUA
+	  sent that over.
+
+
+2003-08-21     Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Modified IMAPStore: -authenticateWithUsername: password:
+	  so we verify if the password has any whitespaces in it.
+	  If so, we also quote it properly. Bug reported by
+	  Aredridel <aredridel@nbtsc.org>.
+        
+
+2003-08-19     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Set the CVS tag to v1_1_0
+        * RELEASED VERSION 1.1.0
+
+
+2003-08-12     Ludovic Marcotte <ludovic@Sophos.ca>
+
+ 	* Added a Version file and set the version to 1.1.0 in it.
+	* Modified Part: -dataValue to NOT unwrap the text before
+	  wrapping it since it's not in format=flowed format.
+	* Modified an #include to avoid a warning under GNUstep with
+	  the new header structure.
+       
+
+2003-08-03     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPFolder: -close to not send the IMAP "CLOSE" command
+	  if we're not longer connected to the IMAP server.
+
+
+2003-08-01     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a bug in MimeUtility: -encodeWordUsingQuotedPrintable: prefixLength:
+	  so that we don't pre-append a space to our folded header if we already
+	  have one.
+
+
+2003-07-27     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Removed unused code in Folder: -appendMessageFromRawSource: flags:
+	* "Fixed" the same method (and others) in LocalFolder (indentation and stuff)
+	* Modified Folder: -removeMessage: to thread messages if we removed
+	  a message directly from the Folder's instance (happens in IMAPStore).
+
+
+2003-07-23     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: -stringWithData: charset: to be sure
+	  we always use the ASCII string of theCharset when using
+	  iconv_open().
+
+
+2003-07-22     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Minor cleanups and very tiny mem leak fixes.
+
+
+2003-07-10     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added the complete list of supported mailbox flags in Constants.h
+	* Modified the code to use them instead of HOLDS_FOLDERS/HOLDS_MESSAGES
+	* Finished the implementation of IMAPStore: -_parseList:
+
+
+2003-07-02     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPStore: _parseExists: to NOT assume we got a valid
+	  folder since we might get this untagged response even if a folder
+	  is not SELECTed. This should fix the obscure segfault that could
+	  happen in IMAP with more than one IMAP account.
+	* Modified POP3Store: -close to not attempt to close the connection
+	  if it's already closed.
+	* Modified IMAPCacheManager: -synchronize to handle GNUstep -base exceptions
+	  that could occur when writing the cache to the disk if it contains
+	  non-latin1 characters. 
+
+
+2003-07-01     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Removed NSString+Extensions: -stringByRemovingLineFeedCharacters.
+	  Added -stringFromModifiedUTF7 and -modifiedUTF7String.
+	  Modified the IMAP code to use those two new methods.
+	  This new code will do _nothing_ on OS X as CF/NSString don't
+	  provide support for UTF-7. Under GNUstep, you need the latest
+	  CVS version of base (2003-07-01) if you want things to work
+	  properly (since UTF-7 support in GNUstep -base was heavily
+	  broken before today).
+
+
+2003-06-29     Ujwal S. Sathyam <ujwal@setlurgroup.com>
+
+	* Rewrote maildir expunge and cache rebuild code based on maildir spec 
+	  with flag information embedded in mail file name.
+
+
+2003-06-27     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: -encodeWordUsingQuotedPrintable: prefixLength:
+	  to fix the annoying bug where the subject would get repeated twice
+	  if it was exceeding 75 chars.
+
+
+2003-06-26     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPFolder: -prefetch to use "UID FETCH %d:* (UID..."
+          (we include UID in the FETCH command) since Microsoft Exchange
+          doesn't return it if we don't ask for it.
+
+
+2003-06-25     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Applied a patch from Andreas Heppel to fix var declarations
+	  for gcc < 3.0.
+	* Added NSString+Extensions: -stringByReplacingOccurrencesOfString:
+	  withString:.
+	* Renamed RAW -> Raw (or raw) in the code.
+
+
+2003-06-24     Ujwal S. Sathyam <ujwal@setlurgroup.com>
+
+	* When a MAILDIR folder is expunged, the undeleted messages 
+	  are re-writtenwith the latest flag information. This is so that 
+	  if the cache file is dirty and needs to be rebuilt, the flag 
+	  information can be restored. One concern is performace since this 
+	  can involve a lot of I/O for a large number of messages.
+
+
+2003-06-24     Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Modified IMAPStore: -renameFolderWithName: toName: to not issue
+          other IMAP commands if we are no longer connected to the IMAP st
+	* Same thing for IMAPStore: -deleteFolderWithName:
+	* Same thing for IMAPStore: -createFolderWithName: type:
+
+
+2003-06-23     Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Modified Message.h so that our rawSource ivar is a protected one.
+	  Also modified IMAPMessage: -rawSource to return the ivar directly
+	  instead of [super rawSource] to prevent a crash if the connection
+	  was lost to the IMAP server just after issueing the UID FETCH RFC822.
+	* Updated Testing/Client so it compiles.
+	* Modified IMAPMessage: -setInitialized: to NOT issue the 2nd IMAP 
+	  command if we're no longer connected to the IMAP store.
+        
+
+2003-06-22     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: -setContentFromRawSource: inPart: to treat
+	  "unsupported Content-Type:s" as a discrete type.
+	* Modified LocalFolder: -_expungeMBOX to merge the message flags (using
+	  Pine's format) to the local mbox. Also modified Flags: -addFlagsFromData:
+	  to NOT remove the SEEN flag if we don't see "R".
+
+
+2003-06-20     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPFolder: -close to NOT do a CLOSE if we
+	  are showing deleted messages.
+
+
+2003-06-18     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Did some cleanups in the MimeUtility class.
+
+
+2003-06-17     Ludovic Marcotte <ludovic@Sophos.ca>
+
+ 	* Moved IMAPStore (Private): -_replaceCRLFInMutableData to 
+	  NSData+Extensions: -replaceCRLFWithLF.
+	* Moved SMTP (Private): -replaceLFInMutableData to
+	  NSData+Extensions: -replaceLFWithCRLF.
+ 
+
+2003-06-16     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPMessage: -setFlags to call [super setFlags:], to
+	  use STORE -FLAGS if we are removing all flags and to use
+	  .SILENT in order to NOT generate an extra IMAP response. This
+	  should make things a little bit faster.
+
+
+2003-06-15     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Renamed SMTP: -_readResponsesFromServer to -_parseServerOutput (like IMAP).
+	* Refactored IMAPStore: -_parseFlags.
+	* Modified IMAPFolder: -expunge: to NOT send the "UID FETCH %d:* UID" command
+	  as I have modified IMAPStore: -_parseExpunge: to automatically decrement MSN
+	  of messages when we get an * xyz EXPUNGE response.
+	* Modified the TCPConnection code (and its SSL implementation) to automatically
+	  increase the buffer size when reading responses from the server. Also fixed
+	  a memory leak in -readDataToEndOfLine.
+	* Some clean ups in IMAPStore.
+	* Added delegate methods in IMAPStore and we now call them in _sendCommand:
+	  if messages were expunged of if messages flags have changed. This allows
+	  Pantomime to support concurrent accesses to an IMAP folder with other
+	  clients.
+
+
+2003-06-13     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPCacheManager to correctly add/remove the entries
+	  in our hash when adding/removing messages from the cache.
+	* Modifed IMAPFolder: -_updateMessagesFromUID: toUID: to correctly
+	  set the MSN of message we _keep_ in the cache when synchronizing
+	  our cache with the IMAP server.
+	
+
+2003-06-12     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Reworked the code related to a "dirty IMAP cache". It's now
+	  handled _correctly_ and it's way faster than before. This should
+	  fix all "remaining bugs" in the new IMAP code.
+
+
+2003-06-10     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Reworked the IMAP EXPUNGE code so it's more efficient
+	  and can now expect expunge responses from the server
+	  even it if hasn't expunge mails (ie., an other client did).
+	  Also improved the fetch of MSN:s after an EXPUNGE so we
+	  don't fetch all of them, but only from the UID of the message
+	  of the lowest MSN that was deleted.
+	* Added IMAPStore: -_parseExits: to record if new messages were
+	  received instead of using -_parseRecent:. 
+
+
+2003-06-09     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed IMAPStore: -_parseFlags: since Seen and Recent
+	  can be set at the same time. I misinterpreted that in
+	  the RFC3501. The POP3 code will also have to be modified
+	  and also GNUMail.
+	* Fixed all issues wrt the RECENT/SEEN flags. You MUST also
+	  update GNUMail.app.
+	* Modified IMAPStore to not declare a static selector but rather
+	  use a define since it fails with Apple's gcc.
+	* Moved Folder's allMessages ivar to be a public one. This is
+	  need to know the read folder's count and also to directly
+	  index messages in the folder (ie., from IMAP store). Also
+	  modified IMAP store to use the ivar directly. This fix the
+	  bug when we were hiding deleted messages and deleting messages
+	  on the server. 
+
+
+2003-06-08     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Removed IMAPFolder: -checkForBYE...
+	* Removed the PantomimeLostConnectionException constant.
+	* IMAPStore should now handle gracefully server's BYE responses.
+
+
+2003-06-07     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added the brand new IMAP code. This code has NOT been tested extensively 
+	  but just quite well by me (since I use it). Please try it and report
+	  me any issue. More goodies will be added soon.
+	* Fixed an #include warning.
+	* More refactorings and fixed a recursivity bug.
+	* Modified Message: -replyWithReplyToAll: to make use of -hasREPrefix
+
+
+2003-06-06     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added other great improvements in IMAPStore. This class is now
+	  completely cleaned of the old code.
+	* Removed -checkForBYE.. in IMAPStore (moved temporarely in IMAPFolder)
+	* Fixed a small bug in IMAPStore: -folderEnumerator.
+	* Added -_parseRecent: and also modified to code to be "notified"
+	  that new messages have arrived.
+	
+
+2003-06-05     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Started the IMAP rewrite. Those who want stability shouldn't use
+	  the CVS version for a couple of days. It should work well, but
+	  expect bugs. Lots of debug info might appear on the console and
+	  that's normal for now.
+	  The new code is definitively smaller and faster than before.
+	* Rewrote IMAPStore: -folderStatus and added -_parseStatus:
+
+
+2003-06-04     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added Folder: -cacheManager/setCacheManager: and removed all
+	  -{imap,local,pop3}CacheManager and -set{IMAP,Local,POP3}CacheManager
+	  methods. Refactored the code to use the new parent's method.
+
+
+2003-06-01     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Refactored A LOT the SMTP code. It's now way more efficient and
+	  also added the support to obtain the last message or code received
+	  from the server.
+
+
+2003-05-31     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified the GNUmakefile so we link with libucb under Solaris.
+
+
+2003-05-25     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added POP3Folder: -size and refactored -count into -_stat.
+	  Feature request by Arthur VIGAN <astrok.software@wanadoo.fr>. 
+
+
+2003-05-23     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPStore: -folderStatus to NOT call STATUS on the
+	  selected folder. This has been added in the RFC3501.
+
+
+2003-05-16     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Parser so that we don't assume we got a space
+	  separating the Subject/Content-Type/Content-Transfer-Encoding
+	  headers and their respective values. That sometimes happens
+	  with (surprised?) malformatted spam.
+
+
+2003-05-14     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -replyWithReplyToAll: to trim whitespaces
+	  from the subject before verifying for re:.
+
+
+2003-05-12     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Optimized POP3Folder: -UIDOfMessageAtIndex:. It should make
+	  a _huge_ difference for those who leaves their messages on the
+	  POP3 server and have a lot of them and also improves quite nicely
+	  the downloading speed of messages.
+
+
+2003-05-07     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added IMAPFolder: -copyMessages: toFolder:
+
+
+2003-05-05     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Updated Message: -dataValue (the code to obtain the locale) wrt
+	  the recent changes in GNUstep's directory layout.
+
+
+2003-04-27     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Optimized Parser: +_parameterValueUsingLine: range:
+	* Modified Parser: +parseContentDisposition: inPart: to use
+	  _parameterValue... for parsing the filename parameter.
+
+
+2003-04-26     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Set the OS X's version number to 1.1.0.
+	* Fixed an index out of bounds error in  Message: -replyWithReplyToAll: 
+	  We were using the wrong local variables.
+
+
+2003-04-23     Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Modified Headers/Pantomime/elm_lib.h to comment out
+	  mkdir() since it causes problems under Solaris 2.8.
+	  Problem reported by Mario Antonio <mario.antonio@mail.com>
+	* Set the version number in Constants.h to 1.1.0.
+
+
+2003-04-21     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified the OS X project file to not generate debug symbols
+	  for the TCPSSLConnection target.
+        * Set the CVS tag to v1_1_0pre2
+        * RELEASED VERSION 1.1.0pre2
+
+
+2003-04-18     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified the OS X project file to no longer "link"
+	  with Fink's version of OpenSSL.
+	* Modified SMTP, POP3Store and IMAPStore to allow the
+	  TCPSSLConnection bundle to be load from the app's 
+	  plug-in path under OS X. This allows developers to include
+	  Pantomime's SSL bundle in their own app's dmg. 
+
+
+2003-04-16     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Trivial optimizations in MimeUtility: -isASCIIString:
+	* Modified MimeUtility: +allCharsets to add gb2312 under
+	  GNUstep and added an optimization.
+	* Modified IMAPFolder: -_messageNumberFromUID to correctly
+	  read the untagged responses. 
+	* Added a temporary method (-_readStringSkippingUntaggedResponses)
+	  to IMAPFolder and modified the code to use it. After 1.1.0pre2 is
+	  released, untagged responses will be much better handled by
+	  introducing a new way to read all server responses, expecting
+	  any kind of untagged responses at any time. This temporary method
+	  is just there so the rest of the code can work properly under Cyrus.
+
+
+2003-04-15     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPMessage: -setFlags to use IMAPFolder(Private):
+	  -_flagsAsStringFromFlags.
+	* Modified SMTP (Private): -_decodeSupportedAuthenticationMechanismFromString:
+	  so that we try to declde the supported mechanisms even if we already have
+	  some in our array since some servers return the supported mechanisms
+	  (and different ones) on more than one line.
+	* Cleaned the includes in Sendmail.m
+
+
+2003-04-14     Ujwal S. Sathyam <ujwal@setlurgroup.com>
+
+	* Minor bugfix to parsing maildir folder.
+
+
+2003-04-12     Ujwal S. Sathyam <ujwal@setlurgroup.com>
+
+	* Fixed an include problem in Sendmail.m that broke 
+	  build on OS X.
+
+
+2003-04-12     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a header include regarding the changes in GNUstep -base
+
+
+2003-04-11     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPMessage: -setFlags to correctly set flags
+	  on the message (for read/unread messages).
+
+
+2003-04-08     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPStore: -folderStatus to properly unquote
+	  the folder name before adding it to our dictionary.
+	* Modified Sendmail: -sendMessageFromRawSource: to no longer use
+	  a pipe since it can get filled up pretty quickly and block the 
+	  process.
+
+
+2003-04-03     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified NSString+Extensions: -stringByTrimmingWhiteSpaces to
+	  use CF's CFStringTrimWhitespace() function in order to simplify
+	  the code and hopefully enhance performance a little bit.
+	* Modified NSString+Extensions: -stringFromQuotedString: to cache
+	  the length of the string in order to speed up things.
+
+
+2003-04-02     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Renamed NSDataExtensions to NSData+Extensions
+	* Renamed NSStringExtensions to NSString+Extensions
+	* Modified NSString+Extensions: -indexOfCharacter to cache the length
+	  of the string.
+	* Updated the OS X project file
+
+
+2003-03-25     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added -Wno-import to the GNUmakefile:s
+
+
+2003-03-22     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Minor fixes/cleanups in the Part and Message classes.
+
+
+2003-03-17     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a bug in IMAPStore: -folderStatus. We weren't comparing
+	  correctly the response with BAD/NO (we were ignore the tag).
+
+
+2003-03-16     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed the OS X project file. Added back the @executable_path/../Frameworks
+	  installation location. Otherwise, the Pantomime.framework would be
+	  linked to an absolute path.
+	* Added a .cvsignore file to the root folder of Pantomime
+
+
+2003-03-14     Ujwal S. Sathyam <ujwal@setlurgroup.com>
+
+	* Extended InternetAddress class to help in scripting.
+
+
+2003-03-13     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified LocalStore: -renameFolderWithName: toName: so that
+ 	  we verify if theNewName already exists before renaming the folder.
+	  If it does, we abort the operation in order to not overwrite the
+	  folder.
+
+
+2003-03-10     Ujwal S. Sathyam <ujwal@setlurgroup.com>
+
+	* Fixed Installation setting in PB file that was 
+	  GNUMail.app fail to build.
+	  
+
+2003-03-09     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added iso-8859-11 and gb2312 encodings support using GNUstep
+	  additions of iconv.
+
+ 
+2003-03-02     Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Added MimeUtility: -stringEncodingForPart and refactored
+	  Message (Private): _plainTextContentFromPart: to use it.
+	* Fixed the version number on OS X (from 1.0.4 to 1.0.99)
+
+
+2003-02-13     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified POP3Folder to cache the value -count returns.
+
+
+2003-02-11     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Optimized MimeUtility: +stringWithData: charset: so
+	  we don't copy the bytes from iconv's output but
+	  we rather use them directly and let our NSData
+	  object free them when done.
+ 
+
+2003-02-09     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Refactored TCPConnection and TCPSSLConnection to have a cleaner
+	  API.
+	* Modified POP3Folder: -prefetchMessageAtIndex: to NOT use
+	  an NSString object. This makes things way faster when transferring
+	  large mails using POP3 and is way more safe when getting mails using
+	  rare encodings (like TIS-620).
+
+
+2003-02-07     Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Renamed Flags: -addFlagsFromString to -addFlagsFromData and
+	  modified Parser to use the new method. This should make things
+	  a little bit faster. Also removed -initWithString.
+
+
+2003-02-05     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: +stringEncodingForCharset to
+ 	  add "cyrillic (windows-1251)" (mapped to NSWindowsCP1251StringEncoding)
+	  to prevent a lame bug in MS's Hotmail encoding code.
+
+
+2003-02-01     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: +decodeHeader to add a charset parameter
+	  so that if defaultCharset is defined in Part, we use that
+	  to force the charset used to decode some headers. Modified
+	  Parser to use the new method.
+	* Rewrote the local mailbox caching code. It's now faster and
+	  takes way less memory.
+
+
+2003-01-31     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified LocalMessage: -setInitialized to set it to NO
+	  if we failed to open our file when using maildir.
+
+
+2003-01-30     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a broken #include in Pantomime.h
+	* Now include stdlib.h in Message.m
+	  Bugs reported by David Sinclair <dev@dejal.com>.
+	* Guarded elm_defs.h, elm_lib.h and parseaddrs.h
+	  against multiple inclusions.
+
+
+2003-01-28     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message.m to correctly free the buffer returned
+	  by striphtml() (since it was malloc'ed but never actually
+	  free'ed). Patch from Stefan Urbanek <urbanek@host.sk>.
+
+
+2003-01-27     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Bundles/SSL/GNUmakefile to include
+	  ../../Headers
+
+
+2003-01-24	Ujwal S. Sathyam <ujwal@setlurgroup.com>
+
+	* Fixed a bug in LocalStore where the folder tree was 
+	  not being rebuilt after deleting a folder (not mbox 
+	  or maildir).
+
+2003-01-20     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Updated the version number to 1.0.99
+
+
+2003-01-13     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Updated the README (in preparation for the 1.1.0pre1 release).
+	* Tagged the cvs to v1_1_0pre1.
+	* RELEASE VERSION 1.1.0pre1.
+	
+
+2003-01-08     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -dataValue so that if the user set
+          its timezone in GNUstep's defaults, we try to use that
+          first (before going back to the default tzset() function).
+
+
+2003-01-06     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a missing import in POP3Folder.h
+
+
+2003-01-05     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified POP3Folder to add a small UID cache so that
+          we don't ask again and again the UID of a message at 
+          index X but we rather try to first get it from our cache.
+
+
+2003-01-04     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Set the encoding to Mac OS roman in the OS X project file
+	* Removed IMAPFolder: -deleteMessageWithUID, 
+	  -setMessageFlags: forUID: and -removeMessage.
+	* Re-implemented -setFlags: in IMAPMessage so that we send
+	  the flags immediately to the IMAP server.
+	* Removed the flag TRANSFERRED and modified all the code
+	  that was using it. We will now consider those messages
+	  as DELETED.
+	* Removed Folder: -numberOfTransferredMessages.
+
+
+2003-01-02     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added versioning support to the LocalMessage class. 
+          When maildir support was added to Pantomime, versioning hasn't
+          been added to the LocalMessage class. That cause problems since
+          between 1.0.5 and 1.0.98 (1.1.0 pre1), in the cvs version, no
+          versionning was there and the format changed. We now invalidate
+          all caches with a version number different from 1.
+        * Set the version to 1.0.98 (1.1.0 pre1) in Constants.h.
+
+
+2002-12-29     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Refactored POP3Folder: -prefetchMessageAtIndex: so that
+          we no longer deal with the POP3CacheManager but a Pantomime
+          client (like GNUMail.app) will.
+
+
+2002-12-28     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Removed all the SEND_ constants and renamed Part: -dataUsingSendingMode
+          to -dataValue. Refactored to code in Part and in Message (that
+          implements this method) and also refactored all classes using
+          the old method. Modified SMTP.m so that we replaced \n by \r\n when
+          sending the mail.
+	* Done TODO #101: Changed Message; -setExtraProperty: forKey: to 
+	  -setProperty: forKey.
+
+
+2002-12-20	Ujwal S. Sathyam <ujwal@setlurgroup.com>
+
+        * Fixed bug where localFolderCacheManager was not 
+          being synced up after a MAILDIR expunge.
+          
+
+2002-12-17     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified the implementation of Store: -openedFoldersEnumerator
+	  in all Store classes (and the code depending on the previous
+	  implementation) to return the enumeration of the opened folders
+	  instead of just their names.
+
+
+2002-12-16     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added IMAPStore: -noop.
+        * Modified IMAPStore: -folderForName: select: to return the
+          opened folder (from openedFolders) if asked for.
+
+
+2002-12-15     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified all the IMAP code to handle disconnections by the 
+          server. Also refactored some parts and fixed two mem leaks.
+	* Added SMTP: -reset to reset the state of a SMTP session.
+
+
+2002-12-14     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added the Cc header to the list of prefetched headers in IMAP.
+	* Modified IMAPCacheManager to invalidate all caches with
+	  version < 2.
+
+
+2002-12-09     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPCacheManager -initWithCoder to correctly invalidate
+          all caches with version < 2.
+	* Modified IMAPFolder to remove the "Content-Type" header from the
+	  list of automatically fetched headers when caching everything.
+	* Modified MimeUtility: +charsetForString so that if we haven't
+	  found a charset using our 'tables of charsets', before returning
+	  UTF-8, we at least try to convert our string to some encodings
+	  (for now, only NSISO2022JPStringEncoding). Path from
+	  Tomio Arisaka <tomio-a@max.hi-ho.ne.jp>
+
+
+2002-12-08     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added MimeUtility: +stringFromRecipients: type:
+	* Entirely rewrote the implementation of all 'search' functions
+	  in IMAPFolder, LocalFolder and POP3Folder.
+
+
+2002-12-07     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Nearly entirely rewritten IMAP support. More changes are coming
+          but a lot is already in there.
+	* We now correctly update all MSNs after an expunge in IMAP.
+
+
+2002-12-05     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: +stringWithData: charset: so that if we aren't
+	  using Mac OS X, we treat ks_c_5601-1987 encoding as euc-kr.
+	* Rewrote Sendmail: -sendMessageFromRawSource to use the Foundation
+	  classes instead of popen/fwrite/pclose.
+
+
+2002-12-03     Pierre-Yves Rivaille <pyrivail@ens-lyon.fr>
+	       
+	* Source/Parser.m: replaced 21 by 20 in "Content-Description:" parsing.
+
+
+2002-12-02     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added the UUFile class to remove all AppKit dependencies
+          in the MimeUtility class (was using NSFileWrapper).
+	* Updated the OS X project file to add this class.
+	* Refactored a little bit LocalFolder: -appendMessageFromRawSource:
+	  flags: and fixed potential mem leaks in case of an error.
+
+
+2002-12-01     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -setHeadersFromData to use
+          "From " instead of "From -".
+	* Modified MimeUtility: -stringEncodingForCharset: to
+	  consider unknown-8bit as NSISOLatin1StringEncoding.
+	* Modified LocalFolder and LocalMessage to replace all "FileName"
+	  ivar/method names to "Filename" to be consistent with the rest
+	  of Pantomime's source.
+
+
+2002-11-30     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Fixed LocalStore: -createFolderWithName: type:
+          so that the newly created folder has the mode 700 instead
+          of 755.
+	* Modified Message: -setHeadersFromData so that we do NOT
+	  parse the headers already parsed in Part as unknown
+	  headers.
+
+
+2002-11-29     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Refactored most of the POP3 code.
+	* Removed some compiler warnings on OS X 10.2
+	* Updaded the project file to work with Project Builder
+	  v2.0.1.
+
+
+2002-11-28     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed LocalStore: -createFolderWithName: type:
+          We weren't rebuiling our folder enumerator when
+          successfully creating a folder.
+
+
+2002-11-28	Ujwal S. Sathyam <ujwal@setlurgroup.com>
+
+        * NULL wasn't defined in POP3Folder, so I included a 
+          standard C header file like stdio.h.
+          
+
+2002-11-28     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added support for SMTP over SSL and refactored the
+	  SMTP class.
+
+
+2002-11-26     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified LocalFolder: -appendMessageFromRawSource: flags:
+	  to append the sender and the delivery date to the "From "
+	  line.
+	* Removed POP3Folder: -transferMessagesToFolder: since this
+	  method is no longer used.
+
+
+2002-11-20     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Removed MimeBodyPart from the CVS and the OS X project file
+	* Added FolderInformation to the OS X project file
+	* Modified the #include/#import directives so everything
+	  compile under OS X.
+	* Added FolderInformation.h as a public header on OS X.
+	* Added the NSRegEx class.
+	* Added Folder: -searchForString: searchInContent: caseSensitive:
+	  matchRegEx: and implemented this method in ALL Folder subclasses.
+	* Added NSRegEx to the OS X project file and also set its header to public.
+
+
+2002-11-18     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified LocalFolder: -appendMessageFromRawSource: flags:
+          so that we use the theFlags parameters.
+
+
+2002-11-17     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Updated Headers/Pantomime/Constants.h to set the version number
+          to 1.1.0.
+	* Added IMAPStore: -folderStatus. This method needs some refactoring.
+	* Added the FolderInformation class. This class will soon be used
+	  in all Store classes.
+
+
+2002-11-15     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Part: -dataUsingSendingMode so that inner
+          parts always use the SEND_TO_FOLDER mode.
+        * More fixes in the method to prevent corrupted attachments
+          (\r\n being replaced by \r\r\n at the end of the method).
+
+
+2002-10-31     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Replaced all #import calls by #include and guarded all headers
+          against multiple inclusion.
+	* Refactored some code in LocalStore. Fixed security issues regarding
+	  maildir mode.
+	* Refactored IMAPStore. Added -_folderNameFromString: and modified
+	  -folderEnumerator and -subscribedFolderEnumerator to use
+	  that method.
+
+
+2002-10-28     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed the buffer overrun problem in striphtml()
+
+
+2002-10-27     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added DESTROY(delegate) calls in IMAPFolder: -close
+          and -dealloc.
+
+
+2002-10-26     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -forward and -replyWithReplyToAll:
+          so that we deal better with messages w/o a Subject.
+	* Added striphtml() and ent() to the MimeUtility class.
+	  Moved from GNUMail.app.
+	* Added Message (Private): -_plainTextContentFromPart: 
+	  and modified -replyWithReplyToAll: to correct get
+	  the plain/text content of a part (for example, if
+	  it was an html mail).
+
+
+2002-10-22     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added exception handlers when unarchiving POP3 and
+          IMAP cache files.
+
+
+2002-10-20     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added missing #include (NSDebug.h) in TestCase.m
+
+
+2002-10-19     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -replyWithReplyToAll: so that we
+          verify that -receivedDate isn't nil before trying to
+          append its string value to our mutable string. This was
+          causing a segfault on OS X.
+
+
+2002-10-12     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added basic sorting support (ie., comparing category)
+          in the Container class.
+
+
+2002-10-08     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a bug in IMAPFolder: -prefetchMessageBodyWithUID.
+	  We were waiting for a TCP timeout if we had a message
+	  with an empty body.
+
+
+2002-10-05     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a bug in Message: -forward. We are now
+          verifying that we really got a Date field before
+          trying to append its description.
+
+
+2002-10-02     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified NSStringExtensions and Folder to support
+	  "RE :" as a valid prefix and not only "RE:". This should
+	  be enhanced again (speedwise and feature-wise).
+	* Fixed a bug in POP3Store that would prevent messages from
+	  being transferred when using POP3 over SSL.
+
+
+2002-10-01     Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Disabled the creation of empty nodes when threading
+	  by subject for now.
+	* More fixes to the message threading code.
+
+
+2002-09-30     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Improved message threading support.
+
+
+2002-09-23	Ujwal S. Sathyam	<ujwal@setlurgroup.com>
+	
+	* Removed duplicate entry for ChangeLog from PB project.
+	  Hadn't realized that it was already there in the 
+	  Documentation sub-group.
+
+
+2002-09-23     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Folder: -thread so that if we don't have
+	  a Message-ID for a message (which is utterly b0rken),
+	  we create a container for this message and we place
+	  it in the root set.
+
+
+2002-09-22	Ujwal S. Sathyam	<ujwal@setlurgroup.com>
+
+	* Bug fixes for LocalFolder when deleting and renaming maildir stores.
+	  Now accounting for OS X's ".DS_Store".
+	* Added some method declarations for Container and Folder to remove 
+	  compiler warnings.
+
+
+2002-09-20     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified the previous commit to remove some compilation
+          warnings, respect indentation style and some minor other
+          things.
+	* Added Ujwal as a co-author for LocalFolder due to his important
+	  contributions with maildir support.
+	* Added a new class - Container, used for message threading.
+	* Modified Folder and other classes to implement JWZ's message
+	  threading algorithm. 
+	* Updated the OS X project file.
+	* Some refactoring in all Store subclasses and bugs fixing.
+
+
+2002-09-20	Ujwal S. Sathyam <ujwal@setlurgroup.com>
+	
+	* Todo #79: added maildir support. Seems to work fine,
+	but needs more testing.
+
+
+2002-09-14     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Updated the OS X's project file.
+
+
+2002-09-13     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified the call to NSSearchPathForDirectoriesInDomains
+	  in IMAPStore and POP3Store to expand the tilde in the path.
+
+
+2002-09-12     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: +stringEncodingForCharset so that
+	  if we get x-unknown, we assume it is
+	  NSISOLatin1StringEncoding in order to prevent some lame
+	  bugs in other MUA like Pine 4.21.
+
+
+2002-09-09     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Changed the version number in Constants.h to 1.0.6
+	* Removed entirely the class GSMD5 and added (complete
+	  rewrite by me) the class MD5 using some public domain code
+	  in md5.c from Colin Plumb.
+	* Modified all the code to use the new MD5 class instead of
+ 	  the old (and removed GSMD5) class
+	* Fixed SMTP CRAM-MD5 authentication. It now works perfectly.
+	* Merged md5.c/.h in the MD5 class and removed those files.
+	  This was causing problems on OS X using HFS+ since it's not
+	  case sensitive.
+	* Replaced GSMD5.h by MD5.h in Pantomime.h.
+	* Added Pantomime.h in the GNUmakefile for GNUstep and also
+	  recoded the file from ibmpc to latin1.
+
+
+2002-09-08     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Refactored some code in Parser.
+        * Optimized NSStringExtensions: -stringFromQuotedString
+          and refactored some code.
+
+
+2002-09-07	Ujwal S. Sathyam <ujwal@setlurgroup.com>
+
+	* Fixed Parser:+ _parameterValueUsingLine: range:
+	Key-value pairs with spaces between key and value 
+	were not being parsed properly.
+
+
+2002-09-05     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Set the CVS tag to v1_0_5
+        * RELEASED v1.0.5
+
+
+2002-08-20     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPFolder: -prefetch so that if our cached
+ 	  entry had the ANSWERED flag for a specific message,
+	  wet it back to the new Flags object. This is a
+	  temporary solution before the complete IMAP rewrite.
+	* Changed all calls from bzero() to memset().
+
+
+2002-08-19     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed IMAPFolder: -expunge. We weren't calling EXPUNGE on
+          the IMAP server. That would cause problems if we would
+          compact a mailbox and receive new mails right after
+          (deleted mails where shown again).
+
+
+2002-08-14	Ujwal S. Sathyam <ujwal@setlurgroup.com>
+
+	* IMAPFolder.m: -appendMessageFromRawSource: enclosing folder
+	  name in double quotes.
+
+
+2002-08-14     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added LocalStore (Private): _enforceFileAttributes and
+ 	  _enforceMode: atPath: so that for a local store, we ensure that
+	  the path to the local store has the 0700 mode and all its 
+	  subfolders have 0700 and all mboxes have 0600.
+
+
+2002-08-10     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MacOSXGlue.h to define the NSDebugLog variadic
+	  macro.
+	* Modified the OS X project file so that we use the 
+	  traditional cpp.  (added --traditional-cpp to the
+	  CFLAGS)
+
+
+2002-08-09     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added Message: -references/-setReferences: and also
+	  modified LocalFolder.m and Parser.m to parse the 
+	  "References:" header value. More work to come
+	  on this in order to allow message threading.
+
+	
+2002-08-08     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Replaced all NSLog() calls for NSDebugLog().
+          I need to implement NSDebugLog() on OS X.
+
+          
+2002-08-04     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added IMAPFolder: -delegate/-setDelegate and modified 
+          IMAPFolder: -_newMessagesHaveArrived so that if the delegate
+          isn't nil and responds to newMessagesWereReceived:, we perform
+          that selector.
+
+
+2002-08-02	Ujwal S. Sathyam <ujwal@setlurgroup.com>
+
+	* Fixed bug in IMAP folder selection.
+	  When the folder name had a space it, it would break.
+	  Now enclosing the folder name in double quotes.
+
+
+2002-08-01	Ujwal S. Sathyam <ujwal@setlurgroup.com>
+
+	* Fixed bug in IMAP folder subscription and un-subscription.
+	  When the folder name had a space it, it would break.
+	  Now enclosing the folder name in double quotes.
+
+
+2002-07-31     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added Message: -extraPropertyForKey and
+	  -setExtraProperty: forKey: to be able to get and set
+	  extra properties for messages. This is used, for example,
+	  in the PGP bundle of GNUMail.app.
+	* *** NOTE *** You must recompile entirely Pantomime after
+	  upgrading (do a full distclean before compiling it).
+	
+	
+2002-07-29     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: +isASCIIString to return YES if the
+	  argument is nil.
+	* Modified Part: -dataUsingSendingMode: to NOT add the
+	  Content-Transfer-Encoding if it's equal to NONE.
+	* Modified Part: -dataUsingSendingMode: to REUSE the boundary
+	  if it was already defined. If it wasn't, we generate one.
+	* Added Part: -protocol / -setProtocol: and modified
+	  -dataUsingSendingMode: to add the protocol if required.
+	* Modified Part: -dataUsingSendingMode: to better manage
+	  encoding of application/* parts.
+	* *** NOTE *** You must recompile entirely Pantomime after
+	  upgrading (do a full distclean before compiling it).
+
+	
+2002-07-24     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added Connection: -isConnected. Implemented this method
+          in TCPConnection and TCPSSLConnection so we can now safely
+          if we're still connected to the foreign host.
+	* Added a check to see if the connection is valid in
+	  POP3Store: -authenticateWithUsername: password: since some
+	  very lame POP3 servers might drop the connection if the
+	  APOP auth has failed.
+	* Added MimeMultipart: -removeBodyPart so it is now possible
+	  to remove a MimeBodyPart object from a MimeMultipart.
+
+          
+2002-07-10     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added some little fixes in TCPConnection.m and
+	  LocalFolder.m so that everything compiles fine under
+	  Solaris.
+
+
+2002-07-09     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fix in Message: -forward and -replyWithReplyToAll:
+	  so that we don't try the create a NSString object
+	  if the part isn't a NSData object. This could
+	  happen in multipart/alternative parts that had
+	  a text/plain Content-Type but a base64 
+	  Content-Transfer-Encoding.
+
+
+2002-07-05     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Removed all test cases in .c files since we
+	  are never gonna use them.
+
+
+2002-07-02     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a (temporary?) fix to Message: -init so that we
+          always initialize our flags object with the RECENT flag
+          on instead of no flags at all.
+
+        
+2002-06-15     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Constants.h to set the version number to 1.0.5
+
+
+2002-05-30     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Set the cvs tag to v1_0_4
+	* RELEASED v1.0.4.
+
+
+2002-05-29     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Increased the default timeout value from 30s to 60s in
+	  TCPConnection.m.
+
+
+2002-05-21     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added Message: -setRawSource so we can properly set
+	  the rawSource ivar when we want to.
+
+
+2002-05-20     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Updated the version number in the OS X project file
+	  to 1.0.4.
+
+
+2002-05-19     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a patch from Vincent Ricard <magicninja@wanadoo.fr>
+          to POP3Folder and SMTP so that we deal better with lines
+          containing a single dot. Slightly modified the patch
+          so it's faster.
+
+
+2002-05-19  Pierre-Yves Rivaille <pyrivail@ens-lyon.fr>
+
+	* Source/POP3Folder.m ([POP3Folder -expunge:]): 
+	delete the messages on the POP3Server according to
+	the leaveOnServer and retainCount value.
+	
+
+2002-05-09     Francis Lachapelle <francis@Sophos.ca>
+
+	* Fixed bug in SMTP that could happen when sending a message
+	  containing the character sequence "<CRLF>.<CRLF>".
+
+
+2002-05-09     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added three new constants: PantomimeReadTimeoutException,
+	  PantomimeStopException and PantomimeWriteTimeoutException.
+	* Refactored SMTP a lot to avoid handling exceptions inside this
+	  class. They are now propagated to the caller. GNUMail.app, for
+	  example, now handles everything perfectly.
+	* Did the same refactoring to POP3Store/POP3Folder.
+
+
+2002-05-08     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added URLName: -stringValue.
+	* Modified IMAPFolder: -prefetch to add the DELETED flag to the
+	  flags obtained from our server if it was present in the cache. 
+
+
+2002-05-06     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a bug in SMTP: -decodeMaxSizeAllowedFromString. We weren't
+	  verifying properly if the server were sending us a value to the
+	  SIZE parameter. It would generate an index exception and we wouldn't
+	  be able to send the desired mail.
+	* Removed a NSLog() calls and fixed some typos.
+
+
+2002-05-05     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a patch from Vincent Ricard <magicninja@wanadoo.fr> to
+          support the SMTP SIZE extension (RFC1870). This patch also
+          replaces bzero() calls by memset() class in TCPConnection.
+          Modified slightly this patch before applying it to fix some
+          var names, mem leak, etc.
+	* Added rfc/rfc1870.txt.
+
+
+2002-05-04     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified TCPConnection to add -setStopTarget and -setStopSelector.
+          This selector is called quite often on the target to ensure that we
+          don't forget to generate the PantomimeStopException.
+	* Modified POP3Folder and SMTP to handle better the exceptions.
+	  More work needs to be done here. 
+	  NOTE that more commits are to come to MAKE THINGS MORE STABLE.
+	
+
+2002-05-01     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a bug in Message: -replyWithReplyToAll:. If the initial decoding
+	  phase for the text/* part would fail, Pantomime would set the content
+	  as a NSData object (which is the raw source of the part). We were trying
+	  to use this part as a NSString object since we were expecting a
+	  a valid text/* part all the time.
+	* Added Folder: -showRead/-setShowRead.
+	
+
+2002-04-29     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -dataUsingSendingMode to NOT add the <> in
+	  the In-Reply-To header.
+
+
+2002-04-27     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Changed the version number to 1.0.4 in Constants.h
+
+
+2002-04-26     Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Set the CVS tag to v1_0_3
+        * RELEASED v1.0.3.
+
+
+2002-04-25     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified POP3Folder: -prefetchMessageAtIndex to NOT
+	  append the X-UID header anymore.
+	* Fixed a bug in last commit.
+	* Fixed a bug in MimeUtility: +wrapPlainTextString: usingWrappingLimit:
+	  we were not verifying that the length of the line was > of the index
+	  j when removing any leading white spaces (if any). So the code
+	  was breaking if we had a single line with only ">" on it.
+
+
+2002-04-25     Francis Lachapelle <francis@Sophos.ca>
+
+	* Reversed for-loop in method expunge of class IMAPFolder to
+	  fixed possible bug when deleting messages.
+	* Fixed possible problem with deleted messages in method expunge
+	  in class LocalFolder.
+
+
+2002-04-24     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: +stringEncodingForCharset to return
+	  NSISOLatin1StringEncoding when the charset is "x-user-defined"
+	  to prevent a bug from some versions Outlook.
+
+
+2002-04-23     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPStore: -initSSLWithName: port: and POP3Store:
+	 -initSSLWithName: port: to add the NSUserDomainMask in the
+	 search path.
+	* Fixed a retain bug in URLName: _decodeIMAP for the username.
+	* Added a TCPSSLConnection target to the OS X project file. You need
+	  to have OpenSSL installed to compile it (from the Fink project).
+
+
+2002-04-22     Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Added Folder: -numberOfTransferredMessages and modified LocalFolder:
+	  -appendMessageFromRawSouce: to use [self count] +
+	  [self numberOfTransferredMessages] + 1 instead of [self count] + 1
+	  since we can mark messages as transferred and append messages to
+	  a folder after and it'll get the 'wrong' message number.
+	  
+
+2002-04-21     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added Folder: -numberOfUnreadMessages and Folder: -size.
+
+
+2002-04-19     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: +allCharsets to remove iconv from the list.
+	  We will rather provide a list later that iconv supports.
+	* Modified MimeUtility: +compositeMultipartContentFromRawSource: ...
+	  to set the size of the new mime body part object to the length
+	  of the data object (ie., its content).
+	* Modified MimeUtility to add "support" of gb2312 and shift_jis
+	  charsets on OS X.
+
+2002-04-18     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified the Service protocol to add a -username accessor. Modified
+	  all classes (POP3Store, IMAPStore and SMTP) implementing this protocol
+	  to return the username if one exist (defined when authenticating).
+	  Also refactored some code in those classes.
+	* Added username support to URLName for IMAP URLs.
+	* Minor change to SMTP: -dealloc to avoid a compiler warning.
+
+
+2002-04-17     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Enhanced a lot MimeUtility: -allCharsets to that it's now
+	  way more descriptive and consistent.
+	* Done TODO #89. Addded [Part -initWithData: charset:] so that people can
+	  chose which charset to fallback to when none has been specified for 8-bit 
+    	  message.
+	* Fixed a bug in MimeUtility: +decodeBase64. We weren't verifying if our data
+	  object had a length > 0.
+	* Fixed Part: -init to not set the defautl charset to nil.
+	* Added Headers/Pantomime/Connection.h. This file defines the Connection
+	  protocol implemented in TCPConnection and TCPSSLConnection (the bundle).
+	  Cleaned all the code that was using TCPConnection to avoid a lot of
+	  compiler warnings.
+	* Added Connection.h to the OS X project file.
+	* Added the WINDOWS_1250, 1253 and 1254 classes to the OS X project file.
+	* Defined the _() macro in Constants.h
+
+
+2002-04-16     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added support for the Windows-1250, Windows-1253 and
+ 	  Windows-1254 charsets. Modified all the files that are related
+	  to use them.
+	* Modified MimeUtility: +discreteContentFromRawSource.. to correctly
+	  set the Part size when decoding a base64 encoded part - for now.
+	* Modified Message: -forward to set the correct size to all parts
+	  contained in our forwarded message.
+
+
+2002-04-15     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified LocalFolder: -expunge to break the look when a write
+	  error occurs instead of continuing it for no good reason.
+	* Modified LocalFolder: -appendMessageFromRawSource to not synchronize
+	  the cache after each message append.
+	* Modified the makefile to use ${MAKE} instead of make directly.
+	  Suggestion by Chris B. Vetter <chrisv@web4inc.com>.
+
+
+2002-04-14     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: +stringEncodingForCharset to use the 
+          CoreFoundation under OS X to support way more encodings.
+	* Added the CoreFoundation framwork to the OS X project file.
+	* Modified MimeUtility: +stringEncodingForCharset to define our
+	  CFStringEncoding for most charsets.
+	* Removed the use of a local autorelease pool in MimeUtility:
+	  +isASCIIString.
+	* Added Bundles/SSL/.cvsignore.
+	* Added ISO-2022-JP and EUC-JP support to MimeUtility: 
+	  +stringEncodingForCharset:
+	* Added a "dumb" implementation of SMTP: -initSSLWithName: port:.
+
+
+2002-04-13     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed TCPSSLConnection to allow big read/write operations.
+	* Added timeout support to TCPSSLConnection when establishing
+	  connections and refactored TCPConnection to remove old code.
+	* Removed TODO #91.
+	* Added SSL support to POP3Store.
+
+
+2002-04-12     Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Done TODO #90. Optimized TCPConnection by rewriting -_readByte
+	  and -_writeByte and modified the code everywhere to use the
+	  new -_readBytes: length: and -_writeBytes: length: methods.
+	* Added Service: -initSSLWithName: port: and implemented this method
+	  in IMAPStore.
+	* Added Bundles/SSL/TCPSSLConnection. This allows Pantomime to use
+	  a SSL version of the TCPConnection class. Currently, only IMAPStore
+	  was modified to use it. It's pretty trivial to modify the other
+	  classes to support it to. This class should be enhanced in the future
+	  to allow multiplexed I/O and also to be able to verify certificates.
+
+
+2002-04-10     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a bug in IMAPFolder: -appendMessageFromRawSource: flags:.
+	  We weren't nooping first.
+	* Also added flags support for this method. We now consider the
+	  flags argument.
+	* Modified IMAPStore: -folderForName: select: to return nil if the
+	  folder is already open.
+
+
+2002-04-09      Francis Lachapelle <francis@Sophos.ca>
+
+	* Improved the follwing methods of MimeUtility based on
+	  Alexander Malmberg <alexander@malmberg.org> patch:
+	  - unwrapPlainTextString:usingQuoteWrappingLimit:
+	  - wrapPlainTextString:usingWrappingLimit:
+	  - quotePlainTextString:quoteLevel:wrappingLimit:
+	  and removed method _breakWord.
+
+
+2002-04-09      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a bug in MimeUtility: +stringWithData: charset: when freeing
+	  our o_bytes buffer if the iconv conversion failed and also fixed
+	  the leak of closing properly the iconv descriptor in case of a failure
+	  too.
+
+
+2002-04-07      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Changed MimeUtility: +fileWrapperFromUUEncodedString to use
+          -dataWithCapacity instead of -dataWithLength.
+	* Added a patch from Alexander Malmberg <alexander@malmberg.org> to
+	  speed up the charset guessing mechanism.
+	* Regenerated all charset classes.
+
+
+2002-04-06      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Parser: +parseMessageID: inMessage to not trim the
+          <> in Message-ID header value.
+	* Added robustness to POP3Folder so that we handle quite well
+	  TCP timeout and we manage transferred messages vs messages with
+	  which we had an error quite well.
+
+
+2002-04-05      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We now correctly release the folderSeparator ivar in IMAPStore
+	  in -dealloc.
+	* Modified LocalStore: -folderEnumerator to hide .DS_Store directories.
+	* Modified IMAPStore: -renameFolderWithName: toName: to re-subscribe
+	  to the folder if the renamed operation failed.
+	* Added MimeUtility: +allCharsets. This method returns an array of all
+	  "supported" charsets by Pantomime when sending messages.
+
+
+2002-04-04      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added Store: -folderSeparator and implemented this method
+	  in IMAPStore, POP3Store and LocalStore.
+
+
+2002-04-03      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a bug in IMAPFolder: -expunge. We weren't removing the deleted
+          mesasges from the array of "existing" messages.
+
+
+2002-04-02      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Refactored the IMAPFolder class.
+	* Modified IMAPFolder and LocalFolder: -appendMessageFromRawSource: flags:
+	  to generate a PantomimeFolderAppendMessageException in case if an error
+	  occured while appending a message from RAW source to Local or IMAP
+	  folder.
+	* Modified POP3Folder: -transferMessagesToFolder to handle this exception.
+
+
+2002-04-01	Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified LocalStore: -createFolderWithName to support the creation
+          of hierarchical folders.
+	* Modified LocalStore: -deleteFolderWithName to support the deletion
+	  of hierarchical folders.
+	* Added Store: -renameFolderWithName: toName:. Implemented it in
+	  POP3Store.
+	* Implemented -renameFolderWithName: toName: in LocalStore.
+	* Implemented IMAPStore: -deleteFolderWithName:
+	* Implemented IMAPStore: -createFolderWithName: and 
+	  -renameFolderWithName: toName:
+	* Removed the use of a cached version of subscribed folders since
+	  it leads to errors and adds complexity for no good reason.
+	* Modified IMAPFolder: -close to call IMAPStore:
+	  -removeFolderFromOpenedFolders:.
+	* Fixed a bug in IMAPStore: -folderTypeForFolderName. We weren't
+	  read the <tag> OK .. response following our command.
+
+
+2002-03-31      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPStore: -subscribedFolderEnumerator and
+          -folderEnumerator to unquote folder names if they are
+          quoted (Courier-IMAP does that).
+
+
+2002-03-30      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added IMAPStore: -subscribeToFolderWithName and
+          -unsubscribeToFolderWithName.
+	* Implemented IMAPFolder: -appendMessageFromRawSource:
+	  and appendMessageFromRawSource: flags: (w/o flags support
+	  right now)
+	* Added IMAPStore: -folderForName: select: to be able to
+	  have a IMAPFolder w/o selecting it on the IMAP server. It's
+	  very useful in case we just want to append a message to
+	  an IMAP folder.
+	* Added a quick and dumb implementation to IMAPStore:
+	  -folderTypeForFolderName.
+	* Fixed a bug in IMAPStore: -subscribedFolderEnumerator.
+	* Added URLName: -initWithString: path: so that we can use
+	  a predefined path (useful for Local).
+
+
+2002-03-29      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified LocalStore: -folderEnumerator so that it now works
+	  correctly for hiding cache/summary files in subfolders.
+	* Modified MimeUtility.m to only import iconv.h if
+	  HAVE_ICONV is defined.
+
+
+2002-03-27      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Moved more generic methods to the Store protocol. Implememted them
+	  in LocalStore and POP3Store. Implemented them partially in IMAPStore.
+	* Implemented IMAPStore: -folderEnumerator and
+	  -subscribedFolderEnumerator.
+
+
+2002-03-26      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Moved -folderForNameIsOpen: to the Store protocol. Implemented it in
+	  POP3Store and provided a dumb implementation in IMAPStore.
+	* Added Store: -folderTypeForFolderName:. Implemented this method in
+	  POP3Store and LocalStore. Provided a dumb implementation in IMAPStore.
+	* Removed MimeUtility: +foldStringUsingSoftLineBreaks: length: since we
+	  no longer need this method.
+
+
+2002-03-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Updated Constants.h to set the version number to 1.0.3
+	* Done TODO #88. Added iconv support to Pantomime (MimeUtility:
+	  +stringWithData: charset:. This is an initial implementation.
+
+
+2002-03-24      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified POP3Store, POP3Folder and SMTP to use NS_VALUERETURN()
+	  when leaving the exception handling domain.
+	* Set the CVS tag to v1_0_2
+	* RELEASED v1.0.2.
+	
+
+2002-03-22      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added exception handling support in POP3Store:
+	  -authenticateWithUsername: password: 
+	  -responseFromServerIsValid: and
+	  -close.
+	* Same thing for POP3Folder for the methods:
+	  -deleteMessageAtIndex:
+	  -count
+	  -readUID and
+	  -readLength
+	* Modified IMAPStore: -close to call [[self tcpConnection] close].
+	* Did the same thing in POP3Store: -close. This is just 'safe' to 
+	  do that.
+
+
+2002-03-20	Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Done TODO #88. Added test cases for Pantomime and also a simple testing
+	  framework from Alexander Malmberg <alexander@malmberg.org>.
+	* Did some cleanups everywhere for the next release.
+	* Modified IMAPMessage: -setInitalize to release the content if
+	  the flag is NO. Also assign the ivar to nil after. Did the same
+	  thing for LocalMessage.
+
+ 
+2002-03-17     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified the OS X project file to include URLName.h in the list
+	  of public headers.
+	* Added more code to the URLName class and also implemented the missing
+	  methods from the Store protocol for URL handling in POP3Store and
+	  IMAPStore.
+	* Updated Testing/Pantomime.m
+	* Updated the README (need to write the section on how to compile
+	  Pantomime under Apple Mac OS X).
+	* Done TODO #65. Added uudecode support to MimeUtility. Added two methods:
+	  +fileWrapperFromUUEncodedString: and
+	  +rangeOfUUEncodedStringFromString: range:
+	  Those methods haven't been. More work is coming for them.
+	* Fixed a memory leak in MimeUtility:
+	  +encodeWordUsingQuotedPrintable: prefixLength:
+	* Reactivated MimeUtility: +encodeWordUsingBase64: prefixLength:
+	* Added the missing flags support in the IMAP mode. Modified
+	  IMAPFolder: -parseMessageFlagsFromString.
+
+
+2002-03-16     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added more code to the URLName (for Local and IMAP parsing)
+        * Added Store: -initWithURL and -folderForURL. Implemented those
+          two methods for LocalStore.
+
+
+2002-03-15     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified SMTP: -initWithName: port: to handle read/write timeouts
+	  when establishing the connection with the SMTP server. We return
+	  nil in that case.
+	* Added a new class - URLName. This call will be used to support
+	  Local/IMAP/POP3 URL scheme. Did an initial implemenation (mostly a
+	  skeleton).
+	* Added the URLName class to the OS X project file and modified some
+	  files so that everything compiles cleanly under OS X.
+
+
+2002-03-14     Francis Lachapelle <francis@Sophos.ca>
+
+	* Added missing header (NSArray) in NSDataExtensions.h
+
+
+2002-03-14     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added SMTP AUTH support to SMTP. We currently support PLAIN, LOGIN 
+	  (tested) and CRAM-MD5 (untested, if you have a server supporting this,
+	  please contact me!) (TODO #49).
+
+
+2002-03-12     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Refactored TCPConnection. Added -_readByte and -_writeByte. All other
+	  read/write methods use those two non-blocking methods (TODO #83). Also
+	  fixed some little bugs and a memory leak in case of a failure.
+
+
+2002-03-11     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Done some minor cleanups in MimeBodyPart.m
+	* Fixed a bug in IMAPFolder (Private): _replaceCRLFInMutableData:.
+	* Added NSDataExtensions: insertCString: atIndex.
+	* Added a patch from Alexander Malmberg <alexander@malmberg.org> to
+	  NSDataExtensions: -cString so we don't lose any information
+	  while creating the cString reprensetation of a NSData object.
+	* Modified LocalFolder: -appendMessageFromRawSource to NOT use
+	  a temporary NSString object using a latin1 encoding. That was
+	  slowing things down a lot.
+	* Refactored a lot NSDataExtensions. Optimized some parts also.
+
+
+2002-03-08     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added versionning support to POP3CacheObject. Also added a
+	  date ivar and two accessors (-setDate/-date)
+	* Added POP3Folder -setRetainPeriod/-retainPeriod and modified
+	  POP3Folder -prefech to delete messages that have a difference
+	  of 'retainPeriod' days between the current date and the date
+	  when they were first fetched.
+	* Modified Message: -replyWithReplyToAll to NOT include the
+	  sender's signature in the newly created message.
+
+ 
+2002-03-07     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a patch from Alexander Malmberg <alexander@malmberg.org> to
+	  return the 'raw data' of a part if it can't be decoded properly.
+	* Added a patch from Alexander Malmberg <alexander@malmberg.org> to
+	  set the string of an address that can't be parsed to the personal
+	  part of an InternetAddress.
+	* Modified LocalStore to NOT compare folder names in a case insensitive
+	  way since we want to support for example, a folder called 'Test'
+	  and 'test' in a distinc way.
+
+
+2002-03-06     Francis Lachapelle <francis@sophos.ca>
+
+	* Removed unsupported encodings in MimeUtiliy.m (for Mac OS X)
+	* Added import of NSDataExtensions.h and Constants.h in 
+          NSDataExtensions.m
+
+2002-03-06     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified the Part class to properly encode the filename
+          if it's not a pure ASCII string. It'll automatically encode
+          it using QuotedPrintable and the right charset (guessed).
+
+
+2002-03-04     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Refactored MimeUtility: +unfoldLinesFromData.
+	* Refactored MimeUtility: +encodeBase64: lineLength: and fixed
+	  a memory leak.
+	* Refactored MimeUtility: +encodeQuotedPrintable: lineLength:
+				   inHeader:
+	* Refactored MimeUtility: +generateBoundary
+	* Refactored MimeUtility: +generateOSID
+	* Fixed a mem leak in MimeUtility: +encodeHeader
+	* Removed unused code in MimeUtility: +encodeHeaders: usingCharset:
+				              encoding:
+	* Added Part: -lineLength/-setLineLength to be able to specify
+	  the length limit when format of the mail is flowed.
+	* Modified Part: -dataUsingSendingMode to format the mail as
+	  flowed is it has been specified to do so (using the right
+	  line length).
+	* Refactored MimeUtility: +decodeHeader.
+	* Modified POP3Folder: -prefetchMessageAtIndex to use the
+	  local autorelease pool at the very beginning of the method.
+
+
+2002-03-03     Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Added a patch from  Alexander Malmberg <alexander@malmberg.org>.
+	  Added the NSDataExtensions class.
+	  This patch allows Pantomime to support 8bit messages.
+	  Modified the patch (refactored some parts and fixed some little
+	  bugs).
+	  This needs more work but this is an excellent starting point.
+	  The OSX port will need to be updated since this code won't work
+	  right now under OSX.
+	  Some of the API was changed and will need to be documented. In
+	  general, the library should 'behave' pretty much the same as it
+	  did before, minus the minor changes in the APIs.
+
+
+2002-02-27     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Contants.h to set the version number to 1.0.2.
+
+
+2002-02-26     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a patch by Alexey I. Froloff <raorn@binec.ru> so that
+	  we deal better with text/* parts encoded in base64. We now
+	  return those parts ONLY as a NSString object.
+	* Set the CVS tag to v1_0_1
+	* RELEASED v1.0.1
+
+
+2002-02-25    Francis Lachapelle <francis@Sophos.ca>
+
+	* Updated Project Builder file to version 1.0.1.
+
+
+2002-02-23     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added RFC2384 (POP3 URL Scheme) and a TODO
+
+
+2002-02-22     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed some RETAIN/AUTORELEASE bugs in MimeUtility if the initial
+	  conditions for some methods were not met. Patch from
+	  Alexander Malmberg <alexander@malmberg.org>.
+	* Added rfc/rfc2192.txt (IMAP URL Scheme) and a TODO
+
+
+2002-02-21     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added MimeUtility: +stringEncodingForPart to be able to
+	  get the best string encoding for a NSString object that will
+	  be used to represent a specific part.
+	* Added the support for the Windows-1252 charset.
+	* Modified Parser: +parseDestination: forType: inMessage:
+	  to decode the possibly encoded personal value of an
+	  InternetAddress object.
+	* Fixed little bugs in CharsetDecoder.m and updated the
+	  update_sets.sh script.
+	* Updated the OSX project file to include the new
+	  WINDOWS_1252 class.
+
+
+2002-02-20     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Changed the return type of Store: -folderForName and
+	  -defaultFolder from Folder * to id. Modified the classes implementing
+	  the Store protocol for those changes.
+	* Changed IMAPStore to return IMAPFolder * instead of Folder * for
+	  -folderForName: prefetch: and -folderForName: withIMAPCacheManager:
+	* Changed POP3Store to return POP3Folder * instead of Folder * for
+	  folderForName: prefetch:
+
+
+2002-02-19     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified LocalFolder: -parse to output useful logs when
+	  the cache is used or needs to be build.
+	* Modified MimeUtility: -encodeWordUsingBase64 to return the
+	  received string (as argument) if it doesn't need to be encoded.
+	* Cleaned some comments in MimeUtility.m
+	
+
+2002-02-17     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Moved LocalFolder.h: - (void) appendMessageFromRawSource: 
+          (NSString *) theString; in Folder.h.
+        * Added LocalFolder: -appendMessageFromRawSource: flags:
+          to be able to transfer a message from a raw source with
+          a set of flags.
+	* Fixed some #import / @class in the Folder class.
+	* Added Folder: -updateCache to update the cache 'hidden' in
+	  the Folder class in case messages have been transferred and
+	  we want to hide right now those messages.
+	* Added NSCopying support to the Flags class. Also added
+	  -initWithFlags: (int) theFlags.
+
+
+2002-02-16     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed some missing #imports in Pantomime.h
+	* Modified Folder: -setShowDeleted to TEST_RELEASE
+	  our allVisibleMessages array before setting this ivar
+	  to nil.
+	* Fixed a bug in LocalFolder: -expunge. We were NOT adding
+	  the message separator (\n) after each messages.
+
+
+2002-02-15     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Optimized Folder: -allMessages. We now use a 'ghost' array
+          (allVisibleMessages) so that we don't have to recreate it
+          everytime Folder: -allMessages is called.
+	* Modified Folder: -appendMessage to also append the message
+ 	  to our allVisibleMessages array if it exists.
+ 	* Did the same thing for Folder: -removeMessage.
+	* Modified Folder: -setMessages to release the allVisibleMessages
+	  array if it does exist. We also set this ivar to nil after.
+	* Modified Folder: -messageAtIndex to use [self allMessages] instead
+	  of the allMessages ivar directly.
+
+
+2002-02-15     Francis Lachapelle <francis@Sophos.ca>
+
+	* Modified the method replyWithReplyToAll of Message so it uses 
+	  the method quotePlainTextString from the class MimeUtility.
+	* Improved methods:
+	  quotePlainTextString (added conditional space char insertion);
+	  unwrapPlainTextString (fixed wrong quoted block insertion location);
+	  wrapPlainTextString (added proper space-stuffing).
+
+
+2002-02-15     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added Folder: -numberOfDeletedMessages. This method returns
+	  the number of deleted messages in a folder.
+
+
+2002-02-14     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified TCPConnection: -writeLine / -writeString to
+	  return YES on success and NO on error. Suggestion by
+	  Luis Garcia Alanis <luis@sogrp.com>
+
+2002-02-14  Pierre-Yves Rivaille <pyrivail@ens-lyon.fr>
+
+	* New Message methods to support sorting by size
+
+
+2002-02-14     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message (Sorting) to use compareAccordingToNumber
+ 	  instead of reverseCompareAccordingToNumber in
+	  compareAccordingToDate.
+
+
+2002-02-13	Francis Lachapelle <francis@Sophos.ca>
+
+	* Updated Project Builder file:
+	  added LocalFolderCacheManager;
+	  added KOI8_R and KOI8_U;
+	  added WINDOWS_1251.
+
+2002-02-13     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified LocalFolder: -appendMessageFromRawSource to only
+	  initialize the message from the headers and not entirely.
+	  This speedups things a lot and uses far less memory.
+	* Cleaned A LOT the Folder class and it's subclasses. Removed
+	  the -setCount method and moved generic implementation of most
+	  methods (cout, messageAtIndex, etc) in the Folder class and
+	  removed them from their subclasses.
+	* Implemented LocalFolder: -expunge.
+	* Modified LocalStore: -deleteFolderWithName to also remove
+	  the cache when deleting a folder.
+	* Some bug fix for Message's comparing methods. Patch
+	  from Pierre-Yves Rivaille <pyrivail@ens-lyon.fr>.
+	* Added a fix to support nil dates for the Sorting Message's
+	  category.
+
+
+2002-02-12     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Done more work on caching support for local folders.
+	* Added a patch from Pierre-Yves Rivaille <pyrivail@ens-lyon.fr>
+	  to support comparisons in the Message class.
+
+
+2002-02-11     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added coding support to LocalMessage.
+	* Added the LocalFolderCacheManager class. This is an initial
+	  implementation.
+	* Added support for caching for local mboxes. This support is
+	  currently BROKEN and YOU SHOULD NOT USE PANTOMIME right now.
+
+
+2002-02-08     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified LocalStore: -folderEnumerator to NOT return
+	  Netscape Mail's summary files when enumerating mboxes.
+	* Modified the license in all .m files from GPL to LGPL. That
+	  was a mistake due to "copy & paste". The lib was always under
+	  LGPL so nothing changes.
+	* Done the same thing with all .h files.
+
+
+2002-02-07     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a patch from Sir Raorn <raorn@binec.ru> for
+	  koi8-r, koi8-u and windows-1251 charsets (cyrillic) support.
+
+
+2002-02-04     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Constants.h to set the version number to 1.0.1.
+
+
+2002-01-30     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * RELEASE OF 1.0.0
+	* Set the CVS tag to v1_0_0
+
+
+2002-01-28     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: +decodeStringFromQuotedPrintable: charset:
+	  to add an handler for exceptions.
+
+
+2002-01-27     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a local autorelease pool in MimeUtility:
+          +charsetForString.
+
+
+2002-01-26     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added local autorelease pool in MimeUtility: +isASCIIString,
+          +encodeText: usingCharset: encoding: and
+          +foldStringUsingSoftLineBreaks: length:
+	* Optimized SMTP: -sendMessageFromRawSource.
+	* Moved the TEST_RELEASE(pool) in MimeUtility:
+	  +encodeText: usingCharset: encoding: after the for loop. That
+	  was causing a segfault.
+
+
+2002-01-25     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added version control support to IMAPCacheManager and
+	  modified -initWithCoder so we can safely discard IMAP caches
+	  from previous releases of Pantomime.
+
+
+2002-01-24     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: +discreteContentFromRawSource:
+	  usingContentTransferEncoding: charset: to accept the 
+	  part parameter and enabled the decoding of the content
+	  format=flowed in this method using MimeUtility:
+	  +unwrapPlainTextString: usingQuoteWrappingLimit:.
+	* Added missing @end at the end of the public Message
+ 	  implementation.
+	* Modified POP3Folder: -prefetchMessageAtIndex so that
+	  we verify if we get the Status: header while receiving our
+	  message. If we don't, we just add it.
+	* Done TODO #84. Changed -setFileName and -fileName to 
+	  -setFilename / filename everywhere.
+
+
+2002-01-23     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -replyWithReplyToAll so that we when we verify
+	  for text parts, we verify for text/plain, text/enriched and
+	  text/html instead of text/* in case for example, we have
+	  a text/x-vcard or anything else.
+	* Modified TCPConnection: -readLineBySkippingCR to increase our
+	  buffer to 4096 chars and also added an extra verification
+	  on the aString local var to not call -length on it if it's nil.
+
+	
+2002-01-22     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Renamed Folder: -removeTransferredMessage to -removeMessage
+	  and modified IMAPFolder the same way.
+	* Modified MimeUtility: -compositeMultipartContentFromRawSource:
+	  usingBoundary: to separate our components by "\n--<boundary>"
+	  instead of "--<boundary>".
+	* Modified MimeBodyPart: -initWithString to sent the length
+	  of the range for the bodyString to
+	  [theString length] - aRange.location - 2 instead of
+	  [theString length] - aRange.location - 3.
+
+
+2002-01-21     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a private category to IMAPFolder and defined:
+	  - (void) _replaceCRLFInMutableString: (NSMutableString *) 
+	                                            theMutableString
+          in it in order to ease the replace operation of \r\n by \n.
+	* Fixed a bug IMAPFolder: -prefetchNewMessagesStartingAtUID.
+	  We were NOT replacing \r\n by \n in our headers so that
+	  headers will have wrong values (all ending by a \r).
+	  You MUST again remove your IMAP cache since the old copy
+	  probably contains wrong serialized headers.
+
+	
+2002-01-20     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Part.m to not rely on subclasses for most methods
+          and added NSCoding support.
+        * Modified MimeBodyPart to remove unused methods.
+	* Added NSCoding support to MimeBodyPart.
+	* Added NSCoding support to Message.
+	* Modified IMAPCacheObject to use a Message ivar instead of
+	  a dictionnary of headers.
+	* Modified IMAPFolder to use the new IMAPCacheObject.
+	* YOU MUST REMOVE ALL YOUR IMAP CACHE FILES BEFORE USING THIS NEW
+	  CODE. Just rm -f ~/GNUstep/Library/GNUMail/IMAPCache* (or
+	  rm -f ~/Library/GNUMail/IMAPCache* under OS-X)
+	* Added a Private category to message and moved the method
+	  formatRecipientsWithType in it (renamed
+	  _formatRecipientsWithType).
+
+
+2002-01-19     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPFolder: -prefetch to remove from the cache
+          to objects (ie., messages) that have been deleted from
+          the IMAP server. Patch written with
+          Anthony W. Juckel <awj@digitalgreen.com>.
+	* Modified Message: -replyWithReplyToAll to verify the encoding
+	  of a text/* part when searching for one in a multipart/alternative
+	  body part in case it was base64 encoded. We don't assume it's a
+	  NSString anymore.
+	* Did the same thing in Message: -forward.
+	* Corrected the ivar headers type in IMAPCacheObject (it was
+	  a NSString instead of a NSDictionary) and changed the parameter
+	  type of -setHeaders (same mistake).
+	* Added NSCoding support to Flags.
+	* Refactored a little bit Part.h
+
+
+2002-01-18      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Included a patch from Anthony W. Juckel <awj@digitalgreen.com> to
+	  implending encoding/decoding support in InternetAddress. Also, the
+	  patch modifies IMAPCacheObject to serialize the headers as a 
+	  NSDictionnary instead as a string - this should make things faster
+	  when opening the cache.
+	  The patch also cleans some method names in Message so we don't
+	  confuse -initWithHeaders / -initWithHeadersFromString methods
+	  (same thing with -setHeaders / -setHeadersFromString).
+	  Modified SMTP.m to use -setHeadersFromString instead of
+	  -setHeaders.
+	  YOU MUST REMOVE ALL YOUR IMAP CACHE FILES BEFORE USING THIS NEW
+	  CODE. Just rm -f ~/GNUstep/Library/GNUMail/IMAPCache* (or
+	  rm -f ~/Library/GNUMail/IMAPCache* under OS-X)
+
+
+2002-01-17	Francis Lachapelle <francis@Sophos.ca>
+
+	* Fixed wrong releases in method wrapPlainTextString of MimeUtility.
+	
+
+2002-01-17     Ludovic Marcotte <ludovic@Sophos.ca>
+	
+	* Modified Contants.h to add PANTOMIME_VERSION and to set it
+	  to 1.0.0.
+        * Modified Message.m to set the Pantomime version number to
+	  use PANTOMIME_VERSION.
+
+
+2002-01-15     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: +unwrapPlainTextString: usingQuoteWrappingLimit:
+	  +wrapPlainTextString: usingWrappingLimit:
+	  +quotePlainTextString: quoteLevel: wrappingLimit:
+	  to use a local autorelease pool.
+	* RELEASED 0.9.0 and set the CVS tag to v0_9_0.
+
+
+2002-01-14     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: -foldStringUsingSoftLineBreaks: length:
+	  so that we verify the length of our string before try to obtain
+	  the characters near the end of that string.
+	* Modified Part to accept a new ivar for holding the format of the
+	  mail (flowed / unknown). Patch from Francis Lachepelle
+	  <francis@Sophos.ca>
+	* Modified Contants.h to define two new contants for the format:
+	  FORMAT_UNKNOWN -> 0
+	  FORMAT_FLOWED  -> 1
+	  Patch from Francis Lachepelle <francis@Sophos.ca>
+	* Added MimeUtility: +unwrapPlainTextString: usingQuoteWrappingLimit:
+	  and +quotePlainTextString: quoteLevel: wrappingLimit.
+	  This completes TODO #78 (see Format flowed...)
+	  Refactored +wrapPlainTextString: usingWrappingLimit.
+	  This completes TODO #81 (rewrite this method)
+	  Patch from Francis Lachepelle <francis@Sophos.ca>.
+	* Modified Parser: -parserContentType: inPart: to decode the
+	  format parameter and set the part's format to FORMAT_UNKNOWN
+	  or FORMAT_FLOWED depending on the value that has been read.
+	  Patch from Francis Lachepelle <francis@Sophos.ca>.
+	* Added Parser:  _parameterValueUsingLine: range: to be able
+	  to read parameter values all the time. For example the charset
+	  parameter encoded using multipart format like
+	  charset="us-ascii"
+	  charset=us-ascii
+	  charset=us-ascii;
+	  We now call this method for decoding the boundary, the charset,
+	  the format and the name.
+	* Modified Message: -stringValueUsingSendingMode to add the 
+	  flowed parameter IIF the Content-Transfer-Encoding is NOT
+	  QuotedPrintable or Base64.
+	* Done the same thing in MimeBodyPart: -stringValueUsingSendingMode.
+
+
+2002-01-13     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified POP3Folder: -prefetchMessageAtIndex to use a local
+          autorelease pool for this method.
+	* Modified Message: -forward to set the Content-Type of our
+	  forward text part (in case it's a text/html or text/enriched).
+	* Modified MimeBodyPart: -stringValueUsingSendingMode to replace
+	  all 'appendString' call by 'appendFormat'.
+	* Same thing for Message: -stringValueUsingSendingMode.
+	* Modified Message: -forward to set the filename to the new part
+	  when the Content-Type is message/rfc822 or any other type like
+	  application/*, audio/*, image/* or video/*.
+	* Modifed MimeUtility: -setContentFromRawSource: inPart: to treat
+	  message/delivery-status like a discrete type.
+	* Same thing for MimeBodyPart: -stringValueUsingSendingMode and
+	  also modified that method when the Content-Type is message/rfc822
+	  OR message/partial (replaced since it was originally message/*)
+
+
+2002-01-12     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified LocalFolder: -close to not use a mutable string
+          for writing our temporary message but we rather write
+          it directly.
+	* Rewritten MimeBodyPart: -stringValueUsingSendingMode to
+	  support most kind of parts. It still more work and a little
+	  bit of refactoring (to generalize some parts of this method).
+
+
+2002-01-11     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Implemented -contentDisposition/-setContentDisposition in
+	  Message.m
+	* Modified some comments in MimeUtility.m
+	* Refactored Message: -replyWithReplyToAll and -forward so they
+	  are both more stable and should work way better with various
+	  messages.
+	* Modified Parser: -parseContentType: in Part: to decode the
+	  filename before setting it in case it was QP (or base64) encoded.
+	* Modified Message: -replyWithReplyToAll to search for 
+	  multipart/alternative text/plain parts inside a multipart/mixed 
+	  (or related) part.
+	* Modified Message: -forward to set all body parts disposition to
+	  "attachment" when adding them to our new multipart object.
+
+
+2002-01-09     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Moved setContent/content from MimeBodyPart / Message to Part.
+	* Modified MimeBodyPart: -initWithString to use
+	  MimeUtility: +setContentFromRawSource: inPart.
+	* Modified Message: -setContentFromRawSource to use
+	  MimeUtility: +setContentFromRawSource: inPart.
+	* Added new methods to MimeUtility:
+	  +discreteContentFromRawSource: usingContentTransferEncoding: charset:
+	  +compositeMessageContentFromRawSource
+	  +compositeMultipartContentFromRawSource: +usingBoundary
+	  +setContentFromRawSource: inPart:
+	  Those new methods are used to decode ALL parts's content.
+	* Modified Charset: -characterForCode to return \t \n or \r if
+	  we get such char as the parameter.
+
+
+2002-01-08     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeBodyPart: -initWithString so that if our part
+	  is a message/rfc822, we use Message: -initWithString instead
+	  of separating the headers from body and setting both to the
+	  message.
+	* Modified Message to set the rawSource ivar in -initWithString
+	  instead of -setContentFromRawSource since the latter was wrong
+	  (not including the headers).
+
+
+2002-01-07     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPStore: -close to replace %d by %@ in the 
+	  string to verify when closing. Otherwise, were we looping
+	  endlessly. This bug has been introduced by on saturday.
+
+
+2002-01-06     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPFolder: -prefetchMessageBodyWithUID to read
+          the extra two lines sent by the IMAP server at the end of a
+          FETCH BODY[TEXT]. Only one of them was read. Modified the
+          comment to describe this part of the code.
+        * Done the same thing in -prefetchMessageWithUID and also added
+          the code to replace all \r\n by \n in the content of the message
+          returned by the IMAP server.
+	* Modified IMAPStore: -close to read the response sent by the
+	  IMAP server when we issue a LOGOUT. Currently, we just ignore
+	  the result.
+	* Added rfcs/rfc2183.txt (The Content-Disposition Header Field)
+	* Modified Message: -rawSource to return the rawSource ivar if
+	  it's not nil. This ivar is ONLY set in setContentFromRawSource since
+	  we migth be able to retrieve the raw source of a message
+	  (for example, from a message/rfc822 part). YOU MUST recompile
+	  Pantomime ENTIRELY (make distclean; make) since this change
+	  was made.
+
+          
+2002-01-04     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Included a patch from Anthony W. Juckel <awj@digitalgreen.com>
+	  to progressively read from the socket instead of trying to read
+	  everything in one step. This bug is fixed in TCPConnection:
+	  -readStringOfLength: .
+	* Included a patch from Anthony W. Juckel <awj@digitalgreen.com> so
+	  that Flags now uses a bitstring instead of a mutable array to
+	  manage the flags. It should make things way faster. GNUMail.app
+	  *** NEEDS *** to be recompiled (entirely).
+	* Modified POP3Folder: -count to use TCPConnection: -readLine instead
+	  of TCPConnection: -readStringOfLength: 80 to prevent it from
+	  blocking.
+	* Included a patch from Anthony W. Juckel <awj@digitalgreen.com>
+	  (modified by myself) to optimize the IMAPFolder code.
+	* Fixed a little bug in IMAPFolder: -prefetchNewMessagesStartingAtUID
+	  so that we prevent a 'bug' from IMAP server that always return
+	  the last UID even if we started our prefetch at this UID.
+	* Renamed MimeUtility: +encodeWordUsingQuotedPrintable to
+	  +encodeWordUsingQuotedPrintable: prefixLength: and implemented
+	  the support of folding the result if it needs to be folded to
+	  75 characters (to be RFC2047 compliant).
+	* Modified InternetAddress: -stringValue to call this new method
+	  instead of the old one.
+	* Modified IMAPFolder: -prefetchNewMessagesStartingAtUID so that it
+	  makes the verification for the 'wrong' UID after we get it
+	  from -parseMessageUIDFromString and corrected a memory leak.
+	* Modified MimeUtility: +encodeText: usingCharset: encoding: to
+	  always return an encoded string (even if it's pure ASCII).
+	* Modified IMAPFolder: -prefetch to use a 'rotating' autorelease pool
+	  that we release after every 100 iterations of the loop.
+	* Modified Message: -setHeaders to use a local autorelease pool
+	  during this method call.
+	* Optimized MimeUtility: -unfoldLinesFromString.
+
+
+2002-01-03     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: -encodeText: usingCharset: encoding:
+	  so that when we see a '?', we append directly the =3f code.
+	  This is to be fully RFC2047 compliant.
+	* Added missing return in MimeUtility: --encodeText: usingCharset: 
+	  encoding: when the encoding was BASE64.
+
+
+2001-12-30     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeBodyPart: -initWithString so that we remove
+          the extra junk for multipart/appledouble before the mime
+          boundary if we need to (like we do for multipart/alternative).
+          This fix some warning we had.
+	* Modified Parser: -parseContentType: inPart: so that when
+	  we decode our boundary, we read the substring only between
+	  the quotes if we have some and if not, we read the boundary
+	  until the end of the string. This fix a bug with mailman for
+	  example that adds junk after the Content-Type.
+
+
+2001-12-28     Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified UTF8.h to make the class inherit from NSObject.
+
+
+2001-12-26      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -setContentFromRawSource to verify not only
+          for image/* Content-Types but also application/*, audio/* and
+          video/*.
+
+
+2001-12-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Applied a small fix in MimeUtility: -unfoldSoftLineBreaksFromString.
+          We now make our new range from aRange.location instead of
+          aRange.location + 1. Modified the length of our new range too.
+
+
+2001-12-23      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Applied a small fix in MimeUtility: -unfoldSoftLineBreaksFromString.
+          we were replacing "=\n" by "\n" instead of just deleting that
+          range of characters.
+
+
+2001-12-22      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -setContentFromRaw source. When
+          the Content-Transfer-Encoding is quoted-printable,
+          we actually decode our string so we don't do it
+          in Utilities.m (from GNUMail.app) but rather inside
+          the library.
+	* Modified MimeBodyPart: -initWithString so that when
+	  the Content-Transfer-Encoding is quoted-printable,
+	  we don't break our string on \n and decode all the lines
+	  but rather decode the string directly.
+	* Optimized MimeUtility: -foldStringUsingSoftLineBreaks:
+							 length:
+
+
+2001-12-21      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We now make an extra verification in MimeBodyPart:
+          -initWithString when the Content-Type is a
+          multipart/alternative before removing the 'junk'.
+          We now also verify that our aRange has a length > 0
+          and a location > 0.
+
+
+2001-12-20      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -forward to be use the same code as
+	  text/plain parts when we want to forward a message
+	  with a Content-Type of text/enriched.
+
+
+2001-12-19      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added GSMD5.h/.m from gscrypt. Modified this class to not
+	  depend on other gscrypt's classes and also refactored a
+	  little bit the code.
+	* Added GSMD5.h/.m to the GNUmakefile
+	* Added POP3Store: -apopAuthenticateWithUsername: password:
+	  and POP3Store: -useAPOP and -setUseAPOP to allow APOP
+	  authentication.
+	* Modified POP3Store: -authenticateWithUsername: password:
+	  to use apopAuthenticateWithUsername: password: if the server
+	  only supports APOP or if we must use APOP. Done TODO #48.
+	* Modified MimeUtility: +decodeStringFromQuotedPrintable: charset:
+	  to use a 'local' autorelease pool that we release every 100th
+	  iteration in the loop. This fix the problem of messages eating
+	  A LOT of RAM when being decoded from QP (if they are big).
+	* Modified LocalFolder: -appendMessageFromRawSource to replace
+	  all occurences of "\nFrom " to "\n>From ". Otherwise, it will
+	  break the mbox format.
+	* Added GNUmakefile.postamble and modified GNUmakefile to include
+	  it. Done TODO #31.
+	* Modified Parser: +parseSubject: inMessage: to support empty
+	  subjects.
+	* Done the same thing for +parseOrganization: inMessage:
+	                          +parseContentDisposition: inPart:
+				  +parseContentID: inPart:
+				  +parseContentTransferEncoding: inPart:
+				  +parseContentType: inPart:
+				  +parseDate: inMessage:
+				  +parseDestination: forType: inMessage:
+				  +parseFrom: inMessage: 
+				  +parseMessageID: inMessage:
+				  +parseMimeVersion: inMessage:
+				  +parseReplyTo: inMessage:
+				  +parseResentFrom: inMessage:
+				  +parseStatus: inMessage:
+				  +parseXStatus: inMessage:
+	* Modified POP3Store: -initWithName: port: to set 
+	  useAPOP to NO by default.
+	* Done TODO #62. Patch from Vicent Ricard <magicninja@wanadoo.fr>.
+	  Added new class: UTF8.
+	  Modified the GNUmakefile to include it.
+	* Added MimeUtility: +decodeStringFromUTF8 which uses the new class
+	  UTF8.
+	* Modified MimeUtility: +decodeStringFromQuotedPrintable: charset:
+	  to use MimeUtility: +decodeStringFromUTF8 if the charset
+	  is UTF-8.
+	* Added missing #import <Pantomime/Constants.h> in UTF8.m
+	* Updated MacOS-X project file.
+	* Corrected a tiny bug of a misplace ; in GSMD5.m
+
+
+2001-12-18      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Removed all references to the NSUserDefaults in Message.m
+	* Added Parser: +parseOrganization: inMessage:
+	  and modified LocalFolder: -parse and Message: -setHeaders
+	  to use this method.
+	* Added Message: -setOrganization and -organization to set and
+	  get the Organization header value.
+	* Removed TODO #8. We now define -authenticateWithUsername:
+	                                                  password:
+	  in the Service protocol and we implement this method in
+	  SMTP.m (dummy implementation right now).
+	* Cleaned some headers and the TODO list.
+	* Done TODO #58. Implemented MimeUtility: +encodeWordUsingBase64
+	  and modified MimeUtility: +encodeText: usingCharset: encoding:
+	  to use it.
+	* Changed POP3Store: -responseFromServerIsValid to
+	  -responseFromServerIsValid: (NSString **) theResponse so we can
+	  read back the response from our server. Updated all methods calls
+	  in POP3Store.m and POP3Folder.m
+	* Added POP3Store: -timestamp and -setTimestamp for APOP support
+	* Modified POP3Store: -initWithName: port: to detect APOP support
+
+
+2001-12-17      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * We include <sys/time.h> in TCPConnection.m
+	* Refactored SMTP so that we use TCPConnection. 
+	* Same thing for POP3Store and POP3Folder
+	* Same thing for IMAPStore and IMAPFolder
+	* Removed unused methods from Service.h
+	* Added TCPConnection: -readLineBySkippingCR: so
+	  that we can generalize the process of reading a line
+	  for SMTP, POP3 and IMAP.
+	  Modified -readLine to call readLineBySkippingCR with
+	  NO as the parameter. YES is passed only when
+	  using IMAP.
+	* Modified Message.m to now use the version number 0.9.0.
+	* Modified MimeUtility: -wrapPlainTextString:
+	                          usingWrappingLimit:
+	  and -foldStringUsingSoftLineBreaks: length: since we
+	  were removing the last two characters and not the
+	  last one.
+	* Same thing for MimeUtility: -_breakWord: usingLimit:
+	* Added missing #import of Constants.h in TCPConnection.m
+	* Updated MacOS-X project file (added TCPConnection)
+
+
+2001-12-16      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Done TODO #66. Added TCPConnection with non-blocking
+          connect. Needs more work for read/write operations and
+          needs to be integrated in all classes that do socket I/Os.
+	* Fixed a bug in POP3Folder: -transferMessagesToFolder. We
+	  now correctly delete the messages if we don't need to keep
+	  them on the server.
+	* Done the same thing in POP3Folder: -prefetch.
+
+
+2001-12-14      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPFolder: -prefetchMessageBodyWithUID so that
+	  we verify that aString isn't nil before adding it to our
+	  mutable string since under OS-X, appending a nil value
+	  to a NSMutableString will generate a segfault.
+	* RELEASE OF 0.8.0.
+	* Added tag v0_8_0 for current files
+	
+	
+2001-12-12      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified LocalFolder: -close to catch potential errors
+	  while saving the mailbox to a temporary file. If an error
+	  occurs, we don't remove the original one.
+
+
+2001-12-11	Francis Lachapelle <francis@Sophos.ca>
+    	
+	* Improved Project Buillder file definition
+
+
+2001-12-11      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * 'Finished' the implementation of wrapPlainTextString: 
+	   usingWrappingLimit:. This method WILL have to be rewritten
+	   since it's VERY ugly.
+	* Added MimeUtility: _breakWord: usingLimit: to break a word
+	  that is longer than a specified limit into words separated
+	  by \n.
+
+
+2001-12-10      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added MimeUtility: -wrapPlainTextString: usingWrappingLimit:
+          to wrap text/plain messages to the specified line limit. This
+          method is just a skeleton.
+
+
+2001-12-09      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: -decodeText so that we make
+          an initial verification to see if the text has been
+          QP/Base64 encoded before created the mutable string
+          and looping. It should make the parsing of mailboxes
+          a little bit faster. It also reduce memory requirements.
+	* Fixed a small leak in both Message.m and MimeBodyPart.m when
+	  decoding message/rfc822 messages. We were not releasing
+	  the new message after setting it as the content.
+
+
+2001-12-08      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Implemented the support of message/rfc822 as the
+          Content-Type of messages (not only mime body parts).
+	* Fixed Message: -forward when we try to forward messages
+	  that has message/rfc822 as their Content-Type.
+	* Done the same thing for Message: -replyWithReplyToAll.
+	
+
+2001-12-06      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeUtility: +generateBoundary to include "=_" at
+	  the beginning of the generated boundary like it's recommended
+	  in RFC2045 - 6.7.
+	* Created MimeUtility: +unfoldSoftLineBreaksFromString.
+	* Modified Message and MimeBodyPart to use this new method.
+	* Created MimeUtility: +foldStringUsingSoftLineBreaks: length:
+	  to fold using the soft line breaks methods the line that
+	  are longer than length.
+	* Fixed a bug in Message: -forward, we weren't keeping the
+	  Content-Transfer-Encoding and the Charset of the text parts.
+	* Modified Message: -replyWithReplyToAll to set the In-Reply-To
+	  header when replying to an E-Mail. Modified Message:
+	  -stringValueUsingSendingMode to actually use this header.
+
+
+2001-12-05      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeBodyPart: -initWithString so that we consider
+	  "binary" content transfer encoding like 8bit.
+	* Modified MimeBodyPart: -initWithString so that we remove
+	  the 'junk' before the real boundary of a multipart/alternative
+	  part.
+	* Modified Message: -setContentFromRawSource so that we remove
+	  the first \n only if it's present. Done the same thing in
+	  MimeBodyPart: -initWithString.
+	* Since we made the last modification, changed the comparison:
+	  if (! [aString hasPrefix: @"-\n"] ) to:
+	  if (! [aString hasPrefix: @"--\n"] ) in both Message and
+	  MimeBodyPart.
+	* Refactored some other parts of MimeBodyPart.
+	
+2001-12-03      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * In Charset: - characterIsInCharset added a test to
+	  verify that the character isn't a control character.
+	  If it is, we simply return YES.
+
+	  
+2001-11-30	Francis Lachapelle <francis@Sophos.ca>
+
+	* Added tag v0_7_0 for current files
+
+2001-11-30      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message.m since we are now at 0.8.0
+	* Modified POP3Folder: -prefetch so we don't use
+	  the autorelease pool.
+	* Done the same thing in IMAPFolder: -prefetch and
+	  in -prefetchNewMessagesStartingAtUID.
+	* Modified Charset: -characterForCode so that we
+	  never return nil but if the character isn't found,
+	  we return @"".
+
+
+2001-11-30      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * RELEASE OF 0.7.0
+
+
+2001-11-29      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed Message: -setContentFromRawSource to unfold
+	  soft-folded lines in a Content-Type: text/plain with
+	  a Content-Transer-Encoding set to QP.
+	* Modified MimeBodyPart to support multipart/appledouble
+	* Added MimeBodyPart: _mimeMultipartFromRawSource
+	  to reuse code defined when parsing multipart/alternative
+	  parts for multipart/appledouble.
+	* Fixed a memory leak in Message: -forward. We were not
+	  releasing the newMimeBodyPart.
+	* Fixed a memory leak in Message: -forward. We were not
+	  releasing the newMimeMultipart.
+	* Fixed a bug in IMAPStore: -authenticateWithUsername: ...
+	  It should now work with all kind of imap servers.
+	* Modified IMAPFolder: -prefetchNewMessagesStartingAtUID so
+	  that we use an autorelease pool for each loop iteration
+	  since that method is very memory-consuming on the standard
+	  autorelease pool.
+	* Modified LocalFolder: -parse and Message:
+	  -setContentFromRawSource to use a new autorelease pool
+	  while beeing in those methods since they can be memory
+	  consuming on our default autorelease pool.
+	* Removed unused variable in LocalMessage: -setInitialized
+
+
+2001-11-26      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -setContentFromRawSource and
+	  MimeBodyPart: -initWithString to make an extra
+	  verification when we decode the parts to be sure
+	  that the length of the strings (ie., components)
+	  separated by the boundary are not nil and have a
+	  length > 0.
+
+
+2001-11-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Implemented multipart/alternative support in
+          MimeBodyPart: -initWithString.
+	* Fixed two small memory leaks in MimeBodyPart:
+	  -initWithString.
+	  -initWithName: port:
+
+	  Same thing in LocalStore, LocalMessage, Message,
+	  POP3Store, SMTP and IMAPStore.
+
+	  All those leaks could append if the init* methods
+	  of those classes were failing (returning nil). We
+	  were not autoreleasing the object 'self'.
+
+
+2001-11-24      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified IMAPStore: -authenticateWithUsername: password:
+          to quote the password if it contains punctuation
+          characters.
+
+
+2001-11-23      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -stringValueUsingSendingMode: so that
+	  under OS-X, we initialize aLocale properly. Patch from
+	  Stephane Corthesy <stephane@sente.ch>.
+
+
+2001-11-22      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified LocalFolder/LocalStore so that we don't
+	  need to parse a folder when we open it. For example,
+	  that might be useful if we simply want to append
+	  a message from raw source and close the folder right
+	  after this operation.
+	* Added Charset: -characterIsInCharset to verify if a
+	  character is in this charset. Patch from Vincent Ricard.
+	* Optimized MimeUtility: -charsetForString. Patch from
+	  Vincent Ricard.
+	* Updated charsets/CharsetDecoder to use
+	  #import <Pantomime/...> instead of #import <...>
+
+	  
+2001-11-21      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Refactored LocalFolder: -parse (removed unused code)
+	  and fixed a bug if the last message of the mbox file
+	  was an empty message. Suggestion by Alexander Malmberg
+	* Reorganized all the source code
+	* Some cleanups after import.
+	* Updated Project Builder project file for MacOS-X.
+	* Added English.lproj/InfoPlist.strings
+
+
+2001-11-20      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added Pantomime.h (From Stephane Corthesy 
+	  <stephane@sente.ch>) to ease #imports in projects
+	  depending on Pantomime.
+	* Added a patch from Stephane Corthesy that modifies
+	  all #imports in .h files, and uses #import
+	  <Pantomime/...> instead of  #import "...". It corrects
+	  a var initialization in LocalFolder.m, adds a missing
+	  initialization in Parser.m, and adds a cast in strincmp.c
+	  to  avoid a #warning. 
+	* Optimized MimeUtility: -decodeStringFromQuotedPrintable:
+	 			  charset:
+	  We now replace the characters in a range instead of using
+	  a mutable string. It's an order of magnitude faster than
+	  before. 
+	* Added RFCs 2045 and 2046.
+	* Changed the generation of QP codes from lowercase to
+	  uppercase. Suggestion by Vicent Ricard to be more
+	  RFC2045 compliant.
+	* Fixed the GNUmakefile to skip warning from the patch
+	  from Stephane Corthesy.
+	* Added MacOS-X project file
+
+
+2001-11-19      Ludovic Marcotte <ludovic@Sophos.ca>
+	
+	* Modified MimeBodyPart: -initWithString so that
+	  we verify that we don't have an empty body
+	  part content.
+	* Updated Testing/Pantomime.m
+	
+
+2001-11-18      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Refactored a lot of files to eliminate all
+          warning under MacOS-X and GNUstep/Linux.
+        * Changed the GNUmakefile to include -Wall when
+          we compile
+
+
+2001-11-16      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Renamed POP3Store: -verifyResponse to
+	  -responseFromServerIsValid
+	* Modified InternetAddress: -personal so that we
+	  return a quoted string if the string contains
+	  a ',' and is not currently quoted. TODO #75
+
+
+2001-11-15      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -setHeaders so that we always
+	  unfold the string received before trying to decode
+	  the headers. This fix the bug that GNUMail.app was
+	  showing the content of an attachment since the
+	  mime boundary was folded on an other line, sometimes.
+
+
+2001-11-14      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added Parser: -parseResentFrom: inMessage:
+	* Added SMTP: -sendMessage: withRawSource in order
+	  to make it possible to reuse the code for sending
+	  messages when we send them as rawSource.
+	* Refactored SMTP to use this new method
+	* Modified Message: -setHeaders in order to parse
+	  the Resent-From, Resent-To, Resent-Cc, Resent-Bcc.
+	* Modified SMTP: -writeMailBody: toSocket: so that
+	  it returns a BOOL. YES on sucess, NO otherwise.
+	* Modified SMTP: -writeRecipients: toSocket ..
+	  so that we verify that we have at least one
+	  recipient. If NO, we return NO.
+	* Modified Message: -stringValueUsingSendingMode to
+	  remove any references to bounce operations.
+	* Modified Message: -setHeaders to NOT try to parse
+	  "From -" as an internet address.
+	* Removed some 'bounce' related items in TODO
+
+
+2001-11-13      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -stringValueUsingSendingMode so we
+          now add our additional headers (beginning with X-)
+
+
+2001-11-12      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message: -replyWithReplyToAll and -forward so that
+	  we now return a message in the autorelease pool.
+
+
+2001-11-08      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * In MimeUtility, moved the charsets cache in +initialize (TODO #77).
+
+
+2001-11-07      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a range bug in NSStringExtensions -stringByTrimmingWhiteSpaces
+	* Modified NSStringExtensions so that if we are under GNUstep, we
+	  use the method stringByTrimmingSpaces which is quite efficient.
+	  Otherwise, we use our own method.
+	* Added a new RFC (RFC2646) in rfcs/
+	* Removed the #ifdef in NSStringExtensions.h
+	* Now imports NSStringExtensions.h in Parser.m
+
+
+2001-11-06      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * In Message: -setHeaders we verify if the string received is not
+	  nil or if it's length > 0
+	* Optimized LocalFolder: -parse so we don't create a mutable string
+	  to build all the headers but we rather parse them directly. Left
+	  the old code here in case something is wrong.
+	* Fixed a memory leak in LocalFolder: -unfoldLinesStartingWith
+	* We now use static buffers in LocalFolder: -unfoldLinesStartingWith
+	* We use static buffers again in LocalFolder: -parse and -close
+	* Done the same thing in LocalMessage: -rawSource and -setInitialized
+	* Removed the used of the autorelease pool in most methods in Parser
+	* In Message: -setContentFromRAWSource removed the used of the
+	  autorelease pool.
+	* Modified Message: -init so that we use an initial capacity for the
+	  dictionary holding all our headers to avoid a lot of reallocation.
+	* Fixed a potential bug in InternetAddress: -initWithString. We
+	  now verify that the address has been correctly parsed. If not,
+	  we simply return nil.
+	* Done some refactoring in most classes
+	* Updated Testing/Pantomime.m
+	* Modifie NSStringExtention to ALWAYS include our own version of
+	  stringByTrimmingWhiteSpaces since GNUstep's version consume a
+	  mammoth amount of RAM
+
+
+2001-11-02      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Refactored some code (MimeUtility)
+	* Modified IMAPStore and IMAPFolder so they both now
+	  work way better with most IMAP servers.
+
+
+2001-10-31      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Implemented + (NSString *) encodeText: (NSString *) theText and
+	  + (NSString *) encodeText: (NSString *) theText
+	  	       usingCharset: (Charset *) theCharset
+		           encoding: (int) encoding
+	  in order to provide a mechanism to encode the body of messages.
+	* Fixed a bug in MimeUtility: -stringByRemovingLineFeedCharacters
+	  patch from Pierre-Yves Rivaille <pyrivail@ens-lyon.fr>.
+	* Modified Message: -stringValueUsingSendingMode so that we
+	  specify the charset to our Content-Type header value and 
+	  the Content-Transfer-Encoding value when our message has the
+	  Content-Type == "text/plain"
+	* Fixed MimeBodyPart: -stringValueUsingSendingMode so that we include
+	  the charset in our Content-Type
+	* Removed some unused NSLog calls in MimeBodyPart: 
+	  -stringValueUsingSendingMode
+	* Fixed a bug in LocalFolder: -parse. We were only reading a buffer
+	  of 128 characters while we had a buffer of 1024 characters.
+	  This would cause a problem with headers that are longer than 128
+	  characters.
+	* Done the same thing in LocalFolder: -close.
+			   
+2001-10-29      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a bug in Parser: + (void) parseContentType: inPart:
+	  We now trim the receiving content-type in case we have:
+	  Content-Type:     text/plain.
+	* Modified Message: -setHeaders so we parse the
+	  Content-Transfer-Encoding header.
+	* Implemented NSStringExtension: -stringByRemovingLineFeedCharacters
+	  that destructively removes \n characters into a string
+	* Modified MimeBodyPart to use this function (and kept the old 
+          code in case something is wrong)
+	* Implemented the support of image/* as the only content of a mail
+	  in Message: -setContentFromRawSource
+	* Modified Message: -setHeaders so we parse the
+	  Content-Disposition header.
+
+
+2001-10-27      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a memory leak in Charset.m. We were retaining
+          the dict object and we shouldn't have to.
+
+
+2001-10-26      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Message.m so we are now using the version number
+	  0.7.0
+	* We now generate the date in Message: -stringValueUsingSendingMode
+	  ONLY in english.
+
+
+2001-10-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Released 0.6.0.
+	
+
+2001-10-24      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified LocalFolder: -initWithPathToFile so that we remove
+	  the <name>.tmp file in case there's one.
+
+	
+2001-10-23      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Changed Message: -setContentFromRawSource so we compare
+	  with text/* and not only text/plain. The MUA will do the
+	  formatting.
+
+
+2001-10-22      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a 'crash' when releasing fileManager in LocalStore: -dealloc.
+	  We now RETAIN fileManager in -initWithPathToDirectory.
+
+
+2001-10-19      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Removed a NSLog from Part: -setContentID.
+	* Created MimeUtility: -isASCIIString
+	* In Folder: we do NOT retain the store and we don't release
+	  it in dealloc
+        * In Message: we do NOT retain our folder and we don't retain it	
+
+
+2001-10-18      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Fixed a serious bug in LocalFolder: -appendMessageFromRawSource 
+	  we were checking for "From -" instead of "From "
+
+
+2001-10-16      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MimeBodyPart: -init to support message/rfc822.
+	  It's an initial implementation.
+	* Modified Part.m to exclude some NSLog from the compilation
+	* Implemented MimeUtility:
+	  + (NSString *) unfoldLinesFromString: (NSString *) theString in
+	  order to simplify the unfolding of lines in various parts of
+	  messages and mimebody parts (I still need to 'deploy' it in the
+	  code)
+	* Fixed MimeBodyPart: -init to unfold the headers of a
+	  message/rfc822.
+	* Fixed POP3Store: -authenticateWithUsername:password:. We were
+	  not returning NO in case of a bad password.
+
+
+2001-10-15      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Changed MacOSGlue to what it was before and removed it from the 
+	  building process on GNUstep.
+	* Fixed Message: -replyWithReplyToAll and -forward so we use the
+	  unicode string of an InternetAddress
+	* Sendmail: -sendMessageFromRawSource removed the reference to
+	  NSRunAlertPanel. We don't need that. Especially in Pantomime
+	  that won't necessarily use AppKit
+	* In POP3Store, moved #import "Constants.h" outside the 
+	  #ifdef MACOSX
+	* In date_util.c, we now #include <stdlib.h> for atoi()
+
+
+2001-10-12      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Integrated a patch from Stephane Corthesy <stephane@sente.ch> so
+	  that it cleans some stuff and makes Pantomime works under MacOS-X
+	* Removed some #import <AppKit/AppKit.h>
+	* Changed Message.m to 0.6.0
+	* Modified MacOSXGlue.m so that it can link with GNUMail.app
+	* Removed some junk in Testing/Pantomime.m
+
+
+2001-10-11      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added LICENSE.elm for the small parts of elm code we use.
+	* Release of 0.5.0
+
+
+2001-10-10      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Implemented MimeUtility: - charsetForString. Patch from
+	  Vincent Ricard <vricard@wanadoo.fr>
+
+
+2001-10-09      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified InternetAddress: -stringValue so that it encodes
+	  the 'personal' value of an InternetAddress object before
+	  returning it.
+	* Created InternetAddress: -unicodeStringValue that returns
+	  the string value of an InternetAddress w/o any encoding.
+	* Re-implemented -name in all Charsets (TODO #67)
+	* Modified charset/CharsetDecoder so that it includes an empty
+	  body for -name methods
+	* In MimeUtility: -encodeWordUsingQuotedPrintable now returns
+	  @"" instead of nil.
+	* Now defines DESTROY and CREATE_AUTORELEASE_POOL in Constants.h
+	* In Message: -stringValueUsingSendingMode, we don't set the subject
+	  if it's length is equal to zero. 
+	* In LocalStore: -createFolderWithName we now verify that the folder
+	  with the name theName is not actually present in our current store.
+
+	
+2001-10-08      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Return a default value whenever we use subclassResponsibility
+          so that Pantomime can compiles 'cleanly' on MacOS-X
+
+        
+2001-10-05      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * In LocalFolder: -close, added the name of the folder
+	  in NSLog to make the debugging easier.
+
+
+2001-10-04      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a bug in Parser: -parseMessageID: inMessage so that
+	  we don't include the "<>" in the actual string of the
+	  message ID.
+	* Simplified MimeUtility: -decodeStringFromBase64
+
+
+2001-10-03      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed memory leaks in Parser: -parseFrom: inMessage:
+                             in Parser: -parseDestination: forType:...
+                             in Parser: -parseReplyTo: inMessage:
+	* Optimized MimeUtility: -decodeText
+	* Fixed memory leaks in MimeUtility: -charsetForName
+	* Fixed a memory leak in Message: -formatRecipientsWithType
+	* Fixed some memory leaks in Message: -stringValueUsingSendingMode
+	* We no longer use the autorelease pool in Message: -forward
+          and in Message: -setContentFromRawSource
+	* Fixed some memory leaks in MimeBodyPart: -initWithString
+	* Fixed a memory leak in MimeBodyPart: -stringValueUsingSendingMode
+	* Fixed a memory leak in LocalMessage: -setInitialized
+	* Fixed a memory leak in LocalFolder: -parse
+	* Optimized LocalFolder: -unfoldLinesStartingWith so that we play
+	  more with the cString before appending everything to our
+	  mutable string. I left the old code here in case something is wrong
+	  with the new one.
+	* Optimized LocalFolder: -close to use appendFormat instead of
+	  appendString for the mutable string.
+	* Fixed a memory leak in LocalStore: -initWithPathToDirectory	
+	* Fixed a memory leak in Flags: -init
+	* Minor enhancements to InternetAddress
+	* Optimized POP3Store/IMAPStore: -lineFromSocket. It's now FAST.
+	  It clears TODO #41.
+	* Fixed a memory leak in IMAPFolder: -deleteMessageWithUID
+	* Fixed a memory leak in IMAPFolder: -fetchMessageFlagsWithUID
+	* Optimized IMAPFolder: -setMessageFlags: forUID:
+	* Fixed a memory leak in Part: -setCharseT
+	* Fixed a memory leak in SMTP. Added -dealloc to release name.
+	* Fixed a memory leak in Folder: -initWithName. Removed the RETAIN
+	  on allMessages.
+
+
+2001-10-02      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Changed all init methods in all classes to return non
+	  AUTORELEASED object since it is NOT the "Cocoa way" of
+	  doing things
+	* Modified some other RETAIN/RELEASE/AUTORELEASE calls to
+	  make it work correctly with the first changes I made.
+	* Now every .m includes Constants.h in order to define the
+	  RETAIN/RELEASE/... placeholders if we are not using
+	  GNUstep
+	* Fixed a memory leak in LocalFolder (a big one!)
+	* In LocalFolder/POP3Folder/IMAPFolder, we should add the Message
+	  in the AUTORELEASE pool before adding it to our folder (TODO #67)
+	* Integrated new charset engine from Alexander Malmberg. It's now
+	  way faster and more clean too. Thanks!
+	
+
+2001-10-01      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added .cvsignore
+	* We no longer include "nl_types.h" 
+	* Implemented IMAPFolder: -prefetchNewMessagesStartingWithUID
+	  in order to have better IMAP support when new mails arrive.
+
+	
+2001-09-28	Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Imported source on CVS - module Pantomime
+	* Implemented IMAPFolder: -noop and now call it
+	  in prefetchMessageBodyForUID. We should call it in other
+	  methods and in a separate thread.
+
+	
+2001-09-27      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added in LocalFolder: -appendMessageFromRawSource a condition
+	  to verify if From - is present. If not present, we add it.
+	* A LOT of IMAP enchancements
+	* Two new methods in Store: 
+	
+	- (BOOL) createFolderWithName: (NSString *) theName;
+	- (BOOL) deleteFolderWithName: (NSString *) theName;
+
+	* Lots of enchancements everywhere. 
+	* RELEASE OF 0.4.0
+	
+2001-09-26      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Support of IMAP (nearly finished) - LOT of work on it
+	* Reworked the support of the POP3 caching. Now it acts
+	  like the IMAP cache. So it's easier to understand / maintain.
+
+
+2001-09-25      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added:
+
+	  if ( theMode == SEND_TO_FOLDER )
+	      {
+	            [mstr appendString:@"\n"];
+	      }
+	  in Message -stringValueUsingSendingMode so that we can decode
+	  correctly our message in Message -setContentFromRawSource when
+	  when send it to Outbox.
+	* Fixed a bug in IMAPStore: - initWithName. Changed port from 110 to
+	  143.
+	* Now support the UIDVALIDITY in IMAPFolder
+
+2001-09-21       Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Implemented Bounce support.
+	
+2001-09-20       Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Finished support for POP3 Leave On Server
+	  by integrating two new classes: POP3UID and POP3UIDManager.
+	  Those classes are used in POP3Folder to manager the persistence
+	  of a POP3 message on the server.
+	* Initial support for MimeUtility: - charsetForString
+	                                   - encodeWordUsingBase64
+					   - encodeWordUsingQuotedPrintable
+
+2001-09-19       Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Initial support for POP3 Leave On server
+	
+2001-09-18       Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * More work on IMAP support
+
+	
+2001-09-18       Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Created Message: - setContentFromRawSource: (NSObject *) theString
+	* Modified SMTP: put the EHLO in init and the QUIT in close
+	* Fixed a bug in MimeUtility (se bzero our buffer in 
+	  encodeDataUsingBase64)
+	* Created Transport: sendMessageFromRawSource: (NSString *) theString
+	  implemented it in Sendmail, SMTP is a todo.
+	* Cleaned SMTP
+	* IMAPFolder -> now support the size of the messages
+	* Fixed Message: -setFolder RETAIN/RELEASE (added them)
+	* Fixed a bug in LocalFolder for NOT including From - lines
+	* Released Pantomime 0.3.0
+
+2001-09-17       Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a small bug in LocalFolder: -appendMessageFromRawSource
+	  Changed: [aMessage setSize: ( ftell( [self stream] ) - position) ]
+	  to: [aMessage setSize: ( ftell( [self stream] ) - position + 1) ]
+	* Finished POP3Store: - (Folder *) folderForName: (NSString *) theName
+	                                        prefetch: (BOOL) aBOOL
+	
+2001-09-16       Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Changed SEND_TO_OUTBOX to SEND_TO_FOLDER
+	* Fixed a retain/release bug in Folder.m
+
+        
+2001-09-15       Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * New method expunge in Folder. Implemented it in LocalFolder.
+        * Finished the implementation of -close in LocalFolder
+
+
+2001-09-14       Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Support the name parameter in Content-Type for MimeBodyPart
+	  objects (TODO #42)
+	* Support for the charset parameter in Content-Type
+	* Support for all ISO-8859-X charsets when decoding
+	* Finished LocalStore so it caches opened folders and you can
+	  even obtain them by calling: -openedFoldersEnumerator
+	* Fixed a small bug in the GNUmakefile (forgot to include
+	  Service.h)
+	* Now set the size of POP3Messages
+	* Corrected a bug in LocalStore (folderEnumerator) and removed
+	  setFolderEnumerator
+	* Added LocalStore: - (BOOL) folderForNameIsOpen: (NSString *) theName
+	  to verify if a folder is already open.
+
+2001-09-13       Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Fixed a small bug in MimeBodyPart. We now set the content
+	  to a part directly to the string if the encoding is NONE
+	  or EIGHTBIT  (added EIGHTBIT).
+
+
+2001-09-13       Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Speedups in MimeBodyPart
+        * Speedups in POP3Folder
+	* Fixed bug in Parser: parseContentType so that we trim
+	  the white spaces at the beginning and at the end of
+	  our boundary.
+	* Added a check in Message: -setContent to see if the closing
+	  mime boundary is missing or not:
+	  
+	  if (! [aString hasPrefix: @"-\n"] ) ...
+       
+        * Release 0.2.0
+
+2001-09-12       Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Speedups in LocalMessage
+	* Changed name for methods 'fp/setFP' and added
+	  bodyFilePosition/setBodyFilePosition in order
+	  to parse way faster (in LocalMessage)
+	* Implemented LocalStore: -folderForName
+	* Mostly finished Testing/Pantomime.m
+	* Fixed a small bug in Message: -initWithString. We use
+	  for (j = i+1; j < [anArray count]; j++) instead of
+	  j = i.
+	* Fixed the generation of an ID (for Message-ID) in Message
+	  (implemented the function in MimeUtility)
+	* Fixed a small bug in MimeBodyPart: -initWithString. We now use:
+	  
+	  if ([aLine length] == 0 && !endOfHeaders)
+	    {
+	      endOfHeaders = YES;
+			  	  
+   	      i = i + 1;
+	      aLine = [allMessageLines objectAtIndex: i];
+	    }
+          
+	  instead of:
+	  
+	  if ([aLine length] == 0)
+	    {
+	      endOfHeaders = YES;
+	    }
+
+	 in order to prevent to add the \n that separates the
+	 body part headers from the actual content of the body part.
+	* Changed LocalMessage: setInitialized 
+	  aMutableString = [[NSMutableString alloc] init] to:
+
+	  lengthOfBody = ([self filePosition] + [self size] - 
+	    [self bodyFilePosition])
+	  aMutableString = [[NSMutableString alloc]
+	    initWithCapacity: lengthOfBody];
+
+	  In order to speedup the initialization of messages.
+        
+
+2001-09-11	 Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Now compiles as a library
+	* Moved test programs in Testing
+	* Worked on Testing/Pantomime.m in order to have
+	  a very good test program.
+
+2001-09-10	Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* Initial implementation of IMAP
+	* Cleaned a LOT of things in POP3 and other classes
+	* We now use a more generic Service protocol in POP3Store,
+	  IMAPStore and SMTP
+	* Message: -rawSource now supported in all Folder modes
+	* We can now append a message to a LocalFolder
+	* Removed unused methods in Message (-isDeleted, -setDeleted)
+
+
+2001-09-07	Ludovic Marcotte <ludovic@Sophos.ca>
+	
+	* Initial release (0.1.0)
+
+
+
+Copyright (C) 2001-2007 Ludovic Marcotte
+
+This file is part of Pantomime
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details. 
+ 
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.

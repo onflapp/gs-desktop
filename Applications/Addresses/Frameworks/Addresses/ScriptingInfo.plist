@@ -1,0 +1,20 @@
+{
+    ScriptingInfoClass = ADScriptingInfo;
+    
+    Classes = (
+        ADAddressBook,
+        ADConverterManager,
+        ADEnvelopeAddressBook,
+        ADGroup,
+        ADLocalAddressBook,
+        ADMultiValue,
+        ADMultiValue,
+        ADMutableMultiValue,
+        ADMutableMultiValue,
+        ADPListConverter,
+        ADPerson,
+        ADRecord,
+        ADSearchElement,
+        ADVCFConverter
+    );
+}

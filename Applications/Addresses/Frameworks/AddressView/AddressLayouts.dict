@@ -1,0 +1,69 @@
+/*
+ * This is the address layout file. It contains ISO country codes
+ * mapped to property list made up entirely of an array containing
+ * arrays. The top-level array is the address; every subarray
+ * represents a line in the address.
+ 
+ * You can have string constants in the address by putting in strings
+ * starting with "$". All other strings will be interpreted as address
+ * fields. Please note that lines containing no actual filled fields
+ * (i.e. the fields are non-existent or empty in the address) will not
+ * be shown in display mode, even if they contain string constants.
+ 
+ * Allowed fields are:
+ *   Street
+ *   City
+ *   State
+ *   ZIP
+ *   Country
+ *   CountryCode (if you want it displayed in the address as well)
+ *   POBox
+ *   ExtAddr (something like "Apartment *10, 2nd floor")
+ 
+ * Only keys contained int the address layout will appear in the edit
+ * or display view of the address. Only keys contained in the address
+ * layout that actually have corresponding values in the address will
+ * appear in the display view of the address.
+ */
+
+{
+	de = (("$Postfach", POBox),
+	      (Street),
+	      (ExtAddr),
+              (ZIP, City),
+              (State),
+              (Country));
+        fr = ((Street),
+              (ExtAddr),
+              (Zip, City),
+              (Country));
+	nl = (("$Postbus", POBox),
+              ("$Straat", Street),
+              ("$ExtraAdresGegevens", ExtAddress),
+              (ZIP, City),
+              (State),
+              (Country));
+	sk = (("$P.O.Box", POBox),
+	      (Street),
+	      (ExtAddr),
+	      (ZIP, City),
+	      (State),
+	      (Country));
+	us = ((POBox),
+	      (ExtAddr),
+	      (Street),
+	      (City, "$,", State, ZIP),
+	      (Country));
+	ar = ((Street),
+	      (ExtAddr),
+	      (POBox),
+	      ("$(", ZIP, "$)", City, "$,", State),
+	      (Country));
+	Default = (("$POBox", POBox),
+                   ("$Street", Street),
+                   ("$City", City),
+                   ("$State", State),
+                   ("$ZIP", ZIP),
+                   ("$Country", Country),
+                   ("$Extended Address", ExtAddr));
+}

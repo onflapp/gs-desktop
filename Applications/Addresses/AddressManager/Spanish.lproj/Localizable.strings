@@ -1,0 +1,194 @@
+/***
+Spanish.lproj/Localizable.strings
+updated by make_strings 2004-03-13 21:11:17 -0500
+add comments above this one
+***/
+
+
+/*** Strings from Controller.m ***/
+/* File: Controller.m:1000 */
+" (Me)" = " (Yo)";
+/* File: Controller.m:369 */
+"'%@' cannot be edited because\nthe record is marked as read-only."
+= "'%@' no puede editarse ya que el\nregistro esta marcado como solo lectura.";
+/* File: Controller.m:753 */
+/* File: Controller.m:464 */
+"A new person could not be created." = "No se pudo crear la nueva persona.";
+/* File: Controller.m:1094 */
+/* File: Controller.m:1083 */
+/* File: Controller.m:846 */
+"Addresses" = "Direcciones";
+/* File: Controller.m:1088 */
+"Addresses*" = "Direcciones*";
+/* File: Controller.m:987 */
+/* File: Controller.m:959 */
+/* File: Controller.m:957 */
+/* File: Controller.m:958 */
+/* File: Controller.m:933 */
+"All" = "Todos";
+/* File: Controller.m:654 */
+"Can only store a single person\nin files of type %@"
+= "Solo puede almacenarse una sola persona\nen archivos del tipo %@";
+/* File: Controller.m:645 */
+"Cannot export files of type %@"
+= "No se pudo exportar los archivos de tipo %@";
+/* File: Controller.m:788 */
+"Could not create group!" = "No se pudo crear el grupo!";
+/* File: Controller.m:669 */
+"Could not write file %@.\nPermissions error?"
+= "No se pudo grabar el archivo %@.\nProblemas de permisos?";
+/* File: Controller.m:762 */
+/* File: Controller.m:474 */
+"Couldn't add person" = "No se pudo agregar la persona";
+/* File: Controller.m:752 */
+/* File: Controller.m:463 */
+"Couldn't create person" = "No se pudo crear la persona";
+/* File: Controller.m:842 */
+/* File: Controller.m:1234 */
+"Couldn't save" = "No se pudo grabar";
+/* File: Controller.m:812 */
+"Delete Group?" = "Borrar grupo?";
+/* File: Controller.m:508 */
+"Delete Person?" = "Borrar persona?";
+/* File: Controller.m:516 */
+"Delete Persons?" = "Borrar personas?";
+/* File: Controller.m:944 */
+/* File: Controller.m:936 */
+"Disallowed" = "No permitido";
+/* File: Controller.m:392 */
+"Discard Person?" = "Descartar persona?";
+/* File: Controller.m:1059 */
+/* File: Controller.m:722 */
+"Do not share these people" = "No compartir estas personas";
+/* File: Controller.m:1061 */
+/* File: Controller.m:724 */
+"Do not share this person" = "No compartir esta persona";
+/* File: Controller.m:506 */
+"Do you really want to delete %@ from \"All\" and all groups?"
+= "Realmente desea borrar %@ de \"Todos\" y todos los grupos?";
+/* File: Controller.m:514 */
+"Do you really want to delete the %d selected persons from \"All\" and all groups?"
+= "Realmente desea borrar las %d personas seleccionadas de \"Todos\" y todos los grupos?";
+/* File: Controller.m:810 */
+"Do you really want to delete the group '%@'?"
+= "Realmente desea borrar el grupo '%@'?";
+/* File: Controller.m:1504 */
+/* File: Controller.m:1310 */
+/* File: Controller.m:583 */
+"Don't insert" = "No insertar";
+/* File: Controller.m:1228 */
+"Don't quit" = "No salir";
+/* File: Controller.m:399 */
+"Edit Person" = "Editar Persona";
+/* File: Controller.m:372 */
+"Edit person" = "Editar persona";
+/* File: Controller.m:377 */
+"End editing" = "Finalizar edici\u00f3n";
+/* File: Controller.m:821 */
+/* File: Controller.m:788 */
+"Error" = "Error";
+/* File: Controller.m:876 */
+/* File: Controller.m:161 */
+/* File: Controller.m:162 */
+"Everything" = "Todo";
+/* File: Controller.m:581 */
+/* File: Controller.m:1502 */
+/* File: Controller.m:1308 */
+"Existing person?" = "Persona existente?";
+/* File: Controller.m:624 */
+"Export %d records to..." = "Exportar %d registros a...";
+/* File: Controller.m:628 */
+"Export '%@' to..." = "Exportar '%@' a...";
+/* File: Controller.m:104 */
+"Group" = "Grupo";
+/* File: Controller.m:550 */
+"Import..." = "Importar...";
+/* File: Controller.m:1309 */
+/* File: Controller.m:582 */
+/* File: Controller.m:1503 */
+"Insert anyway" = "Insertar de cualquier manera";
+/* File: Controller.m:647 */
+/* File: Controller.m:656 */
+"Invalid File Type" = "Tipo de archivo inv\u00e1lido";
+/* File: Controller.m:105 */
+"Name" = "Nombre";
+/* File: Controller.m:786 */
+"New Group" = "Nuevo Grupo";
+/* File: Controller.m:1152 */
+"New Person" = "Nueva persona";
+/* File: Controller.m:395 */
+/* File: Controller.m:813 */
+/* File: Controller.m:519 */
+"No" = "No";
+/* File: Controller.m:88 */
+"No Address Book" = "No hay Agenda";
+/* File: Controller.m:671 */
+/* File: Controller.m:950 */
+/* File: Controller.m:656 */
+/* File: Controller.m:91 */
+/* File: Controller.m:754 */
+/* File: Controller.m:939 */
+/* File: Controller.m:1236 */
+/* File: Controller.m:821 */
+/* File: Controller.m:465 */
+/* File: Controller.m:370 */
+/* File: Controller.m:477 */
+/* File: Controller.m:789 */
+/* File: Controller.m:647 */
+/* File: Controller.m:844 */
+/* File: Controller.m:765 */
+"OK" = "OK";
+/* File: Controller.m:1227 */
+"Quit without saving" = "Salir sin guardar";
+/* File: Controller.m:366 */
+"Read-Only Person" = "Persona de solo lectura";
+/* File: Controller.m:1503 */
+/* File: Controller.m:1309 */
+/* File: Controller.m:582 */
+"Replace" = "Reemplazar";
+/* File: Controller.m:1224 */
+"Save Changes?" = "Guardar cambios?";
+/* File: Controller.m:1227 */
+"Save and Quit" = "Guardar y salir";
+/* File: Controller.m:1066 */
+/* File: Controller.m:729 */
+"Share these people" = "Compartir estas personas";
+/* File: Controller.m:731 */
+/* File: Controller.m:1068 */
+"Share this person" = "Compartir esta persona";
+/* File: Controller.m:843 */
+/* File: Controller.m:1235 */
+"The database could not be saved!" = "La base de datos no pudo ser grabada!";
+/* File: Controller.m:819 */
+"The group '%@` could not be deleted."
+= "El grupo '%@` no pudo ser borrado.";
+/* File: Controller.m:764 */
+/* File: Controller.m:476 */
+"The newly created person could not be\nadded to this group."
+= "La persona recientemente creada\nno pudo ser agregada a este grupo.";
+/* File: Controller.m:394 */
+"The person you have edited has no first or last\nnames. Would you like to discard this person?"
+= "La persona que ha editado no tiene nombre ni apellido.\nDesea descartar esta persona?";
+/* File: Controller.m:1500 */
+/* File: Controller.m:1306 */
+/* File: Controller.m:579 */
+"Trying to import person named '%@',\nwhich already exists in the database."
+= "La persona llamada '%@' que se trata de importar\nya existe en la base de datos.";
+/* File: Controller.m:671 */
+"Write Failed" = "Fallo la grabaci\u00f3n";
+/* File: Controller.m:813 */
+/* File: Controller.m:519 */
+/* File: Controller.m:395 */
+"Yes" = "Si";
+/* File: Controller.m:938 */
+"You cannot rename a group to \"All\",\nsince that name is reserved by the system."
+= "No es posible renombrar un grupo como \"Todos\",\nya que ese nombre esta reservado al sistema.";
+/* File: Controller.m:949 */
+"You cannot rename this group to \"%@\",\nsince a group of that name already exists."
+= "No es posible renombrar el grupo como \"%@\",\nya que un grupo con ese nombre ya existe.";
+/* File: Controller.m:1226 */
+"You have made changes to the database.\nShould these changes be saved?"
+= "Ha hecho cambios a la base de datos.\nDesea grabar los cambios?";
+/* File: Controller.m:90 */
+"[ADAddressBook sharedAddressBook] returned nil.\nConfiguration broken?"
+= "[ADAddressBook sharedAddressBook] ha devuelto nil.\nEstar\u00e1 la configuraci\u00f3n da\u00f1ada?";

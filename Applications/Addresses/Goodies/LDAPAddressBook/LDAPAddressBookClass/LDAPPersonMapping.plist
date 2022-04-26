@@ -1,0 +1,105 @@
+/*
+   LDAPPersonMapping.plist
+   
+   This defines the mapping between LDAP attributes for persons and ADPerson
+   properties. The mapping supports only a subset of the attributes valid to
+   the inetOrgPerson object class, defined in inetorgperson.schema. There are
+   some attributes (e.g. "audio") in inetOrgPerson that the Addresses
+   framework doesn't support (yet?); those are not supported.
+
+   Postal addresses are not supported at all; LDAP gives them as 30-line
+   free-form, which are unparseable...
+*/
+
+(
+	/*
+	   skip these
+	*/
+	{
+		LDAPKeys = (objectClass);
+		AddressesKey = Skip;
+	},
+
+
+	/* 
+	   as valid for the person object class 
+	*/
+
+	{
+		LDAPKeys = (sn, surname);
+		AddressesKey = LastName;
+	},
+	/* cn: Unsupported */
+	/* userPassword: Unsupported */
+	{
+		LDAPKeys = (telephoneNumber);
+		AddressesKey = { Property = Phone; Label = WorkPhone; };
+	},
+	/* seeAlso: Unsupported */
+	/* description: Unsupported */
+
+	/* 
+	   as valid for the organizationalPerson object class 
+	*/
+
+	{
+		LDAPKeys = (title);
+		Addresseskey = Title;
+	},
+	/* x121Address: Unsupported */
+	/* registeredAddress: Unsupported */
+	/* destinationIndicator: Unsupported */
+	/* preferredDeliveryMethod: Unsupported */
+	/* telexNumber: Unsupported */
+	/* teletexTerminalIdentifier: Unsupported */
+	/* internationaliSDNNumber: Unsupported */
+	{
+		LDAPKeys = (facsimileTelephoneNumber);
+		AddressesKey = { Property = Fax; Label = WorkFax; };
+	},
+	{
+		LDAPKeys = (street);
+		AddressesKey = { 
+			     Property = Address; 
+			     Label = WorkAddress; 
+			     Key = Street; 
+			     };
+	},
+	{
+		LDAPKeys = (postOfficeBox);
+		AddressesKey = { 
+			     Property = Address; 
+			     Label = WorkAddress; 
+			     Key = POBox; 
+			     };
+	},
+	{
+		LDAPKeys = (postalCode);
+		AddressesKey = { 
+			     Property = Address; 
+			     Label = WorkAddress; 
+			     Key = ZIP; 
+			     };
+	},
+	/* postalAddress: Unsupported */
+	{
+		LDAPKeys = (physicalDeliveryOfficeName);
+		AddressesKey = {
+			     Property = Address;
+			     Label = WorkAddress;
+			     Key = ExtAddr;
+			     };
+	},
+	{
+		LDAPKeys = (st);
+		AddressesKey = {
+			     Property = Address;
+			     Label = WorkAddress;
+			     Key = State;
+			     };
+	},
+	{	     
+		LDAPKeys = (ou);
+		AddressesKey = Organization;
+	}
+)

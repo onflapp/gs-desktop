@@ -1,0 +1,4 @@
+2007-05-02  Nicola Pero  <nicola.pero@meta-innovation.com>
+
+	* GNUmakefile (AddressManager_LDFLAGS): Updated link flags to find
+	the non-installated framework cross-platform with gnustep-make v2.

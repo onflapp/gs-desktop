@@ -1,0 +1,7 @@
+{
+   InspectorName = "VCF Inspector";
+   Author = "Bj\u00f6rn Giesler <bjoern@giesler.de>";
+   InspectorRelease = "1.0";	
+   InspectorDescription = "This Inspector allows you view the content of a VCF file";
+}
+

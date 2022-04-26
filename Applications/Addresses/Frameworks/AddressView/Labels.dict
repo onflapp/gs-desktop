@@ -1,0 +1,12 @@
+{
+	Email = (WorkEmail, HomeEmail);
+	Address = (WorkAddr, HomeAddr);
+	Phone = (MainPhone, WorkPhone, HomePhone, MobilePhone, HomeFax,
+	         WorkFax, Pager);
+	AIM = (WorkAIM, HomeAIM);
+	Jabber = (WorkJabber, HomeJabber);
+	MSN = (WorkMSN, HomeMSN);
+	Yahoo = (WorkYahoo, HomeYahoo);
+	ICQ = (WorkICQ, HomeICQ);
+	Default = (Work, Home, Other);
+}

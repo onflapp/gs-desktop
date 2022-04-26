@@ -1,0 +1,155 @@
+/***
+English.lproj/Localizable.strings
+updated by make_strings 2003-10-21 14:39:23 +0200
+add comments above this one
+***/
+
+
+/*** Strings from Controller.m ***/
+/* File: Controller.m:765 */
+" (Me)" = " (Moi)";
+/* File: Controller.m:887 */
+"'%@' could not be added to '%@'" = "'%@' n'a pu \U00eatre ajout\U00e9 \U00e0 '%@'";
+/* File: Controller.m:857 */
+/* File: Controller.m:846 */
+/* File: Controller.m:556 */
+"Addresses" = "Adresses";
+/* File: Controller.m:851 */
+"Addresses*" = "Adresses*";
+/* File: Controller.m:728 */
+/* File: Controller.m:702 */
+/* File: Controller.m:727 */
+/* File: Controller.m:726 */
+/* File: Controller.m:753 */
+"All" = "Tout";
+/* File: Controller.m:476 */
+"Can only store a single person\nin files of type %@"
+= "Ne peux stocker qu'une seule personne\ndans les fichiers de type %@";
+/* File: Controller.m:467 */
+"Cannot export files of type %@" = "Ne peux exporter les fichiers de type %@";
+/* File: Controller.m:889 */
+"Could not add member!" = "Ne peux pas ajouter un membre !";
+/* File: Controller.m:502 */
+"Could not create group!" = "Ne peux pas ajouter de groupe !";
+/* File: Controller.m:491 */
+"Could not write file %@.\nPermissions error?"
+= "Ne peux pas \U00e9crire le fichier %@.\nErreur de Permissions ?";
+/* File: Controller.m:913 */
+/* File: Controller.m:552 */
+"Couldn't save" = "Ne peux pas sauver";
+/* File: Controller.m:524 */
+"Delete Group?" = "Effacer le Groupe ?";
+/* File: Controller.m:329 */
+"Delete Person?" = "Effacer la Personne ?";
+/* File: Controller.m:337 */
+"Delete Persons?" = "Effacer les Personnes ?";
+/* File: Controller.m:713 */
+/* File: Controller.m:705 */
+"Disallowed" = "Non autoris\U00e9";
+/* File: Controller.m:236 */
+"Discard Person?" = "Ne pas tenir compte de la Personne ?";
+/* File: Controller.m:607 */
+/* File: Controller.m:824 */
+"Do not share these people" = "Ne pas partager ces personnes";
+/* File: Controller.m:826 */
+/* File: Controller.m:609 */
+"Do not share this person" = "Ne pas partager ces personnes";
+/* File: Controller.m:327 */
+"Do you really want to delete %@ from \"All\" and all groups?"
+= "Voulez vous vraiment effacer %@ de \"Tout\" et de tous les groupes ?";
+/* File: Controller.m:335 */
+"Do you really want to delete the %d selected persons from \"All\" and all groups?"
+= "Voulez vous vraiment effacer les %d personnes s\U00e9lectionn\U00e9es de \"Tout\" et tous les groupes ?";
+/* File: Controller.m:522 */
+"Do you really want to delete the group '%@'?"
+= "Voulez vous vraiment effacer le groupe '%@'?";
+/* File: Controller.m:404 */
+"Don't insert" = "Ne pas ins\U00e9rer";
+/* File: Controller.m:907 */
+"Don't quit" = "Ne pas quitter";
+/* File: Controller.m:243 */
+"Edit Person" = "\U00c9diter la Personne";
+/* File: Controller.m:221 */
+"End editing" = "Terminer l'\U00c9dition";
+/* File: Controller.m:533 */
+/* File: Controller.m:502 */
+"Error" = "Erreur";
+/* File: Controller.m:646 */
+/* File: Controller.m:108 */
+/* File: Controller.m:107 */
+"Everything" = "Tout";
+/* File: Controller.m:402 */
+"Existing person?" = "Personne Existante ?";
+/* File: Controller.m:446 */
+"Export %d records to..." = "Exporter %d enregistrements vers...";
+/* File: Controller.m:450 */
+"Export '%@' to..." = "Exporter '%@' vers...";
+/* File: Controller.m:54 */
+"Group" = "Groupe";
+/* File: Controller.m:371 */
+"Import..." = "Importer...";
+/* File: Controller.m:403 */
+"Insert anyway" = "Ins\U00e9rer de toute fa\U00e7on";
+/* File: Controller.m:478 */
+/* File: Controller.m:469 */
+"Invalid File Type" = "Type de Fichier Invalide";
+/* File: Controller.m:55 */
+"Name" = "Nom";
+/* File: Controller.m:500 */
+"New Group" = "Nouveau Groupe";
+/* File: Controller.m:525 */
+/* File: Controller.m:340 */
+/* File: Controller.m:239 */
+"No" = "Non";
+/* File: Controller.m:493 */
+/* File: Controller.m:478 */
+/* File: Controller.m:469 */
+/* File: Controller.m:503 */
+/* File: Controller.m:554 */
+/* File: Controller.m:533 */
+/* File: Controller.m:719 */
+/* File: Controller.m:708 */
+/* File: Controller.m:915 */
+/* File: Controller.m:890 */
+"OK" = "OK";
+/* File: Controller.m:906 */
+"Quit without saving" = "Quitter sans sauvegarder";
+/* File: Controller.m:403 */
+"Replace" = "Remplacer";
+/* File: Controller.m:903 */
+"Save Changes?" = "Sauver les Changements ?";
+/* File: Controller.m:906 */
+"Save and Quit" = "Sauver et Quitter";
+/* File: Controller.m:831 */
+/* File: Controller.m:614 */
+"Share these people" = "Partager ces personnes";
+/* File: Controller.m:833 */
+/* File: Controller.m:616 */
+"Share this person" = "Partager cette personne";
+/* File: Controller.m:914 */
+/* File: Controller.m:553 */
+"The database could not be saved!" = "La base de donn\U00e9e ne pourra pas \U00eatre sauv\U00e9e !";
+/* File: Controller.m:531 */
+"The group '%@` could not be deleted."
+= "Le groupe '%@` ne pourra pas \U00eatre effac\U00e9.";
+/* File: Controller.m:238 */
+"The person you have edited has no first or last\nnames. Would you like to discard this person?"
+= "La personne que vous avez \U00e9dit\U00e9 n'a pas de pr\U00e9nom\n ou de nom. Voulez vous l'enlever ?";
+/* File: Controller.m:400 */
+"Trying to import person named '%@',\nwhich already exists in the database."
+= "On essaie d'importer une personne nomm\U00e9e '%@',\nqui existe d\U00e9ja dans la base de donn\U00e9e.";
+/* File: Controller.m:493 */
+"Write Failed" = "L'\U00e9criture a \U00e9chou\U00e9e";
+/* File: Controller.m:525 */
+/* File: Controller.m:340 */
+/* File: Controller.m:239 */
+"Yes" = "Oui";
+/* File: Controller.m:707 */
+"You cannot rename a group to \"All\",\nsince that name is reserved by the system."
+= "Vous ne pouvez renommer un groupe en \"Tout\",\ncar ce nom est r\U00e9serv\U00e9 par le syst\U00e8me.";
+/* File: Controller.m:718 */
+"You cannot rename this group to \"%@\",\nsince a group of that name already exists."
+= "Vous ne pouvez renommer ce groupe en \"%@\",\ncar un groupe du m\U00eame nom existe d\U00e9ja.";
+/* File: Controller.m:905 */
+"You have made changes to the database.\nShould these changes be saved?"
+= "Vous avez fait des modifications \U00e0 la base de donn\U00e9e.\n Voulez-vous sauvegarder ces changements ?";

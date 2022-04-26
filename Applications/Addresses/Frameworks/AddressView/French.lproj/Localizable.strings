@@ -1,0 +1,52 @@
+/***
+English.lproj/Localizable.strings
+updated by make_strings 2003-10-21 14:41:27 +0200
+add comments above this one
+***/
+
+
+/*** Keys found in multiple places ***/
+
+/* File: <dummy>:0 */
+/* Flag: unmatched */
+/* File: ADSinglePropertyView.m:207 */
+"Person Name" = "Nom de la Personne";
+
+/* File: <dummy>:0 */
+/* Flag: unmatched */
+/* File: ADSinglePropertyView.m:451 */
+"Groups" = "Groupes";
+
+/* File: <dummy>:0 */
+/* Flag: unmatched */
+/* File: ADSinglePropertyView.m:464 */
+"All" = "Tous";
+
+/* File: <dummy>:0 */
+/* Flag: unmatched */
+/* File: ADPersonView.m:510 */
+"Error Loading Image" = "Erreur de chargement de l'Image";
+
+/* File: <dummy>:0 */
+/* Flag: unmatched */
+/* File: ADPersonView.m:512 */
+"The image file %@ could not be loaded."
+= "Le fichier %@ contenant l'image ne peux pas \U00eatre lu.";
+
+/* File: <dummy>:0 */
+/* Flag: unmatched */
+/* File: ADPersonView.m:406 */
+/* File: ADPersonView.m:414 */
+"Me" = "Moi";
+
+/* File: <dummy>:0 */
+/* Flag: unmatched */
+/* File: ADSinglePropertyView.m:86 */
+" (Me)" = " (Moi)";
+
+
+/*** Strings from ADPersonView.m ***/
+/* File: ADPersonView.m:263 */
+"Notes:" = "Notes:";
+/* File: ADPersonView.m:513 */
+"OK" = "OK";

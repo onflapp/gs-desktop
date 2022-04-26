@@ -1,0 +1,9 @@
+Ignore everything in this directory.
+
+The little program is used to generate our ISO8859-X, KOI8-X,
+and WINDOWS-X classes.
+
+All the files in this directory are intented for Pantomime developers,
+and NOT end-users or developers using Pantomime.
+
+We can get all the charsets here: http://czyborra.com/

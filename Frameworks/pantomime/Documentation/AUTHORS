@@ -1,0 +1,24 @@
+Ludovic Marcotte <ludovic@Sophos.ca>
+====================================
+- main developer
+
+
+Jonathan B. Leffert <jonathan@leffert.net>
+==========================================
+- some methods in the NSString category
+ 
+
+ Alexander Malmberg <alexander@malmberg.org>
+============================================
+- some bug fixes and enhanced support of qp and base64
+
+
+Ujwal S. Sathyam <ujwal@setlurgroup.com>
+========================================
+- frequent contributor
+- contributor on the maildir code
+
+
+Riccardo Mottola <rm@gnu.org>
+=============================
+- portability and bug fixing

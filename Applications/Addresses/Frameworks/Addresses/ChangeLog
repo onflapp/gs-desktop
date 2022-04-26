@@ -1,0 +1,17 @@
+2010-03-16 Philippe Roussel
+
+	* Addresses/ADVCFConverter.m: accept Evolution type "b" for
+	images encoding
+	
+2009-10-07  Nicola Pero  <nicola.pero@meta-innovation.com>	
+
+	* GNUmakefile (after-Addresses-install): Rewritten in a cleaner,
+	more portable way avoiding symlinks.  Do not install
+	AddressBook/AddressBook.h when the Apple FoundationKit (and hence
+	we assume Apple's AddressBook) is being used.
+
+2007-05-02  Nicola Pero  <nicola.pero@meta-innovation.com>
+
+	* GNUmakefile (debug): Do not set (it's now the default too).
+	(after-Addresses-install): Updated rule to use GNUSTEP_HEADERS
+	instead of GNUSTEP_INSTALLATION_DIR.

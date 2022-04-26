@@ -1,0 +1,115 @@
+Addresses for GNUstep
+=====================
+
+(c) 2003 by Björn Giesler <bjoern@giesler.de>
+---------------------------------------------
+
+
+This package constitutes a personal address manager for the GNUstep
+software system. It allows archiving complete personal contact
+information, organizing contacts in groups, integration with other
+software such as mail clients and sharing address information with
+other users over the network.
+
+TABLE OF CONTENTS
+=================
+
+	Technical Information
+	Note on Incompleteness
+	Extending via Plugins
+	License
+	
+
+TECHNICAL INFORMATION
+=====================
+
+Addresses is organized in components. There is
+
+    o a database API backend framework called Addresses.framework.
+      This backend provides complete access to address information for
+      applications. It is source-code compatible with Apple
+      Corporation's AddressBook.framework.
+
+    o a display/edit framework called AddressView.framework.
+      This library provides specialized view classes to applications
+      which want to display addresses to the user in a graphical
+      form. There are two main classes:
+
+        o ADPersonView, to display and edit complete information about
+          a person in a visually appealing style. This view is
+          intended for specialized Address Manager applications.
+
+        o ADSinglePropertyView, to display person names together with
+          values for a single other property (such as email
+          address). This view is intended for applications such as
+          Email clients, in which the user should select one or more
+          contacts to perform some operation on them.
+
+    o a dedicated Address Manager application, which uses both of
+      these frameworks and acts as an easy-to-use and visually
+      appealing database frontend.
+
+    o a number of command-line helper tools, such as converters
+      from/to specific address formats, an address book network
+      server, etc.
+      
+NOTE ON INCOMPLETENESS
+======================
+
+This software package is still in the early stages of
+development. Expect changes in database format, functionality, and
+just about anything else. There is no warranty, express or implied,
+that this package is good for any particular purpose, or if it is,
+will remain so in the future. Expect breakage.
+
+That said, if you find anything buggy or not to your liking, please
+send me mail at bjoern@giesler.de.
+
+Another thing, not to be taken personally: This software is clearly
+inspired by the Apple Address Book. If it's not NeXTish enough for
+you, please feel free to submit changes in the form of .gorm files or
+whatever. I am quite happy with the UI as it is, and quite unwilling
+to listen to any more complaints about what should be a panel and what
+shouldn't and what has to be grouped in a window and what
+shouldn't. None of us works for NeXT anymore, so none of us knows what
+THEY would have done. As I said, if you submit patches that make the
+look configurable, I'll be happy to integrate them.
+
+
+EXTENDING VIA PLUGINS
+=====================
+
+To keep the library and application as open as possible, it is extensible via
+plugins. These are loaded from the usual places: 
+
+	 $(GNUSTEP_SYSTEM_LIBRARY)/Addresses
+	 $(GNUSTEP_NETWORK_LIBRARY)/Addresses  
+	 $(GNUSTEP_LOCAL_LIBRARY)/Addresses
+	 $(GNUSTEP_USER_LIBRARY)/Addresses 
+
+There are currently two kinds of plugins, and they usually appear in pairs of
+two: plugins that provide new address book classes, and plugins that contain
+GUIs to configure them.
+
+One reason to write such plugins is that you might have a corporation-wide
+address book that you want to browse or synchronize with. 
+
+Please look into Frameworks/Addresses/ADPlugin.h and AddressManager/Plugin.h,
+as well as the goodies/LDAPAddressBook directory, for documentation and
+examples on how to write such plugins.
+
+
+LICENSE
+=======
+
+This software package is distributed under the terms of the GNU Lesser
+General Public License (LGPL); please see the file COPYING.LIB for
+details.
+
+There is one important license issue to note: In the case of the work
+at hand, a bundle containing class extensions to Addresses.framework
+or AddressView.framework is to be considered a "work that uses the
+library", not a "work based on the library" in terms of the LGPL. In
+layman's terms: If you write a bundle containing a subclass of
+ADAddressBook (eg a MS Exchange connector), this bundle does not have
+to be released as source code.

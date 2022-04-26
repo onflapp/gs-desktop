@@ -1,0 +1,182 @@
+/***
+English.lproj/Localizable.strings
+updated by make_strings 2003-10-24 09:54:57 +0200
+add comments above this one
+***/
+
+
+/*** Strings from Controller.m ***/
+/* File: Controller.m:867 */
+" (Me)" = " (Me)";
+/* File: Controller.m:251 */
+"'%@' cannot be edited because\nthe record is marked as read-only."
+= "'%@' cannot be edited because\nthe record is marked as read-only.";
+/* File: Controller.m:1031 */
+"'%@' could not be added to '%@'" = "'%@' could not be added to '%@'";
+/* File: Controller.m:632 */
+/* File: Controller.m:345 */
+"A new person could not be created." = "A new person could not be created.";
+/* File: Controller.m:948 */
+/* File: Controller.m:719 */
+/* File: Controller.m:959 */
+"Addresses" = "Addresses";
+/* File: Controller.m:953 */
+"Addresses*" = "Addresses*";
+/* File: Controller.m:830 */
+/* File: Controller.m:829 */
+/* File: Controller.m:804 */
+/* File: Controller.m:828 */
+/* File: Controller.m:855 */
+"All" = "All";
+/* File: Controller.m:533 */
+"Can only store a single person\nin files of type %@"
+= "Can only store a single person\nin files of type %@";
+/* File: Controller.m:524 */
+"Cannot export files of type %@" = "Cannot export files of type %@";
+/* File: Controller.m:1033 */
+"Could not add member!" = "Could not add member!";
+/* File: Controller.m:665 */
+"Could not create group!" = "Could not create group!";
+/* File: Controller.m:548 */
+"Could not write file %@.\nPermissions error?"
+= "Could not write file %@.\nPermissions error?";
+/* File: Controller.m:641 */
+/* File: Controller.m:354 */
+"Couldn't add person" = "Couldn't add person";
+/* File: Controller.m:631 */
+/* File: Controller.m:344 */
+"Couldn't create person" = "Couldn't create person";
+/* File: Controller.m:1060 */
+/* File: Controller.m:715 */
+"Couldn't save" = "Couldn't save";
+/* File: Controller.m:687 */
+"Delete Group?" = "Delete Group?";
+/* File: Controller.m:386 */
+"Delete Person?" = "Delete Person?";
+/* File: Controller.m:394 */
+"Delete Persons?" = "Delete Persons?";
+/* File: Controller.m:807 */
+/* File: Controller.m:815 */
+"Disallowed" = "Disallowed";
+/* File: Controller.m:274 */
+"Discard Person?" = "Discard Person?";
+/* File: Controller.m:926 */
+/* File: Controller.m:601 */
+"Do not share these people" = "Do not share these people";
+/* File: Controller.m:928 */
+/* File: Controller.m:603 */
+"Do not share this person" = "Do not share this person";
+/* File: Controller.m:384 */
+"Do you really want to delete %@ from \"All\" and all groups?"
+= "Do you really want to delete %@ from \"All\" and all groups?";
+/* File: Controller.m:392 */
+"Do you really want to delete the %d selected persons from \"All\" and all groups?"
+= "Do you really want to delete the %d selected persons from \"All\" and all groups?";
+/* File: Controller.m:685 */
+"Do you really want to delete the group '%@'?"
+= "Do you really want to delete the group '%@'?";
+/* File: Controller.m:461 */
+"Don't insert" = "Don't insert";
+/* File: Controller.m:1054 */
+"Don't quit" = "Don't quit";
+/* File: Controller.m:281 */
+"Edit Person" = "Edit Person";
+/* File: Controller.m:254 */
+"Edit person" = "Edit person";
+/* File: Controller.m:259 */
+"End editing" = "End editing";
+/* File: Controller.m:665 */
+/* File: Controller.m:696 */
+"Error" = "Error";
+/* File: Controller.m:113 */
+/* File: Controller.m:112 */
+/* File: Controller.m:747 */
+"Everything" = "Everything";
+/* File: Controller.m:459 */
+"Existing person?" = "Existing person?";
+/* File: Controller.m:503 */
+"Export %d records to..." = "Export %d records to...";
+/* File: Controller.m:507 */
+"Export '%@' to..." = "Export '%@' to...";
+/* File: Controller.m:59 */
+"Group" = "Group";
+/* File: Controller.m:428 */
+"Import..." = "Import...";
+/* File: Controller.m:460 */
+"Insert anyway" = "Insert anyway";
+/* File: Controller.m:535 */
+/* File: Controller.m:526 */
+"Invalid File Type" = "Invalid File Type";
+/* File: Controller.m:60 */
+"Name" = "Name";
+/* File: Controller.m:663 */
+"New Group" = "New Group";
+/* File: Controller.m:994 */
+"New Person" = "New Person";
+/* File: Controller.m:277 */
+/* File: Controller.m:688 */
+/* File: Controller.m:397 */
+"No" = "No";
+/* File: Controller.m:666 */
+/* File: Controller.m:717 */
+/* File: Controller.m:1062 */
+/* File: Controller.m:526 */
+/* File: Controller.m:357 */
+/* File: Controller.m:346 */
+/* File: Controller.m:696 */
+/* File: Controller.m:644 */
+/* File: Controller.m:633 */
+/* File: Controller.m:550 */
+/* File: Controller.m:1034 */
+/* File: Controller.m:810 */
+/* File: Controller.m:252 */
+/* File: Controller.m:535 */
+/* File: Controller.m:821 */
+"OK" = "OK";
+/* File: Controller.m:1053 */
+"Quit without saving" = "Quit without saving";
+/* File: Controller.m:248 */
+"Read-Only Person" = "Read-Only Person";
+/* File: Controller.m:460 */
+"Replace" = "Replace";
+/* File: Controller.m:1050 */
+"Save Changes?" = "Save Changes?";
+/* File: Controller.m:1053 */
+"Save and Quit" = "Save and Quit";
+/* File: Controller.m:933 */
+/* File: Controller.m:608 */
+"Share these people" = "Share these people";
+/* File: Controller.m:935 */
+/* File: Controller.m:610 */
+"Share this person" = "Share this person";
+/* File: Controller.m:1061 */
+/* File: Controller.m:716 */
+"The database could not be saved!" = "The database could not be saved!";
+/* File: Controller.m:694 */
+"The group '%@` could not be deleted."
+= "The group '%@` could not be deleted.";
+/* File: Controller.m:643 */
+/* File: Controller.m:356 */
+"The newly created person could not be\nadded to this group."
+= "The newly created person could not be\nadded to this group.";
+/* File: Controller.m:276 */
+"The person you have edited has no first or last\nnames. Would you like to discard this person?"
+= "The person you have edited has no first or last\nnames. Would you like to discard this person?";
+/* File: Controller.m:457 */
+"Trying to import person named '%@',\nwhich already exists in the database."
+= "Trying to import person named '%@',\nwhich already exists in the database.";
+/* File: Controller.m:550 */
+"Write Failed" = "Write Failed";
+/* File: Controller.m:688 */
+/* File: Controller.m:397 */
+/* File: Controller.m:277 */
+"Yes" = "Yes";
+/* File: Controller.m:809 */
+"You cannot rename a group to \"All\",\nsince that name is reserved by the system."
+= "You cannot rename a group to \"All\",\nsince that name is reserved by the system.";
+/* File: Controller.m:820 */
+"You cannot rename this group to \"%@\",\nsince a group of that name already exists."
+= "You cannot rename this group to \"%@\",\nsince a group of that name already exists.";
+/* File: Controller.m:1052 */
+"You have made changes to the database.\nShould these changes be saved?"
+= "You have made changes to the database.\nShould these changes be saved?";

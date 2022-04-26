@@ -1,0 +1,34 @@
+Addresses Goodies
+=================
+
+This directory contains a couple of things that might be of use:
+
+o VCFInspector
+
+  A content inspector bundle for GWorkspace. Since I can't be sure
+  that everybody has GWorkspace installed, and this needs GWorkspace
+  headers, it's not built by default. It's horribly useful
+  nonetheless. You can use it to browse through VCFs and also to drag
+  single addresses out of VCFs into the address book, terminal, any
+  text field, ...
+
+o adgnumailconverter
+
+  A tool that will merge your GNUMail address book into the Addresses
+  database.
+
+o adserver
+
+  A stand-alone Addresses network server.
+
+o adtool
+
+  A command-line tool for address database manipulation
+
+o LDAPAddressBook
+
+  An address book plugin to handle LDAP connections. Needs GSLDAP!
+
+Each of these can be built by cd'ing into the respective directory, or
+you can build and install them all at once simply by typing "make; make
+install" in the Goodies directory.

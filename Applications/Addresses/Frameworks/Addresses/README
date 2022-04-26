@@ -1,0 +1,111 @@
+
+Addresses.framework - (c) 2003 Björn Giesler
+==========================================
+
+This is a framework containing an implementation of Apple's
+AddressBook API. It's not called AddressBook.framework to avoid
+confusion and possible trademark issues and to be able to install it
+on Apple systems alongside Apple's implementation. The classes and
+header files are called "AD*" instead of "AB*" to be able to use both
+Addresses and Apple's AddressBook frameworks in the same application
+(e.g. to migrate between the two); there is, however, a compatibility
+header file named "AddressBook.h" containing define statements that will
+allow you to use the frameworks interchangeably. Additionally, the
+installation process on GNUstep will create a link called
+"AddressBook" to the Addresses header directory, so that you don't have
+to change any sourcecode that has the line
+	#include <AddressBook/AddressBook.h>
+in it.
+
+It is expandable to allow for different address storage locations (SQL
+databases, MS Exchange servers, etc.). The intent is to provide a
+framework which will handle anything from small personal address books
+to large corporate databases.
+
+No Apple code has been used, copied or even looked at in connection
+with developing this framework; this includes any of the original
+AddressBook Framework headers or libraries. The API has been entirely
+reverse-engineered from Apple's AddressBook Framework documentation.
+
+
+License
+=======
+
+This framework is distributed under the LGPL; read the file
+COPYING.LIB for details.
+
+
+Implementation Notes
+====================
+
+This section contains some notes (instead of a full documentation,
+which I'm too lazy to write right now) about some implementation
+details and extensions Addresses.framework has over Apple's
+AddressBook.framework. Few people using the framework in their
+applications will probably need to read this section; but if you're
+extending the framework (for example, with converters or address book
+classes), you'll find this interesting.
+
+Different Address Books Look As One
+-----------------------------------
+
+This framework comes with two subclasses of the AddressBook class. The
+first one, ADLocalAddressBook, accesses a user's personal database
+(located at ~/GNUstep/Library/Addresses). This database contains
+contacts as property list files and groups as directories. It is clear
+that this naive approach has its disadvantages, but it is easily
+maintained with standard tools, even if the framework fails. For large
+databases, storage in RDBMS can easily be implemented.
+
+The second subclass, ADEnvelopeAddressBook, acts as an envelope for
+other address books. [ADAddressBook sharedAddressBook] will return an
+instance of this class. You can add other address books to this
+instance; by default, it contains an instance of
+ADLocalAddressBook. Addresses added to ADEnvelopeAddressBook will be
+added to its primaryAddressBook (the local one, by default).
+
+The idea behind this system is to be able to transparently connect to
+arbitrary address sources (LDAP, Apple's address book, whatever). To
+add a new address book, just write a class, instantiate it and add it
+using
+
+[[ADEnvelopeAddressBook sharedAddressBook] addAddressBook: myBook].
+
+
+Handling Notifications
+----------------------
+
+Addresses uses three notifications that an application can observe to
+be notified of database changes:
+
+  ADRecordChangedNotification
+    This is posted to the default notification center every time a
+    record is changed. Its userInfo member is a dictionary containing
+    the following:
+        ADChangedPropertyKey = the changed property
+        ADChangedValueKey = the new value of the changed property
+
+  ADDatabaseChangedNotification
+    This is posted to the default notification center every time a
+    record is changed. Its userInfo member is a dictionary containing
+    the following:
+        ADAddressBookContainingChangedRecord = the record's address book
+        ADUniqueIDOfChangedRecord = the ID of the changed record
+        ADChangedPropertyKey = the changed property
+        ADChangedValueKey = the new value of the changed property
+
+  ADDatabaseChangedExternallyNotification
+    This is posted to the default distributed notification center
+    by a process saving a changed database. From there, it is caught
+    by all other processes' shared ADAddressBook instances and
+    re-thrown to their default notification centers. Its object
+    member is a string specifying the ADAddressBook subclass that
+    changed the database, its userInfo a dictionary specifying that
+    class's specifics (e.g. a filesystem path to the database).
+
+Further Documentation
+=====================
+
+Please see Apple's AddressBook documentation for a complete reference
+on the original AddressBook.framework. It is located at
+    http://developer.apple.com/ue/addressbook/

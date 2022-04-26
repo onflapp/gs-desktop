@@ -1,0 +1,15 @@
+Many people on #gnustep, especially Riccardo Mottola and Nicolas
+Roard, helped me locate and fix many bugs. Thanks very much for that.
+
+Many thanks also goes to Andreas Heppel, Frederic Praca, Peter Cooper
+and Riccardo again for helping with making Addresses compile on
+pre-C99 compilers.
+
+Rob Burns and Alex Malmberg cleared up a couple of encoding issues
+that are still hard to grasp for me.
+
+Calvin Mitchell provided me with a very non-standard VCF file which
+helped making VCF importing more robust.
+
+Guenther Noack for VCF Hex handling code
+

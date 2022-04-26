@@ -1,0 +1,80 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    ContactView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSView;
+    };
+    Controller = {
+	Actions = (
+	    "doEditPerson:",
+	    "doTogglePersonEditable:",
+	    "doCreatePerson:",
+	    "doImportPerson:",
+	    "doExportPerson:",
+	    "doSetMe:",
+	    "doShowMe:",
+	    "doSelectAllPersons:",
+	    "doToggleShared:",
+	    "doDuplicatePerson:",
+	    "doMergePersons:",
+	    "doCreateGroup:",
+	    "doDeleteGroup:",
+	    "doSaveDatabase:",
+	    "doShowPrefsPanel:",
+	    "prefsToggleAutosave:",
+	    "prefsChangeAddressLayout:",
+	    "prefsChangeScreenNameLayout:"
+	);
+	Outlets = (
+	    personView,
+	    scrollView,
+	    clipView,
+	    groupsBrowser,
+	    servicesMenu,
+	    editButton,
+	    editItem,
+	    shareItem,
+	    mergePersonsItem,
+	    duplicatePersonItem,
+	    thisIsMeItem,
+	    prefsPanel,
+	    prefsAutosaveButton,
+	    prefsAddressLayoutPopup,
+	    prefsScreenNameLayoutMatrix,
+	    lastCell
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "doBrowserClick:",
+	    "doChangeAddressLayout:",
+	    "doCreateGroup:",
+	    "doCreatePerson:",
+	    "doDeleteGroup:",
+	    "doDeletePerson:",
+	    "doDuplicatePerson:",
+	    "doEditPerson:",
+	    "doExportPerson:",
+	    "doImportPerson:",
+	    "doMergePersons:",
+	    "doRenameGroup:",
+	    "doSaveDatabase:",
+	    "doSelectAllPersons:",
+	    "doSetMe:",
+	    "doShowMe:",
+	    "doShowPrefsPanel:",
+	    "doToggleAutosave:",
+	    "doTogglePersonEditable:",
+	    "doToggleShared:",
+	    "orderFrontFontPanel:",
+	    "prefsChangeAddressLayout:",
+	    "prefsChangeScreenNameLayout:",
+	    "prefsToggleAutosave:"
+	);
+	Super = NSObject;
+    };
+}

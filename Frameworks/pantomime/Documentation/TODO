@@ -1,0 +1,9 @@
+21- clean all FIXME
+79- support other mailbox format like mh, Mail.app, etc.
+87- Add Mail-Followup-To support (see IETF draft)
+92- We should use a bit string for Store: -folderTypeForFolderName in order
+    to return all the types an IMAP server can return.
+93- Support RFC850 (Standard for Interchange of USENET Messages)
+94- Add certificates validation for the SSL bundle?
+95- support IMAP namespaces (rfc2342)
+99- fix quoting bug for big5 mails (mails from Koichi and Toshiro)

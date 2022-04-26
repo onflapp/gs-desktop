@@ -1,0 +1,16 @@
+{
+ApplicationDescription = "An Address Book.";
+ApplicationName = "AddressManager";
+ApplicationRelease = "0.4.9";
+ApplicationURL = "http://gap.nongnu.org/addresses/";
+NSIcon = "AddressManager.tiff";
+Authors = ("The Team of the GNUstep Application Project", "Riccardo Mottola", "Philippe Roussel", "Bj\u00f6rn Giesler <bjoern@giesler.de>");
+Copyright = "Copyright (C) 2003-2012 The GNUstep Application Project\n
+Distributed under the terms of the LGPL.";
+NSTypes = (
+	{
+		NSUnixExtensions = ( "vcf", "vcard" );
+		NSIcon = "VCFFile.tiff";
+	}
+);
+}

@@ -1,0 +1,85 @@
+Pantomime v1.2.2
+===============================================================================
+Copyright (C) 2001-2006 Ludovic Marcotte
+
+Author: Ludovic Marcotte <ludovic@Sophos.ca>
+
+This library is free software; you can redistribute it and/or
+modify it under the terms of the GNU Lesser General Public
+License as published by the Free Software Foundation; either
+version 2.1 of the License, or (at your option) any later version.
+
+This library is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+Lesser General Public License for more details. 
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+===============================================================================
+
+Compiling Pantomime for GNUstep
+===============================================================================
+
+To try Pantomime, your first need to install GNUstep. You can get GNUstep at:
+
+http://www.gnustep.org
+
+Be sure to fully read and understand the GNUstep installation procedure. You 
+can read a comprehensive guide on how to install GNUstep on Unix systems here:
+
+http://documents.made-it.com/GNUstep/Build/
+
+Once you have installed GNUstep, you can compile Pantomime.
+
+To compile and install it:
+
+cd Pantomime
+make
+make install
+
+If you are using RedHat 9 or Fedora, you might have to define the 
+ADDITIONAL_OBJCFLAGS environment variable, like this:
+
+export ADDITIONAL_OBJCFLAGS="-I/usr/kerberos/include"
+
+in order to include the Kerberos headers during compilation (since
+your OpenSSL installation requires them).
+
+
+Compiling Pantomime for Apple Mac OS X
+===============================================================================
+
+In order to compile Pantomime under OS X, you first need to install Apple's
+developer tools. You can get them at:
+
+http://developer.apple.com/tools/
+
+Once you've downloaded and installed the developer tools, open Xcode.
+
+Once Xcode is started, open the Pantomime's project file (Pantomime.xcode).
+
+To compile it, choose the "Build" menu item from the "Build" menu. This will create
+a "Pantomime.framework" directory inside the Pantomime's build directory. You can
+safely move this framework where you want, or simply add it to your application
+from Xcode (Project->Add Frameworks...).
+
+
+Using Pantomime in your application
+===============================================================================
+
+Under GNUstep, you must add the following line to your GNUmakefile:
+
+ADDITIONAL_LDFLAGS = -lPantomime
+
+Under Apple Mac OS X, you must add the following compiler flag:
+
+-DMACOSX
+
+Otherwise, you'll get errors when compiling your application.
+
+
+===============================================================================
+Author: Ludovic Marcotte (ludovic@Sophos.ca)
+
+The name "Pantomime" was proposed by Jay Kominek.

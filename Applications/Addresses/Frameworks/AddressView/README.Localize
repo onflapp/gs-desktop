@@ -1,0 +1,33 @@
+LOCALIZING ADPERSONVIEW
+=======================
+
+There are three things that have to be done to localize ADPersonView:
+
+o Translate <Language>.lproj/Localizable strings (of course)
+o Check ISOCodeMapping.dict for your country's ISO code and insert all
+  the possible names that you know for your country into the array
+o Write an address layout for your country and put it into
+  AddressLayouts.dict; key being the country code.
+o make AddressManager/<YourLanguage>.lproj/ISOCountryCodes.dict and put
+  in all country codes and the corresponding countries' names in
+  your language
+
+The algorithm for determining the correct address layout for an
+address is as follows:
+
+1 Determining the country code
+------------------------------
+
+o Address contains entry for ADAddressCountryCodeKey? Return that.
+o Address contains entry for ADAddressCountryKey? Try to find that in
+  ISOCodeMapping.dict and return its key.
+o $LANG is something like "de"? Return that.
+o $LANG is something like "de_DE" or "zh_TW"? Return lowercased part
+  behind the "_".
+o Return "us".
+
+2 Determining the address layout
+--------------------------------
+
+o AddressLayouts.dict contains an entry for country code? Return that.
+o Return "Default" layout.
