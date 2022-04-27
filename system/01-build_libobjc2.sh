@@ -1,5 +1,7 @@
 #!/bin/bash
 
+. ../BUILD_SETTINGS.sh
+
 cd ../../libobjc2 || exit 1
 
 rm -Rf _build 2>/dev/null

@@ -79,7 +79,6 @@ fi
 
 export WMAKER_USER_ROOT=$HOME/Library/WindowMaker
 export PATH=/System/bin:$PATH
-export RUNTIME_VERSION="gnustep-2.0"
 export GS_DESKTOP_LOG=/tmp/$UID-gs-desktop.log
 
 source /Developer/Makefiles/GNUstep.sh

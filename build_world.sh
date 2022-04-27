@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+export PATH=/System/bin:$PATH
+
 D=`pwd`
 cd ./system
 ./build_all.sh
