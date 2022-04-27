@@ -9,3 +9,5 @@ cp ./Library/Preferences/* /Library/Preferences
 
 mkdir -p /Library/Services 2>/dev/null
 cp ./Library/Services/* /Library/Services
+
+cp ./System/share/WindowMaker/Icons/* /System/share/WindowMaker/Icons

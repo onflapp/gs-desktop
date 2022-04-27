@@ -92,10 +92,6 @@
     <dict>
 	<key>fsn_info_type</key>
 	<integer>0</integer>
-	<key>lastselection</key>
-	<array>
-	    <string>/Applications/WPrefs.app</string>
-	</array>
 	<key>shelfheight</key>
 	<real>77</real>
 	<key>singlenode</key>

@@ -10,12 +10,10 @@
   DoNotMakeAppIconsBounce = YES;
   FrameFocusedBorderColor = "#000000";
   IconPath = (
-    "~/pixmaps",
-    "~/GNUstep/Library/Icons",
-    "/usr/include/X11/pixmaps",
-    "/usr/local/share/WindowMaker/Icons",
-    "/usr/local/share/WindowMaker/Pixmaps",
-    "/usr/share/WindowMaker/Icons"
+    "~/Library/WindowMaker/Library/Icons",
+    "~/Library/WindowMaker/Library/WindowMaker/CachedPixmaps",
+    "/System/share/WindowMaker/Icons",
+    "/System/share/WindowMaker/Pixmaps"
   );
   UTitleColor = "#000000";
   MoveTo6to12Head = None;
@@ -31,9 +29,11 @@
   IconTitleBack = "#000000";
   BounceAppIconsWhenUrgent = NO;
   PixmapPath = (
-    "~/pixmaps",
-    "~/GNUstep/Library/WindowMaker/Pixmaps",
-    "/usr/local/share/WindowMaker/Pixmaps"
+    "~/Library/WindowMaker/Library/WindowMaker/Pixmaps",
+    "~/Library/WindowMaker/Library/WindowMaker/Backgrounds",
+    "~/Library/WindowMaker/Library/WindowMaker/CachedPixmaps",
+    "/System/share/WindowMaker/Backgrounds",
+    "/System/share/WindowMaker/Pixmaps"
   );
   MenuDisabledColor = "#616161";
   MenuTextColor = "#000000";
