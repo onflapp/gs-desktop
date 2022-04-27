@@ -78,7 +78,7 @@ ADDITIONAL_LDFLAGS += $(LIB_FREETYPE_LDFLAGS)
 LD=clang++
 
 ifeq ($(findstring clang, $(LD)), clang)
-ADDITIONAL_LDFLAGS += -lstdc++
+ADDITIONAL_LDFLAGS += -lstdc++ -lobjc
 endif
 
 
