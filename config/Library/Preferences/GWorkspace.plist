@@ -23,24 +23,13 @@
     </array>
     <key>GSWorkspaceApplication</key>
     <string>GWorkspace</string>
-    <key>NSMenuLocations</key>
-    <dict>
-	<key>\U001B</key>
-	<string>0 518 110 282 0 0  1440 900 </string>
-    </dict>
-    <key>NSWindow Frame finder</key>
-    <string>446 495 494 290 0 0  1440 900 </string>
-    <key>NSWindow Frame inspector</key>
-    <string>619 371 278 418 0 0  1440 900 </string>
-    <key>NSWindow Frame preferencesWin</key>
-    <string>370 76 396 310 0 0  1440 900 </string>
-    <key>NSWindow Frame run_external</key>
-    <string>462 598 331 149 0 0  1440 900 </string>
     <key>applications</key>
     <dict>
     </dict>
     <key>auto_calculate_sizes</key>
     <false/>
+    <key>browserColsWidth</key>
+    <string>188</string>
     <key>default_sortorder</key>
     <integer>0</integer>
     <key>defaulteditor</key>
@@ -84,7 +73,7 @@
     <array>
     </array>
     <key>hidedock</key>
-    <false/>
+    <true/>
     <key>history_cache</key>
     <integer>20</integer>
     <key>last_active_inspector</key>
@@ -103,22 +92,9 @@
     <dict>
 	<key>fsn_info_type</key>
 	<integer>0</integer>
-	<key>geometry</key>
-	<string>100 450 450 350 0 0  1440 900 </string>
 	<key>lastselection</key>
 	<array>
-	    <string>/</string>
-	</array>
-	<key>shelfdicts</key>
-	<array>
-	    <dict>
-		<key>index</key>
-		<integer>0</integer>
-		<key>paths</key>
-		<array>
-		    <string>/home/oflorian</string>
-		</array>
-	    </dict>
+	    <string>/Applications/WPrefs.app</string>
 	</array>
 	<key>shelfheight</key>
 	<real>77</real>
@@ -173,7 +149,7 @@
 	</array>
     </dict>
     <key>terminal_services</key>
-    <false/>
+    <true/>
     <key>tshelf</key>
     <false/>
     <key>tshelfpbfnum</key>

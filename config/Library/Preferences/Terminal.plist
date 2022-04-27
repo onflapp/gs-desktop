@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>ScrollBackEnabled</key>
+    <string>YES</string>
+    <key>ScrollBackLines</key>
+    <integer>256</integer>
+    <key>ScrollBackUnlimited</key>
+    <string>NO</string>
+    <key>ScrollBottomOnInput</key>
+    <string>YES</string>
+    <key>StartupAction</key>
+    <integer>3</integer>
+    <key>TerminalServices</key>
+    <dict>
+	<key>Arithmetic Calculation</key>
+	<dict>
+	    <key>AcceptTypes</key>
+	    <string>1</string>
+	    <key>Commandline</key>
+	    <string>echo %s | bc</string>
+	    <key>ExecInShell</key>
+	    <string>0</string>
+	    <key>ExecType</key>
+	    <string>0</string>
+	    <key>Input</key>
+	    <string>2</string>
+	    <key>Key</key>
+	    <string></string>
+	    <key>ReturnData</key>
+	    <string>1</string>
+	</dict>
+	<key>Count lines</key>
+	<dict>
+	    <key>Commandline</key>
+	    <string>wc -l</string>
+	    <key>ExecInShell</key>
+	    <string>0</string>
+	    <key>ExecType</key>
+	    <string>0</string>
+	    <key>Input</key>
+	    <string>1</string>
+	    <key>Key</key>
+	    <string></string>
+	    <key>ReturnData</key>
+	    <string>1</string>
+	</dict>
+	<key>Count words</key>
+	<dict>
+	    <key>Commandline</key>
+	    <string>wc</string>
+	    <key>ExecInShell</key>
+	    <string>0</string>
+	    <key>ExecType</key>
+	    <string>0</string>
+	    <key>Input</key>
+	    <string>1</string>
+	    <key>Key</key>
+	    <string></string>
+	    <key>ReturnData</key>
+	    <string>1</string>
+	</dict>
+	<key>Define word</key>
+	<dict>
+	    <key>AcceptTypes</key>
+	    <string>1</string>
+	    <key>Commandline</key>
+	    <string>dict %s</string>
+	    <key>ExecType</key>
+	    <string>1</string>
+	    <key>Input</key>
+	    <string>2</string>
+	    <key>Key</key>
+	    <string>=</string>
+	    <key>WindowType</key>
+	    <string>0</string>
+	</dict>
+	<key>Fetch URL</key>
+	<dict>
+	    <key>AcceptTypes</key>
+	    <string>1</string>
+	    <key>Commandline</key>
+	    <string>cd ~; wget %s</string>
+	    <key>ExecType</key>
+	    <string>1</string>
+	    <key>Input</key>
+	    <string>2</string>
+	    <key>Key</key>
+	    <string></string>
+	    <key>WindowType</key>
+	    <string>0</string>
+	</dict>
+	<key>Four-space hard tabs</key>
+	<dict>
+	    <key>Commandline</key>
+	    <string>expand | unexpand -t4</string>
+	    <key>ExecInShell</key>
+	    <string>1</string>
+	    <key>ExecType</key>
+	    <string>0</string>
+	    <key>Input</key>
+	    <string>1</string>
+	    <key>Key</key>
+	    <string></string>
+	    <key>ReturnData</key>
+	    <string>1</string>
+	</dict>
+	<key>Open shell here</key>
+	<dict>
+	    <key>AcceptTypes</key>
+	    <string>3</string>
+	    <key>Commandline</key>
+	    <string>cd %s &amp;&amp; exec $SHELL</string>
+	    <key>ExecInShell</key>
+	    <string>1</string>
+	    <key>ExecType</key>
+	    <string>1</string>
+	    <key>Input</key>
+	    <string>2</string>
+	    <key>Key</key>
+	    <string></string>
+	    <key>ReturnData</key>
+	    <string>0</string>
+	</dict>
+	<key>Sort lines</key>
+	<dict>
+	    <key>Commandline</key>
+	    <string>sort</string>
+	    <key>ExecInShell</key>
+	    <string>0</string>
+	    <key>ExecType</key>
+	    <string>0</string>
+	    <key>Input</key>
+	    <string>1</string>
+	    <key>Key</key>
+	    <string></string>
+	    <key>ReturnData</key>
+	    <string>1</string>
+	</dict>
+	<key>Time</key>
+	<dict>
+	    <key>Commandline</key>
+	    <string>date</string>
+	    <key>ExecInShell</key>
+	    <string>0</string>
+	    <key>ExecType</key>
+	    <string>0</string>
+	    <key>Input</key>
+	    <string>0</string>
+	    <key>Key</key>
+	    <string></string>
+	    <key>ReturnData</key>
+	    <string>1</string>
+	</dict>
+	<key>Wrap and reply</key>
+	<dict>
+	    <key>Commandline</key>
+	    <string>fmt -w 70 | sed -e &quot;s/^/&gt; /&quot;</string>
+	    <key>ExecInShell</key>
+	    <string>1</string>
+	    <key>ExecType</key>
+	    <string>0</string>
+	    <key>Input</key>
+	    <string>1</string>
+	    <key>Key</key>
+	    <string></string>
+	    <key>ReturnData</key>
+	    <string>1</string>
+	</dict>
+	<key>Wrap to 72 Columns</key>
+	<dict>
+	    <key>Commandline</key>
+	    <string>fmt -w 72</string>
+	    <key>ExecInShell</key>
+	    <string>0</string>
+	    <key>ExecType</key>
+	    <string>0</string>
+	    <key>Input</key>
+	    <string>1</string>
+	    <key>Key</key>
+	    <string></string>
+	    <key>ReturnData</key>
+	    <string>1</string>
+	</dict>
+	<key>bunzip2</key>
+	<dict>
+	    <key>AcceptTypes</key>
+	    <string>2</string>
+	    <key>Commandline</key>
+	    <string>bunzip2 %s</string>
+	    <key>ExecInShell</key>
+	    <string>0</string>
+	    <key>ExecType</key>
+	    <string>0</string>
+	    <key>Input</key>
+	    <string>2</string>
+	    <key>Key</key>
+	    <string></string>
+	    <key>ReturnData</key>
+	    <string>0</string>
+	</dict>
+	<key>bzip2</key>
+	<dict>
+	    <key>AcceptTypes</key>
+	    <string>2</string>
+	    <key>Commandline</key>
+	    <string>bzip2 %s</string>
+	    <key>ExecInShell</key>
+	    <string>0</string>
+	    <key>ExecType</key>
+	    <string>0</string>
+	    <key>Input</key>
+	    <string>2</string>
+	    <key>Key</key>
+	    <string></string>
+	    <key>ReturnData</key>
+	    <string>0</string>
+	</dict>
+	<key>gunzip</key>
+	<dict>
+	    <key>AcceptTypes</key>
+	    <string>2</string>
+	    <key>Commandline</key>
+	    <string>gunzip %s</string>
+	    <key>ExecInShell</key>
+	    <string>0</string>
+	    <key>ExecType</key>
+	    <string>0</string>
+	    <key>Input</key>
+	    <string>2</string>
+	    <key>Key</key>
+	    <string></string>
+	    <key>ReturnData</key>
+	    <string>0</string>
+	</dict>
+	<key>gzip</key>
+	<dict>
+	    <key>AcceptTypes</key>
+	    <string>2</string>
+	    <key>Commandline</key>
+	    <string>gzip %s</string>
+	    <key>ExecInShell</key>
+	    <string>0</string>
+	    <key>ExecType</key>
+	    <string>0</string>
+	    <key>Input</key>
+	    <string>2</string>
+	    <key>Key</key>
+	    <string></string>
+	    <key>ReturnData</key>
+	    <string>0</string>
+	</dict>
+    </dict>
+</dict>
+</plist>

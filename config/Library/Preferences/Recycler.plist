@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>DesktopApplicationName</key>
+    <string>Recycler</string>
+    <key>DesktopApplicationSelName</key>
+    <string>recycler</string>
+    <key>GSReservedMountNames</key>
+    <array>
+	<string>proc</string>
+	<string>devpts</string>
+	<string>shm</string>
+	<string>usbdevfs</string>
+	<string>devtmpfs</string>
+	<string>devpts</string>
+	<string>sysfs</string>
+	<string>tmpfs</string>
+	<string>procbususb</string>
+	<string>udev</string>
+	<string>pstore</string>
+	<string>cgroup</string>
+    </array>
+    <key>docked</key>
+    <true/>
+</dict>
+</plist>

@@ -6,3 +6,6 @@ cp -R ./System/etc/* /System/etc
 
 mkdir -p /Library/Preferences 2>/dev/null
 cp ./Library/Preferences/* /Library/Preferences
+
+mkdir -p /Library/Services 2>/dev/null
+cp ./Library/Services/* /Library/Services

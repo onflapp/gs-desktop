@@ -1,0 +1,194 @@
+{
+    NSServices = (
+	{
+	    NSMenuItem = {
+		default = "Terminal/Four-space hard tabs";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSReturnTypes = (
+		NSStringPboardType
+	    );
+	    NSSendTypes = (
+		NSStringPboardType
+	    );
+	    NSUserData = "Four-space hard tabs";
+	},
+	{
+	    NSMenuItem = {
+		default = "Terminal/Count lines";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSReturnTypes = (
+		NSStringPboardType
+	    );
+	    NSSendTypes = (
+		NSStringPboardType
+	    );
+	    NSUserData = "Count lines";
+	},
+	{
+	    NSMenuItem = {
+		default = "Terminal/Wrap to 72 Columns";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSReturnTypes = (
+		NSStringPboardType
+	    );
+	    NSSendTypes = (
+		NSStringPboardType
+	    );
+	    NSUserData = "Wrap to 72 Columns";
+	},
+	{
+	    NSMenuItem = {
+		default = "Terminal/Count words";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSReturnTypes = (
+		NSStringPboardType
+	    );
+	    NSSendTypes = (
+		NSStringPboardType
+	    );
+	    NSUserData = "Count words";
+	},
+	{
+	    NSMenuItem = {
+		default = "Terminal/bunzip2";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSSendTypes = (
+		NSFilenamesPboardType
+	    );
+	    NSUserData = bunzip2;
+	},
+	{
+	    NSMenuItem = {
+		default = "Terminal/Open shell here";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSSendTypes = (
+		NSStringPboardType,
+		NSFilenamesPboardType
+	    );
+	    NSUserData = "Open shell here";
+	},
+	{
+	    NSMenuItem = {
+		default = "Terminal/gunzip";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSSendTypes = (
+		NSFilenamesPboardType
+	    );
+	    NSUserData = gunzip;
+	},
+	{
+	    NSMenuItem = {
+		default = "Terminal/Arithmetic Calculation";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSReturnTypes = (
+		NSStringPboardType
+	    );
+	    NSSendTypes = (
+		NSStringPboardType
+	    );
+	    NSUserData = "Arithmetic Calculation";
+	},
+	{
+	    NSMenuItem = {
+		default = "Terminal/Fetch URL";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSSendTypes = (
+		NSStringPboardType
+	    );
+	    NSUserData = "Fetch URL";
+	},
+	{
+	    NSMenuItem = {
+		default = "Terminal/Wrap and reply";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSReturnTypes = (
+		NSStringPboardType
+	    );
+	    NSSendTypes = (
+		NSStringPboardType
+	    );
+	    NSUserData = "Wrap and reply";
+	},
+	{
+	    NSMenuItem = {
+		default = "Terminal/gzip";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSSendTypes = (
+		NSFilenamesPboardType
+	    );
+	    NSUserData = gzip;
+	},
+	{
+	    NSMenuItem = {
+		default = "Terminal/Sort lines";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSReturnTypes = (
+		NSStringPboardType
+	    );
+	    NSSendTypes = (
+		NSStringPboardType
+	    );
+	    NSUserData = "Sort lines";
+	},
+	{
+	    NSMenuItem = {
+		default = "Terminal/Time";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSReturnTypes = (
+		NSStringPboardType
+	    );
+	    NSUserData = Time;
+	},
+	{
+	    NSKeyEquivalent = {
+		default = "=";
+	    };
+	    NSMenuItem = {
+		default = "Terminal/Define word";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSSendTypes = (
+		NSStringPboardType
+	    );
+	    NSUserData = "Define word";
+	},
+	{
+	    NSMenuItem = {
+		default = "Terminal/bzip2";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSSendTypes = (
+		NSFilenamesPboardType
+	    );
+	    NSUserData = bzip2;
+	}
+    );
+}

@@ -56,6 +56,11 @@ function init_config {
     mkdir "$HOME/Library/Preferences" 2>/dev/null
     cp /Library/Preferences/* "$HOME/Library/Preferences/"
   fi
+  if [ ! -d "$HOME/Library/Services" ];then
+    echo "init user services defaults"
+    mkdir "$HOME/Library/Services" 2>/dev/null
+    cp /Library/Services/* "$HOME/Library/Services/"
+  fi
 }
 
 function main_process {
