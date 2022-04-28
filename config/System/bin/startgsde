@@ -34,13 +34,13 @@ function start_services {
 
 function stop_services {
   echo "about to stop Notification Center"
-  PID=`cat /tmp/$UID-gdnc.pid`
+  PID=`cat /tmp/$UID-gdnc.pid 2>/dev/null`
   if [ -n "x$PID" ];then
-    kill $PID 2> /dev/null && /tmp/$UID-gdnc.pid
+    kill $PID 2> /dev/null && rm /tmp/$UID-gdnc.pid
   fi
 
   echo "about to stop Pasteboard Service"
-  PID=`cat /tmp/$UID-gpbs.pid`
+  PID=`cat /tmp/$UID-gpbs.pid 2>/dev/null`
   if [ -n "x$PID" ];then
     kill $PID 2> /dev/null && rm /tmp/$UID-gpbs.pid
   fi
@@ -77,9 +77,19 @@ function main_process {
 
 echo "starting GS Desktop"
 
+if [ "$1" == "--safe-mode-continue" ];then
+  echo "press [y] to the safe mode, otherwise exit"
+  read -s -n 1 DD
+  if [ "$DD" == "y" ];then
+    echo "switching to the safe mode"
+    export GS_DESKTOP_SAFEMODE="safe"
+    exec /bin/sh
+  fi
+  exit
+fi
+
 if [ "$1" == "--safe-mode" ];then
-  export GS_DESKTOP_SAFEMODE="safe"
-  exec xterm -e /bin/sh
+  exec xterm -e "$0" --safe-mode-continue
 fi
 
 export WMAKER_USER_ROOT=$HOME/Library/WindowMaker
