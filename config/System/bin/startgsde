@@ -61,16 +61,18 @@ function init_config {
     mkdir "$HOME/Library/Services" 2>/dev/null
     cp /Library/Services/*.plist "$HOME/Library/Services/"
   fi
+ 
+  wdwrite WMWindowAttributes 'GSDE-Safe-Mode.XTerm' '{ DontSaveSession = Yes; }'
 }
 
 function start_debug {
-  WM_ARGS="--static --dont-restore"
+  WM_ARGS="--no-clip --static --dont-restore"
   init_config
   main_process
 }
 
 function start_normal {
-  WM_ARGS=""
+  WM_ARGS="--no-clip"
   init_config
   main_process
 }
@@ -101,7 +103,7 @@ if [ "$1" == "--safe-mode-continue" ];then
 fi
 
 if [ "$1" == "--safe-mode" ];then
-  exec xterm -e "$0" --safe-mode-continue
+  exec xterm -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
 fi
 
 export WMAKER_USER_ROOT=$HOME/Library/WindowMaker
