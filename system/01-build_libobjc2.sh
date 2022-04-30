@@ -8,6 +8,12 @@ rm -Rf _build 2>/dev/null
 mkdir -p _build
 cd ./_build
 
+if [ -n "$RELEASE_BUILD" ];then
+  BTYPE="Release"
+else
+  BTYPE="Debug"
+fi
+
 cmake .. \
 	-DGNUSTEP_INSTALL_TYPE=NONE \
 	-DCMAKE_C_COMPILER=$CC \
@@ -21,7 +27,7 @@ cmake .. \
 	-DCMAKE_SKIP_RPATH=ON \
   -DCMAKE_VERBOSE_MAKEFILE=ON \
 	-DTESTS=OFF \
-	-DCMAKE_BUILD_TYPE=Release \
+	-DCMAKE_BUILD_TYPE=$BTYPE \
 	|| exit 1
 
 make -j2 || exit 1
