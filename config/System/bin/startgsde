@@ -61,6 +61,21 @@ function init_config {
     mkdir "$HOME/Library/Services" 2>/dev/null
     cp /Library/Services/*.plist "$HOME/Library/Services/"
   fi
+ 
+  wdwrite WMWindowAttributes 'GSDE-Safe-Mode.XTerm' '{ DontSaveSession = Yes; }'
+  wdwrite WMWindowAttributes 'GWorkspace.GNUstep' '{ DontSaveSession = Yes; }'
+}
+
+function start_debug {
+  WM_ARGS="--no-clip --static --dont-restore"
+  init_config
+  main_process
+}
+
+function start_normal {
+  WM_ARGS="--no-clip"
+  init_config
+  main_process
 }
 
 function main_process {
@@ -78,18 +93,18 @@ function main_process {
 echo "starting GS Desktop"
 
 if [ "$1" == "--safe-mode-continue" ];then
-  echo "press [y] to the safe mode, otherwise exit"
+
+  echo "press [y] to the safe mode, otherwise continue"
   read -s -n 1 DD
   if [ "$DD" == "y" ];then
-    echo "switching to the safe mode"
     export GS_DESKTOP_SAFEMODE="safe"
+    echo "switching to the safe mode"
     exec /bin/sh
   fi
-  exit
 fi
 
 if [ "$1" == "--safe-mode" ];then
-  exec xterm -e "$0" --safe-mode-continue
+  exec xterm -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
 fi
 
 export WMAKER_USER_ROOT=$HOME/Library/WindowMaker
@@ -101,8 +116,7 @@ source /Developer/Makefiles/GNUstep.sh
 WM_ARGS="--no-drawer --no-clip"
 if [ -n "$GS_DESKTOP_SAFEMODE" ];then
   echo "running in SAFE mode"
-  WM_ARGS="$WM_ARGS --static --dont-restore"
+  start_debug |& tee $GS_DESKTOP_LOG
+else
+  start_normal > $GS_DESKTOP_LOG 2>&1
 fi
-
-init_config
-main_process > $GS_DESKTOP_LOG 2>&1
