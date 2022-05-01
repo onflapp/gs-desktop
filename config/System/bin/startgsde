@@ -63,6 +63,7 @@ function init_config {
   fi
  
   wdwrite WMWindowAttributes 'GSDE-Safe-Mode.XTerm' '{ DontSaveSession = Yes; }'
+  wdwrite WMWindowAttributes 'GWorkspace.GNUstep' '{ DontSaveSession = Yes; }'
 }
 
 function start_debug {
@@ -114,7 +115,7 @@ source /Developer/Makefiles/GNUstep.sh
 
 if [ -n "$GS_DESKTOP_SAFEMODE" ];then
   echo "running in SAFE mode"
-  start_debug | tee $GS_DESKTOP_LOG 2>&1
+  start_debug |& tee $GS_DESKTOP_LOG
 else
   start_normal > $GS_DESKTOP_LOG 2>&1
 fi
