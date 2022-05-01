@@ -61,6 +61,8 @@ function init_config {
     mkdir "$HOME/Library/Services" 2>/dev/null
     cp /Library/Services/*.plist "$HOME/Library/Services/"
   fi
+
+  export FONTCONFIG_FILE=/System/etc/fonts.conf
  
   wdwrite WMWindowAttributes 'GSDE-Safe-Mode.XTerm' '{ DontSaveSession = Yes; }'
   wdwrite WMWindowAttributes 'GWorkspace.GNUstep' '{ DontSaveSession = Yes; }'
