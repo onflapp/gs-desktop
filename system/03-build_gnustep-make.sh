@@ -13,8 +13,8 @@ make clean
 	    --with-layout=gs-desktop.layout \
 	    --enable-native-objc-exceptions \
 	    --enable-objc-arc \
-	    --enable-debug-by-default \
             --with-library-combo=ng-gnu-gnu
+	    #--enable-debug-by-default \
 	    #--with-runtime-abi=gnustep-2.0
 
 make || exit 1

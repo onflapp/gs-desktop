@@ -1,0 +1,22 @@
+{  
+  Terminal.GNUstep = {
+    Icon = Terminal.GNUstep.xpm;
+  };
+  Preferences.GNUstep = {
+    Icon = Preferences.GNUstep.xpm;
+  };
+  GWorkspace.GNUstep = {
+    Icon = GWorkspace.GNUstep.xpm;
+  };
+  Recycler.GNUstep = {
+    Icon = Recycler.GNUstep.xpm;
+  };
+  TextEdit.GNUstep = {
+    Icon = TextEdit.GNUstep.xpm;
+  };
+  Logo.WMDock = {Icon = GNUstepGlow.tiff;};
+  Logo.WMPanel = {Icon = GNUstep.tiff;};
+  Logo.WMClip = {Icon = clip.tiff;};
+  WMDrawer = {Icon = Drawer.tiff;};
+  "*" = {Icon = defaultAppIcon.tiff;SharedAppIcon = Yes;};
+}

@@ -98,9 +98,10 @@ export GS_DESKTOP_LOG=/tmp/$UID-gs-desktop.log
 
 source /Developer/Makefiles/GNUstep.sh
 
+WM_ARGS="--no-drawer --no-clip"
 if [ -n "$GS_DESKTOP_SAFEMODE" ];then
   echo "running in SAFE mode"
-  WM_ARGS="--static --dont-restore"
+  WM_ARGS="$WM_ARGS --static --dont-restore"
 fi
 
 init_config

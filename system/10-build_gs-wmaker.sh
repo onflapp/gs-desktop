@@ -1,7 +1,7 @@
 #!/bin/bash
 
 . /Developer/Makefiles/GNUstep.sh
-. ./BUILD_SETTINGS.sh
+. ../BUILD_SETTINGS.sh
 
 cd ../../gs-wmaker || exit 1
 
