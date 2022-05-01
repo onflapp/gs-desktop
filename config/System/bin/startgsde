@@ -62,6 +62,13 @@ function init_config {
     cp /Library/Services/*.plist "$HOME/Library/Services/"
   fi
 
+  defaults read NSGlobalDomain "Local Time Zone" 2>&1 > /dev/null
+  if [ $? -ne 0 ]; then
+    TZ=`cat /etc/timezone`
+    echo "setting default timezone to $TZ"
+    defaults write NSGlobalDomain "Local Time Zone" $TZ
+  fi
+
   export FONTCONFIG_FILE=/System/etc/fonts.conf
  
   wdwrite WMWindowAttributes 'GSDE-Safe-Mode.XTerm' '{ DontSaveSession = Yes; }'
