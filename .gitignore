@@ -1,0 +1,6 @@
+*.app
+*.o
+*.a
+*/obj/*
+*/derived_src/*
+*.framework
