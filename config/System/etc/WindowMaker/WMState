@@ -55,7 +55,7 @@
         Lock = No;
         AutoLaunch = Yes;
         Command = "/Applications/Recycler.app/Recycler";
-        Position = "0,15";
+        Position = "0,6";
         Forced = No;
         BuggyApplication = No;
       }
