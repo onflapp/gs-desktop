@@ -68,7 +68,6 @@
   ScreenSwitchKey = None;
   AdvanceToNewWorkspace = NO;
   DisableMiniwindows = NO;
-  MenuTitleBack = (solid, black);
   MoveToNextWorkspaceKey = None;
   MouseWheelAction = None;
   FocusMode = manual;
@@ -79,9 +78,7 @@
   MinimizeAllKey = None;
   MenuStyle = normal;
   HideOthersKey = None;
-  PTitleBack = (solid, "#616161");
   WindowShortcut6Key = None;
-  UTitleBack = (solid, gray);
   CirculateRaise = YES;
   WindowTitleBalloons = NO;
   LastWorkspaceKey = None;
@@ -98,7 +95,6 @@
   SmoothWorkspaceBack = NO;
   AlignSubmenus = YES;
   NoWindowOverDock = NO;
-  WorkspaceBack = (solid, black);
   OmnipresentKey = None;
   EdgeResistance = 26;
   WindowShortcut9Key = None;
@@ -174,6 +170,7 @@
   MoveToWorkspace4Key = None;
   RTCMaximizeKey = None;
   ModifierKey = Mod4;
+  MenuTextBack = (solid, "#a9a9a9");
   IconBack = (tpixmap, "/Library/Images/common_Tile.tiff", "#bebebe");
   IconPath = (
     "~/Library/Icons",

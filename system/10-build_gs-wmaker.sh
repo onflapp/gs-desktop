@@ -6,9 +6,15 @@
 cd ../../gs-wmaker || exit 1
 
 make clean
+if [ -n "$RELEASE_BUILD" ];then
+  DEBUG_ARGS=""
+else
+  DEBUG_ARGS="--enable-debug"
+fi
+
 
 ./autogen.sh
-./configure --prefix=/System --enable-randr || exit 1
+./configure --prefix=/System $DEBUG_ARGS --enable-randr || exit 1
 
 make -j2 || exit 1
 sudo -E make install
