@@ -61,8 +61,20 @@ int main(int argc, char** argv, char** env)
       NSWorkspace* ws = [NSWorkspace sharedWorkspace];
       NSString* path = absolutePath([arguments objectAtIndex:2]);
       NSString* app = ([arguments count] == 4)?[arguments objectAtIndex:3]:nil;
+      BOOL isdir = NO;
+      NSFileManager* fm = [NSFileManager defaultManager] ;
+      NSString* nm;
+      NSString* ft;
+      [ws getInfoForFile:path application:&nm type:&ft];
 
-      [ws openFile:path withApplication:app];
+      if ([fm fileExistsAtPath:path isDirectory:&isdir]) {
+        if (isdir && [ws isFilePackageAtPath:path] == NO) {
+          [ws selectFile:path inFileViewerRootedAtPath:@"/"];
+        }
+        else {
+          [ws openFile:path withApplication:app];
+        }
+      }
     }
     else if ([[arguments objectAtIndex:1] isEqualToString:@"--activate"] && [arguments count] == 3) {
       NSWorkspace* ws = [NSWorkspace sharedWorkspace];
