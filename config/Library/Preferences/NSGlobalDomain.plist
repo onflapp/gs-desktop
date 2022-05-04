@@ -41,8 +41,6 @@
 	<string>Spanish</string>
 	<string>French</string>
 	<string>Italian</string>
-	<string>TraditionalChinese</string>
-	<string>Korean</string>
     </array>
     <key>NSMeasurementUnit</key>
     <string>Centimeters</string>

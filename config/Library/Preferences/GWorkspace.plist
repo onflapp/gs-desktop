@@ -33,7 +33,7 @@
     <key>default_sortorder</key>
     <integer>0</integer>
     <key>defaulteditor</key>
-    <string>nedit.app</string>
+    <string>TextEdit.app</string>
     <key>defxterm</key>
     <string>xterm</string>
     <key>desktopinfo</key>
