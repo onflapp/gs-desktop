@@ -63,13 +63,16 @@ int main(int argc, char** argv, char** env)
       NSString* app = ([arguments count] == 4)?[arguments objectAtIndex:3]:nil;
       BOOL isdir = NO;
       NSFileManager* fm = [NSFileManager defaultManager] ;
+      /*
       NSString* nm;
       NSString* ft;
       [ws getInfoForFile:path application:&nm type:&ft];
+      */
 
       if ([fm fileExistsAtPath:path isDirectory:&isdir]) {
         if (isdir && [ws isFilePackageAtPath:path] == NO) {
           [ws selectFile:path inFileViewerRootedAtPath:@"/"];
+          [ws launchApplication:@"GWorkspace"];
         }
         else {
           [ws openFile:path withApplication:app];
