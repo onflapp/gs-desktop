@@ -1,4 +1,4 @@
 {
-    DoNotManageDesktopBackground = <*BN>;
+    DoNotManageDesktopBackground = <*BY>;
     NXSystemBeep = "/System/Sounds/Bonk.snd";
 }

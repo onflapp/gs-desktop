@@ -87,7 +87,7 @@
     <array>
     </array>
     <key>no_desktop</key>
-    <false/>
+    <true/>
     <key>root_viewer</key>
     <dict>
 	<key>fsn_info_type</key>

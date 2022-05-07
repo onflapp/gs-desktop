@@ -55,6 +55,9 @@ function init_config {
     echo "init user preferences defaults"
     mkdir "$HOME/Library/Preferences" 2>/dev/null
     cp /Library/Preferences/* "$HOME/Library/Preferences/"
+
+    mkdir "$HOME/Library/Preferences/.NextSpace" 2>/dev/null
+    cp /Library/Preferences/.NextSpace/* "$HOME/Library/Preferences/.NextSpace"
   fi
   if [ ! -d "$HOME/Library/Services" ];then
     echo "init user services defaults"
