@@ -16,6 +16,6 @@ if [ -d libs-dbuskit ];then
   cd ./libs-dbuskit
   git pull
 else
-  git clone https://github.com/gnustep/libs-dbuskit.git
+  git clone https://github.com/onflapp/libs-dbuskit.git
 fi
 
