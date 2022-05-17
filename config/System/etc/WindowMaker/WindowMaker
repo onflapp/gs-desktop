@@ -169,7 +169,7 @@
   RaiseLowerKey = None;
   MoveToWorkspace4Key = None;
   RTCMaximizeKey = None;
-  ModifierKey = Mod1;
+  ModifierKey = Mod4;
   MenuTextBack = (solid, "#a9a9a9");
   IconBack = (tpixmap, "/Library/Images/common_Tile.tiff", "#bebebe");
   IconPath = (
