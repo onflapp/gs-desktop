@@ -1,6 +1,10 @@
 (
   "Window Maker",
+  (
+    Info,
+    ("Info Panel...", INFO_PANEL),
+    (Preferences..., EXEC, "/Applications/WPrefs.app/WPrefs")
+  ),
   (Workspaces, WORKSPACE_MENU),
-  ("Window List Menu", WINDOWS_MENU),
-  ("Desktop Preferences...", EXEC, WPrefs)
+  (Windows, WINDOWS_MENU)
 )

@@ -28,7 +28,7 @@
   MoveToWorkspace8Key = None;
   WrapAppiconsInDock = YES;
   LHMaximizeKey = None;
-  DisableWSMouseActions = YES;
+  DisableWSMouseActions = NO;
   MoveToPrevWorkspaceKey = None;
   RootMenuKey = None;
   ResizebarBack = (solid, gray);
@@ -50,7 +50,8 @@
   ShadeKey = None;
   MiniwindowTitleBalloons = NO;
   WindowShortcut7Key = None;
-  MouseLeftButtonAction = SelectWindows;
+  MouseLeftButtonAction = OpenWindowListMenu;
+  MouseRightButtonAction = OpenApplicationsMenu;
   AutoFocus = YES;
   DisableAnimations = YES;
   MoveToLastWorkspaceKey = None;

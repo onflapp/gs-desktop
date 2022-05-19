@@ -79,13 +79,13 @@ function init_config {
 }
 
 function start_debug {
-  WM_ARGS="--no-clip --static --dont-restore"
+  WM_ARGS="--static --dont-restore"
   init_config
   main_process
 }
 
 function start_normal {
-  WM_ARGS="--no-clip"
+  WM_ARGS=""
   init_config
   main_process
 }
@@ -125,7 +125,7 @@ export GS_DESKTOP_LOG=/tmp/$UID-gs-desktop.log
 
 source /Developer/Makefiles/GNUstep.sh
 
-WM_ARGS="--no-drawer --no-clip"
+WM_ARGS=""
 if [ -n "$GS_DESKTOP_SAFEMODE" ];then
   echo "running in SAFE mode"
   start_debug |& tee $GS_DESKTOP_LOG

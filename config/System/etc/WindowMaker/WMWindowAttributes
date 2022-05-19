@@ -14,9 +14,25 @@
   TextEdit.GNUstep = {
     Icon = TextEdit.GNUstep.xpm;
   };
-  Logo.WMDock = {Icon = GNUstepGlow.tiff;};
-  Logo.WMPanel = {Icon = GNUstep.tiff;};
-  Logo.WMClip = {Icon = clip.tiff;};
-  WMDrawer = {Icon = Drawer.tiff;};
-  "*" = {Icon = defaultAppIcon.tiff;SharedAppIcon = Yes;};
+  Logo.WMDock = {
+    Icon = GNUstepGlow.tiff;
+  };
+  Logo.WMPanel = {
+    Icon = GNUstep.tiff;
+  };
+  Logo.WMClip = {
+    Icon = clip.tiff;
+  };
+  WMDrawer = {
+    Icon = Drawer.tiff;
+  };
+  wprefs.WPrefs = {
+    NoResizebar = Yes;
+    AlwaysUserIcon = No;
+    NoMiniaturizeButton = Yes;
+  };
+  "*" = {
+    Icon = defaultAppIcon.tiff;
+    SharedAppIcon = Yes;
+  };
 }
