@@ -1,0 +1,84 @@
+
+/** Affiche.m */
+"Info" = "De'";
+"File" = "teywI'";
+"Edit" = "choH";
+"Note" = "QIn";
+"Color" = "nguv";
+"Windows" = "Qorwaghmey";
+"Print" = "ghIthl";
+"Services" = "toy'";
+"Hide" = "So'";
+"Quit" = "bup";
+"Info Panel..." = "De' nagh beQ...";
+"Preferences..." = "SeHlaw...";
+"Help..." = "QaH...";
+"New Note" = "chu' QIn";
+"Close" = "SoQmoH";
+"Save All" = "Hoch pol";
+"Import Text" = "lI'";
+"Export Text" = "lab";
+"Cut" = "pe'";
+"Copy" = "qon"; /* Canon? (taken from klingon editor kview */
+"Paste" = "roQ"; /* Canon? (taken from klingon editor kview */
+"Delete" = "teq";
+"Select All" = "Hoch wIv";
+"Format" = "thlam";
+"Note Info" = "QIn De'";
+"Blue" = "SuD";
+"Gray" = "chIS 'ej Hurgh";
+"Green" = "SuDqu'";
+"Purple" = "Doq 'ej SuD";
+"Yellow" = "SuD 'ej wov";
+
+/** ColorView.m */
+
+/** Constants.m */
+
+/** LabelWidget.m */
+
+/** Note.m */
+
+/** NoteInfoWindow.m */
+"Creation date:" = "chenmoHlu'ta' poH:";
+"Modification date:" = "choH poH:";
+"Title:" = "per:";
+"No title" = "Dach per";
+"First line of note" = "QIn 'ay' wa'DIch";
+"Custom" = "le'";
+
+/** NoteInfoWindowController.m */
+"Note Information" = "QIn De'";
+
+/** NoteView.m */
+
+/** NoteWindow.m */
+
+/** NoteWindowController.m */
+"Closing a note..." = "QIn SoQmoHtaH...";
+"Would you like to save this note (%@...)\nto a file?" = "teywiDaq' poli'a' QInvam (%@...)?";
+teywiDaq' poli'a' QInvam?
+"Cancel" = "lajQo'";
+"Yes" = "HIja'";
+"No" = "ghobe'";
+
+/** PreferencesPanel.m */
+"Font:" = "Font:";
+"Set..." = "Set...";
+"Color:" = "nguv:";
+/* "Blue" = "SuD"; */
+/* "Gray" = "chIS 'ej Hurgh"; */
+/* "Green" = "SuDqu'"; */
+/* "Purple" = "Doq 'ej SuD"; */
+/* "Yellow" = "SuD 'ej wov"; */
+"Title bar" = "per yoS";
+"Note content" = "QIn yoS";
+"Position:" = "Daq:";
+/* "Title:" =  "per:"; */
+/* "No title" =  "Dach per"; */
+/* "First line of note" =  "QIn 'ay' wa'DIch"; */
+/* "Custom" =  "le'"; */
+"Defaults used when creating a new note:" = "Defaults used when creating a new note:";
+
+/** PreferencesPanelController.m */
+/* "Preferences..." =  "SeHlaw..."; */

@@ -1,0 +1,83 @@
+
+/** Affiche.m */
+"Info" = "Información";
+"File" = "Fichero";
+"Edit" = "Editar";
+"Note" = "Nota";
+"Color" = "Color";
+"Windows" = "Ventanas";
+"Print" = "Imprimir";
+"Services" = "Servicios";
+"Hide" = "Ocultar";
+"Quit" = "Salir";
+"Info Panel..." = "Panel de información...";
+"Preferences..." = "Preferencias...";
+"Help..." = "Ayuda...";
+"New Note" = "Nueva nota";
+"Close" = "Cerrar";
+"Save All" = "Guardar todo";
+"Import Text" = "Importar texto";
+"Export Text" = "Exportar texto";
+"Cut" = "Cortar";
+"Copy" = "Copiar";
+"Paste" = "Pegar";
+"Delete" = "Borrar";
+"Select All" = "Seleccionar todo";
+"Format" = "Formato";
+"Note Info" = "Información de la nota";
+"Blue" = "Azul";
+"Gray" = "Gris";
+"Green" = "Verde";
+"Purple" = "Violeta";
+"Yellow" = "Amarillo";
+
+/** ColorView.m */
+
+/** Constants.m */
+
+/** LabelWidget.m */
+
+/** Note.m */
+
+/** NoteInfoWindow.m */
+"Creation date:" = "Fecha de creación:";
+"Modification date:" = "Fecha de modificación:";
+"Title:" = "Título:";
+"No title" = "Sin título";
+"First line of note" = "Primera línea de la nota";
+"Custom" = "Definir";
+
+/** NoteInfoWindowController.m */
+"Note Information" = "Note Information";
+
+/** NoteView.m */
+
+/** NoteWindow.m */
+
+/** NoteWindowController.m */
+"Closing a note..." = "Cerrando una nota...";
+"Would you like to save this note (%@...)\nto a file?" = "¿Quiere guardar esta nota (%@...)\nen un fichero?";
+"Cancel" = "Cancelar";
+"Yes" = "Sí";
+"No" = "No";
+
+/** PreferencesPanel.m */
+"Font:" = "Tipo:";
+"Set..." = "Definir...";
+"Color:" = "Color:";
+/* "Blue" =  "Blue"; */
+/* "Gray" =  "Gray"; */
+/* "Green" =  "Green"; */
+/* "Purple" =  "Purple"; */
+/* "Yellow" =  "Yellow"; */
+"Title bar" = "Barra de título";
+"Note content" = "Contenido de la nota";
+"Position:" = "Posición:";
+/* "Title:" =  "Title:"; */
+/* "No title" =  "No title"; */
+/* "First line of note" =  "First line of note"; */
+/* "Custom" =  "Custom"; */
+"Defaults used when creating a new note:" = "Propiedades predeterminadas que se usarán al crear nuevas notas";
+
+/** PreferencesPanelController.m */
+/* "Preferences..." =  "Preferences..."; */

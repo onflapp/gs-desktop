@@ -1,0 +1,351 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	//
+ASSIGN	Constants.h	27;"	M
+AUTORELEASE	Constants.h	25;"	M
+Affiche	Affiche.h	28;"	i
+Affiche	Affiche.h	95;"	i
+Affiche	Affiche.m	40;"	I
+Affiche	Affiche.m	579;"	I
+AfficheUserLibraryPath	Constants.h	87;"	f
+AfficheUserLibraryPath	Constants.m	26;"	f
+BLUE	Constants.h	63;"	M
+BOTTOM_LEFT	Constants.h	72;"	M
+BOTTOM_RIGHT	Constants.h	73;"	M
+CENTER	Constants.h	71;"	M
+CREATE_AUTORELEASE_POOL	Constants.h	53;"	M
+CUSTOM	Constants.h	77;"	M
+ColorView	ColorView.h	25;"	i
+ColorView	ColorView.m	27;"	I
+DEFAULT_NOTE_HEIGHT	Constants.h	80;"	M
+DEFAULT_NOTE_WIDTH	Constants.h	79;"	M
+DESTROY	Constants.h	44;"	M
+FIRST_LINE_OF_NOTE	Constants.h	76;"	M
+GRAY	Constants.h	64;"	M
+GREEN	Constants.h	65;"	M
+LabelWidget	LabelWidget.h	25;"	i
+LabelWidget	LabelWidget.m	27;"	I
+NO_TITLE	Constants.h	75;"	M
+NSLocalizedString	Constants.h	56;"	M
+Note	Note.h	25;"	i
+Note	Note.m	30;"	I
+NoteInfoWindow	NoteInfoWindow.h	25;"	i
+NoteInfoWindow	NoteInfoWindow.m	28;"	I
+NoteInfoWindowController	NoteInfoWindowController.h	27;"	i
+NoteInfoWindowController	NoteInfoWindowController.m	36;"	I
+NoteView	NoteView.h	25;"	i
+NoteView	NoteView.m	27;"	I
+NoteWindow	NoteWindow.h	27;"	i
+NoteWindow	NoteWindow.m	28;"	I
+NoteWindowController	NoteWindowController.h	28;"	i
+NoteWindowController	NoteWindowController.h	70;"	i
+NoteWindowController	NoteWindowController.m	246;"	I
+NoteWindowController	NoteWindowController.m	34;"	I
+PURPLE	Constants.h	66;"	M
+PathToNotes	Affiche.m	32;"	f
+PreferencesPanel	PreferencesPanel.h	26;"	i
+PreferencesPanel	PreferencesPanel.m	30;"	I
+PreferencesPanelController	PreferencesPanelController.h	26;"	i
+PreferencesPanelController	PreferencesPanelController.h	64;"	i
+PreferencesPanelController	PreferencesPanelController.m	30;"	I
+PreferencesPanelController	PreferencesPanelController.m	342;"	I
+Private	Affiche.h	95;"	r
+Private	NoteWindowController.h	70;"	r
+Private	PreferencesPanelController.h	64;"	r
+RELEASE	Constants.h	24;"	M
+RETAIN	Constants.h	23;"	M
+TEST_RELEASE	Constants.h	26;"	M
+TOP_LEFT	Constants.h	69;"	M
+TOP_RIGHT	Constants.h	70;"	M
+YELLOW	Constants.h	67;"	M
+_	Constants.h	59;"	M
+_showNewNote:	Affiche.h	97;"	m	interface:Affiche
+_showNewNote:	Affiche.m	582;"	m	implementation:Affiche
+_updatePositionSelection	PreferencesPanelController.h	66;"	m	interface:PreferencesPanelController
+_updatePositionSelection	PreferencesPanelController.m	345;"	m	implementation:PreferencesPanelController
+_updateWindowFrame	NoteWindowController.h	72;"	m	interface:NoteWindowController
+_updateWindowFrame	NoteWindowController.m	249;"	m	implementation:NoteWindowController
+acceptsFirstMouse:	NoteView.m	59;"	m	implementation:NoteView
+acceptsFirstResponder	NoteView.m	54;"	m	implementation:NoteView
+allNotes	Affiche.h	48;"	E	interface:Affiche
+applicationDidFinishLaunching:	Affiche.h	73;"	m	interface:Affiche
+applicationDidFinishLaunching:	Affiche.m	280;"	m	implementation:Affiche
+applicationWillFinishLaunching:	Affiche.h	74;"	m	interface:Affiche
+applicationWillFinishLaunching:	Affiche.m	335;"	m	implementation:Affiche
+backgroundColor	Note.h	32;"	E	interface:Note
+backgroundColor	Note.h	58;"	m	interface:Note
+backgroundColor	Note.m	211;"	m	implementation:Note
+blueMenuItem	Affiche.h	41;"	E	interface:Affiche
+bottomLeft	PreferencesPanel.h	35;"	E	interface:PreferencesPanel
+bottomLeft	PreferencesPanel.h	58;"	m	interface:PreferencesPanel
+bottomLeft	PreferencesPanel.m	204;"	m	implementation:PreferencesPanel
+bottomLeft	PreferencesPanelController.h	36;"	E	interface:PreferencesPanelController
+bottomRight	PreferencesPanel.h	36;"	E	interface:PreferencesPanel
+bottomRight	PreferencesPanel.h	59;"	m	interface:PreferencesPanel
+bottomRight	PreferencesPanel.m	209;"	m	implementation:PreferencesPanel
+bottomRight	PreferencesPanelController.h	37;"	E	interface:PreferencesPanelController
+canBecomeKeyWindow	NoteWindow.m	79;"	m	implementation:NoteWindow
+center	PreferencesPanel.h	37;"	E	interface:PreferencesPanel
+center	PreferencesPanel.h	60;"	m	interface:PreferencesPanel
+center	PreferencesPanel.m	214;"	m	implementation:PreferencesPanel
+center	PreferencesPanelController.h	38;"	E	interface:PreferencesPanelController
+changeFont:	PreferencesPanelController.m	157;"	m	implementation:PreferencesPanelController
+chooseFont:	PreferencesPanelController.h	57;"	m	interface:PreferencesPanelController
+chooseFont:	PreferencesPanelController.m	204;"	m	implementation:PreferencesPanelController
+closeNote:	Affiche.h	57;"	m	interface:Affiche
+closeNote:	Affiche.m	64;"	m	implementation:Affiche
+color	Affiche.h	36;"	E	interface:Affiche
+color	ColorView.h	27;"	E	interface:ColorView
+color	ColorView.h	34;"	m	interface:ColorView
+color	ColorView.m	61;"	m	implementation:ColorView
+colorCode	Note.h	33;"	E	interface:Note
+colorCode	Note.h	61;"	m	interface:Note
+colorCode	Note.m	232;"	m	implementation:Note
+colorForCode:	Affiche.h	91;"	c	interface:Affiche
+colorForCode:	Affiche.m	536;"	c	implementation:Affiche
+colorPopUp	PreferencesPanel.h	30;"	E	interface:PreferencesPanel
+colorPopUp	PreferencesPanel.h	52;"	m	interface:PreferencesPanel
+colorPopUp	PreferencesPanel.m	179;"	m	implementation:PreferencesPanel
+colorPopUp	PreferencesPanelController.h	30;"	E	interface:PreferencesPanelController
+colorView	ColorView.h	42;"	c	interface:ColorView
+colorView	ColorView.m	78;"	c	implementation:ColorView
+controlTextDidChange:	NoteInfoWindowController.h	48;"	m	interface:NoteInfoWindowController
+controlTextDidChange:	NoteInfoWindowController.m	80;"	m	implementation:NoteInfoWindowController
+creationDate	Note.h	29;"	E	interface:Note
+creationDate	Note.h	67;"	m	interface:Note
+creationDate	Note.m	254;"	m	implementation:Note
+creationDateField	NoteInfoWindow.h	39;"	m	interface:NoteInfoWindow
+creationDateField	NoteInfoWindow.m	84;"	m	implementation:NoteInfoWindow
+creationDateField	NoteInfoWindowController.h	30;"	E	interface:NoteInfoWindowController
+dealloc	Affiche.h	52;"	m	interface:Affiche
+dealloc	Affiche.m	53;"	m	implementation:Affiche
+dealloc	ColorView.m	42;"	m	implementation:ColorView
+dealloc	Note.h	44;"	m	interface:Note
+dealloc	Note.m	62;"	m	implementation:Note
+dealloc	NoteInfoWindow.m	31;"	m	implementation:NoteInfoWindow
+dealloc	NoteInfoWindowController.h	42;"	m	interface:NoteInfoWindowController
+dealloc	NoteInfoWindowController.m	70;"	m	implementation:NoteInfoWindowController
+dealloc	NoteView.m	44;"	m	implementation:NoteView
+dealloc	NoteWindow.m	31;"	m	implementation:NoteWindow
+dealloc	NoteWindowController.h	38;"	m	interface:NoteWindowController
+dealloc	NoteWindowController.m	63;"	m	implementation:NoteWindowController
+dealloc	PreferencesPanel.m	33;"	m	implementation:PreferencesPanel
+dealloc	PreferencesPanelController.h	48;"	m	interface:PreferencesPanelController
+dealloc	PreferencesPanelController.m	83;"	m	implementation:PreferencesPanelController
+deleteNote:	Affiche.h	80;"	m	interface:Affiche
+deleteNote:	Affiche.m	493;"	m	implementation:Affiche
+drawRect:	ColorView.m	50;"	m	implementation:ColorView
+drawRect:	NoteView.m	65;"	m	implementation:NoteView
+edit	Affiche.h	34;"	E	interface:Affiche
+encodeWithCoder:	Note.h	49;"	m	interface:Note
+encodeWithCoder:	Note.m	76;"	m	implementation:Note
+exportText:	Affiche.h	59;"	m	interface:Affiche
+exportText:	Affiche.m	80;"	m	implementation:Affiche
+file	Affiche.h	33;"	E	interface:Affiche
+fontField	PreferencesPanel.h	28;"	E	interface:PreferencesPanel
+fontField	PreferencesPanel.h	49;"	m	interface:PreferencesPanel
+fontField	PreferencesPanel.m	174;"	m	implementation:PreferencesPanel
+fontField	PreferencesPanelController.h	28;"	E	interface:PreferencesPanelController
+format	Affiche.h	39;"	E	interface:Affiche
+frame	Note.h	35;"	E	interface:Note
+frame	Note.h	64;"	m	interface:Note
+frame	Note.m	242;"	m	implementation:Note
+grayMenuItem	Affiche.h	42;"	E	interface:Affiche
+greenMenuItem	Affiche.h	43;"	E	interface:Affiche
+importText:	Affiche.h	60;"	m	interface:Affiche
+importText:	Affiche.m	113;"	m	implementation:Affiche
+info	Affiche.h	32;"	E	interface:Affiche
+init	Affiche.h	51;"	m	interface:Affiche
+init	Affiche.m	46;"	m	implementation:Affiche
+init	ColorView.m	30;"	m	implementation:ColorView
+init	Note.m	33;"	m	implementation:Note
+init	NoteView.m	30;"	m	implementation:NoteView
+initWithAttributedString:backgroundColor:	Note.h	42;"	m	interface:Note
+initWithAttributedString:backgroundColor:	Note.m	52;"	m	implementation:Note
+initWithCoder:	Note.h	50;"	m	interface:Note
+initWithCoder:	Note.m	98;"	m	implementation:Note
+initWithFrame:	LabelWidget.h	29;"	m	interface:LabelWidget
+initWithFrame:	LabelWidget.m	30;"	m	implementation:LabelWidget
+initWithFrame:label:	LabelWidget.h	30;"	m	interface:LabelWidget
+initWithFrame:label:	LabelWidget.m	42;"	m	implementation:LabelWidget
+initWithWindowNibName:	NoteInfoWindowController.h	41;"	m	interface:NoteInfoWindowController
+initWithWindowNibName:	NoteInfoWindowController.m	39;"	m	implementation:NoteInfoWindowController
+initWithWindowNibName:	NoteWindowController.h	37;"	m	interface:NoteWindowController
+initWithWindowNibName:	NoteWindowController.m	37;"	m	implementation:NoteWindowController
+initWithWindowNibName:	PreferencesPanelController.h	47;"	m	interface:PreferencesPanelController
+initWithWindowNibName:	PreferencesPanelController.m	33;"	m	implementation:PreferencesPanelController
+initializeFromDefaults	PreferencesPanelController.h	50;"	m	interface:PreferencesPanelController
+initializeFromDefaults	PreferencesPanelController.m	92;"	m	implementation:PreferencesPanelController
+labelWidgetWithFrame:label:	LabelWidget.h	32;"	c	interface:LabelWidget
+labelWidgetWithFrame:label:	LabelWidget.m	58;"	c	implementation:LabelWidget
+lastLocationOfWindow	NoteView.h	31;"	E	interface:NoteView
+lastNoteWindowOnTop	NoteWindowController.h	59;"	c	interface:NoteWindowController
+lastNoteWindowOnTop	NoteWindowController.m	196;"	c	implementation:NoteWindowController
+layoutPanel	PreferencesPanel.h	43;"	m	interface:PreferencesPanel
+layoutPanel	PreferencesPanel.m	52;"	m	implementation:PreferencesPanel
+layoutWindow	NoteInfoWindow.h	33;"	m	interface:NoteInfoWindow
+layoutWindow	NoteInfoWindow.m	42;"	m	implementation:NoteInfoWindow
+layoutWindow	NoteWindow.h	35;"	m	interface:NoteWindow
+layoutWindow	NoteWindow.m	42;"	m	implementation:NoteWindow
+main	Affiche.m	670;"	f
+maxSize	NoteWindow.m	88;"	m	implementation:NoteWindow
+menu	Affiche.h	31;"	E	interface:Affiche
+minSize	NoteWindow.m	97;"	m	implementation:NoteWindow
+modificationDate	Note.h	30;"	E	interface:Note
+modificationDate	Note.h	70;"	m	interface:Note
+modificationDate	Note.m	275;"	m	implementation:Note
+modificationDateField	NoteInfoWindow.h	27;"	E	interface:NoteInfoWindow
+modificationDateField	NoteInfoWindow.h	40;"	m	interface:NoteInfoWindow
+modificationDateField	NoteInfoWindow.m	89;"	m	implementation:NoteInfoWindow
+modificationDateField	NoteInfoWindowController.h	31;"	E	interface:NoteInfoWindowController
+mouseDown:	NoteView.m	111;"	m	implementation:NoteView
+mouseUp:	NoteView.m	202;"	m	implementation:NoteView
+newNote:	Affiche.h	62;"	m	interface:Affiche
+newNote:	Affiche.m	149;"	m	implementation:Affiche
+newNote:userData:error:	Affiche.m	168;"	m	implementation:Affiche
+note	Affiche.h	35;"	E	interface:Affiche
+note	Note.h	82;"	c	interface:Note
+note	Note.m	331;"	c	implementation:Note
+note	NoteInfoWindowController.h	38;"	E	interface:NoteInfoWindowController
+note	NoteInfoWindowController.h	63;"	m	interface:NoteInfoWindowController
+note	NoteInfoWindowController.m	154;"	m	implementation:NoteInfoWindowController
+note	NoteWindowController.h	34;"	E	interface:NoteWindowController
+note	NoteWindowController.h	60;"	m	interface:NoteWindowController
+note	NoteWindowController.m	201;"	m	implementation:NoteWindowController
+noteColor	NoteView.h	28;"	E	interface:NoteView
+noteContentColorBox	PreferencesPanel.h	31;"	E	interface:PreferencesPanel
+noteContentColorBox	PreferencesPanel.h	54;"	m	interface:PreferencesPanel
+noteContentColorBox	PreferencesPanel.m	189;"	m	implementation:PreferencesPanel
+noteContentColorBox	PreferencesPanelController.h	32;"	E	interface:PreferencesPanelController
+noteView	NoteWindow.h	29;"	E	interface:NoteWindow
+noteView	NoteWindow.h	41;"	m	interface:NoteWindow
+noteView	NoteWindow.m	102;"	m	implementation:NoteWindow
+noteView	NoteWindowController.h	63;"	m	interface:NoteWindowController
+noteView	NoteWindowController.m	236;"	m	implementation:NoteWindowController
+position	PreferencesPanelController.h	44;"	E	interface:PreferencesPanelController
+preferencesPanelController	Affiche.h	84;"	m	interface:Affiche
+preferencesPanelController	Affiche.m	520;"	m	implementation:Affiche
+purpleMenuItem	Affiche.h	44;"	E	interface:Affiche
+quitApplication:	Affiche.h	63;"	m	interface:Affiche
+quitApplication:	Affiche.m	199;"	m	implementation:Affiche
+resize	NoteView.h	27;"	E	interface:NoteView
+saveAllNotes:	Affiche.h	65;"	m	interface:Affiche
+saveAllNotes:	Affiche.m	211;"	m	implementation:Affiche
+scrollView	NoteWindow.h	31;"	E	interface:NoteWindow
+selectionOfColorHasChanged:	PreferencesPanelController.h	58;"	m	interface:PreferencesPanelController
+selectionOfColorHasChanged:	PreferencesPanelController.m	218;"	m	implementation:PreferencesPanelController
+selectionOfPositionHasChanged:	PreferencesPanelController.h	59;"	m	interface:PreferencesPanelController
+selectionOfPositionHasChanged:	PreferencesPanelController.m	293;"	m	implementation:PreferencesPanelController
+selectionOfTitleHasChanged:	NoteInfoWindowController.h	57;"	m	interface:NoteInfoWindowController
+selectionOfTitleHasChanged:	NoteInfoWindowController.m	112;"	m	implementation:NoteInfoWindowController
+selectionOfTitleHasChanged:	PreferencesPanelController.h	60;"	m	interface:PreferencesPanelController
+selectionOfTitleHasChanged:	PreferencesPanelController.m	324;"	m	implementation:PreferencesPanelController
+services	Affiche.h	38;"	E	interface:Affiche
+setBackgroundColor:	Note.h	59;"	m	interface:Note
+setBackgroundColor:	Note.m	216;"	m	implementation:Note
+setColor:	ColorView.h	35;"	m	interface:ColorView
+setColor:	ColorView.m	66;"	m	implementation:ColorView
+setColorCode:	Note.h	62;"	m	interface:Note
+setColorCode:	Note.m	237;"	m	implementation:Note
+setColorCode:	NoteView.h	38;"	m	interface:NoteView
+setColorCode:	NoteView.m	246;"	m	implementation:NoteView
+setCreationDate:	Note.h	68;"	m	interface:Note
+setCreationDate:	Note.m	259;"	m	implementation:Note
+setFrame:	Note.h	65;"	m	interface:Note
+setFrame:	Note.m	247;"	m	implementation:Note
+setModificationDate:	Note.h	71;"	m	interface:Note
+setModificationDate:	Note.m	280;"	m	implementation:Note
+setNote:	NoteInfoWindowController.h	64;"	m	interface:NoteInfoWindowController
+setNote:	NoteInfoWindowController.m	159;"	m	implementation:NoteInfoWindowController
+setNote:	NoteWindowController.h	61;"	m	interface:NoteWindowController
+setNote:	NoteWindowController.m	206;"	m	implementation:NoteWindowController
+setNoteColor:	Affiche.h	66;"	m	interface:Affiche
+setNoteColor:	Affiche.m	216;"	m	implementation:Affiche
+setTitle:	Note.h	74;"	m	interface:Note
+setTitle:	Note.m	302;"	m	implementation:Note
+setTitleValue:	Note.h	77;"	m	interface:Note
+setTitleValue:	Note.m	312;"	m	implementation:Note
+setValue:	Note.h	56;"	m	interface:Note
+setValue:	Note.m	195;"	m	implementation:Note
+setWindow:	NoteView.h	39;"	m	interface:NoteView
+setWindow:	NoteView.m	331;"	m	implementation:NoteView
+showNote:	Affiche.h	81;"	m	interface:Affiche
+showNote:	Affiche.m	501;"	m	implementation:Affiche
+showNoteInfo:	Affiche.h	67;"	m	interface:Affiche
+showNoteInfo:	Affiche.m	263;"	m	implementation:Affiche
+showPreferencesPanel:	Affiche.h	64;"	m	interface:Affiche
+showPreferencesPanel:	Affiche.m	206;"	m	implementation:Affiche
+singleInstance	NoteInfoWindowController.h	70;"	c	interface:NoteInfoWindowController
+singleInstance	NoteInfoWindowController.m	186;"	c	implementation:NoteInfoWindowController
+synchronize	Affiche.h	82;"	m	interface:Affiche
+synchronize	Affiche.m	514;"	m	implementation:Affiche
+textDidChange:	NoteWindowController.h	46;"	m	interface:NoteWindowController
+textDidChange:	NoteWindowController.m	102;"	m	implementation:NoteWindowController
+textView	NoteWindow.h	32;"	E	interface:NoteWindow
+textView	NoteWindow.h	43;"	m	interface:NoteWindow
+textView	NoteWindow.m	107;"	m	implementation:NoteWindow
+textView	NoteWindowController.h	31;"	E	interface:NoteWindowController
+textView	NoteWindowController.h	62;"	m	interface:NoteWindowController
+textView	NoteWindowController.m	231;"	m	implementation:NoteWindowController
+title	Note.h	37;"	E	interface:Note
+title	Note.h	73;"	m	interface:Note
+title	Note.m	297;"	m	implementation:Note
+titleBarColorBox	PreferencesPanel.h	53;"	m	interface:PreferencesPanel
+titleBarColorBox	PreferencesPanel.m	184;"	m	implementation:PreferencesPanel
+titleBarColorBox	PreferencesPanelController.h	31;"	E	interface:PreferencesPanelController
+titleField	NoteInfoWindow.h	30;"	E	interface:NoteInfoWindow
+titleField	NoteInfoWindow.h	43;"	m	interface:NoteInfoWindow
+titleField	NoteInfoWindow.m	99;"	m	implementation:NoteInfoWindow
+titleField	NoteInfoWindowController.h	35;"	E	interface:NoteInfoWindowController
+titleField	PreferencesPanel.h	40;"	E	interface:PreferencesPanel
+titleField	PreferencesPanel.h	63;"	m	interface:PreferencesPanel
+titleField	PreferencesPanel.m	224;"	m	implementation:PreferencesPanel
+titleField	PreferencesPanelController.h	41;"	E	interface:PreferencesPanelController
+titlePopUp	NoteInfoWindow.h	29;"	E	interface:NoteInfoWindow
+titlePopUp	NoteInfoWindow.h	42;"	m	interface:NoteInfoWindow
+titlePopUp	NoteInfoWindow.m	94;"	m	implementation:NoteInfoWindow
+titlePopUp	NoteInfoWindowController.h	34;"	E	interface:NoteInfoWindowController
+titlePopUp	PreferencesPanel.h	39;"	E	interface:PreferencesPanel
+titlePopUp	PreferencesPanel.h	62;"	m	interface:PreferencesPanel
+titlePopUp	PreferencesPanel.m	219;"	m	implementation:PreferencesPanel
+titlePopUp	PreferencesPanelController.h	40;"	E	interface:PreferencesPanelController
+titleValue	Note.h	38;"	E	interface:Note
+titleValue	Note.h	76;"	m	interface:Note
+titleValue	Note.m	307;"	m	implementation:Note
+topLeft	PreferencesPanel.h	33;"	E	interface:PreferencesPanel
+topLeft	PreferencesPanel.h	56;"	m	interface:PreferencesPanel
+topLeft	PreferencesPanel.m	194;"	m	implementation:PreferencesPanel
+topLeft	PreferencesPanelController.h	34;"	E	interface:PreferencesPanelController
+topRight	PreferencesPanel.h	34;"	E	interface:PreferencesPanel
+topRight	PreferencesPanel.h	57;"	m	interface:PreferencesPanel
+topRight	PreferencesPanel.m	199;"	m	implementation:PreferencesPanel
+topRight	PreferencesPanelController.h	35;"	E	interface:PreferencesPanelController
+updateWindowTitle	NoteWindowController.h	40;"	m	interface:NoteWindowController
+updateWindowTitle	NoteWindowController.m	74;"	m	implementation:NoteWindowController
+value	Note.h	27;"	E	interface:Note
+value	Note.h	55;"	m	interface:Note
+value	Note.m	190;"	m	implementation:Note
+window	NoteView.h	30;"	E	interface:NoteView
+windowDidBecomeKey:	NoteWindowController.h	47;"	m	interface:NoteWindowController
+windowDidBecomeKey:	NoteWindowController.m	118;"	m	implementation:NoteWindowController
+windowDidLoad	NoteInfoWindowController.h	49;"	m	interface:NoteInfoWindowController
+windowDidLoad	NoteInfoWindowController.m	98;"	m	implementation:NoteInfoWindowController
+windowDidLoad	NoteWindowController.h	48;"	m	interface:NoteWindowController
+windowDidLoad	NoteWindowController.m	124;"	m	implementation:NoteWindowController
+windowDidMove:	NoteWindowController.h	49;"	m	interface:NoteWindowController
+windowDidMove:	NoteWindowController.m	132;"	m	implementation:NoteWindowController
+windowDidResize:	NoteWindowController.h	50;"	m	interface:NoteWindowController
+windowDidResize:	NoteWindowController.m	138;"	m	implementation:NoteWindowController
+windowShouldClose:	NoteWindowController.h	51;"	m	interface:NoteWindowController
+windowShouldClose:	NoteWindowController.m	143;"	m	implementation:NoteWindowController
+windowWillClose:	NoteInfoWindowController.h	50;"	m	interface:NoteInfoWindowController
+windowWillClose:	NoteInfoWindowController.m	103;"	m	implementation:NoteInfoWindowController
+windowWillClose:	NoteWindowController.h	52;"	m	interface:NoteWindowController
+windowWillClose:	NoteWindowController.m	186;"	m	implementation:NoteWindowController
+windowWillClose:	PreferencesPanelController.m	176;"	m	implementation:PreferencesPanelController
+windows	Affiche.h	37;"	E	interface:Affiche
+yellowMenuItem	Affiche.h	45;"	E	interface:Affiche

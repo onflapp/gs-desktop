@@ -1,0 +1,27 @@
+Affiche
+===============================================================================
+
+Affiche is a little application that allows people to 'stick little notes'
+on your desktop.
+
+To use Affiche, you need GNUstep. You can get GNUstep here:
+
+http://www.gnustep.org
+
+To compile Affiche:
+
+% cd Affiche
+% make
+% make install (optional but required if you want the Affiche service.)
+% openapp Affiche.app
+
+Enjoy!
+
+PS: If you want the Affiche service, after you did make install, just
+    type:
+     
+    % make_services
+
+===============================================================================
+(c) Ludovic Marcotte
+    <ludovic@Sophos.ca>

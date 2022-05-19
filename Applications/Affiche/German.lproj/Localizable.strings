@@ -1,0 +1,83 @@
+
+/** Affiche.m */
+"Info" = "Info";
+"File" = "Datei";
+"Edit" = "Bearbeiten";
+"Note" = "Notiz";
+"Color" = "Farbe";
+"Windows" = "Fenster";
+"Print" = "Drucken";
+"Services" = "Dienste";
+"Hide" = "Ausblenden";
+"Quit" = "Verlassen";
+"Info Panel..." = "Info Panel...";
+"Preferences..." = "Grundeinstellungen...";
+"Help..." = "Hilfe...";
+"New Note" = "Neue Notiz";
+"Close" = "Schließen";
+"Save All" = "Alles speichern";
+"Import Text" = "Text immportieren";
+"Export Text" = "Text exportieren";
+"Cut" = "Ausschneiden";
+"Copy" = "Kopieren";
+"Paste" = "Einfügen";
+"Delete" = "Löschen";
+"Select All" = "Alles auswählen";
+"Format" = "Format";
+"Note Info" = "Notizinfo";
+"Blue" = "Blau";
+"Gray" = "Grau";
+"Green" = "Grün";
+"Purple" = "Lila";
+"Yellow" = "Gelb";
+
+/** ColorView.m */
+
+/** Constants.m */
+
+/** LabelWidget.m */
+
+/** Note.m */
+
+/** NoteInfoWindow.m */
+"Creation date:" = "Erstellungsdatum:";
+"Modification date:" = "Änderungsdatum:";
+"Title:" = "Titel:";
+"No title" = "Kein Titel";
+"First line of note" = "Erste Zeile der Notiz";
+"Custom" = "Experte";
+
+/** NoteInfoWindowController.m */
+"Note Information" = "Notizinformation";
+
+/** NoteView.m */
+
+/** NoteWindow.m */
+
+/** NoteWindowController.m */
+"Closing a note..." = "Schließen einer Notiz...";
+"Would you like to save this note (%@...)\nto a file?" = "Möchten Sie diese Notiz (%@...)\n als Datei speichern?";
+"Cancel" = "Abbrechen";
+"Yes" = "Ja";
+"No" = "Nein";
+
+/** PreferencesPanel.m */
+"Font:" = "Schrift:";
+"Set..." = "Setzen...";
+"Color:" = "Farbe:";
+/* "Blue" =  "Blau"; */
+/* "Gray" =  "Grau"; */
+/* "Green" =  "Grün"; */
+/* "Purple" =  "Lila"; */
+/* "Yellow" =  "Gelb"; */
+"Title bar" = "Titelleiste";
+"Note content" = "Notizinhalt";
+"Position:" = "Position:";
+/* "Title:" =  "Titel:"; */
+/* "No title" =  "Kein Titel"; */
+/* "First line of note" =  "Erste Zeile der Notiz"; */
+/* "Custom" =  "Experte"; */
+"Defaults used when creating a new note:" = "Verwendete Standards beim Erstellen von Notizen:";
+
+/** PreferencesPanelController.m */
+/* "Preferences..." =  "Grundeinstellungen..."; */

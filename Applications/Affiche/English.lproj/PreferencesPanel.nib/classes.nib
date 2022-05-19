@@ -1,0 +1,30 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                chooseFont = id; 
+                selectionOfColorHasChanged = id; 
+                selectionOfPositionHasChanged = id; 
+                selectionOfTitleHasChanged = id; 
+            }; 
+            CLASS = PreferencesPanelController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                bottomLeft = NSButton; 
+                bottomRight = NSButton; 
+                center = NSButton; 
+                colorPopUp = NSPopUpButton; 
+                fontField = NSTextField; 
+                noteContentColorBox = NSBox; 
+                titleBarColorBox = NSBox; 
+                titleField = NSTextField; 
+                titlePopUp = NSPopUpButton; 
+                topLeft = NSButton; 
+                topRight = NSButton; 
+            }; 
+            SUPERCLASS = NSWindowController; 
+        }
+    ); 
+    IBVersion = 1; 
+}

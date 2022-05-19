@@ -19,6 +19,14 @@ sudo -E make install
 sudo -E ldconfig
 
 cd "$D"
+cd ../../libs-simplewebkit || exit 1
+
+make -j2 || exit 1
+
+sudo -E make install
+sudo -E ldconfig
+
+cd "$D"
 cd ../Frameworks/PDFKit || exit 1
 
 make -j2 || exit 1

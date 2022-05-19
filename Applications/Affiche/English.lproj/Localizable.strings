@@ -1,0 +1,83 @@
+
+/** Affiche.m */
+"Info" = "Info";
+"File" = "File";
+"Edit" = "Edit";
+"Note" = "Note";
+"Color" = "Color";
+"Windows" = "Windows";
+"Print" = "Print";
+"Services" = "Services";
+"Hide" = "Hide";
+"Quit" = "Quit";
+"Info Panel..." = "Info Panel...";
+"Preferences..." = "Preferences...";
+"Help..." = "Help...";
+"New Note" = "New Note";
+"Close" = "Close";
+"Save All" = "Save All";
+"Import Text" = "Import Text";
+"Export Text" = "Export Text";
+"Cut" = "Cut";
+"Copy" = "Copy";
+"Paste" = "Paste";
+"Delete" = "Delete";
+"Select All" = "Select All";
+"Format" = "Format";
+"Note Info" = "Note Info";
+"Blue" = "Blue";
+"Gray" = "Gray";
+"Green" = "Green";
+"Purple" = "Purple";
+"Yellow" = "Yellow";
+
+/** ColorView.m */
+
+/** Constants.m */
+
+/** LabelWidget.m */
+
+/** Note.m */
+
+/** NoteInfoWindow.m */
+"Creation date:" = "Creation date:";
+"Modification date:" = "Modification date:";
+"Title:" = "Title:";
+"No title" = "No title";
+"First line of note" = "First line of note";
+"Custom" = "Custom";
+
+/** NoteInfoWindowController.m */
+"Note Information" = "Note Information";
+
+/** NoteView.m */
+
+/** NoteWindow.m */
+
+/** NoteWindowController.m */
+"Closing a note..." = "Closing a note...";
+"Would you like to save this note (%@...)\nto a file?" = "Would you like to save this note (%@...)\nto a file?";
+"Cancel" = "Cancel";
+"Yes" = "Yes";
+"No" = "No";
+
+/** PreferencesPanel.m */
+"Font:" = "Font:";
+"Set..." = "Set...";
+"Color:" = "Color:";
+/* "Blue" =  "Blue"; */
+/* "Gray" =  "Gray"; */
+/* "Green" =  "Green"; */
+/* "Purple" =  "Purple"; */
+/* "Yellow" =  "Yellow"; */
+"Title bar" = "Title bar";
+"Note content" = "Note content";
+"Position:" = "Position:";
+/* "Title:" =  "Title:"; */
+/* "No title" =  "No title"; */
+/* "First line of note" =  "First line of note"; */
+/* "Custom" =  "Custom"; */
+"Defaults used when creating a new note:" = "Defaults used when creating a new note:";
+
+/** PreferencesPanelController.m */
+/* "Preferences..." =  "Preferences..."; */

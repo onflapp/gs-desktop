@@ -19,3 +19,11 @@ else
   git clone https://github.com/onflapp/libs-dbuskit.git
 fi
 
+cd "$D"
+if [ -d libs-simplewebkit ];then
+  cd ./libs-simplewebkit
+  git pull
+else
+  git clone https://github.com/onflapp/libs-simplewebkit.git
+fi
+

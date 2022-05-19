@@ -37,6 +37,14 @@ else
 fi
 
 cd "$D"
+if [ -d gs-mail ];then
+  cd ./gs-mail
+  git pull
+else
+  git clone https://github.com/onflapp/gs-mail.git
+fi
+
+cd "$D"
 if [ -d apps-projectcenter ];then
   cd ./apps-projectcenter
   git pull

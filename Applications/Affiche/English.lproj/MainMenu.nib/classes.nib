@@ -1,0 +1,38 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                closeNote = id; 
+                exportText = id; 
+                importText = id; 
+                newNote = id; 
+                quitApplication = id; 
+                saveAllNotes = id; 
+                setNoteColor = id; 
+                showNoteInfo = id; 
+                showPreferencesPanel = id; 
+            }; 
+            CLASS = Affiche; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                blueMenuItem = NSMenuItem; 
+                color = NSMenu; 
+                edit = NSMenu; 
+                file = NSMenu; 
+                format = NSMenu; 
+                grayMenuItem = NSMenuItem; 
+                greenMenuItem = NSMenuItem; 
+                info = NSMenu; 
+                menu = NSMenu; 
+                note = NSMenu; 
+                purpleMenuItem = NSMenuItem; 
+                services = NSMenu; 
+                windows = NSMenu; 
+                yellowMenuItem = NSMenuItem; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+    ); 
+    IBVersion = 1; 
+}

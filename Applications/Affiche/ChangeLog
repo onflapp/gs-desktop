@@ -1,0 +1,291 @@
+2002-04-15      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Set the CVS tag to v0_6_0
+	* RELEASE OF VERSION 0.6.0. 
+
+
+2002-04-13	Erik Dalén <dalen@jpl.se>
+
+	* Added an initial Klingon translation. There's still three strings
+	  untranslated though.
+
+
+2002-04-08      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Simplified some code.
+
+
+2002-04-07      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a Lojban translation from Jay Kominek
+	  <jay.kominek@colorado.edu>.
+	* Updated the nibs and the OS X project file.
+	  Corrected some bugs in the nibs.
+	* Fixed the drawing of the note title under OS X.
+
+
+2002-04-05      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a new Affiche.tiff logo. This one was made
+	  by Boris Anthony.
+	* Commented in the code some NSLog() calls.
+
+
+2002-03-12	Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Replaced [Note note] by AUTORELEASE([[Note alloc] init]) to avoid
+	  annoying compilation warnings.
+	* Improved the UI of the Preferences panel.
+
+
+2002-03-04      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified the plist to set the version number to 0.6.0.
+
+
+2002-02-27      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added Spanish translation from Quique <quique@sindominio.net>
+	* Refactored Constants: AfficheUserLibraryPath()
+	* Corrected a typo in the French translation
+
+
+2002-02-11      Ludovic Marcotte <ludovic@Sophos.ca>
+
+	* RELEASE 0.5.0.
+	* Set the CVS tag to v0_5_0
+
+        
+2002-02-10      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Updated NoteInfoWindow.nib for OSX.
+	* Updated some files like (PreferencesPanelController and
+ 	  NoteInfoWindowController) for OSX.
+	* Added the ColorView class to the project
+	* Added PreferencesPanel.nib for OSX
+	* Modified some of the code to load the nib and to work
+	  better in OSX.
+	* Added Preferences... menu item to MainMenu.nib
+
+
+2002-02-09      Erik Dalen <dalen@jpl.se>
+
+	* Initial Swedish translation added.
+
+
+2002-02-08      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Minor cleanups again.
+	* Fixed a small bug in Affiche: -importText. We weren't
+	  considering defaults when creating new notes.
+	  Added Affiche: _showNewNote (in a private category) to
+	  generalize the process of showing notes in -importText
+	  and -newNote.
+	* We now call _showNewNote in newNote: userData: error:.
+	* Updated AfficheInfo.plist to localize the text used for
+	  the service.
+	* Added German translation from Martin Brecher
+	  <martin@mb-itconsulting.com>.
+
+
+2002-02-07      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Minor cleanups.
+	* Added a french translation (initial version)
+
+
+2002-02-06      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Finished implementing the preferences panel.
+	* Added two new attributes to a note: title 
+	  and titleValue. Also set the version number
+	  to 3.
+	* We now update the modification date when we make
+	  a change in the content of the note.
+	* Added the possibility to change the title (source)
+	  and title value in NoteInfoWindow.
+	  
+
+2002-02-05      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added the ColorView class and modified the GNUmakefile
+	  to include the files.
+	* Added and positionned most UI widgets for the pref panel.
+	  The logic and the outlets code need to be written.
+	* Implemented parts of the preferences panel. Not yet finished
+	  and fully functionnal.
+
+
+2002-02-04      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified NoteView: -mouseDown to correct the
+	  bottom right origin point. Suggestion by
+	  Pierre-Yves Rivaille.
+	* Set the version number to 0.5.0 in 
+	  AfficheInfo.plist.
+	* Added the class LabelWidget (same one from
+	  GNUMail.app)
+	* Modified the GNUmakefile to include this new class
+	* Added two constants in Constants: TextFieldHeight and
+	  ButtonHeight.
+	* Started implementing the Preferences Panel.
+
+
+2002-02-04      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modifed NoteWindowController: -windowShouldClose
+	  to include the note's title in the message we show
+	  to the user.
+	* RELEASE of v0.4.0
+	* Set the tag on the cvs server to v0_4_0
+
+
+2002-02-03      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added Images/*
+        * Added the NoteView class
+        * Redesigned the entire application to draw our onw
+          title bar and use our own move/resize mechanisms.
+          Modified most classes to adapt to the new design.
+	  The images have been supplied by Boris Anthony.
+	* Updated OS-X project file.
+
+
+2002-01-27  Jonathan B. Leffert  <jbl@foo>
+
+	* Affiche.m ([Affiche -dealloc]): added -dealloc method
+	to release allNotes ivar.
+	([Affiche -quitApplication:sender]): removed RELEASE of
+	allNotes ivar from here.
+	* Added the beginnings of a prefs panel.
+
+2002-01-27      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * RELEASE OF 0.3.0
+        * Set the cvs tag to v0_3_0
+
+
+2002-01-27	Francis Lachapelle <francis@Sophos.ca>
+
+	* Fixed property list (wrong type for NSMainNibFile).
+	* Added extra information in property list.
+
+
+2002-01-27	Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a missing _ at the beginning of the method
+ 	  NoteWindowController: -_updateWindowFrame in
+	  NoteWindowController.h
+ 	* Added some casting to prevent the compiler from
+	  whining about the -note method call on the delegate
+	  in Affiche: -showNoteInfo.
+	* Modified MainMenu.nib (removed some unused items).
+	* Updated te InfoPlist.strings to set the version number
+	  to 0.3.0.
+
+
+2002-01-26	Francis Lachapelle <francis@Sophos.ca>
+
+	* Added Service definition in Mac OS X Project Builder file.
+
+
+2002-01-24      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a private interface to NoteWindowController and added
+	  -_updateWindowFrame and _updateWindowTitle. Modified to the code
+	  to use -_updateWindowFrame instead of -updateWindowFrame and also
+	  modified the code to use _updateWindowTitle. This method
+	  sets the title of a window to the first line of text in
+	  the note.
+	* Fixed a bug in Affiche: -importText. We were not setting the note
+	  value to an attributed string but rather a NSString.
+	* Refactored Affiche: -newNote: userData: error:
+
+	
+2002-01-17      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified AfficheInfo.plist to set the version number to 0.3.0
+	  and added services related informations.
+	* Modified Affiche.m to add -newNote: userData: error: used for
+	  our service.
+	* Modified the README to explain how to install the service.
+	* Cleaned a little bit Affiche.m. Set the windows menu and
+	  changed the way we show our note windows. We now use
+	  orderFrontRegardless.
+
+	
+2002-01-16      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Note.m to include versionning support so v0.2.0 is now
+	  able to load the previous notes from v0.1.0.
+
+
+2002-01-15      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified Affiche.m to NOT load the notes in -init but rather
+          in -applicationDidFinishLaunching since our backend under GNUstep
+          is NOT initialized at that time.
+
+
+2002-01-04      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Modified MainMenu.nib to make Affiche the delegate of the
+	  NSApplication.
+	* Modified most files so that we new use atributed strings
+	  instead of NSString when storing the notes. That allows us
+	  to save attributes like bold/italic/underline...
+	  WARNING - YOU MUST REMOVE ALL YOUR NOTES FIRST
+	  (rm -f ~/Library/Affiche/Notes or
+	   rm -f ~/GNUstep/Library/Affiche/Notes) or wait that I implement
+	  'version' support in Note.m before using this version.
+	* Updated OS-X's project file and InfoPlist.strings and
+	  AfficheInfo.plist to set the version number to 0.2.0
+
+
+2001-12-05      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Removed the accessor since the scrollView refresh bug
+	  has been fixed in GNUstep GUI.
+	* Removed the refresh call in Affiche: -setNoteColor for
+	  the scrollView.
+
+
+2001-12-04      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Changed the border to NoBorder
+	* Under GNUstep, we refresh the scrollView after changing the
+	  color.
+	* Added an outlet and an accessor in NoteWindowController to
+	  return then scrollView.
+	* Activated the Format menu / Font panel
+
+
+2001-12-03      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Added a TODO
+	* Added [textView setDrawsBackground: YES] in NoteWindow
+          just to be sure that we draw our background.
+	* Added NoteInfoWindow.nib
+	* Added NoteInfoWindowController.m/h.
+	* Added NoteInfoWindow.m/h.
+  	* Updated the GNUmakefile	
+
+
+2001-12-03      Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Created the COPYING file
+	* RELEASE OF v0.1.0
+
+	
+2001-12-02 	Ludovic Marcotte <ludovic@Sophos.ca>
+
+        * Initial import on CVS (0.1.0)
+	* We set lastNoteWindowOnTop to nil in
+	  NoteWindowController: -dealloc.
+	* Modified Affiche: -showNoteInfo
+	* Added Localizable.strings for English
+	* Added .cvsignore
+	* Added README
+	* Removed the notifications and implemented
+	  the methods for the delegate instead.
+ 	* Updated OS-X nib

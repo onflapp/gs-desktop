@@ -1,0 +1,83 @@
+
+/** Affiche.m */
+"Info" = "Info";
+"File" = "Arkiv";
+"Edit" = "Redigera";
+"Note" = "Notis";
+"Color" = "Färg";
+"Windows" = "Fönster";
+"Print" = "Skriv ut";
+"Services" = "Tjänster";
+"Hide" = "Göm";
+"Quit" = "Avsluta";
+"Info Panel..." = "Infopanel...";
+"Preferences..." = "Inställningar...";
+"Help..." = "Hjälp...";
+"New Note" = "Ny notis";
+"Close" = "Stäng";
+"Save All" = "Spara alla";
+"Import Text" = "Importera text";
+"Export Text" = "Exportera text";
+"Cut" = "Klipp ut";
+"Copy" = "Kopiera";
+"Paste" = "Klistra in";
+"Delete" = "Radera";
+"Select All" = "Markera allt";
+"Format" = "Format";
+"Note Info" = "Notis info";
+"Blue" = "Blå";
+"Gray" = "Grå";
+"Green" = "Grön";
+"Purple" = "Lila";
+"Yellow" = "Gul";
+
+/** ColorView.m */
+
+/** Constants.m */
+
+/** LabelWidget.m */
+
+/** Note.m */
+
+/** NoteInfoWindow.m */
+"Creation date:" = "Skapningsdatum:";
+"Modification date:" = "Ändringsdatum:";
+"Title:" = "Titel:";
+"No title" = "Ingen titel";
+"First line of note" = "Första raden av notisen";
+"Custom" = "Egen";
+
+/** NoteInfoWindowController.m */
+"Note Information" = "Notisinformation";
+
+/** NoteView.m */
+
+/** NoteWindow.m */
+
+/** NoteWindowController.m */
+"Closing a note..." = "Stängande av notis...";
+"Would you like to save this note (%@...)\nto a file?" = "Vill du spara notisen (%@...)\ntill en fil?";
+"Cancel" = "Avbryt";
+"Yes" = "Ja";
+"No" = "Nej";
+
+/** PreferencesPanel.m */
+"Font:" = "Typsnitt:";
+"Set..." = "Ändra...";
+"Color:" = "Färg:";
+/* "Blue" =  "Blå"; */
+/* "Gray" =  "Grå"; */
+/* "Green" =  "Grön"; */
+/* "Purple" =  "Lila"; */
+/* "Yellow" =  "Gul"; */
+"Title bar" = "Titelrad";
+"Note content" = "Notisinnehåll";
+"Position:" = "Position:";
+/* "Title:" =  "Titel:"; */
+/* "No title" =  "Ingen titel"; */
+/* "First line of note" =  "Första raden i notisen"; */
+/* "Custom" =  "Egen"; */
+"Defaults used when creating a new note:" = "Standard som används för nya notiser:";
+
+/** PreferencesPanelController.m */
+/* "Preferences..." =  "Inställningar..."; */

@@ -1,0 +1,83 @@
+
+/** Affiche.m */
+"Info" = "skicu";
+"File" = "datni";
+"Edit" = "galfi";
+"Note" = "notci";
+"Color" = "skari";
+"Windows" = "samca'o";
+"Print" = "puvypri";
+"Services" = "terse'u";
+"Hide" = "mipypu'i";
+"Quit" = "fanmo";
+"Info Panel..." = "skicu samca'o";
+"Preferences..." = "djicu'a";
+"Help..." = "sidju";
+"New Note" = "zbasu pa notci";
+"Close" = "fanmo";
+"Save All" = "ciska roda";
+"Import Text" = "notci benji fi ti";
+"Export Text" = "notci benji fo ti";
+"Cut" = "fukyvi'u";
+"Copy" = "fukpi";
+"Paste" = "benji";
+"Delete" = "vimcu";
+"Select All" = "cuxna roda";
+"Format" = "noirtai";
+"Note Info" = "notci skicu";
+"Blue" = "blanu";
+"Gray" = "grusi";
+"Green" = "crino";
+"Purple" = "zirpu";
+"Yellow" = "pelxu";
+
+/** ColorView.m */
+
+/** Constants.m */
+
+/** LabelWidget.m */
+
+/** Note.m */
+
+/** NoteInfoWindow.m */
+"Creation date:" = "le nu zbasu cu se temci ";
+"Modification date:" = "le nu galci cu se temci ";
+"Title:" = "se cmene";
+"No title" = "noda cmene";
+"First line of note" = "paroi lijgri fa le notci";
+"Custom" = "tecycu'a";
+
+/** NoteInfoWindowController.m */
+"Note Information" = "notci skicu";
+
+/** NoteView.m */
+
+/** NoteWindow.m */
+
+/** NoteWindowController.m */
+"Closing a note..." = "fanmo le notci";
+"Would you like to save this note (%@...)\nto a file?" = "xu do djica le nu datnymo'i le notci to %@... toi";
+"Cancel" = "sisti";
+"Yes" = "go'i";
+"No" = "nago'i";
+
+/** PreferencesPanel.m */
+"Font:" = "lerfu ";
+"Set..." = "lerfu galfi";
+"Color:" = "skari fa ";
+/* "Blue" =  "Blue"; */
+/* "Gray" =  "Gray"; */
+/* "Green" =  "Green"; */
+/* "Purple" =  "Purple"; */
+/* "Yellow" =  "Yellow"; */
+"Title bar" = "cmene stuzi";
+"Note content" = "notci";
+"Position:" = "stuzi fa ";
+/* "Title:" =  "Title:"; */
+/* "No title" =  "No title"; */
+/* "First line of note" =  "First line of note"; */
+/* "Custom" =  "Custom"; */
+"Defaults used when creating a new note:" = "co'ardjicu'a ca le nu zbasu le cnino notci fa ";
+
+/** PreferencesPanelController.m */
+/* "Preferences..." =  "Preferences..."; */

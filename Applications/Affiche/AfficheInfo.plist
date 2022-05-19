@@ -1,0 +1,33 @@
+{
+  ApplicationName = "Affiche";
+  ApplicationDescription = "A place holder for your little notes!";
+  ApplicationRelease = "Affiche 0.6.0";
+  FullVersionID = "0.6.0 March 2002";
+  Authors = ("Ludovic Marcotte <ludovic@Sophos.ca>");
+  Copyright = "Copyright (C) 2001, 2002 Ludovic Marcotte";
+  CopyrightDescription = "Released under the GNU General Public License 2.0";
+  NSIcon = "Affiche.tiff";
+
+  NSServices = (
+      {
+        NSPortName = Affiche;
+        NSMessage = newNote;
+        NSSendTypes = (NSStringPboardType);
+        NSMenuItem = {
+          default = "Make Note";
+	  English = "Make Note";
+	  French = "Créer note";
+	  German = "Notiz erstellen";
+          Swedish = "Skapa notis";
+	};
+        NSKeyEquivalent = {
+          default = n;
+	  English = n;
+	  French = n;
+	  German = n;
+	  Swedish = n;
+        };
+      }
+  );
+}
+
