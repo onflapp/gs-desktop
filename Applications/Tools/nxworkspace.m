@@ -78,6 +78,9 @@ int main(int argc, char** argv, char** env)
           [ws openFile:path withApplication:app];
         }
       }
+      else {
+        [ws openFile:path withApplication:app];
+      }
     }
     else if ([[arguments objectAtIndex:1] isEqualToString:@"--activate"] && [arguments count] == 3) {
       NSWorkspace* ws = [NSWorkspace sharedWorkspace];
