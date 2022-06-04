@@ -1,0 +1,89 @@
+{
+    APPLICATIONICON = "BatMon_icon.tif";
+    "APP_DOCUMENT_BASED" = NO;
+    "APP_TYPE" = GORM;
+    "BUILDER_TARGETS" = (
+	all,
+	install,
+	uninstall,
+	clean,
+	distclean,
+	dist
+    );
+    "BUNDLE_IDENTIFIER" = "org.gap.batmon";
+    "CLASS_FILES" = (
+	"AppController.m",
+	"BatteryModel.m",
+	"BatteryModel-FreeBSD.m",
+	"BatteryModel-Linux.m",
+	"BatteryModel-NetBSD.m",
+	"BatteryModel-OpenBSD.m"
+    );
+    COMPILEROPTIONS = "";
+    CPPOPTIONS = "";
+    "CREATION_DATE" = "2005-06-25 21:06:19 +0200";
+    "DOCU_FILES" = (
+	LICENSE,
+	README
+    );
+    FRAMEWORKS = (
+    );
+    "HEADER_FILES" = (
+	"AppController.h",
+	"BatteryModel.h"
+    );
+    IMAGES = (
+	"BatMon_icon.tif",
+	"small_battery.tif",
+	"small_plug.tif"
+    );
+    INSTALLDIR = "$(HOME)/GNUstep";
+    INTERFACES = (
+	"batmon.gorm"
+    );
+    LANGUAGE = English;
+    LIBRARIES = (
+	"gnustep-base",
+	"gnustep-gui"
+    );
+    LINKEROPTIONS = "";
+    "LOCALIZED_RESOURCES" = (
+    );
+    MAININTERFACE = "batmon.gorm";
+    MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
+    "OBJC_COMPILEROPTIONS" = "";
+    "OTHER_RESOURCES" = (
+    );
+    "OTHER_SOURCES" = (
+	"main.m"
+    );
+    "PRINCIPAL_CLASS" = NSApplication;
+    "PROJECT_AUTHORS" = (
+	"Riccardo Mottola (rm@gnu.org)"
+    );
+    "PROJECT_COPYRIGHT" = "Copyright (C) 2005-2016";
+    "PROJECT_COPYRIGHT_DESC" = "Released under GPL";
+    "PROJECT_CREATOR" = "";
+    "PROJECT_DESCRIPTION" = "Battery Monitor";
+    "PROJECT_DOCUMENTTYPES" = (
+    );
+    "PROJECT_GROUP" = "No group avaliable!";
+    "PROJECT_MAINTAINER" = "";
+    "PROJECT_NAME" = batmon;
+    "PROJECT_RELEASE" = "0.9";
+    "PROJECT_SUMMARY" = "No summary avaliable!";
+    "PROJECT_TYPE" = Application;
+    "PROJECT_URL" = "http://gap.nongnu.org/batmon/";
+    "SEARCH_HEADER_DIRS" = (
+    );
+    "SEARCH_LIB_DIRS" = (
+    );
+    SUBPROJECTS = (
+    );
+    "SUPPORTING_FILES" = (
+	"batmonInfo.plist"
+    );
+    "USER_LANGUAGES" = (
+	English
+    );
+}

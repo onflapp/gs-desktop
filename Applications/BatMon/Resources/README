@@ -1,0 +1,36 @@
+==========================
+    Battery Monitor
+==========================
+
+
+
+             written by Riccardo Mottola
+             rmottola@users.sourceforge.net
+
+
+Home inside GAP, Gnustep Application Project
+
+Document Revision: 15 August 2005
+Current Version:   0.1.0
+
+WHAT IS IT ?
+------------
+
+Battery Monitor displays information about your laptop battery. Information include expected battery life, amperage and voltage.
+
+
+NOTES
+-----
+- batmon parses the ACPI information exposed by the linux kernel inside the /proc pseudo filesystem. Thus it probably works with 2.6 kernels which layout the same information and with the same keywords as the laptop I use.
+
+HISTORY
+-------
+
+-- what's new in 0.1.0
+first public release
+
+
+COMPILATION
+-----------
+- the project is managed with ProjectCenter on GNUstep. You can build it using PC or by just typing "make".
+

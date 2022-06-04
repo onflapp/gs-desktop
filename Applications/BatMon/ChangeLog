@@ -1,0 +1,120 @@
+2017-01-17 Riccardo Mottola <rm@gnu.org>
+
+	* BatteryModel-NetBSD.m
+	Fix remaining time in case of A rates instead of W.
+
+2016-01-27 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.h
+	* AppController.m
+	* Resources/batmon.gorm
+	Change label to Discharge and Charge according to state, connect Boxes IBOutlets to be able to set title.
+
+2016-01-27 Riccardo Mottola <rm@gnu.org>
+
+	* BatteryModel-NetBSD.m
+	Fix time if charge is expressed in Watts, improved attempt.
+
+2015-09-11 Riccardo Mottola <rm@gnu.org>
+
+	* BatteryModel-NetBSD.m
+	Fix Amps if charge is expressed in Watts
+
+2015-01-18  Riccardo Mottola <rm@gnu.org>
+
+	* AppController.h
+	Add some label outlets.
+
+	* Resources/batmon.gorm
+	Captialize some terms, connect outlets.
+
+2015-01-16 Riccardo Mottola <rm@gnu.org>
+
+	* BatteryModel.m
+	* BatteryModel-Linux.m
+	_readLine is Linux specific
+
+2015-01-15 Riccardo Mottola <rm@gnu.org>
+
+	* BatteryModel-OpenBSD.m
+	Support AmperHour and not only WattHour, support full and idle states better.
+
+2015-01-14 Riccardo Mottola <rm@gnu.org>
+
+	* BatteryModel.h
+	Import NSObject.h
+
+	* BatteryModel-Linux.m
+	* BatteryModel-NetBSD.m
+	* BatteryModel-FreeBSD.m
+	Guard appropriately for OS.
+
+	* BatteryModel-OpenBSD.m
+	Implement ACPI sensor parsing
+
+2014-10-09 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+	Use isnan() instead of NAN
+
+2014-05-25 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+	* BatteryModel.h
+	* BatteryModel.m
+	Calculate warning capacity and draw orange bar in case.
+
+2014-05-25 Riccardo Mottola <rm@gnu.org>
+
+	* BatteryModel.m
+	Calculate critical status on capacity if !isCritical.
+
+2014-05-04 Riccardo Mottola <rm@gnu.org>
+
+	* BatteryModel-Linux.m
+	* BatteryModel-OpenBSD.m
+	Init isCritical, so that once condition reverts it returns to NO.
+
+2014-01-19 Riccardo Mottola <rm@gnu.org>
+
+	* BatteryModel.h
+	* BatteryModel.m
+	Fix ACPI/APM/PMU detection fallback on Linux.
+
+2013-10-15 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+	Fix formatting string.
+
+2013-07-24 Riccardo Mottola <rm@gnu.org>
+
+	* BatteryModel-NetBSD.m
+	* BatteryModel-FreeBSD.m
+	* BatteryModel.m
+	FreeBSD and NetBSD refactor.
+
+2013-07-24 Riccardo Mottola <rm@gnu.org>
+
+	* BatteryModel-Linux.m
+	* BatteryModel-OpenBSD.m
+	* BatteryModel.h
+	* BatteryModel.m
+	Provide initPlatformSpecific initialization code (used only for linux)
+
+2013-07-24 Riccardo Mottola <rm@gnu.org>
+
+	* BatteryModel.m
+	* BatteryModel-Linux.m
+	Separate update method into OpenBSD Platform Specific file.
+
+2013-07-24 Riccardo Mottola <rm@gnu.org>
+
+	* BatteryModel.h
+	* BatteryModel.m
+	* BatteryModel-Linux.m
+	Separate update method into linux Platform Specific file.
+
+2013-04-12 Riccardo Mottola <rm@gnu.org>
+
+	* BatteryModel.m (update)
+	Fix leak of file descriptor on linux.
