@@ -1,0 +1,19 @@
+{
+    ApplicationDescription = "Battery Monitor";
+    ApplicationIcon = "BatMon_icon.tif";
+    ApplicationName = BatMon;
+    ApplicationRelease = "0.9";
+    Authors = (
+	"Riccardo Mottola (rm@gnu.org)"
+    );
+    CFBundleIdentifier = "org.gap.batmon";
+    Copyright = "Copyright (C) 2005-2016";
+    CopyrightDescription = "Released under GPL";
+    FullVersionID = "0.9";
+    NSExecutable = BatMon;
+    NSIcon = "BatMon_icon.tif";
+    NSMainNibFile = "batmon.gorm";
+    NSPrincipalClass = NSApplication;
+    NSRole = Application;
+    URL = "http://gap.nongnu.org/batmon/";
+}

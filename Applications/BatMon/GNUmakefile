@@ -23,15 +23,15 @@ include $(GNUSTEP_MAKEFILES)/common.make
 # Application
 #
 VERSION = 0.9
-PACKAGE_NAME = batmon
-APP_NAME = batmon
-batmon_APPLICATION_ICON = BatMon_icon.tif
+PACKAGE_NAME = BatMon
+APP_NAME = BatMon
+BatMon_APPLICATION_ICON = BatMon_icon.tif
 
 
 #
 # Resource files
 #
-batmon_RESOURCE_FILES = \
+BatMon_RESOURCE_FILES = \
 Resources/batmon.gorm \
 Resources/BatMon_icon.tif \
 Resources/small_battery.tif \
@@ -43,14 +43,14 @@ Resources/README
 #
 # Header files
 #
-batmon_HEADER_FILES = \
+BatMon_HEADER_FILES = \
 AppController.h \
 BatteryModel.h
 
 #
 # Objective-C Class files
 #
-batmon_OBJC_FILES = \
+BatMon_OBJC_FILES = \
 AppController.m \
 BatteryModel.m \
 BatteryModel-FreeBSD.m \
@@ -61,7 +61,7 @@ BatteryModel-OpenBSD.m
 #
 # Other sources
 #
-batmon_OBJC_FILES += \
+BatMon_OBJC_FILES += \
 main.m 
 
 #

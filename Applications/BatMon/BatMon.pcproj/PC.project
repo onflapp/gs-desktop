@@ -69,7 +69,7 @@
     );
     "PROJECT_GROUP" = "No group avaliable!";
     "PROJECT_MAINTAINER" = "";
-    "PROJECT_NAME" = batmon;
+    "PROJECT_NAME" = BatMon;
     "PROJECT_RELEASE" = "0.9";
     "PROJECT_SUMMARY" = "No summary avaliable!";
     "PROJECT_TYPE" = Application;

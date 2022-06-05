@@ -62,6 +62,7 @@ int main(int argc, char** argv, char** env)
       NSString* path = absolutePath([arguments objectAtIndex:2]);
       NSString* app = ([arguments count] == 4)?[arguments objectAtIndex:3]:nil;
       BOOL isdir = NO;
+      NSString* ext = [path pathExtension];
       NSFileManager* fm = [NSFileManager defaultManager] ;
       /*
       NSString* nm;
@@ -73,6 +74,11 @@ int main(int argc, char** argv, char** env)
         if (isdir && [ws isFilePackageAtPath:path] == NO) {
           [ws selectFile:path inFileViewerRootedAtPath:@"/"];
           [ws launchApplication:@"GWorkspace"];
+        }
+        else if ([ext isEqualToString: @"app"]
+              || [ext isEqualToString: @"debug"]
+              || [ext isEqualToString: @"profile"]) {
+          [ws launchApplication:path];
         }
         else {
           [ws openFile:path withApplication:app];

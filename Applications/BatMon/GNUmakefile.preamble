@@ -23,7 +23,3 @@ ADDITIONAL_LIB_DIRS +=
 # Additional GUI libraries to link
 ADDITIONAL_GUI_LIBS += 
 
-ifeq ($(findstring netbsd, $(GNUSTEP_TARGET_OS)), netbsd)
-ADDITIONAL_GUI_LIBS += -lprop
-endif
-
