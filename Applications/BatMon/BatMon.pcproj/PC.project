@@ -17,7 +17,8 @@
 	"BatteryModel-FreeBSD.m",
 	"BatteryModel-Linux.m",
 	"BatteryModel-NetBSD.m",
-	"BatteryModel-OpenBSD.m"
+	"BatteryModel-OpenBSD.m",
+	"BatteryView.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -30,7 +31,8 @@
     );
     "HEADER_FILES" = (
 	"AppController.h",
-	"BatteryModel.h"
+	"BatteryModel.h",
+	"BatteryView.h"
     );
     IMAGES = (
 	"BatMon_icon.tif",

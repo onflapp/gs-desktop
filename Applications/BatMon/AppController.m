@@ -27,8 +27,6 @@
 #include <math.h>
 #import "AppController.h"
 
-
-
 @implementation AppController
 
 + (void)initialize
@@ -52,49 +50,37 @@
 {
     if ((self = [super init]))
       {
-        NSMutableParagraphStyle *style;
-	NSFont *font;
-
         batModel = [[BatteryModel alloc] init];
-        style = [[NSMutableParagraphStyle alloc] init];
-    	[style setParagraphStyle:[NSParagraphStyle defaultParagraphStyle]];
-    	
-	font = [NSFont systemFontOfSize:9.0];
-	stateStrAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
-        font, NSFontAttributeName,
-	[NSColor blueColor], NSForegroundColorAttributeName,
-        style, NSParagraphStyleAttributeName, nil] retain];
-        iconPlug = [[NSImage imageNamed:@"small_plug.tif"] retain];
-        iconBattery = [[NSImage imageNamed:@"small_battery.tif"] retain];
-        
+       
         /* localization */
         [rateLabel setStringValue:_(@"Discharge Rate")];
+
+        batteryView = [[BatteryView alloc] initWithFrame:NSMakeRect(0, 0, 64, 64) batteryModel:batModel];
+        [batteryView setTarget:self];
+        [batteryView setDoubleAction:@selector(showMonitor:)];
+        [[NSApp iconWindow] setContentView:batteryView];
+        [batteryView release];
       }
     return self;
 }
 
 - (void)dealloc
 {
-    [stateStrAttributes release];
     [super dealloc];
 }
 
 - (void)awakeFromNib
 {
-    NSTimer *timer;
-
-    [[NSApp mainMenu] setTitle:@"batmon"];
-    [self updateInfo:nil];
-  
-    if (YES)
-    {
-        timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(updateInfo:) userInfo:nil repeats:YES];
-        [timer fire];
-    }
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotif
 {
+  NSTimer *timer;
+
+  [self updateInfo:nil];
+  
+  timer = [NSTimer scheduledTimerWithTimeInterval:5 target:self selector:@selector(updateInfo:) userInfo:nil repeats:YES];
+  [timer fire];
 }
 
 - (BOOL)applicationShouldTerminate:(id)sender
@@ -116,79 +102,14 @@
   [monitorWin makeKeyAndOrderFront:nil];
 }
 
+- (IBAction)showBattInfo:(id)sender
+{
+  [infoWin makeKeyAndOrderFront:self];
+}
+
 - (void)showPrefPanel:(id)sender
 {
 }
-
-
-
-- (void)getInfo
-{
-
-}
-
-#define HEIGHT 42
-#define WIDTH  20
-- (void)drawImageRep
-{
-    NSString *str;
-    float chargePercentToDraw; /* we need this beause chargePercent can go beyond 100% */
-    NSImage *chargeStatusIcon;
-
-    if ([batModel isCharging])
-      chargeStatusIcon = iconPlug;
-    else
-      chargeStatusIcon = iconBattery;
-
-    [chargeStatusIcon compositeToPoint: NSMakePoint(WIDTH+6, HEIGHT-15) operation:NSCompositeSourceOver];
-
-    chargePercentToDraw = [batModel chargePercent];
-    if (chargePercentToDraw > 100)
-        chargePercentToDraw = 100;
-    else if (chargePercentToDraw < 0 || isnan(chargePercentToDraw))
-      chargePercentToDraw = 0;
-
-    [[NSColor darkGrayColor] set];
-    /* main body */
-    [NSBezierPath strokeRect: NSMakeRect(0, 1, WIDTH, HEIGHT)];
-    /* top nib */
-    [NSBezierPath strokeRect: NSMakeRect((WIDTH/2)-3, HEIGHT+1, 6, 4)];
-
-    [[NSColor grayColor] set];
-    /* right light shadow */
-    [NSBezierPath strokeLineFromPoint:NSMakePoint(WIDTH+1, 0) toPoint:NSMakePoint(WIDTH+1, HEIGHT-1)];
-    /* nib filler */
-    [NSBezierPath fillRect: NSMakeRect((WIDTH/2)-2, HEIGHT+1+1, 4, 2)];
-    
-    /* draw the charge status */
-    if ([batModel isWarning] == YES)
-       [[NSColor orangeColor] set];
-    else if ([batModel isCritical] == YES)
-       [[NSColor redColor] set];
-    else
-       [[NSColor greenColor] set];
-    [NSBezierPath fillRect: NSMakeRect(0+1, 1, WIDTH-1, (chargePercentToDraw/100) * HEIGHT -2)];
-
-    str = [NSString stringWithFormat:@"%2.0f%%", [batModel chargePercent]];
-    [str drawAtPoint: NSMakePoint(WIDTH + 5 , 1) withAttributes:stateStrAttributes];
-}
-
-- (void)drawIcon
-{
-    NSImageRep *rep;
-    NSImage    *icon;
-    
-    icon = [[NSImage alloc] initWithSize: NSMakeSize(48, 48)];
-    rep = [[NSCustomImageRep alloc]
-            initWithDrawSelector: @selector(drawImageRep)
-            delegate:self];
-    [rep setSize: NSMakeSize(48, 48)];
-    [icon addRepresentation: rep];
-    [NSApp setApplicationIconImage:icon];
-    [rep release];
-    [icon release]; /* setApplicationIconImage does a retain */
-}
-
 
 - (IBAction)updateInfo:(id)sender
 {
@@ -247,15 +168,7 @@
 	[lastFullCharge setStringValue:[NSString stringWithFormat:@"%3.2f Ah", [batModel lastCapacity]]];
       }
 
-
-    [self drawIcon];
+	[batteryView setNeedsDisplay:YES];
 }
-
-
-- (IBAction)showBattInfo:(id)sender
-{
-    [infoWin makeKeyAndOrderFront:self];
-}
-
 
 @end

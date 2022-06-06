@@ -27,6 +27,7 @@
 
 #import <AppKit/AppKit.h>
 #import "BatteryModel.h"
+#import "BatteryView.h"
 
 @interface AppController : NSObject
 {
@@ -54,11 +55,8 @@
     IBOutlet NSTextField         *manufacturerLabel;
     IBOutlet NSTextField         *lastFullCharge;
     IBOutlet NSBox               *cellHealthBox;
-
-    NSDictionary *stateStrAttributes;
-    
-    NSImage *iconBattery;
-    NSImage *iconPlug;
+ 
+    BatteryView *batteryView;
 
     BatteryModel *batModel;
     @private int hours;
@@ -71,8 +69,6 @@
 - (BOOL)applicationShouldTerminate:(id)sender;
 - (void)applicationWillTerminate:(NSNotification *)aNotif;
 - (BOOL)application:(NSApplication *)application openFile:(NSString *)fileName;
-
-- (void)getInfo;
 
 - (IBAction)showMonitor:(id)sender;
 - (IBAction)showPrefPanel:(id)sender;
