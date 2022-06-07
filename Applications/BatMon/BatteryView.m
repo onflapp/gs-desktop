@@ -83,8 +83,6 @@
 
 - (void)drawRect:(NSRect)r
 {
-  NSLog(@"draw");
-
   if (tileImage)
      [tileImage compositeToPoint:NSMakePoint(0,0)
                         fromRect:NSMakeRect(0, 0, 64, 64)
