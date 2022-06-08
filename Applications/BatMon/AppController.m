@@ -109,6 +109,14 @@
 
 - (void)showPrefPanel:(id)sender
 {
+  [prefWin makeKeyAndOrderFront:self];
+}
+
+- (void)applyPref:(id)sender
+{
+  NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+  [prefs setObject:[capacityField stringValue] forKey:@"last_capacity"];
+  [prefs synchronize];
 }
 
 - (IBAction)updateInfo:(id)sender

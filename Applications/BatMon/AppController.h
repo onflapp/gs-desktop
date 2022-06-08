@@ -45,6 +45,9 @@
     IBOutlet NSBox               *lifeBox;
     IBOutlet NSBox               *cellDataBox;
 
+    IBOutlet NSWindow            *prefWin;
+    IBOutlet NSTextField         *capacityField;
+
     IBOutlet NSWindow            *infoWin;
     IBOutlet NSProgressIndicator *lifeGauge;
     IBOutlet NSTextField         *lifeGaugePercent;
@@ -72,6 +75,7 @@
 
 - (IBAction)showMonitor:(id)sender;
 - (IBAction)showPrefPanel:(id)sender;
+- (IBAction)applyPref:(id)sender;
 - (IBAction)updateInfo:(id)sender;
 - (IBAction)showBattInfo:(id)sender;
 @end

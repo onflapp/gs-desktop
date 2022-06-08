@@ -5,7 +5,8 @@
 	    "showMonitor:",
 	    "showPrefPanel:",
 	    "updateInfo:",
-	    "showBattInfo:"
+	    "showBattInfo:",
+	    "applyPref:"
 	);
 	Outlets = (
 	    monitorWin,
@@ -30,12 +31,15 @@
 	    manufacturer,
 	    manufacturerLabel,
 	    lastFullCharge,
-	    cellHealthBox
+	    cellHealthBox,
+	    capacityField,
+	    prefWin
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
+	    "applyPref:",
 	    "showBattInfo:",
 	    "showMonitor:",
 	    "showPrefPanel:",

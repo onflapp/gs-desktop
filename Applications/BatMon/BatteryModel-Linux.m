@@ -187,6 +187,8 @@
 
   batteryState = 0;
 
+  NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+
   if (useACPIsys)
     {
       NSString *ueventFileName;
@@ -265,6 +267,10 @@
 	  useWattHours = NO;
 	}
       warnCap = 0; // FIXME
+      id lcval = [prefs objectForKey:@"last_capacity"];
+      if ([lcval floatValue] > 0) {
+        lastCap = [lcval floatValue];
+      }
 
       chargeStateStr = (NSString *)[ueventDict objectForKey:@"POWER_SUPPLY_STATUS"];
       batteryType = (NSString *)[ueventDict objectForKey:@"POWER_SUPPLY_TECHNOLOGY"];
