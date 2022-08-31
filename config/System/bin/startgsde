@@ -1,11 +1,29 @@
 #!/bin/bash
 
+function start_workspace {
+  (/Applications/GWorkspace.app/GWorkspace) &
+  GW_PID="$!"
+
+  echo "Workspace is running on $GW_PID"
+  echo "$GW_PID" > /tmp/$UID-gw.pid
+}
+
+function stop_workspace {
+  PID=`cat /tmp/$UID-gw.pid 2>/dev/null`
+  if [ -n "x$PID" ];then
+    echo "stopping Workspace on $PID"
+    kill -9 $PID 2> /dev/null && rm /tmp/$UID-gw.pid
+  fi
+}
+
+
 function start_windowmanager {
   (/System/bin/wmaker $WM_ARGS) &
-  WM_PID=$!
+  WM_PID="$!"
 
   echo "WM is running on $WM_PID"
   export GS_DESKTOP_WM_PID="$WM_PID"
+  sleep 1
 }
 
 function stop_windowmanager {
@@ -13,10 +31,6 @@ function stop_windowmanager {
   if [ -n "$WM_PID" ];then
     pkill -P "$WM_PID" 2>/dev/null
   fi
-}
-
-function run_workspace {
-  /Applications/GWorkspace.app/GWorkspace
 }
 
 function start_services {
@@ -82,35 +96,45 @@ function start_debug {
   WM_ARGS="--static --dont-restore"
   init_config
   main_process
+
+  wait $GW_PID
+  cleanup
 }
 
 function start_normal {
   WM_ARGS=""
   init_config
   main_process
+ 
+  wait $GW_PID
+  sleep 1
+  cleanup
 }
 
 function main_process {
   start_services
   start_windowmanager
+  start_workspace 
+}
 
-  sleep 1
-  run_workspace
-  sleep 1
-
+function cleanup {
+  echo "cleanup"
+  stop_workspace 
   stop_services
   stop_windowmanager
+  exit
 }
 
 echo "starting GS Desktop"
 
 if [ "$1" == "--safe-mode-continue" ];then
 
-  echo "press [y] to the safe mode, otherwise continue"
+  echo "press [y] to exit to the shell, otherwise continue"
   read -s -n 1 DD
   if [ "$DD" == "y" ];then
     export GS_DESKTOP_SAFEMODE="safe"
     echo "switching to the safe mode"
+    echo "/System/bin/startgsde to run the desktop environment"
     exec /bin/sh
   fi
 fi
@@ -128,6 +152,7 @@ source /Developer/Makefiles/GNUstep.sh
 WM_ARGS=""
 if [ -n "$GS_DESKTOP_SAFEMODE" ];then
   echo "running in SAFE mode"
+  trap cleanup SIGINT
   start_debug |& tee $GS_DESKTOP_LOG
 else
   start_normal > $GS_DESKTOP_LOG 2>&1
