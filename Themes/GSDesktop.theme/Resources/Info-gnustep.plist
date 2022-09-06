@@ -1,0 +1,11 @@
+{
+    GSThemeAuthors = (
+	onflapp
+    );
+    GSThemeDetails = "GNUstep theme for the GS Desktop";
+    GSThemeDomain = {
+    };
+    GSThemeIcon = "Thematic.png";
+    GSThemeLicense = MIT;
+    GSThemeVersion = "0.0";
+}
