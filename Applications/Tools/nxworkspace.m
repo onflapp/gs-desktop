@@ -20,6 +20,7 @@
 #import	<AppKit/AppKit.h>
 
 NSString* absolutePath(NSString* path) {
+  if (!path) return nil;
   if ([path isAbsolutePath]) return [path stringByStandardizingPath];
   else {
     NSFileManager* fm = [NSFileManager defaultManager];
@@ -29,13 +30,14 @@ NSString* absolutePath(NSString* path) {
 }
 
 void printUsage() {
-  fprintf(stderr, "Usage: nxworkspace [--open <path> <app>] [--activate <app>]\n");
+  fprintf(stderr, "Usage: nxworkspace [--open <path> <app>] [--activate <app>] [--select <file> <dir>]\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Help: invoke Workspace commands from command line\n");
   fprintf(stderr, "Options:\n");
-  fprintf(stderr, "  --open <path>       open path in Workspace\n");
-  fprintf(stderr, "  --open <path> <app> open path with specific application\n");
-  fprintf(stderr, "  --activate <app>    launch or activate application\n");
+  fprintf(stderr, "  --open <path>         open path in Workspace\n");
+  fprintf(stderr, "  --open <path> <app>   open path with specific application\n");
+  fprintf(stderr, "  --select <file> <dir> open select file at directory\n");
+  fprintf(stderr, "  --activate <app>      launch or activate application\n");
   fprintf(stderr, "\n");
 }
 
@@ -72,7 +74,7 @@ int main(int argc, char** argv, char** env)
 
       if ([fm fileExistsAtPath:path isDirectory:&isdir]) {
         if (isdir && [ws isFilePackageAtPath:path] == NO) {
-          [ws selectFile:path inFileViewerRootedAtPath:@"/"];
+          [ws selectFile:path inFileViewerRootedAtPath:@""];
           [ws launchApplication:@"GWorkspace"];
         }
         else if ([ext isEqualToString: @"app"]
@@ -87,6 +89,16 @@ int main(int argc, char** argv, char** env)
       else {
         [ws openFile:path withApplication:app];
       }
+    }
+    else if ([[arguments objectAtIndex:1] isEqualToString:@"--select"] && [arguments count] >= 3 ) {
+      NSWorkspace* ws = [NSWorkspace sharedWorkspace];
+      NSString* path = absolutePath([arguments objectAtIndex:2]);
+      NSString* root = absolutePath(([arguments count] == 4)?[arguments objectAtIndex:3]:nil);
+
+      if (root) [ws selectFile:path inFileViewerRootedAtPath:root];
+      else      [ws selectFile:@"." inFileViewerRootedAtPath:path];
+
+      [ws launchApplication:@"GWorkspace"];
     }
     else if ([[arguments objectAtIndex:1] isEqualToString:@"--activate"] && [arguments count] == 3) {
       NSWorkspace* ws = [NSWorkspace sharedWorkspace];
