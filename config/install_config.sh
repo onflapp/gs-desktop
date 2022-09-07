@@ -13,4 +13,7 @@ cp ./Library/Preferences/.NextSpace/* /Library/Preferences/.NextSpace
 mkdir -p /Library/Services 2>/dev/null
 cp ./Library/Services/* /Library/Services
 
+mkdir -p /Library/Themes 2>/dev/null
+cp -r ./Library/Themes/* /Library/Themes
+
 cp ./System/share/WindowMaker/Icons/* /System/share/WindowMaker/Icons
