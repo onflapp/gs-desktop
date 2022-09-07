@@ -18,6 +18,7 @@
    */
 
 #import	<AppKit/AppKit.h>
+#import <GNUstepGUI/GSTheme.h>
 
 @implementation NSColor (StringRepresentation)
 
@@ -31,17 +32,15 @@
 @end
 
 void printOut() {
-  fprintf(stdout, "Usage: nxpasteboard [--copy] [--paste] [--service <name>]\n");
+  fprintf(stdout, "Usage: nxcolor [--system]\n");
 }
 
 void printUsage() {
-  fprintf(stderr, "Usage: nxpasteboard [--copy] [--paste] [--service <name>]\n");
+  fprintf(stderr, "Usage: nxcolor [--system]\n");
   fprintf(stderr, "\n");
-  fprintf(stderr, "Help: gives you copy&paste and system services from command line\n");
+  fprintf(stderr, "Help: print standard colors\n");
   fprintf(stderr, "Options:\n");
-  fprintf(stderr, "  --copy            copy text from standard input to the pasteboard\n");
-  fprintf(stderr, "  --paste           paste text from the pasteboard to standard output\n");
-  fprintf(stderr, "  --service <name>  call service with text from standard input\n");
+  fprintf(stderr, "  --system            system colors\n");
   fprintf(stderr, "\n");
 }
 
@@ -64,6 +63,25 @@ int main(int argc, char** argv, char** env) {
       printUsage();
       rv = 1;
     }
+    else if ([arguments containsObject: @"--theme"] == YES) {
+      GSTheme* theme = [GSTheme theme];
+      NSColorList* colors = [theme colors];
+      NSLog(@"control=%@", [[NSColor controlColor] stringRepresentation]);
+      NSLog(@"controlBackground=%@", [[NSColor controlBackgroundColor] stringRepresentation]);
+      NSLog(@"controlDarkShadow=%@", [[NSColor controlDarkShadowColor] stringRepresentation]);
+      NSLog(@"controlLightHighlight=%@", [[NSColor controlLightHighlightColor] stringRepresentation]);
+      NSLog(@"controlShadow=%@", [[NSColor controlShadowColor] stringRepresentation]);
+      NSLog(@"controlText=%@", [[NSColor controlTextColor] stringRepresentation]);
+      NSLog(@"selectedText=%@", [[NSColor selectedTextColor] stringRepresentation]);
+      NSLog(@"selectedTextBackground=%@", [[NSColor selectedTextBackgroundColor] stringRepresentation]);
+      NSLog(@"selectedMenuItem=%@", [[NSColor selectedMenuItemColor] stringRepresentation]);
+      NSLog(@"selectedMenuItemText=%@", [[NSColor selectedMenuItemTextColor] stringRepresentation]);
+      NSLog(@"selectedKnob=%@", [[NSColor selectedKnobColor] stringRepresentation]);
+      NSLog(@"selectedControl=%@", [[NSColor selectedControlColor] stringRepresentation]);
+      NSLog(@"selectedControlText=%@", [[NSColor selectedControlTextColor] stringRepresentation]);
+
+      rv = EXIT_SUCCESS;
+    }
     else if ([arguments containsObject: @"--system"] == YES) {
       NSLog(@"control=%@", [[NSColor controlColor] stringRepresentation]);
       NSLog(@"controlBackground=%@", [[NSColor controlBackgroundColor] stringRepresentation]);
@@ -78,6 +96,7 @@ int main(int argc, char** argv, char** env) {
       NSLog(@"selectedKnob=%@", [[NSColor selectedKnobColor] stringRepresentation]);
       NSLog(@"selectedControl=%@", [[NSColor selectedControlColor] stringRepresentation]);
       NSLog(@"selectedControlText=%@", [[NSColor selectedControlTextColor] stringRepresentation]);
+
       rv = EXIT_SUCCESS;
     }
     else {
