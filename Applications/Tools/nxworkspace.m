@@ -36,7 +36,8 @@ void printUsage() {
   fprintf(stderr, "Options:\n");
   fprintf(stderr, "  --open <path>         open path in Workspace\n");
   fprintf(stderr, "  --open <path> <app>   open path with specific application\n");
-  fprintf(stderr, "  --select <file> <dir> open select file at directory\n");
+  fprintf(stderr, "  --select <file>       select file\n");
+  fprintf(stderr, "  --select <file> <dir> select file at this directory\n");
   fprintf(stderr, "  --activate <app>      launch or activate application\n");
   fprintf(stderr, "\n");
 }
