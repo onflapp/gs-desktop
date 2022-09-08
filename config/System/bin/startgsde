@@ -64,6 +64,7 @@ function init_config {
   if [ ! -f "$HOME/Library/WindowMaker/Defaults/WindowMaker" ];then
     echo "init WindowMaker defaults"
     /System/bin/wmaker.inst --batch
+    cp /System/etc/WindowMaker/WMRootMenu "$HOME/Library/WindowMaker/Defaults"
   fi
   if [ ! -f "$HOME/Library/Preferences/NSGlobalDomain.plist" ];then
     echo "init user preferences defaults"
