@@ -5,6 +5,7 @@ D=`pwd`
 
 cd ../../libs-dbuskit || exit 1
 
+./configure
 make -j2 || exit 1
 
 sudo -E make install

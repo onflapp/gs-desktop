@@ -76,7 +76,6 @@ int main(int argc, char** argv, char** env)
       if ([fm fileExistsAtPath:path isDirectory:&isdir]) {
         if (isdir && [ws isFilePackageAtPath:path] == NO) {
           [ws selectFile:path inFileViewerRootedAtPath:@""];
-          [ws launchApplication:@"GWorkspace"];
         }
         else if ([ext isEqualToString: @"app"]
               || [ext isEqualToString: @"debug"]
@@ -98,8 +97,6 @@ int main(int argc, char** argv, char** env)
 
       if (root) [ws selectFile:path inFileViewerRootedAtPath:root];
       else      [ws selectFile:@"." inFileViewerRootedAtPath:path];
-
-      [ws launchApplication:@"GWorkspace"];
     }
     else if ([[arguments objectAtIndex:1] isEqualToString:@"--activate"] && [arguments count] == 3) {
       NSWorkspace* ws = [NSWorkspace sharedWorkspace];
