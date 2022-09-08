@@ -12,6 +12,8 @@
     <integer>300</integer>
     <key>GSFileBrowserHideDotFiles</key>
     <true/>
+    <key>GSScrollerScrollsByPage</key>
+    <true/>
     <key>GSFontAntiAlias</key>
     <string>NO</string>
     <key>GSMenuButtonEnabled</key>
