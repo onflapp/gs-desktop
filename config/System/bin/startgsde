@@ -64,6 +64,7 @@ function init_config {
   if [ ! -f "$HOME/Library/WindowMaker/Defaults/WindowMaker" ];then
     echo "init WindowMaker defaults"
     /System/bin/wmaker.inst --batch
+    cp /System/etc/WindowMaker/WMRootMenu "$HOME/Library/WindowMaker/Defaults"
   fi
   if [ ! -f "$HOME/Library/Preferences/NSGlobalDomain.plist" ];then
     echo "init user preferences defaults"
@@ -84,6 +85,12 @@ function init_config {
     TZ=`cat /etc/timezone`
     echo "setting default timezone to $TZ"
     defaults write NSGlobalDomain "Local Time Zone" $TZ
+  fi
+
+  defaults read NSGlobalDomain "GSBackend" 2>&1 > /dev/null
+  if [ $? -ne 0 ]; then
+    echo "setting default backend to Cairo"
+    defaults write NSGlobalDomain "GSBackend" "cairo"
   fi
 
   export FONTCONFIG_FILE=/System/etc/fonts.conf
