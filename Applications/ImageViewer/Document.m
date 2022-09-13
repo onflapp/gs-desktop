@@ -43,6 +43,7 @@
 - (void) displayFile:(NSString*) path {
   NSImage* img = [[NSImage alloc] initWithContentsOfFile:path];
   if (img) {
+    [imageView setFrameSize:[img size]];
     [imageView setImage:img];
     [img release];
   }

@@ -1,5 +1,5 @@
 {
-    APPLICATIONICON = "";
+    APPLICATIONICON = "ImageViewer.tiff";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
     "BUILDER_TARGETS" = (
@@ -29,6 +29,14 @@
 	"InspectorPanel.h"
     );
     IMAGES = (
+	"GenericImage.tiff",
+	"GIFImage.tiff",
+	"JPEGImage.tiff",
+	"NotImageable.tiff",
+	"PNGImage.tiff",
+	"TIFFImage.tiff",
+	"XPMImage.tiff",
+	"ImageViewer.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
@@ -60,6 +68,42 @@
     "PROJECT_CREATOR" = Parallels;
     "PROJECT_DESCRIPTION" = "No description avaliable!";
     "PROJECT_DOCUMENTTYPES" = (
+	{
+	    NSIcon = "GIFImage.tiff";
+	    NSUnixExtensions = (
+		gif
+	    );
+	},
+	{
+	    NSIcon = "PNGImage.tiff";
+	    NSUnixExtensions = (
+		png
+	    );
+	},
+	{
+	    NSIcon = "JPEGImage.tiff";
+	    NSUnixExtensions = (
+		jpg
+	    );
+	},
+	{
+	    NSIcon = "JPEGImage.tiff";
+	    NSUnixExtensions = (
+		jpeg
+	    );
+	},
+	{
+	    NSIcon = "TIFFImage.tiff";
+	    NSUnixExtensions = (
+		tif
+	    );
+	},
+	{
+	    NSIcon = "TIFFImage.tiff";
+	    NSUnixExtensions = (
+		tiff
+	    );
+	}
     );
     "PROJECT_GROUP" = "No group avaliable!";
     "PROJECT_MAINTAINER" = Parallels;

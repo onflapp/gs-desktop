@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = ImageViewer
 APP_NAME = ImageViewer
-ImageViewer_APPLICATION_ICON = 
+ImageViewer_APPLICATION_ICON = ImageViewer.tiff
 
 
 #
@@ -34,7 +34,15 @@ ImageViewer_APPLICATION_ICON =
 ImageViewer_RESOURCE_FILES = \
 Resources/ImageViewer.gorm \
 Resources/Document.gorm \
-Resources/Inspector.gorm 
+Resources/Inspector.gorm \
+Resources/GenericImage.tiff \
+Resources/GIFImage.tiff \
+Resources/JPEGImage.tiff \
+Resources/NotImageable.tiff \
+Resources/PNGImage.tiff \
+Resources/TIFFImage.tiff \
+Resources/XPMImage.tiff \
+Resources/ImageViewer.tiff 
 
 
 #

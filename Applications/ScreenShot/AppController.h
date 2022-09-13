@@ -15,8 +15,7 @@
 // Uncomment if your application is Renaissance-based
 //#import <Renaissance/Renaissance.h>
 
-@interface AppController : NSObject
-{
+@interface AppController : NSObject {
 }
 
 + (void)  initialize;
@@ -32,7 +31,8 @@
 - (BOOL) application: (NSApplication *)application
 	    openFile: (NSString *)fileName;
 
-- (void) showPrefPanel: (id)sender;
+- (IBAction) showPrefPanel: (id)sender;
+- (IBAction) takeScreenShot:(id) sender;
 
 @end
 

@@ -1,5 +1,5 @@
 {
-    APPLICATIONICON = "";
+    APPLICATIONICON = "PDFImage.tiff";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
     "BUILDER_TARGETS" = (
@@ -29,8 +29,7 @@
 	"PdfView.h"
     );
     IMAGES = (
-	"LeftX.tiff",
-	"RightX.tiff"
+	"PDFImage.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
@@ -62,11 +61,7 @@
     "PROJECT_DESCRIPTION" = "No description avaliable!";
     "PROJECT_DOCUMENTTYPES" = (
 	{
-	    NSUnixExtensions = (
-		""
-	    );
-	},
-	{
+	    NSIcon = "PDFImage.tiff";
 	    NSUnixExtensions = (
 		pdf
 	    );
