@@ -1,5 +1,5 @@
 {
-    APPLICATIONICON = "PDFImage.tiff";
+    APPLICATIONICON = "DocumentViewer.tiff";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
     "BUILDER_TARGETS" = (
@@ -29,7 +29,8 @@
 	"PdfView.h"
     );
     IMAGES = (
-	"PDFImage.tiff"
+	"PDFImage.tiff",
+	"DocumentViewer.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (

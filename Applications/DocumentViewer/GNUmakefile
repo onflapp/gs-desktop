@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = DocumentViewer
 APP_NAME = DocumentViewer
-DocumentViewer_APPLICATION_ICON = PDFImage.tiff
+DocumentViewer_APPLICATION_ICON = DocumentViewer.tiff
 
 
 #
@@ -34,7 +34,8 @@ DocumentViewer_APPLICATION_ICON = PDFImage.tiff
 DocumentViewer_RESOURCE_FILES = \
 Resources/DocumentViewer.gorm \
 Resources/Document.gorm \
-Resources/PDFImage.tiff 
+Resources/PDFImage.tiff \
+Resources/DocumentViewer.tiff 
 
 
 #
