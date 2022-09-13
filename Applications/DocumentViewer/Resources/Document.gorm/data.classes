@@ -4,8 +4,17 @@
 	Actions = (
 	);
 	Outlets = (
-	    window
+	    window,
+	    pdfView,
+	    statusField
 	);
 	Super = NSObject;
+    };
+    PdfView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSView;
     };
 }

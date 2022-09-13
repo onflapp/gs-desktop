@@ -2,7 +2,9 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     AppController = {
 	Actions = (
-	    "showPrefPanel:"
+	    "showPrefPanel:",
+	    "openDocument:",
+	    "newDocument:"
 	);
 	Outlets = (
 	);
@@ -10,6 +12,7 @@
     };
     FirstResponder = {
 	Actions = (
+	    "newAction:",
 	    "orderFrontFontPanel:",
 	    "showPrefPanel:"
 	);

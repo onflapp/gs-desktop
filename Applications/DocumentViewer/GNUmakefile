@@ -41,14 +41,16 @@ Resources/Document.gorm
 #
 DocumentViewer_HEADER_FILES = \
 AppController.h \
-Document.h
+Document.h \
+PdfView.h
 
 #
 # Objective-C Class files
 #
 DocumentViewer_OBJC_FILES = \
 AppController.m \
-Document.m
+Document.m \
+PdfView.m
 
 #
 # Other sources

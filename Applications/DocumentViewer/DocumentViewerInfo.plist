@@ -10,4 +10,16 @@
     NSMainNibFile = "DocumentViewer.gorm";
     NSPrincipalClass = NSApplication;
     NSRole = Application;
+    NSTypes = (
+	{
+	    NSUnixExtensions = (
+		""
+	    );
+	},
+	{
+	    NSUnixExtensions = (
+		pdf
+	    );
+	}
+    );
 }

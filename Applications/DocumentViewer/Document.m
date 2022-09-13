@@ -30,13 +30,18 @@
   self = [super init];
   [NSBundle loadNibNamed:@"Document" owner:self];
   [window setFrameAutosaveName:@"document_window"];
-
   [window makeKeyAndOrderFront:self];
+  
   return self;
 }
 
 - (void) dealloc {
   [super dealloc];
+}
+
+- (void) displayFile:(NSString*) path {
+  [statusField setStringValue:@"loading PDF"];
+  [pdfView performSelector:@selector(displayFile:) withObject:path afterDelay:0.1];
 }
 
 @end

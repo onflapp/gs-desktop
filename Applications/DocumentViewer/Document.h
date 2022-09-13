@@ -26,13 +26,17 @@
 #define _DOCUMENT_H_
 
 #import <AppKit/AppKit.h>
+#import "PdfView.h"
 
-@interface Document : NSObject
-{
+@interface Document : NSObject {
   IBOutlet NSWindow *window;
+  IBOutlet PdfView* pdfView;
+  IBOutlet NSTextField* statusField;
 }
+
+- (id) init;
+- (void) displayFile:(NSString*) path;
 
 @end
 
 #endif // _DOCUMENT_H_
-

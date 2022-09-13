@@ -2,10 +2,19 @@
     APPLICATIONICON = "";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
+    "BUILDER_TARGETS" = (
+	all,
+	install,
+	uninstall,
+	clean,
+	distclean,
+	dist
+    );
     "BUNDLE_IDENTIFIER" = "";
     "CLASS_FILES" = (
 	"AppController.m",
-	"Document.m"
+	"Document.m",
+	"PdfView.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -16,7 +25,8 @@
     );
     "HEADER_FILES" = (
 	"AppController.h",
-	"Document.h"
+	"Document.h",
+	"PdfView.h"
     );
     IMAGES = (
     );
@@ -30,7 +40,7 @@
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "";
+    LINKEROPTIONS = "-lPDFKit";
     "LOCALIZED_RESOURCES" = (
     );
     MAININTERFACE = "DocumentViewer.gorm";
@@ -49,6 +59,16 @@
     "PROJECT_CREATOR" = "Ondrej Florian,,,";
     "PROJECT_DESCRIPTION" = "No description avaliable!";
     "PROJECT_DOCUMENTTYPES" = (
+	{
+	    NSUnixExtensions = (
+		""
+	    );
+	},
+	{
+	    NSUnixExtensions = (
+		pdf
+	    );
+	}
     );
     "PROJECT_GROUP" = "No group avaliable!";
     "PROJECT_MAINTAINER" = "Ondrej Florian,,,";
@@ -60,6 +80,7 @@
     "SEARCH_HEADER_DIRS" = (
     );
     "SEARCH_LIB_DIRS" = (
+	"/Library/Frameworks"
     );
     SUBPROJECTS = (
     );
