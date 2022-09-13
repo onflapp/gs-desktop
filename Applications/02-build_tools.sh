@@ -43,6 +43,14 @@ make -j2 || exit 1
 sudo -E make install
 
 cd "$D"
+cd ./ScreenShot || exit 1
+
+make clean
+make -j2 || exit 1
+
+sudo -E make install
+
+cd "$D"
 sudo cp -R ./WPrefs.app /Applications
 
 cd "$D"
