@@ -1,7 +1,15 @@
 {
-    APPLICATIONICON = "";
+    APPLICATIONICON = "ScreenShot.tiff";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
+    "BUILDER_TARGETS" = (
+	all,
+	install,
+	uninstall,
+	clean,
+	distclean,
+	dist
+    );
     "BUNDLE_IDENTIFIER" = "";
     "CLASS_FILES" = (
 	"AppController.m"
@@ -17,6 +25,7 @@
 	"AppController.h"
     );
     IMAGES = (
+	"ScreenShot.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (

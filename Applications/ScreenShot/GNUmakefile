@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = ScreenShot
 APP_NAME = ScreenShot
-ScreenShot_APPLICATION_ICON = 
+ScreenShot_APPLICATION_ICON = ScreenShot.tiff
 
 
 #
@@ -33,6 +33,7 @@ ScreenShot_APPLICATION_ICON =
 #
 ScreenShot_RESOURCE_FILES = \
 Resources/ScreenShot.gorm \
+Resources/ScreenShot.tiff 
 
 
 #
