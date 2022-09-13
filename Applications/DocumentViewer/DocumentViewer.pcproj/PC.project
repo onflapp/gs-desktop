@@ -29,6 +29,8 @@
 	"PdfView.h"
     );
     IMAGES = (
+	"LeftX.tiff",
+	"RightX.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
@@ -40,7 +42,7 @@
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "-lPDFKit";
+    LINKEROPTIONS = "-lPDFKit -ldispatch";
     "LOCALIZED_RESOURCES" = (
     );
     MAININTERFACE = "DocumentViewer.gorm";

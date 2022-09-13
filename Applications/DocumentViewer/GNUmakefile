@@ -33,7 +33,9 @@ DocumentViewer_APPLICATION_ICON =
 #
 DocumentViewer_RESOURCE_FILES = \
 Resources/DocumentViewer.gorm \
-Resources/Document.gorm 
+Resources/Document.gorm \
+Resources/LeftX.tiff \
+Resources/RightX.tiff 
 
 
 #

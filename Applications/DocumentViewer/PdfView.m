@@ -40,44 +40,64 @@ const double PDFResolution = 72.0;
   
   if(self) {
     imageView = [[NSImageView alloc] initWithFrame:rect];
-    [self addSubview:imageView]; 
+    scrollView = [[NSScrollView alloc] initWithFrame:rect];
+    [scrollView setHasHorizontalScroller:YES];
+    [scrollView setHasVerticalScroller:YES];
+    [self addSubview:scrollView];
+    [scrollView setDocumentView:imageView]; 
   }
   return self;
 }
 
 - (void)dealloc  {
+  RELEASE (imageRep);
   RELEASE (imageView);
+  RELEASE (scrollView);
+  RELEASE (doc);
 
   [super dealloc];
 }
 
-- (void) displayFile:(NSString *)path {
-  PDFDocument *doc;
-  NSLog(@">>> %@", path);
-  
-  //ASSIGN (pdfPath, path);
-  
-  doc = [PDFDocument documentFromFile:path];
+- (BOOL) loadFile:(NSString *)path {  
+  doc = [[PDFDocument documentFromFile:path] retain];
 
   if ([doc isOk] && ([doc errorCode] == 0)) {
-    //npages = [doc countPages];
-    
-    NSSize imageSize = NSMakeSize([doc pageWidth:1],
-                                  [doc pageHeight:1]);
-
-    PDFImageRep* imageRep = [[PDFImageRep alloc] initWithDocument:doc];
-    //[imageRep setSize: imageSize];
-    
-      //[imageRep setPageNum: index];
-  
-    NSImage* image = [[NSImage alloc] initWithSize: [imageRep size]];
-    [image setBackgroundColor: [NSColor whiteColor]];
-    [image addRepresentation:imageRep];
-    [imageView setImage:image];
-
-    RELEASE (image);
+      imageRep = [[PDFImageRep alloc] initWithDocument:doc];
+      return YES;
+  }
+  else {
+    return NO;
   }
 }
 
+- (NSInteger) countPages {
+  return [doc countPages];
+}
+
+- (NSInteger) displayedPage {
+  return currentPage;
+}
+
+- (void) displayPage:(NSUInteger) page {
+  NSSize imageSize = NSMakeSize([doc pageWidth:page],
+                                [doc pageHeight:page]);
+
+  [imageRep setSize:imageSize];    
+  [imageRep setPageNum:page];
+  
+  NSImage* image = [[[NSImage alloc] initWithSize:imageSize] autorelease];
+  [image setBackgroundColor: [NSColor whiteColor]];
+  [image addRepresentation:imageRep];
+  [imageView setFrameSize:imageSize];
+  [imageView setImageScaling:NSImageScaleNone];
+  [imageView setImage:image];
+  
+  currentPage = page;
+}
+
+- (void) resizeWithOldSuperviewSize:(NSSize) sz {
+  [super resizeWithOldSuperviewSize:sz];
+  [scrollView setFrame:[self frame]];
+}
 @end
 

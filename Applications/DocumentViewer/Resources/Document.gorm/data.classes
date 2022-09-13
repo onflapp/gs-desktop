@@ -2,11 +2,21 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     Document = {
 	Actions = (
+	    "previousPage:",
+	    "nextPage:"
 	);
 	Outlets = (
 	    window,
 	    pdfView,
-	    statusField
+	    statusField,
+	    navScroll
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "previousPage:",
+	    "nextPage:"
 	);
 	Super = NSObject;
     };

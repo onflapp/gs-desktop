@@ -31,6 +31,7 @@
 @interface Document : NSObject {
   IBOutlet NSWindow *window;
   IBOutlet PdfView* pdfView;
+  IBOutlet NSScrollView* navScroll;
   IBOutlet NSTextField* statusField;
 }
 
