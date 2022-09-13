@@ -1,0 +1,35 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    Document = {
+	Actions = (
+	);
+	Outlets = (
+	    window,
+	    imageView
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "orderFrontInspectorPanel:"
+	);
+	Super = NSObject;
+    };
+    InspectorPanel = {
+	Actions = (
+	    "orderFrontInspectorPanel:"
+	);
+	Outlets = (
+	    panel,
+	    typeField
+	);
+	Super = NSObject;
+    };
+    PdfView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSView;
+    };
+}
