@@ -1,6 +1,6 @@
 {
     ApplicationDescription = "Battery Monitor";
-    ApplicationIcon = "BatMon_icon.tif";
+    ApplicationIcon = "batmon-icon.tiff";
     ApplicationName = BatMon;
     ApplicationRelease = "0.9";
     Authors = (
@@ -11,7 +11,7 @@
     CopyrightDescription = "Released under GPL";
     FullVersionID = "0.9";
     NSExecutable = BatMon;
-    NSIcon = "BatMon_icon.tif";
+    NSIcon = "batmon-icon.tiff";
     NSMainNibFile = "batmon.gorm";
     NSPrincipalClass = NSApplication;
     NSRole = Application;

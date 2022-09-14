@@ -1,5 +1,5 @@
 {
-    APPLICATIONICON = "BatMon_icon.tif";
+    APPLICATIONICON = "batmon-icon.tiff";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
     "BUILDER_TARGETS" = (
@@ -35,9 +35,14 @@
 	"BatteryView.h"
     );
     IMAGES = (
-	"BatMon_icon.tif",
-	"small_battery.tif",
-	"small_plug.tif"
+	"batmon-icon.tiff",
+	"battery-caution.tiff",
+	"battery-empty.tiff",
+	"battery-full.tiff",
+	"battery-good.tiff",
+	"battery-low.tiff",
+	"plugin.tiff",
+	"plugout.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (

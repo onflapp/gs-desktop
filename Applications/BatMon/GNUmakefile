@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.9
 PACKAGE_NAME = BatMon
 APP_NAME = BatMon
-BatMon_APPLICATION_ICON = BatMon_icon.tif
+BatMon_APPLICATION_ICON = batmon-icon.tiff
 
 
 #
@@ -33,9 +33,14 @@ BatMon_APPLICATION_ICON = BatMon_icon.tif
 #
 BatMon_RESOURCE_FILES = \
 Resources/batmon.gorm \
-Resources/BatMon_icon.tif \
-Resources/small_battery.tif \
-Resources/small_plug.tif \
+Resources/batmon-icon.tiff \
+Resources/battery-caution.tiff \
+Resources/battery-empty.tiff \
+Resources/battery-full.tiff \
+Resources/battery-good.tiff \
+Resources/battery-low.tiff \
+Resources/plugin.tiff \
+Resources/plugout.tiff \
 Resources/LICENSE \
 Resources/README 
 

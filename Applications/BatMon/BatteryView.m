@@ -27,21 +27,27 @@
   self = [super initWithFrame:aFrame];
   
   NSMutableParagraphStyle *style;
-	NSFont *font;
+  NSFont *font;
 
   style = [[NSMutableParagraphStyle alloc] init];
   [style setParagraphStyle:[NSParagraphStyle defaultParagraphStyle]];
     	
-	font = [NSFont systemFontOfSize:9.0];
-	stateStrAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
+  font = [NSFont systemFontOfSize:8.0];
+  stateStrAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
         font, NSFontAttributeName,
-	[NSColor blueColor], NSForegroundColorAttributeName,
+	[NSColor blackColor], NSForegroundColorAttributeName,
         style, NSParagraphStyleAttributeName, nil] retain];
   
-  iconPlug = [[NSImage imageNamed:@"small_plug.tif"] retain];
-  iconBattery = [[NSImage imageNamed:@"small_battery.tif"] retain];
-  tileImage = [NSImage imageNamed:@"common_Tile"];
- 
+  iconBattery_full = [[NSImage imageNamed:@"battery-full.tiff"] retain];
+  iconBattery_good = [[NSImage imageNamed:@"battery-good.tiff"] retain];
+  iconBattery_low = [[NSImage imageNamed:@"battery-low.tiff"] retain];
+  iconBattery_caution = [[NSImage imageNamed:@"battery-caution.tiff"] retain];
+  iconBattery_empty = [[NSImage imageNamed:@"battery-empty.tiff"] retain];
+  iconPlug = [[NSImage imageNamed:@"plugin.tiff"] retain];
+  iconPlugOut = [[NSImage imageNamed:@"plugout.tiff"] retain];
+
+  tileImage = [[NSImage imageNamed:@"common_Tile"] retain];
+  
   batModel = [model retain];
 
   return self;
@@ -49,8 +55,16 @@
 
 - (void) dealloc
 {
+  [iconBattery_full release];
+  [iconBattery_good release];
+  [iconBattery_low release];
+  [iconBattery_caution release];
+  [iconBattery_empty release];
   [iconPlug release];
-  [iconBattery release];
+  [iconPlugOut release];
+
+  [tileImage release];
+
   [stateStrAttributes release];
   [batModel release];
   [super dealloc];
@@ -78,53 +92,66 @@
   }
 }
 
-#define HEIGHT 42
-#define WIDTH  20
-
 - (void)drawRect:(NSRect)r
 {
-  if (tileImage)
-     [tileImage compositeToPoint:NSMakePoint(0,0)
-                        fromRect:NSMakeRect(0, 0, 64, 64)
-                      operation:NSCompositeSourceAtop];
+  float charge = [batModel chargePercent];
+  NSImage *icon = nil; 
 
-  NSString *str;
-  float chargePercentToDraw; /* we need this beause chargePercent can go beyond 100% */
-  NSImage *chargeStatusIcon;
+  float timeRem = [batModel timeRemaining];
+  float hours = timeRem;
+  float mins = (int)((timeRem - (float)hours) * 60);
+  
+  if (charge > 100) charge = 100;
+  else if (charge < 0 || isnan(charge)) charge = 0;
 
-  if ([batModel isCharging]) chargeStatusIcon = iconPlug;
-  else chargeStatusIcon = iconBattery;
+  [tileImage compositeToPoint:NSMakePoint(0,0)
+                     fromRect:NSMakeRect(0, 0, 64, 64)
+                    operation:NSCompositeSourceAtop];
 
-  [chargeStatusIcon compositeToPoint: NSMakePoint(WIDTH+6, HEIGHT-15) operation:NSCompositeSourceOver];
+  if ([batModel isCharging]) {
+    if (charge < 10) {
+      icon = iconBattery_empty;
+    }
+    else if (charge < 33) {
+      icon = iconBattery_caution;
+    }
+    else if (charge < 66) {
+      icon = iconBattery_low;
+    }
+    else if (charge < 90) {
+       icon = iconBattery_good;
+    }
+    else {
+      icon = iconBattery_full;
+    }
+    [iconPlug compositeToPoint: NSMakePoint(36, 32-24) operation:NSCompositeSourceOver];
+  }
+  else {
+    if ([batModel isWarning] == YES) {
+      icon = iconBattery_low;
+    }
+    else if ([batModel isCritical] == YES) {
+      icon = iconBattery_caution;
+    }
+    else if (charge > 90) {
+      icon = iconBattery_full;
+    }
+    else {
+      icon = iconBattery_good;
+    }
+    [iconPlugOut compositeToPoint: NSMakePoint(36, 12) operation:NSCompositeSourceOver];
+  }
+  
+  [icon compositeToPoint: NSMakePoint(0, 32-24) operation:NSCompositeSourceOver];
 
-  chargePercentToDraw = [batModel chargePercent];
-
-  if (chargePercentToDraw > 100) chargePercentToDraw = 100;
-  else if (chargePercentToDraw < 0 || isnan(chargePercentToDraw)) chargePercentToDraw = 0;
-
-  [[NSColor darkGrayColor] set];
-  /* main body */
-  [NSBezierPath strokeRect: NSMakeRect(0, 1, WIDTH, HEIGHT)];
-  /* top nib */
-  [NSBezierPath strokeRect: NSMakeRect((WIDTH/2)-3, HEIGHT+1, 6, 4)];
-
-  [[NSColor grayColor] set];
-  /* right light shadow */
-  [NSBezierPath strokeLineFromPoint:NSMakePoint(WIDTH+1, 0) toPoint:NSMakePoint(WIDTH+1, HEIGHT-1)];
-  /* nib filler */
-  [NSBezierPath fillRect: NSMakeRect((WIDTH/2)-2, HEIGHT+1+1, 4, 2)];
-    
-  /* draw the charge status */
-  if ([batModel isWarning] == YES)
-    [[NSColor orangeColor] set];
-  else if ([batModel isCritical] == YES)
-    [[NSColor redColor] set];
-  else
-    [[NSColor greenColor] set];
-  [NSBezierPath fillRect: NSMakeRect(0+1, 1, WIDTH-1, (chargePercentToDraw/100) * HEIGHT -2)];
-
-  str = [NSString stringWithFormat:@"%2.0f%%", [batModel chargePercent]];
-  [str drawAtPoint: NSMakePoint(WIDTH + 5 , 1) withAttributes:stateStrAttributes];
+  NSString* str = [NSString stringWithFormat:@"%2.0f%%", charge];
+  [str drawAtPoint: NSMakePoint(40 , 45) withAttributes:stateStrAttributes];
+  
+  /*
+  if (timeRem >= 0) str = [NSString stringWithFormat:@"%dh %d\'", (int)hours, (int)mins];
+  else str = @"???";
+  [str drawAtPoint: NSMakePoint(40 , 28) withAttributes:stateStrAttributes]; 
+  */ 
 }
 
 @end
