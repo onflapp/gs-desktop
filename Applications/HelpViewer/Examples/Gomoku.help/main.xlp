@@ -1,0 +1,40 @@
+<document>
+
+<header>
+<title>Gomoku's online help</title>
+</header>
+
+<plain name="Front Page">
+	<center>
+	    <img src="Title.png">
+	    <br><br><hr width="100"><br><br>
+	    Gomoku.app is an extended TicTacToe game for GNUstep.
+	    <br>
+	    (c) Nicola Pero. This program is licensed through the GNU Public Licence.
+	    <br><br><hr width="100"><br><br>
+	    site : <url>http://www.gnustep.it/nicola/Applications/Gomoku/index.html</url>
+	    <br>
+	    contact : <url>mailto:n.pero@mi.flashnet.it</url>
+	    <br><br><hr width="100"><br><br>
+	    <ref id="Introduction">Introduction</ref>
+	    -
+	    <ref id="Changing the boardsize">Changing the boardsize</ref>
+	    -
+	</center>
+</plain>
+
+<chapter name="Introduction">
+ 	<section name="What is this software ?">
+	You win the game if you are able to put 5 of your pieces in a row, column or diagonal. You loose if the computer does it before you. You can play the game on boards of different size; the default size is 8 but 10 is also nice to play. The game has 6 different difficulty levels.
+	</section>
+</chapter>
+
+<chapter name="Changing the boardsize">
+	 if you're using gnustep-make > 1.5.0). If you want to play on a board different from the default 8x8 board, pass the size of the board as argument of Gomoku.app. For example, to play on a 10x10 board, you can start Gomoku with:
+	<br>
+	 openapp Gomoku.app 10 
+	<br>
+	 NB: board size must be >= 8.
+</chapter>
+
+</document>

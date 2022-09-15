@@ -1,0 +1,20 @@
+ 	<section name="Qu'est-ce que c'est que ce programme ?">
+		Il s'agit d'un programme permettant de visualiser de l'aide en ligne. Il peut être utilisé par
+		des programmes GNUstep.
+		<br>
+		Ce programme est distribué sous la licence GNU Public Licence (GPL).
+	</section>
+
+	<section name="Comment ça marche ?">
+		<legendfig src="helpviewer-200.tiff">
+			<legend x="113" y="31" >Cliquez pour voir l'index</legend>
+			<legend x="59"  y="76" >Cliquez sur un sujet dans la table des matières</legend>
+			<legend x="144" y="31" >Cliquez pour revenir</legend>
+			<legend x="9"   y="66" >Bougez ce bouton pour voir l'ensemble des sujets</legend>
+			<legend x="180" y="31" >Cliquez pour voir d'autres aides</legend>
+			<legend x="105" y="205">L'aide s'affiche ici</legend>
+			<legend x="9"   y="184">Bougez ce bouton pour voir l'ensemble du texte</legend>
+			<legend x="131" y="267">Vous pouvez cliquer sur les liens</legend>
+			<legend x="78"  y="31">Cliquez ici pour chercher quelque chose</legend>
+		</legendfig>
+	</section>

@@ -1,0 +1,16 @@
+HelpViewer
+==========
+
+This is a help viewer for GNUstep applications.
+site : http://www.roard.com/helpviewer
+
+INSTALL
+=======
+
+You need to install GNUstep before (http://www.gnustep.org)
+
+then simply type :
+
+make
+make install (as root)
+

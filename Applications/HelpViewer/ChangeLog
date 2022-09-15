@@ -1,0 +1,123 @@
+2021-01-29 Riccardo Mottola <rm@gnu.org>
+
+	* Gorm/MainMenu.gorm
+	Totally re-done from scratch
+
+	* NoteCell.h
+	* NoteCell.m
+	Separate calculation into resizeWithTextView from drawInteriorWithFrame
+
+2021-01-03 Riccardo Mottola <rm@gnu.org>
+
+	* Legend.h
+	* Legend.m
+	Make an explicit comparison method compareWith: and clean up
+	its code.
+
+	* FigureCell.m
+	Use the new comparator.
+
+2020-09-22 Riccardo Mottola <rm@gnu.org>
+
+	* TextFormatterXLP.m
+	Fix attributed string allocation.
+
+2020-06-25 Riccardo Mottola <rm@gnu.org>
+
+	* Label.h
+	* Label.m
+	Rationalize range accessors.
+
+2020-06-25 Riccardo Mottola <rm@gnu.org>
+
+	* Controller.m
+	* FigureCell.m
+	* Page.m
+	* Section.m
+	* mainWindowController.m
+	Some int to NSInteger/NSUInteger conversions.
+
+2020-06-25 Riccardo Mottola <rm@gnu.org>
+	* FigureCell.m
+	* HandlerStructureXLP.m
+	* NoteCell.m
+	* TextFormatterXLP.m
+	* mainWindowController.m
+	Remove unused variables and code.
+
+2020-06-25 Riccardo Mottola <rm@gnu.org> adapted from Yavor Doganov.
+	* NoteCell.m
+	Be careful accessing ivars after proper initialization and fix crasher.
+
+2020-06-25 Riccardo Mottola <rm@gnu.org>
+	* FigureCell.m
+	* NoteCell.m
+	* Section.m
+	* TextFormatterXLP.m
+	* mainWindowController.m
+	Fix memory leaks and errors.
+
+2020-06-25 Riccardo Mottola <rm@gnu.org>
+	* Controller.m
+	* HandlerStructureXLP.m
+	* Label.m
+	* Legend.m
+	* Page.m
+	* Section.m
+	* mainWindowController.m
+	Properly call [super dealloc] in dealloc
+
+2020-06-25 Riccardo Mottola <rm@gnu.org>
+	* FigureCell.m
+	* HandlerStructureXLP.m
+	* Label.m
+	* Legend.m
+	* NoteCell.m
+	* Page.m
+	* Section.m
+	* TextFormatterXLP.m
+	* ViewCell.m
+	* mainWindowController.m
+	Fix init methods to properly call super, check and assign self.
+
+2020-06-25 Riccardo Mottola <rm@gnu.org>
+
+	* BRCell.m
+	* FigureCell.m
+	* Legend.h
+	* Legend.m
+	* NoteCell.m
+	* TextFormatterXLP.h
+	* TextFormatterXLP.m
+	Transition float to CGFloat, but also correct some int types to CGFloat where appropriate.
+
+2020-06-18 Riccardo Mottola <rm@gnu.org>
+
+	* HandlerStructureXLP.h
+	* TextFormatterXLP.h
+	* mainWindowController.m
+	Update/Fix import of headers.
+
+* 05/04/2003 : release 0.3
+	- major redesign of the code (it's now possible to add quite simply others
+    	  parser)
+        - use of a NSBrowser instead of a NSTableView to display the Table of
+	- Contents
+	- it could now handle big XLP files
+	- help files are now considered as a bundle, containing .xlp
+	  files and images, etc.
+	- it's possible to includes others XLP files in a XLP file
+	- some tags had been added to the XLP format
+	- new "look" for the legends
+	- some bugs corrections
+	- not yet recompiled to Mac OS X, due to
+	- the redesign with the parser
+
+* 02/02/2003 : release 0.2
+	- the interface now uses gorm files
+	- helpviewer is ported to mac os x
+	- addition of "legends" figures
+	- added patch from Alexander Malmberg for BRCells (now uses only one
+	  shared BRCell)
+
+* 20/01/2003 : Initial release (0.1)

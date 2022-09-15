@@ -1,0 +1,17 @@
+{
+    geometry = "200 199 381 500 0 0  960 768 ";
+    lastselection = (
+	"/home/nico/Projets/HelpViewer-0.3/Gomoku.help/.gwdir"
+    );
+    shelfdicts = (
+	{
+	    index = 1;
+	    paths = (
+		"/home/nico/Projets/HelpViewer-0.3/Gomoku.help"
+	    );
+	}
+    );
+    shelfheight = 77;
+    viewedpath = "/home/nico/Projets/HelpViewer-0.3/Gomoku.help";
+    viewtype = Browser;
+}

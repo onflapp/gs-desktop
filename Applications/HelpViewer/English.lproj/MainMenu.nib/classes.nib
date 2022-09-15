@@ -1,0 +1,25 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {back = id; bookshelf = id; index = id; openFile = id; search = id; }; 
+            CLASS = Controller; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                back = id; 
+                bookshelf = id; 
+                helpMenu = id; 
+                index = id; 
+                infoMenu = id; 
+                query = id; 
+                search = id; 
+                servicesMenu = id; 
+                textview = id; 
+                tocview = id; 
+                window = id; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+    ); 
+    IBVersion = 1; 
+}

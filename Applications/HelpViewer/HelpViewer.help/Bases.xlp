@@ -1,0 +1,7 @@
+
+		<information>
+		HelpViewer.app lis des fichiers textes XML. Pour le moment il n'y a pas d'éditeur graphique, mais
+		cela est prévu. La syntaxe est très simple; en fait c'est plus ou moins des tags HTML, pour le
+		formattage du texte, et trois tags pour gérer la structure du document : 
+		<code>&lt;part&gt;</code>, <code>&lt;chapter&gt;</code> et <code>&lt;section&gt;</code>, 
+		</information>

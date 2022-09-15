@@ -1,0 +1,17 @@
+{
+    geometry = "366 124 450 500 0 0  960 768 ";
+    lastselection = (
+	"/home/nico/Projets/HelpViewer-0.3/HelpViewer.help/ToDo.xlp"
+    );
+    shelfdicts = (
+	{
+	    index = 1;
+	    paths = (
+		"/home/nico/Projets/HelpViewer-0.3/HelpViewer.help"
+	    );
+	}
+    );
+    shelfheight = 77;
+    viewedpath = "/home/nico/Projets/HelpViewer-0.3/HelpViewer.help";
+    viewtype = Browser;
+}

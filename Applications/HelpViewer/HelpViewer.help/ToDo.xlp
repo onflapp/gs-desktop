@@ -1,0 +1,11 @@
+<br>
+<ul>
+    <li>ajouter les fonctions de recherche</li>
+    <li>ajouter le support de l'index</li>
+    <li>ajouter la fonction "undo" (retour) pour la navigation</li>
+    <li>ajouter des favoris : peut être écrire une application séparée pour les gérer ?</li>
+    <li>redesigner l'application pour fonctionner avec des bundles, de façon à permettre d'avoir des bundles pour lire des fichiers .gsdoc, .html, man ou texinfo ...</li>
+    <li>ajouter le support du mng pour avoir des animations dans l'aide ... un programme permettant de créer des mng en "enregistrant" les actions
+    de l'utilisateur à l'écran serait idéal :)</li>
+    <li>corriger les bugs :)</li>
+</ul>

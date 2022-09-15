@@ -1,0 +1,29 @@
+<document>
+
+<header>
+<title>Aide en ligne de HelpViewer</title>
+</header>
+
+<plain name="Couverture">
+	<center>
+	    <img src="Logo.tiff">
+	    <br><br>
+	    <information>
+	    HelpViewer.app permet de visualiser l'aide en ligne des programmes GNUstep.
+	    </information>
+	    <caution>
+	    (c) 2003 Nicolas Roard. Ce program est distribué sous la GNU Public Licence (GPL).
+	    </caution>
+	    <note>
+	    site : <url>http://info.xdev.org/projets/helpviewer</url>
+	    <br>
+	    contact : <url>mailto:nicolas@roard.com</url>
+	    </note>
+	</center>
+</plain>
+
+<chapter src="Introduction.xlp" name="Introduction"></chapter>
+<chapter src="Creation.xlp" name="Écrire des fichiers d'aide XLP"></chapter>
+<chapter src="ToDo.xlp" name="To do ..."></chapter>
+
+</document>
