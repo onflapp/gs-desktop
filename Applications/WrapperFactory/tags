@@ -1,0 +1,598 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_EXCMD	number	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
+!_TAG_PROC_CWD	/home/oflorian/src/GNUstepWrapper-0.1.0/	//
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	5.9.0	//
+AbstractAction	libGSWrapper/Actions.h	40;"	i	protocols:Action
+AbstractAction	libGSWrapper/Actions.m	28;"	I
+Action	libGSWrapper/Actions.h	27;"	P
+AppFileWrapper	WrapperFactory/WrapperDocument.m	57;"	i
+AppFileWrapper	WrapperFactory/WrapperDocument.m	83;"	I
+AppName	libGSWrapper/NSApplication+AppName.m	25;"	C	implementation:NSApplication
+ApplicationDelegate	WrapperFactory/ApplicationDelegate.h	29;"	i
+ApplicationDelegate	WrapperFactory/ApplicationDelegate.m	27;"	I
+ApplicationRole	WrapperFactory/WrapperDocument.h	45;"	t
+EditorRole	WrapperFactory/WrapperDocument.h	44;"	e
+ErrorDialogAction	libGSWrapper/Actions.h	62;"	i
+ErrorDialogAction	libGSWrapper/Actions.m	71;"	I
+FailAction	WrapperFactory/WrapperDocument.h	49;"	e
+GSWrapper_Actions_H	libGSWrapper/Actions.h	22;"	M
+GSWrapper_libGSWrapper_WrapperDelegate_H	libGSWrapper/WrapperDelegate.h	22;"	M
+Icon	WrapperFactory/Icon.h	28;"	i
+Icon	WrapperFactory/Icon.m	26;"	I
+IconHeight	WrapperFactory/IconView.h	32;"	M
+IconView	WrapperFactory/IconView.h	35;"	i
+IconView	WrapperFactory/IconView.m	236;"	I
+IconView	WrapperFactory/IconView.m	26;"	i	category:Private
+IconView	WrapperFactory/IconView.m	459;"	I	category:Private
+IconView2	WrapperFactory/IconView.m	482;"	i
+IconView2	WrapperFactory/IconView.m	485;"	I
+IconWidth	WrapperFactory/IconView.h	31;"	M
+IgnoreAction	WrapperFactory/WrapperDocument.h	50;"	e
+IgnoreAction	libGSWrapper/Actions.h	71;"	i
+IgnoreAction	libGSWrapper/Actions.m	84;"	I
+NSApplication	libGSWrapper/NSApplication+AppName.h	28;"	i	category:SuppressAppIcon
+NSApplication	libGSWrapper/NSApplication+AppName.m	25;"	I	category:AppName
+NSApplication	libGSWrapper/NSApplication+SuppressAppIcon.h	28;"	i	category:SuppressAppIcon
+NSApplication	libGSWrapper/NSApplication+SuppressAppIcon.m	25;"	I	category:SuppressAppIcon
+NoneRole	WrapperFactory/WrapperDocument.h	42;"	e
+Notifications	WrapperFactory/WrapperDocumentController.m	31;"	C	interface:WrapperDocumentController
+Notifications	WrapperFactory/WrapperDocumentController.m	31;"	r
+Notifications	WrapperFactory/WrapperDocumentController.m	448;"	C	implementation:WrapperDocumentController
+OpenScript	WrapperFactory/WrapperDocumentController.h	32;"	M
+PopUpIconView	WrapperFactory/IconView.m	33;"	i
+PopUpIconView	WrapperFactory/IconView.m	57;"	I
+Private	WrapperFactory/IconView.m	26;"	C	interface:IconView
+Private	WrapperFactory/IconView.m	26;"	r
+Private	WrapperFactory/IconView.m	459;"	C	implementation:IconView
+Private	WrapperFactory/Type.m	27;"	C	interface:Type
+Private	WrapperFactory/Type.m	27;"	r
+Private	WrapperFactory/Type.m	86;"	C	implementation:Type
+Private	WrapperFactory/TypesController.m	262;"	C	implementation:TypesController
+Private	WrapperFactory/TypesController.m	30;"	C	interface:TypesController
+Private	WrapperFactory/TypesController.m	30;"	r
+Private	WrapperFactory/WrapperDocument.m	171;"	C	interface:WrapperDocument
+Private	WrapperFactory/WrapperDocument.m	171;"	r
+Private	WrapperFactory/WrapperDocument.m	538;"	C	implementation:WrapperDocument
+RunScriptAction	WrapperFactory/WrapperDocument.h	48;"	e
+RunScriptAction	libGSWrapper/Actions.h	80;"	i
+RunScriptAction	libGSWrapper/Actions.m	95;"	I
+ScriptAction	WrapperFactory/WrapperDocument.h	51;"	t
+ServicesProvider	WrapperFactory/ServicesProvider.h	28;"	i
+ServicesProvider	WrapperFactory/ServicesProvider.m	27;"	I
+StartOpenScript	WrapperFactory/WrapperDocumentController.h	31;"	M
+StartScript	WrapperFactory/WrapperDocumentController.h	30;"	M
+SuppressAppIcon	libGSWrapper/NSApplication+AppName.h	28;"	C	interface:NSApplication
+SuppressAppIcon	libGSWrapper/NSApplication+AppName.h	28;"	r
+SuppressAppIcon	libGSWrapper/NSApplication+SuppressAppIcon.h	28;"	C	interface:NSApplication
+SuppressAppIcon	libGSWrapper/NSApplication+SuppressAppIcon.h	28;"	r
+SuppressAppIcon	libGSWrapper/NSApplication+SuppressAppIcon.m	25;"	C	implementation:NSApplication
+Type	WrapperFactory/Type.h	30;"	i
+Type	WrapperFactory/Type.m	27;"	i	category:Private
+Type	WrapperFactory/Type.m	36;"	I
+Type	WrapperFactory/Type.m	86;"	I	category:Private
+TypeController	WrapperFactory/TypeController.h	30;"	i
+TypeController	WrapperFactory/TypeController.m	26;"	I
+TypesController	WrapperFactory/TypesController.h	31;"	i
+TypesController	WrapperFactory/TypesController.m	262;"	I	category:Private
+TypesController	WrapperFactory/TypesController.m	30;"	i	category:Private
+TypesController	WrapperFactory/TypesController.m	38;"	I
+ViewerRole	WrapperFactory/WrapperDocument.h	43;"	e
+WrapperDelegate	libGSWrapper/WrapperDelegate.h	30;"	i
+WrapperDelegate	libGSWrapper/WrapperDelegate.m	27;"	I
+WrapperDocument	WrapperFactory/WrapperDocument.h	54;"	i
+WrapperDocument	WrapperFactory/WrapperDocument.m	171;"	i	category:Private
+WrapperDocument	WrapperFactory/WrapperDocument.m	194;"	I
+WrapperDocument	WrapperFactory/WrapperDocument.m	538;"	I	category:Private
+WrapperDocumentController	WrapperFactory/WrapperDocumentController.h	35;"	i
+WrapperDocumentController	WrapperFactory/WrapperDocumentController.m	31;"	i	category:Notifications
+WrapperDocumentController	WrapperFactory/WrapperDocumentController.m	38;"	I
+WrapperDocumentController	WrapperFactory/WrapperDocumentController.m	448;"	I	category:Notifications
+_GSWrapper_GSWrapper_H	WrapperFactory/ApplicationDelegate.h	22;"	M
+_GSWrapper_IconView_H	WrapperFactory/IconView.h	22;"	M
+_GSWrapper_Icon_H	WrapperFactory/Icon.h	22;"	M
+_GSWrapper_ServiceProvider_H	WrapperFactory/ServicesProvider.h	22;"	M
+_GSWrapper_TypeController_H	WrapperFactory/TypeController.h	22;"	M
+_GSWrapper_Type_H	WrapperFactory/Type.h	22;"	M
+_GSWrapper_TypesController_H	WrapperFactory/TypesController.h	22;"	M
+_GSWrapper_WrapperDocumentController_H	WrapperFactory/WrapperDocumentController.h	22;"	M
+_GSWrapper_WrapperDocument_H	WrapperFactory/WrapperDocument.h	22;"	M
+_GSWrapper_libGSWRapper_NSApplication_AppName_H	libGSWrapper/NSApplication+AppName.h	22;"	M
+_GSWrapper_libGSWRapper_NSApplication_SuppressAppIcon_H	libGSWrapper/NSApplication+SuppressAppIcon.h	22;"	M
+_appIconInit	libGSWrapper/NSApplication+SuppressAppIcon.h	30;"	m	interface:NSApplication	category:SuppressAppIcon
+_appIconInit	libGSWrapper/NSApplication+SuppressAppIcon.m	28;"	m	implementation:NSApplication	category:SuppressAppIcon
+acceptsFirstMouse:	WrapperFactory/IconView.m	154;"	m	implementation:PopUpIconView
+actionForMessage:	libGSWrapper/WrapperDelegate.h	52;"	m	interface:WrapperDelegate
+actionForMessage:	libGSWrapper/WrapperDelegate.m	146;"	m	implementation:WrapperDelegate
+actionName	libGSWrapper/Actions.h	42;"	E	interface:AbstractAction
+addType:	WrapperFactory/WrapperDocument.h	156;"	m	interface:WrapperDocument
+addType:	WrapperFactory/WrapperDocument.m	486;"	m	implementation:WrapperDocument
+aggregateChanged:	WrapperFactory/WrapperDocument.m	178;"	m	interface:WrapperDocument	category:Private
+aggregateChanged:	WrapperFactory/WrapperDocument.m	562;"	m	implementation:WrapperDocument	category:Private
+appDidFinishLaunching	libGSWrapper/WrapperDelegate.h	32;"	E	interface:WrapperDelegate
+appIcon	WrapperFactory/WrapperDocument.h	100;"	m	interface:WrapperDocument
+appIcon	WrapperFactory/WrapperDocument.h	58;"	E	interface:WrapperDocument
+appIcon	WrapperFactory/WrapperDocument.m	310;"	m	implementation:WrapperDocument
+appIcon	WrapperFactory/WrapperDocumentController.h	43;"	E	interface:WrapperDocumentController
+appIcon	WrapperFactory/WrapperDocumentController.h	92;"	m	interface:WrapperDocumentController
+appIcon	WrapperFactory/WrapperDocumentController.m	305;"	m	implementation:WrapperDocumentController
+application:openFile:	WrapperFactory/ApplicationDelegate.h	51;"	m	interface:ApplicationDelegate
+application:openFile:	WrapperFactory/ApplicationDelegate.m	84;"	m	implementation:ApplicationDelegate
+application:openFile:	libGSWrapper/WrapperDelegate.h	46;"	m	interface:WrapperDelegate
+application:openFile:	libGSWrapper/WrapperDelegate.m	78;"	m	implementation:WrapperDelegate
+application:openFiles:	WrapperFactory/ApplicationDelegate.h	53;"	m	interface:ApplicationDelegate
+application:openFiles:	WrapperFactory/ApplicationDelegate.m	92;"	m	implementation:ApplicationDelegate
+application:openFiles:	libGSWrapper/WrapperDelegate.h	48;"	m	interface:WrapperDelegate
+application:openFiles:	libGSWrapper/WrapperDelegate.m	85;"	m	implementation:WrapperDelegate
+applicationDidFinishLaunching:	WrapperFactory/ApplicationDelegate.h	45;"	m	interface:ApplicationDelegate
+applicationDidFinishLaunching:	WrapperFactory/ApplicationDelegate.h	46;"	m	interface:ApplicationDelegate
+applicationDidFinishLaunching:	WrapperFactory/ApplicationDelegate.m	50;"	m	implementation:ApplicationDelegate
+applicationDidFinishLaunching:	libGSWrapper/WrapperDelegate.h	43;"	m	interface:WrapperDelegate
+applicationDidFinishLaunching:	libGSWrapper/WrapperDelegate.m	46;"	m	implementation:WrapperDelegate
+applicationName	libGSWrapper/NSApplication+AppName.h	30;"	m	interface:NSApplication	category:SuppressAppIcon
+applicationName	libGSWrapper/NSApplication+AppName.m	28;"	m	implementation:NSApplication	category:AppName
+applicationOpenUntitledFile:	WrapperFactory/ApplicationDelegate.m	56;"	m	implementation:ApplicationDelegate
+applicationShouldOpenUntitledFile:	WrapperFactory/ApplicationDelegate.m	63;"	m	implementation:ApplicationDelegate
+applicationShouldTerminate:	WrapperFactory/ApplicationDelegate.h	47;"	m	interface:ApplicationDelegate
+applicationShouldTerminate:	WrapperFactory/ApplicationDelegate.m	68;"	m	implementation:ApplicationDelegate
+applicationWillFinishLaunching:	WrapperFactory/ApplicationDelegate.m	40;"	m	implementation:ApplicationDelegate
+applicationWillFinishLaunching:	libGSWrapper/WrapperDelegate.m	42;"	m	implementation:WrapperDelegate
+applicationWillTerminate:	WrapperFactory/ApplicationDelegate.h	48;"	m	interface:ApplicationDelegate
+applicationWillTerminate:	WrapperFactory/ApplicationDelegate.m	78;"	m	implementation:ApplicationDelegate
+armed	WrapperFactory/IconView.h	46;"	E	interface:IconView
+armed	WrapperFactory/IconView.m	29;"	m	interface:IconView	category:Private
+armed	WrapperFactory/IconView.m	468;"	m	implementation:IconView	category:Private
+armedForDrag	WrapperFactory/IconView.m	37;"	E	interface:PopUpIconView
+arrayFromCommaSeparatedString:	WrapperFactory/WrapperDocument.m	180;"	m	interface:WrapperDocument	category:Private
+arrayFromCommaSeparatedString:	WrapperFactory/WrapperDocument.m	568;"	m	implementation:WrapperDocument	category:Private
+attachTo:	WrapperFactory/IconView.m	43;"	m	interface:PopUpIconView
+attachTo:	WrapperFactory/IconView.m	85;"	m	implementation:PopUpIconView
+attributeChangedName:value:	WrapperFactory/WrapperDocument.m	174;"	m	interface:WrapperDocument	category:Private
+attributeChangedName:value:	WrapperFactory/WrapperDocument.m	542;"	m	implementation:WrapperDocument	category:Private
+authors	WrapperFactory/WrapperDocument.h	118;"	m	interface:WrapperDocument
+authors	WrapperFactory/WrapperDocument.h	64;"	E	interface:WrapperDocument
+authors	WrapperFactory/WrapperDocument.m	370;"	m	implementation:WrapperDocument
+authors	WrapperFactory/WrapperDocumentController.h	104;"	m	interface:WrapperDocumentController
+authors	WrapperFactory/WrapperDocumentController.h	49;"	E	interface:WrapperDocumentController
+authors	WrapperFactory/WrapperDocumentController.m	359;"	m	implementation:WrapperDocumentController
+awakeFromNib	WrapperFactory/ApplicationDelegate.h	38;"	m	interface:ApplicationDelegate
+awakeFromNib	WrapperFactory/ApplicationDelegate.m	30;"	m	implementation:ApplicationDelegate
+awakeFromNib	WrapperFactory/IconView.m	253;"	m	implementation:IconView
+awakeFromNib	WrapperFactory/TypesController.h	48;"	m	interface:TypesController
+awakeFromNib	WrapperFactory/TypesController.m	65;"	m	implementation:TypesController
+awakeFromNib	WrapperFactory/WrapperDocumentController.h	65;"	m	interface:WrapperDocumentController
+awakeFromNib	WrapperFactory/WrapperDocumentController.m	54;"	m	implementation:WrapperDocumentController
+concludeDragOperation:	WrapperFactory/IconView.h	67;"	m	interface:IconView
+concludeDragOperation:	WrapperFactory/IconView.m	134;"	m	implementation:PopUpIconView
+concludeDragOperation:	WrapperFactory/IconView.m	385;"	m	implementation:IconView
+controlTextDidChange:	WrapperFactory/TypeController.h	50;"	m	interface:TypeController
+controlTextDidChange:	WrapperFactory/TypeController.m	52;"	m	implementation:TypeController
+controlTextDidChange:	WrapperFactory/WrapperDocumentController.h	72;"	m	interface:WrapperDocumentController
+controlTextDidChange:	WrapperFactory/WrapperDocumentController.m	72;"	m	implementation:WrapperDocumentController
+createWrapperForExecutable:userData:error:	WrapperFactory/ServicesProvider.h	32;"	m	interface:ServicesProvider
+createWrapperForExecutable:userData:error:	WrapperFactory/ServicesProvider.m	37;"	m	implementation:ServicesProvider
+current	WrapperFactory/IconView.m	115;"	m	implementation:PopUpIconView
+current	WrapperFactory/IconView.m	36;"	E	interface:PopUpIconView
+current	WrapperFactory/IconView.m	44;"	m	interface:PopUpIconView
+currentScript	WrapperFactory/WrapperDocumentController.h	113;"	m	interface:WrapperDocumentController
+currentScript	WrapperFactory/WrapperDocumentController.h	54;"	E	interface:WrapperDocumentController
+currentScript	WrapperFactory/WrapperDocumentController.m	440;"	m	implementation:WrapperDocumentController
+currentScriptActionPopUp	WrapperFactory/WrapperDocumentController.h	115;"	m	interface:WrapperDocumentController
+currentScriptActionPopUp	WrapperFactory/WrapperDocumentController.h	55;"	E	interface:WrapperDocumentController
+currentScriptActionPopUp	WrapperFactory/WrapperDocumentController.m	373;"	m	implementation:WrapperDocumentController
+currentScriptId	WrapperFactory/WrapperDocumentController.h	109;"	m	interface:WrapperDocumentController
+currentScriptId	WrapperFactory/WrapperDocumentController.h	52;"	E	interface:WrapperDocumentController
+currentScriptId	WrapperFactory/WrapperDocumentController.m	422;"	m	implementation:WrapperDocumentController
+currentScriptShell	WrapperFactory/WrapperDocumentController.h	111;"	m	interface:WrapperDocumentController
+currentScriptShell	WrapperFactory/WrapperDocumentController.h	53;"	E	interface:WrapperDocumentController
+currentScriptShell	WrapperFactory/WrapperDocumentController.m	431;"	m	implementation:WrapperDocumentController
+dealloc	WrapperFactory/Icon.m	37;"	m	implementation:Icon
+dealloc	WrapperFactory/IconView.m	258;"	m	implementation:IconView
+dealloc	WrapperFactory/IconView.m	41;"	m	interface:PopUpIconView
+dealloc	WrapperFactory/IconView.m	75;"	m	implementation:PopUpIconView
+dealloc	WrapperFactory/ServicesProvider.m	30;"	m	implementation:ServicesProvider
+dealloc	WrapperFactory/TypesController.m	60;"	m	implementation:TypesController
+dealloc	WrapperFactory/WrapperDocument.m	230;"	m	implementation:WrapperDocument
+dealloc	WrapperFactory/WrapperDocument.m	86;"	m	implementation:AppFileWrapper
+defaultCursor	WrapperFactory/WrapperDocumentController.h	38;"	E	interface:WrapperDocumentController
+delegate	WrapperFactory/IconView.h	44;"	E	interface:IconView
+deleteType:	WrapperFactory/TypesController.h	65;"	m	interface:TypesController
+deleteType:	WrapperFactory/TypesController.m	153;"	m	implementation:TypesController
+description	WrapperFactory/WrapperDocument.h	112;"	m	interface:WrapperDocument
+description	WrapperFactory/WrapperDocument.h	62;"	E	interface:WrapperDocument
+description	WrapperFactory/WrapperDocument.m	350;"	m	implementation:WrapperDocument
+description	WrapperFactory/WrapperDocumentController.h	100;"	m	interface:WrapperDocumentController
+description	WrapperFactory/WrapperDocumentController.h	47;"	E	interface:WrapperDocumentController
+description	WrapperFactory/WrapperDocumentController.m	341;"	m	implementation:WrapperDocumentController
+dndOperation	WrapperFactory/IconView.h	47;"	E	interface:IconView
+document	WrapperFactory/TypesController.h	35;"	E	interface:TypesController
+document	WrapperFactory/TypesController.h	72;"	m	interface:TypesController
+document	WrapperFactory/TypesController.m	171;"	m	implementation:TypesController
+document	WrapperFactory/WrapperDocumentController.h	41;"	E	interface:WrapperDocumentController
+documentAggregateDidChange:	WrapperFactory/TypesController.m	128;"	m	implementation:TypesController
+documentChanged	WrapperFactory/WrapperDocument.m	176;"	m	interface:WrapperDocument	category:Private
+documentChanged	WrapperFactory/WrapperDocument.m	555;"	m	implementation:WrapperDocument	category:Private
+draggedImage:endetAt:operation:	WrapperFactory/IconView.m	442;"	m	implementation:IconView
+draggingEntered:	WrapperFactory/IconView.h	62;"	m	interface:IconView
+draggingEntered:	WrapperFactory/IconView.m	338;"	m	implementation:IconView
+draggingExited:	WrapperFactory/IconView.h	63;"	m	interface:IconView
+draggingExited:	WrapperFactory/IconView.m	356;"	m	implementation:IconView
+draggingImage	WrapperFactory/IconView.h	40;"	E	interface:IconView
+draggingSourceOperationMaskForLocal:	WrapperFactory/IconView.m	448;"	m	implementation:IconView
+drawRect:	WrapperFactory/IconView.h	58;"	m	interface:IconView
+drawRect:	WrapperFactory/IconView.m	294;"	m	implementation:IconView
+editWrapper:userData:error:	WrapperFactory/ServicesProvider.h	36;"	m	interface:ServicesProvider
+editWrapper:userData:error:	WrapperFactory/ServicesProvider.m	72;"	m	implementation:ServicesProvider
+emptyBox	WrapperFactory/TypesController.h	38;"	E	interface:TypesController
+executable	WrapperFactory/WrapperDocument.m	118;"	m	implementation:AppFileWrapper
+executable	WrapperFactory/WrapperDocument.m	61;"	E	interface:AppFileWrapper
+executable	WrapperFactory/WrapperDocument.m	72;"	m	interface:AppFileWrapper
+executablePath	WrapperFactory/WrapperDocument.m	128;"	m	implementation:AppFileWrapper
+executablePath	WrapperFactory/WrapperDocument.m	62;"	E	interface:AppFileWrapper
+executablePath	WrapperFactory/WrapperDocument.m	75;"	m	interface:AppFileWrapper
+execute	libGSWrapper/Actions.h	29;"	m	protocol:Action
+execute	libGSWrapper/Actions.h	49;"	m	interface:AbstractAction
+execute	libGSWrapper/Actions.m	42;"	m	implementation:AbstractAction
+executeWithFiles:	libGSWrapper/Actions.h	31;"	m	protocol:Action
+executeWithFiles:	libGSWrapper/Actions.h	51;"	m	interface:AbstractAction
+executeWithFiles:	libGSWrapper/Actions.h	66;"	m	interface:ErrorDialogAction
+executeWithFiles:	libGSWrapper/Actions.h	75;"	m	interface:IgnoreAction
+executeWithFiles:	libGSWrapper/Actions.h	85;"	m	interface:RunScriptAction
+executeWithFiles:	libGSWrapper/Actions.m	47;"	m	implementation:AbstractAction
+executeWithFiles:	libGSWrapper/Actions.m	74;"	m	implementation:ErrorDialogAction
+executeWithFiles:	libGSWrapper/Actions.m	86;"	m	implementation:IgnoreAction
+executeWithFiles:	libGSWrapper/Actions.m	97;"	m	implementation:RunScriptAction
+extensions	WrapperFactory/Type.h	34;"	E	interface:Type
+extensions	WrapperFactory/Type.h	43;"	m	interface:Type
+extensions	WrapperFactory/Type.m	73;"	m	implementation:Type
+extensionsTextField	WrapperFactory/TypeController.h	35;"	E	interface:TypeController
+extensionsTextField	WrapperFactory/TypeController.h	60;"	m	interface:TypeController
+extensionsTextField	WrapperFactory/TypeController.m	124;"	m	implementation:TypeController
+fileWrapper	WrapperFactory/WrapperDocument.h	56;"	E	interface:WrapperDocument
+fileWrapperRepresentationOfType:	WrapperFactory/WrapperDocument.h	88;"	m	interface:WrapperDocument
+fileWrapperRepresentationOfType:	WrapperFactory/WrapperDocument.m	260;"	m	implementation:WrapperDocument
+flattened	WrapperFactory/WrapperDocument.m	59;"	E	interface:AppFileWrapper
+flattened	WrapperFactory/WrapperDocument.m	66;"	m	interface:AppFileWrapper
+flattened	WrapperFactory/WrapperDocument.m	98;"	m	implementation:AppFileWrapper
+fullVersion	WrapperFactory/WrapperDocument.h	109;"	m	interface:WrapperDocument
+fullVersion	WrapperFactory/WrapperDocument.h	61;"	E	interface:WrapperDocument
+fullVersion	WrapperFactory/WrapperDocument.m	340;"	m	implementation:WrapperDocument
+fullVersion	WrapperFactory/WrapperDocumentController.h	46;"	E	interface:WrapperDocumentController
+fullVersion	WrapperFactory/WrapperDocumentController.h	98;"	m	interface:WrapperDocumentController
+fullVersion	WrapperFactory/WrapperDocumentController.m	332;"	m	implementation:WrapperDocumentController
+hidePopUp	WrapperFactory/IconView.m	160;"	m	implementation:PopUpIconView
+hidePopUp	WrapperFactory/IconView.m	47;"	m	interface:PopUpIconView
+hideTypeEditor	WrapperFactory/TypesController.m	275;"	m	implementation:TypesController	category:Private
+hideTypeEditor	WrapperFactory/TypesController.m	33;"	m	interface:TypesController	category:Private
+icon	WrapperFactory/IconView.h	39;"	E	interface:IconView
+icon	WrapperFactory/IconView.h	52;"	m	interface:IconView
+icon	WrapperFactory/IconView.m	278;"	m	implementation:IconView
+icon	WrapperFactory/Type.h	32;"	E	interface:Type
+icon	WrapperFactory/Type.h	37;"	m	interface:Type
+icon	WrapperFactory/Type.m	51;"	m	implementation:Type
+iconView	WrapperFactory/TypeController.h	34;"	E	interface:TypeController
+iconView	WrapperFactory/TypeController.h	57;"	m	interface:TypeController
+iconView	WrapperFactory/TypeController.m	98;"	m	implementation:TypeController
+iconViewDidChangeIcon:	WrapperFactory/IconView.m	127;"	m	implementation:PopUpIconView
+iconViewDidChangeIcon:	WrapperFactory/TypeController.m	79;"	m	implementation:TypeController
+iconViewDidChangeIcon:	WrapperFactory/WrapperDocumentController.h	73;"	m	interface:WrapperDocumentController
+iconViewDidChangeIcon:	WrapperFactory/WrapperDocumentController.m	140;"	m	implementation:WrapperDocumentController
+iconWithImage:	WrapperFactory/Icon.h	37;"	c	interface:Icon
+iconWithImage:	WrapperFactory/Icon.m	54;"	c	implementation:Icon
+ignoreModifierKeysWhileDragging	WrapperFactory/IconView.m	453;"	m	implementation:IconView
+image	WrapperFactory/Icon.h	30;"	E	interface:Icon
+imageCopy:	WrapperFactory/Icon.h	39;"	m	interface:Icon
+imageCopy:	WrapperFactory/Icon.m	59;"	m	implementation:Icon
+imageForOriginalSizeCopy:	WrapperFactory/Icon.h	43;"	m	interface:Icon
+imageForOriginalSizeCopy:	WrapperFactory/Icon.m	106;"	m	implementation:Icon
+imageForSize:copy:	WrapperFactory/Icon.h	41;"	m	interface:Icon
+imageForSize:copy:	WrapperFactory/Icon.m	75;"	m	implementation:Icon
+indexOfType:	WrapperFactory/WrapperDocument.h	160;"	m	interface:WrapperDocument
+indexOfType:	WrapperFactory/WrapperDocument.m	525;"	m	implementation:WrapperDocument
+init	WrapperFactory/Icon.h	34;"	m	interface:Icon
+init	WrapperFactory/Icon.m	29;"	m	implementation:Icon
+init	WrapperFactory/IconView.h	50;"	m	interface:IconView
+init	WrapperFactory/IconView.m	244;"	m	implementation:IconView
+init	WrapperFactory/IconView.m	40;"	m	interface:PopUpIconView
+init	WrapperFactory/IconView.m	60;"	m	implementation:PopUpIconView
+init	WrapperFactory/Type.m	39;"	m	implementation:Type
+init	WrapperFactory/TypesController.m	45;"	m	implementation:TypesController
+init	WrapperFactory/WrapperDocument.h	84;"	m	interface:WrapperDocument
+init	WrapperFactory/WrapperDocument.m	201;"	m	implementation:WrapperDocument
+init	WrapperFactory/WrapperDocumentController.h	64;"	m	interface:WrapperDocumentController
+init	WrapperFactory/WrapperDocumentController.m	41;"	m	implementation:WrapperDocumentController
+init	libGSWrapper/WrapperDelegate.h	41;"	m	interface:WrapperDelegate
+init	libGSWrapper/WrapperDelegate.m	34;"	m	implementation:WrapperDelegate
+initWithActionName:properties:	libGSWrapper/Actions.h	47;"	m	interface:AbstractAction
+initWithActionName:properties:	libGSWrapper/Actions.m	32;"	m	implementation:AbstractAction
+initWithImage:	WrapperFactory/Icon.h	36;"	m	interface:Icon
+initWithImage:	WrapperFactory/Icon.m	43;"	m	implementation:Icon
+initialize	WrapperFactory/IconView.m	239;"	c	implementation:IconView
+insetsSize	WrapperFactory/IconView.h	42;"	E	interface:IconView
+insetsSize	WrapperFactory/IconView.h	55;"	m	interface:IconView
+insetsSize	WrapperFactory/IconView.m	267;"	m	implementation:IconView
+isSettingIcon	WrapperFactory/TypeController.h	39;"	E	interface:TypeController
+loadFileWrapperRepresentation:ofType:	WrapperFactory/WrapperDocument.h	87;"	m	interface:WrapperDocument
+loadFileWrapperRepresentation:ofType:	WrapperFactory/WrapperDocument.m	236;"	m	implementation:WrapperDocument
+loadFreedesktopApplication:	WrapperFactory/WrapperDocument.m	1011;"	m	implementation:WrapperDocument	category:Private
+loadFreedesktopApplication:	WrapperFactory/WrapperDocument.m	185;"	m	interface:WrapperDocument	category:Private
+loadWrapper:	WrapperFactory/WrapperDocument.m	182;"	m	interface:WrapperDocument	category:Private
+loadWrapper:	WrapperFactory/WrapperDocument.m	599;"	m	implementation:WrapperDocument	category:Private
+main	Launcher/main.m	26;"	f
+main	WrapperFactory/main.m	23;"	f
+mainAction	libGSWrapper/WrapperDelegate.h	37;"	E	interface:WrapperDelegate
+mouseDown:	WrapperFactory/IconView.m	170;"	m	implementation:PopUpIconView
+mouseDown:	WrapperFactory/IconView.m	395;"	m	implementation:IconView
+mouseDragged:	WrapperFactory/IconView.m	184;"	m	implementation:PopUpIconView
+mouseDragged:	WrapperFactory/IconView.m	413;"	m	implementation:IconView
+mouseUp:	WrapperFactory/IconView.m	176;"	m	implementation:PopUpIconView
+mouseUp:	WrapperFactory/IconView.m	400;"	m	implementation:IconView
+name	WrapperFactory/Type.h	33;"	E	interface:Type
+name	WrapperFactory/Type.h	40;"	m	interface:Type
+name	WrapperFactory/Type.m	62;"	m	implementation:Type
+name	WrapperFactory/WrapperDocument.h	103;"	m	interface:WrapperDocument
+name	WrapperFactory/WrapperDocument.h	59;"	E	interface:WrapperDocument
+name	WrapperFactory/WrapperDocument.m	320;"	m	implementation:WrapperDocument
+name	WrapperFactory/WrapperDocumentController.h	44;"	E	interface:WrapperDocumentController
+name	WrapperFactory/WrapperDocumentController.h	94;"	m	interface:WrapperDocumentController
+name	WrapperFactory/WrapperDocumentController.m	314;"	m	implementation:WrapperDocumentController
+name	libGSWrapper/Actions.h	33;"	m	protocol:Action
+name	libGSWrapper/Actions.h	53;"	m	interface:AbstractAction
+name	libGSWrapper/Actions.m	54;"	m	implementation:AbstractAction
+nameTextField	WrapperFactory/TypeController.h	36;"	E	interface:TypeController
+nameTextField	WrapperFactory/TypeController.h	63;"	m	interface:TypeController
+nameTextField	WrapperFactory/TypeController.m	133;"	m	implementation:TypeController
+newType:	WrapperFactory/TypesController.h	64;"	m	interface:TypesController
+newType:	WrapperFactory/TypesController.m	142;"	m	implementation:TypesController
+notifyDealloc:	WrapperFactory/IconView.m	120;"	m	implementation:PopUpIconView
+notifyDealloc:	WrapperFactory/IconView.m	45;"	m	interface:PopUpIconView
+numberOfRowsInTableView:	WrapperFactory/TypesController.h	89;"	m	interface:TypesController
+numberOfRowsInTableView:	WrapperFactory/TypesController.m	225;"	m	implementation:TypesController
+openAction	libGSWrapper/WrapperDelegate.h	38;"	E	interface:WrapperDelegate
+openScript	WrapperFactory/WrapperDocument.h	142;"	m	interface:WrapperDocument
+openScript	WrapperFactory/WrapperDocument.h	73;"	E	interface:WrapperDocument
+openScript	WrapperFactory/WrapperDocument.m	451;"	m	implementation:WrapperDocument
+openScriptAction	WrapperFactory/WrapperDocument.h	148;"	m	interface:WrapperDocument
+openScriptAction	WrapperFactory/WrapperDocument.h	75;"	E	interface:WrapperDocument
+openScriptAction	WrapperFactory/WrapperDocument.m	471;"	m	implementation:WrapperDocument
+openScriptShell	WrapperFactory/WrapperDocument.h	145;"	m	interface:WrapperDocument
+openScriptShell	WrapperFactory/WrapperDocument.h	74;"	E	interface:WrapperDocument
+openScriptShell	WrapperFactory/WrapperDocument.m	461;"	m	implementation:WrapperDocument
+originalSize	WrapperFactory/Icon.h	31;"	E	interface:Icon
+performDragOperation:	WrapperFactory/IconView.h	66;"	m	interface:IconView
+performDragOperation:	WrapperFactory/IconView.m	372;"	m	implementation:IconView
+prepareForDragOperation:	WrapperFactory/IconView.h	65;"	m	interface:IconView
+prepareForDragOperation:	WrapperFactory/IconView.m	362;"	m	implementation:IconView
+properties	libGSWrapper/Actions.h	43;"	E	interface:AbstractAction
+properties	libGSWrapper/Actions.h	57;"	m	interface:AbstractAction
+properties	libGSWrapper/Actions.m	64;"	m	implementation:AbstractAction
+properties	libGSWrapper/WrapperDelegate.h	35;"	E	interface:WrapperDelegate
+registeredForDraggedTypes	WrapperFactory/IconView.h	37;"	E	interface:IconView
+removeType:	WrapperFactory/WrapperDocument.h	157;"	m	interface:WrapperDocument
+removeType:	WrapperFactory/WrapperDocument.m	501;"	m	implementation:WrapperDocument
+role	WrapperFactory/WrapperDocument.h	121;"	m	interface:WrapperDocument
+role	WrapperFactory/WrapperDocument.h	65;"	E	interface:WrapperDocument
+role	WrapperFactory/WrapperDocument.m	380;"	m	implementation:WrapperDocument
+rolePopUp	WrapperFactory/TypeController.h	37;"	E	interface:TypeController
+rolePopUp	WrapperFactory/WrapperDocumentController.h	105;"	m	interface:WrapperDocumentController
+rolePopUp	WrapperFactory/WrapperDocumentController.h	50;"	E	interface:WrapperDocumentController
+rolePopUp	WrapperFactory/WrapperDocumentController.m	364;"	m	implementation:WrapperDocumentController
+runModalSavePanel:withAccessoryView:	WrapperFactory/WrapperDocument.h	93;"	m	interface:WrapperDocument
+runModalSavePanel:withAccessoryView:	WrapperFactory/WrapperDocument.m	278;"	m	implementation:WrapperDocument
+saveFreedesktopApplication	WrapperFactory/WrapperDocument.m	1109;"	m	implementation:WrapperDocument	category:Private
+saveFreedesktopApplication	WrapperFactory/WrapperDocument.m	186;"	m	interface:WrapperDocument	category:Private
+saveWrapper	WrapperFactory/WrapperDocument.m	183;"	m	interface:WrapperDocument	category:Private
+saveWrapper	WrapperFactory/WrapperDocument.m	826;"	m	implementation:WrapperDocument	category:Private
+scaledTIFFRepresentation:	WrapperFactory/Icon.h	42;"	m	interface:Icon
+scaledTIFFRepresentation:	WrapperFactory/Icon.m	92;"	m	implementation:Icon
+script	WrapperFactory/WrapperDocument.m	108;"	m	implementation:AppFileWrapper
+script	WrapperFactory/WrapperDocument.m	60;"	E	interface:AppFileWrapper
+script	WrapperFactory/WrapperDocument.m	69;"	m	interface:AppFileWrapper
+scriptActionToString:	WrapperFactory/WrapperDocument.m	1132;"	c	implementation:WrapperDocument	category:Private
+scriptActionToString:	WrapperFactory/WrapperDocument.m	189;"	c	interface:WrapperDocument	category:Private
+servicesMenuItem	WrapperFactory/ApplicationDelegate.h	32;"	E	interface:ApplicationDelegate
+servicesProvider	WrapperFactory/ApplicationDelegate.h	34;"	E	interface:ApplicationDelegate
+setAppIcon:	WrapperFactory/WrapperDocument.h	101;"	m	interface:WrapperDocument
+setAppIcon:	WrapperFactory/WrapperDocument.m	314;"	m	implementation:WrapperDocument
+setAppIcon:	WrapperFactory/WrapperDocumentController.h	91;"	m	interface:WrapperDocumentController
+setAppIcon:	WrapperFactory/WrapperDocumentController.m	290;"	m	implementation:WrapperDocumentController
+setArmed:	WrapperFactory/IconView.m	28;"	m	interface:IconView	category:Private
+setArmed:	WrapperFactory/IconView.m	462;"	m	implementation:IconView	category:Private
+setAuthors:	WrapperFactory/WrapperDocument.h	119;"	m	interface:WrapperDocument
+setAuthors:	WrapperFactory/WrapperDocument.m	374;"	m	implementation:WrapperDocument
+setAuthors:	WrapperFactory/WrapperDocumentController.h	103;"	m	interface:WrapperDocumentController
+setAuthors:	WrapperFactory/WrapperDocumentController.m	355;"	m	implementation:WrapperDocumentController
+setCurrentScript:	WrapperFactory/WrapperDocumentController.h	112;"	m	interface:WrapperDocumentController
+setCurrentScript:	WrapperFactory/WrapperDocumentController.m	436;"	m	implementation:WrapperDocumentController
+setCurrentScriptAction:	WrapperFactory/WrapperDocumentController.h	82;"	m	interface:WrapperDocumentController
+setCurrentScriptAction:	WrapperFactory/WrapperDocumentController.m	195;"	m	implementation:WrapperDocumentController
+setCurrentScriptActionPopUp:	WrapperFactory/WrapperDocumentController.h	114;"	m	interface:WrapperDocumentController
+setCurrentScriptActionPopUp:	WrapperFactory/WrapperDocumentController.m	376;"	m	implementation:WrapperDocumentController
+setCurrentScriptId:	WrapperFactory/WrapperDocumentController.h	108;"	m	interface:WrapperDocumentController
+setCurrentScriptId:	WrapperFactory/WrapperDocumentController.m	382;"	m	implementation:WrapperDocumentController
+setCurrentScriptShell:	WrapperFactory/WrapperDocumentController.h	110;"	m	interface:WrapperDocumentController
+setCurrentScriptShell:	WrapperFactory/WrapperDocumentController.m	427;"	m	implementation:WrapperDocumentController
+setCurrentScriptToOpen:	WrapperFactory/WrapperDocumentController.h	80;"	m	interface:WrapperDocumentController
+setCurrentScriptToOpen:	WrapperFactory/WrapperDocumentController.m	170;"	m	implementation:WrapperDocumentController
+setCurrentScriptToStart:	WrapperFactory/WrapperDocumentController.h	78;"	m	interface:WrapperDocumentController
+setCurrentScriptToStart:	WrapperFactory/WrapperDocumentController.m	160;"	m	implementation:WrapperDocumentController
+setCurrentScriptToStartOpen:	WrapperFactory/WrapperDocumentController.h	79;"	m	interface:WrapperDocumentController
+setCurrentScriptToStartOpen:	WrapperFactory/WrapperDocumentController.m	165;"	m	implementation:WrapperDocumentController
+setDescription:	WrapperFactory/WrapperDocument.h	113;"	m	interface:WrapperDocument
+setDescription:	WrapperFactory/WrapperDocument.m	354;"	m	implementation:WrapperDocument
+setDescription:	WrapperFactory/WrapperDocumentController.h	99;"	m	interface:WrapperDocumentController
+setDescription:	WrapperFactory/WrapperDocumentController.m	337;"	m	implementation:WrapperDocumentController
+setDocument:	WrapperFactory/TypesController.h	73;"	m	interface:TypesController
+setDocument:	WrapperFactory/TypesController.m	175;"	m	implementation:TypesController
+setDocument:	WrapperFactory/WrapperDocumentController.h	89;"	m	interface:WrapperDocumentController
+setDocument:	WrapperFactory/WrapperDocumentController.m	223;"	m	implementation:WrapperDocumentController
+setExecutable:	WrapperFactory/WrapperDocument.m	113;"	m	implementation:AppFileWrapper
+setExecutable:	WrapperFactory/WrapperDocument.m	71;"	m	interface:AppFileWrapper
+setExecutablePath:	WrapperFactory/WrapperDocument.m	123;"	m	implementation:AppFileWrapper
+setExecutablePath:	WrapperFactory/WrapperDocument.m	74;"	m	interface:AppFileWrapper
+setExtensions:	WrapperFactory/Type.h	44;"	m	interface:Type
+setExtensions:	WrapperFactory/Type.m	77;"	m	implementation:Type
+setExtensionsTextField:	WrapperFactory/TypeController.h	61;"	m	interface:TypeController
+setExtensionsTextField:	WrapperFactory/TypeController.m	128;"	m	implementation:TypeController
+setFlattened:	WrapperFactory/WrapperDocument.m	65;"	m	interface:AppFileWrapper
+setFlattened:	WrapperFactory/WrapperDocument.m	93;"	m	implementation:AppFileWrapper
+setFullVersion:	WrapperFactory/WrapperDocument.h	110;"	m	interface:WrapperDocument
+setFullVersion:	WrapperFactory/WrapperDocument.m	344;"	m	implementation:WrapperDocument
+setFullVersion:	WrapperFactory/WrapperDocumentController.h	97;"	m	interface:WrapperDocumentController
+setFullVersion:	WrapperFactory/WrapperDocumentController.m	328;"	m	implementation:WrapperDocumentController
+setIcon:	WrapperFactory/IconView.h	53;"	m	interface:IconView
+setIcon:	WrapperFactory/IconView.m	283;"	m	implementation:IconView
+setIcon:	WrapperFactory/Type.h	38;"	m	interface:Type
+setIcon:	WrapperFactory/Type.m	55;"	m	implementation:Type
+setIconView:	WrapperFactory/TypeController.h	58;"	m	interface:TypeController
+setIconView:	WrapperFactory/TypeController.m	103;"	m	implementation:TypeController
+setInsetsSize:	WrapperFactory/IconView.h	56;"	m	interface:IconView
+setInsetsSize:	WrapperFactory/IconView.m	272;"	m	implementation:IconView
+setName:	WrapperFactory/Type.h	41;"	m	interface:Type
+setName:	WrapperFactory/Type.m	66;"	m	implementation:Type
+setName:	WrapperFactory/WrapperDocument.h	104;"	m	interface:WrapperDocument
+setName:	WrapperFactory/WrapperDocument.m	324;"	m	implementation:WrapperDocument
+setName:	WrapperFactory/WrapperDocumentController.h	93;"	m	interface:WrapperDocumentController
+setName:	WrapperFactory/WrapperDocumentController.m	310;"	m	implementation:WrapperDocumentController
+setNameTextField:	WrapperFactory/TypeController.h	64;"	m	interface:TypeController
+setNameTextField:	WrapperFactory/TypeController.m	137;"	m	implementation:TypeController
+setOpenScript:	WrapperFactory/WrapperDocument.h	143;"	m	interface:WrapperDocument
+setOpenScript:	WrapperFactory/WrapperDocument.m	455;"	m	implementation:WrapperDocument
+setOpenScriptAction:	WrapperFactory/WrapperDocument.h	149;"	m	interface:WrapperDocument
+setOpenScriptAction:	WrapperFactory/WrapperDocument.m	475;"	m	implementation:WrapperDocument
+setOpenScriptShell:	WrapperFactory/WrapperDocument.h	146;"	m	interface:WrapperDocument
+setOpenScriptShell:	WrapperFactory/WrapperDocument.m	465;"	m	implementation:WrapperDocument
+setRole:	WrapperFactory/WrapperDocument.h	122;"	m	interface:WrapperDocument
+setRole:	WrapperFactory/WrapperDocument.m	384;"	m	implementation:WrapperDocument
+setRole:	WrapperFactory/WrapperDocumentController.h	81;"	m	interface:WrapperDocumentController
+setRole:	WrapperFactory/WrapperDocumentController.m	175;"	m	implementation:WrapperDocumentController
+setRolePopUp:	WrapperFactory/WrapperDocumentController.h	106;"	m	interface:WrapperDocumentController
+setRolePopUp:	WrapperFactory/WrapperDocumentController.m	368;"	m	implementation:WrapperDocumentController
+setScript:	WrapperFactory/WrapperDocument.m	103;"	m	implementation:AppFileWrapper
+setScript:	WrapperFactory/WrapperDocument.m	68;"	m	interface:AppFileWrapper
+setServicesMenuItem:	WrapperFactory/ApplicationDelegate.h	63;"	m	interface:ApplicationDelegate
+setServicesMenuItem:	WrapperFactory/ApplicationDelegate.m	114;"	m	implementation:ApplicationDelegate
+setStartOpenScript:	WrapperFactory/WrapperDocument.h	134;"	m	interface:WrapperDocument
+setStartOpenScript:	WrapperFactory/WrapperDocument.m	425;"	m	implementation:WrapperDocument
+setStartOpenScriptAction:	WrapperFactory/WrapperDocument.h	140;"	m	interface:WrapperDocument
+setStartOpenScriptAction:	WrapperFactory/WrapperDocument.m	445;"	m	implementation:WrapperDocument
+setStartOpenScriptShell:	WrapperFactory/WrapperDocument.h	137;"	m	interface:WrapperDocument
+setStartOpenScriptShell:	WrapperFactory/WrapperDocument.m	435;"	m	implementation:WrapperDocument
+setStartScript:	WrapperFactory/WrapperDocument.h	125;"	m	interface:WrapperDocument
+setStartScript:	WrapperFactory/WrapperDocument.m	395;"	m	implementation:WrapperDocument
+setStartScriptAction:	WrapperFactory/WrapperDocument.h	131;"	m	interface:WrapperDocument
+setStartScriptAction:	WrapperFactory/WrapperDocument.m	415;"	m	implementation:WrapperDocument
+setStartScriptShell:	WrapperFactory/WrapperDocument.h	128;"	m	interface:WrapperDocument
+setStartScriptShell:	WrapperFactory/WrapperDocument.m	405;"	m	implementation:WrapperDocument
+setTableView:	WrapperFactory/TypesController.h	76;"	m	interface:TypesController
+setTableView:	WrapperFactory/TypesController.m	197;"	m	implementation:TypesController
+setType:	WrapperFactory/TypeController.h	43;"	m	interface:TypeController
+setType:	WrapperFactory/TypeController.m	33;"	m	implementation:TypeController
+setTypeController:	WrapperFactory/TypesController.h	79;"	m	interface:TypesController
+setTypeController:	WrapperFactory/TypesController.m	206;"	m	implementation:TypesController
+setTypeEditor:	WrapperFactory/TypesController.h	82;"	m	interface:TypesController
+setTypeEditor:	WrapperFactory/TypesController.m	216;"	m	implementation:TypesController
+setUrl:	WrapperFactory/WrapperDocument.h	116;"	m	interface:WrapperDocument
+setUrl:	WrapperFactory/WrapperDocument.m	364;"	m	implementation:WrapperDocument
+setUrl:	WrapperFactory/WrapperDocumentController.h	101;"	m	interface:WrapperDocumentController
+setUrl:	WrapperFactory/WrapperDocumentController.m	346;"	m	implementation:WrapperDocumentController
+setVersion:	WrapperFactory/WrapperDocument.h	107;"	m	interface:WrapperDocument
+setVersion:	WrapperFactory/WrapperDocument.m	334;"	m	implementation:WrapperDocument
+setVersion:	WrapperFactory/WrapperDocumentController.h	95;"	m	interface:WrapperDocumentController
+setVersion:	WrapperFactory/WrapperDocumentController.m	319;"	m	implementation:WrapperDocumentController
+setWindowController:	WrapperFactory/WrapperDocumentController.h	88;"	m	interface:WrapperDocumentController
+setWindowController:	WrapperFactory/WrapperDocumentController.m	217;"	m	implementation:WrapperDocumentController
+setWindowsMenuItem:	WrapperFactory/ApplicationDelegate.h	60;"	m	interface:ApplicationDelegate
+setWindowsMenuItem:	WrapperFactory/ApplicationDelegate.m	109;"	m	implementation:ApplicationDelegate
+settingValue	WrapperFactory/WrapperDocumentController.h	57;"	E	interface:WrapperDocumentController
+setupTable	WrapperFactory/TypesController.h	50;"	m	interface:TypesController
+setupTable	WrapperFactory/TypesController.m	70;"	m	implementation:TypesController
+showTypeEditor	WrapperFactory/TypesController.m	265;"	m	implementation:TypesController	category:Private
+showTypeEditor	WrapperFactory/TypesController.m	32;"	m	interface:TypesController	category:Private
+startOpenScript	WrapperFactory/WrapperDocument.h	133;"	m	interface:WrapperDocument
+startOpenScript	WrapperFactory/WrapperDocument.h	70;"	E	interface:WrapperDocument
+startOpenScript	WrapperFactory/WrapperDocument.m	421;"	m	implementation:WrapperDocument
+startOpenScriptAction	WrapperFactory/WrapperDocument.h	139;"	m	interface:WrapperDocument
+startOpenScriptAction	WrapperFactory/WrapperDocument.h	72;"	E	interface:WrapperDocument
+startOpenScriptAction	WrapperFactory/WrapperDocument.m	441;"	m	implementation:WrapperDocument
+startOpenScriptShell	WrapperFactory/WrapperDocument.h	136;"	m	interface:WrapperDocument
+startOpenScriptShell	WrapperFactory/WrapperDocument.h	71;"	E	interface:WrapperDocument
+startOpenScriptShell	WrapperFactory/WrapperDocument.m	431;"	m	implementation:WrapperDocument
+startScript	WrapperFactory/WrapperDocument.h	124;"	m	interface:WrapperDocument
+startScript	WrapperFactory/WrapperDocument.h	67;"	E	interface:WrapperDocument
+startScript	WrapperFactory/WrapperDocument.m	391;"	m	implementation:WrapperDocument
+startScriptAction	WrapperFactory/WrapperDocument.h	130;"	m	interface:WrapperDocument
+startScriptAction	WrapperFactory/WrapperDocument.h	69;"	E	interface:WrapperDocument
+startScriptAction	WrapperFactory/WrapperDocument.m	411;"	m	implementation:WrapperDocument
+startScriptShell	WrapperFactory/WrapperDocument.h	127;"	m	interface:WrapperDocument
+startScriptShell	WrapperFactory/WrapperDocument.h	68;"	E	interface:WrapperDocument
+startScriptShell	WrapperFactory/WrapperDocument.m	401;"	m	implementation:WrapperDocument
+startupFiles	libGSWrapper/WrapperDelegate.h	34;"	E	interface:WrapperDelegate
+stringToScriptAction:	WrapperFactory/WrapperDocument.m	1115;"	c	implementation:WrapperDocument	category:Private
+stringToScriptAction:	WrapperFactory/WrapperDocument.m	188;"	c	interface:WrapperDocument	category:Private
+tableView	WrapperFactory/TypesController.h	33;"	E	interface:TypesController
+tableView	WrapperFactory/TypesController.h	75;"	m	interface:TypesController
+tableView	WrapperFactory/TypesController.m	193;"	m	implementation:TypesController
+tableView:objectValueForTableColumn:row:	WrapperFactory/TypesController.h	92;"	m	interface:TypesController
+tableView:objectValueForTableColumn:row:	WrapperFactory/TypesController.m	238;"	m	implementation:TypesController
+tableView:sortDescriptorsDidChange:	WrapperFactory/TypesController.h	100;"	m	interface:TypesController
+tableView:sortDescriptorsDidChange:	WrapperFactory/TypesController.m	256;"	m	implementation:TypesController
+tableViewSelectionDidChange:	WrapperFactory/TypesController.h	57;"	m	interface:TypesController
+tableViewSelectionDidChange:	WrapperFactory/TypesController.m	111;"	m	implementation:TypesController
+task	libGSWrapper/Actions.h	35;"	m	protocol:Action
+task	libGSWrapper/Actions.h	55;"	m	interface:AbstractAction
+task	libGSWrapper/Actions.h	82;"	E	interface:RunScriptAction
+task	libGSWrapper/Actions.m	154;"	m	implementation:RunScriptAction
+task	libGSWrapper/Actions.m	59;"	m	implementation:AbstractAction
+textCursor	WrapperFactory/WrapperDocumentController.h	37;"	E	interface:WrapperDocumentController
+textDidChange:	WrapperFactory/WrapperDocumentController.m	77;"	m	implementation:WrapperDocumentController
+type	WrapperFactory/TypeController.h	32;"	E	interface:TypeController
+type	WrapperFactory/TypeController.h	42;"	m	interface:TypeController
+type	WrapperFactory/TypeController.m	29;"	m	implementation:TypeController
+typeAtIndex:	WrapperFactory/WrapperDocument.h	159;"	m	interface:WrapperDocument
+typeAtIndex:	WrapperFactory/WrapperDocument.m	520;"	m	implementation:WrapperDocument
+typeChangedAttribute:value:	WrapperFactory/Type.m	30;"	m	interface:Type	category:Private
+typeChangedAttribute:value:	WrapperFactory/Type.m	90;"	m	implementation:Type	category:Private
+typeController	WrapperFactory/TypesController.h	34;"	E	interface:TypesController
+typeController	WrapperFactory/TypesController.h	78;"	m	interface:TypesController
+typeController	WrapperFactory/TypesController.m	202;"	m	implementation:TypesController
+typeCount	WrapperFactory/WrapperDocument.h	158;"	m	interface:WrapperDocument
+typeCount	WrapperFactory/WrapperDocument.m	515;"	m	implementation:WrapperDocument
+typeEditor	WrapperFactory/TypesController.h	36;"	E	interface:TypesController
+typeEditor	WrapperFactory/TypesController.h	81;"	m	interface:TypesController
+typeEditor	WrapperFactory/TypesController.m	211;"	m	implementation:TypesController
+typeEditorBorderType	WrapperFactory/TypesController.h	40;"	E	interface:TypesController
+typeEditorContents	WrapperFactory/TypesController.h	39;"	E	interface:TypesController
+typeEditorTitlePosition	WrapperFactory/TypesController.h	41;"	E	interface:TypesController
+types	WrapperFactory/WrapperDocument.h	77;"	E	interface:WrapperDocument
+unixAppExited:	libGSWrapper/WrapperDelegate.h	50;"	m	interface:WrapperDelegate
+unixAppExited:	libGSWrapper/WrapperDelegate.m	127;"	m	implementation:WrapperDelegate
+url	WrapperFactory/WrapperDocument.h	115;"	m	interface:WrapperDocument
+url	WrapperFactory/WrapperDocument.h	63;"	E	interface:WrapperDocument
+url	WrapperFactory/WrapperDocument.m	360;"	m	implementation:WrapperDocument
+url	WrapperFactory/WrapperDocumentController.h	102;"	m	interface:WrapperDocumentController
+url	WrapperFactory/WrapperDocumentController.h	48;"	E	interface:WrapperDocumentController
+url	WrapperFactory/WrapperDocumentController.m	350;"	m	implementation:WrapperDocumentController
+version	WrapperFactory/WrapperDocument.h	106;"	m	interface:WrapperDocument
+version	WrapperFactory/WrapperDocument.h	60;"	E	interface:WrapperDocument
+version	WrapperFactory/WrapperDocument.m	330;"	m	implementation:WrapperDocument
+version	WrapperFactory/WrapperDocumentController.h	45;"	E	interface:WrapperDocumentController
+version	WrapperFactory/WrapperDocumentController.h	96;"	m	interface:WrapperDocumentController
+version	WrapperFactory/WrapperDocumentController.m	323;"	m	implementation:WrapperDocumentController
+viewDidMoveToSuperview	WrapperFactory/IconView.h	60;"	m	interface:IconView
+viewDidMoveToSuperview	WrapperFactory/IconView.m	325;"	m	implementation:IconView
+win	WrapperFactory/IconView.m	35;"	E	interface:PopUpIconView
+windowController	WrapperFactory/WrapperDocumentController.h	40;"	E	interface:WrapperDocumentController
+windowNibName	WrapperFactory/WrapperDocument.h	90;"	m	interface:WrapperDocument
+windowNibName	WrapperFactory/WrapperDocument.m	271;"	m	implementation:WrapperDocument
+windowsMenuItem	WrapperFactory/ApplicationDelegate.h	31;"	E	interface:ApplicationDelegate
+wrapperDocumentChangedNotification:	WrapperFactory/WrapperDocumentController.m	33;"	m	interface:WrapperDocumentController	category:Notifications
+wrapperDocumentChangedNotification:	WrapperFactory/WrapperDocumentController.m	451;"	m	implementation:WrapperDocumentController	category:Notifications
+writeToFile:atomically:updateFilenames:	WrapperFactory/WrapperDocument.m	135;"	m	implementation:AppFileWrapper
+writeToFile:atomically:updateFilenames:	WrapperFactory/WrapperDocument.m	79;"	m	interface:AppFileWrapper

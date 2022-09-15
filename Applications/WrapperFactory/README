@@ -1,0 +1,140 @@
+GNUstepWrapper
+=============
+
+GNUstepWrapper is an easy way to create GNUstep app-wrappers of non-GNUstep
+binaries. It is the most useful in conjunction with Enrico Sersale's
+GWorkspace environment.
+
+
+
+INSTALL
+=======
+
+GNUstepWrapper needs a fairly current build of GNUstep installed.
+Get GNUstep here: http://www.gnustep.org/
+
+Also, a recent installation of GWorkspace.app is highly recommended.
+Get GWorkspace here: http://www.gnustep.it/enrico/gworkspace/
+
+Decompress the archive:
+tar xfvz GNUstepWrapper-[Version].tar.gz
+
+Next, compile and install the application:
+$ make
+# make install (as root)
+
+GNUstepWrapper installs a tool to $GNUSTEP_SYSTEM_ROOT/Tools, a library
+(libGSWrapper) to $GNUSTEP_SYSTEM_ROOT/Libraries, and an application / GUI
+for creating and editing wrappers in $GNUSTEP_SYSTEM_ROOT/Applications.
+
+Now, update the available services for GWorkspace.app:
+$ make_services
+
+You may need to restart GWorkspace to make it stick.
+
+If everything went well, you will have two new entries in GWorkspace.app's
+"Services" menu: WrapperFactory > Create Wrapper / Edit Wrapper.
+
+
+USAGE
+=====
+
+Create a Wrapper
+----------------
+
+1. Browse to the application binary you want to wrap.
+
+2. Select the binary and hit "Services > WrapperFactoryWrapper > Create
+   Wrapper". WrapperFactory will launch and create a basic wrapper for the
+   application you selected.
+
+3. If applicable, use the "Start" dropdown to change the application's
+   behaviour when starting by opening a file ("Start Application and Open
+   Files") and when opening additional files ("Open Files in Running
+   Application"). The code used for the selected file to be opened is "$@",
+   including the " ".
+
+   EXAMPLE: Gimp
+   Start Application: exec /usr/bin/gimp
+   Start Application and Open Files: exec /usr/bin/gimp "$@"
+   Open Files in Running Application: exec /usr/bin/gimp-remote "$@"
+
+4. Add your wrapped application's app-icon by dragging it from a GWorkspace
+   window to the "AppIcon" area. By default, WrapperFactory uses the GNUstep
+   logo as app-icon. Supported image formats are GIF, JPEG, PNG, XPM and
+   TIFF (non-compressed). As of now, overlarge images are not properly
+   scaled, hence you should chose a 48x48px image as your app-icon. You can
+   also use preview images provided by Inspector.app by dragging the preview
+   to the "AppIcon" area.
+
+5. If you feel like it, add application specific meta-information to the
+   fields in the upper part of WrapperFactory's window and define the
+   application's role (none, editor, viewer). This information is not
+   necessary for creating a working app-wrapper.
+
+Add File Types
+--------------
+
+1. Click the "Types" tab to edit the file types to be associated with your
+   wrapped application.
+
+2. Hit the "New Type" button. The right side of WrapperFactory's window will
+   show you a drag-and-drop area for the file icon, and two text fields for
+   extensions and file type names to be supported by the wrapped
+   application.
+
+3. Enter the file type extensions in the "Extensions" field. You can use
+   comma (,) to seperate multiple extensions. Extensions are case
+   insensitive.
+
+4. Next, enter the proper name of the file type in the "Name" field.
+
+   EXAMPLE: HTML
+   Extensions: htm,html,xhtml
+   Name: Hypertext Markup Language File
+
+5. Add the icon for the file type you are creating, using drag-and-drop from
+   a GWorkspace window. By default, WrapperFactory uses the GNUstep logo as
+   file type icon. Supported image formats are GIF, JPEG, PNG, XPM and TIFF
+   (non-compressed). As of now, overlarge images are not properly scaled,
+   hence you should chose a 48x48px image as your file type icon. You can
+   also use preview images provided by Inspector.app by dragging the preview
+   to the "Icon" area.
+
+6. Hit "New Type" for adding further file types, or "Delete Type" to get rid
+   of a superfluous file type.
+
+
+When you're done configuring your app-wrapper, use "Document > Save" to save
+the wrapper. By default, WrapperFactory saves wrapped applications in
+~/GNUstep/Applications/. Naturally, you can move all wrapped applications to
+wherever you see fit.
+
+
+Edit a Wrapper
+--------------
+
+1. Browse to the wrapped application you want to edit.
+
+2. Select the application and hit "Services > WrapperFactory > Edit
+   Wrapper". WrapperFactory will launch, opening the previously created
+   app-wrapper.
+
+3. Make your changes. You have all the same options as described above.
+
+4. Save your edited app-wrapper by using "Document > Save" or "Document >
+   Save As".
+
+
+CONTACT
+=======
+
+Bug reports, feature requests and comments regarding this documentation should
+be directed to:
+Raffael Herzog <herzog@raffael.ch>.
+http://www.raffael.ch
+
+
+
+$Id: README 103 2004-08-09 16:30:51Z rherzog $
+$HeadURL: file:///home/rherzog/Subversion/GNUstep/GSWrapper/tags/release-0.1.0/README $

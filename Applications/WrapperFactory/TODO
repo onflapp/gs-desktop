@@ -1,0 +1,88 @@
+* [BUG] Crashes
+
+  WrapperFactory.app still crashes from time to time, e.g. when
+  opening a wrapped application while WrapperFactory is
+  running already.
+
+
+* [BUG] File Types
+
+  The file type description is only shown in the table after the
+  window has been resized at least once.
+
+
+* [BUG] Create / Edit wrapper
+
+  Do not open two WrapperFactory.app windows if WrapperFactory is not
+  running already.
+
+
+* [FEATURE] Icon scaling
+
+  As of now, icon images larger than 48x48px are stored in their
+  original formats assuming that the window manager will rescale them.
+  However, Window Maker doesn't, so WrapperFactory should rescale.
+  WrapperFactory.app will rescale such icons to 48x48px while creating
+  a new app-wrapper and save both the original icon file and the
+  scaled version in the app-wrapper.
+
+
+* [DOC] Provide the documentation in HelpViewer.app format.
+
+
+* [FEATURE] Freedesktop integration
+
+  There are many ways of realising this:
+
+  - import .desktop files to create wrappers
+
+  - directly use .desktop files ("Use .desktop" action)
+
+
+* [FEATURE] Scriptability
+
+  For automation of wrapper creation, WrapperFactory should be
+  scriptable. Three possible approaches:
+
+  - enable WrapperFactory for StepTalk
+
+  - move wrapper handling out to a library and create a command line
+    tool
+
+  - both
+
+
+* [FEATURE] File type library
+
+  Store previously defined file types and icon associations and show
+  said file types when creating and editing an app-wrapper. Could be
+  done with Freedesktop integration.
+
+
+* [FEATURE] Multiple instances
+
+  Some wrappers, e.g. xpdf or gv, should actually launch
+  several instances of the application to simulate multiple open
+  files.
+
+
+* [FEATURE] More messages
+
+  Implement more messages like e.g. applicationShouldTerminate.
+
+
+* [FEATURE] Window tracking
+
+  Try tracking windows opened by a wrapped application to keep control
+  of said windows (hiding, move up in window stack etc.). Maybe in
+  collaboration with Window Maker?
+
+* [FEATURE] DE integration
+
+  Check whether a wrapper could map GNUstep messages to GNOME/KDE
+  messages.
+
+
+
+$Id: TODO 103 2004-08-09 16:30:51Z rherzog $
+$HeadURL: file:///home/rherzog/Subversion/GNUstep/GSWrapper/tags/release-0.1.0/TODO $

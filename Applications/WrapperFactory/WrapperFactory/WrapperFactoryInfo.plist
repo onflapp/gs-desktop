@@ -1,0 +1,47 @@
+{
+  ApplicationDescription = "Graphically create UNIX application wrappers for GNUstep.";
+  ApplicationName = "WrapperFactory.app";
+  ApplicationRelease = "0.1.0";
+  ApplicationURL = "http://www.raffael.ch/";
+  Authors = ("Raffael Herzog <herzog@raffael.ch>");
+  Copyright = "Copyright (C) 2004 Raffael Herzog.";
+  CopyrightDescription = "Released under the GNU General Public License 2.0";
+  FullVersionID = "0.1.0";
+  NSIcon = "WrapperFactory.tiff";
+  NSMainNibFile = "WrapperFactory.gorm";
+
+  NSTypes = (
+    {
+      NSName = "Application";
+      NSUnixExtensions = ( "app" );
+      NSDocumentClass = "WrapperDocument";
+      NSRole = Editor;
+    },
+    {
+      NSName = "Freedesktop Application";
+      NSUnixExtensions = ( "desktop" );
+      NSDocumentClass = "WrapperDocument";
+      NSIcon = "DesktopEntry.tiff";
+      NSRole = Viewer;
+    }
+  );
+
+  NSServices = (
+    {
+      NSPortName = WrapperFactory;
+      NSMessage = createWrapperForExecutable;
+      NSSendTypes = (NSFilenamesPboardType);
+      NSMenuItem = {
+        default = "WrapperFactory/Create Wrapper...";
+      };
+    },
+    {
+      NSPortName = WrapperFactory;
+      NSMessage = editWrapper;
+      NSSendTypes = (NSFilenamesPboardType);
+      NSMenuItem = {
+        default = "WrapperFactory/Edit Wrapper...";
+      };
+    }
+  );
+}
