@@ -1,0 +1,12 @@
+{
+    ApplicationDescription = "GNUstep Defaults Database Editor";
+    ApplicationIcon = "";
+    ApplicationName = GSDefaults;
+    ApplicationRelease = 0.1;
+    Authors = ("Philippe C.D. Robert");
+    Copyright = "Copyright (C) 2000 by Philippe C.D. Robert";
+    CopyrightDescription = "Released under the GNU GPL";
+    FullVersionID = 0.1;
+    NOTE = "Automatically generated!";
+    URL = "http://www.nice.ch/~phip/softcorner.html";
+}

@@ -1,0 +1,22 @@
+README
+******
+	
+	GSDefaults is a simple GNUstep defaults database editor. It is aimed
+	to be used to read and later even modify defaults entries.
+
+	Remember, this is just a preview! This app was developed within only 
+	very few hours, so please do not expect too much, yet.
+
+	GSDefaults is released under the GNU GPL 2.
+
+TODOs
+*****
+
+	The defaults are read only for now, editing is therefore not yet 
+	possible with this application!
+
+	A better user interface and many other things, probably...
+
+--
+Philippe C.D. Robert, 10.11.2000
+<phr@projectcenter.ch>
