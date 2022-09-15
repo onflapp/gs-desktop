@@ -1,0 +1,21 @@
+<document>
+<header>
+<title>EdenMath Help</title>
+</header>
+
+<plain name="EdenMath Help">
+EdenMath is a scientific calculator, providing standard 4-function arithmetic, probability, trigometric and algebraic functions.  EdenMath works like any standard calculator with binary (+, -, *, /) and unary (!, %) operators.
+
+<br><br>
+
+For more information on how to construct a scientific calculator using the Cocoa API, go to http://www.edenwaith.com/development/tutorials/edenmath/.
+
+<br><br>
+
+If you have further questions, send an e-mail to support@edenwaith.com.
+
+<br>
+
+</plain>
+
+</document>

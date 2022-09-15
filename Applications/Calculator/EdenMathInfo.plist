@@ -1,0 +1,12 @@
+{
+  ApplicationDescription = "A Scientific Calculator";
+  ApplicationIcon = "EdenMath.tiff";
+  NSIcon = "EdenMath.tiff";
+  Copyright = "Copyright (C) 2003 Edenwaith";
+  ApplicationName = EdenMath;
+  ApplicationRelease = 1.1.1;
+  Authors = ("Chad Armstrong <webmaster@edenwaith.com>");
+  FullVersionID = 1.1.0;
+  URL = "http://www.edenwaith.com/prodeucts/edenmath/";
+  VersionCheck = 5;
+}
