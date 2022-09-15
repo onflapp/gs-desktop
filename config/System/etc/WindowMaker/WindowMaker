@@ -170,12 +170,11 @@
   RaiseLowerKey = None;
   MoveToWorkspace4Key = None;
   RTCMaximizeKey = None;
-  ModifierKey = Mod4;
+  ModifierKey = Mod5;
   MenuTextBack = (solid, "#a9a9a9");
   IconBack = (tpixmap, "/Library/Images/common_Tile.tiff", "#bebebe");
   IconPath = (
-    "~/Library/Icons",
-    "~/Library/WindowMaker/Icons",
+    "~/Library/WindowMaker/Library/Icons",
     "/System/share/WindowMaker/Pixmaps",
     "/System/share/WindowMaker/Icons",
     "~/Library/WindowMaker/Library/WindowMaker/CachedPixmaps"
