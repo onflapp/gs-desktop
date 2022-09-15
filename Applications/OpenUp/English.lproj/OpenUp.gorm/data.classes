@@ -1,0 +1,31 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    ApplicationDelegate = {
+	Actions = (
+	    "selectedDeleteTempFilesOnQuit:",
+	    "openArchive:",
+	    "showInfoPanel:"
+	);
+	Outlets = (
+	    errorWindow,
+	    errorTextView,
+	    errorTextField,
+	    preferencesWindow,
+	    preferencesDeleteFilesCheckbox,
+	    infoPanel,
+	    infoPanelTextField,
+	    debugWindow,
+	    debugTextView,
+	    infoTableView
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "openArchive:",
+	    "selectedDeleteTempFilesOnQuit:",
+	    "showInfoPanel:"
+	);
+	Super = NSObject;
+    };
+}
