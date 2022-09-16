@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = CloudManager
 APP_NAME = CloudManager
-CloudManager_APPLICATION_ICON = 
+CloudManager_APPLICATION_ICON = CloudManager.tiff
 
 
 #
@@ -33,6 +33,7 @@ CloudManager_APPLICATION_ICON =
 #
 CloudManager_RESOURCE_FILES = \
 Resources/CloudManager.gorm \
+Resources/CloudManager.tiff 
 
 
 #
