@@ -39,13 +39,17 @@ Resources/CloudManager.gorm \
 # Header files
 #
 CloudManager_HEADER_FILES = \
-AppController.h
+AppController.h \
+ServiceManager.h \
+ServiceTask.h
 
 #
 # Objective-C Class files
 #
 CloudManager_OBJC_FILES = \
-AppController.m
+AppController.m \
+ServiceManager.m \
+ServiceTask.m
 
 #
 # Other sources
