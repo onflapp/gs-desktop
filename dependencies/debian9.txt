@@ -39,3 +39,5 @@ libxft-dev
 libxpm-dev
 libssl-dev
 libart-2.0-dev
+scrot
+rclone

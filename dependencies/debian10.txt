@@ -72,3 +72,5 @@ libmagickcore-dev
 libcurl4-gnutls-dev
 libicu-dev
 icu-devtools
+scrot
+rclone
