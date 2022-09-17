@@ -74,6 +74,7 @@
     [args addObject:@"--focused"];
   }
   else {
+    [args addObject:@"-b"];
     [args addObject:@"--select"];
   }
   [args addObject:file];

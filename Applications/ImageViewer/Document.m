@@ -49,6 +49,7 @@
       [imageView setFrameSize:[img size]];
       [imageView setImage:img];
       [img release];
+      [self resizeToFit:nil];
     }
   }
 }
@@ -59,6 +60,7 @@
     [imageView setFrameSize:[img size]];
     [imageView setImage:img];
     [img release];
+    [self resizeToFit:nil];
   }
 }
 
@@ -79,6 +81,18 @@
   else {
     return NSTIFFFileType;
   }
+}
+
+- (void) resizeToFit:(id)sender {
+  NSSize sz = [[imageView image]size];
+  if (sz.width > 1000) sz.width = 1000;
+  if (sz.width < 30) sz.width = 30;
+  if (sz.height > 1000) sz.height = 1000;
+  if (sz.height < 30) sz.height = 30;
+  
+  sz.width += 25;
+  sz.height += 25;
+  [window setContentSize:sz];
 }
 
 - (void) paste:(id)sender {
