@@ -63,6 +63,11 @@
   return NO;
 }
 
+- (void) newDocument:(id)sender {
+  Document* doc = [[Document alloc] init];
+  [doc readFromPasteboard];
+}
+
 - (void) openDocument:(id)sender {
   NSOpenPanel* panel = [NSOpenPanel openPanel];
   if ([panel runModal]) {

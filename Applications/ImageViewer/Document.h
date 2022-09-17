@@ -34,6 +34,7 @@
 
 - (id) init;
 - (void) displayFile:(NSString*) path;
+- (void) readFromPasteboard;
 
 @end
 

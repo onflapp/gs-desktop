@@ -40,6 +40,19 @@
   [super dealloc];
 }
 
+- (void) readFromPasteboard {
+  NSPasteboard* pboard = [NSPasteboard generalPasteboard];
+  NSData* data = [pboard dataForType:NSTIFFPboardType];
+  if (data) {
+    NSImage* img = [[NSImage alloc] initWithData:data];
+    if (img) {
+      [imageView setFrameSize:[img size]];
+      [imageView setImage:img];
+      [img release];
+    }
+  }
+}
+
 - (void) displayFile:(NSString*) path {
   NSImage* img = [[NSImage alloc] initWithContentsOfFile:path];
   if (img) {
@@ -65,6 +78,19 @@
   }
   else {
     return NSTIFFFileType;
+  }
+}
+
+- (void) paste:(id)sender {
+  [self readFromPasteboard];
+}
+
+- (void) copy:(id)sender {
+  NSImage* image = [imageView image];
+  if (image) {
+    NSPasteboard* pboard = [NSPasteboard generalPasteboard];
+    [pboard declareTypes:[NSArray arrayWithObjects:NSTIFFPboardType, nil] owner:nil];
+    [pboard setData:[image TIFFRepresentation] forType:NSTIFFPboardType];
   }
 }
 

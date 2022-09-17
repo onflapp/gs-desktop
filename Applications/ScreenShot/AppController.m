@@ -98,6 +98,11 @@
 }
 
 - (IBAction) takeScreenShot:(id) sender {
+  if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/scrot"]) {
+    NSRunAlertPanel(@"Scrot command not found", @"ScreenShot app needs command '/usr/bin/scrot' to work properly\nPlease install it and try again.", @"Ok", nil, nil);
+    return;
+  }
+
   [self execScrot:[sender tag]];
 }
 
