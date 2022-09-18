@@ -58,8 +58,8 @@ PDFKit_HAS_RESOURCE_BUNDLE = yes
 PDFKit_RESOURCE_FILES = \
 	Fonts/*
 
-LIB_FREETYPE_LDFLAGS := $(shell freetype-config --libs)
-LIB_FREETYPE_CFLAGS := $(shell freetype-config --cflags)
+LIB_FREETYPE_LDFLAGS := $(shell pkg-config freetype2 --libs)
+LIB_FREETYPE_CFLAGS := $(shell pkg-config freetype2 --cflags)
 
 ifeq ($(findstring openbsd, $(GNUSTEP_TARGET_OS)), openbsd)
 LIB_FREETYPE_LDFLAGS  += -Wl,-rpath=/usr/X11R6/lib
