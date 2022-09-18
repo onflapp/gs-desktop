@@ -33,6 +33,9 @@
   IBOutlet PdfView* pdfView;
   IBOutlet NSScrollView* navScroll;
   IBOutlet NSTextField* statusField;
+
+  NSInteger currentPage;
+  BOOL isWorking;
 }
 
 - (id) init;

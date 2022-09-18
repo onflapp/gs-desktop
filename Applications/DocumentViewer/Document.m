@@ -23,7 +23,6 @@
 */
 
 #import "Document.h"
-#import <dispatch/dispatch.h>
 
 @implementation Document
 
@@ -53,12 +52,19 @@
 }
 
 - (void) displayPage:(NSInteger) page {
+  if (isWorking) return;
+
+  isWorking = YES;
   NSMatrix* matrix = [navScroll documentView];
   [matrix selectCellAtRow:0 column:page-1];
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 0.3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-    [pdfView displayPage:page];
-    [statusField setStringValue:@"page loaded"];
-  });
+  currentPage = page;
+
+  [self performSelector:@selector(refreshCurrentPage) withObject:nil afterDelay:0.1];
+}
+
+- (void) refreshCurrentPage {
+  [pdfView displayPage:currentPage];
+  isWorking = NO;
 }
 
 - (void) displayNavigation {
