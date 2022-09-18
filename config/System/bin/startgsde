@@ -150,6 +150,9 @@ if [ "$1" == "--safe-mode" ];then
   exec xterm -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
 fi
 
+## clean up
+rm -R "/tmp/GNUstepSecure$UID" 2>/dev/null
+
 export WMAKER_USER_ROOT=$HOME/Library/WindowMaker
 export PATH=/System/bin:$PATH
 export GS_DESKTOP_LOG=/tmp/$UID-gs-desktop.log
