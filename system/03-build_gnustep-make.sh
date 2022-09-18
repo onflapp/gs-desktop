@@ -18,9 +18,8 @@ make clean
 	    --with-config-file=/Library/Preferences/GNUstep.conf \
 	    --with-layout=gs-desktop.layout \
 	    --enable-native-objc-exceptions \
-	    --enable-objc-arc \
-	    --enable-objc-arc $DEBUG_ARGS \
-            --with-library-combo=ng-gnu-gnu
+	    --enable-objc-arc $DEBUG_ARGS
+            #--with-library-combo=ng-gnu-gnu
 	    #--with-runtime-abi=gnustep-2.0
 
 make || exit 1

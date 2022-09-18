@@ -83,8 +83,10 @@ const double PDFResolution = 72.0;
                                 [doc pageHeight:page]);
 
   [imageRep setSize:imageSize];    
+  [imageRep setResolution:72];
   [imageRep setPageNum:page];
   
+  NSLog(@"1");
   NSImage* image = [[[NSImage alloc] initWithSize:imageSize] autorelease];
   [image setBackgroundColor: [NSColor whiteColor]];
   [image addRepresentation:imageRep];
@@ -92,6 +94,7 @@ const double PDFResolution = 72.0;
   [imageView setImageScaling:NSImageScaleNone];
   [imageView setImage:image];
   
+  NSLog(@"2");
   currentPage = page;
 }
 

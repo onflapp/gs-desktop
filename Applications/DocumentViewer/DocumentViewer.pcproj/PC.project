@@ -30,7 +30,8 @@
     );
     IMAGES = (
 	"PDFImage.tiff",
-	"DocumentViewer.tiff"
+	"DocumentViewer.tiff",
+	"page.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
