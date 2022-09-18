@@ -5,3 +5,17 @@ obj
 derived_src
 *.framework
 *.inspector
+Frameworks/PDFKit/GNUmakefile
+Frameworks/PDFKit/config.log
+Frameworks/PDFKit/config.status
+Frameworks/PDFKit/xpdf/GNUmakefile
+Frameworks/PDFKit/xpdf/bridge/GNUmakefile
+Frameworks/PDFKit/xpdf/xpdf-3.04/GNUmakefile
+Frameworks/PDFKit/xpdf/xpdf-3.04/Makefile
+Frameworks/PDFKit/xpdf/xpdf-3.04/aconf.h
+Frameworks/PDFKit/xpdf/xpdf-3.04/config.log
+Frameworks/PDFKit/xpdf/xpdf-3.04/config.status
+Frameworks/PDFKit/xpdf/xpdf-3.04/fofi/Makefile
+Frameworks/PDFKit/xpdf/xpdf-3.04/goo/Makefile
+Frameworks/PDFKit/xpdf/xpdf-3.04/splash/Makefile
+Frameworks/PDFKit/xpdf/xpdf-3.04/xpdf/Makefile
