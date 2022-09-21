@@ -19,6 +19,11 @@ make -j2 || exit 1
 sudo -E make install
 sudo -E ldconfig
 
+cd ./Examples/Shell || exit 1
+
+make || exit 1
+sudo -E make install
+
 cd "$D"
 cd ../../libs-simplewebkit || exit 1
 
