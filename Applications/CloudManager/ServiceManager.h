@@ -1,11 +1,11 @@
 /*
-   Project: WebBrowser
+   Project: CloudManager
 
-   Copyright (C) 2020 Free Software Foundation
+   Copyright (C) 2022 Free Software Foundation
 
-   Author: onflapp
+   Author: Parallels
 
-   Created: 2020-07-22 12:41:08 +0300 by root
+   Created: 2022-09-16 15:40:26 +0000 by parallels
 
    This application is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,25 +22,18 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#ifndef _DOCUMENT_H_
-#define _DOCUMENT_H_
+#ifndef _SERVICEMANAGER_H_
+#define _SERVICEMANAGER_H_
 
-#import <AppKit/AppKit.h>
-#import "PdfView.h"
+#import <Foundation/Foundation.h>
 
-@interface Document : NSObject {
-  IBOutlet NSWindow *window;
-  IBOutlet PdfView* pdfView;
-  IBOutlet NSScrollView* navScroll;
-  IBOutlet NSTextField* statusField;
-
-  NSInteger currentPage;
-  BOOL isWorking;
+@interface ServiceManager : NSObject {
+  NSMutableArray* services;
 }
 
-- (id) init;
-- (void) displayFile:(NSString*) path;
+- (NSArray*) listServices;
 
 @end
 
-#endif // _DOCUMENT_H_
+#endif // _SERVICEMANAGER_H_
+

@@ -12,14 +12,23 @@
 #define _PCAPPPROJ_APPCONTROLLER_H
 
 #import <AppKit/AppKit.h>
-// Uncomment if your application is Renaissance-based
-//#import <Renaissance/Renaissance.h>
+#import "ServiceManager.h"
+#import "ServiceTask.h"
 
-@interface AppController : NSObject
-{
+@interface AppController : NSObject {
+  IBOutlet NSMatrix* serviceListView;
+  IBOutlet NSTextField* serviceName;
+  IBOutlet NSTextField* serviceStatus;
+  IBOutlet NSTextField* serviceRemoteName;
+  IBOutlet NSTextField* serviceMountPoint;
+
+  IBOutlet NSWindow* window;
+  
+  BOOL launched;
+  ServiceManager* serviceManager;
 }
 
-+ (void)  initialize;
++ (void) initialize;
 
 - (id) init;
 - (void) dealloc;
@@ -32,7 +41,9 @@
 - (BOOL) application: (NSApplication *)application
 	    openFile: (NSString *)fileName;
 
-- (void) showPrefPanel: (id)sender;
+- (IBAction) showPrefPanel:(id)sender;
+- (IBAction) addService:(id)sender;
+- (IBAction) controlService:(id)sender;
 
 @end
 

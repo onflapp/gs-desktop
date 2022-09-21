@@ -2,16 +2,33 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     AppController = {
 	Actions = (
-	    "showPrefPanel:"
+	    "showPrefPanel:",
+	    "controlService:",
+	    "openMountPoint:"
 	);
 	Outlets = (
+	    serviceStatus,
+	    serviceListView,
+	    serviceName,
+	    serviceMountPoint,
+	    serviceRemoteName,
+	    window
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
+	    "controlService:",
+	    "openMountPoint:",
 	    "orderFrontFontPanel:",
 	    "showPrefPanel:"
+	);
+	Super = NSObject;
+    };
+    ServiceTask = {
+	Actions = (
+	);
+	Outlets = (
 	);
 	Super = NSObject;
     };

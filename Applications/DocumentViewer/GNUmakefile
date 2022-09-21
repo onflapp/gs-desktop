@@ -35,7 +35,8 @@ DocumentViewer_RESOURCE_FILES = \
 Resources/DocumentViewer.gorm \
 Resources/Document.gorm \
 Resources/PDFImage.tiff \
-Resources/DocumentViewer.tiff 
+Resources/DocumentViewer.tiff \
+Resources/page.tiff 
 
 
 #

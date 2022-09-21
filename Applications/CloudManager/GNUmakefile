@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = CloudManager
 APP_NAME = CloudManager
-CloudManager_APPLICATION_ICON = 
+CloudManager_APPLICATION_ICON = CloudManager.tiff
 
 
 #
@@ -33,19 +33,24 @@ CloudManager_APPLICATION_ICON =
 #
 CloudManager_RESOURCE_FILES = \
 Resources/CloudManager.gorm \
+Resources/CloudManager.tiff 
 
 
 #
 # Header files
 #
 CloudManager_HEADER_FILES = \
-AppController.h
+AppController.h \
+ServiceManager.h \
+ServiceTask.h
 
 #
 # Objective-C Class files
 #
 CloudManager_OBJC_FILES = \
-AppController.m
+AppController.m \
+ServiceManager.m \
+ServiceTask.m
 
 #
 # Other sources

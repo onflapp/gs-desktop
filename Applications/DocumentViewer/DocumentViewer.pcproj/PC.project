@@ -30,7 +30,8 @@
     );
     IMAGES = (
 	"PDFImage.tiff",
-	"DocumentViewer.tiff"
+	"DocumentViewer.tiff",
+	"page.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
@@ -42,7 +43,7 @@
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "-lPDFKit -ldispatch";
+    LINKEROPTIONS = "-lPDFKit";
     "LOCALIZED_RESOURCES" = (
     );
     MAININTERFACE = "DocumentViewer.gorm";

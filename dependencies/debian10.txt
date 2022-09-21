@@ -33,6 +33,7 @@ libpng-dev
 libgif-dev
 aspell
 libfreetype6-dev
+libfreetype-dev
 libcups2
 libgnutls28-dev
 libxt-dev
@@ -72,3 +73,5 @@ libmagickcore-dev
 libcurl4-gnutls-dev
 libicu-dev
 icu-devtools
+scrot
+rclone

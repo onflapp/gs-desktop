@@ -3,24 +3,42 @@
 D=`pwd`
 
 cd ../gnustep-base/Documentation
-make install
+make clean
+make || exit 1
+sudo -E make install
 
 cd "$D"
 cd ../gnustep-gui/Documentation
-make install
+
+### fix missing headers
+touch ../Headers/AppKit/NSCollectionViewLayout.h
+touch ../Headers/AppKit/NSCollectionViewTransitionLayout.h
+touch ../Headers/AppKit/NSCollectionViewGridLayout.h
+touch ../Headers/AppKit/NSCollectionViewCompositionalLayout.h
+touch ../Headers/AppKit/NSCollectionViewFlowLayout.h
+
+make clean
+make || exit 1
+sudo -E make install
 
 cd "$D"
 cd ../gnustep-make/Documentation
-make install
+make clean
+make || exit 1
+sudo -E make install
 
 cd "$D"
 cd ../gnustep-back/Documentation
-make install
+make clean
+make || exit 1
+sudo -E make install
 
 cd "$D"
 cd ../libs-dbuskit/Documentation
-make install
+make clean
+make || exit 1
+sudo -E make install
 
 cd /Library/Documentation
-find . -name '*.gsdoc' -exec rm {} \;
-find . -name '*.igsdoc' -exec rm {} \;
+#find . -name '*.gsdoc' -exec rm {} \;
+#find . -name '*.igsdoc' -exec rm {} \;

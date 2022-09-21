@@ -10,6 +10,7 @@
     };
     FirstResponder = {
 	Actions = (
+	    "resizeToFit:",
 	    "orderFrontFontPanel:",
 	    "showPrefPanel:"
 	);

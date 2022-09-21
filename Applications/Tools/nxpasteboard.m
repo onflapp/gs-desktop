@@ -27,6 +27,8 @@ void printUsage() {
   fprintf(stderr, "  --copy            copy text from standard input to the pasteboard\n");
   fprintf(stderr, "  --paste           paste text from the pasteboard to standard output\n");
   fprintf(stderr, "  --service <name>  call service with text from standard input\n");
+  fprintf(stderr, "  --dump-types      dump types for general pasteboard\n");
+  fprintf(stderr, "  --dump-types drag dump types for drag&drop pasteboard\n");
   fprintf(stderr, "\n");
 }
 
@@ -61,6 +63,18 @@ int main(int argc, char** argv, char** env) {
       }
       else {
         rv = 4;
+      }
+    }
+    else if ([arguments containsObject: @"--dump-types"] == YES) {
+      if ([arguments containsObject:@"drag"]) {
+        NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSDragPboard];
+        NSLog(@"[%@]", [pboard types]);
+        rv = EXIT_SUCCESS;
+      }
+      else {
+        NSPasteboard *pboard = [NSPasteboard generalPasteboard];
+        NSLog(@"[%@]", [pboard types]);
+        rv = EXIT_SUCCESS;
       }
     }
     else if ([arguments containsObject: @"--service"] == YES) {

@@ -23,7 +23,6 @@
 */
 
 #import "Document.h"
-#import <dispatch/dispatch.h>
 
 @implementation Document
 
@@ -53,12 +52,19 @@
 }
 
 - (void) displayPage:(NSInteger) page {
+  if (isWorking) return;
+
+  isWorking = YES;
   NSMatrix* matrix = [navScroll documentView];
-  [matrix selectCellAtRow:0 column:page+1];
-  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-    [pdfView displayPage:page];
-    [statusField setStringValue:@"page loaded"];
-  });
+  [matrix selectCellAtRow:0 column:page-1];
+  currentPage = page;
+
+  [self performSelector:@selector(refreshCurrentPage) withObject:nil afterDelay:0.1];
+}
+
+- (void) refreshCurrentPage {
+  [pdfView displayPage:currentPage];
+  isWorking = NO;
 }
 
 - (void) displayNavigation {
@@ -74,10 +80,10 @@
   [matrix setTarget:self];
   [matrix setAction: @selector(goToPage:)];
   [navScroll setDocumentView:matrix];
-  //NSBundle* bundle = [NSBundle bundleForClass:[self class]];
-  //imagePath = [bundle pathForResource: @"page" ofType: @"tiff" inDirectory: nil];
-  //miniPage = [[NSImage alloc] initWithContentsOfFile:imagePath];
-  //
+  
+  NSString* imagePath = [[NSBundle mainBundle] pathForResource: @"page" ofType: @"tiff" inDirectory: nil];
+  NSImage* miniPage = [[[NSImage alloc] initWithContentsOfFile:imagePath] autorelease];
+
   NSInteger npages = [pdfView countPages];
   for (NSInteger i = 0; i < npages; i++) {
     [matrix addColumn];
@@ -88,7 +94,7 @@
     else {
       [cell setFont: [NSFont systemFontOfSize: 8]];
     }
-    //[cell setImage:miniPage];
+    [cell setImage:miniPage];
     [cell setTitle:[NSString stringWithFormat: @"%i", i+1]];
   }
   [matrix sizeToCells];
