@@ -1,36 +1,7 @@
 #!/bin/bash
 
-function start_workspace {
-  (/Applications/GWorkspace.app/GWorkspace) &
-  GW_PID="$!"
-
-  echo "Workspace is running on $GW_PID"
-  echo "$GW_PID" > /tmp/$UID-gw.pid
-}
-
-function stop_workspace {
-  PID=`cat /tmp/$UID-gw.pid 2>/dev/null`
-  if [ -n "x$PID" ];then
-    echo "stopping Workspace on $PID"
-    kill -9 $PID 2> /dev/null && rm /tmp/$UID-gw.pid
-  fi
-}
-
-
 function start_windowmanager {
-  (/System/bin/wmaker $WM_ARGS) &
-  WM_PID="$!"
-
-  echo "WM is running on $WM_PID"
-  export GS_DESKTOP_WM_PID="$WM_PID"
-  sleep 1
-}
-
-function stop_windowmanager {
-  echo "stopping WM on $WM_PID"
-  if [ -n "$WM_PID" ];then
-    pkill -P "$WM_PID" 2>/dev/null
-  fi
+  /System/bin/wmaker $WM_ARGS
 }
 
 function start_services {
@@ -44,6 +15,7 @@ function start_services {
   echo "about to start Pasteboard Service"
   /Library/bin/gpbs --daemon &
   echo "$!" > /tmp/$UID-gpbs.pid
+  sleep 1
 }
 
 function stop_services {
@@ -104,7 +76,6 @@ function start_debug {
   init_config
   main_process
 
-  wait $GW_PID
   cleanup
 }
 
@@ -113,7 +84,6 @@ function start_normal {
   init_config
   main_process
  
-  wait $GW_PID
   sleep 1
   cleanup
 }
@@ -121,14 +91,11 @@ function start_normal {
 function main_process {
   start_services
   start_windowmanager
-  start_workspace 
 }
 
 function cleanup {
   echo "cleanup"
-  stop_workspace 
   stop_services
-  stop_windowmanager
   exit
 }
 

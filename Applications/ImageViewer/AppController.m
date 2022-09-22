@@ -8,6 +8,7 @@
    Application Controller
 */
 
+#import "STScriptingSupport.h"
 #import "AppController.h"
 #import "Document.h"
 
@@ -41,10 +42,17 @@
 - (void) awakeFromNib {
 }
 
+- (NSString*) test {
+  return @"hello";
+}
+
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif
 {
-// Uncomment if your application is Renaissance-based
-//  [NSBundle loadGSMarkupNamed: @"Main" owner: self];
+  if([NSApp isScriptingSupported])
+  {
+      [NSApp initializeApplicationScripting];
+      [scriptMenu setSubmenu: [NSApp scriptingMenu]];
+  }
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender

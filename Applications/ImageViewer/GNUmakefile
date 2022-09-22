@@ -42,7 +42,8 @@ Resources/NotImageable.tiff \
 Resources/PNGImage.tiff \
 Resources/TIFFImage.tiff \
 Resources/XPMImage.tiff \
-Resources/ImageViewer.tiff 
+Resources/ImageViewer.tiff \
+Resources/ScriptingInfo.plist 
 
 
 #
@@ -51,7 +52,8 @@ Resources/ImageViewer.tiff
 ImageViewer_HEADER_FILES = \
 AppController.h \
 Document.h \
-InspectorPanel.h
+InspectorPanel.h \
+STScriptingSupport.h
 
 #
 # Objective-C Class files
@@ -65,7 +67,8 @@ InspectorPanel.m
 # Other sources
 #
 ImageViewer_OBJC_FILES += \
-ImageViewer_main.m 
+ImageViewer_main.m \
+STScriptingSupport.m 
 
 #
 # Makefiles

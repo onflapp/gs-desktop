@@ -26,7 +26,8 @@
     "HEADER_FILES" = (
 	"AppController.h",
 	"Document.h",
-	"InspectorPanel.h"
+	"InspectorPanel.h",
+	"STScriptingSupport.h"
     );
     IMAGES = (
 	"GenericImage.tiff",
@@ -56,9 +57,11 @@
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
+	"ScriptingInfo.plist"
     );
     "OTHER_SOURCES" = (
-	"ImageViewer_main.m"
+	"ImageViewer_main.m",
+	"STScriptingSupport.m"
     );
     "PRINCIPAL_CLASS" = NSApplication;
     "PROJECT_AUTHORS" = (
