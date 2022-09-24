@@ -85,7 +85,7 @@ typedef enum {ET_RDESC, ET_WDESC, ET_EDESC} RunLoopEventType;
     CFSocketRef _cf_socket;
 #endif
 
-    unsigned short _packet_id;
+    uint16_t _packet_id;
     BOOL _is_asynchronous;
     NSInteger _socket;
 }

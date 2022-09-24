@@ -136,12 +136,12 @@ static int currentLocalMessageVersion = 1;
 //
 // access / mutation methods
 //
-- (long int) filePosition
+- (uint32_t) filePosition
 {
   return _file_position;
 }
 
-- (void) setFilePosition: (long int) theFilePosition
+- (void) setFilePosition: (uint32_t) theFilePosition
 {
   _file_position = theFilePosition;
 }

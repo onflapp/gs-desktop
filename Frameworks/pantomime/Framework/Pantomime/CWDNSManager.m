@@ -65,26 +65,26 @@ static CWDNSManager *singleInstance = nil;
 
 typedef struct _dns_packet_header
 {
-  unsigned short packet_id;
-  unsigned short flags;
-  unsigned short qdcount;
-  unsigned short ancount;
-  unsigned short nscount;
-  unsigned short arcount;
+  uint16_t packet_id;
+  uint16_t flags;
+  uint16_t qdcount;
+  uint16_t ancount;
+  uint16_t nscount;
+  uint16_t arcount;
 } dns_packet_header;
 
 typedef struct _dns_packet_question
 {
-  unsigned short qtype;
-  unsigned short qclass;
+  uint16_t qtype;
+  uint16_t qclass;
 } dns_packet_question;
 
 typedef struct _dns_resource_record
 {
-  unsigned short type;
-  unsigned short class;
+  uint16_t type;
+  uint16_t class;
   unsigned int ttl;
-  unsigned short rdlength;
+  uint16_t rdlength;
 } dns_resource_record;
 
 #ifdef MACOSX
@@ -110,7 +110,7 @@ void dns_socket_callback(CFSocketRef s, CFSocketCallBackType type, CFDataRef add
   @public
     NSMutableArray *servers;
     NSData *name;
-    unsigned short packet_id, count;
+    uint16_t packet_id, count;
 }
 
 - (id) initWithName: (NSString *) theName;
@@ -492,7 +492,7 @@ void dns_socket_callback(CFSocketRef s, CFSocketCallBackType type, CFDataRef add
   dns_packet_header *header;
 
   char *buf, qr, ra, rcode, *start;
-  unsigned short flags, i, type;
+  uint16_t flags, i, type;
   uint8_t c0, c1, c2, c3;
   uint32_t r;
 

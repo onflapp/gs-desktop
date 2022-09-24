@@ -41,7 +41,7 @@
   @private
     CWFolder *_folder;
 
-    unsigned int _modification_date; // FIXME this should become NSTimeInterval or at least longer
+    uint32_t _modification_date; // FIXME this should become NSTimeInterval or at least longer
     NSUInteger _size;
 }
 

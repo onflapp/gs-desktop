@@ -202,6 +202,8 @@ void socket_callback(CFSocketRef s, CFSocketCallBackType type, CFDataRef address
       _rbuf = [[NSMutableData alloc] init];
       _wbuf = [[NSMutableData alloc] init];
 
+      _rbuf_last_pos = 0;
+
       _runLoopModes = [[NSMutableArray alloc] initWithObjects: NSDefaultRunLoopMode, nil];
       _connectionTimeout = _readTimeout = _writeTimeout = DEFAULT_TIMEOUT;
       _counter = _lastCommand = 0;
@@ -462,6 +464,39 @@ void socket_callback(CFSocketRef s, CFSocketCallBackType type, CFDataRef address
   [self subclassResponsibility: _cmd];
 }
 
+//
+//
+//
+- (NSData *) nextDataLine
+{
+  char *start = NULL;
+  char *end = NULL;
+  NSUInteger count = 0;
+  NSUInteger start_pos = 0;
+
+  start = (char *)[_rbuf bytes];
+  start += _rbuf_last_pos;
+  end = start;
+
+  start_pos = _rbuf_last_pos;
+  count = [_rbuf length];
+
+  for (; _rbuf_last_pos < count; _rbuf_last_pos++)
+    {
+      if (*end == '\n' && *(end-1) == '\r')
+	{
+	  NSData *aData = [NSData dataWithBytes:start length: (_rbuf_last_pos-start_pos-1)];
+          _rbuf_last_pos++;
+	  return aData;
+	}
+
+      end++;
+    }
+
+  [_rbuf setLength:0];
+  _rbuf_last_pos = 0;
+  return nil;
+}
 
 //
 //
@@ -597,6 +632,7 @@ void socket_callback(CFSocketRef s, CFSocketCallBackType type, CFDataRef address
 
       [_wbuf appendData: theData];
 
+      NSLog(@"[%@]", [[NSString alloc] initWithData:theData encoding:NSASCIIStringEncoding]);
       //
       // Let's not try to enable the write callback if we are not connected
       // There's no reason to try to enable the write callback if we

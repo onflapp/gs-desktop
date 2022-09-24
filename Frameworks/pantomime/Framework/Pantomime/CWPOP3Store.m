@@ -409,11 +409,15 @@ static NSData *CRLF;
   NSUInteger count;
 
   [super updateRead];
+  if ([_rbuf length] == 0) return;
 
-  while ((aData = split_lines(_rbuf)))
+  //NSLog(@"DATA SIZE %u", [_rbuf length]);
+
+  while ((aData = [self nextDataLine]))
     {
       buf = (char *)[aData bytes];
       count = [aData length];
+
       [_responsesFromServer addObject: aData];
 
       if (count)
@@ -426,10 +430,7 @@ static NSData *CRLF;
 	      //
 	      if (count > 1)
 		{
-		  aData = [NSMutableData dataWithData: aData];
-		  buf = [aData mutableBytes];
-		  memmove(buf, buf+1, count-2);
-		  [aData setLength: count-2];
+                  continue;
 		}
 	      else
 		{
@@ -438,6 +439,7 @@ static NSData *CRLF;
 		  // parsing all the received bytes, we remove the
 		  // last line added since it corresponds to our
 		  // multi-line response terminator.
+      NSLog(@"%d LINE [%@]", _rbuf_last_pos, [[NSString alloc] initWithData:aData encoding:NSASCIIStringEncoding]);
 		  [_responsesFromServer removeLastObject];
 		  [self _parseServerOutput];
 		  return;
@@ -458,6 +460,7 @@ static NSData *CRLF;
 		  _lastCommand != POP3_UIDL &&
 		  (count > 2 && strncmp("+OK", buf, 3) == 0))
 		{
+      NSLog(@"%d LINE [%@]", _rbuf_last_pos, [[NSString alloc] initWithData:aData encoding:NSASCIIStringEncoding]);
 		  [self _parseServerOutput];
 		  return;
 		}
@@ -469,6 +472,7 @@ static NSData *CRLF;
 		  _lastCommand != POP3_RETR_AND_INITIALIZE &&
 		  (count > 3 && strncmp("-ERR", buf, 4) == 0))
 		{
+      NSLog(@"%d LINE [%@]", _rbuf_last_pos, [[NSString alloc] initWithData:aData encoding:NSASCIIStringEncoding]);
 		  [self _parseServerOutput];
 		  return;
 		}

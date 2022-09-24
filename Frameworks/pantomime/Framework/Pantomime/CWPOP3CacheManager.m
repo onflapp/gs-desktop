@@ -41,7 +41,7 @@
 #include <unistd.h>
 #include <netinet/in.h>
 
-static unsigned short version = 1;
+static uint16_t version = 1;
 
 //
 //
@@ -51,7 +51,7 @@ static unsigned short version = 1;
 - (id) initWithPath: (NSString *) thePath
 {
   NSDictionary *attributes;
-  unsigned short int v;
+  uint16_t v;
 
   self = [super initWithPath: thePath];
   if (self)
@@ -80,7 +80,7 @@ static unsigned short version = 1;
       NSString *aUID;
       NSDate *aDate;
 
-      unsigned short len;
+      uint16_t len;
       char *s;
       NSUInteger i;
 
@@ -114,7 +114,7 @@ static unsigned short version = 1;
     
       for (i = 0; i < _count; i++)
 	{
-          unsigned int dateInt;
+          uint32_t dateInt;
 
           read_uint32(_fd, &dateInt);
 	  aDate = [NSCalendarDate dateWithTimeIntervalSince1970: dateInt];

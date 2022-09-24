@@ -45,7 +45,7 @@
 #include <errno.h>
 #include <unistd.h>
 
-static unsigned short version = 1;
+static uint16_t version = 1;
 
 //
 //
@@ -55,7 +55,7 @@ static unsigned short version = 1;
 - (id) initWithPath: (NSString *) thePath  folder: (CWFolder *) theFolder
 {
   NSDictionary *attributes;
-  unsigned short int v;
+  uint16_t v;
 
   self = [super initWithPath: thePath];
   if (self)

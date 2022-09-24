@@ -51,7 +51,7 @@
 	      helpful if -type returns something other than PantomimeFormatMbox.
   @result The position in the file.
 */
-- (long int) filePosition;
+- (uint32_t) filePosition;
 
 /*!
   @method setFilePosition:
@@ -60,7 +60,7 @@
 	      helpful if -type returns something other than PantomimeFormatMbox.
   @param theFilePosition The position in the file.
 */
-- (void) setFilePosition: (long int) theFilePosition;
+- (void) setFilePosition: (uint32_t) theFilePosition;
 
 /*!
   @method type

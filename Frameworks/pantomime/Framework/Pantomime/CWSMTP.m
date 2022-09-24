@@ -519,7 +519,7 @@ static inline CWInternetAddress *next_recipient(NSMutableArray *theRecipients, B
 
   [super updateRead];
 
-  while ((aData = split_lines(_rbuf)))
+  while ((aData = [self nextDataLine]))
     {
       [_responsesFromServer addObject: aData];
  
@@ -1067,6 +1067,7 @@ static inline CWInternetAddress *next_recipient(NSMutableArray *theRecipients, B
   // We read only the first response. The _parseXYZ methods
   // will handle multiline responses.
   aData = [_responsesFromServer objectAtIndex: 0];
+  NSLog(@"[%@]", [[NSString alloc] initWithData:aData encoding:NSASCIIStringEncoding]);
 
   if ([aData hasCPrefix: "421"])
     {

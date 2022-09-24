@@ -48,7 +48,7 @@
 #include <unistd.h>     // For lseek()
 #include <netinet/in.h> // For ntohl()
 
-static unsigned short version = 1;
+static uint16_t version = 1;
 
 //
 // Cache structure:
@@ -78,7 +78,7 @@ static unsigned short version = 1;
 {
   NSDictionary *attributes;
   NSUInteger d, s, c;
-  unsigned short int v;
+  uint16_t v;
   BOOL broken;
 
   self = [super initWithPath: thePath];
@@ -223,7 +223,7 @@ static unsigned short version = 1;
 {
   CWLocalMessage *aMessage;
   
-  unsigned short int tot;
+  uint16_t tot;
   unsigned char *r;
   NSUInteger begin, end, i;
 
@@ -331,7 +331,7 @@ static unsigned short version = 1;
 
 - (void) setModificationDate: (NSDate *) theDate
 {
-  _modification_date = (unsigned int)[theDate timeIntervalSince1970];
+  _modification_date = (uint32_t)[theDate timeIntervalSince1970];
 }
 
 //
@@ -429,7 +429,7 @@ static unsigned short version = 1;
 //
 - (void) writeRecord: (cache_record *) theRecord
 {
-  unsigned int len;
+  uint32_t len;
 
   if (lseek(_fd, 0L, SEEK_END) < 0)
     {
@@ -441,13 +441,13 @@ static unsigned short version = 1;
   // first five fields, which is 20 bytes long and is added
   // at the very end)
   len = 0;
-  len += (unsigned int)[theRecord->from length]+2;
-  len += (unsigned int)[theRecord->in_reply_to length]+2;
-  len += (unsigned int)[theRecord->message_id length]+2;
-  len += (unsigned int)[theRecord->references length]+2;
-  len += (unsigned int)[theRecord->subject length]+2;
-  len += (unsigned int)[theRecord->to length]+2;
-  len += (unsigned int)[theRecord->cc length]+2;
+  len += (uint32_t)[theRecord->from length]+2;
+  len += (uint32_t)[theRecord->in_reply_to length]+2;
+  len += (uint32_t)[theRecord->message_id length]+2;
+  len += (uint32_t)[theRecord->references length]+2;
+  len += (uint32_t)[theRecord->subject length]+2;
+  len += (uint32_t)[theRecord->to length]+2;
+  len += (uint32_t)[theRecord->cc length]+2;
   
   if ([(CWLocalFolder *)_folder type] == PantomimeFormatMbox)
     {
@@ -504,8 +504,8 @@ static unsigned short version = 1;
   CWLocalMessage *aMessage;
   off_t cache_size;
   NSUInteger i;
-  unsigned int flags, len, total_deleted, total_length, type, v;
-  short delta;
+  uint32_t flags, len, total_deleted, total_length, type, v;
+  uint16_t delta;
   char *buf;
 
   //NSLog(@"rewriting cache");
@@ -577,7 +577,7 @@ static unsigned short version = 1;
 	  //
 	  else
 	    {
-	      unsigned short c0, c1, old_len, r;
+	      uint16_t c0, c1, old_len, r;
 	      char *filename;
 	      size_t s_len;
 
@@ -611,7 +611,7 @@ static unsigned short version = 1;
 
 	  // We write back our record length, adjusting its size if we need
 	  // to, in the case we are handling a maildir-based cache.
-	  len += (unsigned int)delta;
+	  len += (uint32_t)delta;
 	  v = htonl(len);
 	  memcpy((buf+total_length), (char *)&v, 4);
 
@@ -637,7 +637,7 @@ static unsigned short version = 1;
 	attributes = [[NSFileManager defaultManager] fileAttributesAtPath: [(CWLocalFolder *)_folder path]
 						     traverseLink: NO];
 	
-	_modification_date = (unsigned int)[[attributes fileModificationDate] timeIntervalSince1970];
+	_modification_date = (uint32_t)[[attributes fileModificationDate] timeIntervalSince1970];
 	_size = (NSUInteger)[attributes fileSize];
 	write_uint32(_fd, _modification_date);
 	write_uint32(_fd, _size);
@@ -646,7 +646,7 @@ static unsigned short version = 1;
     {
       attributes = [[NSFileManager defaultManager] fileAttributesAtPath: [NSString stringWithFormat: @"%@/cur", [(CWLocalFolder *)_folder path]]
 						   traverseLink: NO];
-      _modification_date = (unsigned int)[[attributes fileModificationDate] timeIntervalSince1970];
+      _modification_date = (uint32_t)[[attributes fileModificationDate] timeIntervalSince1970];
       _size = 0;
       write_uint32(_fd, _modification_date);
     }

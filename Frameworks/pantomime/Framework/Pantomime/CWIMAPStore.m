@@ -280,7 +280,7 @@ static inline int has_literal(char *buf, unsigned c)
 
   if (![_rbuf length]) return;
 
-  while ((aData = split_lines(_rbuf)))
+  while ((aData = [self nextDataLine]))
     {
       //NSLog(@"aLine = |%@|", [aData asciiString]);
       buf = (char *)[aData bytes];
@@ -343,7 +343,7 @@ static inline int has_literal(char *buf, unsigned c)
 		  // end of our literal response and we need to call
 		  // [super updateRead] to get more bytes from the socket
 		  // in order to read the rest (")" or " UID 123)" for example).
-		  while (!(aData = split_lines(_rbuf)))
+		  while (!(aData = [self nextDataLine]))
 		    {
 		      //SLog(@"NOTHING TO READ! WAITING...");
 		      [super updateRead];
