@@ -42,7 +42,7 @@ sudo -E make install
 sudo -E ldconfig
 
 cd "$D"
-cd ../Frameworks/pantomime || exit 1
+cd ../../gs-mail/pantomime || exit 1
 
 make -j2 || exit 1
 
