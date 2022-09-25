@@ -157,7 +157,7 @@
   HMaximizeKey = None;
   SnapToTopMaximizesFullscreen = NO;
   CloseKey = None;
-  WrapMenus = NO;
+  WrapMenus = YES;
   Workspace10Key = None;
   DisableDrawers = NO;
   VMaximizeKey = None;
