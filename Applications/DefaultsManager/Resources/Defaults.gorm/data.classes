@@ -1,0 +1,102 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    DefaultEntry = {
+	Actions = (
+	    "setUserValue:"
+	);
+	Outlets = (
+	    defaultValue,
+	    userValue
+	);
+	Super = NSObject;
+    };
+    Defaults = {
+	Actions = (
+	    "namesMatrixAction:",
+	    "arrayAddAction:",
+	    "arrayDefaultRevertAction:",
+	    "arrayEdMatrixAction:",
+	    "arrayRemoveAction:",
+	    "arraySetAction:",
+	    "boolDefaultRevertAction:",
+	    "boolPopupAction:",
+	    "boolSetAction:",
+	    "listDefaultRevertAction:",
+	    "listPopupAction:",
+	    "listSetAction:",
+	    "numberDefaultRevertAction:",
+	    "numberSetAction:",
+	    "stringDefaultRevertAction:",
+	    "stringSetAction:"
+	);
+	Outlets = (
+	    namesScroll,
+	    categoryLabel,
+	    categoryField,
+	    descriptionView,
+	    editorBox,
+	    editorsWin,
+	    stringEditorBox,
+	    stringEdField,
+	    stringEdDefaultRevert,
+	    stringEdSet,
+	    boolEditorBox,
+	    boolEdPopup,
+	    boolEdDefaultRevert,
+	    boolEdSet,
+	    numberEditorBox,
+	    numberEdField,
+	    numberEdDefaultRevert,
+	    numberEdSet,
+	    arrayEditorBox,
+	    arrayEdScroll,
+	    arrayEdField,
+	    arrayEdAdd,
+	    arrayEdRemove,
+	    arrayEdDefaultRevert,
+	    arrayEdSet,
+	    listEditorBox,
+	    listEdPopup,
+	    listEdDefaultRevert,
+	    listEdSet,
+	    descriptionLabel,
+	    window
+	);
+	Super = NSPreferencePane;
+    };
+    FirstResponder = {
+	Actions = (
+	    "arrayAddAction:",
+	    "arrayDefaultRevertAction:",
+	    "arrayEdMatrixAction:",
+	    "arrayRemoveAction:",
+	    "arraySetAction:",
+	    "boolDefaultRevertAction:",
+	    "boolPopupAction:",
+	    "boolSetAction:",
+	    "closeMainWindow:",
+	    "listDefaultRevertAction:",
+	    "listPopupAction:",
+	    "listSetAction:",
+	    "namesMatrixAction:",
+	    "nextButtAction:",
+	    "numberDefaultRevertAction:",
+	    "numberSetAction:",
+	    "prevButtAction:",
+	    "runInfoPanel:",
+	    "setUserValue:",
+	    "showAllButtAction:",
+	    "stringDefaultRevertAction:",
+	    "stringSetAction:"
+	);
+	Super = NSObject;
+    };
+    NSPreferencePane = {
+	Actions = (
+	);
+	Outlets = (
+	    "_window"
+	);
+	Super = NSObject;
+    };
+}

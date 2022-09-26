@@ -1,0 +1,201 @@
+{
+    GSAbortKey = { 
+	category = gui;
+	defaultvalue = "Control-g";
+	editor = <*I0>;
+    };
+    GSAllowWindowsOverIcons = {
+	category = gui;
+	defaultvalue = <*BN>;
+	editor = <*I1>;
+    };
+    GSAppKitUserBundles = {
+	category = gui;
+	defaultvalue = (
+	);
+	editor = <*I3>;
+    };
+    GSAppOwnsMiniwindow = {
+	category = back;
+	defaultvalue = <*BY>;
+	editor = <*I1>;
+    };
+    GSBackend = {
+	category = back;
+	defaultvalue = "";
+	editor = <*I0>;
+    };
+    GSBrowserCellFontify = {
+	category = gui;
+	defaultvalue = <*BN>;
+	editor = <*I1>;
+    };
+    GSFontAntiAlias = {
+	category = back;
+	defaultvalue = <*BY>;
+	editor = <*I1>;
+    };
+    GSFontMask = {
+	category = back;
+	defaultvalue = "*";
+	editor = <*I0>;
+    };
+    GSInsertControlKeystrokes = {
+	category = gui;
+	defaultvalue = <*BN>;
+	editor = <*I1>;
+    };
+    GSKeyBindingsFiles = {
+	category = gui;
+	defaultvalue = (
+	);
+	editor = <*I3>;
+    };
+    GSOldClipboard = {
+	category = back;
+	defaultvalue = <*BN>;
+	editor = <*I1>;
+    };
+    GSQuoteKey = {
+	category = gui;
+	defaultvalue = "Control-q";
+	editor = <*I0>;
+    };
+    GSSavePanelShowProgress = {
+	category = gui;
+	defaultvalue = <*BN>;
+	editor = <*I1>;
+    };
+    GSUseFreedesktopThumbnails = {
+	category = gui;
+	defaultvalue = <*BN>;
+	editor = <*I1>;
+    };
+    GSUseGhostResize = {
+        category = gui;
+        defaultvalue = <*BN>;
+	editor = <*I1>;
+    };
+    GSUseIconManager = {
+        category = gui;
+        defaultvalue = <*BN>;
+	editor = <*I1>;
+    };
+    GSWorkspaceApplication = {
+	category = gui;
+	defaultvalue = GWorkspace;
+	editor = <*I0>;
+    };
+    GSSuppressAppIcon = {
+	category = gui;
+	defaultvalue = <*BN>;
+	editor = <*I1>;
+    };
+    GSBackHandlesWindowDecorations = {
+	category = back;
+	defaultvalue = <*BY>;
+	editor = <*I1>;
+    };
+    GSBackUsesNativeTaskbar = {
+	category = back;
+	defaultvalue = <*BY>;
+	editor = <*I1>;
+    };
+    GSStickyAppIcons = {
+	category = back;
+	defaultvalue = <*BN>;
+	editor = <*I1>;
+    };
+    GSStickyMiniWindows = {
+	category = back;
+	defaultvalue = <*BN>;
+	editor = <*I1>;
+    };
+    GSXEnableFontSet = {
+	category = back;
+	defaultvalue = <*BN>;
+	editor = <*I1>;
+    };
+    GSXIMInputMethodStyle = {
+	category = back;
+	defaultvalue = RootWindow;
+	values = (
+		RootWindow,
+		OffTheSpot,
+		OverTheSpot,
+		OnTheSpot
+	);
+	editor = <*I4>;
+    };
+    GraphicCompositing = {
+	category = back;
+	defaultvalue = <*BY>;
+	editor = <*I1>;
+    };
+    NSColorsPerChannel = {
+	category = back;
+	defaultvalue = <*I256>;
+	editor = <*I2>;
+    };
+    NSDefaultVisual = {
+	category = back;
+	defaultvalue = <*I0>;
+	editor = <*I2>;
+    };
+    NSHost = {
+	category = gui;
+	defaultvalue = "";
+	editor = <*I0>;
+    };
+    NSInterfaceStyleDefault = {
+	category = gui;
+	defaultvalue = NSNextStepInterfaceStyle;
+	values = (
+	       NSNextStepInterfaceStyle,
+	       NSWindows95InterfaceStyle,
+	       NSMacintoshInterfaceStyle,
+	       GSWindowMakerInterfaceStyle
+	);
+	editor = <*I4>;
+    };
+    NSMaximumRecentDocumentCount = {
+	category = gui;
+	defaultvalue = <*I5>;
+	editor = <*I2>;
+    };
+    NSMeasurementUnit = {
+	category = gui;
+	defaultvalue = Centimeters;
+	editor = <*I0>;
+    };
+    NSMenuInterfaceStyle = {
+	category = gui;
+	defaultvalue = NSNextStepInterfaceStyle;
+	values = (
+	       NSNextStepInterfaceStyle,
+	       NSWindows95InterfaceStyle,
+	       NSMacintoshInterfaceStyle
+	);
+	editor = <*I4>;
+    };
+    NSPreviewApp = {
+	category = gui;
+	defaultvalue = gv;
+	editor = <*I0>;
+    };
+    NSUseRunningCopy = {
+	category = gui;
+	defaultvalue = <*BN>;
+	editor = <*I1>;
+    };
+    UseWindowMakerIcons = {
+	category = back;
+	defaultvalue = <*BY>;
+	editor = <*I1>;
+    };
+    "XGPS-Shm" = {
+	category = back;
+	defaultvalue = <*BY>;
+	editor = <*I1>;
+    };
+}

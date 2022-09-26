@@ -1,0 +1,49 @@
+/* interface */
+
+"category"="Category";
+"description"="Description";
+
+
+/* key descriptions */
+"GSAbortKey"="The key used to abort the insertion of multi-stroke keybinding. Default is Control-g.";
+"GSAllowWindowsOverIcons"="A boolean, by default NO. If you set it to YES, normal windows can appear in front of app icons and mini windows.
+With some window managers it may be necessary to set this default to YES to prevent app icons and mini windows obscuring context and pop up menus.";
+"GSAppKitUserBundles" = "An array listing the names of bundles that will be automatically loaded into every application at startup. Typically these will be 'theme' bundles that control the look of the application.";
+"GSAppOwnsMiniwindow" = "GSAppOwnsMiniwindow is for miniwindows (not app icons). If it's YES or absent, GNUstep handles miniaturization itself and doesn't let the window manager do it. If it's NO, the window manager is allowed to do its own iconification. This does not affect app icons at all.";
+"GSBackend" = "The name of the backend to use. As \"libgnustep-art\", \"libgnustep-xlib\", etc.";
+"GSBrowserCellFontify" = "A boolean value, NO by default. When the feature is on, NSBrowserCell draws non-leaf cells in bold system font. For example, when the feature is on, in a SavePanel (or OpenPanel), directory entries are drawn in bold, while simple files are drawn in non bold.";
+"GSFontAntiAlias" = "With the xlib backend, this is a boolean value which defaults to YES. If set to YES and X Windows system has the XFT extension, then the application will use anti-aliased fonts as provided by XFT. If set to NO anti-aliased fonts will not be used even when available.
+ With the art backend, A boolean value which defaults to YES. If YES, text is anti-aliased at small sizes (9-16 pixels). The value is advisory (specific fonts can override this setting).";
+"GSFontMask" = "[Xlib backend only] A string value which defaults to \"*\". It defines the pattern used to get the installed fonts from the X-Server. A value of \"*-iso8859-1\" would only include fonts available with ISO Western encoding. This feature might be helpfull if the font_cacher program is having problem with the X-Server.";
+"GSInsertControlKeystrokes" = "A boolean, by default NO. If you set it to YES, keystrokes containing a Control are inserted into the text when they can't be interpreted as keybindings. By default, they are ignored and cause the computer to beep.";
+"GSKeyBindingsFiles" = "An array of strings, (DefaultKeyBindings) by default. The strings in this array (with .dict appended) are the names of the files the library reads to load the keybindings. For each of these files (in the order), the library first tries to read the file with that name from the $GNUSTEP_SYSTEM_ROOT/Libraries/Resources/KeyBindings/ directory, loading all the keybindings it finds in the file, then it loads the similar file from $GNUSTEP_LOCAL_ROOT and then the similar one from $GNUSTEP_NETWORK_ROOT and at last the one from $GNUSTEP_USER_ROOT.";
+"GSOldClipboard" = "A boolean value which defaults to NO. If set to YES the old GNUstep way of X clipboard interaction will be used. That is PRIMARY as the general pasteboard and CLIPBOARD for the selection. Whereas the new X standard is the other way around. This setting may be needed for interaction in an old X enviornment.";
+"GSQuoteKey" = "The key used to quote the next keystroke (so that it is not interpreted as a keybinding, but just inserted into the text as it is). Default is Control-q.";
+"GSSavePanelShowProgress" = "A boolean value, NO by default. When the feature is on, the save panel and its subclasses (such as the open panel) displays \"Reading Directory ***..\" (progressively adding dots) in the window titlebar while reading very big directories (more than 100 entries). This is meant to make things friendlier for slow computers.";
+"GSUseFreedesktopThumbnails" = "A boolean value, NO by default. When the feature is on, thumbnail files according to the Freedesktop specification are used in [NSWorkspace iconForFile:] when available.";
+"GSUseGhostResize" = "A boolean value, NO by default. When the feature is on, SplitViews are resized the traditional way without live-resizing. Useful for slow displays.";
+"GSUseIconManager" = "A boolean value, NO by default. When the feature is on, the IconManager tool handles the AppIcons and MiniWindows (You must have installed the IconManager tool to use this feature).";
+"GSWorkspaceApplication" = "A string value that defaults to \"GWorkspace\". This defines the application NSWorkspace will try to connect to process some operations that require an external application. This is a new feature and has not been tested.";
+"GSSuppressAppIcon" = "A boolean value, NO by default. Specifies wether the application icon window should be displayed. Set to YES for background server applications.";
+"GSBackHandlesWindowDecorations" = "A boolean value, by default YES, which indicates if the backend/window-manager handles window decorations. When set to NO, GNUstep-GUI will handle the window decorations, which is particularly useful if you aren't running any window manager.";
+"GSBackUsesNativeTaskbar" = "A boolean value, by default YES, which indicates if the backend/window-manager handles window miniaturisation to a taskbar etc. When set to NO, GNUstep-GUI will handle miniaturisation by creating icon miniwindows.  Currently only implemented for the microsoft windows backend.";
+"GSStickyAppIcons" = "A boolean value, by default NO. If set to YES, indicates to the window manager that app icons should be displayed on all desktops.";
+"GSStickyMiniWindows" = "A boolean value, by default NO. If set to YES, indicates to the window manager that mini windows should be displayed on all desktops.";
+"GSXEnableFontSet" = "A bool value which defaults to NO. If set to YES, then the backend font classes will support full multi-byte/unicode characters. This is useful for using many East Asian languages. However, the respose of the GUI is somewhat slower when this is enabled.";
+"GSXIMInputMethodStyle" = "A string value used to specify the XIM input method for entering characters. The usually supported style is  RootWindow.";
+"GraphicCompositing" = "[Xlib backend only] A boolean value which defaults to YES. If set to YES, then the application uses various tricks to get alpha colors to work when compositing images. This may slow down drawing of images, but it is generally recommended anyway, particularly on fast systems.";
+"NSColorsPerChannel" = "An integer which limits the maximum number of colors to display, per channel. For a psuedo-color display, this would limit the total number of colors that the application could use (normally 256). For a true-color display, this would limit the range of red, green, and blue values that could be used.";
+"NSDefaultVisual" = "An integer that specifies the X-Windows visual class to use in the application. For instance one could display the application using the PsuedoColor visual class by setting the value to the id of this class. The default is the X-Windows default visual class.";
+"NSHost" = "Used by NSPasteboard to find the host on which the pasteboard server is running.";
+"NSInterfaceStyleDefault" = "A string describing the interface style. Setting this may change various aspects of how the library draws elements and responds to user interaction. See the NSInterfaceStyle documentation for more information.";
+"NSMaximumRecentDocumentCount" = "An integer that specifies the maximum number of recent documents remembered for an application.";
+"NSMeasurementUnit" = "A string describing the measurement unit for rulers (see the NSRulerView class documentation). The default is Centimeters. Other possible values are Inches, Points, and Picas.";
+"NSMenuInterfaceStyle" = "An interface style specific to menu operation. If not set the NSInterfaceStyleDefault value is used.";
+"NSPreviewApp" = "A string value that defaults to \"gv\". This defines the application NSPrintOperation will try to connect to preview PostScript files, unless there is already an application registed as a Viewer of ps files.";
+"NSUseRunningCopy" = "This determines the behavior of an application when a second copy is started up. 
+If set to YES the newly started copy makes the process which is already running active, then terminates itsself. 
+If set to NO, the newly started copy runs, but has a different name (so it cannot be contacted to provide services for other applications).";
+"UseWindowMakerIcons" = "UseWindowMakerIcons is for app icons, and has no effect when the window manager isn't Window Maker. It displays the application's icon window in the window Window Maker provides instead of creating one controlled by the app. This allows the icon to be docked. It is a boolean value which defaults to YES.";
+"XGPS-Shm" = "A boolean value which defaults to YES (as long as shared memory is available). If set to NO, shared memory is not used for various display specific operations.";
+
+

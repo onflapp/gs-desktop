@@ -1,0 +1,46 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    DefaultsController = {
+	Actions = (
+	    "createDefault:",
+	    "createDomain:",
+	    "removeDefault:",
+	    "removeDomain:",
+	    "saveDefault:",
+	    "discardDefault:",
+	    "browserSelectedSomething:"
+	);
+	Outlets = (
+	    defaultsBrowser,
+	    editTextView,
+	    revertButton,
+	    saveButton,
+	    window,
+	    detailsButton
+	);
+	Super = NSObject;
+    };
+    DefaultsView = {
+	Actions = (
+	);
+	Outlets = (
+	    defaultsBrowser,
+	    editTextView,
+	    removeButton
+	);
+	Super = NSView;
+    };
+    FirstResponder = {
+	Actions = (
+	    "browserSelectedSomething:",
+	    "createDefault:",
+	    "createDomain:",
+	    "discardDefault:",
+	    "showDefaultsPanel:",
+	    "removeDefault:",
+	    "removeDomain:",
+	    "saveDefault:"
+	);
+	Super = NSObject;
+    };
+}
