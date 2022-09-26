@@ -1,35 +1,42 @@
 /* 
- * AppController.h created by phr on 2000-08-27 11:38:59 +0000
- *
- * Project TestApp
- *
- * Created with ProjectCenter - http://www.projectcenter.ch
- *
- * $Id: AppController.h,v 1.2 2000/12/31 14:26:29 robert Exp $
- */
+   Project: DefaultsManager
+
+   Author: ,,,
+
+   Created: 2022-09-26 17:05:45 +0200 by pi
+   
+   Application Controller
+*/
+ 
+#ifndef _PCAPPPROJ_APPCONTROLLER_H
+#define _PCAPPPROJ_APPCONTROLLER_H
 
 #import <AppKit/AppKit.h>
+#import "Domains.h"
+#import "Defaults.h"
 
 @interface AppController : NSObject
 {
+  Domains* domains;
+  Defaults* defaults;
 }
 
-+ (void)initialize;
++ (void)  initialize;
 
-- (id)init;
-- (void)dealloc;
+- (id) init;
+- (void) dealloc;
 
-- (void)awakeFromNib;
+- (void) awakeFromNib;
 
-- (void)applicationDidFinishLaunching:(NSNotification *)notif;
+- (void) applicationDidFinishLaunching: (NSNotification *)aNotif;
+- (BOOL) applicationShouldTerminate: (id)sender;
+- (void) applicationWillTerminate: (NSNotification *)aNotif;
+- (BOOL) application: (NSApplication *)application
+	    openFile: (NSString *)fileName;
 
-- (BOOL)applicationShouldTerminate:(id)sender;
-- (void)applicationWillTerminate:(NSNotification *)notification;
-- (BOOL)application:(NSApplication *)application openFile:(NSString *)fileName;
-
-- (void)showPrefPanel:(id)sender;
-- (void)showInfoPanel:(id)sender;
-
-- (void)showDefaultsWindow:(id)sender;
+- (void) showDomainsPanel: (id)sender;
+- (void) showDefaultsPanel: (id)sender;
 
 @end
+
+#endif

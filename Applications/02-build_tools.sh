@@ -14,6 +14,7 @@ function build_app {
 }
 
 build_app "Tools"
+build_app "Addresses"
 build_app "Affiche"
 build_app "FontManager"
 build_app "Calculator"

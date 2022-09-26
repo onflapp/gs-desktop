@@ -1,21 +1,18 @@
 /* 
- * AppController.m created by phr on 2000-08-27 11:38:58 +0000
- *
- * Project TestApp
- *
- * Created with ProjectCenter - http://www.projectcenter.ch
- *
- * $Id: AppController.m,v 1.2 2000/12/31 14:26:29 robert Exp $
- */
+   Project: DefaultsManager
+
+   Author: ,,,
+
+   Created: 2022-09-26 17:05:45 +0200 by pi
+   
+   Application Controller
+*/
 
 #import "AppController.h"
-#import "DefaultsManager.h"
 
 @implementation AppController
 
-static NSDictionary *infoDict = nil;
-
-+ (void)initialize
++ (void) initialize
 {
   NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
 
@@ -27,63 +24,60 @@ static NSDictionary *infoDict = nil;
    *
    */
   
-  [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+  [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
   [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (id)init
+- (id) init
 {
-  if ((self = [super init])) {
-  }
+  if ((self = [super init]))
+    {
+      domains = [[Domains alloc] init];
+      defaults = [[Defaults alloc] init];
+    }
   return self;
 }
 
-- (void)dealloc
+- (void) dealloc
 {
+  RELEASE(domains);
+  RELEASE(defaults);
   [super dealloc];
 }
 
-- (void)awakeFromNib
+- (void) awakeFromNib
 {
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)notif
+- (void) applicationDidFinishLaunching: (NSNotification *)aNotif
 {
+  [self showDomainsPanel:self];
 }
 
-- (BOOL)applicationShouldTerminate:(id)sender
+- (BOOL) applicationShouldTerminate: (id)sender
 {
-  if (NSRunAlertPanel(@"Eeeek!",
-		      @"Do you really want to quit me?",
-		      @"No",
-		      @"Yes",
-		      nil)) {
-    return NO;
-  }
   return YES;
 }
 
-- (void)applicationWillTerminate:(NSNotification *)notification
-{
-  [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (BOOL)application:(NSApplication *)application openFile:(NSString *)fileName
+- (void) applicationWillTerminate: (NSNotification *)aNotif
 {
 }
 
-- (void)showPrefPanel:(id)sender
+- (BOOL) application: (NSApplication *)application
+	    openFile: (NSString *)fileName
 {
+  return NO;
 }
 
-- (void)showInfoPanel:(id)sender
+- (void) showDomainsPanel: (id)sender
 {
-  [[NSApplication sharedApplication] orderFrontStandardInfoPanel:sender];
+  [domains showPanel:sender];
 }
 
-- (void)showDefaultsWindow:(id)sender
+- (void) showDefaultsPanel: (id)sender
 {
-  [[DefaultsManager sharedManager] openMainWindow];
+  [defaults showPanel:sender];
 }
+
 
 @end
