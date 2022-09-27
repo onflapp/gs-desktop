@@ -1,26 +1,33 @@
-# gs-desktop
+# GS Desktop
+
 GNUstep Desktop is source distribution that attempts to build fully functional GNUstep desktop.
 
 It should work on any Debian-based system (I personally use Raspberry PI4 for its development) and possibly any modern Linux distribution.
 
-### 1. Make sure you get all dependencies installed
+### 1. Install Dependencies
 
-`
+The desktop on other libraries and binaries to work properly. This step is more important than you might realize.
+
+```
 cd dependencies
 ./install-dependencies-debian.sh debian10.txt
-`
+```
 
-### 2. Fetch all relevant sources. The sources come from different places. Some are official github repos, others are my forks.
+### 2. Fetch sources
 
-`
+GS Desktop come from different places. Some are official github repos, others are my forks.
+
+```
 ./fetch_world.sh
-`
+```
 
-### 3. Build and install everything. The script will ask you for admin password at one point.
+### 3. Build and install 
 
-`
+The script will ask you for admin password at one point.
+
+```
 ./build_world.sh
-`
+```
 
 The whole desktop is going to be installed in /Application, /System and /Library directories. Although this doesn't follow GNUstep/Linux conventions, it simplifies system scripts etc. as everything is in predictable place.
 
