@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = DefaultsManager
 APP_NAME = DefaultsManager
-DefaultsManager_APPLICATION_ICON = 
+DefaultsManager_APPLICATION_ICON = Icon.tiff
 
 
 #
@@ -35,6 +35,7 @@ DefaultsManager_RESOURCE_FILES = \
 Resources/DefaultsManager.gorm \
 Resources/Defaults.gorm \
 Resources/Domains.gorm \
+Resources/Icon.tiff \
 Resources/Defaults.plist \
 Resources/Localizable.strings 
 
