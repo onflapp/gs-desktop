@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
@@ -8,12 +8,16 @@
     <string>GWorkspace</string>
     <key>GSTheme</key>
     <string>GSDesktop</string>
+    <key>GSUseGhostResize</key>
+    <integer>1</integer>
     <key>GSDoubleClickTime</key>
     <integer>300</integer>
     <key>GSFileBrowserHideDotFiles</key>
     <true/>
     <key>GSScrollerScrollsByPage</key>
     <true/>
+    <key>NSUseRunningCopy</key>
+    <integer>1</integer>
     <key>GSFontAntiAlias</key>
     <string>NO</string>
     <key>GSMenuButtonEnabled</key>

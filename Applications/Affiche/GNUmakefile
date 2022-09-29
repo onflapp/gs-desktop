@@ -30,7 +30,7 @@ Affiche_OBJC_FILES = Affiche.m ColorView.m Constants.m LabelWidget.m Note.m Note
 Affiche_HEADERS = Affiche.h  ColorView.h Constants.h LabelWidget.h Note.h NoteInfoWindow.h NoteInfoWindowController.h NoteView.m NoteWindow.h NoteWindowController.h PreferencesPanel.h PreferencesPanelController.h
 
 # The Resource files to be copied into the app's resources directory
-Affiche_RESOURCE_FILES = Images/Affiche.tiff Images/buttons_blue.tiff Images/resize_blue.tiff Images/buttons_green.tiff Images/resize_green.tiff Images/buttons_gray.tiff Images/resize_gray.tiff Images/buttons_purple.tiff Images/resize_purple.tiff Images/buttons_yellow.tiff Images/resize_yellow.tiff
+Affiche_RESOURCE_FILES = AfficheInfo.plist Images/Affiche.tiff Images/buttons_blue.tiff Images/resize_blue.tiff Images/buttons_green.tiff Images/resize_green.tiff Images/buttons_gray.tiff Images/resize_gray.tiff Images/buttons_purple.tiff Images/resize_purple.tiff Images/buttons_yellow.tiff Images/resize_yellow.tiff
 
 Affiche_LANGUAGES = English French Lojban German Spanish Swedish
 

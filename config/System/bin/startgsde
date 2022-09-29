@@ -10,7 +10,7 @@ function start_workspace {
 
 function stop_workspace {
   PID=`cat /tmp/$UID-gw.pid 2>/dev/null`
-  if [ -n "x$PID" ];then
+  if [ -n "$PID" ];then
     echo "stopping Workspace on $PID"
     kill -9 $PID 2> /dev/null && rm /tmp/$UID-gw.pid
   fi
@@ -29,6 +29,7 @@ function start_windowmanager {
 function stop_windowmanager {
   echo "stopping WM on $WM_PID"
   if [ -n "$WM_PID" ];then
+    kill "$WM_PID"     2>/dev/null
     pkill -P "$WM_PID" 2>/dev/null
   fi
 }
@@ -109,7 +110,7 @@ function start_debug {
 }
 
 function start_normal {
-  WM_ARGS=""
+  WM_ARGS="--dont-restore"
   init_config
   main_process
  

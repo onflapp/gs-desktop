@@ -27,6 +27,14 @@ make -j2 || exit 1
 sudo -E make install
 
 cd "$D"
+cd ../../gs-terminal/Applications/HtopGS || exit 1
+
+make clean
+make -j2 || exit 1
+
+sudo -E make install
+
+cd "$D"
 cd ../../gs-webbrowser || exit 1
 
 make clean
