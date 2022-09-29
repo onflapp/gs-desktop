@@ -41,3 +41,5 @@ libssl-dev
 libart-2.0-dev
 scrot
 rclone
+vim-nox
+sudo

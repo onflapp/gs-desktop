@@ -2,15 +2,24 @@
 
 GNUstep Desktop is source distribution that attempts to build fully functional GNUstep desktop.
 
-It should work on any Debian-based system (I personally use Raspberry PI4 for its development) and possibly any modern Linux distribution.
+It should work on any Debian-based system (I personally use Raspberry PI4 for its development) and possibly any modern Linux distribution with a bit tweaking.
 
 ### 1. Install Dependencies
 
-The desktop on other libraries and binaries to work properly. This step is more important than you might realize.
+The desktop on other libraries and binaries to work properly. This step is more important than you might realize at first.
 
 ```
 cd dependencies
-./install-dependencies-debian.sh debian10.txt
+./install-dependencies-debian.sh debian11.txt
+```
+
+My favorite way to get GS Desktop working, is to install minimal Debian distribution (no X or any desktop environment) and then do something like this:
+
+```
+apt-get install git
+git clone https://github.com/onflapp/gs-desktop
+cd gs-desktop/dependencies
+./install-dependencies-debian.sh debian11.txt
 ```
 
 ### 2. Fetch sources
