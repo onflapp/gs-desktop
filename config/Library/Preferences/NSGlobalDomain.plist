@@ -1,23 +1,11 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
     <key>GSBackend</key>
     <string>cairo</string>
-    <key>GSWorkspaceApplication</key>
-    <string>GWorkspace</string>
-    <key>GSTheme</key>
-    <string>GSDesktop</string>
-    <key>GSUseGhostResize</key>
-    <integer>1</integer>
     <key>GSDoubleClickTime</key>
     <integer>300</integer>
-    <key>GSFileBrowserHideDotFiles</key>
-    <true/>
-    <key>GSScrollerScrollsByPage</key>
-    <true/>
-    <key>NSUseRunningCopy</key>
-    <integer>1</integer>
     <key>GSFontAntiAlias</key>
     <string>NO</string>
     <key>GSMenuButtonEnabled</key>
@@ -28,58 +16,32 @@
     <integer>4</integer>
     <key>GSMouseScrollMultiplier</key>
     <integer>3</integer>
+    <key>GSScrollerScrollsByPage</key>
+    <true/>
+    <key>GSTheme</key>
+    <string>GSDesktop</string>
+    <key>Local Time Zone</key>
+    <string>Etc/UTC</string>
     <key>NSBoldFont</key>
     <string>Helvetica-Bold</string>
     <key>NSBoldFontSize</key>
-    <string>12</string>
-    <key>NSControlContentFont</key>
-    <string>Helvetica-Medium</string>
-    <key>NSControlContentFontSize</key>
     <string>12</string>
     <key>NSFont</key>
     <string>Helvetica-Medium</string>
     <key>NSFontSize</key>
     <string>12</string>
-    <key>NSLabelFont</key>
-    <string>Helvetica-Medium</string>
-    <key>NSLabelFontSize</key>
-    <string>12</string>
     <key>NSLanguages</key>
     <array>
 	<string>English</string>
 	<string>German</string>
-	<string>Spanish</string>
 	<string>French</string>
-	<string>Italian</string>
     </array>
     <key>NSMeasurementUnit</key>
     <string>Centimeters</string>
-    <key>NSMenuBarFont</key>
-    <string>Helvetica-Bold</string>
-    <key>NSMenuFont</key>
-    <string>Helvetica-Medium</string>
-    <key>NSMenuFontSize</key>
-    <string>12</string>
-    <key>NSMessageFont</key>
-    <string>Helvetica-Medium</string>
-    <key>NSMessageFontSize</key>
-    <string>14</string>
-    <key>NSMiniFontSize</key>
-    <string>8</string>
-    <key>NSPaletteFont</key>
-    <string>Helvetica-Bold</string>
-    <key>NSPaletteFontSize</key>
-    <string>12</string>
-    <key>NSSmallFontSize</key>
-    <string>10</string>
-    <key>NSTitleBarFont</key>
-    <string>Helvetica-Bold</string>
-    <key>NSTitleBarFontSize</key>
-    <string>12</string>
     <key>NSToolTipsFont</key>
     <string>Helvetica-Medium</string>
     <key>NSToolTipsFontSize</key>
-    <string>10</string>
+    <string>11</string>
     <key>NSUserFixedPitchFont</key>
     <string>Keith-Medium</string>
     <key>NSUserFixedPitchFontSize</key>

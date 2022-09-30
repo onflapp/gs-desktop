@@ -25,6 +25,7 @@ build_app "OpenUp"
 build_app "ImageViewer"
 build_app "DocumentViewer"
 build_app "ScreenShot"
+build_app "WrapperFactory"
 
 cd "$D"
 sudo cp -R ./WPrefs.app /Applications

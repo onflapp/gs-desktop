@@ -16,7 +16,7 @@
         NSMenuItem = {
           default = "Make Note";
 	  English = "Make Note";
-	  French = "Créer note";
+	  French = "CrÃ©er note";
 	  German = "Notiz erstellen";
           Swedish = "Skapa notis";
 	};
