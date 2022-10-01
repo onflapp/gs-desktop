@@ -6,6 +6,8 @@
     <string>cairo</string>
     <key>NSPreviewApp</key>
     <string>DocumentViewer</string>
+    <key>GSUseGhostResize</key>
+    <integer>1</integer>
     <key>NSUseRunningCopy</key>
     <integer>1</integer>
     <key>GSFileBrowserHideDotFiles</key>
