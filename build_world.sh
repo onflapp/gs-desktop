@@ -10,6 +10,7 @@ cd ./system
 cd "$D"
 cd ./config
 sudo -E ./install_config.sh
+sudo -E ./make_hidden.sh
 
 cd "$D"
 cd ./Applications
