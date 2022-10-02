@@ -49,11 +49,11 @@
     IBOutlet NSTextField *authors;
     IBOutlet NSPopUpButton *rolePopUp;
 
-    IBOutlet int currentScriptId;
     IBOutlet NSTextField *currentScriptShell;
     IBOutlet NSTextView *currentScript;
     IBOutlet NSPopUpButton *currentScriptActionPopUp;
 
+    int currentScriptId;
     BOOL settingValue;
 }
 

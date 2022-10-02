@@ -56,23 +56,12 @@ static NSString *actionIgnore = @"Ignore";
 
 @interface AppFileWrapper : NSFileWrapper
 {
-    BOOL flattened;
     NSData *script;
     NSData *executable;
-    NSString *executablePath;
 }
-
-- (void)setFlattened: (BOOL)f;
-- (BOOL)flattened;
-
-- (void)setScript: (NSData *)s;
-- (NSData *)script;
 
 - (void)setExecutable: (NSData *)exe;
  - (NSData *)executable;
-
-- (void)setExecutablePath: (NSString *)exep;
-- (NSString *)executablePath;
 
 - (BOOL)writeToFile: (NSString *)path
          atomically:(BOOL)atomicFlag
@@ -84,29 +73,8 @@ static NSString *actionIgnore = @"Ignore";
 
 - (void)dealloc
 {
-    TEST_RELEASE(script);
     TEST_RELEASE(executable);
-    TEST_RELEASE(executablePath);
-}
-
-- (void)setFlattened: (BOOL)f
-{
-    flattened = f;
-}
-
-- (BOOL)flattened
-{
-    return flattened;
-}
-
-- (void)setScript: (NSData *)s
-{
-    ASSIGN(script, s);
-}
-
-- (NSData *)script
-{
-    return script;
+    [super dealloc];
 }
 
 - (void)setExecutable: (NSData *)exe
@@ -119,16 +87,6 @@ static NSString *actionIgnore = @"Ignore";
     return executable;
 }
 
-- (void)setExecutablePath: (NSString *)exep
-{
-    ASSIGN(executablePath, exep);
-}
-
-- (NSString *)executablePath
-{
-    return executablePath;
-}
-
 - (BOOL)writeToFile: (NSString *)path
          atomically: (BOOL)atomicFlag
     updateFilenames: (BOOL)updateNamesFlag
@@ -136,26 +94,18 @@ static NSString *actionIgnore = @"Ignore";
     BOOL result = [super writeToFile: path
                          atomically: (atomicFlag)
                          updateFilenames: (updateNamesFlag)];
+
     if ( result ) {
         NSString *basename = [[path lastPathComponent] stringByDeletingPathExtension];
         NSString *p = [path stringByAppendingPathComponent: basename];
-        if ( flattened ) {
-            [executable writeToFile: p atomically: NO];
-        }
-        else {
-            [script writeToFile: p atomically: NO];
-        }
+        [executable writeToFile: p atomically: NO];
+
         NSFileManager *fm = [NSFileManager defaultManager];
         NSDictionary *attrs = [fm fileAttributesAtPath: p traverseLink: NO];
         NSNumber *perms = [attrs objectForKey: NSFilePosixPermissions];
         perms = [NSNumber numberWithInt: [perms intValue]|0111];
         attrs = [NSDictionary dictionaryWithObject: perms forKey: NSFilePosixPermissions];
         [fm changeFileAttributes: attrs atPath: p];
-        if ( !flattened ) {
-            NSString *exe = [path stringByAppendingPathComponent: [executablePath stringByAppendingPathComponent: basename]];
-            [executable writeToFile: exe atomically: YES];
-            [fm changeFileAttributes: attrs atPath: exe];
-        }
     }
     return result;
 }
@@ -229,6 +179,7 @@ static NSString *actionIgnore = @"Ignore";
 - (void)dealloc
 {
     RELEASE(types);
+    [super dealloc];
 }
 
 - (BOOL)loadFileWrapperRepresentation: (NSFileWrapper *)file
@@ -576,13 +527,7 @@ static NSString *actionIgnore = @"Ignore";
     int i;
     for ( i=0; i<count; i++ ) {
         element = [array objectAtIndex: i];
-        // the use of stringByTrimmingCharactersInSet: is discouraged by apple and probably buggy in GNUstep, too
-        // element = [element stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
-#ifdef GNUSTEP
         element = [element stringByTrimmingSpaces];
-#else
-#error -stringByTrimmingSpaces: is only supported under GNUstep
-#endif
         if ( [element length] > 0 ) {
             [result addObject: element];
         }
@@ -825,16 +770,6 @@ static NSString *actionIgnore = @"Ignore";
 - (NSFileWrapper *)saveWrapper
 {
 
-    NSString *flattenedString = [[[NSProcessInfo processInfo] environment] objectForKey: @"GNUSTEP_FLATTENED"];
-    BOOL flattened;
-    if ( flattenedString == nil ) {
-        NSLog(@"GNUSTEP_FLATTENED not set");
-        flattened = NO;
-    }
-    else {
-        flattened = [flattenedString isEqualToString: @"yes"];
-    }
-
     //NSSize iconSize = NSMakeSize(48, 48);
     NSData *data;
     NSDictionary *dict;
@@ -947,70 +882,21 @@ static NSString *actionIgnore = @"Ignore";
     [resources setPreferredFilename: @"Resources"];
     AUTORELEASE(resources);
 
-    NSDictionary *environment = [[NSProcessInfo processInfo] environment];
-    NSArray *exePathComponents = [NSArray arrayWithObjects:
-                                          [environment objectForKey: @"GNUSTEP_HOST_CPU"],
-                                          [environment objectForKey: @"GNUSTEP_HOST_OS"],
-                                          [environment objectForKey: @"LIBRARY_COMBO"],
-                                          nil];
-
-    NSData *script;
-    if ( flattened ) {
-        script = nil;
-    }
-    else {
-        script = [NSData dataWithContentsOfFile: [NSString pathWithComponents:
-                                                               [NSArray arrayWithObjects:
-                                                                        [[NSBundle mainBundle] bundlePath],
-                                                                        @"WrapperFactory",
-                                                                        nil]]];
-    }
-
-    NSData *exe;
-    if ( flattened ) {
-        exe = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource: launcherName
+    NSData *exe = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource: launcherName
                                                                      ofType: (nil)]];
-
-    }
-    else {
-        NSString *path = [NSString pathWithComponents:
-                                       [exePathComponents arrayByAddingObject:
-                                                              launcherName]];
-        exe = [NSData dataWithContentsOfFile: [[NSBundle mainBundle] pathForResource: path
-                                                                     ofType: (nil)]];
-    }
-
-    NSFileWrapper *exedir = nil;
-    for ( i=[exePathComponents count]-1; i>=0; i-- ) {
-        //dir = [[NSFileWrapper alloc] initWithPath: ];app
-        if ( exedir ) {
-            exedir = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:
-                                                [NSDictionary dictionaryWithObjectsAndKeys: exedir, [exedir preferredFilename], nil]];
-        }
-        else {
-            exedir = [[NSFileWrapper alloc] initDirectoryWithFileWrappers: [NSDictionary dictionary]];
-        }
-        [exedir setPreferredFilename: [exePathComponents objectAtIndex: i]];
-        AUTORELEASE(exedir);
-    }
-
     AppFileWrapper *app = [[AppFileWrapper alloc] initDirectoryWithFileWrappers:
                                                       [NSDictionary dictionaryWithObjectsAndKeys:
-                                                                    exedir, [exedir preferredFilename],
                                                                     resources, [resources preferredFilename],
                                                                     nil]];
     AUTORELEASE(app);
-    [app setFlattened: flattened];
-    [app setScript: script];
     [app setExecutable: exe];
-    [app setExecutablePath: [NSString pathWithComponents: exePathComponents]];
     return app;
 }
 
 - (BOOL)loadFreedesktopApplication: (NSFileWrapper *)file
 {
     if ( ![file isRegularFile] ) {
-        NSLog(@"%@ is not a regular file");
+        NSLog(@"is not a regular file");
         return NO;
     }
 

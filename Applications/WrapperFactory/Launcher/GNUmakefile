@@ -19,9 +19,7 @@
 
 include $(GNUSTEP_MAKEFILES)/common.make
 
-GNUSTEP_INSTALLATION_DIR=$(GNUSTEP_SYSTEM_ROOT)
-
-OBJC_PROGRAM_NAME=GSWrapper_Launcher
+TOOL_NAME=GSWrapper_Launcher
 
 GSWrapper_Launcher_OBJC_FILES=main.m
 

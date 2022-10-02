@@ -36,6 +36,7 @@
 - (void)dealloc
 {
     TEST_AUTORELEASE(image);
+    [super dealloc];
 }
 
 

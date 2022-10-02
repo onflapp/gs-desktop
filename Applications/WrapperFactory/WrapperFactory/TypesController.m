@@ -59,6 +59,7 @@ static NSString *NameColumnId = @"NameColumn";
 - (void)dealloc
 {
     TEST_RELEASE(emptyBox);
+    [super dealloc];
 }
 
 - (void)awakeFromNib

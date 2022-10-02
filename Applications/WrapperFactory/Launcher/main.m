@@ -26,5 +26,6 @@
 int main(int argc, const char *argv[]) {
     [NSApplication sharedApplication];
     [NSApp setDelegate: [[WrapperDelegate alloc] init]];
+    NSLog(@"xxxx");
     return NSApplicationMain(argc, argv);
 }

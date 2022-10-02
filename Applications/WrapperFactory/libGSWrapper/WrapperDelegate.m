@@ -49,6 +49,8 @@
     NSString *path = [[NSBundle mainBundle] pathForResource: @"GSWrapper"
                                             ofType: @"plist"];
     properties = RETAIN([NSDictionary dictionaryWithContentsOfFile: path]);
+    NSLog(@"xXxx:%@", path);
+    NSLog(@"v:%@", properties);
 
     if ( startupFiles ) {
         mainAction = [self actionForMessage: @"StartOpen"];

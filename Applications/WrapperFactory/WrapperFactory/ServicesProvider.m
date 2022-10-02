@@ -29,6 +29,7 @@
 - (void) dealloc
 {
     NSLog(@"ServicesProvider dealloced");
+    [super dealloc];
 }
 
 - (void) createWrapperForExecutable: (NSPasteboard *)pboard
