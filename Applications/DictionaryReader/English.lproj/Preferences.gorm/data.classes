@@ -1,0 +1,26 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "rescanDictionaries:"
+	);
+	Super = NSObject;
+    };
+    Preferences = {
+	Actions = (
+	    "rescanDictionaries:"
+	);
+	Outlets = (
+	    _prefPanel,
+	    _tableView
+	);
+	Super = UKNibOwner;
+    };
+    UKNibOwner = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSObject;
+    };
+}

@@ -1,0 +1,89 @@
+{
+    Frameworks = (
+    );
+    ProjectData = {
+	ApplicationDescription = "A Dict client for GNUstep";
+	ApplicationRelease = 0.1;
+	Authors = (
+	    "Guenther Noack <guenther@unix-ag.uni-kl.de>"
+	);
+	Copyright = "Copyright (C) 2006 Guenther Noack";
+	CopyrightDescription = "Released under the terms of the GNU General Public Licence.";
+	FileTypes = (
+	);
+	IconName = dict.png;
+	MainNibFile = DictionaryReader.gorm;
+	PrincipalClass = "";
+    };
+    ProjectFiles = (
+	{
+	    Contents = (
+		AppController.m,
+		StreamLineWriter.m,
+		StreamLineReader.m,
+		DictConnection.m,
+		HistoryManager.m,
+		"NSString+Convenience.m",
+		"NSString+Clickable.m"
+	    );
+	    Name = "Class Files";
+	},
+	{
+	    Contents = (
+		AppController.h,
+		StreamLineWriter.h,
+		StreamLineReader.h,
+		DictConnection.h,
+		HistoryManager.h,
+		"NSString+Convenience.h",
+		"NSString+Clickable.h"
+	    );
+	    Name = "Header Files";
+	},
+	{
+	    Contents = (
+		main.m
+	    );
+	    Name = "Other Source Files";
+	},
+	{
+	    Contents = (
+		{
+		    Contents = (
+			DictionaryReader.gorm
+		    );
+		    Name = English;
+		}
+	    );
+	    Name = Interfaces;
+	},
+	{
+	    Contents = (
+		dict.png
+	    );
+	    Name = "Resource Files";
+	},
+	{
+	    Contents = (
+	    );
+	    Name = "Localized Resource Files";
+	},
+	{
+	    Contents = (
+		GNUmakefile.preamble,
+		GNUmakefile.postamble,
+		AUTHORS,
+		ChangeLog,
+		COPYING,
+		INSTALL,
+		NEWS
+	    );
+	    Name = "Supporting Files";
+	}
+    );
+    ProjectName = DictionaryReader;
+    ProjectType = Application;
+    Subprojects = {
+    };
+    Version = 0.2;
+}

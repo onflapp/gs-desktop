@@ -1,0 +1,95 @@
+==========================
+DictionaryReader Changelog
+==========================
+
+Nov 26 2006  Guenther Noack
+	* everywhere: Better assertions, wrote awakeFromNib in preferences
+	  controller.
+	* UKNibOwner.[mh]: Copied UKNibOwner over to DictionaryReader to make
+	  a compilation without Etoile possible. When compiling on Etoile,
+	  the application will still be linked to EtoileFoundation instead.
+
+Nov 24 2006  Guenther Noack
+	* GNUmakefile: Made the inclusion of etoile.make 'weak' (it doesn't
+	  fail any more when it's not present)
+
+Nov 15 2006  Quentin Mathe
+	* GNUmakefile: Updated to include etoile.make, this allows the project
+	to compile without installing EtoileFoundation first.
+
+Nov 07 2006  Yen-Ju Chen
+	* GNUmakefile, Preferences.h: Use EtoileFoundation instead deprecated 
+	EtoileExtension.
+	* HistoryManager.m: return self in -init to avoid memory leak.
+
+Oct 15 2006  Guenther Noack
+	* Bug #7379 hopefully fixed. Forgot to "svn add" some files... :-/
+	* Thanks for the bugreport to YunSong Hwang :-)
+	* Commented out the [dict close] line in AppController (that slowed
+	  down the lookup times and it's still consistent now)
+
+Oct 9 2006  Guenther Noack
+	* Preference panel works now
+	* Support for GZipped (.dz extension) dictionaries (GNUstep only!)
+
+Oct ? 2006  Guenther Noack
+	* Preference panel for choosing dictionaries
+	* Removed my NSString startsWith: helper method in favor of hasPrefix:
+	  which already existed. :->
+
+Aug 8 2006 Guenther Noack
+	* Local dictionary support written (currently, the jargon file
+	  is bundled with the application). Still needs to be made
+	  configurable.
+	* GUI width increased so avoid automatic line breaks.
+	* Edit menu added to GUI (has a 'copy' and a 'select all' entry)
+
+Jun 18 2006 Guenther Noack
+	* Fixed the 'bad dictionary names' bug. The dictionary name
+	  display in the text view looks much better now. :-)
+	  
+Jun 18 2006 Guenther Noack
+	* Added code which is intended to fix the 'bad dictionary names'
+	  bug listed in the TODO list.
+	
+May 22 2006 Guenther Noack
+	* Fixed the bug that made the window stay hidden even when a new
+	  lookup was invoked.
+	
+May 21 2006 Yen-Ju
+	* Fix a typo.
+
+May 10 2006 Guenther Noack
+	* Applied patch by Chris B. Vetter that provides a Service
+	  to look up words with DictionaryReader
+ 
+Mar 30 2006 Yen-Ju
+	* Use GNUstep-make to compile on Cocoa.
+	* Make link work.
+
+Apr 2 2006 Guenther Noack
+	* More patches by Chris B. Vetter:
+	* Results scroll to top after each query
+	* Dictionary name extraction improved (numbers are cut)
+
+Apr 2 2006 Guenther Noack
+	* Defaults now used for Dict server finding:
+	  Use the "Dict Server" default for it.
+	  Applied the patch by Chris B. Vetter
+	
+Apr 2 2006 Guenther Noack
+	* Link ability added
+	
+Apr 1 2006 Guenther Noack
+	* Convenience methods added to NSString
+	* Notifications are now used for the coordination of
+	  search invocations from different 'sources' (GUI, links)
+	* Prepared for Links
+
+Mar 30 2006 Yen-Ju
+    * Work on Cocoa.
+
+Mar 30 2006 Guenther Noack
+    * Initial commit to Etoile SVN
+    
+	

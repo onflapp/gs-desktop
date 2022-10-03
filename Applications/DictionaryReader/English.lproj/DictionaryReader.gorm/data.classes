@@ -1,0 +1,28 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    AppController = {
+	Actions = (
+	    "searchAction:",
+	    "browseBackClicked:",
+	    "browseForwardClicked:",
+	    "orderFrontPreferencesPanel:"
+	);
+	Outlets = (
+	    searchStringControl,
+	    searchResultView,
+	    browseBackButton,
+	    browseForwardButton,
+	    dictionaryContentWindow
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "browseBackClicked:",
+	    "browseForwardClicked:",
+	    "orderFrontPreferencesPanel:",
+	    "searchAction:"
+	);
+	Super = NSObject;
+    };
+}

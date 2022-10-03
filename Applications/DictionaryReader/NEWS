@@ -1,0 +1,12 @@
+
+=====================
+DictionaryReader NEWS
+=====================
+
+	2 Apr 2006:
+		DictionaryReader now supports cross references ("links").
+		The dict server can be set via the "Dict Server" user
+		default.
+	
+	30 Mar 2006:
+		Initial Commit to SVN
