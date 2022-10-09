@@ -43,3 +43,4 @@ scrot
 rclone
 vim-nox
 sudo
+dict
