@@ -167,7 +167,7 @@ rm -R "/tmp/GNUstepSecure$UID" 2>/dev/null
 
 export WMAKER_USER_ROOT="$HOME/Library/WindowMaker"
 export PATH="/System/bin:$PATH"
-export MANPATH=":/System/share/man"
+export MANPATH=":/System/share/man:/Library/Documentation/man"
 export GS_DESKTOP_LOG="/tmp/$UID-gs-desktop.log"
 
 source /Developer/Makefiles/GNUstep.sh
