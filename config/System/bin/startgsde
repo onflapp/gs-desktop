@@ -29,8 +29,8 @@ function start_windowmanager {
 function stop_windowmanager {
   echo "stopping WM on $WM_PID"
   if [ -n "$WM_PID" ];then
-    kill "$WM_PID"     2>/dev/null
     pkill -P "$WM_PID" 2>/dev/null
+    kill "$WM_PID"     2>/dev/null
   fi
 }
 
@@ -45,18 +45,28 @@ function start_services {
   echo "about to start Pasteboard Service"
   /Library/bin/gpbs --daemon &
   echo "$!" > /tmp/$UID-gpbs.pid
+
+  echo "about to start fswatcher Service"
+  /Library/bin/fswatcher --daemon &
+  echo "$!" > /tmp/$UID-fswatcher.pid
 }
 
 function stop_services {
+  echo "about to stop fswatcher Service"
+  PID=`cat /tmp/$UID-fswatcher.pid 2>/dev/null`
+  if [ -n "$PID" ];then
+    kill $PID 2> /dev/null && rm /tmp/$UID-fswatcher.pid
+  fi
+
   echo "about to stop Notification Center"
   PID=`cat /tmp/$UID-gdnc.pid 2>/dev/null`
-  if [ -n "x$PID" ];then
+  if [ -n "$PID" ];then
     kill $PID 2> /dev/null && rm /tmp/$UID-gdnc.pid
   fi
 
   echo "about to stop Pasteboard Service"
   PID=`cat /tmp/$UID-gpbs.pid 2>/dev/null`
-  if [ -n "x$PID" ];then
+  if [ -n "$PID" ];then
     kill $PID 2> /dev/null && rm /tmp/$UID-gpbs.pid
   fi
 }
@@ -106,6 +116,7 @@ function start_debug {
   main_process
 
   wait $GW_PID
+  sleep 1
   cleanup
 }
 
@@ -154,9 +165,10 @@ fi
 ## clean up
 rm -R "/tmp/GNUstepSecure$UID" 2>/dev/null
 
-export WMAKER_USER_ROOT=$HOME/Library/WindowMaker
-export PATH=/System/bin:$PATH
-export GS_DESKTOP_LOG=/tmp/$UID-gs-desktop.log
+export WMAKER_USER_ROOT="$HOME/Library/WindowMaker"
+export PATH="/System/bin:$PATH"
+export MANPATH=":/System/share/man"
+export GS_DESKTOP_LOG="/tmp/$UID-gs-desktop.log"
 
 source /Developer/Makefiles/GNUstep.sh
 

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+mkdir -p /usr/share/xsessions 2>/dev/null
 cp ./usr/share/xsessions/* /usr/share/xsessions
 cp ./System/bin/* /System/bin
 cp -R ./System/etc/* /System/etc
@@ -17,3 +18,5 @@ mkdir -p /Library/Themes 2>/dev/null
 cp -r ./Library/Themes/* /Library/Themes
 
 cp ./System/share/WindowMaker/Icons/* /System/share/WindowMaker/Icons
+
+./make_hidden.sh
