@@ -7,5 +7,5 @@ if [ -d gnustep-base ];then
   cd ./gnustep-base
   git pull
 else
-  git clone https://github.com/gnustep/libs-base.git gnustep-base
+  git clone https://github.com/onflapp/libs-base.git gnustep-base
 fi
