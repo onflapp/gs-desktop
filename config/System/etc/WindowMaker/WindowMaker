@@ -171,7 +171,9 @@
   MoveToWorkspace4Key = None;
   RTCMaximizeKey = None;
   ModifierKey = Mod5;
-  MenuTextBack = (solid, "#a9a9a9");
+  UTitleBack = (solid, "#aaaaaa");
+  MenuTextBack = (solid, "#aaaaaa");
+  ResizebarBack = (solid, "#aaaaaa");
   WorkspaceBack = (solid, "#708090");
   IconBack = (tpixmap, "/Library/Images/common_Tile.tiff", "#bebebe");
   IconPath = (
