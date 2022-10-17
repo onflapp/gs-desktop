@@ -165,10 +165,16 @@ fi
 ## clean up
 rm -R "/tmp/GNUstepSecure$UID" 2>/dev/null
 
+## set system env variables
 export WMAKER_USER_ROOT="$HOME/Library/WindowMaker"
 export PATH="/System/bin:$PATH"
 export MANPATH=":/System/share/man:/Library/Documentation/man"
 export GS_DESKTOP_LOG="/tmp/$UID-gs-desktop.log"
+
+## unset envs in case we are running from a terminal window
+unset XTERM_VERSION
+unset XTERM_SHELL
+unset XTERM_LOCAL
 
 source /Developer/Makefiles/GNUstep.sh
 

@@ -26,7 +26,7 @@
   WMDrawer = {
     Icon = Drawer.tiff;
   };
-  wprefs.WPrefs = {
+  WPrefs = {
     NoResizebar = Yes;
     AlwaysUserIcon = No;
     NoMiniaturizeButton = Yes;

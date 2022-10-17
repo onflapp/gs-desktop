@@ -53,7 +53,7 @@
   MouseLeftButtonAction = OpenWindowListMenu;
   MouseRightButtonAction = OpenApplicationsMenu;
   AutoFocus = YES;
-  DisableAnimations = YES;
+  DisableAnimations = NO;
   MoveToLastWorkspaceKey = None;
   GroupNextKey = None;
   SingleClickLaunch = NO;
@@ -172,6 +172,7 @@
   RTCMaximizeKey = None;
   ModifierKey = Mod5;
   MenuTextBack = (solid, "#a9a9a9");
+  WorkspaceBack = (solid, "#708090");
   IconBack = (tpixmap, "/Library/Images/common_Tile.tiff", "#bebebe");
   IconPath = (
     "~/Library/WindowMaker/Library/Icons",
