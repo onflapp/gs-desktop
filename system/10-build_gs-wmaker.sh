@@ -3,6 +3,9 @@
 . /Developer/Makefiles/GNUstep.sh
 . ../BUILD_SETTINGS.sh
 
+unset LD
+unset LDFLAGS
+
 cd ../../gs-wmaker || exit 1
 
 make clean
