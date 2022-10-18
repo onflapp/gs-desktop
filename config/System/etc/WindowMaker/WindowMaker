@@ -175,7 +175,7 @@
   UTitleBack = (solid, "#aaaaaa");
   MenuTextBack = (solid, "#aaaaaa");
   ResizebarBack = (solid, "#aaaaaa");
-  WorkspaceBack = (solid, "#708090");
+  WorkspaceBack = (solid, "#595959");
   IconBack = (tpixmap, "/Library/Images/common_Tile.tiff", "#bebebe");
   IconPath = (
     "~/Library/WindowMaker/Library/Icons",

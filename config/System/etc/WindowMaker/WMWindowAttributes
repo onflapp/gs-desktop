@@ -1,4 +1,7 @@
 {  
+  MainWorkspace.GNUstep = {
+    Icon = MainWorkspace.GNUstep.xpm;
+  };
   Terminal.GNUstep = {
     Icon = Terminal.GNUstep.xpm;
   };

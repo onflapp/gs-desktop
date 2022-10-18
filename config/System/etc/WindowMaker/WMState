@@ -6,13 +6,14 @@
     Applications = (
       {
         PasteCommand = "nxworkspace --select %s";
-        Name = GWorkspace.GNUstep;
+        Name = MainWorkspace.GNUstep;
         DropCommand = "nxworkspace --select %d";
         Lock = Yes;
         AutoLaunch = No;
-        Command = "nxworkspace --activate GWorkspace";
+        Command = "nxworkspace --activate";
         Position = "0,0";
         Forced = No;
+        OneShot = Yes;
         BuggyApplication = No;
       },
       {

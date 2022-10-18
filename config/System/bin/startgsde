@@ -22,15 +22,17 @@ function start_windowmanager {
   WM_PID="$!"
 
   echo "WM is running on $WM_PID"
+  echo "$WM_PID" > /tmp/$UID-wm.pid
   export GS_DESKTOP_WM_PID="$WM_PID"
   sleep 1
 }
 
 function stop_windowmanager {
-  echo "stopping WM on $WM_PID"
-  if [ -n "$WM_PID" ];then
-    pkill -P "$WM_PID" 2>/dev/null
-    kill "$WM_PID"     2>/dev/null
+  PID=`cat /tmp/$UID-wm.pid 2>/dev/null`
+  if [ -n "$PID" ];then
+    echo "stopping WM on $PID"
+    pkill -P "$PID" 2>/dev/null
+    kill "$PID"     2>/dev/null
   fi
 }
 

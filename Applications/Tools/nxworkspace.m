@@ -39,6 +39,7 @@ void printUsage() {
   fprintf(stderr, "  --select <file>       select file\n");
   fprintf(stderr, "  --select <file> <dir> select file at this directory\n");
   fprintf(stderr, "  --activate <app>      launch or activate application\n");
+  fprintf(stderr, "  --activate            activate the Workspace\n");
   fprintf(stderr, "\n");
 }
 
@@ -103,6 +104,11 @@ int main(int argc, char** argv, char** env)
       NSString* app = [arguments objectAtIndex:2];
 
       [ws launchApplication:app];
+    }
+    else if ([[arguments objectAtIndex:1] isEqualToString:@"--activate"] && [arguments count] == 2) {
+      NSWorkspace* ws = [NSWorkspace sharedWorkspace];
+
+      [ws launchApplication:@"GWorkspace"];
     }
     else {
       printUsage();
