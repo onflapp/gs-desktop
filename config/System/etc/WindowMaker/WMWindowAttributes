@@ -5,9 +5,6 @@
   Preferences.GNUstep = {
     Icon = Preferences.GNUstep.xpm;
   };
-  GWorkspace.GNUstep = {
-    Icon = GWorkspace.GNUstep.xpm;
-  };
   Recycler.GNUstep = {
     Icon = Recycler.GNUstep.xpm;
   };

@@ -106,8 +106,8 @@ function init_config {
 
   export FONTCONFIG_FILE=/System/etc/fonts.conf
  
-  wdwrite WMWindowAttributes 'GSDE-Safe-Mode.XTerm' '{ DontSaveSession = Yes; }'
-  wdwrite WMWindowAttributes 'GWorkspace.GNUstep' '{ DontSaveSession = Yes; }'
+  wdwrite WMWindowAttributes 'GSDE-Safe-Mode.XTerm' '{ DontSaveSession = Yes; NoAppIcon = Yes; StartMiniaturized = Yes; }'
+  wdwrite WMWindowAttributes 'GWorkspace.GNUstep'   '{ DontSaveSession = Yes; NoAppIcon = Yes; }'
 }
 
 function start_debug {

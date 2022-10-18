@@ -170,6 +170,7 @@
   RaiseLowerKey = None;
   MoveToWorkspace4Key = None;
   RTCMaximizeKey = None;
+  EdgeResistance = 0;
   ModifierKey = Mod5;
   UTitleBack = (solid, "#aaaaaa");
   MenuTextBack = (solid, "#aaaaaa");

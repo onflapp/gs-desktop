@@ -5,12 +5,12 @@
     AutoRaiseLower = No;
     Applications = (
       {
-        PasteCommand = "/Applications/GWorkspace.app/GWorkspace %s";
+        PasteCommand = "nxworkspace --select %s";
         Name = GWorkspace.GNUstep;
-        DropCommand = "/Applications/GWorkspace.app/GWorkspace %d";
-        Lock = No;
+        DropCommand = "nxworkspace --select %d";
+        Lock = Yes;
         AutoLaunch = No;
-        Command = "/Applications/GWorkspace.app/GWorkspace";
+        Command = "nxworkspace --activate GWorkspace";
         Position = "0,0";
         Forced = No;
         BuggyApplication = No;
