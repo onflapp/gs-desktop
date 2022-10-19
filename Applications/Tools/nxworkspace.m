@@ -67,7 +67,7 @@ int main(int argc, char** argv, char** env)
       NSString* app = ([arguments count] == 4)?[arguments objectAtIndex:3]:nil;
       BOOL isdir = NO;
       NSString* ext = [path pathExtension];
-      NSFileManager* fm = [NSFileManager defaultManager] ;
+      NSFileManager* fm = [NSFileManager defaultManager];
       /*
       NSString* nm;
       NSString* ft;

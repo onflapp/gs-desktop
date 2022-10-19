@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PATH=/Library/bin:$PATH
+
 D=`pwd`
 
 cd ../gnustep-base/Documentation
