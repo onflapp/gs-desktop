@@ -36,6 +36,10 @@
 
   books = [[Books alloc] init];
 
+  [resultsView setHeaderView:nil];
+  [resultsView setDelegate:self];
+  [resultsView setDataSource:self];
+
   return self;
 }
 
@@ -82,6 +86,14 @@
 
 - (void) windowDidBecomeKey:(NSWindow*) win {
   [[Inspector sharedInstance] inspectBooks:books];
+}
+
+- (NSInteger) numberOfRowsInTableView:(NSTableView*) table {
+  return 2;
+}
+
+- (id) tableView:(NSTableView*) table objectValueForTableColumn:(NSTableColumn*) col row:(NSInteger) row {
+  return @"hello";
 }
 
 @end

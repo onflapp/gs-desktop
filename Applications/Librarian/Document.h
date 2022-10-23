@@ -31,7 +31,7 @@
 @interface Document : NSObject
 {
   IBOutlet NSWindow *window;
-  IBOutlet NSTextView* resultsView;
+  IBOutlet NSTableView* resultsView;
   IBOutlet NSTextField* queryField;
 
   Books* books;

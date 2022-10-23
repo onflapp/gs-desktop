@@ -45,7 +45,10 @@
 
 - (BOOL) application:(NSApplication* )application
 	    openFile:(NSString*) fileName {
-  return NO;
+
+  Document* doc = [[Document alloc] init];
+   [doc openFile: fileName];
+  return YES;
 }
 
 - (void) newDocument:(id) sender {
@@ -57,7 +60,7 @@
   [panel setAllowsMultipleSelection: NO];
   [panel setCanChooseDirectories: NO];
 
-  if ([panel runModalForTypes:nil] == NSOKButton) {
+  if ([panel runModalForTypes:[NSArray arrayWithObject:@"Books"]] == NSOKButton) {
     NSString* fileName = [[panel filenames] firstObject];
     Document* doc = [[Document alloc] init];
     [doc openFile: fileName];
