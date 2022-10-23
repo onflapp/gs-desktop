@@ -5,6 +5,7 @@ D=`pwd`
 
 cd ../../libs-dbuskit || exit 1
 
+make distclean
 ./configure
 make -j2 || exit 1
 
@@ -35,6 +36,7 @@ sudo -E ldconfig
 cd "$D"
 cd ../Frameworks/PDFKit || exit 1
 
+make distclean
 ./configure || exit 1
 make -j2 || exit 1
 

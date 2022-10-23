@@ -2,41 +2,25 @@
     APPLICATIONICON = "";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
-    "BUILDER_TARGETS" = (
-	all,
-	install,
-	uninstall,
-	clean,
-	distclean,
-	dist
-    );
     "BUNDLE_IDENTIFIER" = "";
     "CLASS_FILES" = (
-	"AppController.m",
-	"Document.m",
-	"Books.m",
-	"Inspector.m"
+	"AppController.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
-    "CREATION_DATE" = "2022-09-16 09:53:08 +0200";
+    "CREATION_DATE" = "2022-10-21 09:49:06 +0200";
     "DOCU_FILES" = (
     );
     FRAMEWORKS = (
     );
     "HEADER_FILES" = (
-	"AppController.h",
-	"Document.h",
-	"Books.h",
-	"Inspector.h"
+	"AppController.h"
     );
     IMAGES = (
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
-	"Librarian.gorm",
-	"Document.gorm",
-	"Inspector.gorm"
+	"VolMon.gorm"
     );
     LANGUAGE = English;
     LIBRARIES = (
@@ -46,14 +30,13 @@
     LINKEROPTIONS = "";
     "LOCALIZED_RESOURCES" = (
     );
-    MAININTERFACE = "Librarian.gorm";
+    MAININTERFACE = "VolMon.gorm";
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
-	commands
     );
     "OTHER_SOURCES" = (
-	"Librarian_main.m"
+	"VolMon_main.m"
     );
     "PRINCIPAL_CLASS" = NSApplication;
     "PROJECT_AUTHORS" = (
@@ -63,16 +46,10 @@
     "PROJECT_CREATOR" = "Ondrej Florian,,,";
     "PROJECT_DESCRIPTION" = "No description avaliable!";
     "PROJECT_DOCUMENTTYPES" = (
-	{
-	    NSIcon = "books.tiff";
-	    NSUnixExtensions = (
-		books
-	    );
-	}
     );
     "PROJECT_GROUP" = "No group avaliable!";
     "PROJECT_MAINTAINER" = "Ondrej Florian,,,";
-    "PROJECT_NAME" = Librarian;
+    "PROJECT_NAME" = VolMon;
     "PROJECT_RELEASE" = "0.1";
     "PROJECT_SUMMARY" = "No summary avaliable!";
     "PROJECT_TYPE" = Application;
@@ -87,13 +64,11 @@
 	"GNUmakefile.preamble",
 	GNUmakefile,
 	"GNUmakefile.postamble",
-	"LibrarianInfo.plist"
+	"VolMonInfo.plist"
     );
     "USER_LANGUAGES" = (
 	English,
 	German,
-	Spanish,
-	French,
-	Italian
+	French
     );
 }

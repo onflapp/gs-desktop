@@ -23,44 +23,35 @@ include $(GNUSTEP_MAKEFILES)/common.make
 # Application
 #
 VERSION = 0.1
-PACKAGE_NAME = Librarian
-APP_NAME = Librarian
-Librarian_APPLICATION_ICON = 
+PACKAGE_NAME = VolMon
+APP_NAME = VolMon
+VolMon_APPLICATION_ICON = 
 
 
 #
 # Resource files
 #
-Librarian_RESOURCE_FILES = \
-Resources/Librarian.gorm \
-Resources/Document.gorm \
-Resources/Inspector.gorm \
-Resources/commands 
+VolMon_RESOURCE_FILES = \
+Resources/VolMon.gorm \
 
 
 #
 # Header files
 #
-Librarian_HEADER_FILES = \
-AppController.h \
-Document.h \
-Books.h \
-Inspector.h
+VolMon_HEADER_FILES = \
+AppController.h
 
 #
 # Objective-C Class files
 #
-Librarian_OBJC_FILES = \
-AppController.m \
-Document.m \
-Books.m \
-Inspector.m
+VolMon_OBJC_FILES = \
+AppController.m
 
 #
 # Other sources
 #
-Librarian_OBJC_FILES += \
-Librarian_main.m 
+VolMon_OBJC_FILES += \
+VolMon_main.m 
 
 #
 # Makefiles

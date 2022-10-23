@@ -37,20 +37,23 @@ function stop_windowmanager {
 }
 
 function start_services {
-  echo "making services"
-  /Library/bin/make_services
-
   echo "about to start Notification Center"
   /Library/bin/gdnc --daemon &
   echo "$!" > /tmp/$UID-gdnc.pid
+  sleep 0.1
 
   echo "about to start Pasteboard Service"
   /Library/bin/gpbs --daemon &
   echo "$!" > /tmp/$UID-gpbs.pid
+  sleep 0.1
 
   echo "about to start fswatcher Service"
   /Library/bin/fswatcher --daemon &
   echo "$!" > /tmp/$UID-fswatcher.pid
+  sleep 0.1
+
+  echo "making services"
+  /Library/bin/make_services
 }
 
 function stop_services {
