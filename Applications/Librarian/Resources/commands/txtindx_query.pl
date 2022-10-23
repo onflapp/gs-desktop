@@ -1,21 +1,21 @@
 #!/bin/perl
 
-$FILE = $ARGV[0];
+$BASE_DIR = $ARGV[0];
 $QUERY = $ARGV[1];
 
 $cmd = "recollq";
 
-if (! -d $FILE) {
-  print(STDERR "file not found\n");
+if (! -d $BASE_DIR) {
+  print("X:file not found\n");
   exit 1;
 }
 
 if ($QUERY eq "") {
-  print(STDERR "no query specified\n");
+  print("X:no query specified\n");
   exit 1;
 }
 
-open(IN, "$cmd -c \"$FILE\" -A \"$QUERY\" |");
+open(IN, "$cmd -c \"$BASE_DIR\" -A \"$QUERY\" |");
 while(<IN>) {
   chomp();
   if (m/^(\w+\/\w+)\s+\[(.*?)\]\s+\[(.*?)\]/) {
@@ -33,7 +33,6 @@ while(<IN>) {
   elsif (m/^\/ABSTRACT/) {
     print("$title\n");
     print("$url\n");
-    print("$abstract\n");
     print("\n");
 
     $url = "";

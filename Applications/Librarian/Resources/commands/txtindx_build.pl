@@ -1,16 +1,18 @@
 #!/bin/perl
 
-$FILE = $ARGV[0];
+$BASE_DIR = $ARGV[0];
+$RECOLL_CONF = "$BASE_DIR/recoll.conf";
+@PATHS = ();
 
 $cmd = "recollindex";
 
-if (! -d $FILE) {
-  print("E:directory not specified\n");
+if (! -d $BASE_DIR) {
+  print("X:directory not specified\n");
   exit 1;
 }
 
 $cfg = "";
-open(IN, "$FILE/config.plist");
+open(IN, "$BASE_DIR/config.plist");
 while(<IN>) {
   chomp();
   $cfg .= $_;
@@ -18,13 +20,30 @@ while(<IN>) {
 close(IN);
 
 if ($cfg eq "") {
-  print("E:config not found\n");
+  print("X:config not found\n");
   exit 1;
 }
 
+
 print("$cfg\n");
 if ($cfg =~ m/paths\s*=\s*\((.*?)\);/) {
-  print("[$1]\n");
+  @a = split(',', $1);
+  foreach(@a) {
+    $_ =~ s/^\s*"//;
+    $_ =~ s/"\s*$//;
+    push(@PATHS, $_);
+  }
 }
 
-#system($cmd, "-c", $FILE);
+if ($#PATHS == -1) {
+  print("X:nothing to index\n");
+  exit 1;
+}
+
+open(OUT, "> $RECOLL_CONF");
+print(OUT "topdirs = " . join(' ', @PATHS) . "\n");
+close(OUT);
+
+print("S:indexing...\n");
+system($cmd, "-c", $BASE_DIR);
+print("E:indexing\n");
