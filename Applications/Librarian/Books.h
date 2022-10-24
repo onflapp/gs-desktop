@@ -33,15 +33,21 @@
   NSInteger status;
   NSString* baseDir;
 
+  NSMutableData* buff;
   NSFileHandle* fh;
   NSTask* task;
+
+  NSMutableArray* results;
 }
 
 - (id) init;
 - (void) openFile:(NSString*) file;
 - (void) saveFile:(NSString*) file;
+- (void) search:(NSString*) qry;
+- (void) list;
 - (void) rebuild;
 
+- (NSArray*) searchResults;
 - (NSArray*) paths;
 - (void) setPaths:(NSArray*) paths;
 

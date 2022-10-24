@@ -15,7 +15,7 @@ if ($QUERY eq "") {
   exit 1;
 }
 
-open(IN, "$cmd -c \"$BASE_DIR\" -A \"$QUERY\" |");
+open(IN, "$cmd -C -c \"$BASE_DIR\" -A \"$QUERY\" |");
 while(<IN>) {
   chomp();
   if (m/^(\w+\/\w+)\s+\[(.*?)\]\s+\[(.*?)\]/) {

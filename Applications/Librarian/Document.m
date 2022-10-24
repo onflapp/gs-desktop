@@ -39,6 +39,19 @@
   [resultsView setHeaderView:nil];
   [resultsView setDelegate:self];
   [resultsView setDataSource:self];
+  [resultsView setDoubleAction:@selector(selectFile:)];
+  [[resultsView tableColumnWithIdentifier:@"column1"] setEditable:NO];
+
+  NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+  [nc addObserver:self
+      selector:@selector(searchHasEnded:) 
+      name:@"searchHasEnded"
+      object:books];
+
+  [nc addObserver:self
+      selector:@selector(statusHasChanged:) 
+      name:@"statusHasChanged"
+      object:books];
 
   return self;
 }
@@ -49,6 +62,15 @@
 
   [self release];
   [super dealloc];
+
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void) searchHasEnded:(NSNotification*) not {
+  [resultsView reloadData];
+}
+
+- (void) statusHasChanged:(NSNotification*) not {
 }
 
 - (void) openFile:(NSString*) file {
@@ -56,11 +78,31 @@
   ASSIGN(filePath, file);
 }
 
+- (void) selectFile:(id) sender {
+  id val = [[books searchResults] objectAtIndex:[resultsView selectedRow]];
+  NSWorkspace* wk = [NSWorkspace sharedWorkspace];
+  if ([val hasPrefix:@"/"]) {
+    [wk openFile:val];
+  }
+  else {
+    NSURL* uu = [NSURL URLWithString:val];
+    if (uu) {
+      [wk openURL:uu];
+    }
+  }
+}
+
 - (void) inspect:(id) sender {
   [[[Inspector sharedInstance] window] orderFront:sender];
 }
 
 - (void) search:(id) sender {
+  NSString* txt = [queryField stringValue];
+  [books search:txt];
+}
+
+- (void) list:(id) sender {
+  [books list];
 }
 
 - (void) saveDocument:(id) sender {
@@ -89,11 +131,12 @@
 }
 
 - (NSInteger) numberOfRowsInTableView:(NSTableView*) table {
-  return 2;
+  return [[books searchResults] count];
 }
 
 - (id) tableView:(NSTableView*) table objectValueForTableColumn:(NSTableColumn*) col row:(NSInteger) row {
-  return @"hello";
+  id val = [[books searchResults] objectAtIndex:row];
+  return val;
 }
 
 @end

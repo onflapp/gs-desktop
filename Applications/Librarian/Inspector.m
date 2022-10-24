@@ -56,7 +56,9 @@ static Inspector* __sharedinstance;
 }
 
 - (IBAction) rebuild:(id) sender {
+  [currentBooks rebuild];
 }
+
 - (IBAction) addFolder:(id) sender {
   NSMutableArray* list = [NSMutableArray arrayWithArray:[currentBooks paths]];
   NSOpenPanel* panel = [NSOpenPanel openPanel];

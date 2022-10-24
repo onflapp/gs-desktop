@@ -4,8 +4,6 @@ $BASE_DIR = $ARGV[0];
 $RECOLL_CONF = "$BASE_DIR/recoll.conf";
 @PATHS = ();
 
-$cmd = "recollindex";
-
 if (! -d $BASE_DIR) {
   print("X:directory not specified\n");
   exit 1;
@@ -34,14 +32,15 @@ if ($cfg =~ m/paths\s*=\s*\((.*?)\);/) {
 }
 
 if ($#PATHS == -1) {
-  print("X:nothing to index\n");
+  print("X:nothing to list\n");
   exit 1;
 }
 
-open(OUT, "> $RECOLL_CONF");
-print(OUT "topdirs = " . join(' ', @PATHS) . "\n");
-close(OUT);
-
-print(STDOUT "S:indexing...\n");
-system($cmd, "-c", $BASE_DIR);
-print(STDOUT "E:indexing\n");
+foreach(@PATHS) {
+  open(IN, "find $_ |");
+  while(<IN>) {
+    chomp();
+    print("$_\n");
+  }
+  close(IN);
+}

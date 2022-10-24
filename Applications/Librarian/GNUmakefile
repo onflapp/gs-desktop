@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = Librarian
 APP_NAME = Librarian
-Librarian_APPLICATION_ICON = 
+Librarian_APPLICATION_ICON = Icon.tiff
 
 
 #
@@ -35,6 +35,7 @@ Librarian_RESOURCE_FILES = \
 Resources/Librarian.gorm \
 Resources/Document.gorm \
 Resources/Inspector.gorm \
+Resources/Icon.tiff \
 Resources/commands 
 
 
