@@ -74,6 +74,14 @@ static Inspector* __sharedinstance;
 }
 
 - (IBAction) removeFolder:(id) sender {
+  NSMutableArray* list = [NSMutableArray arrayWithArray:[currentBooks paths]];
+  NSInteger i = [pathsTable selectedRow];
+  if (i >= 0) {
+    [list removeObjectAtIndex:i];
+    [currentBooks setPaths:list];
+  
+    [pathsTable reloadData];
+  }
 }
 
 - (NSInteger) numberOfRowsInTableView:(NSTableView*) table {

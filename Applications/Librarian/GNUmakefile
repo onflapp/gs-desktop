@@ -36,6 +36,7 @@ Resources/Librarian.gorm \
 Resources/Document.gorm \
 Resources/Inspector.gorm \
 Resources/Icon.tiff \
+Resources/Books.tiff \
 Resources/commands 
 
 

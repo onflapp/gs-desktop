@@ -14,7 +14,7 @@
     NSRole = Application;
     NSTypes = (
 	{
-	    NSIcon = "books.tiff";
+	    NSIcon = "Books.tiff";
 	    NSUnixExtensions = (
 		books
 	    );

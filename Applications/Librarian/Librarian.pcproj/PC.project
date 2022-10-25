@@ -31,7 +31,8 @@
 	"Inspector.h"
     );
     IMAGES = (
-	"Icon.tiff"
+	"Icon.tiff",
+	"Books.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
@@ -65,7 +66,7 @@
     "PROJECT_DESCRIPTION" = "No description avaliable!";
     "PROJECT_DOCUMENTTYPES" = (
 	{
-	    NSIcon = "books.tiff";
+	    NSIcon = "Books.tiff";
 	    NSUnixExtensions = (
 		books
 	    );

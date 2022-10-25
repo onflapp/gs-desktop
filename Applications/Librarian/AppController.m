@@ -60,7 +60,7 @@
   [panel setAllowsMultipleSelection: NO];
   [panel setCanChooseDirectories: NO];
 
-  if ([panel runModalForTypes:[NSArray arrayWithObject:@"Books"]] == NSOKButton) {
+  if ([panel runModalForTypes:[NSArray arrayWithObject:@"books"]] == NSOKButton) {
     NSString* fileName = [[panel filenames] firstObject];
     Document* doc = [[Document alloc] init];
     [doc openFile: fileName];
