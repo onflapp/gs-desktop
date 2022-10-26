@@ -73,12 +73,6 @@ typedef enum {
     NSString *openScript;
     NSString *openScriptShell;
     ScriptAction openScriptAction;
-    NSString *serviceScript;
-    NSString *serviceScriptShell;
-    ScriptAction serviceScriptAction;
-    NSString *filterScript;
-    NSString *fiterScriptShell;
-    ScriptAction filterScriptAction;
 
     NSMutableArray *types;
 }
@@ -153,24 +147,6 @@ typedef enum {
 
 - (ScriptAction)openScriptAction;
 - (void)setOpenScriptAction: (ScriptAction)action;
-
-- (NSString *)serviceScript;
-- (void)setServiceScript: (NSString *)n;
-
-- (NSString *)serviceScriptShell;
-- (void)setServiceScriptShell: (NSString *)n;
-
-- (ScriptAction)serviceScriptAction;
-- (void)setServiceScriptAction: (ScriptAction)action;
-
-- (NSString *)filterScript;
-- (void)setFilterScript: (NSString *)n;
-
-- (NSString *)filterScriptShell;
-- (void)setFilterScriptShell: (NSString *)n;
-
-- (ScriptAction)filterScriptAction;
-- (void)setFilterScriptAction: (ScriptAction)action;
 
 /*
  * types

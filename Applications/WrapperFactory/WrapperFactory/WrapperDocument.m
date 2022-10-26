@@ -170,12 +170,6 @@ static NSString *actionIgnore = @"Ignore";
         openScript = emptyString;
         openScriptShell = startScriptShell;
         openScriptAction = IgnoreAction;
-        serviceScript = emptyString;
-        serviceScriptShell = startScriptShell;
-        serviceScriptAction = IgnoreAction;
-        filterScript = emptyString;
-        filterScriptShell = startScriptShell;
-        filterScriptAction = IgnoreAction;
 
         types = [[NSMutableArray alloc] init];
     }

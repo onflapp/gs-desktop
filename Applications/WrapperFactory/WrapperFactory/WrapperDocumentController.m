@@ -399,16 +399,6 @@ static NSString *emptyString = @"";
         script = [document openScript];
         action = [document openScriptAction];
         break;
-    case ServiceScript:
-        shell = [document serviceScriptShell];
-        script = [document serviceScript];
-        action = [document serviceScriptAction];
-        break;
-    case FilterScript:
-        shell = [document filterScriptShell];
-        script = [document filterScript];
-        action = [document filterScriptAction];
-        break;
     default:
         NSLog(@"Unknown script ID: %d", currentScriptId);
         return;
