@@ -26,11 +26,14 @@ WrapperFactory_OBJC_FILES = main.m \
 	ServicesProvider.m \
 	WrapperDocument.m \
 	Type.m \
+	Service.m \
 	WrapperDocumentController.m \
 	Icon.m \
 	IconView.m \
 	TypesController.m \
 	TypeController.m \
+	ServicesController.m \
+	ServiceController.m
 
 WrapperFactory_RESOURCE_FILES = \
 	Icons/WrapperFactory.tiff \

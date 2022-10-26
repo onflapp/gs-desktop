@@ -24,6 +24,7 @@
 #include <AppKit/AppKit.h>
 
 #include "Type.h"
+#include "Service.h"
 
 
 extern NSString * const ApplicationType;
@@ -75,6 +76,7 @@ typedef enum {
     ScriptAction openScriptAction;
 
     NSMutableArray *types;
+    NSMutableArray *services;
 }
 
 /*
@@ -158,6 +160,15 @@ typedef enum {
 - (Type *)typeAtIndex: (unsigned)index;
 - (unsigned)indexOfType: (Type *)type;
 
+/*
+ * services
+ */
+
+- (void)addService: (Service *)service;
+- (void)removeService: (Service *)service;
+- (int)serviceCount;
+- (Service *)serviceAtIndex: (unsigned)index;
+- (unsigned)indexOfService: (Service *)service;
 
 @end
 

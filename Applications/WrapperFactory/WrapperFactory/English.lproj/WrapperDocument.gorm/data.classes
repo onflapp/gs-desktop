@@ -2,16 +2,18 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     FirstResponder = {
 	Actions = (
+	    "chooseIcon:",
+	    "controlTextDidChange:",
+	    "deleteService:",
+	    "deleteType:",
+	    "newAction:",
+	    "newService:",
+	    "newType:",
 	    "orderFrontFontPanel:",
+	    "setCurrentScriptToOpen:",
 	    "setCurrentScriptToStart:",
 	    "setCurrentScriptToStartOpen:",
-	    "setCurrentScriptToOpen:",
-	    "newType:",
-	    "deleteType:",
-	    "controlTextDidChange:",
-	    "setRole:",
-	    "chooseIcon:",
-	    "newAction:"
+	    "setRole:"
 	);
 	Super = NSObject;
     };
@@ -31,6 +33,28 @@
 	Outlets = (
 	);
 	Super = IconView;
+    };
+    ServiceController = {
+	Actions = (
+	);
+	Outlets = (
+	    nameTextField,
+	    actionTextView,
+	    shellTextField
+	);
+	Super = NSObject;
+    };
+    ServicesController = {
+	Actions = (
+	    "newService:",
+	    "deleteService:"
+	);
+	Outlets = (
+	    tableView,
+	    serviceController,
+	    document
+	);
+	Super = NSObject;
     };
     TypeController = {
 	Actions = (

@@ -45,13 +45,11 @@
 - (void)applicationDidFinishLaunching: (NSNotification*)not
 {
     appDidFinishLaunching = YES;
+    NSRegisterServicesProvider(self, [NSApp applicationName]);
 
-    NSLog(@">>> %@", [NSBundle mainBundle]);
     NSString *path = [[NSBundle mainBundle] pathForResource: @"GSWrapper"
                                             ofType: @"plist"];
     properties = RETAIN([NSDictionary dictionaryWithContentsOfFile: path]);
-    NSLog(@"xxx:%@", path);
-    NSLog(@"ppp:%@", properties);
 
     if ( startupFiles ) {
         mainAction = [self actionForMessage: @"StartOpen"];
@@ -69,6 +67,7 @@
         [NSApp terminate: self];
         return;
     }
+
 
     [[NSNotificationCenter defaultCenter] addObserver: self
                                           selector: @selector(unixAppExited:)
@@ -120,7 +119,30 @@
     }
 }
 
+- (void) executeService: (NSPasteboard *)pboard
+               userData: (NSString *)userData
+                  error: (NSString **)error
+{
+    NSLog(@"SERVICE >>> %@", userData);
+    id<Action> serviceAction = [self actionForMessage: userData];
+    if ( !serviceAction ) {
+        NSLog(@"no action for %@", userData);
+        return;
+    }
 
+    NSArray* files = [NSArray array];
+    BOOL retval = [serviceAction executeWithFiles: files];
+    NSTask *task = [serviceAction task];
+    if ( !task ) {
+        NSLog(@"exit with error");
+        return;
+    }
+    else {
+        [task waitUntilExit];
+        if ( [task terminationStatus] ) {
+        }
+    }
+}
 
 /*
  * task notification

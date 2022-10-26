@@ -172,6 +172,7 @@ static NSString *actionIgnore = @"Ignore";
         openScriptAction = IgnoreAction;
 
         types = [[NSMutableArray alloc] init];
+        services = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -179,6 +180,7 @@ static NSString *actionIgnore = @"Ignore";
 - (void)dealloc
 {
     RELEASE(types);
+    RELEASE(services);
     [super dealloc];
 }
 
@@ -475,6 +477,54 @@ static NSString *actionIgnore = @"Ignore";
 - (unsigned)indexOfType: (Type *)type
 {
     return [types indexOfObject: type];
+}
+
+/*
+ * services
+ */
+
+- (void)addService: (Service *)service
+{
+    if ( ! [services containsObject: service] ) {
+        [services addObject: service];
+        [[NSNotificationCenter defaultCenter] addObserver: self
+                                              selector: @selector(aggregateChanged:)
+                                              name: (WrapperAggregateChangedNotification)
+                                              object: (service)];
+        [self documentChanged];
+    }
+    else {
+        NSLog(@"Service %@ already in document, not added", service);
+    }
+}
+
+- (void)removeService: (Service *)service
+{
+    if ( [services containsObject: service] ) {
+        [services removeObject: service];
+        [[NSNotificationCenter defaultCenter] removeObserver: self
+                                              name: (WrapperAggregateChangedNotification)
+                                              object: (service)];
+        [self documentChanged];
+    }
+    else {
+        NSLog(@"Service %@ not in document, not removed", service);
+    }
+}
+
+- (int)serviceCount
+{
+    return [services count];
+}
+
+- (Service *)serviceAtIndex: (unsigned)index
+{
+    return [services objectAtIndex: index];
+}
+
+- (unsigned)indexOfService: (Service *)service
+{
+    return [services indexOfObject: service];
 }
 
 
@@ -820,6 +870,37 @@ static NSString *actionIgnore = @"Ignore";
         [infoDict setObject: typeArray forKey: @"NSTypes"];
     }
 
+    // services
+    NSMutableArray* slist = [NSMutableArray array];
+    int serviceCount = [services count];
+    if ( serviceCount ) {
+        NSMutableArray *serviceArray = [NSMutableArray arrayWithCapacity: serviceCount];
+        for ( i=0; i<serviceCount; i++ ) {
+            Service *service = [services objectAtIndex: i];
+            NSString* ud = [NSString stringWithFormat:@"Service_%03d", i];
+            NSMutableDictionary *serviceDict = [NSMutableDictionary dictionaryWithCapacity: 6];
+            [serviceDict setObject: @"executeService" forKey: @"NSMessage"];
+            [serviceDict setObject: [name stringByDeletingPathExtension] forKey: @"NSPortName"];
+            [serviceDict setObject: ud forKey: @"NSUserData"];
+            [serviceDict setObject: [NSDictionary dictionaryWithObjectsAndKeys:[service name], @"default", nil] forKey: @"NSMenuItem"];
+            [serviceDict setObject: [NSArray arrayWithObject:@"NSStringPboardType"] forKey: @"NSSendTypes"];
+            [serviceDict setObject: [NSArray arrayWithObject:@"NSStringPboardType"] forKey: @"NSReturnTypes"];
+            [serviceArray addObject: serviceDict];
+
+            [slist addObject:
+                [NSDictionary dictionaryWithObjectsAndKeys:
+                    [NSDictionary dictionaryWithObjectsAndKeys:
+                        [service shell], @"Shell",
+                        @"RunScript", @"Action",
+                    nil],
+                    ud,
+                nil]
+            ];
+        }
+        [infoDict setObject: serviceArray forKey: @"NSServices"];
+    }
+
+
     data = [[infoDict description] dataUsingEncoding: NSNonLossyASCIIStringEncoding];
     NSFileWrapper *info = AUTORELEASE([[NSFileWrapper alloc] initRegularFileWithContents: data]);
     [info setPreferredFilename: @"Info-gnustep.plist"];
@@ -840,7 +921,14 @@ static NSString *actionIgnore = @"Ignore";
                                        [WrapperDocument scriptActionToString: openScriptAction], @"Action",
                                        nil], @"Open",
                          nil];
-    data = [[dict description] dataUsingEncoding: NSNonLossyASCIIStringEncoding];
+
+    NSMutableDictionary* adict = [NSMutableDictionary dictionary];
+    [adict addEntriesFromDictionary: dict];
+    for (id val in slist) {
+        [adict addEntriesFromDictionary: val];
+    }
+
+    data = [[adict description] dataUsingEncoding: NSNonLossyASCIIStringEncoding];
     NSFileWrapper *gsWrapper = AUTORELEASE([[NSFileWrapper alloc] initRegularFileWithContents: data]);
     [gsWrapper setPreferredFilename: @"GSWrapper.plist"];
 
@@ -877,6 +965,14 @@ static NSString *actionIgnore = @"Ignore";
         //NSFileWrapper *typeIcon = AUTORELEASE([[NSFileWrapper alloc] initRegularFileWithContents: [[type icon] scaledTIFFRepresentation: iconSize]]);
         [typeIcon setPreferredFilename: [NSString stringWithFormat: @"FileType_%03d.tiff", i]];
         [resources addFileWrapper: typeIcon];
+    }
+
+    for ( i=0; i<serviceCount; i++ ) {
+        Service *service = [services objectAtIndex: i];
+        NSData* data = [[service action] dataUsingEncoding: [NSString defaultCStringEncoding]];
+        NSFileWrapper *serviceScript = AUTORELEASE([[NSFileWrapper alloc] initRegularFileWithContents: data]);
+        [serviceScript setPreferredFilename: [NSString stringWithFormat: @"Service_%03d", i]];
+        [resources addFileWrapper: serviceScript];
     }
 
     [resources setPreferredFilename: @"Resources"];

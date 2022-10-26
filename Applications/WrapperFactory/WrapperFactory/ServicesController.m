@@ -20,22 +20,12 @@
 
 #include <AppKit/AppKit.h>
 
-#include "TypesController.h"
+#include "ServicesController.h"
 
 
-static NSString *IconColumnId = @"IconColumn";
 static NSString *NameColumnId = @"NameColumn";
 
-
-@interface TypesController (Private)
-
-- (void)showTypeEditor;
-- (void)hideTypeEditor;
-
-@end
-
-
-@implementation TypesController
+@implementation ServicesController
 
 /*
  * initialization
@@ -45,9 +35,6 @@ static NSString *NameColumnId = @"NameColumn";
 {
     self = [super init];
     if ( self ) {
-        emptyBox = [[NSBox alloc] init];
-        [emptyBox setBorderType: NSNoBorder];
-        [emptyBox setTitlePosition: NSNoTitle];
     }
     [[NSNotificationCenter defaultCenter] addObserver: (self)
                                           selector: @selector(documentAggregateDidChange:)
@@ -58,7 +45,6 @@ static NSString *NameColumnId = @"NameColumn";
 
 - (void)dealloc
 {
-    TEST_RELEASE(emptyBox);
     [super dealloc];
 }
 
@@ -83,12 +69,6 @@ static NSString *NameColumnId = @"NameColumn";
         [tableView removeTableColumn: c];
     }
 
-    // icon column
-    c = AUTORELEASE([[NSTableColumn alloc] initWithIdentifier: IconColumnId]);
-    [c setWidth: [tableView rowHeight]];
-    [c setResizable: NO];
-    [c setDataCell: AUTORELEASE([[NSImageCell alloc] init])];
-    [tableView addTableColumn: c];
     // name column
     c = AUTORELEASE([[NSTableColumn alloc] initWithIdentifier: NameColumnId]);
     [c setResizable: YES];
@@ -98,8 +78,6 @@ static NSString *NameColumnId = @"NameColumn";
     [tableView setAutoresizesAllColumnsToFit: NO];
     [tableView deselectAll: self];
     [tableView reloadData];
-
-    //[self hideTypeEditor];
 }
 
 
@@ -111,12 +89,10 @@ static NSString *NameColumnId = @"NameColumn";
 - (void)tableViewSelectionDidChange: (NSNotification *)not
 {
     if ( [tableView numberOfSelectedRows] ) {
-        [typeController setType: [document typeAtIndex: [tableView selectedRow]]];
-        //[self showTypeEditor];
+        [serviceController setService: [document serviceAtIndex: [tableView selectedRow]]];
     }
     else {
-        //[self hideTypeEditor];
-        [typeController setType: nil];
+        [serviceController setService: nil];
     }
 }
 
@@ -128,7 +104,7 @@ static NSString *NameColumnId = @"NameColumn";
 - (void)documentAggregateDidChange: (NSNotification *)not
 {
     if ( document ) {
-        if ( [document indexOfType: [not object]] >= 0 ) {
+        if ( [document indexOfService: [not object]] >= 0 ) {
             [tableView reloadData];
         }
     }
@@ -139,25 +115,25 @@ static NSString *NameColumnId = @"NameColumn";
  * UI Actions
  */
 
-- (IBAction)newType: (id)sender
+- (IBAction)newService: (id)sender
 {
     if ( document && tableView ) {
-        Type *type = AUTORELEASE([[Type alloc] init]);
-        [document addType: type];
+        Service *service = AUTORELEASE([[Service alloc] init]);
+        [document addService: service];
         [tableView reloadData];
-        [tableView selectRow: [document typeCount]-1
+        [tableView selectRow: [document serviceCount]-1
                    byExtendingSelection: (NO)];
     }
 }
 
-- (IBAction)deleteType: (id)sender
+- (IBAction)deleteService: (id)sender
 {
     if ( document && tableView ) {
         int index = [tableView selectedRow];
         if ( index >= 0 ) {
-            Type *type = [document typeAtIndex: index];
+            Service *service = [document serviceAtIndex: index];
             [tableView deselectRow: index];
-            [document removeType: type];
+            [document removeService: service];
             [tableView reloadData];
         }
     }
@@ -199,25 +175,14 @@ static NSString *NameColumnId = @"NameColumn";
     ASSIGN(tableView, table);
 }
 
-- (TypeController *)typeController
+- (ServiceController *)serviceController
 {
-    return typeController;
+    return serviceController;
 }
-- (void)setTypeController: (TypeController *)typec
+- (void)setServiceController: (ServiceController *)servicec
 {
-    ASSIGN(typeController, typec);
+    ASSIGN(serviceController, servicec);
 }
-
-- (NSBox *)typeEditor
-{
-    return typeEditor;
-}
-
-- (void)setTypeEditor: (NSBox *)editor
-{
-    ASSIGN(typeEditor, editor);
-}
-
 
 /*
  * NSTableDataSource
@@ -226,7 +191,7 @@ static NSString *NameColumnId = @"NameColumn";
 - (int)numberOfRowsInTableView: (NSTableView *)table;
 {
     if ( document ) {
-        return [document typeCount];
+        return [document serviceCount];
     }
     else {
         return 0;
@@ -237,15 +202,12 @@ static NSString *NameColumnId = @"NameColumn";
 objectValueForTableColumn: (NSTableColumn *)col
             row: (int)row
 {
-    if ( !document || (row>=[document typeCount]) ) {
+    if ( !document || (row>=[document serviceCount]) ) {
         return nil;
     }
-    Type *type = [document typeAtIndex: row];
-    if ( [[col identifier] isEqualToString: IconColumnId] ) {
-        return [[type icon] imageCopy: NO];
-    }
-    else if ( [[col identifier] isEqualToString: NameColumnId] ) {
-        return [type name];
+    Service *service = [document serviceAtIndex: row];
+    if ( [[col identifier] isEqualToString: NameColumnId] ) {
+        return [service name];
     }
     else {
         return nil;
@@ -255,33 +217,6 @@ objectValueForTableColumn: (NSTableColumn *)col
 - (void)tableView: (NSTableView *)table
 sortDescriptorsDidChange: (NSArray *)sortDescriptors
 {
-}
-
-@end
-
-
-@implementation TypesController (Private)
-
-- (void)showTypeEditor
-{
-    if ( typeEditor && typeEditorContents ) {
-        [typeEditor setContentView: typeEditorContents];
-        [typeEditor setTitlePosition: typeEditorTitlePosition];
-        [typeEditor setBorderType: typeEditorBorderType];
-        ASSIGN(typeEditorContents, nil);
-    }
-}
-
-- (void)hideTypeEditor
-{
-    if ( typeEditor && !typeEditorContents ) {
-        ASSIGN(typeEditorContents, [typeEditor contentView]);
-        [typeEditor setContentView: emptyBox];
-        typeEditorTitlePosition = [typeEditor titlePosition];
-        typeEditorBorderType = [typeEditor borderType];
-        [typeEditor setTitlePosition: NSNoTitle];
-        [typeEditor setBorderType: NSNoBorder];
-    }
 }
 
 @end
