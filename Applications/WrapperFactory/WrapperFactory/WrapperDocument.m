@@ -41,7 +41,7 @@ NSString * const WrapperAggregateChangedAttributeName = @"AttributeName";
 NSString * const WrapperAggregateChangedAttributeValue = @"AttributeValue";
 
 static NSString *emptyString = @"";
-static NSString *launcherName = @"GSWrapper_Launcher";
+static NSString *launcherName = @"launcher.sh";
 static NSString *FreedesktopApplicationType = @"Freedesktop Application";
 
 static NSString *actionRunScript = @"RunScript";
@@ -170,6 +170,12 @@ static NSString *actionIgnore = @"Ignore";
         openScript = emptyString;
         openScriptShell = startScriptShell;
         openScriptAction = IgnoreAction;
+        serviceScript = emptyString;
+        serviceScriptShell = startScriptShell;
+        serviceScriptAction = IgnoreAction;
+        filterScript = emptyString;
+        filterScriptShell = startScriptShell;
+        filterScriptAction = IgnoreAction;
 
         types = [[NSMutableArray alloc] init];
     }
@@ -889,6 +895,7 @@ static NSString *actionIgnore = @"Ignore";
                                                                     resources, [resources preferredFilename],
                                                                     nil]];
     AUTORELEASE(app);
+    NSLog(@">>> %@ %@", exe, launcherName);
     [app setExecutable: exe];
     return app;
 }
@@ -911,11 +918,8 @@ static NSString *actionIgnore = @"Ignore";
     NSString *section = nil;
     for ( i=0; i<lineCount; i++ ) {
         NSString *l = (NSString *)[lines objectAtIndex: i];
-#ifdef GNUSTEP
         l = [l stringByTrimmingSpaces];
-#else
-#error -stringByTrimmingSpaces is only supported under GNUstep
-#endif
+
         if ( ([l length] <= 0) || ([l hasPrefix: @"#"]) ) {
             // comment/blank: skip$
             continue;

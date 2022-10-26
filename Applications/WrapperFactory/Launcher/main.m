@@ -23,9 +23,23 @@
 
 #include "WrapperDelegate.h"
 
+static NSBundle* __my_main_bundle;
+
+@interface NSBundle (Launcher)
++ (NSBundle*) mainBundle;
+@end
+
+@implementation NSBundle (Launcher)
++ (NSBundle*) mainBundle {
+    return __my_main_bundle;
+}
+@end
+
 int main(int argc, const char *argv[]) {
+    NSFileManager* fm = [NSFileManager defaultManager];
+    __my_main_bundle = [NSBundle bundleWithPath:[fm currentDirectoryPath]];
+
     [NSApplication sharedApplication];
     [NSApp setDelegate: [[WrapperDelegate alloc] init]];
-    NSLog(@"xxxx");
     return NSApplicationMain(argc, argv);
 }

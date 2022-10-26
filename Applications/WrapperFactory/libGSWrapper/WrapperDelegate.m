@@ -46,11 +46,12 @@
 {
     appDidFinishLaunching = YES;
 
+    NSLog(@">>> %@", [NSBundle mainBundle]);
     NSString *path = [[NSBundle mainBundle] pathForResource: @"GSWrapper"
                                             ofType: @"plist"];
     properties = RETAIN([NSDictionary dictionaryWithContentsOfFile: path]);
-    NSLog(@"xXxx:%@", path);
-    NSLog(@"v:%@", properties);
+    NSLog(@"xxx:%@", path);
+    NSLog(@"ppp:%@", properties);
 
     if ( startupFiles ) {
         mainAction = [self actionForMessage: @"StartOpen"];

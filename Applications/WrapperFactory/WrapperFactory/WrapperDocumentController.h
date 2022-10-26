@@ -30,6 +30,8 @@
 #define StartScript 0
 #define StartOpenScript 1
 #define OpenScript 2
+#define ServiceScript 3
+#define FilterScript 4
 
 
 @interface WrapperDocumentController : NSObject

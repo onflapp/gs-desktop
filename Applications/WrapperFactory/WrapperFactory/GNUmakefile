@@ -36,6 +36,7 @@ WrapperFactory_RESOURCE_FILES = \
 	Icons/WrapperFactory.tiff \
 	Icons/DefaultAppIcon.tiff \
 	Icons/DesktopEntry.tiff \
+	launcher.sh
 
 WrapperFactory_LANGUAGES = English
 

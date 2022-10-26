@@ -42,7 +42,7 @@ include Version
 
 GNUSTEP_INSTALLATION_DIR = $(GNUSTEP_SYSTEM_ROOT)
 
-SUBPROJECTS = libGSWrapper WrapperFactory
+SUBPROJECTS = libGSWrapper Launcher WrapperFactory
 
 #
 # Makefiles
