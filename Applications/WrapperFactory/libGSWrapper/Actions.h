@@ -84,6 +84,8 @@
 
 - (BOOL)executeWithFiles: (NSArray *)files;
 
+- (NSTask*)createTaskWithFiles: (NSArray *)files;
+
 @end
 
 

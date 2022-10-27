@@ -776,6 +776,26 @@ static NSString *actionIgnore = @"Ignore";
             NSLog(@"NSTypes not set");
         }
 
+        // services
+        NSArray *serviceDicts = [info objectForKey: @"NSServices"];
+        if ( serviceDicts ) {
+            int serviceCount = [serviceDicts count];
+            int i;
+            for ( i=0; i<serviceCount; i++ ) {
+                NSDictionary *serviceDict = [serviceDicts objectAtIndex: i];
+                NSString *n = [[serviceDict objectForKey:@"NSMenuItem"] objectForKey:@"default"];
+                if (n) {
+                    Service *service = AUTORELEASE([[Service alloc] init]);
+                    [service setName:n];
+                    [self addService: service];
+                }
+            }
+        }
+        else {
+            NSLog(@"NSServices not set");
+        }
+
+
         // Load other resources
         NSFileWrapper *appIconFile = [resources objectForKey: @"AppIcon.tiff"];
         if ( appIconFile ) {
@@ -985,7 +1005,6 @@ static NSString *actionIgnore = @"Ignore";
                                                                     resources, [resources preferredFilename],
                                                                     nil]];
     AUTORELEASE(app);
-    NSLog(@">>> %@ %@", exe, launcherName);
     [app setExecutable: exe];
     return app;
 }

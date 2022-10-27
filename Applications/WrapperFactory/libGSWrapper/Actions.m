@@ -96,6 +96,18 @@
 
 - (BOOL)executeWithFiles: (NSArray *)files;
 {
+    NSTask *t = [self createTaskWithFiles: files];
+    if ( t ) {
+        [t launch];
+        return YES;
+    }
+    else {
+        return NO;
+    }
+}
+
+- (NSTask*)createTaskWithFiles: (NSArray *)files
+{
     NSString *shell;
     NSString *script;
     NSArray *args;
@@ -116,7 +128,7 @@
         NSRunCriticalAlertPanel([NSApp applicationName],
                                 [NSString stringWithFormat: @"Could not find script for action %@", [self name]],
                                 @"OK", nil, nil);
-        return NO;
+        return nil;
     }
     shell = [[self properties] objectForKey: @"Shell"];
     if ( ! shell ) {
@@ -145,9 +157,8 @@
     task = [[NSTask alloc] init];
     [task setLaunchPath: shell];
     [task setArguments: realArgs];
-    [task launch];
 
-    return YES;
+    return task;
 }
 
 - (NSTask *)task

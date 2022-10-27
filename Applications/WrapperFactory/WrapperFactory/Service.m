@@ -39,9 +39,11 @@
 {
     self = [super init];
     if ( self ) {
-        name = @"Unnamed";
-        shell = @"/bin/sh";
-        action = @"";
+        name = [@"Unnamed" retain];
+        shell = [@"/bin/sh" retain];
+        action = [@"" retain];
+        sendType = [@"" retain];
+        returnType = [@"" retain];
     }
     return self;
 }
@@ -76,6 +78,28 @@
 {
     ASSIGN(action, n);
     [self serviceChangedAttribute: @"action"
+          value: (n)];
+}
+
+- (NSString *)sendType
+{
+    return sendType;
+}
+- (void)setSendType: (NSString *)n
+{
+    ASSIGN(sendType, n);
+    [self serviceChangedAttribute: @"sendType"
+          value: (n)];
+}
+
+- (NSString *)returnType
+{
+    return returnType;
+}
+- (void)setReturnType: (NSString *)n
+{
+    ASSIGN(returnType, n);
+    [self serviceChangedAttribute: @"returnType"
           value: (n)];
 }
 

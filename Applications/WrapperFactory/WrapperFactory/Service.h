@@ -32,6 +32,8 @@
     NSString *name;
     NSString *shell;
     NSString *action;
+    NSString *sendType;
+    NSString *returnType;
 }
 
 - (NSString *)name;
@@ -42,6 +44,12 @@
 
 - (NSString *)action;
 - (void)setAction: (NSString *)n;
+
+- (NSString *)sendType;
+- (void)setSendType: (NSString *)n;
+
+- (NSString *)returnType;
+- (void)setReturnType: (NSString *)n;
 @end
 
 #endif

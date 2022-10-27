@@ -45,7 +45,7 @@
 - (void)applicationDidFinishLaunching: (NSNotification*)not
 {
     appDidFinishLaunching = YES;
-    NSRegisterServicesProvider(self, [NSApp applicationName]);
+    NSRegisterServicesProvider(self, [[NSApp applicationName] stringByDeletingPathExtension]);
 
     NSString *path = [[NSBundle mainBundle] pathForResource: @"GSWrapper"
                                             ofType: @"plist"];
@@ -119,28 +119,62 @@
     }
 }
 
+- (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender
+{
+    if ( mainAction ) {
+        [[mainAction task] terminate];
+    }
+    return YES;
+}
+
 - (void) executeService: (NSPasteboard *)pboard
                userData: (NSString *)userData
                   error: (NSString **)error
 {
     NSLog(@"SERVICE >>> %@", userData);
-    id<Action> serviceAction = [self actionForMessage: userData];
+    
+    NSString *inDataType  = [[properties objectForKey: userData] objectForKey: @"SendType"];
+    NSString *outDataType = [[properties objectForKey: userData] objectForKey: @"ReturnType"];
+    RunScriptAction *serviceAction = (RunScriptAction*)[self actionForMessage: userData];
+
     if ( !serviceAction ) {
         NSLog(@"no action for %@", userData);
         return;
     }
 
     NSArray* files = [NSArray array];
-    BOOL retval = [serviceAction executeWithFiles: files];
-    NSTask *task = [serviceAction task];
+    NSTask *task = [serviceAction createTaskWithFiles: files];
     if ( !task ) {
         NSLog(@"exit with error");
         return;
     }
     else {
-        [task waitUntilExit];
-        if ( [task terminationStatus] ) {
+
+        NSData *inData = nil;//[pboard dataForType: NSStringPboardType];
+
+        NSPipe *outPipe = [NSPipe pipe];
+
+        [task setStandardOutput:outPipe];
+
+        if (inData) {
+            NSPipe *inPipe = [NSPipe pipe];
+            [task setStandardInput:inPipe];
+            NSFileHandle *outFh = [inPipe fileHandleForWriting];
+            [outFh writeData:inData];
+            [outFh closeFile];
         }
+
+        [task launch];
+
+        NSFileHandle *inFh = [outPipe fileHandleForReading];
+        NSData *outData = [inFh readDataToEndOfFile];
+        [inFh closeFile];
+
+        if (outData) {
+            NSString *str = [[NSString alloc] initWithData: outData encoding:NSUTF8StringEncoding];
+            [pboard setString: str forType: NSStringPboardType];
+        }
+        NSLog(@"done service");
     }
 }
 
