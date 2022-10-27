@@ -31,6 +31,7 @@
 static const int currentVersion = 1;
 
 NSString * const ApplicationType = @"Application";
+NSString * const ServiceType = @"Service";
 NSString * const WrapperChangedNotification = @"WrapperChangedNotification";
 NSString * const WrapperChangedAttributeName = @"AttributeName";
 NSString * const WrapperChangedAttributeValue = @"AttributeValue";
@@ -191,6 +192,9 @@ static NSString *actionIgnore = @"Ignore";
     if ( [type isEqualToString: ApplicationType]  ) {
         return [self loadWrapper: file];
     }
+    else if ( [type isEqualToString: ServiceType]  ) {
+        return [self loadWrapper: file];
+    }
 #ifdef FREEDESKTOP
     else if ( [type isEqualToString: FreedesktopApplicationType] ) {
         if ( [self loadFreedesktopApplication: file] ) {
@@ -212,6 +216,9 @@ static NSString *actionIgnore = @"Ignore";
 - (NSFileWrapper *)fileWrapperRepresentationOfType: (NSString *)type
 {
     if ( [type isEqualToString: ApplicationType]  ) {
+        return [self saveWrapper];
+    }
+    else if ( [type isEqualToString: ServiceType]  ) {
         return [self saveWrapper];
     }
     else {
@@ -784,9 +791,20 @@ static NSString *actionIgnore = @"Ignore";
             for ( i=0; i<serviceCount; i++ ) {
                 NSDictionary *serviceDict = [serviceDicts objectAtIndex: i];
                 NSString *n = [[serviceDict objectForKey:@"NSMenuItem"] objectForKey:@"default"];
+                NSString *f = [serviceDict objectForKey:@"NSFilter"];
                 if (n) {
                     Service *service = AUTORELEASE([[Service alloc] init]);
                     [service setName:n];
+
+                    if (f) {
+                        [service setFilter: YES];
+                        NSArray* st = [serviceDict objectForKey:@"NSSendTypes"];
+                        for (NSString* it in st) {
+                            if ([it hasPrefix:@"NSTypedFileContentsPboardType"]) {
+                                [service setExtensions:[it substringFromIndex:30]];
+                            }
+                        }
+                    }
 
                     NSString *ud = [serviceDict objectForKey:@"NSUserData"];
                     if (ud) {
@@ -795,7 +813,6 @@ static NSString *actionIgnore = @"Ignore";
 
                         [service setReturnType: outDataType];
                         [service setSendType: inDataType];
-                    NSLog(@">>> [%@] [%@]", inDataType, outDataType);
 
                         NSFileWrapper *serviceFile = [resources objectForKey: ud];
                         NSString *action = [NSString stringWithContentsOfFile: [serviceFile filename]];
@@ -915,13 +932,28 @@ static NSString *actionIgnore = @"Ignore";
             Service *service = [services objectAtIndex: i];
             NSString* ud = [NSString stringWithFormat:@"Service_%03d", i];
             NSMutableDictionary *serviceDict = [NSMutableDictionary dictionaryWithCapacity: 6];
-            [serviceDict setObject: @"executeService" forKey: @"NSMessage"];
+            if ( [service isFilter] ) {
+                [serviceDict setObject: @"executeService" forKey: @"NSFilter"];
+            }
+            else {
+                [serviceDict setObject: @"executeService" forKey: @"NSMessage"];
+            }
             [serviceDict setObject: [name stringByDeletingPathExtension] forKey: @"NSPortName"];
             [serviceDict setObject: ud forKey: @"NSUserData"];
             [serviceDict setObject: [NSDictionary dictionaryWithObjectsAndKeys:[service name], @"default", nil] forKey: @"NSMenuItem"];
 
             NSString* sendType = [service sendType];
-            if ([sendType length] > 0) {
+            if ([service isFilter]) {
+                if ([[service extensions] length] > 0) {
+                    NSString *xs = [NSString stringWithFormat:@"NSTypedFileContentsPboardType:%@", [service extensions]];
+                    [serviceDict setObject: [NSArray arrayWithObjects: NSFilenamesPboardType, xs, nil] forKey: @"NSSendTypes"];
+                }
+                else {
+                    [serviceDict setObject: [NSArray arrayWithObject: NSFilenamesPboardType] forKey: @"NSSendTypes"];
+                }
+                sendType = NSFilenamesPboardType;
+            }
+            else if ([sendType length] > 0) {
                 [serviceDict setObject: [NSArray arrayWithObject: sendType] forKey: @"NSSendTypes"];
             }
 

@@ -43,7 +43,9 @@
 	    actionTextView,
 	    shellTextField,
 	    returnTypePopUp,
-	    sendTypePopUp
+	    sendTypePopUp,
+	    filterButton,
+	    extensionsTextField
 	);
 	Super = NSObject;
     };

@@ -32,9 +32,11 @@
 
     IBOutlet NSTextField *nameTextField;
     IBOutlet NSTextField *shellTextField;
+    IBOutlet NSTextField *extensionsTextField;
     IBOutlet NSTextView *actionTextView;
     IBOutlet NSPopUpButton *sendTypePopUp;
     IBOutlet NSPopUpButton *returnTypePopUp;
+    IBOutlet NSButton *filterButton;
 }
 
 - (Service *)service;

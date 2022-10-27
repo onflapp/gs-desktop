@@ -18,6 +18,12 @@
       NSRole = Editor;
     },
     {
+      NSName = "Service";
+      NSUnixExtensions = ( "service" );
+      NSDocumentClass = "WrapperDocument";
+      NSRole = Editor;
+    },
+    {
       NSName = "Freedesktop Application";
       NSUnixExtensions = ( "desktop" );
       NSDocumentClass = "WrapperDocument";

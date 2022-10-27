@@ -61,7 +61,7 @@
 
 - (BOOL)applicationShouldOpenUntitledFile: (NSApplication *)app
 {
-    return YES;
+    return NO;
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate: (NSNotification *)not

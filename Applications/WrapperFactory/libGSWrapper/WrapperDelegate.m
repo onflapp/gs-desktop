@@ -64,7 +64,8 @@
     }
     if ( ![mainAction task] ) {
         if ( [properties objectForKey: @"Service_000"] ) {
-            NSLog(@"Service handler configured - continue running");
+            NSLog(@"Service handler configured - continue running for 6os");
+            [NSApp performSelector:@selector(terminate:) withObject: self afterDelay:60];
             return;
         }
         else {
@@ -153,7 +154,27 @@
     NSArray *files = [NSArray array];
     NSData *inData = nil;
     if ([inDataType isEqualToString:@"NSStringPboardType"]) {
+        NSLog(@"input string");
         inData = [pboard dataForType: NSStringPboardType];
+    }
+    else if ([inDataType isEqualToString:@"NSFilenamesPboardType"]) {
+        files = [pboard propertyListForType:NSFilenamesPboardType];
+        if (!files) {
+            NSString *ext = nil;
+            for (NSString* it in [pboard types]) {
+                if ([it hasPrefix:@"NSTypedFileContentsPboardType"]) {
+                    ext = [it substringFromIndex:30];
+                }
+            }
+
+            NSString *tmpf = [NSString stringWithFormat:@"%@/service.data.%x", NSTemporaryDirectory(), [self hash]];
+            tmpf = [pboard readFileContentsType:ext toFile:tmpf];
+            if (tmpf) {
+                files = [NSArray arrayWithObject:tmpf];
+            }
+        }
+
+        NSLog(@"input files %@", files);
     }
 
     NSTask *task = [serviceAction createTaskWithFiles: files];
@@ -182,10 +203,14 @@
 
         if (outData) {
             if ([outDataType isEqualToString:@"NSStringPboardType"]) {
+                NSLog(@"provide data as string");
                 NSString *str = [[NSString alloc] initWithData: outData encoding:NSUTF8StringEncoding];
+                [pboard declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: nil];
                 [pboard setString: str forType: NSStringPboardType];
             }
             else if ([outDataType length] > 0) {
+                NSLog(@"provide data as %@", outDataType);
+                [pboard declareTypes: [NSArray arrayWithObject: outDataType] owner: nil];
                 [pboard setData: outData forType: outDataType];
             }
         }
@@ -207,7 +232,13 @@
                                           status],
                                 @"OK", nil, nil);
     }
-    [NSApp terminate: self];
+    if ( [properties objectForKey: @"Service_000"] ) {
+        //give the service a chance to be called
+        [NSApp performSelector:@selector(terminate:) withObject: self afterDelay:1];
+    }
+    else {
+        [NSApp terminate: self];
+    }
 }
 
 

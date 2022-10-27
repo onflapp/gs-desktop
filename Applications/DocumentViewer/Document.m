@@ -44,11 +44,28 @@
 }
 
 - (void) displayFile:(NSString*) path {
-  [statusField setStringValue:@"loading pdf"];
-  [pdfView loadFile:path];
+  NSString* pdffile = path;
+  NSString* ext = [path pathExtension];
+
+  if (![ext isEqualToString:@"pdf"]) {
+    NSLog(@"try to convert %@", path);
+
+    NSPasteboard* pboard = [NSPasteboard pasteboardByFilteringFile:path];
+    NSData* data = [pboard dataForType:NSPDFPboardType];
+    if (data) {
+      NSString* tfile = [NSString stringWithFormat:@"%@/temp.%x.pdf", NSTemporaryDirectory(), [self hash]];
+      [data writeToFile:tfile atomically:NO];
+      pdffile = tfile;
+    }
+  }
+
+  if (pdffile) {
+    [statusField setStringValue:@"loading pdf"];
+    [pdfView loadFile:pdffile];
   
-  [self displayNavigation];
-  [self displayPage:1];
+    [self displayNavigation];
+    [self displayPage:1];
+  }
 }
 
 - (void) displayPage:(NSInteger) page {

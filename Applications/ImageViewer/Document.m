@@ -56,6 +56,13 @@
 
 - (void) displayFile:(NSString*) path {
   NSImage* img = [[NSImage alloc] initWithContentsOfFile:path];
+  if (!img) {
+    NSPasteboard* pboard = [NSPasteboard pasteboardByFilteringFile:path];
+    NSData* data = [pboard dataForType:NSTIFFPboardType];
+    if (data) {
+      img = [[NSImage alloc] initWithData:data];
+    }
+  }
   if (img) {
     [imageView setFrameSize:[img size]];
     [imageView setImage:img];

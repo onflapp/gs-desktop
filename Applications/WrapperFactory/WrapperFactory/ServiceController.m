@@ -34,7 +34,17 @@
     ASSIGN(service, s);
     [nameTextField setStringValue: [service name]];
     [shellTextField setStringValue: [service shell]];
+    [extensionsTextField setStringValue: [service extensions]];
     [actionTextView setString: [service action]];
+
+    [filterButton setState: [service isFilter]];
+
+    if ([service isFilter]) {
+        [extensionsTextField setEnabled:YES];
+    }
+    else {
+        [extensionsTextField setEnabled:NO];
+    }
 
     NSString *type = [service returnType];
     NSInteger tag = 0;
@@ -61,7 +71,15 @@
         tag = 1;
     }
     else if ([type isEqualToString: @"NSFilenamesPboardType"]) {
-        tag = 1;
+        tag = 2;
+    }
+
+    if ([service isFilter]) {
+        tag = 2;
+        [sendTypePopUp setEnabled:NO];
+    }
+    else {
+        [sendTypePopUp setEnabled:YES];
     }
 
     [sendTypePopUp selectItemAtIndex: [sendTypePopUp indexOfItemWithTag: tag]];
@@ -73,7 +91,18 @@
 
 - (void)changeType: (id) sender
 {
-    if ( sender == sendTypePopUp ) {
+    if ( sender == filterButton ) {
+        [service setFilter:[filterButton state]];
+        if ([service isFilter]) {
+            [sendTypePopUp setEnabled:NO];
+            [extensionsTextField setEnabled:YES];
+        }
+        else {
+            [sendTypePopUp setEnabled:YES];
+            [extensionsTextField setEnabled:NO];
+        }
+    }
+    else if ( sender == sendTypePopUp ) {
         NSInteger tag = [[sendTypePopUp selectedItem] tag];
         if (tag == 1) {
             [service setSendType:@"NSStringPboardType"];
@@ -124,6 +153,9 @@
     if ( !service ) {
         NSLog(@"No type");
         return;
+    }
+    else if ( sender == extensionsTextField ) {
+        [service setExtensions: [extensionsTextField stringValue]];
     }
     else if ( sender == nameTextField ) {
         [service setName: [nameTextField stringValue]];

@@ -32,8 +32,10 @@
     NSString *name;
     NSString *shell;
     NSString *action;
+    NSString *extensions;
     NSString *sendType;
     NSString *returnType;
+    BOOL filter;
 }
 
 - (NSString *)name;
@@ -50,6 +52,12 @@
 
 - (NSString *)returnType;
 - (void)setReturnType: (NSString *)n;
+
+- (NSString *)extensions;
+- (void)setExtensions: (NSString *)n;
+
+- (BOOL)isFilter;
+- (void)setFilter:(BOOL) b;
 @end
 
 #endif
