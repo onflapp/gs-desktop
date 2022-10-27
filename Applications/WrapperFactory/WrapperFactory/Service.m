@@ -43,7 +43,7 @@
         shell = [@"/bin/sh" retain];
         action = [@"" retain];
         sendType = [@"" retain];
-        returnType = [@"" retain];
+        returnType = [@"NSStringPboardType" retain];
     }
     return self;
 }

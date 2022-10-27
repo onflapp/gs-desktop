@@ -63,9 +63,15 @@
         return;
     }
     if ( ![mainAction task] ) {
-        NSLog(@"Main action has no task assigned - exiting");
-        [NSApp terminate: self];
-        return;
+        if ( [properties objectForKey: @"Service_000"] ) {
+            NSLog(@"Service handler configured - continue running");
+            return;
+        }
+        else {
+            NSLog(@"Main action has no task assigned - exiting");
+            [NSApp terminate: self];
+            return;
+        }
     }
 
 
@@ -131,27 +137,31 @@
                userData: (NSString *)userData
                   error: (NSString **)error
 {
-    NSLog(@"SERVICE >>> %@", userData);
     
     NSString *inDataType  = [[properties objectForKey: userData] objectForKey: @"SendType"];
     NSString *outDataType = [[properties objectForKey: userData] objectForKey: @"ReturnType"];
+
+    NSLog(@"SERVICE >>> %@ %@ %@", userData, inDataType, outDataType);
+
     RunScriptAction *serviceAction = (RunScriptAction*)[self actionForMessage: userData];
 
     if ( !serviceAction ) {
         NSLog(@"no action for %@", userData);
         return;
     }
+    
+    NSArray *files = [NSArray array];
+    NSData *inData = nil;
+    if ([inDataType isEqualToString:@"NSStringPboardType"]) {
+        inData = [pboard dataForType: NSStringPboardType];
+    }
 
-    NSArray* files = [NSArray array];
     NSTask *task = [serviceAction createTaskWithFiles: files];
     if ( !task ) {
         NSLog(@"exit with error");
         return;
     }
     else {
-
-        NSData *inData = nil;//[pboard dataForType: NSStringPboardType];
-
         NSPipe *outPipe = [NSPipe pipe];
 
         [task setStandardOutput:outPipe];
@@ -171,8 +181,13 @@
         [inFh closeFile];
 
         if (outData) {
-            NSString *str = [[NSString alloc] initWithData: outData encoding:NSUTF8StringEncoding];
-            [pboard setString: str forType: NSStringPboardType];
+            if ([outDataType isEqualToString:@"NSStringPboardType"]) {
+                NSString *str = [[NSString alloc] initWithData: outData encoding:NSUTF8StringEncoding];
+                [pboard setString: str forType: NSStringPboardType];
+            }
+            else if ([outDataType length] > 0) {
+                [pboard setData: outData forType: outDataType];
+            }
         }
         NSLog(@"done service");
     }

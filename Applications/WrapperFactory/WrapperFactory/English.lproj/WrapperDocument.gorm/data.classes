@@ -6,7 +6,7 @@
 	    "controlTextDidChange:",
 	    "deleteService:",
 	    "deleteType:",
-	    "newAction:",
+	    "changeType:",
 	    "newService:",
 	    "newType:",
 	    "orderFrontFontPanel:",
@@ -36,11 +36,14 @@
     };
     ServiceController = {
 	Actions = (
+	    "changeType:"
 	);
 	Outlets = (
 	    nameTextField,
 	    actionTextView,
-	    shellTextField
+	    shellTextField,
+	    returnTypePopUp,
+	    sendTypePopUp
 	);
 	Super = NSObject;
     };

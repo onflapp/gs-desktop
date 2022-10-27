@@ -35,12 +35,75 @@
     [nameTextField setStringValue: [service name]];
     [shellTextField setStringValue: [service shell]];
     [actionTextView setString: [service action]];
+
+    NSString *type = [service returnType];
+    NSInteger tag = 0;
+
+    if ([type isEqualToString: @"NSStringPboardType"]) {
+        tag = 1;
+    }
+    else if ([type isEqualToString: @"NSRTFPboardType"]) {
+        tag = 10;
+    }
+    else if ([type isEqualToString: @"NSPDFPboardType"]) {
+        tag = 11;
+    }
+    else if ([type isEqualToString: @"NSTIFFPboardType"]) {
+        tag = 12;
+    }
+    
+    [returnTypePopUp selectItemAtIndex: [returnTypePopUp indexOfItemWithTag: tag]];
+
+    type = [service sendType];
+    tag = 0;
+
+    if ([type isEqualToString: @"NSStringPboardType"]) {
+        tag = 1;
+    }
+    else if ([type isEqualToString: @"NSFilenamesPboardType"]) {
+        tag = 1;
+    }
+
+    [sendTypePopUp selectItemAtIndex: [sendTypePopUp indexOfItemWithTag: tag]];
 }
 
 /*
  * UI actions
  */
 
+- (void)changeType: (id) sender
+{
+    if ( sender == sendTypePopUp ) {
+        NSInteger tag = [[sendTypePopUp selectedItem] tag];
+        if (tag == 1) {
+            [service setSendType:@"NSStringPboardType"];
+        }
+        else if (tag == 2) {
+            [service setSendType:@"NSFilenamesPboardType"];
+        }
+        else {
+            [service setSendType:@""];
+        }
+    }
+    else if ( sender == returnTypePopUp ) {
+        NSInteger tag = [[returnTypePopUp selectedItem] tag];
+        if (tag == 1) {
+            [service setReturnType:@"NSStringPboardType"];
+        }
+        else if (tag == 10) {
+            [service setReturnType:@"NSRTFPboardType"];
+        }
+        else if (tag == 11) {
+            [service setReturnType:@"NSPDFPboardType"];
+        }
+        else if (tag == 12) {
+            [service setReturnType:@"NSTIFFPboardType"];
+        }
+        else {
+            [service setReturnType:@""];
+        }
+    }
+}
 
 /*
  * NSTextField delegate

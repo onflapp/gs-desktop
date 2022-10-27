@@ -787,6 +787,22 @@ static NSString *actionIgnore = @"Ignore";
                 if (n) {
                     Service *service = AUTORELEASE([[Service alloc] init]);
                     [service setName:n];
+
+                    NSString *ud = [serviceDict objectForKey:@"NSUserData"];
+                    if (ud) {
+                        NSString *inDataType  = [[gsWrapperInfo objectForKey: ud] objectForKey: @"SendType"];
+                        NSString *outDataType = [[gsWrapperInfo objectForKey: ud] objectForKey: @"ReturnType"];
+
+                        [service setReturnType: outDataType];
+                        [service setSendType: inDataType];
+                    NSLog(@">>> [%@] [%@]", inDataType, outDataType);
+
+                        NSFileWrapper *serviceFile = [resources objectForKey: ud];
+                        NSString *action = [NSString stringWithContentsOfFile: [serviceFile filename]];
+                        [service setAction:action];
+                    }
+
+
                     [self addService: service];
                 }
             }
@@ -903,8 +919,16 @@ static NSString *actionIgnore = @"Ignore";
             [serviceDict setObject: [name stringByDeletingPathExtension] forKey: @"NSPortName"];
             [serviceDict setObject: ud forKey: @"NSUserData"];
             [serviceDict setObject: [NSDictionary dictionaryWithObjectsAndKeys:[service name], @"default", nil] forKey: @"NSMenuItem"];
-            [serviceDict setObject: [NSArray arrayWithObject:@"NSStringPboardType"] forKey: @"NSSendTypes"];
-            [serviceDict setObject: [NSArray arrayWithObject:@"NSStringPboardType"] forKey: @"NSReturnTypes"];
+
+            NSString* sendType = [service sendType];
+            if ([sendType length] > 0) {
+                [serviceDict setObject: [NSArray arrayWithObject: sendType] forKey: @"NSSendTypes"];
+            }
+
+            NSString* returnType = [service returnType];
+            if ([returnType length] > 0) {
+                [serviceDict setObject: [NSArray arrayWithObject: returnType] forKey: @"NSReturnTypes"];
+            }
             [serviceArray addObject: serviceDict];
 
             [slist addObject:
@@ -912,6 +936,8 @@ static NSString *actionIgnore = @"Ignore";
                     [NSDictionary dictionaryWithObjectsAndKeys:
                         [service shell], @"Shell",
                         @"RunScript", @"Action",
+                        returnType?returnType:@"", @"ReturnType",
+                        sendType?sendType:@"", @"SendType",
                     nil],
                     ud,
                 nil]
