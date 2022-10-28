@@ -1,0 +1,188 @@
+version ?.?.?:
+- MusicBrainz support is now optional, and updated to libmusicbrainz
+  5.x (preferable) or 3.x.  Support for version 2.x has been removed
+  as it is deprecated and unusable with the current server software.
+
+version 0.9.5:
+- some files were separated into a new Cynthiune framework, so that other
+  developers can now start writing extension bundles and so that bundles
+  do not have to rely on internal symbols either;
+- added support for WMA and ASF audio formats through the new WindowsMedia
+  bundle;
+- added support for the MPC audio format through the new Musepack bundle;
+- added support for midi files through the Timidity bundle, which requires
+  timidity to be installed;
+- added support for the aRts sound daemon through the new aRts output bundle;
+- added flags on GNUstep to ignore compilation of all or specific bundles:
+  set disable-bundles or disable-{oss,esound,mod,mp3,ogg,flac,windowsmedia,
+  musepack,timidity} to "yes" to do this;
+- song filenames can now be dragged from Cynthiune to other applications on
+  MacOS X;
+- fixed a bug that could make the MP3 bundle hang forever when seeking the
+  beginning of an empty file;
+- fixed a bug in the MP3 bundle where it would skip the first few frames of a
+  tagged file;
+- the MP3 bundles returns a more accurate duration of buggy vbr files;
+- added a "Tools" menu;
+- added a Song inspector to display and edit song metadata;
+- added support for resolving song metadata through the MusicBrainz database;
+- we now use an image to indicate which song is currently playing instead of
+  using the selection mechanism;
+- fixed a bug that would mess up the selection when the playlist was sorted;
+- added a playlist status label that displays the number of songs and the
+  total time of the playlist, as well as the time taken by all the selected
+  songs, if any;
+- fixed a bug that would crash Cynthiune and maybe screw the default playlist
+  when a selection of songs was dragged to a position with a distance to the 
+  end of the playlist inferior to the amount of songs being dragged;
+- the playlist code has been totally rewritten to be modular. Meanwhile,
+  playlists with relative filenames can now be saved and also read;
+- removed the "mute" button since considered useless;
+- the state of the player is saved in the preferences;
+- the playlist menus were replaced with a more convenient and standard toolbar;
+- added German translation, thanks to Julian Frede;
+- updated Italian translation;
+- added Hungarian translation, thanks to Andras;
+- added Traditional Chinese translation, thanks to Yen-Ju Chen;
+- added Spanish translation, thanks to Pablo Di Noto;
+- added Slovak translation, thanks to Saso Kiselkov;
+- added ability to manipulate the song selection with the keyboard in the
+  playlist, the valid keys are the home, end and arrow keys (with or without
+  shift) to alter the selection, delete and enter to remove songs and activate
+  the selection in the player;
+- many GUI tweaking and enhancements.
+
+version 0.9.4:
+- made the Services menu and mechanism work again;
+- made the DnD of song filenames work properly on MacOSX, by complying
+  with Apple's documentation;
+- added the ability to send a bug report from the Info menu;
+- activated the application menu;
+- fixed a bug that was recording the wrong date and size informations for 
+  songs in the stored playlist, reducing the speedup brought by the use of
+  an NSKeyedArchive;
+- fixed a bug that was preventing the player to skip invalid songs;
+- fixed a bug that was requesting the player to start playing when the column
+  headers were double-clicked on GNUstep;
+- fixed a bug in the Esound bundle that was preventing the socket to be
+  reinitialized with the correct song rate and channels informations;
+- add a "Cleanup" entry in the "Remove" dropdown menu that performs the
+  removal of all the songs that either were not recognized with their format
+  or are missing in the filesystem.
+- fixed a bug that was preventing the OSS output bundle to start correctly
+  when no dsp device was set in the preferences.
+
+version 0.9.3a:
+- this version now builds and runs on MacOS X again;
+
+version 0.9.3:
+- do not interpret command-line arguments starting with "-" as songs;
+- a bunch of new supported file formats were added:
+  - added the Mod format module relying on libmodplug (thanks to Rob Burns),
+    adding support for 23 types of tracker file formats (mod, s3m, ...);
+  - added the AudioFile format module relying on libaudiofile, adding support
+    for 7 types of uncompressed sound formats (wav, aiff, ...);
+  - added the FLAC format module relying on libflac, adding support for
+    the Free Lossless Audio Codec;
+- factory methods return autoreleased object by default, to comply with the
+  coding standards;
+- reworked the player interface;
+- eradicated the memleaks (thanks to Ludovic Marcotte);
+- the column headers can now be used to sort the playlist in ascending and
+  descending orders;
+- UTF16'd language dictionaries;
+- dropped embryonic support for OpenStep 4.2;
+- the timer is reversed directly when clicked;
+- when changing the selection in the playlist, the total time taken by the
+  songs is displayed during one second;
+- the default playlist is saved in <User's Library>/Cynthiune/Playlist rather
+  than in the defaults database (migration is transparent);
+- loading the default playlist is made faster by the use of
+  NSKeyedArchiver/NSKeyedUnarchiver.
+- supported extensions appears case-insensitively in the open dialog;
+- fixed the display of UTF8-encoded song metadata;
+- added Italian translation (thanks to Roberto Pariset);
+- MacOSX users can select whether Cynthiune will display textured or regular
+  windows;
+- the Esound and OSS drivers are no longer threaded, this makes the playing of
+  songs faster to start since no lock has to be instantiated.
+- the output bundles and the output mechanism were redesigned and made
+  simpler, cleaner;
+
+version 0.9.2:
+- fixed two buggy behaviours related to the playlist management, both when
+  repeat is on and off;
+- unified interface files (nib/gorm);
+- fixed a bug related to the resizing of sticked playlist windows;
+- the preferences window won't crash the application any longer (thanks to
+  Ludovic Marcotte);
+- the preference dialogs are now localized too;
+- the active playlist is synced to the defaults database so that we won't lose
+  it anymore when Cynthiune crashes;
+- the MP3 bundle now has support for the RIFF encapsulation format as well as
+  for the MPEG 1/2/2.5 Layer 1/2/3 formats;
+- Cynthiune can now be launched from its source directory without adapting
+  the source code;
+- GNUstep and MacOSX releases are again on par with each other (thanks to my
+  friend Cynthia for offering me her iMac);
+- the windows menu is enabled properly;
+- services that can manage filenames are made available in the "Services"
+  menu, they will be given the list of selected song filenames as parameter;
+- the playlist can serve as a dragging source for music files to other
+  applications and widget accepting NSFilenamePboardType objects;
+- major code cleanup (memleaks, coding conventions, refactoring);
+- the timer field can display the time remaining for the current song by
+  clicking on it;
+- when the selection of songs is changing, the total time taken by those songs
+  is displayed in the timer field;
+- dropped usage of that crappy Sodipodi piece of voodooware after losing
+  an important file (see rant about free software in the README);
+- aesthetical details modified;
+
+version 0.9.1:
+- cosmetic changes (new buttons);
+- new pause button;
+- fixed crash in dummy output bundle;
+- new application icon, thanks to Mivil Deschênes <Mivil@Contre.COM>;
+
+version 0.9:
+- the sound stream is now handled by a different thread than the GUI
+  (Esound/OSS);
+- French translation;
+- MP3 format is now supported through libmad;
+- Cynthiune keeps its playlist saved between sessions;
+- import/export playlists in .m3u and .pls;
+- we now accept input and output plugins as Bundles;
+- a bundle was added to support output to esd;
+- a basic implementation of a preferences system;
+- windows stickiness;
+- repeat and shuffle;
+- ability to change the current position in the song;
+- misc. interface enhancements;
+
+version 0.4:
+- bug fix version;
+
+version 0.3:
+- mute button works
+- "pause" implemented
+- file metadata (artist, song titles, ...) handled
+- timer displayed
+- new logo and better application icon
+- drag and drop:
+  - list reorganization;
+  - file dropping from workspace;
+  - file dragged on the application's icon are opened;
+- correct window resizing;
+- quit when the window is closed;
+
+version 0.2:
+- make everything work as expected: don't crash unexpectedly, don't stop
+  playing for strange reasons;
+
+version 0.1:
+- late Christmas release, very basic, full of bugs
+
+Local variables:
+mode: text
+End:

@@ -1,0 +1,50 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    CynthiuneAnimatedImageView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSImageView;
+    };
+    FirstResponder = {
+	Actions = (
+	    "cancal:",
+	    "mbLookup:",
+	    "save:"
+	);
+	Super = NSObject;
+    };
+    NewClass = {
+    };
+    SongInspectorController = {
+	Actions = (
+	    "reset:",
+	    "save:",
+	    "mbLookup:"
+	);
+	Outlets = (
+	    titleField,
+	    albumField,
+	    trackField,
+	    artistField,
+	    genreField,
+	    resetButton,
+	    saveButton,
+	    inspectorPanel,
+	    yearField,
+	    filenameField,
+	    lookupButton,
+	    lookupAnimation,
+	    albumLabel,
+	    artistLabel,
+	    genreLabel,
+	    pageSelector,
+	    titleLabel,
+	    trackLabel,
+	    yearLabel,
+	    lookupStatusLabel
+	);
+	Super = NSObject;
+    };
+}

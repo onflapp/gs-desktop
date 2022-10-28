@@ -1,0 +1,28 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    CynthiunePopUpButton = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSPopUpButton;
+    };
+    FirstResponder = {
+	Actions = (
+	    "orderFrontFontPanel:",
+	    "bundleChanged:"
+	);
+	Super = NSObject;
+    };
+    PreferencesController = {
+	Actions = (
+	    "bundleChanged:"
+	);
+	Outlets = (
+	    prefsWindow,
+	    bundleViewBox,
+	    bundleSelector
+	);
+	Super = NSObject;
+    };
+}

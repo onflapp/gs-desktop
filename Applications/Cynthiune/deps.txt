@@ -1,0 +1,5 @@
+sudo apt install libmad0-dev
+sudo apt install libid3tag0-dev
+sudo apt install libmodplug-dev
+sudo apt install libavifile-0.7-dev
+sudo apt install libmpcdec-dev

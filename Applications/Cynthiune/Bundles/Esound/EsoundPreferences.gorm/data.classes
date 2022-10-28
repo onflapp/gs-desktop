@@ -1,0 +1,29 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    EsoundPreferences = {
+	Actions = (
+	    "selectTcpBtn:",
+	    "selectUnixBtn:"
+	);
+	Outlets = (
+	    prefsWindow,
+	    tcpBtn,
+	    unixBtn,
+	    hostField,
+	    portField,
+	    portLabel,
+	    hostLabel,
+	    tcpOptionsBox,
+	    connectionTypeBox
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "orderFrontFontPanel:",
+	    "selectTcpBtn:",
+	    "selectUnixBtn:"
+	);
+	Super = NSObject;
+    };
+}

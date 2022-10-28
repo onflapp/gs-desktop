@@ -1,0 +1,13 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {hostAction = id; portAction = id; selectTcpBtn = id; selectUnixBtn = id; }; 
+            CLASS = EsoundPreferences; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {hostField = id; portField = id; prefsWindow = id; tcpBtn = id; unixBtn = id; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+    ); 
+    IBVersion = 1; 
+}
