@@ -183,6 +183,16 @@
 	defaultvalue = gv;
 	editor = <*I0>;
     };
+    GSHelpViewer = {
+	category = gui;
+	defaultvalue = HelpViewer;
+	editor = <*I0>;
+    };
+    GSUnknownFileTool = {
+	category = gui;
+	defaultvalue = "";
+	editor = <*I0>;
+    };
     NSUseRunningCopy = {
 	category = gui;
 	defaultvalue = <*BN>;

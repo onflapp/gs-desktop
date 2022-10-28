@@ -5,6 +5,8 @@
 
 
 /* key descriptions */
+"GSUnknownFileTool"="A string value that defines a program that should be launched when no GNUstep application has been defined for a specific file extension or if an URL could not be opened by a service. This program gets the file name or URL as parameter.";
+"GSHelpViewer"="A string which can be used to specify the name of the application to be used to view application help. If this is not specified (or is an empty string) the 'best' available viewer is used (an application whose Info.plist says that it can view files of the appropriate type ... usually rtp or rtfd files). If this is set to NSHelpPanel or if no application can be used to view the help file, the help is displayed by the shared help panel object built in to the application.";
 "GSAbortKey"="The key used to abort the insertion of multi-stroke keybinding. Default is Control-g.";
 "GSAllowWindowsOverIcons"="A boolean, by default NO. If you set it to YES, normal windows can appear in front of app icons and mini windows.
 With some window managers it may be necessary to set this default to YES to prevent app icons and mini windows obscuring context and pop up menus.";
