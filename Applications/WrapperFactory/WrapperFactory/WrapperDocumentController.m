@@ -110,6 +110,9 @@ static NSString *emptyString = @"";
         case OpenScript:
             [document setOpenScriptShell: shell];
             break;
+        case FilterScript:
+            [document setFilterScriptShell: shell];
+            break;
         default:
             NSLog(@"Unknown script ID: %d", currentScriptId);
         }
@@ -125,6 +128,9 @@ static NSString *emptyString = @"";
             break;
         case OpenScript:
             [document setOpenScript: script];
+            break;
+        case FilterScript:
+            [document setFilterScript: script];
             break;
         default:
             NSLog(@"Unknown script ID: %d", currentScriptId);
@@ -171,6 +177,12 @@ static NSString *emptyString = @"";
     [self setCurrentScriptId: OpenScript];
 }
 
+- (IBAction)setCurrentScriptToFilter: (id)sender
+{
+    [self setCurrentScriptId: FilterScript];
+}
+
+
 - (IBAction)setRole: (id)sender
 {
     int tag = [[sender selectedItem] tag];
@@ -204,6 +216,9 @@ static NSString *emptyString = @"";
         break;
     case OpenScript:
         [document setOpenScriptAction: tag];
+        break;
+    case FilterScript:
+        [document setFilterScriptAction: tag];
         break;
     }
 }
@@ -399,6 +414,11 @@ static NSString *emptyString = @"";
         script = [document openScript];
         action = [document openScriptAction];
         break;
+    case FilterScript:
+        shell = [document filterScriptShell];
+        script = [document filterScript];
+        action = [document filterScriptAction];
+        break;
     default:
         NSLog(@"Unknown script ID: %d", currentScriptId);
         return;
@@ -509,6 +529,22 @@ static NSString *emptyString = @"";
             [currentScriptActionPopUp selectItemAtIndex: [currentScriptActionPopUp indexOfItemWithTag: [val intValue]]];
         }
     }
+    else if ( [attr isEqualToString: @"filterScript"] && currentScriptActionPopUp ) {
+        if ( currentScriptId == FilterScript ) {
+            [currentScriptActionPopUp selectItemAtIndex: [currentScriptActionPopUp indexOfItemWithTag: [val intValue]]];
+        }
+    }
+    else if ( [attr isEqualToString: @"filterScriptShell"] && currentScriptShell ) {
+        if ( currentScriptId == FilterScript ) {
+            [currentScriptShell setStringValue: val];
+        }
+    }
+    else if ( [attr isEqualToString: @"filterScriptAction"] && currentScriptActionPopUp ) {
+        if ( currentScriptId == FilterScript ) {
+            [currentScriptActionPopUp selectItemAtIndex: [currentScriptActionPopUp indexOfItemWithTag: [val intValue]]];
+        }
+    }
+
     else if ( [attr isEqualToString: @"openScript"] && currentScript ) {
         if ( currentScriptId == OpenScript ) {
             [currentScript setString: val];

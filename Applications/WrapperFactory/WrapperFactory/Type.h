@@ -32,6 +32,8 @@
     Icon *icon;
     NSString *name;
     NSString *extensions;
+    NSString *returnType;
+    BOOL filter;
 }
 
 - (Icon *)icon;
@@ -43,6 +45,11 @@
 - (NSString *)extensions;
 - (void)setExtensions: (NSString *)e;
 
+- (NSString *)returnType;
+- (void)setReturnType: (NSString *)n;
+
+- (BOOL)isFilter;
+- (void)setFilter:(BOOL) b;
 @end
 
 #endif

@@ -34,15 +34,22 @@
     ASSIGN(type, t);
     [iconView setIcon: [type icon]];
     [extensionsTextField setStringValue: [type extensions]];
+    [returnTypesTextField setStringValue: [type returnType]];
     [nameTextField setStringValue: [type name]];
+    [filterButton setState: [type isFilter]];
     //[rolePopUp selectItemAtIndex: [rolePopUp indexOfItemWithTag: [type role]]];
 }
-
 
 /*
  * UI actions
  */
 
+- (void)changeType: (id) sender
+{
+    if ( sender == filterButton ) {
+        [type setFilter:[filterButton state]];
+    }
+}
 
 /*
  * NSTextField delegate
@@ -61,6 +68,9 @@
     }
     if ( sender == extensionsTextField ) {
         [type setExtensions: [extensionsTextField stringValue]];
+    }
+    else if ( sender == returnTypesTextField ) {
+        [type setReturnType: [returnTypesTextField stringValue]];
     }
     else if ( sender == nameTextField ) {
         [type setName: [nameTextField stringValue]];

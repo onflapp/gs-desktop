@@ -30,6 +30,7 @@
 #define StartScript 0
 #define StartOpenScript 1
 #define OpenScript 2
+#define FilterScript 3
 
 
 @interface WrapperDocumentController : NSObject
@@ -78,6 +79,7 @@
 - (IBAction)setCurrentScriptToStart: (id)sender;
 - (IBAction)setCurrentScriptToStartOpen: (id)sender;
 - (IBAction)setCurrentScriptToOpen: (id)sender;
+- (IBAction)setCurrentScriptToFilter: (id)sender;
 - (IBAction)setRole: (id)sender;
 - (IBAction)setCurrentScriptAction: (id)sender;
 

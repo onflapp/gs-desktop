@@ -2,11 +2,12 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     FirstResponder = {
 	Actions = (
+	    "changeType:",
 	    "chooseIcon:",
 	    "controlTextDidChange:",
 	    "deleteService:",
 	    "deleteType:",
-	    "changeType:",
+	    "setCurrentScriptToFilter:",
 	    "newService:",
 	    "newType:",
 	    "orderFrontFontPanel:",
@@ -43,9 +44,7 @@
 	    actionTextView,
 	    shellTextField,
 	    returnTypePopUp,
-	    sendTypePopUp,
-	    filterButton,
-	    extensionsTextField
+	    sendTypePopUp
 	);
 	Super = NSObject;
     };
@@ -65,13 +64,16 @@
 	Actions = (
 	    "controlTextDidChange:",
 	    "setRole:",
-	    "chooseIcon:"
+	    "chooseIcon:",
+	    "changeType:"
 	);
 	Outlets = (
 	    iconView,
 	    extensionsTextField,
 	    nameTextField,
-	    rolePopUp
+	    rolePopUp,
+	    filterButton,
+	    returnTypesTextField
 	);
 	Super = NSObject;
     };
@@ -97,7 +99,8 @@
 	    "setCurrentScriptToOpen:",
 	    "setRole:",
 	    "chooseIcon:",
-	    "setCurrentScriptAction:"
+	    "setCurrentScriptAction:",
+	    "setCurrentScriptToFilter:"
 	);
 	Outlets = (
 	    windowController,

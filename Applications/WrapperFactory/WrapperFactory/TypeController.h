@@ -34,7 +34,9 @@
     IBOutlet IconView *iconView;
     IBOutlet NSTextField *extensionsTextField;
     IBOutlet NSTextField *nameTextField;
+    IBOutlet NSTextField *returnTypesTextField;
     IBOutlet NSPopUpButton *rolePopUp;
+    IBOutlet NSButton *filterButton;
 
     BOOL isSettingIcon;
 }
@@ -48,7 +50,7 @@
  */
 
 - (void)controlTextDidChange: (NSNotification *)not;
-
+- (void)changeType: (id) sender;
 
 /*
  * Outlets

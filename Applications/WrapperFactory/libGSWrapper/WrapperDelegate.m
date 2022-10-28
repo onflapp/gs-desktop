@@ -63,7 +63,7 @@
         return;
     }
     if ( ![mainAction task] ) {
-        if ( [properties objectForKey: @"Service_000"] ) {
+        if ( [properties objectForKey: @"Filter"] ) {
             NSLog(@"Service handler configured - continue running for 6os");
             [NSApp performSelector:@selector(terminate:) withObject: self afterDelay:60];
             return;
@@ -134,6 +134,91 @@
     return YES;
 }
 
+- (void) executeFilter: (NSPasteboard *)pboard
+              userData: (NSString *)userData
+                 error: (NSString **)error
+{
+    NSString *outDataType = userData;
+    NSLog(@"FILTER >>> %@", userData);
+
+    @try {
+        RunScriptAction *serviceAction = (RunScriptAction*)[self actionForMessage: @"Filter"];
+
+        if ( !serviceAction ) {
+            NSLog(@"no action for Filter");
+            return;
+        }
+
+        if ( !outDataType ) {
+            NSLog(@"no output type for Filter");
+            return;
+        }
+        
+        NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
+        if (!files) {
+            NSString *ext = nil;
+            for (int i = 0; i < [[pboard types] count]; i++) {
+                NSString* it = [[pboard types] objectAtIndex: i];
+                if ([it hasPrefix:@"NSTypedFileContentsPboardType"]) {
+                    ext = [it substringFromIndex:30];
+                }
+            }
+            NSString *tmpf = [NSString stringWithFormat:@"%@/service.data.%x", NSTemporaryDirectory(), [self hash]];
+            tmpf = [pboard readFileContentsType:ext toFile:tmpf];
+            if (tmpf) {
+                files = [NSArray arrayWithObject:tmpf];
+            }
+        }
+
+        if ( ![files count] ) {
+            NSLog(@"no input");
+            return;
+        }
+
+        NSDictionary *myenv = [[NSProcessInfo processInfo] environment];
+        NSMutableDictionary *env = [NSMutableDictionary dictionaryWithDictionary: myenv];
+        [env setObject:outDataType forKey:@"GSFILTER_RETURN_TYPE"];
+
+        NSLog(@"input files %@", files);
+
+        NSTask *task = [serviceAction createTaskWithFiles: files];
+        if ( !task ) {
+            NSLog(@"exit with error");
+            return;
+        }
+        else {
+            NSPipe *outPipe = [NSPipe pipe];
+
+            [task setStandardOutput:outPipe];
+            [task setEnvironment:env];
+            [task launch];
+
+            NSFileHandle *inFh = [outPipe fileHandleForReading];
+            NSData *outData = [inFh readDataToEndOfFile];
+            [inFh closeFile];
+
+            if (outData) {
+                if ([outDataType isEqualToString:@"NSStringPboardType"]) {
+                    NSLog(@"provide data as string");
+                    NSString *str = [[NSString alloc] initWithData: outData encoding:NSUTF8StringEncoding];
+                    [pboard declareTypes: [NSArray arrayWithObject: NSStringPboardType] owner: nil];
+                    [pboard setString: str forType: NSStringPboardType];
+                }
+                else if ([outDataType length] > 0) {
+                    NSLog(@"provide data as %@", outDataType);
+                    [pboard declareTypes: [NSArray arrayWithObject: outDataType] owner: nil];
+                    [pboard setData: outData forType: outDataType];
+                }
+            }
+            NSLog(@"filter done");
+        }
+    }
+    @catch (NSException* ex) {
+        NSLog(@"FILTER exception %@", ex);
+    }
+}
+
+
 - (void) executeService: (NSPasteboard *)pboard
                userData: (NSString *)userData
                   error: (NSString **)error
@@ -159,21 +244,6 @@
     }
     else if ([inDataType isEqualToString:@"NSFilenamesPboardType"]) {
         files = [pboard propertyListForType:NSFilenamesPboardType];
-        if (!files) {
-            NSString *ext = nil;
-            for (NSString* it in [pboard types]) {
-                if ([it hasPrefix:@"NSTypedFileContentsPboardType"]) {
-                    ext = [it substringFromIndex:30];
-                }
-            }
-
-            NSString *tmpf = [NSString stringWithFormat:@"%@/service.data.%x", NSTemporaryDirectory(), [self hash]];
-            tmpf = [pboard readFileContentsType:ext toFile:tmpf];
-            if (tmpf) {
-                files = [NSArray arrayWithObject:tmpf];
-            }
-        }
-
         NSLog(@"input files %@", files);
     }
 
@@ -214,7 +284,7 @@
                 [pboard setData: outData forType: outDataType];
             }
         }
-        NSLog(@"done service");
+        NSLog(@"service done");
     }
 }
 
@@ -232,7 +302,7 @@
                                           status],
                                 @"OK", nil, nil);
     }
-    if ( [properties objectForKey: @"Service_000"] ) {
+    if ( [properties objectForKey: @"Filter"] ) {
         //give the service a chance to be called
         [NSApp performSelector:@selector(terminate:) withObject: self afterDelay:1];
     }

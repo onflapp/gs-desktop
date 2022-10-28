@@ -103,25 +103,6 @@
           value: (n)];
 }
 
-- (NSString *)extensions
-{
-    return extensions;
-}
-- (void)setExtensions: (NSString *)n
-{
-    ASSIGN(extensions, n);
-    [self serviceChangedAttribute: @"extensions"
-          value: (n)];
-}
-
-- (BOOL)isFilter 
-{
-    return filter;
-}
-- (void)setFilter:(BOOL) b
-{
-    filter = b;
-}
 @end
 
 

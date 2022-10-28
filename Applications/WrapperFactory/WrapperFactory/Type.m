@@ -80,6 +80,26 @@
           value: (e)];
 }
 
+- (NSString *)returnType
+{
+    return returnType;
+}
+- (void)setReturnType: (NSString *)n
+{
+    ASSIGN(returnType, n);
+    [self typeChangedAttribute: @"returnType"
+          value: (n)];
+}
+
+- (BOOL)isFilter 
+{
+    return filter;
+}
+- (void)setFilter:(BOOL) b
+{
+    filter = b;
+}
+
 @end
 
 

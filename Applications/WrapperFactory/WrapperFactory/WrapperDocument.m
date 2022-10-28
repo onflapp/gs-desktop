@@ -171,6 +171,9 @@ static NSString *actionIgnore = @"Ignore";
         openScript = emptyString;
         openScriptShell = startScriptShell;
         openScriptAction = IgnoreAction;
+        filterScript = emptyString;
+        filterScriptShell = startScriptShell;
+        filterScriptAction = IgnoreAction;
 
         types = [[NSMutableArray alloc] init];
         services = [[NSMutableArray alloc] init];
@@ -437,6 +440,36 @@ static NSString *actionIgnore = @"Ignore";
     [self attributeChangedName: @"openScriptAction" value: [NSNumber numberWithInt: action]];
 }
 
+- (NSString *)filterScript
+{
+    return filterScript;
+}
+- (void)setFilterScript: (NSString *)s
+{
+    ASSIGN(filterScript, s);
+    [self attributeChangedName: @"filterScript" value: s];
+}
+
+- (NSString *)filterScriptShell
+{
+    return filterScriptShell;
+}
+- (void)setFilterScriptShell: (NSString *)s
+{
+    ASSIGN(filterScriptShell, s);
+    [self attributeChangedName: @"filterScriptShell" value: s];
+}
+
+- (ScriptAction)filterScriptAction
+{
+    return filterScriptAction;
+}
+- (void)setFilterScriptAction: (ScriptAction)action
+{
+    filterScriptAction = action;
+    [self attributeChangedName: @"filterScriptAction" value: [NSNumber numberWithInt: action]];
+}
+
 
 /*
  * types
@@ -695,6 +728,28 @@ static NSString *actionIgnore = @"Ignore";
         else {
             NSLog(@"No info for Open script");
         }
+        dict = [gsWrapperInfo objectForKey: @"Filter"];
+        if ( dict ) {
+            value = [dict objectForKey: @"Shell"];
+            if ( value ) {
+                [self setFilterScriptShell: value];
+            }
+            else {
+                NSLog(@"No shell for Filter script set");
+            }
+            value = [dict objectForKey: @"Action"];
+            if ( value ) {
+                [self setFilterScriptAction: [WrapperDocument stringToScriptAction: value]];
+            }
+            else {
+                NSLog(@"No action for Filter script set");
+                [self setFilterScriptAction: RunScriptAction];
+            }
+        }
+        else {
+            NSLog(@"No info for Filter script");
+        }
+
 
         // Load Info-gnustep.plist
         NSDictionary *info = [NSDictionary dictionaryWithContentsOfFile: [infoFile filename]];
@@ -792,19 +847,26 @@ static NSString *actionIgnore = @"Ignore";
                 NSDictionary *serviceDict = [serviceDicts objectAtIndex: i];
                 NSString *n = [[serviceDict objectForKey:@"NSMenuItem"] objectForKey:@"default"];
                 NSString *f = [serviceDict objectForKey:@"NSFilter"];
-                if (n) {
-                    Service *service = AUTORELEASE([[Service alloc] init]);
-                    [service setName:n];
+                if (f) {
+                    Type *type = AUTORELEASE([[Type alloc] init]);
+                    NSArray* st = [serviceDict objectForKey:@"NSSendTypes"];
+                    NSArray* rt = [serviceDict objectForKey:@"NSReturnTypes"];
+                    [type setFilter: YES];
 
-                    if (f) {
-                        [service setFilter: YES];
-                        NSArray* st = [serviceDict objectForKey:@"NSSendTypes"];
-                        for (NSString* it in st) {
-                            if ([it hasPrefix:@"NSTypedFileContentsPboardType"]) {
-                                [service setExtensions:[it substringFromIndex:30]];
-                            }
+                    NSMutableArray *xs = [NSMutableArray array];
+                    for (NSString* it in st) {
+                        if ([it hasPrefix:@"NSTypedFileContentsPboardType"]) {
+                            [xs addObject: [it substringFromIndex:30]];
                         }
                     }
+                    [type setExtensions: [xs componentsJoinedByString: @","]];
+                    [type setReturnType: [rt firstObject]];
+                    [type setName: [NSString stringWithFormat: @"filter %@", [type extensions]]];
+                    [self addType: type];
+                }
+                else if (n) {
+                    Service *service = AUTORELEASE([[Service alloc] init]);
+                    [service setName:n];
 
                     NSString *ud = [serviceDict objectForKey:@"NSUserData"];
                     if (ud) {
@@ -818,7 +880,6 @@ static NSString *actionIgnore = @"Ignore";
                         NSString *action = [NSString stringWithContentsOfFile: [serviceFile filename]];
                         [service setAction:action];
                     }
-
 
                     [self addService: service];
                 }
@@ -858,6 +919,13 @@ static NSString *actionIgnore = @"Ignore";
         }
         else {
             NSLog(@"No Open script");
+        }
+        NSFileWrapper *filterFile = [resources objectForKey: @"Filter"];
+        if ( filterFile ) {
+            [self setFilterScript: [NSString stringWithContentsOfFile: [filterFile filename]]];
+        }
+        else {
+            NSLog(@"No Filter script");
         }
 
         // done
@@ -910,50 +978,38 @@ static NSString *actionIgnore = @"Ignore";
         NSMutableArray *typeArray = [NSMutableArray arrayWithCapacity: typeCount];
         for ( i=0; i<typeCount; i++ ) {
             Type *type = [types objectAtIndex: i];
-            NSString *iconFile = [NSString stringWithFormat: @"FileType_%03d.tiff", i];
-            NSMutableDictionary *typeDict = [NSMutableDictionary dictionaryWithCapacity: 4];
-            [typeDict setObject: iconFile forKey: @"NSIcon"];
-            NSArray *extensions = [self arrayFromCommaSeparatedString: [type extensions]];
-            if ( extensions ) {
-                [typeDict setObject: extensions forKey: @"NSUnixExtensions"];
+            if (! [type isFilter]) {
+                NSString *iconFile = [NSString stringWithFormat: @"FileType_%03d.tiff", i];
+                NSMutableDictionary *typeDict = [NSMutableDictionary dictionaryWithCapacity: 4];
+                [typeDict setObject: iconFile forKey: @"NSIcon"];
+                NSArray *extensions = [self arrayFromCommaSeparatedString: [type extensions]];
+                if ( extensions ) {
+                    [typeDict setObject: extensions forKey: @"NSUnixExtensions"];
+                }
+                [typeDict setObject: [type name] forKey: @"NSName"];
+                [typeArray addObject: typeDict];
             }
-            [typeDict setObject: [type name] forKey: @"NSName"];
-            [typeArray addObject: typeDict];
         }
         [infoDict setObject: typeArray forKey: @"NSTypes"];
     }
 
     // services
+    NSMutableArray *serviceArray = [NSMutableArray array];
     NSMutableArray* slist = [NSMutableArray array];
     int serviceCount = [services count];
     if ( serviceCount ) {
-        NSMutableArray *serviceArray = [NSMutableArray arrayWithCapacity: serviceCount];
         for ( i=0; i<serviceCount; i++ ) {
             Service *service = [services objectAtIndex: i];
             NSString* ud = [NSString stringWithFormat:@"Service_%03d", i];
             NSMutableDictionary *serviceDict = [NSMutableDictionary dictionaryWithCapacity: 6];
-            if ( [service isFilter] ) {
-                [serviceDict setObject: @"executeService" forKey: @"NSFilter"];
-            }
-            else {
-                [serviceDict setObject: @"executeService" forKey: @"NSMessage"];
-            }
+
+            [serviceDict setObject: @"executeService" forKey: @"NSMessage"];
             [serviceDict setObject: [name stringByDeletingPathExtension] forKey: @"NSPortName"];
             [serviceDict setObject: ud forKey: @"NSUserData"];
             [serviceDict setObject: [NSDictionary dictionaryWithObjectsAndKeys:[service name], @"default", nil] forKey: @"NSMenuItem"];
 
             NSString* sendType = [service sendType];
-            if ([service isFilter]) {
-                if ([[service extensions] length] > 0) {
-                    NSString *xs = [NSString stringWithFormat:@"NSTypedFileContentsPboardType:%@", [service extensions]];
-                    [serviceDict setObject: [NSArray arrayWithObjects: NSFilenamesPboardType, xs, nil] forKey: @"NSSendTypes"];
-                }
-                else {
-                    [serviceDict setObject: [NSArray arrayWithObject: NSFilenamesPboardType] forKey: @"NSSendTypes"];
-                }
-                sendType = NSFilenamesPboardType;
-            }
-            else if ([sendType length] > 0) {
+            if ([sendType length] > 0) {
                 [serviceDict setObject: [NSArray arrayWithObject: sendType] forKey: @"NSSendTypes"];
             }
 
@@ -975,9 +1031,36 @@ static NSString *actionIgnore = @"Ignore";
                 nil]
             ];
         }
-        [infoDict setObject: serviceArray forKey: @"NSServices"];
     }
 
+    //filters
+    for ( i=0; i<typeCount; i++ ) {
+        Type *type = [types objectAtIndex: i];
+         if ([type isFilter] && [[type returnType] length]) {
+            NSMutableDictionary *serviceDict = [NSMutableDictionary dictionaryWithCapacity: 6];
+            [serviceDict setObject: @"executeFilter" forKey: @"NSFilter"];
+            [serviceDict setObject: [name stringByDeletingPathExtension] forKey: @"NSPortName"];
+           
+            NSMutableArray *sx = [NSMutableArray array];
+            [sx addObject: NSFilenamesPboardType];
+
+            for (NSString *ext in [self arrayFromCommaSeparatedString: [type extensions]]) {
+                NSString *xx = [NSString stringWithFormat:@"NSTypedFileContentsPboardType:%@", ext];
+                [sx addObject: xx];
+            }
+
+            [serviceDict setObject: sx forKey: @"NSSendTypes"];
+            [serviceDict setObject: [NSArray arrayWithObject: [type returnType]] forKey: @"NSReturnTypes"];
+
+            NSString *ud = [type returnType];
+            [serviceDict setObject: ud forKey: @"NSUserData"];
+            [serviceArray addObject: serviceDict];
+        }
+    }
+
+    if ( [serviceArray count] > 0 ) {
+        [infoDict setObject: serviceArray forKey: @"NSServices"];
+    }
 
     data = [[infoDict description] dataUsingEncoding: NSNonLossyASCIIStringEncoding];
     NSFileWrapper *info = AUTORELEASE([[NSFileWrapper alloc] initRegularFileWithContents: data]);
@@ -998,6 +1081,10 @@ static NSString *actionIgnore = @"Ignore";
                                        openScriptShell, @"Shell",
                                        [WrapperDocument scriptActionToString: openScriptAction], @"Action",
                                        nil], @"Open",
+                         [NSDictionary dictionaryWithObjectsAndKeys:
+                                       filterScriptShell, @"Shell",
+                                       [WrapperDocument scriptActionToString: filterScriptAction], @"Action",
+                                       nil], @"Filter",
                          nil];
 
     NSMutableDictionary* adict = [NSMutableDictionary dictionary];
@@ -1027,6 +1114,11 @@ static NSString *actionIgnore = @"Ignore";
     NSFileWrapper *open = AUTORELEASE([[NSFileWrapper alloc] initRegularFileWithContents: data]);
     [open setPreferredFilename: @"Open"];
 
+    data = [filterScript dataUsingEncoding: [NSString defaultCStringEncoding]];
+    NSFileWrapper *filter = AUTORELEASE([[NSFileWrapper alloc] initRegularFileWithContents: data]);
+    [filter setPreferredFilename: @"Filter"];
+
+
     NSFileWrapper *resources = [[NSFileWrapper alloc] initDirectoryWithFileWrappers:
                                                           [NSDictionary dictionaryWithObjectsAndKeys:
                                                                         info, [info preferredFilename],
@@ -1035,6 +1127,7 @@ static NSString *actionIgnore = @"Ignore";
                                                                         start, [start preferredFilename],
                                                                         startOpen, [startOpen preferredFilename],
                                                                         open, [open preferredFilename],
+                                                                        filter, [filter preferredFilename],
                                                                         nil]];
     // file type icons
     for ( i=0; i<typeCount; i++ ) {
