@@ -25,7 +25,7 @@ GSWrapper_Launcher_OBJC_FILES=main.m
 
 GSWrapper_Launcher_OBJC_LIBS += -lGSWrapper -lgnustep-base -lgnustep-gui
 GSWrapper_Launcher_INCLUDE_DIRS += -I../libGSWrapper
-GSWrapper_Launcher_LIB_DIRS += -L../libGSWrapper/$(OBJ_DIR)
+GSWrapper_Launcher_LIB_DIRS += -L../libGSWrapper/obj
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/tool.make

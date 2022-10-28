@@ -3,7 +3,7 @@
   (
     Info,
     ("Info Panel...", INFO_PANEL),
-    (Preferences..., EXEC, "/Applications/WPrefs.app/WPrefs")
+    (Preferences..., EXEC, "WPrefs")
   ),
   (Workspaces, WORKSPACE_MENU),
   (Windows, WINDOWS_MENU)

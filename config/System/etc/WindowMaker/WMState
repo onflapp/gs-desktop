@@ -17,45 +17,45 @@
         BuggyApplication = No;
       },
       {
-        PasteCommand = "/Applications/Preferences.app/Preferences %s";
+        PasteCommand = "Preferences %s";
         Name = Preferences.GNUstep;
-        DropCommand = "/Applications/Preferences.app/Preferences %d";
+        DropCommand = "Preferences %d";
         Lock = No;
         AutoLaunch = Yes;
-        Command = "/Applications/Preferences.app/Preferences";
+        Command = "Preferences";
         Position = "0,1";
         Forced = No;
         BuggyApplication = No;
       },
       {
-        PasteCommand = "/Applications/Terminal.app/Terminal %s";
+        PasteCommand = "Terminal %s";
         Name = Terminal.GNUstep;
-        DropCommand = "/Applications/Terminal.app/Terminal %d";
+        DropCommand = "Terminal %d";
         Lock = No;
         AutoLaunch = No;
-        Command = "/Applications/Terminal.app/Terminal";
+        Command = "Terminal";
         Position = "0,2";
         Forced = No;
         BuggyApplication = No;
       },
       {
-        PasteCommand = "/Applications/TextEdit.app/TextEdit %s";
+        PasteCommand = "TextEdit %s";
         Name = TextEdit.GNUstep;
-        DropCommand = "/Applications/TextEdit.app/TextEdit %d";
+        DropCommand = "TextEdit %d";
         Lock = No;
         AutoLaunch = No;
-        Command = "/Applications/TextEdit.app/TextEdit";
+        Command = "TextEdit";
         Position = "0,3";
         Forced = No;
         BuggyApplication = No;
       },
       {
-        PasteCommand = "/Applications/Recycler.app/Recycler %s";
+        PasteCommand = "Recycler %s";
         Name = Recycler.GNUstep;
-        DropCommand = "/Applications/Recycler.app/Recycler %d";
+        DropCommand = "Recycler %d";
         Lock = No;
         AutoLaunch = Yes;
-        Command = "/Applications/Recycler.app/Recycler";
+        Command = "Recycler";
         Position = "0,6";
         Forced = No;
         BuggyApplication = No;
