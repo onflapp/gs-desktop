@@ -155,15 +155,16 @@
         }
         
         NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
+        NSString *ext = @"";
+
         if (!files) {
-            NSString *ext = nil;
             for (int i = 0; i < [[pboard types] count]; i++) {
                 NSString* it = [[pboard types] objectAtIndex: i];
                 if ([it hasPrefix:@"NSTypedFileContentsPboardType"]) {
                     ext = [it substringFromIndex:30];
                 }
             }
-            NSString *tmpf = [NSString stringWithFormat:@"%@/service.data.%x", NSTemporaryDirectory(), [self hash]];
+            NSString *tmpf = [NSString stringWithFormat:@"%@/filter.%x.%@", NSTemporaryDirectory(), [self hash], ext];
             tmpf = [pboard readFileContentsType:ext toFile:tmpf];
             if (tmpf) {
                 files = [NSArray arrayWithObject:tmpf];
@@ -178,6 +179,7 @@
         NSDictionary *myenv = [[NSProcessInfo processInfo] environment];
         NSMutableDictionary *env = [NSMutableDictionary dictionaryWithDictionary: myenv];
         [env setObject:outDataType forKey:@"GSFILTER_RETURN_TYPE"];
+        [env setObject:ext forKey:@"GSFILTER_SEND_FILE_EXT"];
 
         NSLog(@"input files %@", files);
 
