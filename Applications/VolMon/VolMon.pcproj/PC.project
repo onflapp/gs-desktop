@@ -27,7 +27,7 @@
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "";
+    LINKEROPTIONS = "-lSoundKit";
     "LOCALIZED_RESOURCES" = (
     );
     MAININTERFACE = "VolMon.gorm";

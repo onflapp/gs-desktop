@@ -2,15 +2,19 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     AppController = {
 	Actions = (
-	    "showPrefPanel:"
+	    "showPrefPanel:",
+	    "changeVolume:"
 	);
 	Outlets = (
-	    controlView
+	    controlView,
+	    muteButton,
+	    volumeSlider
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
+	    "changeVolume:",
 	    "orderFrontFontPanel:",
 	    "showPrefPanel:"
 	);

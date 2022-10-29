@@ -12,10 +12,17 @@
 #define _PCAPPPROJ_APPCONTROLLER_H
 
 #import <AppKit/AppKit.h>
+#import <SoundKit/SoundKit.h>
 
 @interface AppController : NSObject
 {
   IBOutlet NSView* controlView;
+  IBOutlet NSSlider* volumeSlider;
+  IBOutlet NSButton* muteButton;
+
+  SNDServer	*soundServer;
+  SNDOut	*soundOut;
+  SNDIn		*soundIn;
 }
 
 + (void)  initialize;
@@ -24,6 +31,8 @@
 - (void) dealloc;
 
 - (void) awakeFromNib;
+
+- (void) changeVolume: (id)sender;
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif;
 - (BOOL) applicationShouldTerminate: (id)sender;
