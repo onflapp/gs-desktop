@@ -9,30 +9,14 @@
 */
 
 #import "AppController.h"
+#include <X11/Xlib.h>
 
 @implementation AppController
 
-+ (void) initialize
-{
-  NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
-
-  /*
-   * Register your app's defaults here by adding objects to the
-   * dictionary, eg
-   *
-   * [defaults setObject:anObject forKey:keyForThatObject];
-   *
-   */
-  
-  [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
-  [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
 - (id) init
 {
-  if ((self = [super init]))
-    {
-    }
+  if ((self = [super init])) {
+  }
   return self;
 }
 
@@ -44,7 +28,16 @@
 - (void) awakeFromNib
 {
   [[NSApp iconWindow] setContentView:controlView];
-  [[NSApp iconWindow] makeKeyAndOrderFront:self];
+  [self resizeIconWindow];
+}
+
+- (void) resizeIconWindow 
+{
+  Display* dpy = XOpenDisplay(NULL);
+  Window win = (Window)[[NSApp iconWindow]windowRef];
+
+  XMoveResizeWindow(dpy, win, 5, 5, 54, 54);
+  XFlush(dpy);
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif
@@ -82,11 +75,13 @@
 {
   if (soundOut) {
     [muteButton setEnabled:YES];
+    [micMuteButton setEnabled:YES];
     [volumeSlider setEnabled:YES];
     [muteButton setState:[soundOut isMute]];
     [volumeSlider setIntegerValue:[soundOut volume]];
   }
   else {
+    [micMuteButton setEnabled:NO];
     [muteButton setEnabled:NO];
     [volumeSlider setEnabled:NO];
   }

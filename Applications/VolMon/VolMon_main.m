@@ -11,19 +11,11 @@
 int 
 main(int argc, const char *argv[])
 {
-// Uncomment if your application is Renaissance application
-/*  CREATE_AUTORELEASE_POOL (pool);
-  [NSApplication sharedApplication];
-  [NSApp setDelegate: [AppController new]];
+  NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
 
-  #ifdef GNUSTEP
-    [NSBundle loadGSMarkupNamed: @"MainMenu-GNUstep"  owner: [NSApp delegate]];
-  #else
-    [NSBundle loadGSMarkupNamed: @"MainMenu-OSX"  owner: [NSApp delegate]];
-  #endif
-   
-  RELEASE (pool);
-*/
+  [defaults setObject:[NSNumber numberWithBool:NO] forKey:@"UseWindowMakerIcons"];
+  [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
+  [[NSUserDefaults standardUserDefaults] synchronize];
 
   return NSApplicationMain (argc, argv);
 }

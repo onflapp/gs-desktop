@@ -2,9 +2,18 @@
     APPLICATIONICON = "";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
+    "BUILDER_TARGETS" = (
+	all,
+	install,
+	uninstall,
+	clean,
+	distclean,
+	dist
+    );
     "BUNDLE_IDENTIFIER" = "";
     "CLASS_FILES" = (
-	"AppController.m"
+	"AppController.m",
+	"MiniView.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -14,7 +23,8 @@
     FRAMEWORKS = (
     );
     "HEADER_FILES" = (
-	"AppController.h"
+	"AppController.h",
+	"MiniView.h"
     );
     IMAGES = (
     );
@@ -27,7 +37,7 @@
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "-lSoundKit";
+    LINKEROPTIONS = "-lSoundKit -lX11";
     "LOCALIZED_RESOURCES" = (
     );
     MAININTERFACE = "VolMon.gorm";

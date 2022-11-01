@@ -14,18 +14,21 @@
 #import <AppKit/AppKit.h>
 #import <SoundKit/SoundKit.h>
 
+@interface App : NSApplication
+- (void) sendEvent:(NSEvent*) evt;
+@end
+
 @interface AppController : NSObject
 {
   IBOutlet NSView* controlView;
   IBOutlet NSSlider* volumeSlider;
   IBOutlet NSButton* muteButton;
+  IBOutlet NSButton* micMuteButton;
 
   SNDServer	*soundServer;
   SNDOut	*soundOut;
   SNDIn		*soundIn;
 }
-
-+ (void)  initialize;
 
 - (id) init;
 - (void) dealloc;

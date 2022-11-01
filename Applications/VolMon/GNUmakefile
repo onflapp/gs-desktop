@@ -39,13 +39,15 @@ Resources/VolMon.gorm \
 # Header files
 #
 VolMon_HEADER_FILES = \
-AppController.h
+AppController.h \
+MiniView.h
 
 #
 # Objective-C Class files
 #
 VolMon_OBJC_FILES = \
-AppController.m
+AppController.m \
+MiniView.m
 
 #
 # Other sources

@@ -8,7 +8,8 @@
 	Outlets = (
 	    controlView,
 	    muteButton,
-	    volumeSlider
+	    volumeSlider,
+	    micMuteButton
 	);
 	Super = NSObject;
     };
@@ -19,5 +20,12 @@
 	    "showPrefPanel:"
 	);
 	Super = NSObject;
+    };
+    MiniView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSBox;
     };
 }
