@@ -33,19 +33,25 @@ Player_APPLICATION_ICON =
 #
 Player_RESOURCE_FILES = \
 Resources/Player.gorm \
+Resources/MediaDocument.gorm \
+Resources/playerview 
 
 
 #
 # Header files
 #
 Player_HEADER_FILES = \
-AppController.h
+AppController.h \
+VideoDocument.h \
+MediaDocument.h
 
 #
 # Objective-C Class files
 #
 Player_OBJC_FILES = \
-AppController.m
+AppController.m \
+VideoDocument.m \
+MediaDocument.m
 
 #
 # Other sources

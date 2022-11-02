@@ -79,3 +79,7 @@ htop
 vim-nox
 sudo
 dict
+vlc-bin
+vlc-data
+vlc-plugin-video-output
+vlc-plugin-base

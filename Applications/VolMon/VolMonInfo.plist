@@ -8,6 +8,6 @@
     FullVersionID = "0.1";
     NSExecutable = VolMon;
     NSMainNibFile = "VolMon.gorm";
-    NSPrincipalClass = NSApplication;
+    NSPrincipalClass = App;
     NSRole = Application;
 }

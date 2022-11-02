@@ -12,12 +12,9 @@
 #define _PCAPPPROJ_APPCONTROLLER_H
 
 #import <AppKit/AppKit.h>
-// Uncomment if your application is Renaissance-based
-//#import <Renaissance/Renaissance.h>
 
 @interface AppController : NSObject
 {
-  IBOutlet NSWindow* window;
 }
 
 + (void)  initialize;

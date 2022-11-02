@@ -9,6 +9,7 @@
 */
 
 #import "AppController.h"
+#import "MediaDocument.h"
 
 @implementation AppController
 
@@ -30,9 +31,8 @@
 
 - (id) init
 {
-  if ((self = [super init]))
-    {
-    }
+  if ((self = [super init])) {
+  }
   return self;
 }
 
@@ -47,9 +47,6 @@
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif
 {
-NSLog(@"WINDOW %x", [window windowNumber]);
-// Uncomment if your application is Renaissance-based
-//  [NSBundle loadGSMarkupNamed: @"Main" owner: self];
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender
@@ -61,11 +58,26 @@ NSLog(@"WINDOW %x", [window windowNumber]);
 {
 }
 
+- (void) openDocument: (id)sender {
+  NSOpenPanel* panel = [NSOpenPanel openPanel];
+  [panel setAllowsMultipleSelection: NO];
+  [panel setCanChooseDirectories: NO];
+
+  if ([panel runModalForTypes:nil] == NSOKButton) {
+    NSString* fileName = [[panel filenames] firstObject];
+    [self application:NSApp openFile:fileName];
+  }
+}
+
 - (BOOL) application: (NSApplication *)application
-	    openFile: (NSString *)fileName
-{
+            openFile: (NSString *)fileName {
+
+  MediaDocument* doc = [[MediaDocument alloc] init];
+  [doc loadFile:fileName];
+  
   return NO;
 }
+
 
 - (void) showPrefPanel: (id)sender
 {

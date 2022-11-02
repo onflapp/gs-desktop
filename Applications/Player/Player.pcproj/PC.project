@@ -12,7 +12,9 @@
     );
     "BUNDLE_IDENTIFIER" = "";
     "CLASS_FILES" = (
-	"AppController.m"
+	"AppController.m",
+	"VideoDocument.m",
+	"MediaDocument.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -22,13 +24,16 @@
     FRAMEWORKS = (
     );
     "HEADER_FILES" = (
-	"AppController.h"
+	"AppController.h",
+	"VideoDocument.h",
+	"MediaDocument.h"
     );
     IMAGES = (
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
-	"Player.gorm"
+	"Player.gorm",
+	"MediaDocument.gorm"
     );
     LANGUAGE = English;
     LIBRARIES = (
@@ -42,6 +47,7 @@
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
+	playerview
     );
     "OTHER_SOURCES" = (
 	"Player_main.m"
