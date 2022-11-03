@@ -168,10 +168,7 @@
   NSInteger h = (NSInteger)r.size.height;
 
   NSInteger vh = (NSInteger)[[[self window] contentView] frame].size.height;
-  NSLog(@"1>> %d %d", y, h);
-
   y = vh - h - y;
-  NSLog(@"2>> %d", y);
 
   return NSMakeRect(x, y, w, h);
 }
@@ -289,23 +286,7 @@
           grabbing_mouse = NO;
         }
 
-
-        [NSApp performSelectorOnMainThread:@selector(disableDeactivation) withObject:nil waitUntilDone:NO];
         [sender performSelectorOnMainThread:@selector(activateXWindow) withObject:nil waitUntilDone:NO];
-
-        NSLog(@"XSetInputFocus %x", we);
-        /*
-        sendclientmsg(d, root, ignore_focus, 1);
-        usleep(200000);
-          
-        XSetInputFocus(d, we, RevertToParent, CurrentTime);
-        XSync(xdisplay, True);
-
-        usleep(200000);
-        sendclientmsg(d, root, ignore_focus, 0);
-
-        [NSApp performSelectorOnMainThread:@selector(enableDeactivation) withObject:nil waitUntilDone:NO];
-        */
       }
       XAllowEvents(d, ReplayPointer, e.xbutton.time);
     }

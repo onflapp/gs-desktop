@@ -52,7 +52,7 @@
 
 - (void) makeWindow {
   [NSBundle loadNibNamed:@"VideoDocument" owner:self];
-  //[window setFrameAutosaveName:@"video_window"];
+  [window setFrameAutosaveName:@"video_window"];
   
   [window makeKeyAndOrderFront:self];
 }
