@@ -27,10 +27,11 @@
 
 #import <AppKit/AppKit.h>
 #import "MediaDocument.h"
+#import "VideoView.h"
 
 @interface VideoDocument : MediaDocument
 {
-
+   IBOutlet VideoView* videoView;
 }
 
 @end

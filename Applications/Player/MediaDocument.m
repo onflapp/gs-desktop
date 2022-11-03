@@ -30,10 +30,8 @@
   self = [super init];
   buff = [[NSMutableData alloc] init];
 
-  [NSBundle loadNibNamed:@"MediaDocument" owner:self];
-  [window setFrameAutosaveName:@"media_window"];
+  [self makeWindow];
   
-  [window makeKeyAndOrderFront:self];
   return self;
 }
 
@@ -59,16 +57,32 @@
   }
 }
 
-- (NSString*) playerCMD {
+- (NSString*) playerExec {
   return @"playerview/start_audio.sh";
+}
+
+- (NSArray*) playerArguments {
+  if (mediaFile) {
+    return [NSArray arrayWithObject:mediaFile];
+  }
+  else {
+    return [NSArray array];
+  }
+}
+
+- (void) makeWindow {
+  [NSBundle loadNibNamed:@"MediaDocument" owner:self];
+  [window setFrameAutosaveName:@"media_window"];
+  
+  [window makeKeyAndOrderFront:self];
 }
 
 - (void) execTask {
   NSMutableArray* args = [NSMutableArray array];
   
-  NSString* cmd = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[self playerCMD]];
+  NSString* cmd = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[self playerExec]];
   [args addObject:cmd];
-  if (mediaFile) [args addObject:mediaFile];
+  [args addObjectsFromArray:[self playerArguments]];
   
   //NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.3];
   //[[NSRunLoop currentRunLoop] runUntilDate: limit];
@@ -159,7 +173,7 @@
 }
 
 - (void) processLine:(NSString*) line {
-  NSLog(@"[%@]", line);
+//NSLog(@"[%@]", line);
 
   if ([line hasPrefix:@"Command Line Interface initialized."]) {
     running = YES;

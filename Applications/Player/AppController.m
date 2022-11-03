@@ -10,20 +10,13 @@
 
 #import "AppController.h"
 #import "MediaDocument.h"
+#import "VideoDocument.h"
 
 @implementation AppController
 
 + (void) initialize
 {
   NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
-
-  /*
-   * Register your app's defaults here by adding objects to the
-   * dictionary, eg
-   *
-   * [defaults setObject:anObject forKey:keyForThatObject];
-   *
-   */
   
   [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
   [[NSUserDefaults standardUserDefaults] synchronize];
@@ -31,8 +24,10 @@
 
 - (id) init
 {
-  if ((self = [super init])) {
-  }
+  self = [super init];
+  videoExtensions = [[NSArray arrayWithObjects:@"mp4", @"m4v", @"ogv", nil] retain];
+  audioExtensions = [[NSArray arrayWithObjects:@"mp3", @"au", @"snd", nil] retain];
+
   return self;
 }
 
@@ -72,8 +67,15 @@
 - (BOOL) application: (NSApplication *)application
             openFile: (NSString *)fileName {
 
-  MediaDocument* doc = [[MediaDocument alloc] init];
-  [doc loadFile:fileName];
+  NSString* ext = [fileName pathExtension];
+  if ([videoExtensions containsObject:ext]) {
+    VideoDocument* doc = [[VideoDocument alloc] init];
+    [doc loadFile:fileName];
+  }
+  else {
+    MediaDocument* doc = [[MediaDocument alloc] init];
+    [doc loadFile:fileName];
+  }
   
   return NO;
 }

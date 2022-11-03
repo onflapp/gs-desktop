@@ -15,6 +15,8 @@
 
 @interface AppController : NSObject
 {
+  NSArray* videoExtensions;
+  NSArray* audioExtensions;
 }
 
 + (void)  initialize;

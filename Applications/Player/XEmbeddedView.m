@@ -24,106 +24,8 @@
 
 #import "XEmbeddedView.h"
 #import <GNUstepGUI/GSDisplayServer.h>
-#include "xembed.h"
 #include "X11/Xutil.h"
 #include "X11/keysymdef.h"
-
-Window find_xwinid_wmclass(Display* dpy, Window rootWindow, char* wmclass) {
-  Window *children;
-  Window parent;
-  Window root;
-  unsigned int nchildren;
-  Atom actual_type;
-  int actual_format;
-  int rv;
-  unsigned long nitems;
-  unsigned long bytes_after;
-  unsigned char *prop;
-  XWindowAttributes wattrs;
-  XClassHint whints;
-
-  Atom atom_CLASS = XInternAtom(dpy, "WM_CLASS", True);
-  Atom atom_NAME = XInternAtom(dpy, "WM_NAME", True);
-  
-  int result = XQueryTree(dpy, rootWindow, &root, &parent, &children, &nchildren);
-  unsigned int windowCount = 0;
-  Window found = 0;
-  
-  for (windowCount = 0; result && windowCount < nchildren; windowCount++) {
-    Window win = children[windowCount];
-    
-    rv = XGetWindowAttributes(dpy, win, &wattrs);
-    if (rv && wattrs.map_state == IsViewable) {
-    }
-    else {
-      continue;
-    }
-
-    /*  
-    NSInteger pid = 0;
-    rv = XGetWindowProperty(dpy, win, atom_PID, 0, 1024,
-                       False, AnyPropertyType,
-                       &actual_type,
-                       &actual_format, &nitems,
-                       &bytes_after,
-                       &prop);
-    if (rv != Success) continue;
-    if (!prop) continue;
-    
-    pid = prop[0] + (prop[1]<<8) + (prop[2]<<16) + (prop[3]<<24);
-    */
-
-    rv = XGetClassHint(dpy, win, &whints);
-    if (rv) {
-      if (strcmp(whints.res_class, "GNUstep") == 0) { //skip looking into GNUstep apps
-        continue;
-      }
-      //NSLog(@"NAME >>>> %x %s %s", win, whints.res_name, whints.res_class);
-    }
-
-    rv = XGetWindowProperty(dpy, win, atom_CLASS, 0, 1024,
-                       False, AnyPropertyType,
-                       &actual_type,
-                       &actual_format, &nitems,
-                       &bytes_after,
-                       &prop);
-                       
-    if (rv == Success && prop) {
-      //NSLog(@"CLASS >>>> %x %s", win, prop);
-      if (strcmp(prop, wmclass) == 0) {
-        found = win;
-        break;
-      }
-    }
-
-    rv = XGetWindowProperty(dpy, win, atom_NAME, 0, 1024,
-                       False, AnyPropertyType,
-                       &actual_type,
-                       &actual_format, &nitems,
-                       &bytes_after,
-                       &prop);
-                       
-    if (rv == Success && prop) {
-      //NSLog(@"NAME >>>> %x %s", win, prop);
-      if (strcmp(prop, wmclass) == 0) {
-        found = win;
-        break;
-      }
-    }
-
-    Window ww = find_xwinid_wmclass(dpy, win, wmclass);
-    if (ww > 0) {
-      found = ww;
-      break;
-    }
-  }
-
-  if (result && children != NULL) {
-    XFree((char*) children);
-  }
-
-  return found;
-}
 
 @implementation XEmbeddedView
 
@@ -156,10 +58,7 @@ Window find_xwinid_wmclass(Display* dpy, Window rootWindow, char* wmclass) {
   if ([self window]) {
     isvisible = YES;
     if (xwindowid == 0) {                         
-      NSInteger xwinid = [self createXWindowID];
-      if (xwinid) {
-        [self remapXWindow:xwinid];
-      }
+      [self createXWindowID];
     }
   }
   else {
@@ -169,10 +68,6 @@ Window find_xwinid_wmclass(Display* dpy, Window rootWindow, char* wmclass) {
       [self destroyXWindow];
     }
   }
-}
-
-- (Window) createXWindowID {
-  return 0;
 }
 
 - (void) destroyXWindow {
@@ -257,32 +152,31 @@ Window find_xwinid_wmclass(Display* dpy, Window rootWindow, char* wmclass) {
 }
 
 - (NSRect) convertToNativeWindowRect {
-  NSRect r = [self bounds];
+  NSRect r = [self frame];
+  /*
   NSView* sv = [self superview];
   while (sv) {
-    NSRect sr = [sv bounds];
+    NSRect sr = [sv frame];
     r.origin.x += sr.origin.x;
     r.origin.y += sr.origin.y;
-    sv = [sv superview];
+    //sv = [sv superview];
   }
+  */
   NSInteger x = (NSInteger)r.origin.x;
   NSInteger y = (NSInteger)r.origin.y;
   NSInteger w = (NSInteger)r.size.width;
   NSInteger h = (NSInteger)r.size.height;
-  
-  y = [[[self window] contentView] bounds].size.height - r.size.height - r.origin.y;
+
+  NSInteger vh = (NSInteger)[[[self window] contentView] frame].size.height;
+  NSLog(@"1>> %d %d", y, h);
+
+  y = vh - h - y;
+  NSLog(@"2>> %d", y);
 
   return NSMakeRect(x, y, w, h);
 }
 
 - (void) unmapXWindow {
-}
-
-- (Window) findXWindowID:(NSString*) name {
-  Display* dpy = XOpenDisplay(NULL);
-  Window rootWindow = XDefaultRootWindow(dpy);
-  Window foundWindow = find_xwinid_wmclass(dpy, rootWindow, [name UTF8String]);
-  return foundWindow;
 }
 
 - (void) initModFilter {
@@ -309,10 +203,12 @@ Window find_xwinid_wmclass(Display* dpy, Window rootWindow, char* wmclass) {
   }
 }
 
-- (void) remapXWindow:(Window) xwinid {  
+- (void) createXWindowID {  
   Window myxwindowid = (Window)[[self window]windowRef];
   xdisplay = XOpenDisplay(NULL);
-  xwindowid = xwinid;
+  int screen = DefaultScreen(xdisplay);
+  xwindowid = XCreateSimpleWindow(xdisplay, myxwindowid,0,0,	
+		200, 300, 0, BlackPixel(xdisplay, screen), BlackPixel(xdisplay, screen));
   
   XReparentWindow(xdisplay, xwindowid, myxwindowid, 0, 0);
   XSync(xdisplay, False);
@@ -354,8 +250,8 @@ Window find_xwinid_wmclass(Display* dpy, Window rootWindow, char* wmclass) {
   d = XOpenDisplay(NULL);
   s = DefaultScreen(d);
 
-  Window root = XDefaultRootWindow(d);
-  Atom ignore_focus = XInternAtom(d, WM_IGNORE_FOCUS_EVENTS, True);
+  //Window root = XDefaultRootWindow(d);
+  //Atom ignore_focus = XInternAtom(d, WM_IGNORE_FOCUS_EVENTS, True);
   XSelectInput(d, we, EnterWindowMask | LeaveWindowMask | StructureNotifyMask);
 
   BOOL grabbing_mouse = NO;
@@ -398,6 +294,7 @@ Window find_xwinid_wmclass(Display* dpy, Window rootWindow, char* wmclass) {
         [sender performSelectorOnMainThread:@selector(activateXWindow) withObject:nil waitUntilDone:NO];
 
         NSLog(@"XSetInputFocus %x", we);
+        /*
         sendclientmsg(d, root, ignore_focus, 1);
         usleep(200000);
           
@@ -408,6 +305,7 @@ Window find_xwinid_wmclass(Display* dpy, Window rootWindow, char* wmclass) {
         sendclientmsg(d, root, ignore_focus, 0);
 
         [NSApp performSelectorOnMainThread:@selector(enableDeactivation) withObject:nil waitUntilDone:NO];
+        */
       }
       XAllowEvents(d, ReplayPointer, e.xbutton.time);
     }

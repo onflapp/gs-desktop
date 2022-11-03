@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = Player
 APP_NAME = Player
-Player_APPLICATION_ICON = 
+Player_APPLICATION_ICON = icon.tiff
 
 
 #
@@ -34,6 +34,10 @@ Player_APPLICATION_ICON =
 Player_RESOURCE_FILES = \
 Resources/Player.gorm \
 Resources/MediaDocument.gorm \
+Resources/VideoDocument.gorm \
+Resources/file_au.tiff \
+Resources/file_snd.tiff \
+Resources/icon.tiff \
 Resources/playerview 
 
 
@@ -43,7 +47,9 @@ Resources/playerview
 Player_HEADER_FILES = \
 AppController.h \
 VideoDocument.h \
-MediaDocument.h
+MediaDocument.h \
+VideoView.h \
+XEmbeddedView.h
 
 #
 # Objective-C Class files
@@ -51,7 +57,9 @@ MediaDocument.h
 Player_OBJC_FILES = \
 AppController.m \
 VideoDocument.m \
-MediaDocument.m
+MediaDocument.m \
+VideoView.m \
+XEmbeddedView.m
 
 #
 # Other sources

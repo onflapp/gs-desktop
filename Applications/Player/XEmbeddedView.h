@@ -28,8 +28,6 @@
 #import <AppKit/AppKit.h>
 #include <X11/Xlib.h>
 
-Window find_xwinid_wmclass(Display* dpy, Window rootWindow, char* wmclass);
-
 @interface XEmbeddedView : NSView
 {
   Display* xdisplay;
@@ -42,13 +40,11 @@ Window find_xwinid_wmclass(Display* dpy, Window rootWindow, char* wmclass);
   int filterMod;
 }
 
-- (Window) createXWindowID;
-- (Window) findXWindowID:(NSString*) name;
+- (void) createXWindowID;
 - (void) windowWillClose:(NSNotification*) note;
 - (void) destroyXWindow;
 - (void) activateXWindow;
 - (void) deactivateXWindow:(NSNotification*) note;
-- (void) remapXWindow:(Window)xwinid;
 
 - (Window) embededXWindowID;
 

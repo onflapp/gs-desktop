@@ -1,5 +1,5 @@
 {
-    APPLICATIONICON = "";
+    APPLICATIONICON = "icon.tiff";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
     "BUILDER_TARGETS" = (
@@ -14,7 +14,9 @@
     "CLASS_FILES" = (
 	"AppController.m",
 	"VideoDocument.m",
-	"MediaDocument.m"
+	"MediaDocument.m",
+	"VideoView.m",
+	"XEmbeddedView.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -26,21 +28,27 @@
     "HEADER_FILES" = (
 	"AppController.h",
 	"VideoDocument.h",
-	"MediaDocument.h"
+	"MediaDocument.h",
+	"VideoView.h",
+	"XEmbeddedView.h"
     );
     IMAGES = (
+	"file_au.tiff",
+	"file_snd.tiff",
+	"icon.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
 	"Player.gorm",
-	"MediaDocument.gorm"
+	"MediaDocument.gorm",
+	"VideoDocument.gorm"
     );
     LANGUAGE = English;
     LIBRARIES = (
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "";
+    LINKEROPTIONS = "-lX11";
     "LOCALIZED_RESOURCES" = (
     );
     MAININTERFACE = "Player.gorm";
@@ -60,6 +68,30 @@
     "PROJECT_CREATOR" = "Ondrej Florian,,,";
     "PROJECT_DESCRIPTION" = "No description avaliable!";
     "PROJECT_DOCUMENTTYPES" = (
+	{
+	    NSIcon = "file_snd.tiff";
+	    NSUnixExtensions = (
+		snd
+	    );
+	},
+	{
+	    NSIcon = "file_au.tiff";
+	    NSUnixExtensions = (
+		au
+	    );
+	},
+	{
+	    NSIcon = "file_au.tiff";
+	    NSUnixExtensions = (
+		mp4
+	    );
+	},
+	{
+	    NSIcon = "file_au.tiff";
+	    NSUnixExtensions = (
+		mp3
+	    );
+	}
     );
     "PROJECT_GROUP" = "No group avaliable!";
     "PROJECT_MAINTAINER" = "Ondrej Florian,,,";
