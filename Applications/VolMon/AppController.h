@@ -14,10 +14,6 @@
 #import <AppKit/AppKit.h>
 #import <SoundKit/SoundKit.h>
 
-@interface App : NSApplication
-- (void) sendEvent:(NSEvent*) evt;
-@end
-
 @interface AppController : NSObject
 {
   IBOutlet NSView* controlView;
