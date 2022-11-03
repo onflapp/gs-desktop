@@ -30,6 +30,7 @@
 @interface MediaDocument : NSObject
 {
   IBOutlet NSWindow* window;
+  IBOutlet NSButton* playButton;
 
   NSString* mediaFile;
   
@@ -40,6 +41,8 @@
 
   BOOL running;
   BOOL playing;
+  BOOL paused;
+
   NSInteger volume;
 }
 

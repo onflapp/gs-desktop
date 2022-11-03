@@ -59,10 +59,14 @@
   }
 }
 
+- (NSString*) playerCMD {
+  return @"playerview/start_audio.sh";
+}
+
 - (void) execTask {
   NSMutableArray* args = [NSMutableArray array];
   
-  NSString* cmd = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"playerview/start.sh"];
+  NSString* cmd = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:[self playerCMD]];
   [args addObject:cmd];
   if (mediaFile) [args addObject:mediaFile];
   
