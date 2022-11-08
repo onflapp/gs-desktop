@@ -109,7 +109,7 @@
   Workspace8Key = None;
   WindowPlaceOrigin = (0, 0);
   Workspace9Key = None;
-  UseSaveUnders = NO;
+  UseSaveUnders = YES;
   SaveSessionOnExit = YES;
   MoveToWorkspace6Key = None;
   Workspace4Key = None;
