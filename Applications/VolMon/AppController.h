@@ -21,6 +21,8 @@
   IBOutlet NSButton* muteButton;
   IBOutlet NSButton* micMuteButton;
 
+  NSTimeInterval lastChange;
+
   SNDServer	*soundServer;
   SNDOut	*soundOut;
   SNDIn		*soundIn;

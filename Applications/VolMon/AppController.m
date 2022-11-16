@@ -36,7 +36,8 @@
   Display* dpy = XOpenDisplay(NULL);
   Window win = (Window)[[NSApp iconWindow]windowRef];
 
-  XMoveResizeWindow(dpy, win, 5, 5, 54, 54);
+  XMoveResizeWindow(dpy, win, 4, 4, 47, 50);
+  XMapWindow(dpy, win);
   XFlush(dpy);
 }
 
@@ -54,6 +55,7 @@
   if (soundServer.status == SNDServerNoConnnectionState) {
     [soundServer connect];
   }
+  [NSApp hide:self];
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender
@@ -122,8 +124,11 @@
   id device = [aNotif object]; // SNDOut or SNDIn
 
   if ([device isKindOfClass:[SNDOut class]]) {
+    NSTimeInterval d = [[NSDate date] timeIntervalSinceReferenceDate] - lastChange;
+
     SNDOut *output = (SNDOut *)device;
-    if (output.sink == soundOut.sink) {
+    if (output.sink == soundOut.sink && d > 0.5) {
+      NSLog(@"xxx");
       [muteButton setState:[soundOut isMute]];
       [volumeSlider setIntegerValue:[soundOut volume]];
     }
@@ -135,10 +140,12 @@
   if (sender == muteButton) {
     SNDDevice *device = (sender == muteButton) ? soundOut : soundIn;
     [device setMute:[sender state]];
+    lastChange = [[NSDate date] timeIntervalSinceReferenceDate];
   }
   else if (sender == volumeSlider) {
     SNDDevice *device = (sender == volumeSlider) ? soundOut : soundIn;
     [device setVolume:[sender intValue]];
+    lastChange = [[NSDate date] timeIntervalSinceReferenceDate];
   }
 }
 - (void) showPrefPanel: (id)sender
