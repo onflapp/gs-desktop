@@ -21,15 +21,8 @@
 @interface BatteryView: NSView
 {
   NSDictionary *stateStrAttributes;
-  NSImage *iconBattery_full;
-  NSImage *iconBattery_good;
-  NSImage *iconBattery_low;
-  NSImage *iconBattery_caution;
-  NSImage *iconBattery_empty;
-
+  NSImage *iconBattery;
   NSImage *iconPlug;
-  NSImage *iconPlugOut;
-
   NSImage* tileImage;
   BatteryModel *batModel;
 
