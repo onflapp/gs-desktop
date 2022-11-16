@@ -28,7 +28,6 @@
 - (void) awakeFromNib
 {
   [[NSApp iconWindow] setContentView:controlView];
-  [self resizeIconWindow];
 }
 
 - (void) resizeIconWindow 
@@ -36,8 +35,8 @@
   Display* dpy = XOpenDisplay(NULL);
   Window win = (Window)[[NSApp iconWindow]windowRef];
 
+  XUnmapWindow(dpy, win);
   XMoveResizeWindow(dpy, win, 4, 4, 47, 50);
-  XMapWindow(dpy, win);
   XFlush(dpy);
 }
 
@@ -55,7 +54,9 @@
   if (soundServer.status == SNDServerNoConnnectionState) {
     [soundServer connect];
   }
-  [NSApp hide:self];
+
+  [self resizeIconWindow];
+  [NSApp deactivate];
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender
@@ -128,7 +129,6 @@
 
     SNDOut *output = (SNDOut *)device;
     if (output.sink == soundOut.sink && d > 0.5) {
-      NSLog(@"xxx");
       [muteButton setState:[soundOut isMute]];
       [volumeSlider setIntegerValue:[soundOut volume]];
     }
