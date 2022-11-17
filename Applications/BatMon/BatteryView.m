@@ -162,7 +162,7 @@
     [normal_color set];
   }
 
-  //[NSBezierPath fillRect: NSMakeRect(BAT_X+1, BAT_Y+1, BAT_WIDTH-2, (chargePercentToDraw/100) * BAT_HEIGHT-2)];
+  [NSBezierPath fillRect: NSMakeRect(BAT_X, BAT_Y+1, BAT_WIDTH-1, (chargePercentToDraw/100) * BAT_HEIGHT-1)];
 
   [outline_color set];
   int z = 12;
@@ -174,7 +174,7 @@
 
   [chargeStatusIcon compositeToPoint: NSMakePoint(BAT_X+4, BAT_HEIGHT - 12) operation:NSCompositeSourceOver];
 
-  str = [NSString stringWithFormat:@"%2.0f%%", [batModel chargePercent]];
+  str = [NSString stringWithFormat:@"%2.0f%%", chargePercentToDraw];
   [str drawAtPoint: NSMakePoint(BAT_X+4 , BAT_Y) withAttributes:stateStrAttributes];
 }
 

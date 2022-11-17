@@ -110,13 +110,11 @@
 {
   NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
   
-  /*
   [backgroundColor setColor:[NSColor colorFromStringRepresentation:[prefs stringForKey:@"background_color"]]];
   [outlineColor setColor:[NSColor colorFromStringRepresentation:[prefs stringForKey:@"outline_color"]]];
   [normalColor setColor:[NSColor colorFromStringRepresentation:[prefs stringForKey:@"normal_color"]]];
   [warningColor setColor:[NSColor colorFromStringRepresentation:[prefs stringForKey:@"warning_color"]]];
   [criticalColor setColor:[NSColor colorFromStringRepresentation:[prefs stringForKey:@"critical_color"]]]; 
-  */
 
   [prefWin makeKeyAndOrderFront:self];
 }
