@@ -47,6 +47,11 @@
 
     IBOutlet NSWindow            *prefWin;
     IBOutlet NSTextField         *capacityField;
+    IBOutlet NSColorWell         *backgroundColor;
+    IBOutlet NSColorWell         *outlineColor;
+    IBOutlet NSColorWell         *normalColor;
+    IBOutlet NSColorWell         *warningColor;
+    IBOutlet NSColorWell         *criticalColor;
 
     IBOutlet NSWindow            *infoWin;
     IBOutlet NSProgressIndicator *lifeGauge;

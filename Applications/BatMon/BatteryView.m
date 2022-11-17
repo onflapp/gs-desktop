@@ -19,6 +19,7 @@
 
 #import "AppController.h"
 #import "BatteryView.h"
+#import "NSColorExtensions.h"
 
 @implementation BatteryView
 
@@ -26,23 +27,13 @@
 {
   self = [super initWithFrame:aFrame];
   
-  NSMutableParagraphStyle *style;
-	NSFont *font;
-
-  style = [[NSMutableParagraphStyle alloc] init];
-  [style setParagraphStyle:[NSParagraphStyle defaultParagraphStyle]];
-    	
-	font = [NSFont systemFontOfSize:9.0];
-	stateStrAttributes = [[NSDictionary dictionaryWithObjectsAndKeys:
-        font, NSFontAttributeName,
-	[NSColor grayColor], NSForegroundColorAttributeName,
-        style, NSParagraphStyleAttributeName, nil] retain];
-  
   iconPlug = [[NSImage imageNamed:@"plugin.tiff"] retain];
   iconBattery = nil;//[[NSImage imageNamed:@"small_battery.tif"] retain];
   tileImage = [NSImage imageNamed:@"common_Tile"];
  
   batModel = [model retain];
+
+  [self reconfigure];
 
   return self;
 }
@@ -51,8 +42,15 @@
 {
   [iconPlug release];
   [iconBattery release];
-  [stateStrAttributes release];
   [batModel release];
+
+  [stateStrAttributes release];
+  [background_color release];
+  [outline_color release];
+  [normal_color release];
+  [warning_color release];
+  [critical_color release];
+
   [super dealloc];
 }
 
@@ -83,6 +81,47 @@
 #define BAT_HEIGHT 48
 #define BAT_WIDTH 32
 
+- (void)reconfigure {
+  NSMutableParagraphStyle *style;
+	NSFont *font;
+
+  NSUserDefaults *prefs     = [NSUserDefaults standardUserDefaults];
+
+  //colors
+  background_color = [NSColor colorFromStringRepresentation:[prefs objectForKey:@"background_color"]];
+  if (!background_color) background_color = [NSColor blackColor];
+  [background_color retain];
+
+  outline_color    = [NSColor colorFromStringRepresentation:[prefs objectForKey:@"outline_color"]];
+  if (!outline_color) outline_color = [NSColor blueColor];
+  [outline_color retain];
+
+  normal_color     = [NSColor colorFromStringRepresentation:[prefs objectForKey:@"normal_color"]];
+  if (!normal_color) normal_color = [NSColor greenColor];
+  [normal_color retain];
+
+  warning_color    = [NSColor colorFromStringRepresentation:[prefs objectForKey:@"warning_color"]];
+  if (!warning_color) warning_color = [NSColor orangeColor];
+  [warning_color retain];
+
+  critical_color   = [NSColor colorFromStringRepresentation:[prefs objectForKey:@"critical_color"]]; 
+  if (!critical_color) critical_color = [NSColor redColor];
+  [critical_color retain];
+
+  //fonts
+  
+  style = [[NSMutableParagraphStyle alloc] init];
+  [style setParagraphStyle:[NSParagraphStyle defaultParagraphStyle]];
+    	
+	font = [NSFont systemFontOfSize:9.0];
+
+  stateStrAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
+        font, NSFontAttributeName,
+	outline_color, NSForegroundColorAttributeName,
+        style, NSParagraphStyleAttributeName, nil];
+  [stateStrAttributes retain];
+}
+
 - (void)drawRect:(NSRect)r
 {
   if (tileImage)
@@ -90,6 +129,7 @@
                         fromRect:NSMakeRect(0, 0, 64, 64)
                       operation:NSCompositeSourceAtop];
 
+ 
   NSString *str;
   float chargePercentToDraw; /* we need this beause chargePercent can go beyond 100% */
   NSImage *chargeStatusIcon;
@@ -105,34 +145,32 @@
   [[NSGraphicsContext currentContext] setShouldAntialias: NO];
   [NSBezierPath setDefaultLineWidth:1];
 
-  [[NSColor grayColor] set];
+  [outline_color set];
   [NSBezierPath strokeRect: NSMakeRect(BAT_X, BAT_Y, BAT_WIDTH, BAT_HEIGHT)];
 
-  [[NSColor darkGrayColor] set];
-  [NSBezierPath fillRect: NSMakeRect(BAT_X+1, BAT_Y+1, BAT_WIDTH-2, BAT_HEIGHT-2)];
+  [background_color set];
+  [NSBezierPath fillRect: NSMakeRect(BAT_X, BAT_Y+1, BAT_WIDTH-1, BAT_HEIGHT-1)];
   
   /* draw the charge status */
   if ([batModel isWarning] == YES) {
-    [[NSColor orangeColor] set];
+    [warning_color set];
   }
   else if ([batModel isCritical] == YES) {
-    [[NSColor redColor] set];
+    [critical_color set];
   }
   else {
-    [[NSColor greenColor] set];
+    [normal_color set];
   }
 
-  [NSBezierPath fillRect: NSMakeRect(BAT_X+1, BAT_Y+1, BAT_WIDTH-2, (chargePercentToDraw/100) * BAT_HEIGHT-2)];
+  //[NSBezierPath fillRect: NSMakeRect(BAT_X+1, BAT_Y+1, BAT_WIDTH-2, (chargePercentToDraw/100) * BAT_HEIGHT-2)];
 
-  [[NSColor grayColor] set];
+  [outline_color set];
   int z = 12;
-  [NSBezierPath strokeLineFromPoint:NSMakePoint(BAT_X, BAT_Y+z) toPoint:NSMakePoint(BAT_X+BAT_WIDTH, BAT_Y+z)];
+  [NSBezierPath strokeLineFromPoint:NSMakePoint(BAT_X, BAT_Y+z) toPoint:NSMakePoint(BAT_X+BAT_WIDTH-1, BAT_Y+z)];
   z+=12;
-  [NSBezierPath strokeLineFromPoint:NSMakePoint(BAT_X, BAT_Y+z) toPoint:NSMakePoint(BAT_X+BAT_WIDTH, BAT_Y+z)];
+  [NSBezierPath strokeLineFromPoint:NSMakePoint(BAT_X, BAT_Y+z) toPoint:NSMakePoint(BAT_X+BAT_WIDTH-1, BAT_Y+z)];
   z+=12;
-  [NSBezierPath strokeLineFromPoint:NSMakePoint(BAT_X, BAT_Y+z) toPoint:NSMakePoint(BAT_X+BAT_WIDTH, BAT_Y+z)];
-  z+=12;
-  [NSBezierPath strokeLineFromPoint:NSMakePoint(BAT_X, BAT_Y+z) toPoint:NSMakePoint(BAT_X+BAT_WIDTH, BAT_Y+z)];
+  [NSBezierPath strokeLineFromPoint:NSMakePoint(BAT_X, BAT_Y+z) toPoint:NSMakePoint(BAT_X+BAT_WIDTH-1, BAT_Y+z)];
 
   [chargeStatusIcon compositeToPoint: NSMakePoint(BAT_X+4, BAT_HEIGHT - 12) operation:NSCompositeSourceOver];
 

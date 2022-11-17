@@ -26,22 +26,21 @@
 
 #include <math.h>
 #import "AppController.h"
+#import "NSColorExtensions.h"
 
 @implementation AppController
 
 + (void)initialize
 {
   NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
-
-
   /*
-   * Register your app's defaults here by adding objects to the
-   * dictionary, eg
-   *
-   * [defaults setObject:anObject forKey:keyForThatObject];
-   *
-   */
-  
+  [defaults setObject:@"" forKey:@"background_color"];
+  [defaults setObject:@"0.0 1.0 1.0 1.0" forKey:@"outline_color"];
+  [defaults setObject:@"0.0 1.0 1.0 1.0" forKey:@"normal_color"];
+  [defaults setObject:@"0.0 1.0 1.0 1.0" forKey:@"warning_color"];
+  [defaults setObject:@"0.0 1.0 1.0 1.0" forKey:@"critical_color"];
+  */
+
   [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
   [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -109,14 +108,45 @@
 
 - (void)showPrefPanel:(id)sender
 {
+  NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
+  
+  /*
+  [backgroundColor setColor:[NSColor colorFromStringRepresentation:[prefs stringForKey:@"background_color"]]];
+  [outlineColor setColor:[NSColor colorFromStringRepresentation:[prefs stringForKey:@"outline_color"]]];
+  [normalColor setColor:[NSColor colorFromStringRepresentation:[prefs stringForKey:@"normal_color"]]];
+  [warningColor setColor:[NSColor colorFromStringRepresentation:[prefs stringForKey:@"warning_color"]]];
+  [criticalColor setColor:[NSColor colorFromStringRepresentation:[prefs stringForKey:@"critical_color"]]]; 
+  */
+
   [prefWin makeKeyAndOrderFront:self];
 }
 
 - (void)applyPref:(id)sender
 {
   NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-  [prefs setObject:[capacityField stringValue] forKey:@"last_capacity"];
+
+  if (sender == backgroundColor) {
+    [prefs setObject:[[backgroundColor color] stringRepresentation] forKey:@"background_color"];
+  }
+  else if (sender == outlineColor) {
+    [prefs setObject:[[outlineColor color] stringRepresentation] forKey:@"outline_color"];
+  }
+  else if (sender == normalColor) {
+    [prefs setObject:[[normalColor color] stringRepresentation] forKey:@"normal_color"];
+  }
+  else if (sender == warningColor) {
+    [prefs setObject:[[warningColor color] stringRepresentation] forKey:@"warning_color"];
+  }
+  else if (sender == criticalColor) {
+    [prefs setObject:[[criticalColor color] stringRepresentation] forKey:@"critical_color"];
+  }
+  else if (sender == capacityField) {
+    [prefs setObject:[capacityField stringValue] forKey:@"last_capacity"];
+  }
+
   [prefs synchronize];
+  [batteryView reconfigure];
+  [self updateInfo:self];
 }
 
 - (IBAction)updateInfo:(id)sender

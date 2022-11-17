@@ -4,9 +4,9 @@
 	Actions = (
 	    "showMonitor:",
 	    "showPrefPanel:",
+	    "applyPref:",
 	    "updateInfo:",
-	    "showBattInfo:",
-	    "applyPref:"
+	    "showBattInfo:"
 	);
 	Outlets = (
 	    monitorWin,
@@ -22,6 +22,13 @@
 	    cellInfoButton,
 	    lifeBox,
 	    cellDataBox,
+	    prefWin,
+	    capacityField,
+	    backgroundColor,
+	    outlineColor,
+	    normalColor,
+	    warningColor,
+	    criticalColor,
 	    infoWin,
 	    lifeGauge,
 	    lifeGaugePercent,
@@ -31,9 +38,7 @@
 	    manufacturer,
 	    manufacturerLabel,
 	    lastFullCharge,
-	    cellHealthBox,
-	    capacityField,
-	    prefWin
+	    cellHealthBox
 	);
 	Super = NSObject;
     };

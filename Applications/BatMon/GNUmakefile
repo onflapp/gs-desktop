@@ -51,7 +51,8 @@ Resources/README
 BatMon_HEADER_FILES = \
 AppController.h \
 BatteryModel.h \
-BatteryView.h
+BatteryView.h \
+NSColorExtensions.h
 
 #
 # Objective-C Class files
@@ -63,7 +64,8 @@ BatteryModel-FreeBSD.m \
 BatteryModel-Linux.m \
 BatteryModel-NetBSD.m \
 BatteryModel-OpenBSD.m \
-BatteryView.m
+BatteryView.m \
+NSColorExtensions.m
 
 #
 # Other sources

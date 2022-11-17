@@ -18,7 +18,8 @@
 	"BatteryModel-Linux.m",
 	"BatteryModel-NetBSD.m",
 	"BatteryModel-OpenBSD.m",
-	"BatteryView.m"
+	"BatteryView.m",
+	"NSColorExtensions.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -32,7 +33,8 @@
     "HEADER_FILES" = (
 	"AppController.h",
 	"BatteryModel.h",
-	"BatteryView.h"
+	"BatteryView.h",
+	"NSColorExtensions.h"
     );
     IMAGES = (
 	"batmon-icon.tiff",

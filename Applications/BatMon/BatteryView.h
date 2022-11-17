@@ -20,17 +20,24 @@
 
 @interface BatteryView: NSView
 {
-  NSDictionary *stateStrAttributes;
   NSImage *iconBattery;
   NSImage *iconPlug;
   NSImage* tileImage;
   BatteryModel *batModel;
+
+  NSDictionary *stateStrAttributes;
+  NSColor* background_color;
+  NSColor* outline_color;
+  NSColor* normal_color;
+  NSColor* warning_color;
+  NSColor* critical_color; 
 
   // Double-click target/action
   id		actionTarget;
   SEL		doubleAction;
 }
 - initWithFrame:(NSRect)aFrame batteryModel:(BatteryModel*) model;
+- (void)reconfigure;
 - (void)setTarget:(id)target;
 - (void)setDoubleAction:(SEL)sel;
 
