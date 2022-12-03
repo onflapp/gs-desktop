@@ -31,6 +31,7 @@
   buff = [[NSMutableData alloc] init];
 
   [self makeWindow];
+  [self updateStatus];
   
   return self;
 }
@@ -47,13 +48,22 @@
 }
 
 - (IBAction) play:(id) sender {
-  [self writeCommand:@"pause"];
+  if (sender == playButton) {
+    [self writeCommand:@"pause"];
+  }
+  else if (sender == locationSlider) {
+    NSInteger p = (NSInteger)[sender floatValue];
+    [self writeCommand:[NSString stringWithFormat:@"seek %d", p]];
+    pos = p;
+  }
 }
 
 - (void) checkStatus {
   [self writeCommand:@"status"];
+  [self writeCommand:@"get_time"];
+  [self writeCommand:@"get_length"];
   if (running) {
-    [self performSelector:@selector(checkStatus) withObject:nil afterDelay:1.0];
+    [self performSelector:@selector(checkStatus) withObject:nil afterDelay:0.7];
   }
 }
 
@@ -67,6 +77,27 @@
   }
   else {
     return [NSArray array];
+  }
+}
+
+- (void) updateStatus {
+  if (running) {
+    [playButton setEnabled:YES];
+    if (playing) {
+      [playButton setTitle:@"Stop"];
+      [statusField setStringValue:@"Playing"];
+    }
+    else {
+      [statusField setStringValue:@"Stopped"];
+      [playButton setTitle:@"Play"];
+    }
+    if (len > 0) {
+      [locationSlider setMaxValue:(float)len];
+    }
+    [locationSlider setFloatValue:(float)pos];
+  }
+  else {
+    [playButton setEnabled:NO];
   }
 }
 
@@ -142,6 +173,7 @@
   [nc removeObserver:self name:NSTaskDidTerminateNotification object:nil];
 
   running = NO;
+  playing = NO;
 }
 
 - (void) dataReceived:(NSNotification*) not {
@@ -152,7 +184,7 @@
 
   for (NSInteger i = 0; i < sz; i++) {
     if (*(bytes+i) == '\n') {
-      [buff appendBytes:bytes+c length:i-c];
+      [buff appendBytes:bytes+c length:i-c-1];
       NSString* line = [[NSString alloc] initWithData:buff encoding:[NSString defaultCStringEncoding]];
       [self processLine:line];
       [line release];
@@ -177,14 +209,40 @@
 
   if ([line hasPrefix:@"Command Line Interface initialized."]) {
     running = YES;
+    __linepart = 0;
     [self performSelector:@selector(checkStatus) withObject:nil afterDelay:0.1];
+  }
+  else if (__linepart == 1) {
+    NSInteger p = [line integerValue];
+    if ([line length] > 0 &&  p > 0) pos = p+1;
+    __linepart = 2;
+  }
+  else if (__linepart == 2) {
+    NSInteger l = [line integerValue];
+    if ([line length] > 0 && l > 0) len = l;
+    __linepart = 0;
   }
   else if ([line hasPrefix:@"( state playing )"]) {
     playing = YES;
+    __linepart = 1;
   }
   else if ([line hasPrefix:@"( state stopped )"]) {
     playing = NO;
+    __linepart = 1;
   }
+  else if ([line hasPrefix:@"( state paused )"]) {
+    playing = NO;
+    __linepart = 1;
+  }
+  else if ([line hasPrefix:@"> ( new input: "]) {
+    NSString* f = [line substringWithRange:NSMakeRange(15, [line length] - 15 - 2)];
+    //NSLog(@">>%@<", f);
+    __linepart = 0;
+  }
+  else {
+    __linepart = 0;
+  }
+  [self updateStatus];
 }
 
 @end

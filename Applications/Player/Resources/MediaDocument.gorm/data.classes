@@ -11,7 +11,10 @@
 	    "play:"
 	);
 	Outlets = (
-	    window
+	    window,
+	    locationSlider,
+	    statusField,
+	    playButton
 	);
 	Super = NSObject;
     };

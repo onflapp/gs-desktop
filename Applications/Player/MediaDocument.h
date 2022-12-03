@@ -31,6 +31,8 @@
 {
   IBOutlet NSWindow* window;
   IBOutlet NSButton* playButton;
+  IBOutlet NSTextField* statusField;
+  IBOutlet NSSlider* locationSlider;
 
   NSString* mediaFile;
   
@@ -42,6 +44,9 @@
   BOOL running;
   BOOL playing;
   BOOL paused;
+  NSInteger len;
+  NSInteger pos;
+  NSInteger __linepart;
 
   NSInteger volume;
 }

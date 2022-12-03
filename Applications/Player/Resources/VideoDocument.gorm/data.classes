@@ -20,7 +20,10 @@
 	Actions = (
 	);
 	Outlets = (
-	    videoView
+	    videoView,
+	    locationSlider,
+	    volumeSilder,
+	    statusField
 	);
 	Super = MediaDocument;
     };
