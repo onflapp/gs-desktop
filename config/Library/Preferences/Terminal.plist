@@ -2,12 +2,27 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+    <key>CursorBlinking</key>
+    <string>NO</string>
+    <key>CursorColor</key>
+    <dict>
+	<key>Alpha</key>
+	<real>1</real>
+	<key>Blue</key>
+	<real>0</real>
+	<key>Green</key>
+	<real>0</real>
+	<key>Red</key>
+	<real>1</real>
+    </dict>
+    <key>CursorStyle</key>
+    <integer>0</integer>
     <key>GSBackend</key>
     <string>art</string>
     <key>ScrollBackEnabled</key>
     <string>YES</string>
     <key>ScrollBackLines</key>
-    <integer>256</integer>
+    <integer>4000</integer>
     <key>ScrollBackUnlimited</key>
     <string>NO</string>
     <key>ScrollBottomOnInput</key>
@@ -18,6 +33,8 @@
     <string>Keith</string>
     <key>TerminalFontSize</key>
     <integer>12</integer>
+    <key>TerminalFontUseBold</key>
+    <string>NO</string>
     <key>TerminalServices</key>
     <dict>
 	<key>Arithmetic Calculation</key>
@@ -258,11 +275,90 @@
 	    <string>0</string>
 	</dict>
     </dict>
+    <key>TextBlinkColor</key>
+    <dict>
+	<key>Alpha</key>
+	<real>1</real>
+	<key>Blue</key>
+	<real>0</real>
+	<key>Green</key>
+	<real>1</real>
+	<key>Red</key>
+	<real>1</real>
+    </dict>
+    <key>TextBoldColor</key>
+    <dict>
+	<key>Alpha</key>
+	<real>1</real>
+	<key>Blue</key>
+	<real>1</real>
+	<key>Green</key>
+	<real>1</real>
+	<key>Red</key>
+	<real>1</real>
+    </dict>
+    <key>TextInverseBackgroundColor</key>
+    <dict>
+	<key>Alpha</key>
+	<real>1</real>
+	<key>Blue</key>
+	<real>0.333</real>
+	<key>Green</key>
+	<real>0.333</real>
+	<key>Red</key>
+	<real>0.333</real>
+    </dict>
+    <key>TextInverseForegroundColor</key>
+    <dict>
+	<key>Alpha</key>
+	<real>1</real>
+	<key>Blue</key>
+	<real>1</real>
+	<key>Green</key>
+	<real>1</real>
+	<key>Red</key>
+	<real>1</real>
+    </dict>
+    <key>TextNormalColor</key>
+    <dict>
+	<key>Alpha</key>
+	<real>1</real>
+	<key>Blue</key>
+	<real>0.667</real>
+	<key>Green</key>
+	<real>0.667</real>
+	<key>Red</key>
+	<real>0.667</real>
+    </dict>
+    <key>WindowBackgroundColor</key>
+    <dict>
+	<key>Alpha</key>
+	<real>1</real>
+	<key>Blue</key>
+	<real>0</real>
+	<key>Green</key>
+	<real>0</real>
+	<key>Red</key>
+	<real>0</real>
+    </dict>
     <key>WindowCloseBehavior</key>
     <integer>0</integer>
     <key>WindowHeight</key>
     <integer>25</integer>
+    <key>WindowSelectionColor</key>
+    <dict>
+	<key>Alpha</key>
+	<real>1</real>
+	<key>Blue</key>
+	<real>0.5</real>
+	<key>Green</key>
+	<real>0.5</real>
+	<key>Red</key>
+	<real>0.5</real>
+    </dict>
     <key>WindowWidth</key>
     <integer>80</integer>
+    <key>WordCharacters</key>
+    <string>-.</string>
 </dict>
 </plist>
