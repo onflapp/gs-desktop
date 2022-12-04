@@ -4,6 +4,8 @@
 <dict>
     <key>GSBackend</key>
     <string>cairo</string>
+    <key>STDefaultEnvironmentDescriptionName</key>
+    <string>AppKit</string>
     <key>NSPreviewApp</key>
     <string>DocumentViewer</string>
     <key>GSUseGhostResize</key>

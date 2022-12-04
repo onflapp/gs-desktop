@@ -129,6 +129,7 @@
 
     SNDOut *output = (SNDOut *)device;
     if (output.sink == soundOut.sink && d > 0.5) {
+      NSLog(@"dev update");
       [muteButton setState:[soundOut isMute]];
       [volumeSlider setIntegerValue:[soundOut volume]];
     }

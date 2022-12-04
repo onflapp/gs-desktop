@@ -16,7 +16,8 @@
 	"VideoDocument.m",
 	"MediaDocument.m",
 	"VideoView.m",
-	"XEmbeddedView.m"
+	"XEmbeddedView.m",
+	"STScriptingSupport.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -30,7 +31,8 @@
 	"VideoDocument.h",
 	"MediaDocument.h",
 	"VideoView.h",
-	"XEmbeddedView.h"
+	"XEmbeddedView.h",
+	"STScriptingSupport.h"
     );
     IMAGES = (
 	"file_au.tiff",
@@ -55,7 +57,9 @@
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
-	playerview
+	playerview,
+	"ScriptingInfo.plist",
+	"ApplicationScripting.xlp"
     );
     "OTHER_SOURCES" = (
 	"Player_main.m"
@@ -90,6 +94,12 @@
 	    NSIcon = "file_au.tiff";
 	    NSUnixExtensions = (
 		mp3
+	    );
+	},
+	{
+	    NSIcon = "file_au.tiff";
+	    NSUnixExtensions = (
+		pls
 	    );
 	}
     );

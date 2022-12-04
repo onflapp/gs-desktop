@@ -38,7 +38,9 @@ Resources/VideoDocument.gorm \
 Resources/file_au.tiff \
 Resources/file_snd.tiff \
 Resources/icon.tiff \
-Resources/playerview 
+Resources/playerview \
+Resources/ScriptingInfo.plist \
+Resources/ApplicationScripting.xlp 
 
 
 #
@@ -49,7 +51,8 @@ AppController.h \
 VideoDocument.h \
 MediaDocument.h \
 VideoView.h \
-XEmbeddedView.h
+XEmbeddedView.h \
+STScriptingSupport.h
 
 #
 # Objective-C Class files
@@ -59,7 +62,8 @@ AppController.m \
 VideoDocument.m \
 MediaDocument.m \
 VideoView.m \
-XEmbeddedView.m
+XEmbeddedView.m \
+STScriptingSupport.m
 
 #
 # Other sources

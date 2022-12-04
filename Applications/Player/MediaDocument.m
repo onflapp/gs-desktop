@@ -38,6 +38,7 @@
 
 - (void) dealloc {
   [buff release];
+  [mediaFile release];
   [super dealloc];
 }
 
@@ -49,7 +50,14 @@
 
 - (IBAction) play:(id) sender {
   if (sender == playButton) {
-    [self writeCommand:@"pause"];
+    if (playing) {
+      [self writeCommand:@"pause"];
+      [self performSelector:@selector(checkStatus) withObject:nil afterDelay:0.1];
+    }
+    else {
+      [self writeCommand:@"play"];
+      [self performSelector:@selector(checkStatus) withObject:nil afterDelay:0.1];
+    }
   }
   else if (sender == locationSlider) {
     NSInteger p = (NSInteger)[sender floatValue];
@@ -58,11 +66,29 @@
   }
 }
 
+- (IBAction) stop:(id) sender {
+  [self writeCommand:@"seek 0"];
+  [self writeCommand:@"stop"];
+  [self performSelector:@selector(checkStatus) withObject:nil afterDelay:0.1];
+}
+
+- (BOOL) isPlaying {
+  return playing;
+}
+
+- (void) play {
+  [self play:playButton];
+}
+
+- (void) stop {
+  [self stop:nil];
+}
+
 - (void) checkStatus {
-  [self writeCommand:@"status"];
-  [self writeCommand:@"get_time"];
-  [self writeCommand:@"get_length"];
   if (running) {
+    [self writeCommand:@"status"];
+    [self writeCommand:@"get_time"];
+    [self writeCommand:@"get_length"];
     [self performSelector:@selector(checkStatus) withObject:nil afterDelay:0.7];
   }
 }
@@ -150,12 +176,12 @@
 
 - (void) windowWillClose:(NSWindow*) win {
   [self writeCommand:@"quit"];
+  [self taskDidTerminate:nil];
+  [self release];
 }
 
 - (void) taskDidTerminate:(NSNotification*) not {
   NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
-
-  [mediaFile release];
 
   [fin closeFile];
   [fin release];
@@ -199,6 +225,8 @@
 }
 
 - (void) writeCommand:(NSString*) cmd {
+  if (!running) return;
+
   NSString* line = [NSString stringWithFormat:@"%@\n", cmd];
   NSData* data = [line dataUsingEncoding:NSUTF8StringEncoding];
   [fout writeData:data];

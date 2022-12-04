@@ -8,7 +8,7 @@ if [ -d libs-steptalk ];then
   cd ./libs-steptalk
   git pull
 else
-  git clone https://github.com/gnustep/libs-steptalk.git
+  git clone https://github.com/onflapp/libs-steptalk.git
 fi
 
 cd "$D"

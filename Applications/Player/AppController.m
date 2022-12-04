@@ -8,6 +8,7 @@
    Application Controller
 */
 
+#import "STScriptingSupport.h"
 #import "AppController.h"
 #import "MediaDocument.h"
 #import "VideoDocument.h"
@@ -36,12 +37,31 @@
   [super dealloc];
 }
 
+- (NSArray*) documents
+{
+  NSMutableArray* ls = [NSMutableArray array];
+  for (NSWindow* win in [NSApp windows]) {
+    if ([[win delegate] isKindOfClass: [MediaDocument class]]) {
+      [ls addObject:[win delegate]];
+    }
+  }
+  return ls;
+}
+
+- (MediaDocument*) currentDocument 
+{
+  return [[self documents] firstObject];
+}
+
 - (void) awakeFromNib
 {
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif
 {
+  if([NSApp isScriptingSupported]) {
+    [NSApp initializeApplicationScripting];
+  }
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender

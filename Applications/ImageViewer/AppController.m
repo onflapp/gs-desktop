@@ -43,7 +43,7 @@
 }
 
 - (NSString*) test {
-  return @"hello";
+  return self;
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif
@@ -51,7 +51,6 @@
   if([NSApp isScriptingSupported])
   {
       [NSApp initializeApplicationScripting];
-      [scriptMenu setSubmenu: [NSApp scriptingMenu]];
   }
 }
 

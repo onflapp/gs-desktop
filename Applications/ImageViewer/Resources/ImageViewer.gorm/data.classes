@@ -5,7 +5,6 @@
 	    "showPrefPanel:"
 	);
 	Outlets = (
-	    scriptMenu
 	);
 	Super = NSObject;
     };

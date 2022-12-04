@@ -17,7 +17,6 @@
 
 @interface AppController : NSObject
 {
-  IBOutlet NSMenuItem* scriptMenu;
 }
 
 + (void)  initialize;

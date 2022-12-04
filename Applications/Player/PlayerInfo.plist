@@ -36,6 +36,12 @@
 	    NSUnixExtensions = (
 		mp3
 	    );
+	},
+	{
+	    NSIcon = "file_au.tiff";
+	    NSUnixExtensions = (
+		pls
+	    );
 	}
     );
 }
