@@ -21,6 +21,7 @@ build_app "ImageViewer"
 build_app "DocumentViewer"
 build_app "DictionaryReader"
 build_app "Librarian"
+build_app "Player"
 
 build_app "CloudManager"    'APP_INSTALL_DIR=$(GNUSTEP_LOCAL_ADMIN_APPS)'
 build_app "DefaultsManager" 'APP_INSTALL_DIR=$(GNUSTEP_LOCAL_ADMIN_APPS)'
