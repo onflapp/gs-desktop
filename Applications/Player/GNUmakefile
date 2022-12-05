@@ -63,7 +63,8 @@ VideoDocument.m \
 MediaDocument.m \
 VideoView.m \
 XEmbeddedView.m \
-STScriptingSupport.m
+STScriptingSupport.m \
+MediaDocument+scripting.m
 
 #
 # Other sources

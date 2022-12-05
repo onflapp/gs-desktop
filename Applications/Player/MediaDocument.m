@@ -72,18 +72,6 @@
   [self performSelector:@selector(checkStatus) withObject:nil afterDelay:0.1];
 }
 
-- (BOOL) isPlaying {
-  return playing;
-}
-
-- (void) play {
-  [self play:playButton];
-}
-
-- (void) stop {
-  [self stop:nil];
-}
-
 - (void) checkStatus {
   if (running) {
     [self writeCommand:@"status"];
