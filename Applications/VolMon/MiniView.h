@@ -27,9 +27,9 @@
 
 #import <AppKit/AppKit.h>
 
-@interface MiniView : NSBox
+@interface MiniView : NSView
 {
-
+  NSImage *tileImage;
 }
 
 @end

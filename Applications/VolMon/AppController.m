@@ -1,21 +1,24 @@
 /* 
-   Project: VolMon
+  Project: VolMon
 
-   Author: Ondrej Florian,,,
+  Author: Ondrej Florian,,,
 
-   Created: 2022-10-21 09:49:06 +0200 by oflorian
+  Created: 2022-10-21 09:49:06 +0200 by oflorian
    
-   Application Controller
+  Application Controller
 */
 
 #import "AppController.h"
-#include <X11/Xlib.h>
+#import "MiniView.h"
 
 @implementation AppController
 
 - (id) init
 {
   if ((self = [super init])) {
+    MiniView *mv = [[MiniView alloc] initWithFrame:NSMakeRect(0, 0, 64, 64)];
+    [[NSApp iconWindow] setContentView:mv];
+    lastValue = -1;
   }
   return self;
 }
@@ -27,17 +30,8 @@
 
 - (void) awakeFromNib
 {
-  [[NSApp iconWindow] setContentView:controlView];
-}
-
-- (void) resizeIconWindow 
-{
-  Display* dpy = XOpenDisplay(NULL);
-  Window win = (Window)[[NSApp iconWindow]windowRef];
-
-  XUnmapWindow(dpy, win);
-  XMoveResizeWindow(dpy, win, 4, 4, 47, 50);
-  XFlush(dpy);
+  [[[NSApp iconWindow] contentView] addSubview:controlView];
+  [controlView setFrame:NSMakeRect(8, 8, 48, 48)];
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif
@@ -55,8 +49,8 @@
     [soundServer connect];
   }
 
-  [self resizeIconWindow];
-  [NSApp deactivate];
+  //[NSApp deactivate];
+  [controlView setNeedsDisplay:YES];
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender
@@ -144,9 +138,22 @@
     lastChange = [[NSDate date] timeIntervalSinceReferenceDate];
   }
   else if (sender == volumeSlider) {
-    SNDDevice *device = (sender == volumeSlider) ? soundOut : soundIn;
-    [device setVolume:[sender intValue]];
-    lastChange = [[NSDate date] timeIntervalSinceReferenceDate];
+    if ([sender intValue] != lastValue) {
+      NSInteger val = [sender intValue];
+
+      /* there seems to be a bug which causes slider to receive
+       * max value once a while, we catch this and set the last val
+       */
+      if ((NSInteger)[volumeSlider maxValue] == val) {
+        [volumeSlider setIntegerValue:lastValue];
+        return;
+      }
+
+      SNDDevice *device = (sender == volumeSlider) ? soundOut : soundIn;
+      [device setVolume:val];
+      lastChange = [[NSDate date] timeIntervalSinceReferenceDate];
+      lastValue = val;
+    }
   }
 }
 - (void) showPrefPanel: (id)sender
