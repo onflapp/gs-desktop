@@ -12,8 +12,8 @@ int
 main(int argc, const char *argv[])
 {
   /* 
-   * trying to get UseWindowMakerIcons working in order to avoid patching GNUstep
-   * there are too many problems with this approach
+   * I tried to get UseWindowMakerIcons working in order to avoid patching GNUstep
+   * but there are too many problems with this approach
    *
    * 1. redraw issues (sometimes the view does redraw)
    * 2. autostart problems (it seems like WM tries to reparet the icon window?)
