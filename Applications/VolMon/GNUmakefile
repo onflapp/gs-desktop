@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = VolMon
 APP_NAME = VolMon
-VolMon_APPLICATION_ICON = 
+VolMon_APPLICATION_ICON = VolMon.tiff
 
 
 #
@@ -33,6 +33,7 @@ VolMon_APPLICATION_ICON =
 #
 VolMon_RESOURCE_FILES = \
 Resources/VolMon.gorm \
+Resources/VolMon.tiff 
 
 
 #

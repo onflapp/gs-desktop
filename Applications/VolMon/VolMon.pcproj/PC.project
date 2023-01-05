@@ -1,5 +1,5 @@
 {
-    APPLICATIONICON = "";
+    APPLICATIONICON = "VolMon.tiff";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
     "BUILDER_TARGETS" = (
@@ -27,6 +27,7 @@
 	"MiniView.h"
     );
     IMAGES = (
+	"VolMon.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
