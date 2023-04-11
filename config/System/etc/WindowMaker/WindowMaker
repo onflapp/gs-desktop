@@ -26,7 +26,7 @@
   AppIconBalloons = NO;
   IgnoreFocusClick = YES;
   MoveToWorkspace8Key = None;
-  WrapAppiconsInDock = YES;
+  WrapAppiconsInDock = NO;
   LHMaximizeKey = None;
   DisableWSMouseActions = NO;
   MoveToPrevWorkspaceKey = None;
@@ -46,7 +46,6 @@
   MoveToNextWorkspaceLayerKey = None;
   WorkspaceMapKey = None;
   FocusNextKey = None;
-  DragMaximizedWindow = Move;
   ShadeKey = None;
   MiniwindowTitleBalloons = NO;
   WindowShortcut7Key = None;
@@ -95,9 +94,9 @@
   WindowRelaunchKey = None;
   SmoothWorkspaceBack = NO;
   AlignSubmenus = YES;
-  NoWindowOverDock = NO;
+  NoWindowOverDock = YES;
   OmnipresentKey = None;
-  EdgeResistance = 26;
+  EdgeResistance = 40;
   WindowShortcut9Key = None;
   KeepAtBottomKey = None;
   PrevWorkspaceKey = None;

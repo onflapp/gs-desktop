@@ -79,3 +79,4 @@ htop
 vim-nox
 sudo
 dict
+xutils-dev

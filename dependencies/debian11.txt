@@ -83,3 +83,6 @@ vlc-bin
 vlc-data
 vlc-plugin-video-output
 vlc-plugin-base
+xutils-dev
+libxcb-util0-dev
+libxcb-randr0-dev
