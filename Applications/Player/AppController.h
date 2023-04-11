@@ -15,6 +15,9 @@
 
 @interface AppController : NSObject
 {
+  IBOutlet NSView* controlView;
+  IBOutlet NSButton* controlPlayButton;
+
   NSArray* videoExtensions;
   NSArray* audioExtensions;
 }
@@ -33,6 +36,7 @@
 	    openFile: (NSString *)fileName;
 
 - (void) showPrefPanel: (id)sender;
+- (void) play:(id) sender;
 
 @end
 

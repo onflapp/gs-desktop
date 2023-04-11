@@ -55,6 +55,8 @@
 
 - (void) awakeFromNib
 {
+  [[[NSApp iconWindow] contentView] addSubview:controlView];
+  [controlView setFrame:NSMakeRect(8, 8, 48, 48)];
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif
@@ -62,6 +64,8 @@
   if([NSApp isScriptingSupported]) {
     [NSApp initializeApplicationScripting];
   }
+
+  [controlView setNeedsDisplay:YES];
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender
@@ -71,6 +75,19 @@
 
 - (void) applicationWillTerminate: (NSNotification *)aNotif
 {
+}
+
+- (void) play:(id) sender {
+  MediaDocument* doc = [self currentDocument];
+  if (!doc) {
+    [self openDocument:sender];
+  }
+  else if ([doc isPlaying]) {
+    [doc stop];
+  }
+  else {
+    [doc play];
+  }
 }
 
 - (void) openDocument: (id)sender {

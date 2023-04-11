@@ -155,6 +155,7 @@
   SnapCornerDetect = 10;
   HMaximizeKey = None;
   SnapToTopMaximizesFullscreen = NO;
+  HighlightActiveApp = NO;
   CloseKey = None;
   WrapMenus = YES;
   Workspace10Key = None;
@@ -169,7 +170,7 @@
   RaiseLowerKey = None;
   MoveToWorkspace4Key = None;
   RTCMaximizeKey = None;
-  EdgeResistance = 0;
+  EdgeResistance = 30;
   ModifierKey = Mod5;
   UTitleBack = (solid, "#aaaaaa");
   MenuTextBack = (solid, "#aaaaaa");
