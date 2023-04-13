@@ -18,6 +18,8 @@
 + (void) initialize
 {
   NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
+
+  [defaults setObject:[NSNumber numberWithBool:YES] forKey:@"reuse_window"];
   
   [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
   [[NSUserDefaults standardUserDefaults] synchronize];
@@ -55,8 +57,6 @@
 
 - (void) awakeFromNib
 {
-  [[[NSApp iconWindow] contentView] addSubview:controlView];
-  [controlView setFrame:NSMakeRect(8, 8, 48, 48)];
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif
@@ -65,7 +65,11 @@
     [NSApp initializeApplicationScripting];
   }
 
+  [[[NSApp iconWindow] contentView] addSubview:controlView];
+  [controlView setFrame:NSMakeRect(8, 8, 48, 48)];
   [controlView setNeedsDisplay:YES];
+
+  [self performSelector:@selector(checkStatus) withObject:nil afterDelay:0.5];
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender
@@ -83,9 +87,11 @@
     [self openDocument:sender];
   }
   else if ([doc isPlaying]) {
+    [controlPlayButton setIntValue:0];
     [doc stop];
   }
   else {
+    [controlPlayButton setIntValue:1];
     [doc play];
   }
 }
@@ -105,18 +111,34 @@
             openFile: (NSString *)fileName {
 
   NSString* ext = [fileName pathExtension];
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:@"reuse_window"]) {
+    [[[self currentDocument] window] close];
+  }
+
   if ([videoExtensions containsObject:ext]) {
     VideoDocument* doc = [[VideoDocument alloc] init];
     [doc loadFile:fileName];
+    [controlPlayButton setIntValue:1];
   }
-  else {
+  else if ([audioExtensions containsObject:ext]) {
     MediaDocument* doc = [[MediaDocument alloc] init];
     [doc loadFile:fileName];
+    [controlPlayButton setIntValue:1];
+  }
+  else {
+    [controlPlayButton setIntValue:0];
+    NSLog(@"unable to open %@", fileName);
   }
   
   return NO;
 }
 
+- (void) checkStatus {
+  if ([[self currentDocument] isPlaying] != (BOOL)[controlPlayButton intValue]) {
+    [controlPlayButton setIntValue:(int)[[self currentDocument] isPlaying]];
+  }
+  [self performSelector:@selector(checkStatus) withObject:nil afterDelay:0.5];
+}
 
 - (void) showPrefPanel: (id)sender
 {

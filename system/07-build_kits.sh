@@ -44,7 +44,7 @@ sudo -E make install
 sudo -E ldconfig
 
 cd "$D"
-cd ../../gs-mail/pantomime || exit 1
+cd ../../gnumail/pantomime || exit 1
 
 make -j2 || exit 1
 

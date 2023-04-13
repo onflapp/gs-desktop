@@ -37,11 +37,11 @@ else
 fi
 
 cd "$D"
-if [ -d gs-mail ];then
-  cd ./gs-mail
+if [ -d gnumail ];then
+  cd ./gnumail
   git pull
 else
-  git clone https://github.com/onflapp/gs-mail.git
+  git clone https://github.com/onflapp/gnumail.git
 fi
 
 cd "$D"

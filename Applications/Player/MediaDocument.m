@@ -42,6 +42,10 @@
   [super dealloc];
 }
 
+- (NSWindow*) window {
+  return window;
+}
+
 - (void) loadFile:(NSString*) file {
   ASSIGN(mediaFile, file);
 
@@ -163,6 +167,7 @@
 }
 
 - (void) windowWillClose:(NSWindow*) win {
+  NSLog(@"will close");
   [self writeCommand:@"quit"];
   [self taskDidTerminate:nil];
   [self release];

@@ -30,8 +30,6 @@
 
 - (void) awakeFromNib
 {
-  [[[NSApp iconWindow] contentView] addSubview:controlView];
-  [controlView setFrame:NSMakeRect(8, 8, 48, 48)];
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif
@@ -50,6 +48,8 @@
   }
 
   //[NSApp deactivate];
+  [[[NSApp iconWindow] contentView] addSubview:controlView];
+  [controlView setFrame:NSMakeRect(8, 8, 48, 48)];
   [controlView setNeedsDisplay:YES];
 }
 

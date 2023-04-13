@@ -52,6 +52,7 @@
 }
 
 - (void) loadFile:(NSString*) file;
+- (NSWindow*) window;
 
 - (IBAction) play:(id) sender;
 
