@@ -1,0 +1,16 @@
+
+=====================================================
+ Unless you see any errors, GNUstep Desktop is ready
+=====================================================
+
+ check build_world.*.log files for errors
+
+ modern X11 login manager:
+ - /usr/share/xsessions contains the session files
+ - logout and login again
+
+ anything else:
+ - use /System/bin/startgsde
+
+-----------------------------------------------------
+

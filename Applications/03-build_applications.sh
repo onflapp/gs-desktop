@@ -59,7 +59,7 @@ make -j2 || exit 1
 sudo -E make install
 
 cd "$D"
-cd ../../gnumail || exit 1
+cd ../../gnumail/gnumail || exit 1
 
 make clean
 make -j2 || exit 1

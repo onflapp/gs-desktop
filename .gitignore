@@ -1,6 +1,7 @@
 *.app
 *.o
 *.a
+*.log
 obj
 derived_src
 *.framework

@@ -72,6 +72,17 @@
         BuggyApplication = No;
       },
       {
+        PasteCommand = "GNUMail %s";
+        Name = GNUMail.GNUstep;
+        DropCommand = "GNUMail %d";
+        Lock = No;
+        AutoLaunch = No;
+        Command = "GNUMail";
+        Position = "0,6";
+        Forced = No;
+        BuggyApplication = No;
+      },
+      {
         PasteCommand = "Recycler %s";
         Name = Recycler.GNUstep;
         DropCommand = "Recycler %d";
