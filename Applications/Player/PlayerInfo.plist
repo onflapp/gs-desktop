@@ -28,12 +28,6 @@
 	{
 	    NSIcon = "file_au.tiff";
 	    NSUnixExtensions = (
-		mp4
-	    );
-	},
-	{
-	    NSIcon = "file_au.tiff";
-	    NSUnixExtensions = (
 		mp3
 	    );
 	},
@@ -41,6 +35,24 @@
 	    NSIcon = "file_au.tiff";
 	    NSUnixExtensions = (
 		pls
+	    );
+	},
+	{
+	    NSIcon = "file_video.tiff";
+	    NSUnixExtensions = (
+		ogv
+	    );
+	},
+	{
+	    NSIcon = "file_video.tiff";
+	    NSUnixExtensions = (
+		m4v
+	    );
+	},
+	{
+	    NSIcon = "file_video.tiff";
+	    NSUnixExtensions = (
+		mp4
 	    );
 	}
     );
