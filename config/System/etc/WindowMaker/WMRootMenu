@@ -6,6 +6,5 @@
     (Preferences..., EXEC, "WPrefs")
   ),
   (Workspaces, WORKSPACE_MENU),
-  (Windows, WINDOWS_MENU),
-  (Logout, SHUTDOWN)
+  (Windows, WINDOWS_MENU)
 )

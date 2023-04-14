@@ -17,8 +17,6 @@
     </dict>
     <key>CursorStyle</key>
     <integer>0</integer>
-    <key>GSBackend</key>
-    <string>art</string>
     <key>ScrollBackEnabled</key>
     <string>YES</string>
     <key>ScrollBackLines</key>
