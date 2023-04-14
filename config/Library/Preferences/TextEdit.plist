@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>DeleteBackup</key>
-    <false/>
+    <true/>
     <key>PlainTextEncoding</key>
     <integer>4</integer>
     <key>RichText</key>

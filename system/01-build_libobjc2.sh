@@ -2,6 +2,10 @@
 
 . ../BUILD_SETTINGS.sh
 
+echo "=================="
+echo " libobjc2"
+echo "=================="
+
 cd ../../libobjc2 || exit 1
 
 rm -Rf _build 2>/dev/null
@@ -23,11 +27,11 @@ cmake .. \
 	-DCMAKE_INSTALL_LIBDIR=/System/lib \
 	-DCMAKE_INSTALL_PREFIX=/System \
 	-DCMAKE_LINKER=$LD \
-	-DCMAKE_MODULE_LINKER_FLAGS="$LDFLAGS -Wl,-rpath,/System/lib" \
+  -DCMAKE_MODULE_LINKER_FLAGS="$LDFLAGS -Wl,-rpath,/System/lib" \
 	-DCMAKE_SKIP_RPATH=ON \
   -DCMAKE_VERBOSE_MAKEFILE=ON \
+	-DCMAKE_BUILD_TYPE=$BTYPE
 	-DTESTS=OFF \
-	-DCMAKE_BUILD_TYPE=$BTYPE \
 	|| exit 1
 
 make -j2 || exit 1

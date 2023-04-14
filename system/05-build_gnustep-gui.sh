@@ -2,6 +2,10 @@
 
 . /Developer/Makefiles/GNUstep.sh
 
+echo "##################"
+echo "GNUstep GUI"
+echo "##################"
+
 cd ../../gnustep-gui || exit 1
 
 make clean

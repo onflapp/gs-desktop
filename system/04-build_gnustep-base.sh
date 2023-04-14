@@ -2,6 +2,10 @@
 
 . /Developer/Makefiles/GNUstep.sh
 
+echo "##################"
+echo "GNUstep base"
+echo "##################"
+
 cd ../../gnustep-base || exit 1
 
 make clean

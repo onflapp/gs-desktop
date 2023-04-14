@@ -2,6 +2,10 @@
 
 . ../BUILD_SETTINGS.sh
 
+echo "=================="
+echo " libdispatch"
+echo "=================="
+
 cd ../../libdispatch || exit 1
 rm -Rf _build 2>/dev/null
 mkdir -p _build
@@ -22,9 +26,9 @@ cmake .. \
 	-DCMAKE_INSTALL_PREFIX=/System \
 	-DCMAKE_INSTALL_LIBDIR=/System/lib \
 	-DINSTALL_PRIVATE_HEADERS=YES \
+	-DUSE_GOLD_LINKER=YES \
 	-DENABLE_TESTING=OFF \
-	-DCMAKE_VERBOSE_MAKEFILE=ON \
-	-DUSE_GOLD_LINKER=YES
+	-DCMAKE_VERBOSE_MAKEFILE=ON
 
 make -j2 || exit 1
 

@@ -2,6 +2,10 @@
 
 . ../BUILD_SETTINGS.sh
 
+echo "=================="
+echo " GNUstep make"
+echo "=================="
+
 cp ./gs-desktop.layout ../../gnustep-make/FilesystemLayouts/
 
 cd ../../gnustep-make || exit 1
@@ -17,10 +21,10 @@ make clean
 	    --prefix=/ \
 	    --with-config-file=/Library/Preferences/GNUstep.conf \
 	    --with-layout=gs-desktop.layout \
-	    --enable-native-objc-exceptions \
-	    --with-runtime-abi=gnustep-2.0 \
             --with-library-combo=ng-gnu-gnu \
-	    --enable-objc-arc $DEBUG_ARGS
+	    --enable-native-objc-exceptions \
+	    --enable-objc-arc \
+	    $DEBUG_ARGS
 
 make || exit 1
 sudo -E make install
