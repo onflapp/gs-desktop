@@ -1,5 +1,5 @@
 This is just a quick hack... call it with the path to your GNUMail
-address book (usually ~/GNUstep/Library/GNUMail/AddressBook). It will
+address book (usually ~/Library/GNUMail/AddressBook). It will
 try to read everything from there and put it into Addresses format.
 
 The program uses the following heuristic to split GNUMail's name field

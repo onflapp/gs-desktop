@@ -8,7 +8,7 @@
 #import "ADLocalAddressBook.h"
 #import "ADRecord.h"
 
-static NSString *_localABDefLoc = @"~/GNUstep/Library/Addresses";
+static NSString *_localABDefLoc = @"~/Library/Addresses";
 static ADLocalAddressBook *_localAB = nil;
 
 @interface ADLocalAddressBook(Private)
