@@ -38,7 +38,8 @@
     IMAGES = (
 	"file_au.tiff",
 	"file_snd.tiff",
-	"icon.tiff"
+	"icon.tiff",
+	"file_video.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (

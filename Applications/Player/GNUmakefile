@@ -38,6 +38,7 @@ Resources/VideoDocument.gorm \
 Resources/file_au.tiff \
 Resources/file_snd.tiff \
 Resources/icon.tiff \
+Resources/file_video.tiff \
 Resources/playerview \
 Resources/ScriptingInfo.plist \
 Resources/ApplicationScripting.xlp 
