@@ -14,6 +14,9 @@
   TextEdit.GNUstep = {
     Icon = TextEdit.GNUstep.xpm;
   };
+  GNUMail.GNUstep = {
+    Icon = GNUMail.GNUstep.xpm;
+  };
   Logo.WMDock = {
     Icon = GNUstepGlow.tiff;
   };
