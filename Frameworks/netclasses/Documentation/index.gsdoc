@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.0//EN" 
+ "http://www.gnustep.org/gsdoc-1_0_0.xml">
+<gsdoc base="index">
+	<head>
+		<title>netclasses documentation</title>
+		<author name="Andrew Ruder">
+			<email address="aeruder@ksu.edu" />
+			<url url="http://www.aeruder.net" />
+		</author>
+		<version>Revision 2</version>
+		<date>July 7, 2005</date>
+		<abstract>
+			This is the documentation for netclasses.  It includes the 
+			class references as well as an introduction to netclasses.
+		</abstract>
+		<copy>Andrew Ruder</copy>
+	</head>
+	<body>
+		<front>
+			<chapter>
+			<heading>Introduction</heading>
+			<p>
+				netclasses is an easy to use, unbloated API for handling 
+				asynchronous connections in Objective-C under GNUstep as
+				well as OS X.  It can also be used for synchronous connections
+				but this is -not- its primary use.
+			</p>
+			<p>
+				Please also refer to RFC 1459
+				as a supplement to the IRC portion of this documentation.
+			</p>
+			</chapter>
+		</front>
+
+		<chapter>
+			<index scope="project" type="title" />
+		</chapter>
+	</body>
+</gsdoc>

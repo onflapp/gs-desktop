@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.0//EN" 
+ "http://www.gnustep.org/gsdoc-1_0_0.xml">
+<gsdoc base="synchronous" up="index">
+	<head>
+		<title>Using netclasses synchronously</title>
+		<author name="Andrew Ruder">
+			<email address="aeruder@ksu.edu" />
+			<url url="http://www.aeruder.net" />
+		</author>
+		<version>Revision 1</version>
+		<date>July 7, 2005</date>
+		<abstract>
+			How to use netclasses synchronously.
+		</abstract>
+		<copy>Andrew Ruder</copy>
+	</head>
+	<body>
+		<front>
+			<contents />
+			<chapter>
+			<heading>Introduction</heading>
+			<p>
+				While netclasses is primarily for asynchronous connections, it
+				can somewhat easily be used for synchronous connections as
+				well.
+			</p>
+			<p>
+				This is primarily done by directly calling the 
+				<ref type="method" id="-writeData:" class="(NetTransport)">-[id&lt;NetTransport&gt; writeData:]</ref> 
+				and
+				<ref type="method" id="-readData:" class="(NetTransport)">-[id&lt;NetTransport&gt; readData:]</ref> 
+				methods on the appropriate transport.  This must be done while
+				the object is not being handled by 
+				<ref type="class" id="NetApplication">NetApplication</ref>.
+			</p>
+			</chapter>
+		</front>
+
+		<chapter>
+			<heading>Ensure that Asynchronous Mode is Off</heading>
+			<p>
+				The first thing to worry about is that the object is not being
+				handled asynchronously by 
+				<ref type="class" id="NetApplication">NetApplication</ref>.
+				To ensure that this is the case,
+				<ref type="method" id="-disconnectObject:" class="NetApplication">-[NetApplication disconnectObject:]</ref> 
+				should be called with the object we are interested in as the
+				argument.  This will remove it from the netclasses runloop.  At
+				this point, the object is ready to be written to and read from
+				synchronously.
+			</p>
+		</chapter>
+		<chapter>
+			<heading>Writing synchronously</heading>
+			<p>
+				After disabling asynchronous mode, you can easily write any
+				data you want to the transport using the 
+				<ref type="method" id="-writeData:" class="(NetTransport)">-[id&lt;NetTransport&gt; writeData:]</ref> 
+				method with a NSData as the argument.  However, none of the
+				data is <em>actually</em> written out.  To force the write out
+				of the data, pass a 'nil' argument to 
+				<ref type="method" id="-writeData:" class="(NetTransport)">-[id&lt;NetTransport&gt; writeData:]</ref>.
+				To see if there is more data, use the 
+				<ref type="method" id="-isDoneWriting" class="(NetTransport)">-[id&lt;NetTransport&gt; isDoneWriting]</ref>
+				method on the transport.
+			</p>
+		</chapter>
+		<chapter>
+			<heading>Reading synchronously</heading>
+			<p>
+				After disabling asynchronous mode, you can easily read data
+				from the transport using the
+				<ref type="method" id="-readData:" class="(NetTransport)">-[id&lt;NetTransport&gt; readData:]</ref> 
+				method.  This method takes a single argument of the maximum
+				number of bytes to read.  Passing 0 will cause as much data as
+				is available to be read.
+			</p>
+		</chapter>
+	</body>
+</gsdoc>

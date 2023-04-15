@@ -1,0 +1,231 @@
+<?xml version="1.0"?>
+<!DOCTYPE gsdoc PUBLIC "-//GNUstep//DTD gsdoc 1.0.0//EN" 
+ "http://www.gnustep.org/gsdoc-1_0_0.xml">
+<gsdoc base="overview" up="index">
+	<head>
+		<title>Overview of netclasses use</title>
+		<author name="Andrew Ruder">
+			<email address="aeruder@ksu.edu" />
+			<url url="http://www.aeruder.net" />
+		</author>
+		<version>Revision 1</version>
+		<date>November 7, 2003</date>
+		<abstract>
+			This file is an overview of the use of netclasses.
+		</abstract>
+		<copy>Andrew Ruder</copy>
+	</head>
+	<body>
+		<front>
+			<contents />
+			<chapter>
+			<heading>Introduction</heading>
+			<p>
+				This will hopefully explain the basic idea of creating a simple program
+				with netclasses.  In this file, I will take you through the creation of
+				a simple server that echos all the data it receives back to the source.
+			</p>
+			</chapter>
+		</front>
+
+		<chapter>
+			<heading>Step 1: Create a server object</heading>
+			<p>
+				The first thing we need to do is create a class that will handle
+				the connections.  This class will need to implement the 
+				NetObject protocol.
+			</p>
+			<p>
+				Here is the interface for this class:
+			</p>
+			<example>
+	// File EchoServ.h
+	#import &lt;netclasses/NetBase.h&gt;
+	#import &lt;Foundation/NSObject.h&gt;
+
+	@class NSData;
+
+	@interface EchoServ : NSObject &lt;NetObject&gt;
+		{
+			 id transport;
+		}
+		- connectionEstablished: (id &lt;NetTransport&gt;)aTransport;
+		- dataReceived: (NSData *)data;
+		- (id &lt;NetTransport&gt;)transport;
+		- (void)connectionLost;
+	@end
+			</example>
+			<p>
+				These methods are all callback methods.  NetApplication
+				will call these when appropriate.  So now we just need to
+				fill these in.
+			</p>
+			<example>
+	//File EchoServ.m
+	#import "EchoServ.h"
+	#import &lt;Foundation/NSData.h&gt;
+
+	@implementation EchoServ
+			</example>
+			<p>
+				The first method is connectionEstablished:.  This method needs
+				to retain the transport given to it.  The transport is an object
+				that actually handles the transportation of the data.  In most
+				cases, this method will also need to connect the object to the
+				netclasses NetApplication system.
+			</p>
+			<example>
+	- connectionEstablished: (id &lt;NetTransport&gt;)aTransport
+	{
+		 transport = [aTransport retain];
+		 [[NetApplication sharedInstance] connectObject: self];
+	}
+			</example>
+			<p>
+				The next method is dataReceived:.  This will
+				be called when new data is received, and the argument will
+				hold the actual data received.  In our program, we will want
+				to write this data back to the transport immediately.
+			</p>
+			<example>
+	- dataReceived: (NSData *)newData
+	{
+		 [transport writeData: newData];
+	}
+			</example>
+			<p>
+				The next method we need to implement is transport.  This one
+				is pretty simple; just return the transport given to us in
+				connectionEstablished:
+			</p>
+			<example>
+	- (id &lt;NetTransport&gt;)transport
+	{
+		 return transport;
+	}
+			</example>
+			<p>
+				Last but not least is connectionLost.  This method will be called
+				when the connection is lost.  This can happen in three ways.
+				First, an error could have occurred on the socket and it had
+				to be closed.  The second, the other side can simply have closed
+				its side.  The third, is quite simply that someone called
+				[[NetApplication sharedInstance] disconnectObject:] on it.
+			</p>
+			<example>
+	- (void)connectionLost
+	{
+		 [transport close];
+		 [transport release];
+		 transport = nil;
+	}
+	@end
+			</example>
+			<p>
+				And that is it for our object!  Now let's set up the port to handle
+				the creating of these objects.
+			</p>
+		</chapter>
+		<chapter>
+			<heading>Step 2: Create a port</heading>
+			<p>
+				Ok, we got our class all set up, so now we are going to setup 
+				a port that will receive connections and initialize EchoServ
+				objects (created in Step 1) when new connections are received.
+			</p>
+			<p>
+				This is a pretty simple task (like everything in netclasses).
+				Ok, let's write up the function and explain it.
+			</p>
+			<example>
+	// File main.m
+	
+	#import "EchoServ.h"
+	#import &lt;netclasses/NetTCP.h&gt;
+	#import &lt;Foundation/Foundation.h&gt;
+
+	void setup_port()
+	{
+		TCPPort *port; 
+
+		port = [[TCPPort alloc] initOnPort: 0];
+			</example>
+			<p>
+				Ok, TCPPort is the class used to create a port handling
+				connections on the TCP/IP protocol.  initOnPort: takes the
+				port number that you'd like to handle.  If 
+				the port is 0, it will automatically find an empty port and
+				bind itself to that.
+			</p>
+			<p>
+				Now we want to set the TCPPort we created to automatically
+				create our class EchoServ when new connections are received.
+				So:
+			</p>
+			<example>
+		[port setNetObject: [EchoServ class]];
+			</example>
+			<p>
+				Ok, since we have no idea what port this has been created on,
+				we better print that out.  And after that we are done
+				with the port, so we can go ahead and release it and return.
+				When you create a TCPPort, it automatically connects itself
+				with NetApplication, so don't worry about the object actually
+				being deallocated.
+			</p>
+			<example>
+		NSLog(@"Ready to go on port %d", [port port]);
+		[x release];
+		return;
+	}
+			</example>
+			<p>
+				Ok, and that is all there is to creating the port!  Now onto 
+				step 3.
+			</p>
+		</chapter>
+		<chapter>
+			<heading>Step 3: Make it go!</heading>
+			<p>
+				Ok, we've got our server object created and we've got the port
+				ready to receive connections.  What do we need to do now?
+				Let's make it go!
+			</p>
+			<example>
+	// File main.m (continued)
+	int main(void)
+	{
+		 NSAutoreleasePool *arp;
+		 arp = [[NSAutoreleasePool alloc] init];
+		 
+		 setup_port();
+		 [[NSRunLoop currentRunLoop] run];
+		 
+		 [arp release];
+		 return 0;
+	}
+			</example>
+			<p>
+				Sorry to disappoint you!  But that's it! netclasses will 
+				automatically handle any and all connections while the runloop
+				is running.  The runloop is a pretty integral part of just about
+				any cocoa application (if you make a GUI program, the runloop
+				is basically always going).  Feel free to type up this program
+				and compile it and test that it works!  It does!  In fact, this
+				very program is almost exactly the same thing as the EchoServ 
+				example distributed with the standard netclasses distribution.
+			</p>
+		</chapter>
+		<chapter>
+			<heading>Conclusion</heading>
+			<p>
+				In conclusion, netclasses is very simple to use and quite usable
+				for small applications and works well on large ones as well.  
+				The asynchronous design means that you don't have to worry about
+				threads or any of the little details that you usually have to worry
+				about on networking applications.  Its easy to learn, easy to use,
+				and can be used in a variety of applications.  Enjoy!
+			</p>
+		</chapter>
+	</body>
+</gsdoc>

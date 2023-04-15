@@ -2,9 +2,9 @@
 
 . /Developer/Makefiles/GNUstep.sh
 
-echo "##################"
-echo "GNUstep GUI"
-echo "##################"
+echo "=================="
+echo " GNUstep GUI"
+echo "=================="
 
 cd ../../gnustep-gui || exit 1
 

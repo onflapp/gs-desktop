@@ -143,6 +143,8 @@
 	    <string></string>
 	    <key>ReturnData</key>
 	    <string>0</string>
+                  <key>WindowType</key>
+                  <string>1</string>
 	</dict>
 	<key>Sort lines</key>
 	<dict>

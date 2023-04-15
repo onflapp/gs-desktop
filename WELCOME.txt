@@ -1,7 +1,7 @@
 
-=====================================================
+=====================================================================
  Unless you see any errors, GNUstep Desktop is ready
-=====================================================
+=====================================================================
 
  check build_world.*.log files for errors
 
@@ -9,8 +9,17 @@
  - /usr/share/xsessions contains the session files
  - logout and login again
 
+ Raspbian OS:
+ - add 'exec /System/bin/startgsde' to your ~/.xsessionrc
+
  anything else:
  - use /System/bin/startgsde
 
------------------------------------------------------
+---------------------------------------------------------------------
+ WARNING: check your ~/Library
+
+ GNUstep Desktop heavily relies on system and user configuration 
+ to make things work together nicely.
+ You should clear/merge your ~/Library after major release 
+ to benefit from any new enhancements or fixes.
 

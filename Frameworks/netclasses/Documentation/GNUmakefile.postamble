@@ -1,0 +1,4 @@
+before-all::
+	mkdir -p $(DOCUMENT_NAME)
+	cp -f rfc1459.txt $(DOCUMENT_NAME)
+

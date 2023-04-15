@@ -1,0 +1,94 @@
+netclasses is a small framework of asynchronous Objective-C networking classes
+===============================================================================
+Copyright (C) 2005 Andrew Ruder
+
+  netclasses is free software; you can redistribute it and/or modify it under
+  the terms of the GNU Lesser General Public License as published by the Free
+  Software Foundation; either version 2.1 of the License, or (at your option)
+  any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public License
+  along with this program; if not, write to the 
+  
+  Free Software Foundation, Inc.,
+  59 Temple Place, Suite 330
+  Boston, MA  02111-1307  
+  USA
+
+Comments are welcome.
+===============================================================================
+
+
+****
+
+First off, let me say that since I do not own and never have owned a Mac 
+I have absolutely no way to actually maintain proper building methods on 
+OSX.  Therefore, building on OSX will be limited to gnustep-make style
+compilations.
+
+Secondly, if you cannot understand the instructions herein, please download
+the binaries rather than wasting my time with issues related to lack of skill
+with unix-like systems and the command line environment.  The binaries are
+the recommended way of dealing with netclasses on OS X.  You have been warned.
+
+****
+
+
+Step 1: 
+	Download gnustep-make from http://www.gnustep.org.  You do not need
+	gnustep-base or gnustep-gui; all you need is gnustep-make.  Read the
+	included documentation and proceed with its installation.
+
+	Most of the time, this is what is required:
+
+	Untar the gnustep-make package, cd to the directory it untarred into.
+
+	./configure
+	make
+	sudo make install
+	. /usr/GNUstep/System/Library/Makefiles/GNUstep.sh
+
+	The last line MUST be done on every new shell before compiling anything
+	with gnustep-make, I would recommend putting this in your .bashrc file in
+	your home directory.
+
+Step 2:
+	Set GNUSTEP_INSTALLATION_DIR to the root directory that you wish to install
+	to.  All directories will be based off this root directory.  If you wish
+	to install into the standard location for frameworks, you probably want
+	GNUSTEP_INSTALLATION_DIR=/.  If you do not have administrator rights, you
+	will need to use GNUSTEP_INSTALLATION_DIR=$HOME
+
+Step 3:
+	Generate the autoconfigure stuff:
+		./configure
+	One note about ./configure, I am not using it for makefiles, so the 
+	--prefix and other flags will have -no- effect on the output.  It is
+	only used to check for various types and headers.
+	
+	Type make followed by make install.  netclasses should be installed.  
+	You will not be able to build the documentation without gnustep-base
+	installed.  It is recommended to download the documentation off the
+	website (http://netclasses.aeruder.net).
+
+Example:
+	The following commands will work in most cases:
+		make install GNUSTEP_INSTALLATION_DIR=/
+	or
+		make install GNUSTEP_INSTALLATION_DIR=$HOME
+	
+Conclusion:
+	Have fun!  If you got through this successfully you are ready to start
+	developing with netclasses.  If you didn't, just give in already and
+	get the binaries!  I already went through the pain of getting them to
+	compile so you don't have to.
+
+===============================================================================
+Copyright (C) 2005 by Andy Ruder
+aeruder@ksu.edu
+http://netclasses.aeruder.net

@@ -1,0 +1,91 @@
+netclasses is a small framework of asynchronous Objective-C networking classes
+
+===============================================================================
+Copyright (C) 2005 Andrew Ruder
+
+  netclasses is free software; you can redistribute it and/or modify it under
+  the terms of the GNU Lesser General Public License as published by the Free
+  Software Foundation; either version 2.1 of the License, or (at your option)
+  any later version.
+
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+
+  You should have received a copy of the GNU Lesser General Public License
+  along with this program; if not, write to the 
+  
+  Free Software Foundation, Inc.,
+  59 Temple Place, Suite 330
+  Boston, MA  02111-1307  
+  USA
+
+Comments are welcome.
+===============================================================================
+
+
+
+**** Please see README.osx for instructions dealing with OSX compilation ****
+
+
+
+==========
+Compiling:
+==========
+	./configure
+	make
+	make install
+
+	One note about ./configure, I am not using it for makefiles, so the 
+	--prefix and other flags will have -no- effect on the output.  It is
+	only used to check for various types and headers.
+
+======================
+Environment Variables:
+======================
+	GNUSTEP_INSTALLATION_DIR
+		Determines the root of where netclasses and its documentation
+		will be installed.  This is generally /usr/GNUstep/Local but
+		can be reassigned to other targets such as 
+		GNUSTEP_INSTALLATION_DIR=$GNUSTEP_USER_ROOT
+		to install into a user's home directory.
+
+==============
+Documentation:
+==============
+    Documentation/ holds the netclasses documentation.  This documentation
+	will not be compiled and installed with netclasses.  This must be done
+	separately.  Simply type make followed by make install in the 
+	Documentation/ directory to build and install the documentation.  The 
+	resulting documentation will end up in:
+	
+	$(GNUSTEP_INSTALLATION_DIR)/Library/Documentation/Developer/netclasses
+
+	This documentation has a brief overview of netclasses as well as the 
+	class references.
+
+====
+Use:
+====
+	Simply link to the framework after it is installed in your application.
+
+	See the Examples/ directory for examples of the use of netclasses.
+
+	testsuite/ contains various tests to examine the extent to which things 
+	work on other operating systems or other architectures.
+
+========
+Authors:
+========
+	Main author: Andrew Ruder <aeruder at ksu dot edu>
+
+	UDP support: Jeremy Tregunna
+
+	Special thanks to the countless other people who provided insight, tips,
+	and suggestions to help make netclasses what it is.
+
+===============================================================================
+Copyright (C) 2005 Andy Ruder
+aeruder@ksu.edu
+http://netclasses.aeruder.net

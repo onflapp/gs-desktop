@@ -2,6 +2,10 @@
 
 . /Developer/Makefiles/GNUstep.sh
 
+echo "=================="
+echo " GNUstep Backend"
+echo "=================="
+
 cd ../../gnustep-back || exit 1
 
 make clean

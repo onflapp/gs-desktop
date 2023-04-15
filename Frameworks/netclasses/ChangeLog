@@ -1,0 +1,58 @@
+2016-12-12 Riccardo Mottola <rm@gnu.org>
+
+	* Source/NetTCP.h
+	* Source/NetTCP.m
+	* Source/NetBase.h
+	* Source/NetBase.m
+	Rename newConnection in setupConnection
+
+2015-02-28 Riccardo Mottola <rm@gnu.org>
+
+	* Source/NetBase.m
+	Cast to intptr_t to avoid compiler warnings (Yavor Doganov)
+
+2015-02-22 Riccardo Mottola <rm@gnu.org>
+
+	* Source/IRCObject.m (contains_a_space)
+	Remove unusd function contains_a_space.
+
+2015-01-05 Riccardo Mottola <rm@gnu.org>
+
+	* Source/NetBase.h
+	* Source/NetTCP.h
+	* Source/NetTCP.m
+	Explicit newConnection return type and protocol.
+
+2015-01-05 Riccardo Mottola <rm@gnu.org>
+
+	* configure.ac
+	* GNUmakefile.in
+	* Source/GNUmakefile.in
+	Define VERSION and INTERFACE_VERSION, bump release to 1.1.0
+
+2015-01-05 Riccardo Mottola <rm@gnu.org>
+
+	* Source/NetTCP.h
+	* Source/NetTCP.m
+	Explicit types.
+
+2013-10-19 Riccardo Mottola <rm@gnu.org>
+
+	* Source/NetBase.h
+	Defines for old Macs.
+
+2013-09-17 Riccardo Mottola <rm@gnu.org>
+
+	* Source/IRCObject.m
+	Fix broken log format.
+
+2013-09-09 Riccardo Mottola <rm@gnu.org>
+
+	* Source/IRCObject.m
+	NSUInteger fixes.
+
+2013-09-09 Riccardo Mottola <rm@gnu.org>
+
+	* Source/IRCObject.h
+	* Source/IRCObject.m
+	Explicit return type (id) in signatures.

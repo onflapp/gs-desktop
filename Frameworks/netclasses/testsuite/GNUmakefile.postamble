@@ -1,0 +1,5 @@
+after-clean::
+	$(ECHO_NOTHING)\
+	rm -f conversions testtcp\
+	$(END_ECHO)
+	

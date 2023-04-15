@@ -1,0 +1,12 @@
+after-clean::
+	$(MAKE) -C testsuite -f GNUmakefile clean
+	$(MAKE) -C Examples -f GNUmakefile clean
+	$(MAKE) -C Documentation -f GNUmakefile clean
+
+after-distclean::
+	$(MAKE) -C testsuite -f GNUmakefile distclean
+	$(MAKE) -C Examples -f GNUmakefile distclean
+	$(MAKE) -C Documentation -f GNUmakefile distclean
+	rm -fr Source/config.h config.* GNUmakefile Source/GNUmakefile \
+	autom4te.cache
+	
