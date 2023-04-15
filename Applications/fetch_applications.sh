@@ -45,6 +45,14 @@ else
 fi
 
 cd "$D"
+if [ -d gs-talksoup ];then
+  cd ./gs-talksoup
+  git pull
+else
+  git clone https://github.com/onflapp/gs-talksoup.git
+fi
+
+cd "$D"
 if [ -d apps-projectcenter ];then
   cd ./apps-projectcenter
   git pull
