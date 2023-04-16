@@ -73,6 +73,18 @@
 	    NSUnixExtensions = (
 		pdf
 	    );
+	},
+	{
+	    NSIcon = "PDFImage.tiff";
+	    NSUnixExtensions = (
+		html
+	    );
+	},
+	{
+	    NSIcon = "PDFImage.tiff";
+	    NSUnixExtensions = (
+		txt
+	    );
 	}
     );
     "PROJECT_GROUP" = "No group avaliable!";
