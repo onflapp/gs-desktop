@@ -1,0 +1,179 @@
+/*
+ * part of SimpleWebKit
+ * License: GPL
+ *
+ * default CSS for handling HTML4 tags and attributes
+ * see http://www.w3.org/TR/CSS21/sample.html
+ */
+
+body			{ padding: 8px; line-height: 1.0em; margin: 0.83em 0; font-family: serif; font-size: medium; }
+
+/* define specific display style (default is "inline") */
+
+html, address,
+blockquote, 
+body, dd, div, 
+form,
+frame, frameset,
+h1, h2, h3, h4, 
+h5, h6, iframe, 
+/* noframes, */
+object, ol, p, 
+ul, applet, 
+center, dir, 
+hr, menu, pre,
+dl, dt			{ display: block; }
+head, title,
+meta, link,
+base,
+style, script	{ display: none; }
+noframes		{ display: none; }	/* we support frames */
+table			{ display: table; }
+tr				{ display: table-row; }
+thead			{ display: table-header-group; }
+tbody			{ display: table-row-group; }
+tfoot			{ display: table-footer-group; }
+col				{ display: table-column; }
+colgroup		{ display: table-column-group; }
+td, th			{ display: table-cell; }
+caption			{ display: table-caption; text-align: center;  }
+li				{ display: list-item; }
+fieldset		{ display: inline-block; border: 1px; }	/* define border/box */
+
+/* text modification - default is usually "normal" or "auto" */
+center			{ text-align: center; }
+th				{ font-weight: bolder; text-align: center; }
+pre				{ white-space: pre; font-family: monospace; }
+b, strong		{ font-weight: bold; }
+i, em, var		{ font-style: italic; }
+tt, code, kbd	{ font-family: monospace; }
+u				{ text-decoration: underline; }
+strike			{ text-decoration: line-through; }
+blink			{ text-decoration: blink; }
+sub				{ vertical-align: sub; font-size: smaller; }
+sup				{ vertical-align: super; font-size: smaller; }
+big				{ font-size: larger; }
+small			{ font-size: smaller; }
+blockquote      { margin-left: 40px; margin-right: 40px; }
+dt				{ margin-left: 0px }
+menu, li, dd	{ margin-left: 40px }
+h1				{ x-header-level: 1; font-size: xx-large; font-weight: bold; margin: 0.67em 0; }
+h2				{ x-header-level: 2; font-size: x-large; font-weight: bold; margin: 0.75em 0; }
+h3				{ x-header-level: 3; font-size: large; font-weight: bold; margin: 0.83em 0; }
+h4				{ x-header-level: 4; font-weight: bold; margin: 1.12em 0; }
+h5				{ x-header-level: 5; font-weight: bold; margin: 1.12em 0; }
+h6				{ x-header-level: 6; font-weight: bold; margin: 1.12em 0; }
+a				{ cursor: pointer; }
+/* q:before		{ content: open-quote; }
+q:after			{ content: close-quote; } pseudo elements are not yet implemented */
+q				{ x-before: '"'; }
+q				{ x-after: '"'; }
+
+/* translation of HTML tag attributes to style properties */
+
+body[text]			{ color: attr(text, color); }
+body[bgcolor]		{ background-color: attr(bgcolor, color); }
+body[background]	{ background-image: attr(background, url); }
+body[link]			{ x-visited-color: attr(link, color); }
+h1[align],
+h2[align],
+h3[align],
+h4[align],
+h5[align],
+h6[align],
+div[align],
+center[align],
+p[align],
+ol[align],
+ul[align],
+td[align], th[align],
+input[align]	{ text-align: attr(align); }
+font[face]		{ font-family: attr(face); }
+/* we could define font[size="+1"] { font-size: 120% } font[size="+2"] { font-size: 150% } etc. */
+font[size]		{ font-size: attr(size, string); }
+font[color]		{ color: attr(color, color); }
+a[href]			{ x-link: attr(href, url); x-tooltip: attr(href, url); }
+a[target]		{ x-target-window: attr(target); }
+a[id]			{ x-anchor: attr(id); }
+a[name]			{ x-anchor: attr(name); }
+/*
+a[charset]
+a[accesskey]
+a[shape]
+a[coords]
+*/
+img				{ width: attr(width, px, auto); height: attr(height, px, auto); }
+img[src]		{ cursor: pointer; x-link: attr(src, url); content: attr(src, url); }
+img[alt]		{ x-tooltip: attr(alt); }
+/*
+img[border]
+img[hspace]
+img[vspace]
+img[usemap]
+img[name]
+img[ismap]
+*/
+/* br:before		{ content: "\A"; }	pseudo elements and hex escapes are not yet implemented */
+br				{ x-before: "\n"; }
+nobr			{ white-space: nowrap; x-linebreak: clip; }
+hr				{ height: attr(size, px, 1px); width: attr(width, px, 100%); }
+hr[noshade]		{ }
+
+/* lists */
+ol				{ list-style-type: decimal; }
+ul				{ list-style-type: disc; }
+ol ul, ul ul	{ list-style-type: circle; }	/* second level */
+ol ol ul, ul ol ul,
+ol ul ul, ul ul ul	{ list-style-type: square; }	/* third level */
+dl				{ list-style-type: disc; }
+li				{ }
+dt				{ }
+dd				{ }
+
+/* tables */
+table[border]			{ border: attr(border); }
+table[width], tr[width],
+td[width], th[width]	{ width: attr(width, px); }
+td[valign], th[valign]	{ vertical-align: attr(valign); }
+
+/* forms */
+input					{ x-editable: yes; x-text-columns: attr(size, number, 20); x-text-lines: 1; }
+input[type="hidden"]	{ display: none; }
+input[type="password"]	{ text-transform: password; }
+input[type]				{ x-input-type: attr(type, string, "text"); }
+input[value]			{ content: attr(value); }
+/*
+name
+title
+placeholder
+size
+maxlength
+results
+autosave
+disabled, readonly
+*/
+select					{ }
+/* [name], [value], [size], multiple] */
+option					{ display: none; }
+
+/* handle other types */
+button					{ display: inline-block; /* define button style */ }
+/* button[size]			{ x-text-columns: attr(size); } */
+textarea				{ display: inline-block; x-editable: yes; x-text-columns: 20; x-text-lines: 8; }
+textarea[cols]			{ x-text-columns: attr(cols, number); }
+textarea[lines]			{ x-text-lines: attr(lines, number); }
+textarea[disabled], input[disabled]		{ x-editable: no; }
+textarea[readonly], input[readonly]		{ x-editable: no; }
+/* textarea[name] */
+
+/* frames */
+frameset				{ x-frameset-elements: "100%"; }
+frameset[rows]			{ x-frameset-orientation: horizontal; x-frameset-elements: attr(rows, string); }
+frameset[cols]			{ x-frameset-orientation: vertical; x-frameset-elements: attr(cols, string); }	/* cols has precedence if both are defined */
+frame, iframe			{ x-frame-scrolling: attr(scrolling, string, "auto");  x-frame-resizeable: "yes"; }
+frame[noresize]			{ x-frame-resizeable: "no"; }
+frame[marginwidth], iframe[marginwidth]		{ margin-left: attr(marginwidth, px); margin-right: attr(marginwidth, px); }
+frame[marginheight], iframe[marginheight]	{ margin-top: attr(marginheight, px); margin-bottom: attr(marginheight, px); }
+frame[src], iframe[src]	{ content: attr(src, url); }
+iframe					{ width: attr(width, px, 100px); height: attr(height, px, 100px); }
+/* (i)frame[name], (i)frame[frameborder] */

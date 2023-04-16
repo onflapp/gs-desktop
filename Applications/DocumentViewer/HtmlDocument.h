@@ -1,11 +1,11 @@
 /*
-   Project: WebBrowser
+   Project: DocViewer
 
-   Copyright (C) 2020 Free Software Foundation
+   Copyright (C) 2023 Free Software Foundation
 
-   Author: onflapp
+   Author: Parallels
 
-   Created: 2020-07-22 12:41:08 +0300 by root
+   Created: 2023-04-16 13:13:18 +0200 by parallels
 
    This application is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,20 +22,18 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#ifndef _DOCUMENT_H_
-#define _DOCUMENT_H_
+#ifndef _HTMLDOCUMENT_H_
+#define _HTMLDOCUMENT_H_
 
 #import <AppKit/AppKit.h>
-#import "PdfView.h"
+#import <WebKit/WebKit.h>
+#import "HtmlView.h"
 
-@interface Document : NSObject {
+@interface HtmlDocument : NSObject
+{
   IBOutlet NSWindow *window;
-  IBOutlet PdfView* pdfView;
-  IBOutlet NSScrollView* navScroll;
+  IBOutlet HtmlView *htmlView;
   IBOutlet NSTextField* statusField;
-
-  NSInteger currentPage;
-  BOOL isWorking;
 }
 
 - (id) init;
@@ -43,4 +41,5 @@
 
 @end
 
-#endif // _DOCUMENT_H_
+#endif // _HTMLDOCUMENT_H_
+

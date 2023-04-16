@@ -1,0 +1,61 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    Document = {
+	Actions = (
+	    "previousPage:",
+	    "nextPage:"
+	);
+	Outlets = (
+	    window,
+	    pdfView,
+	    statusField,
+	    navScroll
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "newAction:",
+	    "nextPage:",
+	    "previousPage:"
+	);
+	Super = NSObject;
+    };
+    HtmlDocument = {
+	Actions = (
+	);
+	Outlets = (
+	    window,
+	    htmlView,
+	    statusField
+	);
+	Super = NSObject;
+    };
+    HtmlView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSView;
+    };
+    PdfDocument = {
+	Actions = (
+	    "previousPage:",
+	    "nextPage:"
+	);
+	Outlets = (
+	    window,
+	    pdfView,
+	    navScroll,
+	    statusField
+	);
+	Super = NSObject;
+    };
+    PdfView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSView;
+    };
+}

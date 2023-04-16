@@ -2,6 +2,12 @@
   MainWorkspace.GNUstep = {
     Icon = MainWorkspace.GNUstep.xpm;
   };
+  "xdg-desktop-portal-gnome.xdg-desktop-portal-gnome" = {
+    SkipWindowList = Yes;
+    SkipSwitchPanel = Yes;
+    NoAppIcon = Yes;
+    AlwaysUserIcon = No;
+  };
   Terminal.GNUstep = {
     Icon = Terminal.GNUstep.xpm;
   };

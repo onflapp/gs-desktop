@@ -22,15 +22,14 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#import "Document.h"
+#import "PdfDocument.h"
 
-@implementation Document
+@implementation PdfDocument
 
 - (id) init {
   self = [super init];
-  [NSBundle loadNibNamed:@"Document" owner:self];
-  [window setFrameAutosaveName:@"document_window"];
-  [window makeKeyAndOrderFront:self];
+  [NSBundle loadNibNamed:@"PdfDocument" owner:self];
+  [window setFrameAutosaveName:@"pdfdocument_window"];
   
   [navScroll setBorderType:NSBezelBorder];
   [navScroll setHasHorizontalScroller:YES];
@@ -44,28 +43,12 @@
 }
 
 - (void) displayFile:(NSString*) path {
-  NSString* pdffile = path;
-  NSString* ext = [path pathExtension];
-
-  if (![ext isEqualToString:@"pdf"]) {
-    NSLog(@"try to convert %@", path);
-
-    NSPasteboard* pboard = [NSPasteboard pasteboardByFilteringFile:path];
-    NSData* data = [pboard dataForType:NSPDFPboardType];
-    if (data) {
-      NSString* tfile = [NSString stringWithFormat:@"%@/temp.%x.pdf", NSTemporaryDirectory(), [self hash]];
-      [data writeToFile:tfile atomically:NO];
-      pdffile = tfile;
-    }
-  }
-
-  if (pdffile) {
-    [statusField setStringValue:@"loading pdf"];
-    [pdfView loadFile:pdffile];
+  [window makeKeyAndOrderFront:self];
+  [statusField setStringValue:@"loading pdf"];
+  [pdfView loadFile:path];
   
-    [self displayNavigation];
-    [self displayPage:1];
-  }
+  [self displayNavigation];
+  [self displayPage:1];
 }
 
 - (void) displayPage:(NSInteger) page {

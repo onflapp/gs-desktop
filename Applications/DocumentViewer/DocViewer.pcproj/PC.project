@@ -1,5 +1,5 @@
 {
-    APPLICATIONICON = "DocumentViewer.tiff";
+    APPLICATIONICON = "DocViewer.tiff";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
     "BUILDER_TARGETS" = (
@@ -13,8 +13,10 @@
     "BUNDLE_IDENTIFIER" = "";
     "CLASS_FILES" = (
 	"AppController.m",
-	"Document.m",
-	"PdfView.m"
+	"PdfDocument.m",
+	"PdfView.m",
+	"HtmlDocument.m",
+	"HtmlView.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -25,34 +27,38 @@
     );
     "HEADER_FILES" = (
 	"AppController.h",
-	"Document.h",
-	"PdfView.h"
+	"PdfDocument.h",
+	"PdfView.h",
+	"HtmlDocument.h",
+	"HtmlView.h"
     );
     IMAGES = (
 	"PDFImage.tiff",
-	"DocumentViewer.tiff",
+	"DocViewer.tiff",
 	"page.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
-	"DocumentViewer.gorm",
-	"Document.gorm"
+	"DocViewer.gorm",
+	"PdfDocument.gorm",
+	"HtmlDocument.gorm"
     );
     LANGUAGE = English;
     LIBRARIES = (
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "-lPDFKit";
+    LINKEROPTIONS = "-lPDFKit -lSimpleWebKit";
     "LOCALIZED_RESOURCES" = (
     );
-    MAININTERFACE = "DocumentViewer.gorm";
+    MAININTERFACE = "DocViewer.gorm";
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
+	"default.css"
     );
     "OTHER_SOURCES" = (
-	"DocumentViewer_main.m"
+	"DocViewer_main.m"
     );
     "PRINCIPAL_CLASS" = NSApplication;
     "PROJECT_AUTHORS" = (
@@ -71,7 +77,7 @@
     );
     "PROJECT_GROUP" = "No group avaliable!";
     "PROJECT_MAINTAINER" = "Ondrej Florian,,,";
-    "PROJECT_NAME" = DocumentViewer;
+    "PROJECT_NAME" = DocViewer;
     "PROJECT_RELEASE" = "0.1";
     "PROJECT_SUMMARY" = "No summary avaliable!";
     "PROJECT_TYPE" = Application;
@@ -87,7 +93,7 @@
 	"GNUmakefile.preamble",
 	GNUmakefile,
 	"GNUmakefile.postamble",
-	"DocumentViewerInfo.plist"
+	"DocViewerInfo.plist"
     );
     "USER_LANGUAGES" = (
 	English,

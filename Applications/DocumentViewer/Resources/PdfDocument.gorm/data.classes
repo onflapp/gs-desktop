@@ -15,8 +15,22 @@
     };
     FirstResponder = {
 	Actions = (
+	    "newAction:",
+	    "nextPage:",
+	    "previousPage:"
+	);
+	Super = NSObject;
+    };
+    PdfDocument = {
+	Actions = (
 	    "previousPage:",
 	    "nextPage:"
+	);
+	Outlets = (
+	    window,
+	    pdfView,
+	    navScroll,
+	    statusField
 	);
 	Super = NSObject;
     };

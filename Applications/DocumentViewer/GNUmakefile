@@ -23,43 +23,49 @@ include $(GNUSTEP_MAKEFILES)/common.make
 # Application
 #
 VERSION = 0.1
-PACKAGE_NAME = DocumentViewer
-APP_NAME = DocumentViewer
-DocumentViewer_APPLICATION_ICON = DocumentViewer.tiff
+PACKAGE_NAME = DocViewer
+APP_NAME = DocViewer
+DocViewer_APPLICATION_ICON = DocViewer.tiff
 
 
 #
 # Resource files
 #
-DocumentViewer_RESOURCE_FILES = \
-Resources/DocumentViewer.gorm \
-Resources/Document.gorm \
+DocViewer_RESOURCE_FILES = \
+Resources/DocViewer.gorm \
+Resources/PdfDocument.gorm \
+Resources/HtmlDocument.gorm \
 Resources/PDFImage.tiff \
-Resources/DocumentViewer.tiff \
-Resources/page.tiff 
+Resources/DocViewer.tiff \
+Resources/page.tiff \
+Resources/default.css 
 
 
 #
 # Header files
 #
-DocumentViewer_HEADER_FILES = \
+DocViewer_HEADER_FILES = \
 AppController.h \
-Document.h \
-PdfView.h
+PdfDocument.h \
+PdfView.h \
+HtmlDocument.h \
+HtmlView.h
 
 #
 # Objective-C Class files
 #
-DocumentViewer_OBJC_FILES = \
+DocViewer_OBJC_FILES = \
 AppController.m \
-Document.m \
-PdfView.m
+PdfDocument.m \
+PdfView.m \
+HtmlDocument.m \
+HtmlView.m
 
 #
 # Other sources
 #
-DocumentViewer_OBJC_FILES += \
-DocumentViewer_main.m 
+DocViewer_OBJC_FILES += \
+DocViewer_main.m 
 
 #
 # Makefiles

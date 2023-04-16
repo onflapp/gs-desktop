@@ -9,7 +9,9 @@
 */
 
 #import "AppController.h"
-#import "Document.h"
+#import "PdfDocument.h"
+#import "HtmlDocument.h"
+#import <WebKit/WebKit.h>
 
 @implementation AppController
 
@@ -42,6 +44,8 @@
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif {
+  WebPreferences* pref = [WebPreferences standardPreferences];	// all windows share this
+  [pref setJavaScriptEnabled:NO];
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender {
@@ -54,16 +58,36 @@
 - (BOOL) application: (NSApplication *)application
             openFile: (NSString *)fileName {
 
-  Document* doc = [[Document alloc] init];
-  [doc displayFile:fileName];
+  NSString* ext = [fileName pathExtension];
+  if ([ext isEqualToString:@"pdf"]) {
+    PdfDocument* doc = [[PdfDocument alloc] init];
+    [doc displayFile:fileName];
+  }
+  else if ([ext isEqualToString:@"html"]) {
+    HtmlDocument* doc = [[HtmlDocument alloc] init];
+    [doc displayFile:fileName];
+  }
+  else {    
+    /*
+    NSLog(@"try to convert %@", path);
+
+    NSPasteboard* pboard = [NSPasteboard pasteboardByFilteringFile:path];
+    NSData* data = [pboard dataForType:NSPDFPboardType];
+    if (data) {
+      NSString* tfile = [NSString stringWithFormat:@"%@/temp.%x.pdf", NSTemporaryDirectory(), [self hash]];
+      [data writeToFile:tfile atomically:NO];
+      pdffile = tfile;
+    }
+*/
+    NSLog(@"not sure how to open %@", fileName);
+  }
   return NO;
 }
 
 - (void) openDocument:(id)sender {
   NSOpenPanel* panel = [NSOpenPanel openPanel];
   if ([panel runModal]) {
-    Document* doc = [[Document alloc] init];
-    [doc displayFile:[panel filename]];
+    [self application:NSApp openFile:[panel filename]];
   } 
 }
 
