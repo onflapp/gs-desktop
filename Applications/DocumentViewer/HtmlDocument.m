@@ -31,7 +31,13 @@
   [NSBundle loadNibNamed:@"HtmlDocument" owner:self];
   [window setFrameAutosaveName:@"htmldocument_window"];
     
+  [self initNavigation];
   return self;
+}
+
+- (void) awakeFromNib {
+	[htmlView setUIDelegate:self];
+	[htmlView setFrameLoadDelegate:self];
 }
 
 - (void) dealloc {
@@ -39,13 +45,31 @@
 }
 
 - (void) displayFile:(NSString*) path {
-  NSLog(@">>> %@", htmlView);
   NSURL* u = [NSURL fileURLWithPath:path];
   [[htmlView mainFrame] loadRequest:[NSURLRequest requestWithURL:u]];
 
-
   [window makeKeyAndOrderFront:self];
   [statusField setStringValue:@"loading html"];
+  [self displayPage:1];
+}
+
+- (NSInteger) currentPage {
+  return 1;
+}
+
+- (NSInteger) pageCount {
+  return [[htmlView backForwardList] backListCount];
+}
+
+- (void) webView:(WebView *)sender didReceiveTitle:(NSString *)title forFrame:(WebFrame *)frame
+{
+  if(frame == [sender mainFrame]) {
+    [window setTitle:title];
+  }
+}
+
+- (void) webView:(WebView *)sender didFinishLoadForFrame:(WebFrame *)frame {
+  [self displayNavigation];
 }
 
 @end

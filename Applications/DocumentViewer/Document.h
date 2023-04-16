@@ -22,21 +22,26 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#ifndef _PDFDOCUMENT_H_
-#define _PDFDOCUMENT_H_
+#ifndef _DOCUMENT_H_
+#define _DOCUMENT_H_
 
 #import <AppKit/AppKit.h>
-#import "Document.h"
-#import "PdfView.h"
 
-@interface PdfDocument : Document {
-  IBOutlet PdfView* pdfView;
-  NSInteger pageToShow;
+@interface Document : NSObject {
+  IBOutlet NSWindow *window;
+  IBOutlet NSScrollView* navScroll;
+  IBOutlet NSTextField* statusField;
+
+  BOOL isWorking;
 }
 
 - (id) init;
-- (void) displayFile:(NSString*) path;
+- (void) initNavigation;
+- (void) displayPage:(NSInteger) page;
+- (void) displayNavigation;
+- (NSInteger) currentPage;
+- (NSInteger) pageCount;
 
 @end
 
-#endif // _PDFDOCUMENT_H_
+#endif // _DOCUMENT_H_

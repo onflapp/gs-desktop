@@ -31,10 +31,7 @@
   [NSBundle loadNibNamed:@"PdfDocument" owner:self];
   [window setFrameAutosaveName:@"pdfdocument_window"];
   
-  [navScroll setBorderType:NSBezelBorder];
-  [navScroll setHasHorizontalScroller:YES];
-  [navScroll setHasVerticalScroller:NO];
-    
+  [super initNavigation];
   return self;
 }
 
@@ -44,7 +41,9 @@
 
 - (void) displayFile:(NSString*) path {
   [window makeKeyAndOrderFront:self];
+  [window setTitle:path];
   [statusField setStringValue:@"loading pdf"];
+
   [pdfView loadFile:path];
   
   [self displayNavigation];
@@ -55,68 +54,24 @@
   if (isWorking) return;
 
   isWorking = YES;
-  NSMatrix* matrix = [navScroll documentView];
-  [matrix selectCellAtRow:0 column:page-1];
-  currentPage = page;
+  pageToShow = page;
+
+  [super displayPage:page];
 
   [self performSelector:@selector(refreshCurrentPage) withObject:nil afterDelay:0.1];
 }
 
 - (void) refreshCurrentPage {
-  [pdfView displayPage:currentPage];
+  [pdfView displayPage:pageToShow];
   isWorking = NO;
 }
 
-- (void) displayNavigation {
-  NSButtonCell* cell = AUTORELEASE([NSButtonCell new]);
-  [cell setButtonType:NSPushOnPushOffButton];
-  [cell setImagePosition:NSImageOverlaps];
-  NSMatrix* matrix = [[NSMatrix alloc] initWithFrame:NSZeroRect mode:NSRadioModeMatrix
-                                           prototype:cell numberOfRows: 0 numberOfColumns: 0];
-
-  [matrix setIntercellSpacing:NSZeroSize];
-  [matrix setCellSize:NSMakeSize(26,[[navScroll contentView] bounds].size.height)];
-  [matrix setAllowsEmptySelection:YES];
-  [matrix setTarget:self];
-  [matrix setAction: @selector(goToPage:)];
-  [navScroll setDocumentView:matrix];
-  
-  NSString* imagePath = [[NSBundle mainBundle] pathForResource: @"page" ofType: @"tiff" inDirectory: nil];
-  NSImage* miniPage = [[[NSImage alloc] initWithContentsOfFile:imagePath] autorelease];
-
-  NSInteger npages = [pdfView countPages];
-  for (NSInteger i = 0; i < npages; i++) {
-    [matrix addColumn];
-    cell = [matrix cellAtRow:0 column:i];
-    if (i < 100) {
-      [cell setFont: [NSFont systemFontOfSize: 10]];
-    } 
-    else {
-      [cell setFont: [NSFont systemFontOfSize: 8]];
-    }
-    [cell setImage:miniPage];
-    [cell setTitle:[NSString stringWithFormat: @"%i", i+1]];
-  }
-  [matrix sizeToCells];
+- (NSInteger) currentPage {
+  return [pdfView displayedPage];
 }
 
-- (IBAction) goToPage:(id) sender {
-  NSInteger p = [sender selectedColumn] + 1;
-  [self displayPage:p];
-}
-
-- (IBAction) nextPage:(id) sender {
-  NSUInteger p = [pdfView displayedPage] + 1;
-  if (p > [pdfView countPages]) p = [pdfView countPages];
-
-  [self displayPage:p];
-}
-
-- (IBAction) previousPage:(id) sender {
-  NSUInteger p = [pdfView displayedPage] - 1;
-  if (p < 1) p = 1;
-  
-  [self displayPage:p];
+- (NSInteger) pageCount {
+  return [pdfView countPages];
 }
 
 @end

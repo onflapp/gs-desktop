@@ -49,7 +49,8 @@ AppController.h \
 PdfDocument.h \
 PdfView.h \
 HtmlDocument.h \
-HtmlView.h
+HtmlView.h \
+Document.h
 
 #
 # Objective-C Class files
@@ -59,7 +60,8 @@ AppController.m \
 PdfDocument.m \
 PdfView.m \
 HtmlDocument.m \
-HtmlView.m
+HtmlView.m \
+Document.m
 
 #
 # Other sources

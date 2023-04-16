@@ -16,7 +16,8 @@
 	"PdfDocument.m",
 	"PdfView.m",
 	"HtmlDocument.m",
-	"HtmlView.m"
+	"HtmlView.m",
+	"Document.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -30,7 +31,8 @@
 	"PdfDocument.h",
 	"PdfView.h",
 	"HtmlDocument.h",
-	"HtmlView.h"
+	"HtmlView.h",
+	"Document.h"
     );
     IMAGES = (
 	"PDFImage.tiff",

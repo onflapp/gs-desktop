@@ -46,6 +46,7 @@
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif {
   WebPreferences* pref = [WebPreferences standardPreferences];	// all windows share this
   [pref setJavaScriptEnabled:NO];
+  [pref setDefaultFontSize:12];
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender {

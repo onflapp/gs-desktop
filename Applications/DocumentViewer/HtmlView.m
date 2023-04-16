@@ -26,4 +26,28 @@
 
 @implementation HtmlView
 
+- (id) init {
+  self = [super init];
+
+  return self;
+}
+
+- (void) dealloc {
+  [super dealloc];
+}
+
+- (void) awakeFromNib {
+  [self setMaintainsBackForwardList:YES];
+}
+
+- (BOOL) canHandleClickOnLink:(NSURL*) url {
+  if ([[url scheme] isEqualToString:@"file"]) {
+    return YES;
+  }
+  else {
+    [[NSWorkspace sharedWorkspace] openURL:url];
+    return NO;
+  }
+}
+
 @end

@@ -27,13 +27,12 @@
 
 #import <AppKit/AppKit.h>
 #import <WebKit/WebKit.h>
+#import "Document.h"
 #import "HtmlView.h"
 
-@interface HtmlDocument : NSObject
+@interface HtmlDocument : Document
 {
-  IBOutlet NSWindow *window;
   IBOutlet HtmlView *htmlView;
-  IBOutlet NSTextField* statusField;
 }
 
 - (id) init;

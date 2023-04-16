@@ -27,12 +27,15 @@
 	Outlets = (
 	    window,
 	    htmlView,
-	    statusField
+	    statusField,
+	    navScroll
 	);
 	Super = NSObject;
     };
     HtmlView = {
 	Actions = (
+	    "goBack:",
+	    "goForward:"
 	);
 	Outlets = (
 	);
