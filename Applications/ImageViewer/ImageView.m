@@ -23,6 +23,7 @@
 */
 
 #import "ImageView.h"
+#import "InspectorPanel.h"
 
 @implementation ImageView
 
@@ -74,6 +75,9 @@
    dragRect.size.width = p.x - dragRect.origin.x;
    dragRect.size.height = p.y - dragRect.origin.y;
    [self setNeedsDisplay:YES];
+
+   NSRect r = [self selectedRectangle];
+   [[InspectorPanel sharedInstance] updateSelection:r];
 }
 
 - (void) drawRect:(NSRect) aRect {

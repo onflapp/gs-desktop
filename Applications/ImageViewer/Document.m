@@ -23,7 +23,7 @@
 */
 
 #import "Document.h"
-#import <dispatch/dispatch.h>
+#import "InspectorPanel.h"
 
 @implementation Document
 
@@ -180,5 +180,8 @@
   [self resizeToFit:sender];
 }
 
+- (void) windowDidBecomeMain: (NSNotification*)aNotification {
+  [[InspectorPanel sharedInstance] updateSelection:[imageView selectedRectangle]];
+}
 
 @end

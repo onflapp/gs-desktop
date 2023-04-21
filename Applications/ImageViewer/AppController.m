@@ -10,6 +10,7 @@
 
 #import "STScriptingSupport.h"
 #import "AppController.h"
+#import "InspectorPanel.h"
 #import "Document.h"
 
 @implementation AppController
@@ -84,6 +85,10 @@
 }
 
 - (void) showPrefPanel: (id)sender {
+}
+
+- (void) showInspectorPanel: (id)sender {
+  [[InspectorPanel sharedInstance] orderFrontInspectorPanel:sender];
 }
 
 @end

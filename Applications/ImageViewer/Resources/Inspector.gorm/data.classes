@@ -13,7 +13,11 @@
 	    "performInspectorPanelAction:"
 	);
 	Outlets = (
-	    panel
+	    panel,
+	    "sel_hField",
+	    "sel_wField",
+	    "sel_xField",
+	    "sel_yField"
 	);
 	Super = NSObject;
     };
