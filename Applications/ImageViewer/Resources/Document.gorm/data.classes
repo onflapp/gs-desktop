@@ -11,9 +11,20 @@
     };
     FirstResponder = {
 	Actions = (
-	    "orderFrontInspectorPanel:"
+	    "zoomOut:",
+	    "orderFrontInspectorPanel:",
+	    "zoomIn:"
 	);
 	Super = NSObject;
+    };
+    ImageView = {
+	Actions = (
+	    "zoomOut:",
+	    "zoomIn:"
+	);
+	Outlets = (
+	);
+	Super = NSImageView;
     };
     InspectorPanel = {
 	Actions = (

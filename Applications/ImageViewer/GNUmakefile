@@ -53,7 +53,8 @@ ImageViewer_HEADER_FILES = \
 AppController.h \
 Document.h \
 InspectorPanel.h \
-STScriptingSupport.h
+STScriptingSupport.h \
+ImageView.h
 
 #
 # Objective-C Class files
@@ -61,7 +62,8 @@ STScriptingSupport.h
 ImageViewer_OBJC_FILES = \
 AppController.m \
 Document.m \
-InspectorPanel.m
+InspectorPanel.m \
+ImageView.m
 
 #
 # Other sources

@@ -14,7 +14,8 @@
     "CLASS_FILES" = (
 	"AppController.m",
 	"Document.m",
-	"InspectorPanel.m"
+	"InspectorPanel.m",
+	"ImageView.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -27,7 +28,8 @@
 	"AppController.h",
 	"Document.h",
 	"InspectorPanel.h",
-	"STScriptingSupport.h"
+	"STScriptingSupport.h",
+	"ImageView.h"
     );
     IMAGES = (
 	"GenericImage.tiff",

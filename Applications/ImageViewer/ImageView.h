@@ -1,11 +1,11 @@
 /*
-   Project: WebBrowser
+   Project: ImageViewer
 
-   Copyright (C) 2020 Free Software Foundation
+   Copyright (C) 2023 Free Software Foundation
 
-   Author: onflapp
+   Author: Parallels
 
-   Created: 2020-07-22 12:41:08 +0300 by root
+   Created: 2023-04-21 19:57:22 +0200 by parallels
 
    This application is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,26 +22,19 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#ifndef _DOCUMENT_H_
-#define _DOCUMENT_H_
+#ifndef _IMAGEVIEW_H_
+#define _IMAGEVIEW_H_
 
 #import <AppKit/AppKit.h>
-#import "ImageView.h"
 
-@interface Document : NSObject {
-  IBOutlet NSWindow *window;
-  IBOutlet ImageView* imageView;
-
-  NSImage *originalImage;
+@interface ImageView : NSImageView
+{
+   NSRect dragRect;
+   CGFloat displayScale;
 }
 
-- (id) init;
-- (void) displayFile:(NSString*) path;
-- (void) readFromPasteboard;
-
-- (IBAction) crop:(id) sender;
-- (IBAction) revertDocumentToSaved:(id) sender;
-
+- (NSRect) selectedRectangle;
 @end
 
-#endif // _DOCUMENT_H_
+#endif // _IMAGEVIEW_H_
+

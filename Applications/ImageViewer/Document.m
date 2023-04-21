@@ -31,12 +31,15 @@
   self = [super init];
   [NSBundle loadNibNamed:@"Document" owner:self];
   [window setFrameAutosaveName:@"image_window"];
+  [window makeFirstResponder:imageView];
   [window makeKeyAndOrderFront:self];
-    
+
+  [imageView setImageScaling:NSImageScaleProportionallyUpOrDown];
   return self;
 }
 
 - (void) dealloc {
+  [originalImage release];
   [super dealloc];
 }
 
@@ -46,10 +49,14 @@
   if (data) {
     NSImage* img = [[NSImage alloc] initWithData:data];
     if (img) {
+      [originalImage release];
+      originalImage = [img retain];
+
       [imageView setFrameSize:[img size]];
       [imageView setImage:img];
       [img release];
       [self resizeToFit:nil];
+
     }
   }
 }
@@ -64,6 +71,9 @@
     }
   }
   if (img) {
+    [originalImage release];
+    originalImage = [img retain];
+
     [imageView setFrameSize:[img size]];
     [imageView setImage:img];
     [img release];
@@ -91,7 +101,7 @@
 }
 
 - (void) resizeToFit:(id)sender {
-  NSSize sz = [[imageView image]size];
+  NSSize sz = [imageView frame].size;
   if (sz.width > 1000) sz.width = 1000;
   if (sz.width < 30) sz.width = 30;
   if (sz.height > 1000) sz.height = 1000;
@@ -126,5 +136,49 @@
     [data writeToFile:filename atomically:YES];
   }
 }
+
+- (IBAction) revertDocumentToSaved:(id) sender {
+  NSImage* img = originalImage;
+
+  [imageView setFrameSize:[img size]];
+  [imageView setImage:img];
+  [self resizeToFit:nil];
+}
+
+- (IBAction) crop:(id) sender {
+  NSImage* img = [imageView image];
+  NSRect r1 = NSMakeRect(0, 0, img.size.width, img.size.height);
+  NSRect r2 = [imageView selectedRectangle];
+  NSImageRep* rep = [img bestRepresentationForRect:r1 context:nil hints:nil];
+
+  NSImage* nimg = [[NSImage alloc] initWithSize:r2.size];
+  [nimg lockFocus];
+  [rep setSize:img.size];
+  [rep drawInRect:NSMakeRect(0, 0, r2.size.width, r2.size.height) 
+         fromRect:r2
+        operation:NSCompositeCopy
+         fraction:1.0
+   respectFlipped:YES
+            hints:nil];
+  [nimg unlockFocus];
+
+  [imageView resetSelectionRectangle];
+  [imageView setFrameSize:[nimg size]];
+  [imageView setImage:nimg];
+  [nimg release];
+
+  [self resizeToFit:nil];
+}
+
+- (IBAction) zoomIn:(id) sender {
+  [imageView zoomIn:sender];
+  [self resizeToFit:sender];
+}
+
+- (IBAction) zoomOut:(id) sender {
+  [imageView zoomOut:sender];
+  [self resizeToFit:sender];
+}
+
 
 @end

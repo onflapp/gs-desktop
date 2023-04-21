@@ -2,17 +2,34 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     AppController = {
 	Actions = (
-	    "showPrefPanel:"
+	    "showPrefPanel:",
+	    "showInspectorPanel:"
 	);
 	Outlets = (
 	);
 	Super = NSObject;
     };
+    Document = {
+	Actions = (
+	    "crop:",
+	    "zoomOut:",
+	    "zoomIn:"
+	);
+	Outlets = (
+	    window,
+	    imageView
+	);
+	Super = NSObject;
+    };
     FirstResponder = {
 	Actions = (
-	    "resizeToFit:",
+	    "crop:",
+	    "zoomOut:",
 	    "orderFrontFontPanel:",
-	    "showPrefPanel:"
+	    "resizeToFit:",
+	    "showInspectorPanel:",
+	    "showPrefPanel:",
+	    "zoomIn:"
 	);
 	Super = NSObject;
     };
