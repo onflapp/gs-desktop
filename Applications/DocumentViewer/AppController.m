@@ -47,6 +47,7 @@
   WebPreferences* pref = [WebPreferences standardPreferences];	// all windows share this
   [pref setJavaScriptEnabled:NO];
   [pref setDefaultFontSize:12];
+  [pref setUserStyleSheetEnabled:YES];
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender {

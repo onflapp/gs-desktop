@@ -18,6 +18,9 @@ else
   BTYPE="Debug"
 fi
 
+### force release build
+BTYPE="Release"
+
 cmake .. \
 	-DGNUSTEP_INSTALL_TYPE=NONE \
 	-DCMAKE_C_COMPILER=$CC \
