@@ -17,9 +17,9 @@ ADDITIONAL_CFLAGS += -Wall
 ADDITIONAL_CPPFLAGS += -Wall
 endif
 
-APP_NAME = DictionaryReader
+APP_NAME = Dictionary
 
-DictionaryReader_OBJC_FILES = \
+Dictionary_OBJC_FILES = \
 AppController.m \
 StreamLineWriter.m \
 StreamLineReader.m \
@@ -35,7 +35,7 @@ Preferences.m \
 main.m \
 
 
-DictionaryReader_HEADER_FILES = \
+Dictionary_HEADER_FILES = \
 AppController.h \
 StreamLineWriter.h \
 StreamLineReader.h \
@@ -52,26 +52,24 @@ Preferences.h \
 
 
 
-DictionaryReader_OBJCC_FILES = 
-DictionaryReader_C_FILES = 
-DictionaryReader_RESOURCE_FILES = \
-Resources/dict.png \
+Dictionary_OBJCC_FILES = 
+Dictionary_C_FILES = 
+Dictionary_RESOURCE_FILES = \
+Resources/Dictionary.tiff \
 Resources/Dictionaries/jargon/jargon.index \
 Resources/Dictionaries/jargon/jargon.dict \
 
 
-DictionaryReader_LANGUAGES = English
+Dictionary_LANGUAGES = English
 
-DictionaryReader_LOCALIZED_RESOURCE_FILES = \
+Dictionary_LOCALIZED_RESOURCE_FILES = \
 DictionaryReader.gorm \
-Preferences.gorm \
-DictionaryReader.nib \
-Preferences.nib
+Preferences.gorm
 
 
-DictionaryReader_MAIN_MODEL_FILE = DictionaryReader.gorm
+Dictionary_MAIN_MODEL_FILE = DictionaryReader.gorm
 
-DictionaryReader_PRINCIPAL_CLASS = 
+Dictionary_PRINCIPAL_CLASS = 
 
 # If we're compiling on Etoile, we'll link to EtoileFoundation
 # to not duplicate UKNibOwner in the code.
@@ -79,8 +77,8 @@ ifeq ($(etoile), yes)
 	ADDITIONAL_GUI_LIBS += -lEtoileFoundation
 	ADDITIONAL_OBJC_FLAGS += -DETOILE
 else
-	DictionaryReader_OBJC_FILES += UKNibOwner.m
-	DictionaryReader_HEADER_FILES += UKNibOwner.h
+	Dictionary_OBJC_FILES += UKNibOwner.m
+	Dictionary_HEADER_FILES += UKNibOwner.h
 endif
 
 SUBPROJECTS = 

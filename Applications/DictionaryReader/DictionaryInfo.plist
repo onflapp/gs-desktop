@@ -1,7 +1,7 @@
 {
     ApplicationDescription = "A Dict client for GNUstep";
-    ApplicationIcon = dict.png;
-    ApplicationName = DictionaryReader;
+    ApplicationIcon = Dictionary.tiff;
+    ApplicationName = Dictionary;
     ApplicationRelease = 0.2;
     Authors = (
 	"Guenther Noack <guenther@unix-ag.uni-kl.de>",
@@ -9,12 +9,12 @@
     );
     Copyright = "Copyright (C) 2006 Guenther Noack";
     CopyrightDescription = "Released under the terms of the GNU General Public Licence.";
-    NSIcon = dict.png;
+    NSIcon = Dictionary.tiff;
     NSTypes = (
     );
     NSServices = (
       {
-        NSPortName = DictionaryReader;
+        NSPortName = Dictionary;
         NSMessage = lookupInDictionary;
         NSSendTypes = (NSStringPboardType);
         NSMenuItem = {
