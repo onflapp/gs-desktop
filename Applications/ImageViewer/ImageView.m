@@ -37,12 +37,9 @@
    CGFloat x2 = dragRect.origin.x + dragRect.size.width;
    CGFloat y2 = dragRect.origin.y + dragRect.size.height;
 
-   NSLog(@"xxx %f %f %f %f", x1, y1, x2, y2);
-
    if (x1 > x2) { CGFloat t = x1; x1 = x2; x2 = t; }
    if (y1 > y2) { CGFloat t = y1; y1 = y2; y2 = t; }
 
-   NSLog(@"xxx %f %f %f %f", x1, y1, x2, y2);
    NSRect sr = NSMakeRect(x1, y1, x2-x1, y2-y1);
 
    return sr;
@@ -51,6 +48,29 @@
 - (void) resetSelectionRectangle {
    dragRect.size.width = 0;
    dragRect.size.height = 0;
+}
+
+- (void) setSelectionRectangle:(NSRect) r {
+   dragRect = r;
+}
+
+- (NSImage*) croppedImage:(NSRect) r2 {
+  NSImage* img = [self image];
+  NSRect r1 = NSMakeRect(0, 0, img.size.width, img.size.height);
+  NSImageRep* rep = [img bestRepresentationForRect:r1 context:nil hints:nil];
+
+  NSImage* nimg = [[NSImage alloc] initWithSize:r2.size];
+  [nimg lockFocus];
+  [rep setSize:img.size];
+  [rep drawInRect:NSMakeRect(0, 0, r2.size.width, r2.size.height) 
+         fromRect:r2
+        operation:NSCompositeCopy
+         fraction:1.0
+   respectFlipped:YES
+            hints:nil];
+  [nimg unlockFocus];
+
+  return [nimg autorelease];
 }
 
 - (void) mouseDown:(NSEvent*) evt {
@@ -76,8 +96,7 @@
    dragRect.size.height = p.y - dragRect.origin.y;
    [self setNeedsDisplay:YES];
 
-   NSRect r = [self selectedRectangle];
-   [[InspectorPanel sharedInstance] updateSelection:r];
+   [[InspectorPanel sharedInstance] updateSelection:[self selectedRectangle]];
 }
 
 - (void) drawRect:(NSRect) aRect {

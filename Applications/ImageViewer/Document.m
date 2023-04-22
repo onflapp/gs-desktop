@@ -30,10 +30,6 @@
 - (id) init {
   self = [super init];
   [NSBundle loadNibNamed:@"Document" owner:self];
-  [window setFrameAutosaveName:@"image_window"];
-  [window makeFirstResponder:imageView];
-  [window makeKeyAndOrderFront:self];
-
   [imageView setImageScaling:NSImageScaleProportionallyUpOrDown];
   return self;
 }
@@ -43,22 +39,52 @@
   [super dealloc];
 }
 
+- (void) showWindow {
+  [window setFrameAutosaveName:@"image_window"];
+  [window makeFirstResponder:imageView];
+  [self resizeToFit:self];
+
+  if ([NSApp mainWindow]) {
+    NSRect  r = [[NSApp mainWindow] frame];
+    NSPoint p = r.origin;
+
+    p.x += 24;
+    p.y -= 24;
+    [window setFrameOrigin:p];
+  }
+
+  [window makeKeyAndOrderFront:self];
+}
+
 - (void) readFromPasteboard {
   NSPasteboard* pboard = [NSPasteboard generalPasteboard];
   NSData* data = [pboard dataForType:NSTIFFPboardType];
   if (data) {
     NSImage* img = [[NSImage alloc] initWithData:data];
-    if (img) {
-      [originalImage release];
-      originalImage = [img retain];
-
-      [imageView setFrameSize:[img size]];
-      [imageView setImage:img];
-      [img release];
-      [self resizeToFit:nil];
-
-    }
+    [self setImage:img];
+    [img release];
   }
+}
+
+- (NSRect) selection {
+  return [imageView selectedRectangle];
+}
+
+- (void) setSelection:(NSRect) r {
+}
+
+- (NSImage*) image {
+  return [imageView image];
+}
+
+- (void) setImage:(NSImage*) img {
+  [originalImage release];
+  originalImage = [img retain];
+
+  [imageView setFrameSize:[img size]];
+  [imageView setImage:img];
+  [img release];
+  [self resizeToFit:nil];
 }
 
 - (void) displayFile:(NSString*) path {
@@ -70,15 +96,8 @@
       img = [[NSImage alloc] initWithData:data];
     }
   }
-  if (img) {
-    [originalImage release];
-    originalImage = [img retain];
-
-    [imageView setFrameSize:[img size]];
-    [imageView setImage:img];
-    [img release];
-    [self resizeToFit:nil];
-  }
+  [self setImage:img];
+  [img release];
 }
 
 - (NSInteger) typeForFilename:(NSString*) path {
@@ -146,28 +165,24 @@
 }
 
 - (IBAction) crop:(id) sender {
-  NSImage* img = [imageView image];
-  NSRect r1 = NSMakeRect(0, 0, img.size.width, img.size.height);
-  NSRect r2 = [imageView selectedRectangle];
-  NSImageRep* rep = [img bestRepresentationForRect:r1 context:nil hints:nil];
-
-  NSImage* nimg = [[NSImage alloc] initWithSize:r2.size];
-  [nimg lockFocus];
-  [rep setSize:img.size];
-  [rep drawInRect:NSMakeRect(0, 0, r2.size.width, r2.size.height) 
-         fromRect:r2
-        operation:NSCompositeCopy
-         fraction:1.0
-   respectFlipped:YES
-            hints:nil];
-  [nimg unlockFocus];
+  NSRect r = [imageView selectedRectangle];
+  NSImage* nimg = [imageView croppedImage:r];
 
   [imageView resetSelectionRectangle];
   [imageView setFrameSize:[nimg size]];
   [imageView setImage:nimg];
-  [nimg release];
 
   [self resizeToFit:nil];
+}
+
+- (IBAction) cropAsNew:(id) sender {
+  NSRect r = [imageView selectedRectangle];
+  if (r.size.height == 0 || r.size.width == 0) return;
+
+  Document* doc = [[Document alloc] init];
+  NSImage* img = [imageView croppedImage:r];
+  [doc setImage:img];
+  [doc showWindow];
 }
 
 - (IBAction) zoomIn:(id) sender {

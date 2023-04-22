@@ -32,6 +32,8 @@
 - (BOOL) application: (NSApplication *)application
 	    openFile: (NSString *)fileName;
 
+- (void) cloneDocument:(id)sender;
+
 - (void) showPrefPanel: (id)sender;
 
 @end

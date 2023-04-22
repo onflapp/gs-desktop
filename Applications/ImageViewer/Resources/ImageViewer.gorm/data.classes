@@ -3,7 +3,8 @@
     AppController = {
 	Actions = (
 	    "showPrefPanel:",
-	    "showInspectorPanel:"
+	    "showInspectorPanel:",
+	    "cloneDocument:"
 	);
 	Outlets = (
 	);
@@ -13,7 +14,8 @@
 	Actions = (
 	    "crop:",
 	    "zoomOut:",
-	    "zoomIn:"
+	    "zoomIn:",
+	    "cropAsNew:"
 	);
 	Outlets = (
 	    window,
@@ -23,13 +25,15 @@
     };
     FirstResponder = {
 	Actions = (
+	    "cloneDocument:",
 	    "crop:",
-	    "zoomOut:",
+	    "cropAsNew:",
 	    "orderFrontFontPanel:",
 	    "resizeToFit:",
 	    "showInspectorPanel:",
 	    "showPrefPanel:",
-	    "zoomIn:"
+	    "zoomIn:",
+	    "zoomOut:"
 	);
 	Super = NSObject;
     };

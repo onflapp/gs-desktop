@@ -33,7 +33,12 @@
    CGFloat displayScale;
 }
 
+- (void) resetSelectionRectangle;
 - (NSRect) selectedRectangle;
+- (NSImage*) croppedImage:(NSRect) r2;
+- (IBAction) zoomIn:(id) sender;
+- (IBAction) zoomOut:(id) sender;
+- (IBAction) zoomReset:(id) sender;
 @end
 
 #endif // _IMAGEVIEW_H_

@@ -39,7 +39,13 @@
 - (void) displayFile:(NSString*) path;
 - (void) readFromPasteboard;
 
+- (void) showWindow;
+
+- (NSImage*) image;
+- (void) setImage:(NSImage*) img;
+
 - (IBAction) crop:(id) sender;
+- (IBAction) cropAsNew:(id) sender;
 - (IBAction) revertDocumentToSaved:(id) sender;
 
 @end

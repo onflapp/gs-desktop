@@ -68,12 +68,23 @@
 	    openFile: (NSString *)fileName {
   Document* doc = [[Document alloc] init];
   [doc displayFile:fileName];
+  [doc showWindow];
   return NO;
 }
 
 - (void) newDocument:(id)sender {
   Document* doc = [[Document alloc] init];
   [doc readFromPasteboard];
+  [doc showWindow];
+}
+
+- (void) cloneDocument:(id)sender {
+  NSImage* img = [[[NSApp mainWindow] delegate] image];
+  if (img) {
+    Document* doc = [[Document alloc] init];
+    [doc setImage:img];
+    [doc showWindow];
+  }
 }
 
 - (void) openDocument:(id)sender {
@@ -81,6 +92,7 @@
   if ([panel runModal]) {
     Document* doc = [[Document alloc] init];
     [doc displayFile:[panel filename]];
+    [doc showWindow];
   }
 }
 
