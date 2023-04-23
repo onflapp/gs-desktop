@@ -2,17 +2,23 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     FirstResponder = {
 	Actions = (
+	    "addDictionary:",
+	    "revealDictionaryLocation:",
+	    "removeDictionary:",
 	    "rescanDictionaries:"
 	);
 	Super = NSObject;
     };
     Preferences = {
 	Actions = (
-	    "rescanDictionaries:"
+	    "rescanDictionaries:",
+	    "addDictionary:",
+	    "removeDictionary:",
+	    "revealDictionaryLocation:"
 	);
 	Outlets = (
-	    _prefPanel,
-	    _tableView
+	    "_prefPanel",
+	    "_tableView"
 	);
 	Super = UKNibOwner;
     };

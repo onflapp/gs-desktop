@@ -90,8 +90,8 @@
     return;
   }
   
-  [history
-    removeObjectsInRange: NSMakeRange(currentLocationIndex+1,[history count])];
+  //[history -- BROKEN WILL CAUSE EXCEPTION !!!
+  //  removeObjectsInRange: NSMakeRange(currentLocationIndex+1,[history count])];
   [history addObject: aBrowsingLocation];
   
   currentLocationIndex++;

@@ -93,15 +93,6 @@
 
 -(BOOL) getMoreCharacters
 {
-  //NSLog(@"getMoreChars opened (stream status = %d)",
-  //      [inputStream streamStatus]);
-  
-  // cancel if nothing in queue
-  if ([inputStream hasBytesAvailable] == NO) {
-    NSLog(@"stream says nothing available (GNUstep impl b0rken?)");
-    //return NO;
-  }
-  
   if ([inputStream streamStatus] == NSStreamStatusClosed) {
     NSLog(@"Stream is closed (by server?)");
     return NO;

@@ -12,7 +12,9 @@
 	    searchResultView,
 	    browseBackButton,
 	    browseForwardButton,
-	    dictionaryContentWindow
+	    dictionaryContentWindow,
+	    dictionaryPopUp,
+	    searchStatusField
 	);
 	Super = NSObject;
     };

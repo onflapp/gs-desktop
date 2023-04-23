@@ -59,6 +59,7 @@ NSDictionary* normalAttributes;
 
 -(void) clearResults
 {
+  [searchStatusField setStringValue:@""];
   NSAttributedString* emptyAttrStr = [[NSAttributedString alloc] init];
   [[searchResultView textStorage] setAttributedString: emptyAttrStr];
   [emptyAttrStr release];
@@ -89,6 +90,10 @@ NSDictionary* normalAttributes;
 -(void) writeHeadline: (NSString*) aString {
   [self writeString: [NSString stringWithFormat: @"\n%@\n\n", aString]
 	attributes: headlineAttributes];
+}
+
+-(void) writeEnd {
+  [searchStatusField setStringValue:@""];
 }
 
 -(void) writeLine: (NSString*) aString {
@@ -305,26 +310,32 @@ NSDictionary* normalAttributes;
 }
 
 -(void) orderFrontPreferencesPanel: (id)sender {
-    [[Preferences shared] setDictionaries: dictionaries];
-    [[Preferences shared] show];
+  [[Preferences shared] setDictionaries: dictionaries];
+  [[Preferences shared] show];
+}
+
+-(void)updateDictList {
+  NSInteger i = 0;
+  for (i=0; i<[dictionaries count]; i++) {
+    id dict = [dictionaries objectAtIndex: i];
+    
+    if ([dict isActive]) {
+    }
+  }
 }
 
 -(void)updateGUI {
   if ([historyManager canBrowseBack]) {
     [browseBackButton setEnabled: YES];
-    [browseBackButton setImage: [NSImage imageNamed: @"common_ArrowLeft"]];
   } else { // cannot browse back
     [browseBackButton setEnabled: NO];
-    [browseBackButton setImage: [NSImage imageNamed: @"common_ArrowLeftH"]];
   }
   [browseBackButton setNeedsDisplay: YES];
   
   if ([historyManager canBrowseForward]) {
     [browseForwardButton setEnabled: YES];
-    [browseForwardButton setImage: [NSImage imageNamed: @"common_ArrowRight"]];
   } else { // cannot browse forward
     [browseForwardButton setEnabled: NO];
-    [browseForwardButton setImage: [NSImage imageNamed: @"common_ArrowRightH"]];
   }
   [browseForwardButton setNeedsDisplay: YES];
 }
@@ -381,11 +392,6 @@ NSDictionary* normalAttributes;
   // fetch string from notification
   NSString* searchString = [aNotification object];
   
-  NSAssert1(
-      searchString != nil,
-      @"Search string encapsuled in %@ notification was nil", aNotification
-  );
-  
   if ( ![[searchStringControl stringValue] isEqualToString: searchString] ) {
     // invoke search
     [self defineWord: searchString];
@@ -406,6 +412,8 @@ NSDictionary* normalAttributes;
     // set string in search field
     [searchStringControl setStringValue: aWord];
   }
+
+  [searchStatusField setStringValue:@"searching..."];
   
   // We need space for new content
   [self clearResults];
@@ -426,6 +434,7 @@ NSDictionary* normalAttributes;
           }
         NS_HANDLER
           {
+            [searchStatusField setStringValue:@"error"];
 	    NSRunAlertPanel
 	      (
 	       @"Word definition failed.",
@@ -472,6 +481,7 @@ NSDictionary* normalAttributes;
 
 -(void) applicationDidFinishLaunching: (NSNotification*) theNotification
 {
+    [searchStatusField setStringValue:@""];
     [NSApp setServicesProvider: self];
 }
 

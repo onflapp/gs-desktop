@@ -149,6 +149,7 @@
                 LocalDictionary* dict =
                   [LocalDictionary dictionaryWithIndexAtPath: indexFileName
                                             dictionaryAtPath: fileName];
+                [dict setName:[fileName lastPathComponent]];
                 
                 [self foundDictionary: dict];
             }
@@ -188,6 +189,12 @@
       [[NSNotificationCenter defaultCenter] postNotificationName: DRActiveDictsChangedNotification
                                                           object: _dictionaries];
   }
+  else if ([[aTableColumn identifier] isEqualToString: @"name"]) {
+      [(DictionaryHandle*)[_dictionaries objectAtIndex: rowIndex] setName: anObj];
+  }
+  else if ([[aTableColumn identifier] isEqualToString: @"location"]) {
+      [(DictionaryHandle*)[_dictionaries objectAtIndex: rowIndex] setLocation: anObj];
+  }
 }
 
 /**
@@ -199,15 +206,46 @@ objectValueForTableColumn: (NSTableColumn *)aTableColumn
 {
     if ([[aTableColumn identifier] isEqualToString: @"active"]) {
       return [NSNumber numberWithBool: [[_dictionaries objectAtIndex: rowIndex] isActive]];
+
+    } else if ([[aTableColumn identifier] isEqualToString: @"name"]) {
+      return [[_dictionaries objectAtIndex: rowIndex] valueForKey:@"name"];
+
+    } else if ([[aTableColumn identifier] isEqualToString: @"location"]) {
+      return [[_dictionaries objectAtIndex: rowIndex] valueForKey:@"location"];
+
     } else {
-      NSAssert1(
-          [[aTableColumn identifier] isEqualToString: @"name"],
-          @"Unknown column identifier '%@'",
-          [aTableColumn identifier]
-      );
-      
-      return [[_dictionaries objectAtIndex: rowIndex] description];
+      return @"unknown";
+
     }
+}
+
+- (void) removeDictionary:(id) sender
+{
+  NSInteger row = [_tableView selectedRow];
+  if (row != -1 && row < [_dictionaries count]) {
+    [_dictionaries removeObjectAtIndex:row];
+    [_tableView reloadData];
+  }
+}
+
+- (void) revealDictionaryLocation:(id) sender
+{
+  NSArray* paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+  NSString* path = [[paths lastObject] stringByAppendingPathComponent:@"DictionaryReader/Dictionaries"];
+
+  [[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
+
+  [[NSWorkspace sharedWorkspace] openFile:path];
+}
+
+- (void) addDictionary:(id) sender
+{
+  DictConnection* dict = [[DictConnection alloc] init];
+  [dict setName:@"New Dictionary"];
+  [self foundDictionary: dict];
+  [dict release];
+  
+  [_tableView reloadData];
 }
 
 - (void) awakeFromNib

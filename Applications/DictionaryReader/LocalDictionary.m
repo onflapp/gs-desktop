@@ -450,6 +450,15 @@ static NSMutableDictionary* existingDictionaries;
     return result;
 }
 
+-(NSString*) location
+{
+  return [self description];
+}
+
+-(void) setLocation:(NSString*) loc
+{
+}
+
 -(NSString*) description
 {
   if (fullName == nil) {

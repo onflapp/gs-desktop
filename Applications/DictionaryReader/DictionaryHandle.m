@@ -41,6 +41,9 @@
     
     if ((self = [super init]) != nil) {
         [self setActive: [[aPropertyList objectForKey: @"active"] intValue]];
+        NSString* name = [aPropertyList objectForKey: @"name"];
+        if (!name) name = @"Unknown";
+        [self setName:name];
     }
     
     return self;
@@ -52,8 +55,18 @@
     
     [dict setObject: [isa description] forKey: @"class"];
     [dict setObject: [NSNumber numberWithBool: _active] forKey: @"active"];
+    [dict setObject: _name forKey: @"name"];
     
     return dict;
+}
+
+- (BOOL)isEqual:(id)object 
+{
+    if (![self isKindOfClass:[object class]]) 
+        return NO;
+    else
+        return [[self name] isEqual:(DictionaryHandle*)[object name]] && \
+               [[self location] isEqual:(DictionaryHandle*)[object location]];
 }
 
 -(BOOL) isActive
@@ -64,6 +77,16 @@
 -(void) setActive: (BOOL) isActive
 {
     _active = isActive;
+}
+
+-(NSString*) name
+{
+    return _name;
+}
+
+-(void) setName:(NSString*) name
+{
+    ASSIGN(_name, name);
 }
 
 @end

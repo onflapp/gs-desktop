@@ -26,6 +26,8 @@
 {
   @private
   NSTextField* searchStringControl;
+  NSTextField* searchStatusField;
+  NSPopUpButton* dictionaryPopUp;
   NSTextView* searchResultView;
   NSButton* browseBackButton;
   NSButton* browseForwardButton;

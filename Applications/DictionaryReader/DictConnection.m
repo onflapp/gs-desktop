@@ -40,9 +40,12 @@
               @"No entry for 'host' key in NSDictionary %@", aPropertyList);
     NSAssert1([aPropertyList objectForKey: @"port"] != nil,
               @"No entry for 'host' key in NSDictionary %@", aPropertyList);
+
+    NSString* n = [aPropertyList objectForKey:@"host"];
+    NSHost* h = [NSHost hostWithName:n];
     
     if ((self = [super initFromPropertyList: aPropertyList]) != nil) {
-        self = [self initWithHost: [aPropertyList objectForKey: @"host"]
+        self = [self initWithHost: h
                              port: [[aPropertyList objectForKey: @"port"] intValue]];
     }
     
@@ -87,7 +90,9 @@
   if (hostname == nil)
     hostname = @"dict.org";
   
-  return [self initWithHost: [NSHost hostWithName: hostname]];
+  DictionaryHandle* rv = [self initWithHost: [NSHost hostWithName: hostname]];
+  [rv setName:@"Default dict.org"];
+  return rv;
 }
 
 -(void)dealloc
@@ -176,6 +181,8 @@
 	}
       }
     } while (lastDefinition == NO);
+
+    [defWriter writeEnd];
   }
 }
 
@@ -228,7 +235,6 @@
   } 
 }
 
-#warning FIXME: Crashes sometimes?
 -(void)close
 {
   [inputStream close];
@@ -261,10 +267,39 @@
 {
     NSMutableDictionary* result = [super shortPropertyList];
     
-    [result setObject: host forKey: @"host"];
-    [result setObject: [NSNumber numberWithBool: port] forKey: @"port"];
+    [result setObject: [host name] forKey: @"host"];
+    [result setObject: [NSNumber numberWithInt: port] forKey: @"port"];
     
     return result;
+}
+
+-(NSString*) location
+{
+  return [NSString stringWithFormat: @"%@:%i", [host name], port];
+}
+
+-(void) setLocation:(NSString*) location
+{
+  NSArray* a = [location componentsSeparatedByString:@":"];
+  if ([a count] > 1) {
+    NSHost* h = [NSHost hostWithName:[a objectAtIndex:0]];
+    if (h) {
+      ASSIGN(host, h);
+    }
+    if ([[a objectAtIndex:1]intValue]) {
+      port = [[a objectAtIndex:1]intValue];
+    }
+    else {
+      port = 2628;
+    }
+  }
+  else {
+    NSHost* h = [NSHost hostWithName:location];
+    if (h) {
+      ASSIGN(host, h);
+    }
+    port = 2628;
+  }
 }
 
 -(NSString*) description

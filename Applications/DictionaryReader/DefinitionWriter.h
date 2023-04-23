@@ -24,6 +24,7 @@
 -(void) endWriting;
 
 -(void) clearResults;
+-(void) writeEnd;
 -(void) writeBigHeadline: (NSString*) aString;
 -(void) writeHeadline: (NSString*) aString;
 -(void) writeLine: (NSString*) aString;

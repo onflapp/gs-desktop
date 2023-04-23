@@ -116,6 +116,7 @@
 @interface DictionaryHandle : NSObject
 {
     BOOL _active;
+    NSString* _name;
 }
 
 +(id) dictionaryFromPropertyList: (NSDictionary*) aPropertyList;
@@ -123,6 +124,11 @@
 -(NSDictionary*) shortPropertyList;
 -(BOOL) isActive;
 -(void) setActive: (BOOL) isActive;
+-(NSString*) name;
+-(void) setName:(NSString*) name;
+-(NSString*) location;
+-(void) setLocation:(NSString*) location;
+
 @end
 
 #endif // _DICTIONARY_H_
