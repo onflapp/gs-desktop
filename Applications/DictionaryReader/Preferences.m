@@ -71,7 +71,7 @@
   [self foundDictionary: dict];
   [dict release];
   
-  NSLog(@"recanned: %@", _dictionaries);
+  NSLog(@"rescanned: %@", _dictionaries);
   
   [_tableView reloadData];
   //[_tableView setNeedsDisplay: YES];
@@ -103,21 +103,18 @@
 
 -(void) searchInUsualPlaces
 {
-    NSArray* searchPaths = [NSArray arrayWithObjects:
-        @"~/GNUstep/Library/DictionaryReader/Dictionaries",  // user home
-#warning TODO Please add the default dictionary location for your operating system here (and comment appropriately!)
-        nil
-    ];
+    NSArray* searchPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask, YES);
     
     int i;
     for (i=0; i<[searchPaths count]; i++) {
         [self searchInDirectory:
-            [[searchPaths objectAtIndex: i] stringByExpandingTildeInPath]];
+            [[searchPaths objectAtIndex: i] stringByAppendingPathComponent:@"DictionaryReader/Dictionaries"]];
     }
 }
 
 -(void) searchInDirectory: (NSString*) dirName;
 {
+    NSLog(@"search dir %@", dirName);
     NSFileManager* manager = [NSFileManager defaultManager];
     NSArray* files = [manager directoryContentsAtPath: dirName];
     

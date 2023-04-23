@@ -450,9 +450,12 @@ NSDictionary* normalAttributes;
 
 -(NSString*) dictionaryStoreFile
 {
-#warning FIXME: Ensure that directory exists!
-    return [@"~/GNUstep/Library/DictionaryReader/dictionaries.plist"
-                stringByExpandingTildeInPath];
+    NSArray* paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+    NSString* path = [[paths lastObject] stringByAppendingPathComponent:@"DictionaryReader"];
+
+    [[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
+
+    return [path stringByAppendingPathComponent:@"dictionaries.plist"];
 }
 
 -(void) applicationWillTerminate: (NSNotification*) theNotification
