@@ -79,15 +79,20 @@
 }
 
 - (void) selectFile:(id) sender {
-  id val = [[books searchResults] objectAtIndex:[resultsView selectedRow]];
+  ResultItem* item = [[books searchResults] objectAtIndex:[resultsView selectedRow]];
   NSWorkspace* wk = [NSWorkspace sharedWorkspace];
-  if ([val hasPrefix:@"/"]) {
-    [wk openFile:val];
-  }
-  else {
-    NSURL* uu = [NSURL URLWithString:val];
-    if (uu) {
-      [wk openURL:uu];
+
+  if ([item type] != 1) {
+    NSString* path = [item path];
+
+    if ([path hasPrefix:@"/"]) {
+      [wk openFile:path];
+    }
+    else {
+      NSURL* uu = [NSURL URLWithString:path];
+      if (uu) {
+        [wk openURL:uu];
+      }
     }
   }
 }
@@ -134,9 +139,24 @@
   return [[books searchResults] count];
 }
 
+- (void) tableView:(NSTableView*)table willDisplayCell:(id)cell forTableColumn:(NSTableColumn*)col row: (NSInteger)row {
+  ResultItem* item = [[books searchResults] objectAtIndex:row];
+  if ([item type] == 1) {
+    [cell setTextColor:[NSColor redColor]];
+  }
+  else {
+    [cell setTextColor:[NSColor textColor]];
+  }
+}
+
 - (id) tableView:(NSTableView*) table objectValueForTableColumn:(NSTableColumn*) col row:(NSInteger) row {
-  id val = [[books searchResults] objectAtIndex:row];
-  return val;
+  ResultItem* item = [[books searchResults] objectAtIndex:row];
+  if ([item type] == 1) {
+    return [NSString stringWithFormat:@"*** %@ ***", [item title]];
+  }
+  else {
+    return [NSString stringWithFormat:@"%@", [item title]];
+  }
 }
 
 @end

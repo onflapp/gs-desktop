@@ -217,6 +217,7 @@ NSDictionary* normalAttributes;
     
     // create mutable dictionaries array
     dictionaries = [[NSMutableArray alloc] initWithCapacity: 2];
+    [[Preferences shared] setDictionaries: dictionaries];
     
     NSString* dictStoreFile = [self dictionaryStoreFile];
     
@@ -246,6 +247,7 @@ NSDictionary* normalAttributes;
         [dict release];
 #endif // end remote dictionaries block
 #endif // end predefined dictionaries
+        [[Preferences shared] rescanDictionaries:nil];
     }
     
     

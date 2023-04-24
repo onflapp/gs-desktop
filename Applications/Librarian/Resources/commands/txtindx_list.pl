@@ -37,10 +37,20 @@ if ($#PATHS == -1) {
 }
 
 foreach(@PATHS) {
-  open(IN, "find $_ |");
+  my $root = $_;
+  open(IN, "find $root |");
   while(<IN>) {
     chomp();
-    print("$_\n");
+
+    if ("$_" eq $root) {
+    }
+    elsif (-d "$_") {
+      my $r = substr($_, length($root)+1);
+      print("T:$r\n");
+    }
+    else {
+      print("P:$_\n");
+    }
   }
   close(IN);
 }

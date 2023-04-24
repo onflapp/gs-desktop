@@ -69,6 +69,8 @@ int indexInB64( unichar unicharacter )
     *outputInteger = 0;
     return NO;
   }
+
+  NSLog(@">%@<", scanned);
   
   (*outputInteger) = 0;
   for (i=0; i<[scanned length]; i++)

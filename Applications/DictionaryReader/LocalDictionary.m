@@ -54,7 +54,7 @@
     instance->fromIndex = aFromIndex;
     instance->length    = aLength;
   }
-  return instance;
+  return [instance autorelease];
 }
 
 - (int)fromIndex
@@ -343,6 +343,7 @@ static NSMutableDictionary* existingDictionaries;
   int fromLocation;
   int length;
   NSMutableDictionary* dict;
+  BOOL rv = NO;
   
   dict = [NSMutableDictionary dictionary];
   
@@ -353,13 +354,17 @@ static NSMutableDictionary* existingDictionaries;
     [indexScanner scanString: @"\t" intoString: NULL];
     
     // scan the start location of the dictionary entry
-    [indexScanner scanBase64Int: &fromLocation];
+    rv = [indexScanner scanBase64Int: &fromLocation];
+    if (!rv)
+      NSLog(@"problem decoding fromLocation");
     
     // consume second tab
     [indexScanner scanString: @"\t" intoString: NULL];
     
     // scan the length of the dictionary entry
-    [indexScanner scanBase64Int: &length];
+    rv = [indexScanner scanBase64Int: &length];
+    if (!rv)
+      NSLog(@"problem decoding length");
     
     // scan newline
     [indexScanner scanString: @"\n" intoString: NULL];
@@ -367,6 +372,7 @@ static NSMutableDictionary* existingDictionaries;
     // save entry in index -------------------------------------------
     [dict setObject: [BigRange rangeFrom: fromLocation length: length]
 	  forKey: [word capitalizedString]];
+    NSLog(@"[%@] %d", word, fromLocation);
   }
   
   ASSIGN(ranges, [NSDictionary dictionaryWithDictionary: dict]);
@@ -386,8 +392,11 @@ static NSMutableDictionary* existingDictionaries;
 #endif // GNUSTEP
   
   // Retrieve full name of database! ------------
-  NSString* name = [self _getEntryFor: @"00-database-short"];
+  NSString*  name = [self _getEntryFor: @"00-database-short"];
+  if (!name) name = [self _getEntryFor: @"00databaseshort"];
+
   NSScanner* scanner = [NSScanner scannerWithString: name];
+  NSLog(@"name [%@]", name);
   
   // consume first line (don't need it, it reads 00-database-short. ;-))
   [scanner scanUpToString: @"\n" intoString: NULL];

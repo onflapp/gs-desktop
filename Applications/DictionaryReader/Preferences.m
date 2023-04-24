@@ -103,9 +103,16 @@
 
 -(void) searchInUsualPlaces
 {
-    NSArray* searchPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask, YES);
-    
+    NSArray* searchPaths = [NSArray arrayWithObjects:@"/usr/share/dict", @"/usr/share/dictd", nil];
+
     int i;
+    for (i=0; i<[searchPaths count]; i++) {
+        [self searchInDirectory:
+            [searchPaths objectAtIndex: i]];
+    }
+
+    searchPaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask, YES);
+
     for (i=0; i<[searchPaths count]; i++) {
         [self searchInDirectory:
             [[searchPaths objectAtIndex: i] stringByAppendingPathComponent:@"DictionaryReader/Dictionaries"]];
@@ -235,7 +242,7 @@ objectValueForTableColumn: (NSTableColumn *)aTableColumn
 
   [[NSFileManager defaultManager] createDirectoryAtPath:path attributes:nil];
 
-  [[NSWorkspace sharedWorkspace] openFile:path];
+  [[NSWorkspace sharedWorkspace] selectFile:path inFileViewerRootedAtPath:@""];
 }
 
 - (void) addDictionary:(id) sender

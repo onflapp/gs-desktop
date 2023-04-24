@@ -27,6 +27,23 @@
 
 #import <Foundation/Foundation.h>
 
+@interface ResultItem : NSObject
+{
+  NSString* _title;
+  NSString* _path;
+  NSInteger _type;
+}
+
+- (void) setTitle:(NSString*) title;
+- (void) setPath:(NSString*) path;
+- (void) setType:(NSInteger) type;
+
+- (NSInteger) type;
+- (NSString*) path;
+- (NSString*) title;
+
+@end
+
 @interface Books : NSObject
 {
   NSMutableDictionary* config;

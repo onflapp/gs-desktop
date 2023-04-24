@@ -24,6 +24,36 @@
 
 #import "Books.h"
 
+@implementation ResultItem
+
+- (void) setTitle:(NSString*) title {
+  ASSIGN(_title, title);
+}
+- (void) setPath:(NSString*) path {
+  ASSIGN(_path, path);
+}
+- (void) setType:(NSInteger) type {
+  _type = type;
+}
+
+- (NSInteger) type {
+  return _type;
+}
+- (NSString*) path {
+  return _path;
+}
+- (NSString*) title {
+  return _title;
+}
+
+- (void) dealloc {
+  RELEASE(_title);
+  RELEASE(_path);
+  [super dealloc];
+}
+
+@end
+
 @implementation Books
 
 - (id) init {
@@ -193,15 +223,27 @@
 }
 
 - (void) processLine:(NSString*) line {
-  if (status == 2) {
-    [results addObject:line];
-  }
-  else if (status == 3) {
-    [results addObject:line];
-  }
+  ResultItem* item = [[ResultItem alloc] init];
 
-  NSLog(@"[[[%@]]]", line);
+  if ([line hasPrefix:@"T:"]) {
+    [item setTitle:[line substringFromIndex:2]];
+    [item setType:1];
 
+    [results addObject:item];
+    [item release];
+  }
+  else if ([line hasPrefix:@"P:"]) {
+    NSString* p = [line substringFromIndex:2];
+    [item setPath:p];
+    [item setTitle:[p lastPathComponent]];
+    [item setType:2];
+
+    [results addObject:item];
+    [item release];
+  }
+  else {
+    NSLog(@"[%@]", line);
+  }
 }
 
 @end
