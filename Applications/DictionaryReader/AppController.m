@@ -247,7 +247,8 @@ NSDictionary* normalAttributes;
         [dict release];
 #endif // end remote dictionaries block
 #endif // end predefined dictionaries
-        [[Preferences shared] rescanDictionaries:nil];
+         
+        firstStart = YES;
     }
     
     
@@ -486,8 +487,12 @@ NSDictionary* normalAttributes;
 {
     [searchStatusField setStringValue:@""];
     [NSApp setServicesProvider: self];
+    
+    if (firstStart) {
+      NSLog(@"starting for the first time, rescanning all standard dicts");
+      [[Preferences shared] rescanDictionaries:nil];
+    }
 }
-
 
 /**
  * The Dictionary Lookup service:
