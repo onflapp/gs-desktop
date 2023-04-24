@@ -24,7 +24,7 @@ static NSString* b64 =
  @"abcdefghijklmnopqrstuvwxyz"
  @"0123456789+/";
 
-int indexInB64( unichar unicharacter )
+unsigned long long indexInB64( unichar unicharacter )
 {
   char character = unicharacter & 0xff;
   
@@ -53,7 +53,7 @@ int indexInB64( unichar unicharacter )
  * @param outputInteger the location to save the result
  * @return YES if and only if scanning succeeded.
  */
--(BOOL) scanBase64Int: (int*)outputInteger
+-(BOOL) scanBase64Int: (unsigned long long*)outputInteger
 {
   static NSCharacterSet* b64chars = nil;
   int i;
@@ -70,7 +70,7 @@ int indexInB64( unichar unicharacter )
     return NO;
   }
 
-  NSLog(@">%@<", scanned);
+  //NSLog(@">%@<", scanned);
   
   (*outputInteger) = 0;
   for (i=0; i<[scanned length]; i++)

@@ -38,6 +38,7 @@
   id<DefinitionWriter> defWriter;
   
   BOOL opened;
+  BOOL usesUTF8;
 }
 
 // INITIALISATION

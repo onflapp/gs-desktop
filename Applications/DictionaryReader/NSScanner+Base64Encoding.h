@@ -26,6 +26,6 @@
  * @param outputInteger the location to save the result
  * @return YES if and only if scanning succeeded.
  */
--(BOOL) scanBase64Int: (int*)outputInteger;
+-(BOOL) scanBase64Int: (unsigned long long*)outputInteger;
 
 @end

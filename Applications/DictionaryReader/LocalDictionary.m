@@ -30,15 +30,15 @@
  */
 @interface BigRange : NSObject
 {
-  int fromIndex;
-  int length;
+  unsigned long long fromIndex;
+  unsigned long long length;
 }
 
-+ (id)rangeFrom: (int)aFromIndex
-	 length: (int)aToIndex;
++ (id)rangeFrom: (unsigned long long)aFromIndex
+	 length: (unsigned long long)aToIndex;
 
-- (int)fromIndex;
-- (int)length;
+- (unsigned long long)fromIndex;
+- (unsigned long long)length;
 @end
 
 
@@ -46,8 +46,8 @@
 
 @implementation BigRange
 
-+ (id)rangeFrom: (int)aFromIndex
-	 length: (int)aLength
++ (id)rangeFrom: (unsigned long long)aFromIndex
+	 length: (unsigned long long)aLength
 {
   BigRange* instance = [[BigRange alloc] init];
   if (instance != nil) {
@@ -57,12 +57,12 @@
   return [instance autorelease];
 }
 
-- (int)fromIndex
+- (unsigned long long)fromIndex
 {
   return fromIndex;
 }
 
-- (int)length
+- (unsigned long long)length
 {
   return length;
 }
@@ -293,12 +293,21 @@ static NSMutableDictionary* existingDictionaries;
 -(NSString*) _getEntryFor: (NSString*) aWord
 {
   NSAssert1(dictHandle != nil, @"Dictionary file %@ not opened!", dictFile);
+  aWord = [aWord capitalizedString];
   
   // get range of entry
-  BigRange* range = [ranges objectForKey: [aWord capitalizedString]];
+  BigRange* range = [ranges objectForKey: aWord];
+
+  if (range == nil) {
+    //try without -
+    aWord = [aWord stringByReplacingOccurrencesOfString:@"-" withString:@""];
+    range = [ranges objectForKey: aWord];
+  }
   
-  if (range == nil)
+  if (range == nil) {
+    //NSLog(@"range not found for %@", aWord);
     return nil;
+  }
   
   // seek there
   [dictHandle seekToFileOffset: [range fromIndex]];
@@ -307,11 +316,16 @@ static NSMutableDictionary* existingDictionaries;
   NSData* data = [dictHandle readDataOfLength: [range length]];
   
   // convert it to a string
-  // XXX: Which encoding are dict-server-like dictionaries stored in?!
-  NSString* entry = [[NSString alloc] initWithData: data
-				      encoding: NSASCIIStringEncoding];
-  
-  return AUTORELEASE(entry);
+  if (usesUTF8) {
+    NSString* entry = [[NSString alloc] initWithData: data
+				            encoding: NSUTF8StringEncoding];
+    return AUTORELEASE(entry);
+  }
+  else {
+    NSString* entry = [[NSString alloc] initWithData: data
+				            encoding: NSASCIIStringEncoding];
+    return AUTORELEASE(entry);
+  }
 }
 
 
@@ -340,8 +354,8 @@ static NSMutableDictionary* existingDictionaries;
   indexScanner = [NSScanner scannerWithString: indexStr];
   
   NSString* word = nil;
-  int fromLocation;
-  int length;
+  unsigned long long fromLocation;
+  unsigned long long length;
   NSMutableDictionary* dict;
   BOOL rv = NO;
   
@@ -372,7 +386,7 @@ static NSMutableDictionary* existingDictionaries;
     // save entry in index -------------------------------------------
     [dict setObject: [BigRange rangeFrom: fromLocation length: length]
 	  forKey: [word capitalizedString]];
-    NSLog(@"[%@] %d", word, fromLocation);
+    //NSLog(@"[%@] %d %d", word, fromLocation, length);
   }
   
   ASSIGN(ranges, [NSDictionary dictionaryWithDictionary: dict]);
@@ -393,10 +407,9 @@ static NSMutableDictionary* existingDictionaries;
   
   // Retrieve full name of database! ------------
   NSString*  name = [self _getEntryFor: @"00-database-short"];
-  if (!name) name = [self _getEntryFor: @"00databaseshort"];
 
   NSScanner* scanner = [NSScanner scannerWithString: name];
-  NSLog(@"name [%@]", name);
+  //NSLog(@"name [%@]", name);
   
   // consume first line (don't need it, it reads 00-database-short. ;-))
   [scanner scanUpToString: @"\n" intoString: NULL];
@@ -415,6 +428,12 @@ static NSMutableDictionary* existingDictionaries;
   // assign it
   ASSIGN(fullName, name);
   
+  // check if it is UTF8
+  NSString*  isutf8 = [self _getEntryFor: @"00-database-utf8"];
+  
+  if (isutf8) {
+    usesUTF8 = YES;
+  }
   
   // that's it, we've opened the database!
   opened = YES;
