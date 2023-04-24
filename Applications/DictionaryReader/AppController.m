@@ -456,6 +456,7 @@ NSDictionary* normalAttributes;
   [self updateGUI];
   
   [dictionaryContentWindow orderFront: self];
+  [NSApp activateIgnoringOtherApps:YES];
 }
 
 
