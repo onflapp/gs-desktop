@@ -335,6 +335,14 @@
 
         //[attr setObject: paragraphStyle forKey: NSParagraphStyleAttributeName];
         [attr setObject: font forKey: NSFontAttributeName];
+        if (_url)
+        {
+          NSURL* url = [NSURL URLWithString:name];
+          if (url)
+          {
+            [attr setObject: url forKey: NSLinkAttributeName];
+          }
+        }
         
 	id str = [[NSMutableAttributedString alloc] initWithString: name attributes: attr];
 

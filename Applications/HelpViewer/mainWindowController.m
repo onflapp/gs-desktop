@@ -278,7 +278,7 @@
     return ret;
 }
 */
-/*
+
 - (BOOL) textView: (NSTextView *) textView
     clickedOnLink: (id) link
               atIndex: (unsigned) charIndex
@@ -315,7 +315,6 @@
 
     return ret;
 }
-*/
 
 - (NSInteger)browser:(NSBrowser *)sender numberOfRowsInColumn:(NSInteger)column
 {
