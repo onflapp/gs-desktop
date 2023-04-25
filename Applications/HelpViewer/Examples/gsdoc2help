@@ -1,0 +1,113 @@
+#!/bin/perl
+
+use XML::Parser;
+
+$FILE = $ARGV[0];
+$EL = "";
+$TEXT = 0;
+
+sub handle_start {
+  my ($p, $s, %a) = @_;
+  
+  if ($TEXT) {
+    print("<$s>");
+  }
+  elsif ($s eq "class" || $s eq "category" || $s eq "protocol") {
+    my $name = $a{'name'};
+    my $super = $a{'super'};
+    if ($super eq "") {
+      $super = $a{'class'};
+    }
+
+    print("<chapter name=\"$s:$name:$super\">\n");
+    print("$s $name:$super\n");
+  }
+  elsif ($s eq "ivariable") {
+    my $type = $a{'type'};
+    my $name = $a{'name'};
+    my $validity = $a{'validity'};
+
+    if ($validity eq "protected") {
+      $SKIP = $s;
+      return;
+    }
+
+    print("$type $name\n");
+  }
+  if ($EL eq "desc") {
+    print("<br>");
+    $TEXT=1;
+  }
+  elsif ($s eq "method") {
+    my $type = $a{'type'};
+
+    print("$type ");
+  }
+  elsif ($s eq "arg") {
+    my $type = $a{'type'};
+    print("($type)");
+  }
+
+  $EL = $s;
+}
+
+sub handle_end {
+  my ($p, $s) = @_;
+
+  if ($s eq $SKIP) {
+    $SKIP = "";
+    return;
+  }
+  elsif ($SKIP ne "") {
+    return;
+  }
+
+  if ($s eq "desc") {
+    $TEXT = 0;
+    print("<br>");
+  }
+  if ($s eq "class" || $s eq "category" || $s eq "protocol") {
+    print("</chapter>\n");
+  }
+
+  if ($TEXT) {
+    print("</$s>\n");
+  }
+
+  $EL="";
+}
+
+sub handle_char {
+  my ($p, $s) = @_;
+
+  if ($SKIP ne "") {
+    return;
+  }
+
+  if ($EL eq "declared") {
+    print("declared=$s<br>\n");
+  }
+  if ($EL eq "sel") {
+    print("<b>$s</b>");
+  }
+  if ($EL eq "arg") {
+    print("<i>$s</i>");
+  }
+
+  if ($TEXT) {
+    print("$s ");
+  }
+}
+
+$p = new XML::Parser(Style => 'Debug');
+$p = new XML::Parser(Handlers => {Start => \&handle_start,
+                                  End   => \&handle_end,
+                                  Char  => \&handle_char});
+
+print("<document>\n");
+print("<header>\n");
+print("</header>\n");
+
+$p->parsefile($FILE);
+
+print("</document>\n");
