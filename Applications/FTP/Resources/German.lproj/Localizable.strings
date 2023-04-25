@@ -1,0 +1,22 @@
+/* menu */
+"Local" = "Lokal";
+"Remote" = "Fern";
+"Rename..." = "Umbenennen...";
+"New Folder..." = "Neuer Ordner...";
+"Delete" = "Delete";
+"Refresh" = "Aktualisieren";
+
+/* Connection panel */
+"Server Address and Port" = "Server Addresse und Port";
+"Account" = "Konto";
+"Connect" = "Verbindung";
+"Anonymous" = "Anonym";
+"Connect (action)" = "Verbinde";
+
+/* Log */
+"Connection Log" = "Verbindungslog";
+
+/* Get Name */
+"Name:" = "Name:";
+"Cancel" = "Abbrechen";
+"Ok" = "Ok";

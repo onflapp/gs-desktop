@@ -1,0 +1,65 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {
+                anonymousConn = id; 
+                cancelConn = id; 
+                changePathFromMenu = id; 
+                connectConn = id; 
+                disconnect = id; 
+                downloadButton = id; 
+                listDoubleClick = id; 
+                localDelete = id; 
+                localNewFolder = id; 
+                localRefresh = id; 
+                localRename = id; 
+                prefCancel = id; 
+                prefSave = id; 
+                remoteDelete = id; 
+                remoteNewFolder = id; 
+                remoteRefresh = id; 
+                remoteRename = id; 
+                showConnPanel = id; 
+                showFtpLog = id; 
+                showPrefPanel = id; 
+                uploadButton = id; 
+            }; 
+            CLASS = AppController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                buttDownload = NSButton; 
+                buttUpload = NSButton; 
+                connAccountBox = NSBox; 
+                connAddress = NSTextField; 
+                connAnon = NSButton; 
+                connCancelButt = NSButton; 
+                connConnectButt = NSButton; 
+                connPass = NSTextField; 
+                connPort = NSTextField; 
+                connServerBox = NSBox; 
+                connUser = NSTextField; 
+                connectPanel = NSPanel; 
+                infoMessage = NSTextField; 
+                infoSize = NSTextField; 
+                infoSpeed = NSTextField; 
+                localPath = NSPopUpButton; 
+                localView = NSTableView; 
+                logTextField = NSTextView; 
+                logWin = NSWindow; 
+                mainMenu = NSMenu; 
+                mainWin = NSWindow; 
+                portType = NSMatrix; 
+                prefCancelButt = NSButton; 
+                prefPanel = NSPanel; 
+                prefSaveButt = NSButton; 
+                progBar = NSProgressIndicator; 
+                remotePath = NSPopUpButton; 
+                remoteView = NSTableView; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {CLASS = fileTransmitParms; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+    ); 
+    IBVersion = 1; 
+}

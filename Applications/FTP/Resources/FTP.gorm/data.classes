@@ -1,0 +1,89 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    AppController = {
+	Actions = (
+	    "changePathFromMenu:",
+	    "listDoubleClick:",
+	    "downloadButton:",
+	    "uploadButton:",
+	    "localDelete:",
+	    "remoteDelete:",
+	    "localRename:",
+	    "remoteRename:",
+	    "localNewFolder:",
+	    "remoteNewFolder:",
+	    "localRefresh:",
+	    "remoteRefresh:",
+	    "disconnect:",
+	    "showPrefPanel:",
+	    "prefSave:",
+	    "prefCancel:",
+	    "showFtpLog:",
+	    "setServer:",
+	    "showConnPanel:",
+	    "connectConn:",
+	    "cancelConn:",
+	    "anonymousConn:"
+	);
+	Outlets = (
+	    mainWin,
+	    localView,
+	    remoteView,
+	    localPath,
+	    remotePath,
+	    buttDownload,
+	    buttUpload,
+	    infoMessage,
+	    infoSpeed,
+	    infoSize,
+	    progBar,
+	    logWin,
+	    logTextField,
+	    connectPanel,
+	    connAddress,
+	    connPort,
+	    connUser,
+	    connPass,
+	    connAnon,
+	    prefPanel,
+	    portType
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "anonymousConn:",
+	    "appendTextToLog:",
+	    "cancelConn:",
+	    "changePathFromMenu:",
+	    "connectConn:",
+	    "disconnect:",
+	    "downloadButton:",
+	    "listDoubleClick:",
+	    "localDelete:",
+	    "localNewFolder:",
+	    "localRefresh:",
+	    "localRename:",
+	    "orderFrontFontPanel:",
+	    "prefCancel:",
+	    "prefSave:",
+	    "remoteDelete:",
+	    "remoteNewFolder:",
+	    "remoteRefresh:",
+	    "remoteRename:",
+	    "setServer:",
+	    "showConnPanel:",
+	    "showFtpLog:",
+	    "showPrefPanel:",
+	    "uploadButton:"
+	);
+	Super = NSObject;
+    };
+    fileTransmitParms = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSObject;
+    };
+}

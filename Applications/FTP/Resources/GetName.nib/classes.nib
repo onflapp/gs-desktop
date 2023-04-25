@@ -1,0 +1,20 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {cancelPressed = id; okPressed = id; }; 
+            CLASS = GetNameController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                cancelButton = NSButton; 
+                labelField = NSTextField; 
+                messageField = NSTextField; 
+                okButton = NSButton; 
+                panel = NSPanel; 
+                textField = NSTextField; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

@@ -1,0 +1,19 @@
+{
+    ApplicationDescription = "FTP client";
+    ApplicationIcon = "FTP_icon_gs.tif";
+    ApplicationName = FTP;
+    ApplicationRelease = "0.6";
+    Authors = (
+	"Riccardo Mottola <rm@gnu.org>"
+    );
+    CFBundleIdentifier = "org.gap.FTP";
+    Copyright = "Copyright (C) 2005-2016";
+    CopyrightDescription = "Released under GPL v2+";
+    FullVersionID = "0.6";
+    NSExecutable = FTP;
+    NSIcon = "FTP_icon_gs.tif";
+    NSMainNibFile = "FTP.gorm";
+    NSPrincipalClass = NSApplication;
+    NSRole = Application;
+    URL = "http://savannah.nongnu/project/gap/";
+}

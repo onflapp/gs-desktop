@@ -1,0 +1,438 @@
+2017-03-02 Riccardo Mottola <rm@gnu.org>
+
+	* fileTable.m
+	Further razionalize parsing of lines without user or link info. Use suffix for dir/file heuristics on links.
+
+2017-03-02 Riccardo Mottola <rm@gnu.org>
+
+	* fileTable.m
+	Razionalize parsing with 8 or 9 elements, improve link handling by extracting link information from the dir block.
+
+2016-11-24 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+        More localize Local and Remote menus.
+
+2016-11-18 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+        More localization work.
+
+2016-09-27 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+	* Resources/GetName.nib
+	* Resources/MainMenu.nib
+	Localization work: make nib generic
+
+2016-09-16 Riccardo Mottola <rm@gnu.org>
+
+	* localclient.m
+	use isAbsolutePath!
+
+2016-08-23 Riccardo Mottola <rm@gnu.org>
+
+	* fileTable.m
+	cleanup and simplify housekeeping of the sorted array.
+
+2016-08-23 Riccardo Mottola <rm@gnu.org>
+
+	* fileTable.m
+	Do not keep in the sortedArray just name and index, but really just the sorted object pointers.
+
+2016-08-08 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+	Do not run runloop, no longer needed.
+
+2016-08-06 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.h
+	* AppController.m
+        * ftpclient.h
+        * ftpclient.m
+        make store/retrieve client methods return immediately oneway void and then
+        use call-back method fileStored/fileRetrieved to complete action
+
+2016-08-02 Riccardo Mottola <rm@gnu.org>
+
+	* client.h
+        * client.m
+        make also workDirSplit return result bycopy
+
+2016-08-02 Riccardo Mottola <rm@gnu.org>
+
+	* fileElement.m
+	Implement coder methods for bycopy.
+
+2016-08-02 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+        When Retrieving, set file-element path since it can be different than source.
+
+2016-08-02 Riccardo Mottola <rm@gnu.org>
+
+	* client.h
+        * client.m
+        * ftpclient.m
+        * localclient.m
+        Pass directory elements array by copy
+
+2016-08-01 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.h
+        * AppController.m
+        Pass progress parameters by copy
+
+2016-08-01 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.h
+        * AppController.m
+        Use NSTimeInterval for speed calculations.
+
+2016-07-08 Riccardo Mottola <rm@gnu.org>
+
+	* client.h
+	* client.m
+	* ftpclient.m
+	* localclient.m
+	* AppController.m
+	Delete files may fail, handle result.
+
+2016-07-07 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+	Use passive as default.
+
+2016-07-03 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.h
+        * AppController.m
+        Mark progress methods as oneway.
+
+2016-07-03 Riccardo Mottola <rm@gnu.org>
+
+	* ftpclient.m
+	Open local file in binary mode (needed on Windows)
+
+2016-05-16 Riccardo Mottola <rm@gnu.org>
+
+	* ftpclient.m
+	Open files in binary mode (fixes on Windows), check more carefully for sent bytes.
+
+2015-09-04 Riccardo Mottola <rm@gnu.org>
+
+	* ftpclient.m
+	Fix socktype for NetBSD.
+
+2015-02-11 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+	* ftpclient.m
+	* ftpclient.h
+	Return success/failure in retrieveFile, add to the table only if it succeeds.
+
+2015-02-11 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+	* ftpclient.m
+	* ftpclient.h
+	Return success/failure in storeFile, add to the table only if it succeeds.
+
+2015-02-05 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+	Do not add element to the table if it is already there.
+
+2015-02-02 Riccardo Mottola <rm@gnu.org>
+
+	* fileTable.m (containsFileName)
+	* fileTable.h
+	Added method containsFileName to check if the current table stores a file with the same name
+
+2014-05-27 Riccardo Mottola <rm@gnu.org>
+
+	* ftpclient.m
+	Make file size parsing more robust, checking for () with NSBackwardSearch.
+
+2013-10-19 Riccardo Mottola <rm@gnu.org>
+
+	* localclient.m
+	* ftpclient.m
+	Update file after renaming.
+
+	* AppController.m
+	Add created folder to remote directory listing.
+
+2013-10-19 Riccardo Mottola <rm@gnu.org>
+
+	* ftpclient.m
+	Cleanup debug logs.
+
+2013-10-19 Riccardo Mottola <rm@gnu.org>
+
+	* fileElement.h
+	* fileElement.m
+	Path and name setters.
+
+2013-07-28 Riccardo Mottola <rm@gnu.org>
+
+	* fileTable.h
+	* fileTable.m
+	File path setter.
+
+2013-07-27 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.h
+	* AppController.m
+	* fileTable.m
+        Make copy of selection before file transfer. Update table after store and retrieve.
+
+2013-07-14 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.h
+	* AppController.m
+	* Resources/FTP.gorm
+	Remote/Local refresh
+
+2013-07-12 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.h (readDirWith)
+	* AppController.m
+	Factor out code for reading directory contents into table and view.
+
+2013-07-11 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m (localDelete, remoteDelete)
+	Make a copy of selection before performing deletion.
+
+2013-07-11 Riccardo Mottola <rm@gnu.org>
+
+	* fileTable.[h,m]
+	Improve object remove methods regarding sorting array sync, factor sortedArray generation out.
+
+2013-07-09 Riccardo Mottola <rm@gnu.org>
+
+	* fileTable.[h,m]
+	Object add and remove methods.
+
+2013-06-27 Riccardo Mottola <rm@gnu.org>
+
+	* GetNameController.h
+	* GetNameController.m
+        Handle return also in case of window closure through window button.
+
+2013-06-11 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+	Actually create a new folder, local and remote.
+
+2013-06-11 Riccardo Mottola <rm@gnu.org>
+
+	* ftpclient.m
+	* ftpclient.h
+	* AppController.m
+	* AppController.h
+	Change most method parameters from char* to NSString*.
+
+2013-06-10 Riccardo Mottola <rm@gnu.org>
+
+	* ftpclient.m
+	Implement FTP rename RNFR RNTO
+
+2013-06-09 Riccardo Mottola <rm@gnu.org>
+
+	* GetNameController.h
+	* GetNameController.m
+	* AppController.m
+        Rename setDescription to setMessage to avoid method clash
+
+2013-06-07 Riccardo Mottola <rm@gnu.org>
+
+	* GetNameController.m
+	Load interface in init, not runAsModal
+
+	* AppController.m
+	Actually delete the file!
+
+	* localclient.m
+	Do not use working dir, but absolute path in the file element.
+
+2013-06-07 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.h
+	* AppController.m
+	* GetNameController.h
+	* GetNameController.m
+	* GNUmakefile
+	* Resources/GetName.gorm
+	* Resources/FTP.gorm
+	Local rename function.
+
+2013-06-04 Riccardo Mottola <rm@gnu.org>
+
+	* localclient.m
+	Local rename function.
+
+2013-06-04 Riccardo MOttola <rm@gnu.org>
+
+	* client.h
+	* client.m
+	Renaming virtual method.
+
+2013-06-01 Riccardo Mottola <rm@gnu.org>
+
+	* AppController
+	* localclient.m
+	Fix memory leak.
+
+2013-05-27 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.[h,m]
+	Remove initialize.
+
+2013-05-27 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m (dropAction: paths:)
+	Handle local file drop.
+
+2013-05-22 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m (performStoreFile)
+	Also for button upload action, extract an array from the selectionand upload it.
+
+2013-05-21 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.h
+	* AppController.m
+	Upload dragged files.
+
+2013-05-21 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+	* fileElement.h
+	* fileElement.m
+	* fileTable.m
+	* ftpclient.m
+	* localclient.m
+	Give path and name accessors to FileElement, initialize it with full path when local.
+
+2013-05-19 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.h
+	* AppController.m
+	* fileTable.m
+	Enable and detect drag-n-drop, do not do anything yet.
+
+2013-03-18 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+        Make sure the interface gets enabled after a download/uploadm even if nothing ot done.
+
+2013-03-12 Riccardo Mottola <rm@gnu.org>
+
+	* ftpclient.[h,m] (retrieveFile, storeFile)
+	Make call synchronous instead of asynchronous, solves problem on Mac where calls to the the ftpClient class would hang after a dozen of calls.
+
+2013-02-25 Sebastian Reitenbach <sebastia@l00-bugdead-prods.de>
+	* AppController.[m|h]
+	* use NSApplicationTerminateReply
+
+2013-02-21 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m 
+	Fix setting of the datasource and reload data, so that connection works after a disconnection.
+
+2013-02-17 Riccardo Mottola <rm@gnu.org>
+
+	* fileTable.[h,m]
+	Add clear method.
+
+	* ftpclient.m (disconnect)
+	Close socket and clear status on disconnect.
+
+	* AppController.m (disconnect)
+	Clear the remote view.
+	
+2013-02-17 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m (disconnect)
+	Clear path menu.
+
+2013-02-17 Riccardo Mottola <rm@gnu.org>
+
+	* fileTable.h
+	Fix memory leak.
+2013-02-12 Riccardo Mottola <rm@gnu.org>
+
+	* ftpclient.m
+	Fix RNFR and RNTO not to append CRLF twice.
+
+2013-02-12 Riccardo Mottola <rm@gnu.org>
+
+	* fileTable.[h,m]
+	Transition to NSInteger
+
+2013-02-12 Riccardo Mottola <rm@gnu.org>
+
+	* ftpclient.m
+	Use __BSD_VISIBLE instead of freebsd check for socklen_t
+
+2013-02-04 Riccardo Mottola <rm@gnu.org>
+
+	* Resources/FTP.gorm
+	Fix broken popup connections.
+
+2013-02-04 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.[h,m]
+	Keep connection as ivar and invalidate on closure.
+
+2012-12-12 Riccardo Mottola <rm@gnu.org>
+
+	* Resources/FTP.gorm
+	recreated popupbuttons to fix strange problem.
+
+2012-10-03 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.h
+	* AppController.m
+	Fix warnings.
+
+2012-10-03 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m:
+	Clear selection on path change.
+
+2012-10-03 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m:
+	Display conneciton panel at startup.
+
+2012-09-29 Riccardo Mottola <rm@gnu.org>
+
+	* ftpclient.m
+	Show progress while listing remotely.
+
+2012-09-29 Riccardo Mottola <rm@gnu.org>
+
+	* ftpclient.m
+	Remove useless statement.
+
+2012-09-28 Riccardo Mottola <rm@gnu.org>
+
+	* ftpclient.m
+	Get the final size filesize from the 150 response, if it is unknown.
+
+2012-09-28 Riccardo Mottola <rm@gnu.org>
+
+	* fileElement.m:
+	Better parsing of sizes, set size of link always to 0.
+
+	* ftpclient.m
+	If filesize is unknown, set progress bar to indeterminate.
+
+2012-09-13 Riccardo Mottola <rm@gnu.org>
+
+	* AppController.m
+	Better runloop management during  progress and log updates.
