@@ -4,13 +4,43 @@ use XML::Parser;
 
 $FILE = $ARGV[0];
 $EL = "";
-$TEXT = 0;
+$TX = "";
+$ID = "";
+$DESC = 0;
+$DESC_TX = "";
+$CHAPTER = 0;
+$SECTION = "";
+
+sub startSection {
+  my ($s) = @_;
+
+  if ($SECTION eq $s) {
+    return;
+  }
+  print("</section>") if ($SECTION ne "");
+    
+  if ($s eq "ivariable") {
+    print("<section name=\"Variables\">\n");
+    $SECTION = $s;
+  }
+  elsif ($s eq "method") {
+    print("<section name=\"Methods\">\n");
+    $SECTION = $s;
+  }
+}
+
+sub endSection {
+  if ($SECTION ne "") {
+    print("</section>");
+  }
+  $SECTION = "";
+}
 
 sub handle_start {
   my ($p, $s, %a) = @_;
   
-  if ($TEXT) {
-    print("<$s>");
+  if ($s eq "chapter") {
+    $CHAPTER = 1;
   }
   elsif ($s eq "class" || $s eq "category" || $s eq "protocol") {
     my $name = $a{'name'};
@@ -19,87 +49,103 @@ sub handle_start {
       $super = $a{'class'};
     }
 
-    print("<chapter name=\"$s:$name:$super\">\n");
-    print("$s $name:$super\n");
+    print("<chapter name=\"$s:$name\">\n");
+    print("$s $name:$super<br>\n");
+
+    $ID = "$s:$name";
   }
   elsif ($s eq "ivariable") {
     my $type = $a{'type'};
     my $name = $a{'name'};
     my $validity = $a{'validity'};
 
-    if ($validity eq "protected") {
-      $SKIP = $s;
-      return;
-    }
-
-    print("$type $name\n");
-  }
-  if ($EL eq "desc") {
-    print("<br>");
-    $TEXT=1;
+    startSection($s);
+    print("<br>- $type <b>$name</b><br>\n");
   }
   elsif ($s eq "method") {
     my $type = $a{'type'};
 
-    print("$type ");
+    startSection($s);
+    print("<br>$type ");
   }
   elsif ($s eq "arg") {
     my $type = $a{'type'};
     print("($type)");
   }
+  elsif ($s eq "p") {
+  }
+  elsif ($s eq "ref") {
+    print("<code>");
+  }
+  elsif ($s eq "var") {
+    print("<code>");
+  }
+  elsif ($s eq "desc") {
+    $DESC = 1;
+    $DESC_TX = "";
+  }
+  elsif ($DESC) {
+    $DESC_TX .= "<$s>\n";
+  }
 
   $EL = $s;
+  $TX = "";
 }
 
 sub handle_end {
   my ($p, $s) = @_;
 
-  if ($s eq $SKIP) {
-    $SKIP = "";
-    return;
-  }
-  elsif ($SKIP ne "") {
-    return;
-  }
-
   if ($s eq "desc") {
-    $TEXT = 0;
-    print("<br>");
+    $DESC = 0;
+    print("<br>[[$DESC_TX]]<br>");
   }
-  if ($s eq "class" || $s eq "category" || $s eq "protocol") {
+  elsif ($EL eq "heading") {
+  }
+  elsif ($s eq "chapter") {
+    $CHAPTER = 0;
+  }
+  elsif ($s eq "class" || $s eq "category" || $s eq "protocol") {
+    endSection();
     print("</chapter>\n");
   }
-
-  if ($TEXT) {
-    print("</$s>\n");
+  elsif ($s eq "ivariable") {
+  }
+  elsif ($s eq "p") {
+    print("<br><br>");
+  }
+  elsif ($s eq "ref") {
+    print("</code>");
+  }
+  elsif ($s eq "var") {
+    print("</code>");
+  }
+  elsif ($DESC) {
+    $DESC_TX .= "</$s>";
   }
 
-  $EL="";
+  $EL = "";
+  $TX = "";
 }
 
 sub handle_char {
   my ($p, $s) = @_;
 
-  if ($SKIP ne "") {
-    return;
-  }
-
   if ($EL eq "declared") {
-    print("declared=$s<br>\n");
+    print("declared:$s<br>\n");
   }
-  if ($EL eq "sel") {
+  elsif ($EL eq "sel") {
     print("<b>$s</b>");
   }
-  if ($EL eq "arg") {
+  elsif ($EL eq "arg") {
     print("<i>$s</i>");
   }
-
-  if ($TEXT) {
-    print("$s ");
+  elsif ($DESC) {
+    $DESC_TX .= "$s";
   }
+
+  $TX .= $s;
 }
 
-$p = new XML::Parser(Style => 'Debug');
 $p = new XML::Parser(Handlers => {Start => \&handle_start,
                                   End   => \&handle_end,
                                   Char  => \&handle_char});
