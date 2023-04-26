@@ -45,7 +45,6 @@ static NSString *emptyString = @"";
 //         defaultCursor = [NSCursor arrowCursor];
 //         [textCursor setOnMouseEntered: YES];
 //         [defaultCursor setOnMouseExited: YES];
-        settingValue = NO;
     }
     return self;
 }
@@ -75,31 +74,28 @@ static NSString *emptyString = @"";
 
 - (void)textDidChange: (NSNotification *)not
 {
-    if ( settingValue ) {
-        return;
-    }
     id src = [not object];
-    settingValue = YES;
+
     if ( src == name ) {
-        [document setName: AUTORELEASE([[name stringValue] copyWithZone: NSDefaultMallocZone()])];
+        [document setName: [name stringValue]];
     }
     else if ( src == version ) {
-        [document setVersion: AUTORELEASE([[version stringValue] copyWithZone: NSDefaultMallocZone()])];
+        [document setVersion: [version stringValue]];
     }
     else if ( src == fullVersion ) {
-        [document setFullVersion: AUTORELEASE([[fullVersion stringValue] copyWithZone: NSDefaultMallocZone()])];
+        [document setFullVersion: [fullVersion stringValue]];
     }
     else if ( src == description ) {
-        [document setDescription: AUTORELEASE([[description stringValue] copyWithZone: NSDefaultMallocZone()])];
+        [document setDescription: [description stringValue]];
     }
     else if ( src == url ) {
-        [document setUrl: AUTORELEASE([[url stringValue] copyWithZone: NSDefaultMallocZone()])];
+        [document setUrl: [url stringValue]];
     }
     else if ( src == authors ) {
-        [document setAuthors: AUTORELEASE([[authors stringValue] copyWithZone: NSDefaultMallocZone()])];
+        [document setAuthors: [authors stringValue]];
     }
     else if ( src == currentScriptShell ) {
-        NSString *shell = AUTORELEASE([[currentScriptShell stringValue] copyWithZone: NSDefaultMallocZone()]);
+        NSString *shell = [currentScriptShell stringValue];
         switch ( currentScriptId ) {
         case StartScript:
             [document setStartScriptShell: shell];
@@ -118,7 +114,7 @@ static NSString *emptyString = @"";
         }
     }
     else if ( src == currentScript ) {
-        NSString *script = AUTORELEASE([[currentScript string] copyWithZone: NSDefaultMallocZone()]);
+        NSString *script = [[[currentScript textStorage] string] copy];
         switch ( currentScriptId ) {
         case StartScript:
             [document setStartScript: script];
@@ -135,26 +131,21 @@ static NSString *emptyString = @"";
         default:
             NSLog(@"Unknown script ID: %d", currentScriptId);
         }
+        [script release];
     }
     else {
         NSLog(@"Received textDidChange notification from unknown control: %@", src);
     }
-    settingValue = NO;
 }
 
 - (void)iconViewDidChangeIcon: (NSNotification *)not
 {
-    if ( settingValue ) {
-        return;
-    }
-    settingValue = YES;
     if ( [not object] == appIcon ) {
         [document setAppIcon: [(IconView *)[not object] icon]];
     }
     else {
         NSLog(@"Received iconViewImageChanged notification from unknown ImageView: %@", [not object]);
     }
-    settingValue = NO;
 }
 
 
@@ -186,7 +177,6 @@ static NSString *emptyString = @"";
 - (IBAction)setRole: (id)sender
 {
     int tag = [[sender selectedItem] tag];
-    settingValue = YES;
     switch ( tag ) {
     case NoneRole:
         [document setRole: NoneRole];
@@ -200,13 +190,11 @@ static NSString *emptyString = @"";
     default:
         NSLog(@"Unknown role: %d", tag);
     }
-    settingValue = NO;
 }
 
 - (IBAction)setCurrentScriptAction: (id)sender
 {
     int tag = [[sender selectedItem] tag];
-    settingValue = YES;
     switch ( currentScriptId ) {
     case StartScript:
         [document setStartScriptAction: tag];
@@ -244,7 +232,6 @@ static NSString *emptyString = @"";
 
     document = d;
 
-    settingValue = YES;
     if ( ! d ) {
         NSLog(@"Document set to null");
     }
@@ -291,7 +278,6 @@ static NSString *emptyString = @"";
         NSLog(@"No authors text field");
     }
     [self setCurrentScriptId: currentScriptId];
-    settingValue = NO;
 
     if ( document ) {
         [[NSNotificationCenter defaultCenter] addObserver: self
@@ -425,18 +411,16 @@ static NSString *emptyString = @"";
     }
     [currentScriptActionPopUp selectItemAtIndex: [currentScriptActionPopUp indexOfItemWithTag: action]];
     currentScriptId = i;
+
     if ( !script ) {
         script = @"";
     }
     if ( !shell ) {
         shell = @"/bin/sh";
     }
-    if ( currentScriptShell ) {
-        [currentScriptShell setStringValue: shell];
-    }
-    if ( currentScript ) {
-        [currentScript setString: script];
-    }
+
+    [currentScriptShell setStringValue: shell];
+    [[[currentScript textStorage] mutableString] setString:script];
 }
 - (int)currentScriptId
 {
@@ -469,10 +453,6 @@ static NSString *emptyString = @"";
 
 - (void)wrapperDocumentChangedNotification: (NSNotification *)not
 {
-    if ( settingValue ) {
-        return;
-    }
-    settingValue = YES;
     NSString *attr = [[not userInfo] objectForKey: WrapperChangedAttributeName];
     id val = [[not userInfo] objectForKey: WrapperChangedAttributeValue];
     if ( [attr isEqualToString: @"appIcon"] && appIcon ) {
@@ -563,7 +543,6 @@ static NSString *emptyString = @"";
     else {
         NSLog(@"Received WrapperChangedNotification for unknown attribute %@", attr);
     }
-    settingValue = NO;
 }
 
 @end

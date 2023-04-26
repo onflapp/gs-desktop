@@ -345,7 +345,7 @@ static NSString *actionIgnore = @"Ignore";
 }
 - (void)setRole: (ApplicationRole)r
 {
-    role = r;
+    ASSIGN(role, r);
     [self attributeChangedName: @"role"
           value: [NSNumber numberWithInt: r]];
 }
@@ -376,7 +376,7 @@ static NSString *actionIgnore = @"Ignore";
 }
 - (void)setStartScriptAction: (ScriptAction)action
 {
-    startScriptAction = action;
+    ASSIGN(startScriptAction, action);
     [self attributeChangedName: @"startScriptAction" value: [NSNumber numberWithInt: action]];
 }
 
@@ -406,7 +406,7 @@ static NSString *actionIgnore = @"Ignore";
 }
 - (void)setStartOpenScriptAction: (ScriptAction)action
 {
-    startOpenScriptAction = action;
+    ASSIGN(startOpenScriptAction, action);
     [self attributeChangedName: @"startOpenScriptAction" value: [NSNumber numberWithInt: action]];
 }
 
@@ -436,7 +436,7 @@ static NSString *actionIgnore = @"Ignore";
 }
 - (void)setOpenScriptAction: (ScriptAction)action
 {
-    openScriptAction = action;
+    ASSIGN(openScriptAction, action);
     [self attributeChangedName: @"openScriptAction" value: [NSNumber numberWithInt: action]];
 }
 
@@ -466,7 +466,7 @@ static NSString *actionIgnore = @"Ignore";
 }
 - (void)setFilterScriptAction: (ScriptAction)action
 {
-    filterScriptAction = action;
+    ASSIGN(filterScriptAction, action);
     [self attributeChangedName: @"filterScriptAction" value: [NSNumber numberWithInt: action]];
 }
 
@@ -582,6 +582,7 @@ static NSString *actionIgnore = @"Ignore";
 - (void)attributeChangedName: (NSString *)n
                        value: (id)v;
 {
+    /*
     NSDictionary *userInfo = [NSDictionary dictionaryWithObjectsAndKeys:
                                            n, WrapperChangedAttributeName,
                                            v, WrapperChangedAttributeValue,
@@ -589,6 +590,7 @@ static NSString *actionIgnore = @"Ignore";
     [[NSNotificationCenter defaultCenter] postNotificationName: WrapperChangedNotification
                                           object: (self)
                                           userInfo: (userInfo)];
+                                          */
     [self documentChanged];
 }
 

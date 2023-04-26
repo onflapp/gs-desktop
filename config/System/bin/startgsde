@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function show_status {
+  xsetroot -solid "$1"
+}
+
 function start_workspace {
   (/System/Applications/GWorkspace.app/GWorkspace) &
   GW_PID="$!"
@@ -21,6 +25,7 @@ function start_windowmanager {
   (/System/bin/wmaker $WM_ARGS) &
   WM_PID="$!"
 
+  show_status "gray40"
   echo "WM is running on $WM_PID"
   echo "$WM_PID" > /tmp/$UID-wm.pid
   export GS_DESKTOP_WM_PID="$WM_PID"
@@ -37,26 +42,42 @@ function stop_windowmanager {
 }
 
 function start_services {
+  show_status "gray15"
   echo "about to start Notification Center"
   /Library/bin/gdnc --daemon &
   echo "$!" > /tmp/$UID-gdnc.pid
-  sleep 0.1
-
+  sleep 1
+  
+  show_status "gray20"
   echo "about to start Pasteboard Service"
   /Library/bin/gpbs --daemon &
   echo "$!" > /tmp/$UID-gpbs.pid
   sleep 0.1
 
+  show_status "gray25"
   echo "about to start fswatcher Service"
   /Library/bin/fswatcher --daemon &
   echo "$!" > /tmp/$UID-fswatcher.pid
   sleep 0.1
 
+  show_status "gray30"
+  echo "about to start ddbd Service"
+  /Library/bin/ddbd --daemon &
+  echo "$!" > /tmp/$UID-ddbd.pid
+  sleep 0.1
+
+  show_status "gray35"
   echo "making services"
   /Library/bin/make_services
 }
 
 function stop_services {
+  echo "about to stop ddbd Service"
+  PID=`cat /tmp/$UID-ddbd.pid 2>/dev/null`
+  if [ -n "$PID" ];then
+    kill $PID 2> /dev/null && rm /tmp/$UID-ddbd.pid
+  fi
+
   echo "about to stop fswatcher Service"
   PID=`cat /tmp/$UID-fswatcher.pid 2>/dev/null`
   if [ -n "$PID" ];then
@@ -77,6 +98,8 @@ function stop_services {
 }
 
 function init_config {
+  show_status "gray10"
+ 
   if [ ! -f "$HOME/Library/WindowMaker/Defaults/WindowMaker" ];then
     echo "init WindowMaker defaults"
     /System/bin/wmaker.inst --batch
@@ -137,18 +160,23 @@ function start_normal {
 
 function main_process {
   start_services
+  sleep 1
   start_windowmanager
+  sleep 1
   start_workspace 
 }
 
 function cleanup {
   echo "cleanup"
+  show_status "black"
+ 
   stop_workspace 
   stop_services
   stop_windowmanager
   exit
 }
 
+show_status "black"
 echo "starting GS Desktop"
 
 if [ "$1" == "--safe-mode-continue" ];then

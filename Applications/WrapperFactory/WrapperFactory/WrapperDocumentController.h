@@ -55,7 +55,6 @@
     IBOutlet NSPopUpButton *currentScriptActionPopUp;
 
     int currentScriptId;
-    BOOL settingValue;
 }
 
 
