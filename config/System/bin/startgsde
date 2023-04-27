@@ -42,6 +42,16 @@ function stop_windowmanager {
 }
 
 function start_services {
+  /Library/bin/gdomap -S | grep Known 2>/dev/null
+  if [ $? -eq 0 ];then
+    echo "gdopmap is running, set NSPortIsMessagePort NO"
+    /Library/bin/defaults write NSGlobalDomain NSPortIsMessagePort NO
+  else
+    echo "not running!"
+    echo "you might want to consider installing gdomap as system service"
+    /Library/bin/defaults write NSGlobalDomain NSPortIsMessagePort YES
+  fi
+
   show_status "gray15"
   echo "about to start Notification Center"
   /Library/bin/gdnc --daemon &

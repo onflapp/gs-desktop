@@ -814,6 +814,23 @@ static NSString *actionIgnore = @"Ignore";
             NSLog(@"Authors not set");
         }
 
+        NSArray *schemesArray = [info objectForKey: @"CFBundleURLTypes"];
+        NSMutableArray *schemeExtensions = [NSMutableArray new];
+        if ( schemesArray ) {
+            for (NSDictionary *it in schemesArray) {
+                NSArray *list = [it objectForKey: @"CFBundleURLSchemes"];
+                for (NSString *scheme in list) {
+                    [schemeExtensions addObject: [NSString stringWithFormat: @"%@:", scheme]];
+                }
+            }
+        }
+        if ( [schemeExtensions count] ) {
+            Type *type = AUTORELEASE([[Type alloc] init]);
+            [type setName: @"Open URL"];
+            [type setExtensions: [schemeExtensions componentsJoinedByString: @","]];
+            [self addType: type];
+        }
+
         // types
         NSArray *typeDicts = [info objectForKey: @"NSTypes"];
         if ( typeDicts ) {
@@ -830,6 +847,7 @@ static NSString *actionIgnore = @"Ignore";
                     NSLog(@"NSName not set for type #%d", i);
                 }
                 NSArray *extArray = [typeDict objectForKey: @"NSUnixExtensions"];
+
                 if ( extArray ) {
                     [type setExtensions: [extArray componentsJoinedByString: @", "]];
                 }
@@ -863,6 +881,11 @@ static NSString *actionIgnore = @"Ignore";
             int i;
             for ( i=0; i<serviceCount; i++ ) {
                 NSDictionary *serviceDict = [serviceDicts objectAtIndex: i];
+
+                if ([[serviceDict objectForKey:@"NSMessage"] isEqualToString:@"openURL"]) {
+                    continue;
+                }
+
                 NSString *n = [[serviceDict objectForKey:@"NSMenuItem"] objectForKey:@"default"];
                 NSString *f = [serviceDict objectForKey:@"NSFilter"];
                 if (f) {
@@ -996,7 +1019,7 @@ static NSString *actionIgnore = @"Ignore";
         NSMutableArray *typeArray = [NSMutableArray arrayWithCapacity: typeCount];
         for ( i=0; i<typeCount; i++ ) {
             Type *type = [types objectAtIndex: i];
-            if (! [type isFilter]) {
+            if (! [type isFilter] && ! [type isScheme]) {
                 NSString *iconFile = [NSString stringWithFormat: @"FileType_%03d.tiff", i];
                 NSMutableDictionary *typeDict = [NSMutableDictionary dictionaryWithCapacity: 4];
                 [typeDict setObject: iconFile forKey: @"NSIcon"];
@@ -1051,6 +1074,22 @@ static NSString *actionIgnore = @"Ignore";
         }
     }
 
+    //schemes
+    NSMutableArray *schemesArray = [NSMutableArray array];
+    for ( i=0; i<typeCount; i++ ) {
+        Type *type = [types objectAtIndex: i];
+         if ([type isScheme] && [[type extensions] length]) {
+            NSMutableDictionary *schemeDict = [NSMutableDictionary dictionaryWithCapacity: 6];
+            [schemeDict setObject: @"Open URL" forKey: @"CFBundleURLName"];
+            [schemeDict setObject: [type schemes] forKey: @"CFBundleURLSchemes"];
+
+            [schemesArray addObject: schemeDict];
+         }
+    }
+    if ( [schemesArray count] > 0 ) {
+        [infoDict setObject: schemesArray forKey: @"CFBundleURLTypes"];
+    }
+
     //filters
     for ( i=0; i<typeCount; i++ ) {
         Type *type = [types objectAtIndex: i];
@@ -1074,6 +1113,14 @@ static NSString *actionIgnore = @"Ignore";
             [serviceDict setObject: ud forKey: @"NSUserData"];
             [serviceArray addObject: serviceDict];
         }
+    }
+
+    if ( [schemesArray count] > 0 ) {
+        NSMutableDictionary *serviceDict = [NSMutableDictionary dictionaryWithCapacity: 6];
+        [serviceDict setObject: [name stringByDeletingPathExtension] forKey: @"NSPortName"];
+        [serviceDict setObject: @"openURL" forKey: @"NSMessage"];
+        [serviceDict setObject: [NSArray arrayWithObjects:@"NSURLPboardType",@"NSStringPboardType",nil] forKey: @"NSSendTypes"];
+        [serviceArray addObject: serviceDict];
     }
 
     if ( [serviceArray count] > 0 ) {

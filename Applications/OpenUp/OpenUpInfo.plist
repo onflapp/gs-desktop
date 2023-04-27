@@ -15,7 +15,7 @@
     NSTypes = (
 	{
     	    NSIcon = documents.tiff;
-    	    NSUnixExtensions = (zip, ZIP, gz, tar, tgz);
+    	    NSUnixExtensions = (zip, ZIP, gz, tar, tgz, bz2, Z, z, lha, arj, compressed);
 	}
     );
     NSServices = (

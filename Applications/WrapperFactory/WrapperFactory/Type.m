@@ -91,6 +91,23 @@
           value: (n)];
 }
 
+- (BOOL)isScheme
+{
+    if ([[self schemes] count] > 0) return YES;
+    else return NO;
+}
+
+- (NSArray *)schemes 
+{
+    NSMutableArray *rv = [NSMutableArray new];
+    for (NSString *it in [[self extensions] componentsSeparatedByString:@","]) {
+        if ([it hasSuffix:@":"]) {
+            [rv addObject: [it substringToIndex: [it length] - 1]];
+        }
+    }
+    return rv;
+}
+
 - (BOOL)isFilter 
 {
     return filter;

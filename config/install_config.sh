@@ -20,3 +20,10 @@ cp -r ./Library/Themes/* /Library/Themes
 cp ./System/share/WindowMaker/Icons/* /System/share/WindowMaker/Icons
 
 ./make_hidden.sh
+
+### install systemd services
+
+systemctl stop gdomap.service
+cp ./etc/systemd/system/gdomap.service /etc/systemd/system
+systemctl enable gdomap.service
+systemctl start gdomap.service

@@ -44,6 +44,7 @@
 
 - (void)applicationDidFinishLaunching: (NSNotification*)not
 {
+    NSLog(@"LAUNCH");
     appDidFinishLaunching = YES;
     NSRegisterServicesProvider(self, [[NSApp applicationName] stringByDeletingPathExtension]);
 
@@ -87,6 +88,22 @@
 {
     return [self application: app
                  openFiles: [NSArray arrayWithObject: file]];
+}
+
+- (void)openURL:(NSPasteboard *)pboard
+       userData:(NSString *)userData
+          error:(NSString **)error  {
+  NSString *path = [[pboard stringForType:NSStringPboardType] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n\r"]];
+
+  if (path) {
+    [self application:NSApp openFile:path];
+  }
+}
+
+- (BOOL) application: (NSApplication*)theApp
+	     openURL: (NSURL*)aURL
+{
+    return [self application:NSApp openFile:[aURL description]];
 }
 
 - (BOOL)application: (NSApplication*)app
@@ -307,7 +324,7 @@
     }
     if ( [properties objectForKey: @"Filter"] ) {
         //give the service a chance to be called
-        [NSApp performSelector:@selector(terminate:) withObject: self afterDelay:1];
+        [NSApp performSelector:@selector(terminate:) withObject: self afterDelay:5];
     }
     else {
         [NSApp terminate: self];

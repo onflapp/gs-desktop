@@ -24,12 +24,6 @@
 	    NSUnixExtensions = (
 		html
 	    );
-	},
-	{
-	    NSIcon = "PDFImage.tiff";
-	    NSUnixExtensions = (
-		txt
-	    );
 	}
     );
 }

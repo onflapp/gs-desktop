@@ -4,10 +4,12 @@
 <dict>
     <key>GSBackend</key>
     <string>cairo</string>
+    <key>NSPortIsMessagePort</key>
+    <false/>
     <key>STDefaultEnvironmentDescriptionName</key>
     <string>AppKit</string>
     <key>NSPreviewApp</key>
-    <string>DocumentViewer</string>
+    <string>DocViewer</string>
     <key>GSUseGhostResize</key>
     <integer>1</integer>
     <key>NSUseRunningCopy</key>

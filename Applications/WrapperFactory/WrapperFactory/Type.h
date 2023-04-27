@@ -48,6 +48,9 @@
 - (NSString *)returnType;
 - (void)setReturnType: (NSString *)n;
 
+- (BOOL)isScheme;
+- (NSArray *)schemes;
+
 - (BOOL)isFilter;
 - (void)setFilter:(BOOL) b;
 @end

@@ -78,7 +78,6 @@
 {
 }
 
-
 - (void)application: (NSApplication *)app
            openFile: (NSString *)file
 {
