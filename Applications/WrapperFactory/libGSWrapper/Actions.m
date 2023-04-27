@@ -157,6 +157,7 @@
     task = [[NSTask alloc] init];
     [task setLaunchPath: shell];
     [task setArguments: realArgs];
+    [task setCurrentDirectoryPath: [[NSBundle mainBundle] bundlePath]];
 
     return task;
 }

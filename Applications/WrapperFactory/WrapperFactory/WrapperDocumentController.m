@@ -24,10 +24,6 @@
 #include "WrapperDocument.h"
 #include "Icon.h"
 
-
-static NSString *emptyString = @"";
-
-
 @interface WrapperDocumentController (Notifications)
 
 - (void)wrapperDocumentChangedNotification: (NSNotification *)not;
@@ -209,6 +205,15 @@ static NSString *emptyString = @"";
         [document setFilterScriptAction: tag];
         break;
     }
+    
+    if (tag == RunScriptAction) {
+        [currentScript setEditable: YES];
+        [currentScript setBackgroundColor: [NSColor textBackgroundColor]];
+    }
+    else {
+        [currentScript setEditable: NO];
+        [currentScript setBackgroundColor: [NSColor controlBackgroundColor]];
+    }
 }
 
 
@@ -231,6 +236,7 @@ static NSString *emptyString = @"";
     }
 
     document = d;
+    NSString* emptyString = @"";
 
     if ( ! d ) {
         NSLog(@"Document set to null");
@@ -421,6 +427,16 @@ static NSString *emptyString = @"";
 
     [currentScriptShell setStringValue: shell];
     [[[currentScript textStorage] mutableString] setString:script];
+
+    if (action == RunScriptAction) {
+        [currentScript setEditable: YES];
+        [currentScript setBackgroundColor: [NSColor textBackgroundColor]];
+    }
+    else {
+        [currentScript setEditable: NO];
+        [currentScript setBackgroundColor: [NSColor controlBackgroundColor]];
+    }
+
 }
 - (int)currentScriptId
 {
@@ -481,7 +497,7 @@ static NSString *emptyString = @"";
     }
     else if ( [attr isEqualToString: @"startScript"] && currentScript) {
         if ( currentScriptId == StartScript ) {
-            [currentScript setString: val];
+            [[[currentScript textStorage] mutableString] setString:val];
         }
     }
     else if ( [attr isEqualToString: @"startScriptShell"] && currentScriptShell ) {
@@ -527,7 +543,7 @@ static NSString *emptyString = @"";
 
     else if ( [attr isEqualToString: @"openScript"] && currentScript ) {
         if ( currentScriptId == OpenScript ) {
-            [currentScript setString: val];
+            [[[currentScript textStorage] mutableString] setString:val];
         }
     }
     else if ( [attr isEqualToString: @"openScriptAction"] && currentScriptActionPopUp ) {

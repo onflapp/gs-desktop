@@ -38,6 +38,7 @@ WrapperFactory_OBJC_FILES = main.m \
 WrapperFactory_RESOURCE_FILES = \
 	Icons/WrapperFactory.tiff \
 	Icons/DefaultAppIcon.tiff \
+	Icons/DefaultFileIcon.tiff \
 	Icons/DesktopEntry.tiff \
 	launcher.sh
 

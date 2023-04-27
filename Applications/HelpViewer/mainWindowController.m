@@ -71,10 +71,33 @@
 
     ASSIGN (handler, [HandlerStructureXLP new]);
 
-    NSBundle* Bundle = [NSBundle bundleWithPath: fileName];
-    [Section setBundle: Bundle];
-    [handler setPath: [Bundle pathForResource: @"main" ofType: @"xlp"]];
-    [handler parse];
+    if ([[fileName pathExtension] isEqualToString:@"help"]) {
+      NSBundle* Bundle = [NSBundle bundleWithPath: fileName];
+      [Section setBundle: Bundle];
+      [handler setPath: [Bundle pathForResource: @"main" ofType: @"xlp"]];
+      [handler parse];
+    }
+    else if ([[fileName pathExtension] isEqualToString:@"xlp"]) {
+      [handler setPath: fileName];
+      [handler parse];
+    }
+    else {
+      NSLog(@"try to convert %@", fileName);
+
+      NSPasteboard* pboard = [NSPasteboard pasteboardByFilteringFile:fileName];
+      NSString* data = [pboard stringForType:NSStringPboardType];
+      if (data) {
+        NSString* tfile = [NSString stringWithFormat:@"%@/temp.%lx.xlp", NSTemporaryDirectory(), [data hash]];
+        [data writeToFile:tfile atomically:NO];
+        NSLog(@"tmp file %@", tfile);
+
+        [handler setPath: tfile];
+        [handler parse];
+      }
+      else {
+        NSLog(@"don't know how to handle %@", fileName);
+      }
+    }
 
 /*
     string = [handler getPart: 0];

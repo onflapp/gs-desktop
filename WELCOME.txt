@@ -1,9 +1,9 @@
 
-=====================================================================
+========================================================================
  Unless you see any errors, GNUstep Desktop is ready
-=====================================================================
+========================================================================
 
- check build_world.*.log files for errors
+ check build_world.*.log files for any errors
 
  modern X11 login manager:
  - /usr/share/xsessions contains the session files
@@ -15,11 +15,6 @@
  anything else:
  - use /System/bin/startgsde
 
----------------------------------------------------------------------
- WARNING: check your ~/Library
-
- GNUstep Desktop heavily relies on system and user configuration 
- to make things work together nicely.
- You should clear/merge your ~/Library after major release 
- to benefit from any new enhancements or fixes.
+------------------------------------------------------------------------
+ WARNING: you might consider merging your ~/Library with the system one
 

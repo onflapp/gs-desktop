@@ -70,18 +70,20 @@
     [doc displayFile:fileName];
   }
   else {    
-    /*
-    NSLog(@"try to convert %@", path);
+    NSLog(@"try to convert %@", fileName);
 
-    NSPasteboard* pboard = [NSPasteboard pasteboardByFilteringFile:path];
+    NSPasteboard* pboard = [NSPasteboard pasteboardByFilteringFile:fileName];
     NSData* data = [pboard dataForType:NSPDFPboardType];
     if (data) {
-      NSString* tfile = [NSString stringWithFormat:@"%@/temp.%x.pdf", NSTemporaryDirectory(), [self hash]];
+      NSString* tfile = [NSString stringWithFormat:@"%@/temp.%lx.pdf", NSTemporaryDirectory(), [data hash]];
       [data writeToFile:tfile atomically:NO];
-      pdffile = tfile;
+
+      PdfDocument* doc = [[PdfDocument alloc] init];
+      [doc displayFile:tfile];
     }
-*/
-    NSLog(@"not sure how to open %@", fileName);
+    else {
+      NSLog(@"not sure how to open %@", fileName);
+    }
   }
   return NO;
 }

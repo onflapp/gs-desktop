@@ -31,7 +31,12 @@ sub printBlock {
 	$CODE_BLOCK = "";
 }
 
-if ($ARGV[0] =~ m/^(.*?)\/(.*?)$/ || $ARGV[0] =~ m/^(.*?)\((.*?)\)$/) {
+if (-f $ARGV[0]) {
+	$CMD="man -l -Tutf8 " . $ARGV[0];
+	$COMMAND="cmd";
+	$SECTION=1;
+}
+elsif ($ARGV[0] =~ m/^(.*?)\/(.*?)$/ || $ARGV[0] =~ m/^(.*?)\((.*?)\)$/) {
 	$CMD="man -P cat $2 $1";
 	$COMMAND="$1";
 	$SECTION=$2;
@@ -45,7 +50,7 @@ else {
 $MANCGI="lc://lookup?APP_KEYWORDS=man&text=";
 
 $STYLE = <<END;
-	<document>
+<document>
 	<header>
   <title>UNIX man pages : $COMMAND ($SECTION)</title>
 	</header>

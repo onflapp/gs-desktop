@@ -41,7 +41,6 @@ NSString * const WrapperAggregateChangedObject = @"Object";
 NSString * const WrapperAggregateChangedAttributeName = @"AttributeName";
 NSString * const WrapperAggregateChangedAttributeValue = @"AttributeValue";
 
-static NSString *emptyString = @"";
 static NSString *launcherName = @"launcher.sh";
 static NSString *FreedesktopApplicationType = @"Freedesktop Application";
 
@@ -154,25 +153,25 @@ static NSString *actionIgnore = @"Ignore";
     if ( self ) {
         NSImage *img = [[NSImage alloc] initByReferencingFile: [[NSBundle mainBundle] pathForImageResource: @"DefaultAppIcon"]];
         appIcon = RETAIN([Icon iconWithImage: img]);
-        name = _(@"Untitled.app");
-        version = @"1.0";
-        fullVersion = @"1.0/1.0";
-        description = _(@"A wrapped application");
-        url = emptyString;
-        authors = emptyString;
+        name = RETAIN(@"Untitled.app");
+        version = RETAIN(@"1.0");
+        fullVersion = RETAIN(@"1.0/1.0");
+        description = RETAIN(@"A wrapped application");
+        url = RETAIN(@"");
+        authors = RETAIN(@"");
         role = NoneRole;
 
-        startScript = emptyString;
-        startScriptShell = @"/bin/sh";
+        startScript = RETAIN(@"");
+        startScriptShell = RETAIN(@"/bin/sh");
         startScriptAction = RunScriptAction;
-        startOpenScript = emptyString;
-        startOpenScriptShell = startScriptShell;
+        startOpenScript = RETAIN(@"");
+        startOpenScriptShell = RETAIN(startScriptShell);
         startOpenScriptAction = RunScriptAction;
-        openScript = emptyString;
-        openScriptShell = startScriptShell;
+        openScript = RETAIN(@"");
+        openScriptShell = RETAIN(startScriptShell);
         openScriptAction = IgnoreAction;
-        filterScript = emptyString;
-        filterScriptShell = startScriptShell;
+        filterScript = RETAIN(@"");
+        filterScriptShell = RETAIN(startScriptShell);
         filterScriptAction = IgnoreAction;
 
         types = [[NSMutableArray alloc] init];
@@ -183,6 +182,23 @@ static NSString *actionIgnore = @"Ignore";
 
 - (void)dealloc
 {
+    RELEASE(appIcon);
+    RELEASE(name);
+    RELEASE(version);
+    RELEASE(fullVersion);
+    RELEASE(description);
+    RELEASE(url);
+    RELEASE(authors);
+
+    RELEASE(startScript);
+    RELEASE(startScriptShell);
+    RELEASE(startOpenScript);
+    RELEASE(startOpenScriptShell);
+    RELEASE(openScript);
+    RELEASE(openScriptShell);
+    RELEASE(filterScript);
+    RELEASE(filterScriptShell);
+
     RELEASE(types);
     RELEASE(services);
     [super dealloc];
@@ -345,7 +361,7 @@ static NSString *actionIgnore = @"Ignore";
 }
 - (void)setRole: (ApplicationRole)r
 {
-    ASSIGN(role, r);
+    role = r;
     [self attributeChangedName: @"role"
           value: [NSNumber numberWithInt: r]];
 }
@@ -376,7 +392,7 @@ static NSString *actionIgnore = @"Ignore";
 }
 - (void)setStartScriptAction: (ScriptAction)action
 {
-    ASSIGN(startScriptAction, action);
+    startScriptAction = action;
     [self attributeChangedName: @"startScriptAction" value: [NSNumber numberWithInt: action]];
 }
 
@@ -406,7 +422,7 @@ static NSString *actionIgnore = @"Ignore";
 }
 - (void)setStartOpenScriptAction: (ScriptAction)action
 {
-    ASSIGN(startOpenScriptAction, action);
+    startOpenScriptAction = action;
     [self attributeChangedName: @"startOpenScriptAction" value: [NSNumber numberWithInt: action]];
 }
 
@@ -436,7 +452,7 @@ static NSString *actionIgnore = @"Ignore";
 }
 - (void)setOpenScriptAction: (ScriptAction)action
 {
-    ASSIGN(openScriptAction, action);
+    openScriptAction = action;
     [self attributeChangedName: @"openScriptAction" value: [NSNumber numberWithInt: action]];
 }
 
@@ -466,7 +482,7 @@ static NSString *actionIgnore = @"Ignore";
 }
 - (void)setFilterScriptAction: (ScriptAction)action
 {
-    ASSIGN(filterScriptAction, action);
+    filterScriptAction = action;
     [self attributeChangedName: @"filterScriptAction" value: [NSNumber numberWithInt: action]];
 }
 

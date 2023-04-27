@@ -157,22 +157,23 @@
         NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
         NSString *ext = @"";
 
-        if (!files) {
+        if ( ![files count] ) {
             for (int i = 0; i < [[pboard types] count]; i++) {
                 NSString* it = [[pboard types] objectAtIndex: i];
                 if ([it hasPrefix:@"NSTypedFileContentsPboardType"]) {
                     ext = [it substringFromIndex:30];
                 }
             }
-            NSString *tmpf = [NSString stringWithFormat:@"%@/filter.%x.%@", NSTemporaryDirectory(), [self hash], ext];
-            tmpf = [pboard readFileContentsType:ext toFile:tmpf];
-            if (tmpf) {
-                files = [NSArray arrayWithObject:tmpf];
-            }
+
+            NSString *tmpf = [NSString stringWithFormat:@"%@/filter.%lx.%@", NSTemporaryDirectory(), [self hash], ext];
+            NSLog(@"creating temp file for %@ in %@", ext, tmpf);
+            [pboard readFileContentsType:ext toFile:tmpf];
+            files = [NSArray arrayWithObject:tmpf];
         }
 
         if ( ![files count] ) {
-            NSLog(@"no input");
+            NSLog(@"no input %@", [pboard types]);
+            *error = @"no input files specified";
             return;
         }
 

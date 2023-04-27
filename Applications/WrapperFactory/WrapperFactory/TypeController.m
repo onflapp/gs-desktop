@@ -34,9 +34,9 @@
     ASSIGN(type, t);
     [iconView setIcon: [type icon]];
     [extensionsTextField setStringValue: [type extensions]];
-    [returnTypesTextField setStringValue: [type returnType]];
     [nameTextField setStringValue: [type name]];
     [filterButton setState: [type isFilter]];
+    [returnTypesTextField setStringValue: [type returnType]];
     //[rolePopUp selectItemAtIndex: [rolePopUp indexOfItemWithTag: [type role]]];
 }
 
@@ -48,6 +48,13 @@
 {
     if ( sender == filterButton ) {
         [type setFilter:[filterButton state]];
+        if ([filterButton state]) {
+            if ([[type returnType] length] == 0) {
+                NSString* deftype = NSStringPboardType;
+                [returnTypesTextField setStringValue: deftype];
+                [type setReturnType: deftype];
+            }
+        }
     }
 }
 

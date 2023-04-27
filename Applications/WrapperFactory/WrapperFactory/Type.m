@@ -39,10 +39,10 @@
 {
     self = [super init];
     if ( self ) {
-        NSImage *img = [[NSImage alloc] initByReferencingFile: [[NSBundle mainBundle] pathForImageResource: @"DefaultAppIcon"]];
+        NSImage *img = [[NSImage alloc] initByReferencingFile: [[NSBundle mainBundle] pathForImageResource: @"DefaultFileIcon"]];
         icon = RETAIN([Icon iconWithImage: img]);
-        name = _(@"Unnamed");
-        extensions = @"";
+        name = RETAIN(@"Unnamed");
+        extensions = RETAIN(@"");
     }
     return self;
 }

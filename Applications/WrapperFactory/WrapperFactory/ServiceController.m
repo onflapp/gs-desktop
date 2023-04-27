@@ -34,7 +34,7 @@
     ASSIGN(service, s);
     [nameTextField setStringValue: [service name]];
     [shellTextField setStringValue: [service shell]];
-    [actionTextView setString: [service action]];
+    [[[actionTextView textStorage] mutableString] setString:[service action]];
 
     NSString *type = [service returnType];
     NSInteger tag = 0;
@@ -132,8 +132,9 @@
         [service setShell: [shellTextField stringValue]];
     }
     else if ( sender == actionTextView ) {
-        NSString* val = AUTORELEASE([[actionTextView string] copyWithZone: NSDefaultMallocZone()]);
+        NSString* val = [[[actionTextView textStorage] string] copy];
         [service setAction: val];
+        [val release];
     }
     else {
         NSLog(@"Got textDidChange from unknown sender: %@", sender);

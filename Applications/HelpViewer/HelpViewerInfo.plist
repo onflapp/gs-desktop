@@ -15,6 +15,12 @@
 		NSUnixExtensions = ("help");
 		NSIcon = "Icon-hlpd.tiff";
 	        NSRole = "Viewer";
+	    },
+	    {
+		NSHumanReadableName = "GNUstep Help File";
+		NSUnixExtensions = ("xlp");
+		NSIcon = "Icon-hlpd.tiff";
+	        NSRole = "Viewer";
 	    }
 	);
 }

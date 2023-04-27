@@ -89,7 +89,7 @@
     NSInteger ret;
     NSOpenPanel* panel = [NSOpenPanel openPanel];
     [panel setAllowsMultipleSelection: NO];
-    ret = [panel runModalForTypes: [NSArray arrayWithObject: @"help"]];
+    ret = [panel runModalForTypes: [NSArray arrayWithObjects: @"help", @"xlp", nil]];
     if (ret == NSOKButton)
     {
 	[windowController loadFile: [[panel filenames] objectAtIndex: 0]];
