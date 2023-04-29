@@ -42,7 +42,13 @@
 
 - (BOOL) canHandleClickOnLink:(NSURL*) url {
   if ([[url scheme] isEqualToString:@"file"]) {
-    return YES;
+    if ([[url pathExtension] isEqualToString:@"pdf"]) {
+      [[NSWorkspace sharedWorkspace] openFile:[url path]];
+      return NO;
+    }
+    else {
+      return YES;
+    }
   }
   else {
     [[NSWorkspace sharedWorkspace] openURL:url];

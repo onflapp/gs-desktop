@@ -1,5 +1,9 @@
 #!/bin/bash
 
+echo "=================="
+echo " system config"
+echo "=================="
+
 mkdir -p /usr/share/xsessions 2>/dev/null
 cp ./usr/share/xsessions/* /usr/share/xsessions
 cp ./System/bin/* /System/bin
@@ -20,10 +24,16 @@ cp -r ./Library/Themes/* /Library/Themes
 cp ./System/share/WindowMaker/Icons/* /System/share/WindowMaker/Icons
 
 ./make_hidden.sh
+echo "done"
 
-### install systemd services
+echo "=================="
+echo " gdomap service"
+echo "=================="
 
 systemctl stop gdomap.service
 cp ./etc/systemd/system/gdomap.service /etc/systemd/system
 systemctl enable gdomap.service
 systemctl start gdomap.service
+systemctl --no-pager  status gdomap.service || exit 1
+
+echo "done"

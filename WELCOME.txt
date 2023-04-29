@@ -16,5 +16,5 @@
  - use /System/bin/startgsde
 
 ------------------------------------------------------------------------
- WARNING: you might consider merging your ~/Library with the system one
+ WARNING: consider clearing your ~/Library after major release
 

@@ -1,6 +1,14 @@
 #!/bin/bash
 set -e
 
+if [ "$UID" -ne 0 ];then
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  echo " please run this script as root"
+  echo " sudo -E $0"
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  exit 1
+fi
+
 export PATH=/System/bin:$PATH
 
 D=`pwd`
@@ -22,9 +30,13 @@ if ! [ -f "/Applications/GNUMail.app/GNUMail" ];then
 fi
 
 cd "$D"
+./document_world.sh |& tee $D/build_world.docs.log
+
+cd "$D"
 cd ./config
-sudo -E ./install_config.sh
-sudo -E ./make_hidden.sh
+
+./install_config.sh
+./make_hidden.sh
 
 cd "$D"
 cat ./WELCOME.txt

@@ -324,7 +324,7 @@
     }
     if ( [properties objectForKey: @"Filter"] ) {
         //give the service a chance to be called
-        [NSApp performSelector:@selector(terminate:) withObject: self afterDelay:5];
+        [NSApp performSelector:@selector(terminate:) withObject: self afterDelay:1];
     }
     else {
         [NSApp terminate: self];
