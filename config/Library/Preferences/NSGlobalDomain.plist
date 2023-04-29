@@ -8,6 +8,8 @@
     <false/>
     <key>STDefaultEnvironmentDescriptionName</key>
     <string>AppKit</string>
+    <key>STDefaultLanguageName</key>
+    <string>Smalltalk</string>
     <key>NSPreviewApp</key>
     <string>DocViewer</string>
     <key>GSUseGhostResize</key>

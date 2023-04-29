@@ -190,11 +190,14 @@ show_status "black"
 echo "starting GS Desktop"
 
 if [ "$1" == "--safe-mode-continue" ];then
+  export GS_DESKTOP_SAFEMODE="safe"
 
+  echo ""
   echo "press [y] to exit to the shell, otherwise continue"
   read -s -n 1 DD
+
   if [ "$DD" == "y" ];then
-    export GS_DESKTOP_SAFEMODE="safe"
+    echo ""
     echo "switching to the safe mode"
     echo "/System/bin/startgsde to run the desktop environment"
     exec /bin/sh
@@ -210,7 +213,7 @@ rm -R "/tmp/GNUstepSecure$UID" 2>/dev/null
 
 ## set system env variables
 export WMAKER_USER_ROOT="$HOME/Library/WindowMaker"
-export PATH="/System/bin:/Library/bin:$PATH"
+export PATH="/System/bin:/Library/bin:$HOME/Library/Scripts:/Library/Scripts:$PATH"
 export MANPATH=":/System/share/man:/Library/Documentation/man"
 export GS_DESKTOP_LOG="/tmp/$UID-gs-desktop.log"
 

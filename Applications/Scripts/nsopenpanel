@@ -1,7 +1,20 @@
+#!/Library/bin/stexec
+
+| rv |
+
 Environment loadModule:'AppKit'.
 
 panel := NSOpenPanel openPanel.
 
-runResult := panel runModal.
+rv := panel runModal.
 
-Transcript showLine: (panel filename).
+(rv > 0)
+ifTrue: 
+[
+  Transcript showLine: (panel filename).
+  Script returnExitCode: 0.
+]
+ifFalse:
+[
+  Script returnExitCode: 1.
+]
