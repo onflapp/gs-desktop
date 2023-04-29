@@ -48,6 +48,8 @@
 	Section* _firstSection;
 	Section* _currentSection;
 
+  NSString* _ahref;
+
 	BOOL _italic, _bold, _smallcaps;
 	BOOL _code, _url, _pre;
 

@@ -36,6 +36,16 @@ if (-f $ARGV[0]) {
 	$COMMAND="cmd";
 	$SECTION=1;
 }
+elsif ($ARGV[0] =~ m/^man:(.*?)\/(.*?)$/) {
+	$CMD="man -P cat $2 $1";
+	$COMMAND="$1";
+	$SECTION=$2;
+}
+elsif ($ARGV[0] =~ m/^man:(.*?)$/) {
+	$CMD="man -P cat $1";
+	$COMMAND="$1";
+	$SECTION=1;
+}
 elsif ($ARGV[0] =~ m/^(.*?)\/(.*?)$/ || $ARGV[0] =~ m/^(.*?)\((.*?)\)$/) {
 	$CMD="man -P cat $2 $1";
 	$COMMAND="$1";
@@ -47,7 +57,7 @@ else {
 	$SECTION=1;
 }
 
-$MANCGI="lc://lookup?APP_KEYWORDS=man&text=";
+$MANCGI="man:";
 
 $STYLE = <<END;
 <document>

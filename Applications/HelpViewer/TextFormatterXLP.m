@@ -34,6 +34,7 @@
       legends = nil;
       _currentSection = _firstSection;
       _document = NO;
+      _ahref = nil;
       Bundle = nil;
       content = nil;
     }
@@ -75,6 +76,10 @@
     	{
 		_bold = YES;
     	}
+        else if HAVING (@"a")
+        {
+                ASSIGN(_ahref, [elementAttributes objectForKey:@"href"]);
+        }
 	else if HAVING (@"i")
 	{
 		_italic = YES;
@@ -246,6 +251,11 @@
 		{
 			_bold = NO;
 		}
+                else if HAVING (@"a")
+                {
+                        RELEASE(_ahref);
+                        _ahref = nil;
+                }
 		else if HAVING (@"i")
 		{
 			_italic = NO;
@@ -326,7 +336,7 @@
         if (_bold) FontMask = NSBoldFontMask | FontMask;
 	if (_italic) FontMask = NSItalicFontMask | FontMask;
 	if (_smallcaps) FontMask = NSSmallCapsFontMask | FontMask;
-	if (_code || _url) font = [NSFont userFixedPitchFontOfSize: FontSize];
+	if (_code || _url || _ahref) font = [NSFont userFixedPitchFontOfSize: FontSize];
 	else font = [NSFont userFontOfSize: FontSize];
 
         font = [[NSFontManager sharedFontManager]
@@ -335,7 +345,15 @@
 
         //[attr setObject: paragraphStyle forKey: NSParagraphStyleAttributeName];
         [attr setObject: font forKey: NSFontAttributeName];
-        if (_url)
+        if (_ahref)
+        {
+          NSURL* url = [NSURL URLWithString:_ahref];
+          if (url)
+          {
+            [attr setObject: url forKey: NSLinkAttributeName];
+          }
+        }
+        else if (_url)
         {
           NSURL* url = [NSURL URLWithString:name];
           if (url)
@@ -343,6 +361,7 @@
             [attr setObject: url forKey: NSLinkAttributeName];
           }
         }
+ 
         
 	id str = [[NSMutableAttributedString alloc] initWithString: name attributes: attr];
 

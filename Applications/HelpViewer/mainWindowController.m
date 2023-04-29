@@ -99,6 +99,7 @@
       }
     }
 
+    [resultTextView scrollRangeToVisible:NSMakeRange (0, 1)];
 /*
     string = [handler getPart: 0];
     Part* currentPage = [handler getPage: 0];

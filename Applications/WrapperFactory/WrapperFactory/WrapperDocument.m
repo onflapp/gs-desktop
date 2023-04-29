@@ -882,9 +882,11 @@ static NSString *actionIgnore = @"Ignore";
             for ( i=0; i<serviceCount; i++ ) {
                 NSDictionary *serviceDict = [serviceDicts objectAtIndex: i];
 
+                /*
                 if ([[serviceDict objectForKey:@"NSMessage"] isEqualToString:@"openURL"]) {
                     continue;
                 }
+                */
 
                 NSString *n = [[serviceDict objectForKey:@"NSMenuItem"] objectForKey:@"default"];
                 NSString *f = [serviceDict objectForKey:@"NSFilter"];
@@ -1115,6 +1117,7 @@ static NSString *actionIgnore = @"Ignore";
         }
     }
 
+    /*
     if ( [schemesArray count] > 0 ) {
         NSMutableDictionary *serviceDict = [NSMutableDictionary dictionaryWithCapacity: 6];
         [serviceDict setObject: [name stringByDeletingPathExtension] forKey: @"NSPortName"];
@@ -1122,6 +1125,7 @@ static NSString *actionIgnore = @"Ignore";
         [serviceDict setObject: [NSArray arrayWithObjects:@"NSURLPboardType",@"NSStringPboardType",nil] forKey: @"NSSendTypes"];
         [serviceArray addObject: serviceDict];
     }
+    */
 
     if ( [serviceArray count] > 0 ) {
         [infoDict setObject: serviceArray forKey: @"NSServices"];
