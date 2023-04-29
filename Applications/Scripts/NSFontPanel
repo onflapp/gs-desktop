@@ -1,0 +1,10 @@
+#!/Library/bin/stexec
+
+| rv app |
+
+Environment loadModule:'AppKit'.
+
+app := NSApplication sharedApplication.
+panel := NSFontPanel sharedFontPanel.
+
+app runModalForWindow:panel.

@@ -1,0 +1,13 @@
+#!/Library/bin/stexec
+
+| rv app |
+
+Environment loadModule:'AppKit'.
+
+app := NSApplication sharedApplication.
+panel := NSColorPanel sharedColorPanel.
+
+app runModalForWindow:panel.
+rv := panel color.
+
+Transcript showLine: rv.
