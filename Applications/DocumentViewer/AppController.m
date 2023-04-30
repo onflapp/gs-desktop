@@ -11,6 +11,7 @@
 #import "AppController.h"
 #import "PdfDocument.h"
 #import "HtmlDocument.h"
+#import "Preferences.h"
 #import <WebKit/WebKit.h>
 
 @implementation AppController
@@ -18,13 +19,7 @@
 + (void) initialize {
   NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
 
-  /*
-   * Register your app's defaults here by adding objects to the
-   * dictionary, eg
-   *
-   * [defaults setObject:anObject forKey:keyForThatObject];
-   *
-   */
+  [defaults setObject:[NSNumber numberWithBool:YES] forKey:@"reuse_document_window"];
   
   [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
   [[NSUserDefaults standardUserDefaults] synchronize];
@@ -57,17 +52,29 @@
 - (void) applicationWillTerminate: (NSNotification *)aNotif {
 }
 
-- (BOOL) application: (NSApplication *)application
-            openFile: (NSString *)fileName {
+- (Document*) documentForFile:(NSString*) fileName {
+
+  for (NSWindow* win in [NSApp windows]) {
+    if ([[win delegate] isKindOfClass:[Document class]]) {
+      Document* doc = (Document*) [win delegate];
+      if ([[doc fileName] isEqualToString: fileName]) {
+        return doc;
+      }
+    }
+  }
 
   NSString* ext = [fileName pathExtension];
   if ([ext isEqualToString:@"pdf"]) {
     PdfDocument* doc = [[PdfDocument alloc] init];
-    [doc displayFile:fileName];
+    [doc loadFile:fileName];
+
+    return doc;
   }
   else if ([ext isEqualToString:@"html"]) {
     HtmlDocument* doc = [[HtmlDocument alloc] init];
-    [doc displayFile:fileName];
+    [doc loadFile:fileName];
+
+    return doc;
   }
   else {    
     NSLog(@"try to convert %@", fileName);
@@ -79,12 +86,23 @@
       [data writeToFile:tfile atomically:NO];
 
       PdfDocument* doc = [[PdfDocument alloc] init];
-      [doc displayFile:tfile];
+      [doc loadFile:tfile];
+
+      return doc;
     }
     else {
       NSLog(@"not sure how to open %@", fileName);
     }
   }
+
+  return nil;
+}
+
+- (BOOL) application: (NSApplication *)application
+            openFile: (NSString *)fileName {
+
+  Document* doc = [self documentForFile:fileName];
+  [doc showWindow];
   return NO;
 }
 
@@ -96,6 +114,8 @@
 }
 
 - (void) showPrefPanel:(id)sender {
+  Preferences* prefs = [Preferences sharedInstance];
+  [[prefs panel] makeKeyAndOrderFront:sender]; 
 }
 
 @end

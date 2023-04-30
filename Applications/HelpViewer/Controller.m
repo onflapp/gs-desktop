@@ -57,6 +57,7 @@
 
     [self initButtons];
 
+    [window setFrameAutosaveName:@"help_window"];
     [window setTitle: @"HelpViewer"];
     [windowController setWindow: window];
 

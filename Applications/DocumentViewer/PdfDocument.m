@@ -29,7 +29,6 @@
 - (id) init {
   self = [super init];
   [NSBundle loadNibNamed:@"PdfDocument" owner:self];
-  [window setFrameAutosaveName:@"pdfdocument_window"];
   
   [super initNavigation];
   return self;
@@ -39,8 +38,7 @@
   [super dealloc];
 }
 
-- (void) displayFile:(NSString*) path {
-  [window makeKeyAndOrderFront:self];
+- (void) loadFile:(NSString*) path {
   [window setTitle:path];
   [statusField setStringValue:@"loading pdf"];
 
@@ -48,6 +46,8 @@
   
   [self displayNavigation];
   [self displayPage:1];
+
+  ASSIGN (fileName, path);
 }
 
 - (void) displayPage:(NSInteger) page {

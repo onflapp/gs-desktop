@@ -1,11 +1,11 @@
 /*
-   Project: WebBrowser
+   Project: DocumentViewer
 
-   Copyright (C) 2020 Free Software Foundation
+   Copyright (C) 2022 Free Software Foundation
 
-   Author: onflapp
+   Author: Ondrej Florian,,,
 
-   Created: 2020-07-22 12:41:08 +0300 by root
+   Created: 2022-10-22 16:59:28 +0200 by oflorian
 
    This application is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,30 +22,21 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#ifndef _DOCUMENT_H_
-#define _DOCUMENT_H_
+#ifndef _PREFERENCES_H_
+#define _PREFERENCES_H_
 
 #import <AppKit/AppKit.h>
 
-@interface Document : NSObject {
-  IBOutlet NSWindow *window;
-  IBOutlet NSScrollView* navScroll;
-  IBOutlet NSTextField* statusField;
-
-  BOOL isWorking;
-
-  NSString *fileName;
+@interface Preferences : NSObject
+{
+  IBOutlet NSPanel* panel;
+  IBOutlet NSButton* reuseDocumentButton;
 }
 
-- (id) init;
-- (void) initNavigation;
-- (void) displayPage:(NSInteger) page;
-- (void) displayNavigation;
-- (NSInteger) currentPage;
-- (NSInteger) pageCount;
-- (NSString*) fileName;
-- (void) showWindow;
++ (Preferences*) sharedInstance;
+- (NSPanel*) panel;
 
 @end
 
-#endif // _DOCUMENT_H_
+#endif // _PANEL_H_
+

@@ -35,6 +35,7 @@ DocViewer_RESOURCE_FILES = \
 Resources/DocViewer.gorm \
 Resources/PdfDocument.gorm \
 Resources/HtmlDocument.gorm \
+Resources/Preferences.gorm \
 Resources/PDFImage.tiff \
 Resources/DocViewer.tiff \
 Resources/page.tiff \
@@ -50,7 +51,8 @@ PdfDocument.h \
 PdfView.h \
 HtmlDocument.h \
 HtmlView.h \
-Document.h
+Document.h \
+Preferences.h
 
 #
 # Objective-C Class files
@@ -61,7 +63,8 @@ PdfDocument.m \
 PdfView.m \
 HtmlDocument.m \
 HtmlView.m \
-Document.m
+Document.m \
+Preferences.m
 
 #
 # Other sources

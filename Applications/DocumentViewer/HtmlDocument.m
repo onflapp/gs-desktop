@@ -29,7 +29,6 @@
 - (id) init {
   self = [super init];
   [NSBundle loadNibNamed:@"HtmlDocument" owner:self];
-  [window setFrameAutosaveName:@"htmldocument_window"];
     
   [self initNavigation];
   return self;
@@ -44,13 +43,14 @@
   [super dealloc];
 }
 
-- (void) displayFile:(NSString*) path {
+- (void) loadFile:(NSString*) path {
   NSURL* u = [NSURL fileURLWithPath:path];
   [[htmlView mainFrame] loadRequest:[NSURLRequest requestWithURL:u]];
 
-  [window makeKeyAndOrderFront:self];
   [statusField setStringValue:@"loading html"];
   [self displayPage:1];
+
+  ASSIGN (fileName, path);
 }
 
 - (NSInteger) currentPage {

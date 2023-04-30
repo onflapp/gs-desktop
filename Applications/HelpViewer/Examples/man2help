@@ -59,14 +59,8 @@ else {
 
 $MANCGI="man:";
 
-$STYLE = <<END;
-<document>
-	<header>
-  <title>UNIX man pages : $COMMAND ($SECTION)</title>
-	</header>
-END
-
-print ("$STYLE<plain name=\"$COMMAND\">\n");
+print ("<document><header><title>UNIX man page : $COMMAND ($SECTION)</title></header>\n");
+print ("<plain name=\"$COMMAND\">\n");
 
 $CODE_BLOCK = "";
 $LAST_SECTION = "";

@@ -24,6 +24,8 @@
 
 #import "Document.h"
 
+static NSWindow* _lastMainWindow;
+
 @implementation Document
 
 - (id) init {
@@ -32,7 +34,26 @@
 }
 
 - (void) dealloc {
+  RELEASE (fileName);
   [super dealloc];
+}
+
+- (void) showWindow {
+  if ([window isVisible]) {
+    [window makeKeyAndOrderFront:self];
+  }
+  else {
+    [window setFrameAutosaveName:@"document_window"];
+
+    if (_lastMainWindow) {
+      NSRect r = [_lastMainWindow frame];
+      r.origin.x += 24;
+
+      [window setFrame:r display:YES];
+    }
+
+    [window makeKeyAndOrderFront:self];
+  }
 }
 
 - (void) initNavigation {
@@ -104,6 +125,22 @@
 
 - (NSInteger) pageCount {
   return 0;
+}
+
+- (NSString*) fileName {
+  return fileName;
+}
+
+- (void) windowDidBecomeMain:(NSNotification *)notification {
+  _lastMainWindow = window;
+}
+
+- (void) windowWillClose:(NSNotification *)notification {
+  if (_lastMainWindow == window) _lastMainWindow = nil;
+
+  ASSIGN(fileName, nil);
+  [window setDelegate: nil];
+  [self release];
 }
 
 @end

@@ -96,10 +96,10 @@
       }
       else {
         NSLog(@"don't know how to handle %@", fileName);
+        return NO;
       }
     }
 
-    [resultTextView scrollRangeToVisible:NSMakeRange (0, 1)];
 /*
     string = [handler getPart: 0];
     Part* currentPage = [handler getPage: 0];
@@ -124,10 +124,14 @@
     }
  */
     NSLog (@"loadFile : %@", fileName);
+
+    [window makeKeyAndOrderFront:nil];
+
+    [resultTextView scrollRangeToVisible:NSMakeRange (0, 1)];
     [resultOutlineView reloadColumn: 0];
     [resultOutlineView selectRow:0 inColumn:0];
     [self browserClick: resultOutlineView];
-    
+
     return ret;
 }
 
