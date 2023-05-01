@@ -21,7 +21,7 @@ My favorite way to get GS Desktop working is to install minimal Debian distribut
 apt-get install git
 git clone https://github.com/onflapp/gs-desktop
 cd gs-desktop/dependencies
-./install-dependencies-debian.sh debian11.txt
+sudo ./install-dependencies-debian.sh debian11.txt
 ```
 
 ### 2. Fetch sources
