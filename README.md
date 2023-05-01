@@ -1,12 +1,12 @@
 # GS Desktop
 
-GNUstep Desktop attempts to build fully functional GNUstep desktop by bringing apps from various sources together and making sure everything works together to create unified user experience.
+GNUstep Desktop attempts to build fully functional desktop by bringing various GNUstep apps together and making sure everything works as expected.
 
-It should work on any Debian-based system (I personally use Raspberry PI4 as the main development and user platform) and possibly any modern Linux distribution with a bit tweaking.
+It should work on any Debian-based system (I personally use Raspberry PI4 as my main development and user platform) and possibly any modern Linux distribution with a bit tweaking.
 
 ### 1. Install Dependencies
 
-The desktop relies on many other libraries and binaries to work as intended. This step is more important than you might realize at first.
+The desktop relies on many other libraries and binaries to work as intended. This step is more important than you might realize at first. As many build systems use autoconfig to find dependencies, a missing dependency will not necessarily result in failed build. It might however cause all kinds of weird runtime problems or desktop now working as intended.
 
 There is a script you can use to help you install all that is needed.
 
@@ -26,7 +26,8 @@ cd gs-desktop/dependencies
 
 ### 2. Fetch sources
 
-GS Desktop come from different places. Some are official github repos, others are my forks.
+GS Desktop come from different places. Some are official github repos, others are my forks. Many apps have been patched and/or configured in a way to "play nice with others". Hopefully most of those changes will be merged back
+to the original source tree one day.
 
 ```
 ./fetch_world.sh
@@ -40,9 +41,9 @@ The script will build and install everything that is required. It needs to be ru
 sudo -E ./build_world.sh
 ```
 
-The whole desktop is going to be installed in /Application, /System and /Library directories. Although this doesn't follow GNUstep/Linux conventions, it simplifies system scripts etc. as everything is in predictable place.
+The whole desktop is going to be installed in `/Application`, `/System` and `/Library` directories. Although this doesn't follow GNUstep/Linux conventions, it simplifies system scripts etc. as everything is in predictable place.
 
-### Start the GS Desktop
+### Start GS Desktop
 
 If you use modern login manager, you will see two new xsessions (normal startup and safe mode) for you to choose to log in.
 

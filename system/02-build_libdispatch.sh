@@ -18,7 +18,7 @@ else
 fi
 
 ### force release build
-BTYPE="Release"
+#BTYPE="Release"
 
 cmake .. \
 	-DCMAKE_C_COMPILER=$CC \

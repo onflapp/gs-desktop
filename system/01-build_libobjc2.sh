@@ -19,7 +19,7 @@ else
 fi
 
 ### force release build
-BTYPE="Release"
+#BTYPE="Release"
 
 cmake .. \
 	-DGNUSTEP_INSTALL_TYPE=NONE \

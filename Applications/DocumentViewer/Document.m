@@ -43,8 +43,7 @@ static NSWindow* _lastMainWindow;
     [window makeKeyAndOrderFront:self];
   }
   else {
-    [window setFrameAutosaveName:@"document_window"];
-
+    if (!_lastMainWindow) _lastMainWindow = [[NSApp orderedWindows] lastObject];
     if (_lastMainWindow) {
       NSRect r = [_lastMainWindow frame];
       r.origin.x += 24;
@@ -52,6 +51,7 @@ static NSWindow* _lastMainWindow;
       [window setFrame:r display:YES];
     }
 
+    [window setFrameAutosaveName:@"document_window"];
     [window makeKeyAndOrderFront:self];
   }
 }

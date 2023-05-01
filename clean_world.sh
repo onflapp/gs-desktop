@@ -1,5 +1,9 @@
 #!/bin/bash
 
+systemctl stop gdomap.service
+systemctl disable gdomap.service
+rm /etc/systemd/system/gdomap.service
+
 rm -fR /System
 rm -fR /Applications
 rm -fR /Library
