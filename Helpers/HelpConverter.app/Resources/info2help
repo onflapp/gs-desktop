@@ -1,0 +1,59 @@
+#!/usr/bin/perl
+
+sub closeSection {
+  if ($SECTION ne "") {
+    print ("</section>\n");
+  }
+  $SECTION = "";
+}
+
+sub printLine {
+  if ($LAST_LINE =~ m/^'(.*?)'$/) {
+    print ("<b>$1</b><br>\n");
+  }
+  else {
+	  $LAST_LINE =~ s/'(.*?)'/<b>\1 <\/b>/g;
+    print ("$LAST_LINE<br>\n");
+  }
+}
+
+if (-f $ARGV[0]) {
+	$CMD="info --subnodes -f " . $ARGV[0];
+	$COMMAND="cmd";
+}
+elsif ($ARGV[0] ne "") {
+	$CMD="info --subnodes " . $ARGV[0];
+	$COMMAND=$ARGV[0];
+}
+
+$LAST_LINE = "";
+$SECTION = "";
+
+open (INFO, "PATH=/opt/local/bin:/usr/local/bin:/usr/bin:/bin $CMD |");
+
+print ("<document><header><title>UNIX info page: $COMMAND</title></header>\n");
+print ("<plain name=\"$COMMAND\">\n");
+
+while (<INFO>) {
+	chomp ();
+
+  if ($_ =~ /^===+$/ || $_ =~ /^\*\*\*+$/ || $_ =~ /^---+$/) {
+    closeSection();
+    print ("<section name=\"$LAST_LINE\">\n");
+    $SECTION = $LAST_LINE;
+    $LAST_LINE = "";
+    next;
+  }
+  else {
+    printLine();
+  }
+
+  $LAST_LINE = $_;
+}
+
+printLine();
+closeSection();
+
+close (INFO);
+
+print ("</plain></document>\n");

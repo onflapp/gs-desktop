@@ -1,0 +1,170 @@
+#!/usr/bin/perl
+
+sub getIndent {
+	my ($l) = @_;
+
+	$l =~ m/^(\s+)/;
+	return length ($1);
+}
+
+sub closeSection {
+	if ($SECTION == 1) {
+		print ("</chapter>\n");
+	}
+	if ($SECTION == 2) {
+		print ("</section>\n");
+	}
+	$SECTION = 0;
+}
+
+sub printBlock {
+	$CODE_BLOCK =~ s/<\/B><B>//g;
+	$CODE_BLOCK =~ s/<\/I><I>//g;
+	#$CODE_BLOCK =~ s/=/<span class="oper">=<\/span>/g;
+	#$CODE_BLOCK =~ s/\(/<span class="oper">(<\/span>/g;
+	#$CODE_BLOCK =~ s/\)/<span class="oper">)<\/span>/g;
+	#$CODE_BLOCK =~ s/\$/<span class="oper">\$<\/span>/g;
+
+	print ("<CODE>\n");
+	print ("$CODE_BLOCK");
+	print ("</CODE><br>\n");
+	$CODE_BLOCK = "";
+}
+
+if (-f $ARGV[0]) {
+	$CMD="man -l -Tutf8 " . $ARGV[0];
+	$COMMAND="cmd";
+	$SECTION=1;
+}
+elsif ($ARGV[0] =~ m/^man:(.*?)\/(.*?)$/) {
+	$CMD="man -P cat $2 $1";
+	$COMMAND="$1";
+	$SECTION=$2;
+}
+elsif ($ARGV[0] =~ m/^man:(.*?)$/) {
+	$CMD="man -P cat $1";
+	$COMMAND="$1";
+	$SECTION=1;
+}
+elsif ($ARGV[0] =~ m/^(.*?)\/(.*?)$/ || $ARGV[0] =~ m/^(.*?)\((.*?)\)$/) {
+	$CMD="man -P cat $2 $1";
+	$COMMAND="$1";
+	$SECTION=$2;
+}
+else {
+	$CMD="man -P cat $ARGV[0]";
+	$COMMAND="$ARGV[0]";
+	$SECTION=1;
+}
+
+$MANCGI="man:";
+
+print ("<document><header><title>UNIX man page : $COMMAND ($SECTION)</title></header>\n");
+print ("<plain name=\"$COMMAND\">\n");
+
+$CODE_BLOCK = "";
+$LAST_SECTION = "";
+$LAST_LINE = "";
+$SPACER = -1;
+$SECTION = 0;
+$LINES = 0;
+
+open (MAN, "PATH=/opt/local/bin:/usr/local/bin:/usr/bin:/bin MAN_KEEP_FORMATTING=Y MANWIDTH=200 $CMD |");
+while (<MAN>) {
+	chomp ();
+	$l = $_;
+	$l =~ s/\s*$//;
+	#print ("$l\n");
+
+	if (m/^(([A-Z][A-Z]?)+)$/) {
+		closeSection();
+
+		$l = $1;
+		$l =~ s/.//g;
+
+		printBlock () if ($CODE_BLOCK ne "");
+
+		print ("<chapter name=\"$l\">\n");
+		$LAST_SECTION = $l;
+		$LAST_LINE = $l;
+		$SECTION = 1;
+		next;
+	}
+	elsif (m/^([A-Z].*)$/) {
+		closeSection();
+
+		$l = $1;
+		$l =~ s/.//g;
+
+		printBlock () if ($CODE_BLOCK ne "");
+
+		print ("<chapter name=\"$l\">\n");
+		$LAST_SECTION = $l;
+		$LAST_LINE = $l;
+		$SECTION = 1;
+		next;
+	}
+
+	$l =~ s/>//g;
+	$l =~ s/<//g;
+
+	$l =~ s/_(.)(.)/<I><B>\1<\/B><\/I>/g;
+	$l =~ s/_(.)/<I>\1<\/I>/g;
+	$l =~ s/(.)(.)/<B>\1<\/B>/g;
+	$l =~ s/``(.*?)''/<B>"\1"<\/B>/g;
+	$l =~ s/''(.*?)''/<B>"\1"<\/B>/g;
+	$l =~ s/`(.*?)'/<B>'\1'<\/B>/g;
+	$l =~ s/'(.*?)'/<B>'\1'<\/B>/g;
+	$l =~ s/"(.*?)"/<B>'\1'<\/B>/g;
+	$l =~ s/ ([A-Z][A-Z0-9_]+)[\. ]/<B> \1 <\/B>/g;
+	$l =~ s/<\/B> / <\/B>/g;
+	$l =~ s/<\/I> / <\/I>/g;
+	$l =~ s/<B> / <B>/g;
+	$l =~ s/<I> / <I>/g;
+
+	$l =~ s//\&gt;/g;
+	$l =~ s//\&lt;/g;
+
+	if ($LAST_SECTION eq "NAME" && $SPACER == -1 && $l !~ /^\s*$/) {
+		$SPACER = getIndent ($l);
+	}
+	elsif ($SPACER > 0 && getIndent ($l) > $SPACER && ($LAST_LINE eq "" || getIndent ($LAST_LINE) == 0)) {
+		$CODE_BLOCK .= "$l<br>\n";
+		next;
+	}
+
+	if ($CODE_BLOCK ne "") {
+		if ($l eq "") {
+			$CODE_BLOCK .= "<br>\n";
+			next;
+		}
+		printBlock () if ($CODE_BLOCK ne "");
+	}
+
+	$l =~ s/<\/B><B>//g;
+	$l =~ s/<\/I><I>//g;
+
+	$l =~ s/<B>([0-9A-z][-.,0-9A-z:]*)<\/B>\(([1-9][A-z]*)\)/<A HREF="$MANCGI\1\/\2">\1(\2)<\/A>/g;
+	$l =~ s/<I>([0-9A-z][-.,0-9A-z:]*)<\/I>\(([1-9][A-z]*)\)/<A HREF="$MANCGI\1\/\2">\1(\2)<\/A>/g;
+	$l =~ s/([0-9A-z][-.,0-9A-z:]*)\(([1-9][A-z]*)\)/<A HREF="$MANCGI\1\/\2">\1(\2)<\/A>/g;
+	$l =~ s/\b(https?:\/\/[-\w\.\/]+)\b/<url>\1<\/url>/g;
+
+	$l =~ s/(\s)([A-Z][A-Za-z]+(::[A-Za-z][a-z]+)+?)(\s)/\1<A HREF="$MANCGI\2">\2<\/A>\4/g;
+
+	if ($l eq "" && $LAST_LINE eq "") {
+		next;
+	}
+
+	print ("$l<br>\n");
+	$LAST_LINE = $l;
+	$LINES++;
+}
+
+if ($LINES == 0) {
+	print("Manual page not found?");
+}
+
+close (MAN);
+
+closeSection();
+print ("</plain></document>\n");

@@ -1,0 +1,7 @@
+case "$1" in
+  *.ps)
+    ps2pdf "$1" -
+   ;;
+   *.dvi)
+    dvipdfm "$1" -o -
+esac
