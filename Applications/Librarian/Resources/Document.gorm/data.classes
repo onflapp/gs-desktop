@@ -10,7 +10,9 @@
 	Outlets = (
 	    window,
 	    resultsView,
-	    queryField
+	    queryField,
+	    statusField,
+	    queryTypeButton
 	);
 	Super = NSObject;
     };

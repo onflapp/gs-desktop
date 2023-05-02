@@ -2,8 +2,15 @@
 
 $BASE_DIR = $ARGV[0];
 $QUERY = $ARGV[1];
+$TYPE = $ARGV[2];
 
 $cmd = "recollq";
+$qt = "-a";
+
+if ($TYPE == 1) {
+  $qt = "-f";
+  $QUERY = "$QUERY*";
+}
 
 if (! -d $BASE_DIR) {
   print("X:file not found\n");
@@ -15,10 +22,14 @@ if ($QUERY eq "") {
   exit 1;
 }
 
-open(IN, "$cmd -C -c \"$BASE_DIR\" -A \"$QUERY\" |");
+$cmd = "$cmd $qt -C -c \"$BASE_DIR\" -A \"$QUERY\"";
+print("$cmd\n");
+
+open(IN, "$cmd |");
 while(<IN>) {
   chomp();
-  if (m/^(\w+\/\w+)\s+\[(.*?)\]\s+\[(.*?)\]/) {
+  #print("$_\n");
+  if (m/^([\w\-]+\/[\w\-]+)\s+\[(.*?)\]\s+\[(.*?)\]/) {
     $mine = $1;
     $url = $2;
     $title = $3;
@@ -31,9 +42,8 @@ while(<IN>) {
     $in_abstract = 1;
   }
   elsif (m/^\/ABSTRACT/) {
-    print("$title\n");
-    print("$url\n");
-    print("\n");
+    print("T:$title\n");
+    print("U:$url\n");
 
     $url = "";
     $in_abstract = 0;

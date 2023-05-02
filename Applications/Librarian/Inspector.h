@@ -32,6 +32,8 @@
 {
   IBOutlet NSWindow* window;
   IBOutlet NSTableView* pathsTable;
+  IBOutlet NSTextField* filterField;
+
   Books* currentBooks;
 }
 - (void) inspectBooks:(Books*) b;

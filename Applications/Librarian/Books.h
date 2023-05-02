@@ -42,6 +42,7 @@
 - (NSString*) path;
 - (NSString*) title;
 
+
 @end
 
 @interface Books : NSObject
@@ -61,12 +62,17 @@
 - (void) openFile:(NSString*) file;
 - (void) saveFile:(NSString*) file;
 - (void) search:(NSString*) qry;
+- (void) search:(NSString*) qry type:(NSInteger) type;
+- (NSInteger) status;
 - (void) list;
 - (void) rebuild;
+- (void) close;
 
 - (NSArray*) searchResults;
 - (NSArray*) paths;
 - (void) setPaths:(NSArray*) paths;
+- (NSString*) filter;
+- (void) setFilter:(NSString*) filter;
 
 @end
 

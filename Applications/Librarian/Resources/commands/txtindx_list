@@ -1,7 +1,6 @@
 #!/bin/perl
 
 $BASE_DIR = $ARGV[0];
-$RECOLL_CONF = "$BASE_DIR/recoll.conf";
 @PATHS = ();
 
 if (! -d $BASE_DIR) {

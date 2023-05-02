@@ -23,6 +23,7 @@
 */
 
 #import "Books.h"
+#import <AppKit/NSAlert.h>
 
 @implementation ResultItem
 
@@ -58,7 +59,7 @@
 
 - (id) init {
   self = [super init];
-  status = 0;
+  status = -1;
   config = [[NSMutableDictionary alloc] init];
   buff = [[NSMutableData alloc] init];
   results = [[NSMutableArray alloc] init];
@@ -66,11 +67,21 @@
   return self;
 }
 
+- (NSInteger) status {
+  return status;
+}
+
 - (void) dealloc {
   RELEASE(buff);
   RELEASE(config);
   RELEASE(baseDir);
+  RELEASE(task);
   [super dealloc];
+}
+
+- (void) close {
+  status = -1;
+  [task terminate];
 }
 
 - (void) openFile:(NSString*) file {
@@ -79,9 +90,18 @@
   [config addEntriesFromDictionary:cfg];
 
   ASSIGN(baseDir, file);
+  status = 0;
+
+  NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+  [nc postNotificationName:@"statusHasChanged" object:self];
 }
 
 - (void) saveFile:(NSString*) file {
+  if (status > 0) {
+    NSLog(@"busy");
+    return;
+  }
+
   NSString* cfile = [file stringByAppendingPathComponent:@"config.plist"];
   NSFileManager* fm = [NSFileManager defaultManager];
   BOOL isdir = NO;
@@ -91,6 +111,10 @@
   }
 
   [config writeToFile:cfile atomically:NO];
+  status = 0;
+
+  NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
+  [nc postNotificationName:@"statusHasChanged" object:self];
 }
 
 - (NSArray*) paths {
@@ -101,14 +125,45 @@
   [config setObject:paths forKey:@"paths"];
 }
 
+- (NSString*) filter {
+  return [config objectForKey:@"filter"];
+}
+
+- (void) setFilter:(NSString*) filter{
+  [config setObject:filter forKey:@"filter"];
+}
+
+- (NSString*) commandForName:(NSString*) name {
+  NSString* cmd = [baseDir stringByAppendingPathComponent:name];
+  NSFileManager* fm = [NSFileManager defaultManager];
+
+  if ([fm fileExistsAtPath:cmd]) return cmd;
+
+  return [[[[NSBundle mainBundle] resourcePath] 
+    stringByAppendingPathComponent:@"commands"]
+    stringByAppendingPathComponent:name];
+}
+
 - (void) rebuild {
   if (!baseDir) {
-    NSLog(@"no based dir");
+    NSAlert* alert = [NSAlert alertWithMessageText:@"Index has not been saved yet"
+                                     defaultButton:@"OK" 
+                                   alternateButton:nil 
+                                       otherButton:nil 
+                         informativeTextWithFormat:@"Configure the index and save it to a file"];
+    [alert runModal];
     return;
   }
 
+  if (status > 1) {
+    NSLog(@"busy");
+    return;
+  }
+
+  [self saveFile:baseDir];
+
   NSMutableArray* args = [NSMutableArray array];
-  NSString* cmd = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"commands/txtindx_build.pl"];
+  NSString* cmd = [self commandForName:@"txtindx_build"];
 
   [args addObject:baseDir];
 
@@ -117,11 +172,21 @@
 }
 
 - (void) search:(NSString*) qry {
+  [self search:qry type:0];
+}
+
+- (void) search:(NSString*) qry type:(NSInteger) type {
+  if (status != 0) {
+    NSLog(@"busy");
+    return;
+  }
+
   NSMutableArray* args = [NSMutableArray array];
-  NSString* cmd = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"commands/txtindx_query.pl"];
+  NSString* cmd = [self commandForName:@"txtindx_query"];
 
   [args addObject:baseDir];
   [args addObject:qry];
+  [args addObject:[NSString stringWithFormat:@"%ld", type, nil]];
 
   [results removeAllObjects];
 
@@ -130,8 +195,13 @@
 }
 
 - (void) list {
+  if (status != 0) {
+    NSLog(@"busy");
+    return;
+  }
+
   NSMutableArray* args = [NSMutableArray array];
-  NSString* cmd = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"commands/txtindx_list.pl"];
+  NSString* cmd = [self commandForName:@"txtindx_list"];
 
   [args addObject:baseDir];
 
@@ -177,12 +247,13 @@
   NSLog(@"task terminated");
   NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
 
-  if (status == 2 || status == 3) [nc postNotificationName:@"searchHasEnded" object:self];
+  NSInteger s = status;
 
   status = 0;
-
   [nc postNotificationName:@"statusHasChanged" object:self];
-  
+
+  if (s == 2 || s == 3) [nc postNotificationName:@"searchHasEnded" object:self];
+
   [fh closeFile];
   [fh release];
   [task release];
@@ -203,7 +274,6 @@
 
   for (NSInteger i = 0; i < sz; i++) {
     if (*(bytes+i) == '\n') {
-      NSLog(@"%d %d", c, i);
       [buff appendBytes:bytes+c length:i-c];
       NSString* line = [[NSString alloc] initWithData:buff encoding:[NSString defaultCStringEncoding]];
       [self processLine:line];
@@ -236,6 +306,15 @@
     NSString* p = [line substringFromIndex:2];
     [item setPath:p];
     [item setTitle:[p lastPathComponent]];
+    [item setType:2];
+
+    [results addObject:item];
+    [item release];
+  }
+  else if ([line hasPrefix:@"U:"]) {
+    NSString* p = [line substringFromIndex:2];
+    [item setPath:p];
+    [item setTitle:p];
     [item setType:2];
 
     [results addObject:item];

@@ -47,12 +47,14 @@
 	    openFile:(NSString*) fileName {
 
   Document* doc = [[Document alloc] init];
-   [doc openFile: fileName];
+  [doc openFile: fileName];
+  [doc showWindow];
   return YES;
 }
 
 - (void) newDocument:(id) sender {
   Document* doc = [[Document alloc] init];
+  [doc showWindow];
 }
 
 - (void) openDocument: (id)sender {
@@ -64,6 +66,7 @@
     NSString* fileName = [[panel filenames] firstObject];
     Document* doc = [[Document alloc] init];
     [doc openFile: fileName];
+    [doc showWindow];
   }
 }
 

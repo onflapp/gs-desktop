@@ -53,6 +53,12 @@ static Inspector* __sharedinstance;
 - (void) inspectBooks:(Books*) books {
   ASSIGN(currentBooks, books);
   [pathsTable reloadData];
+
+  [filterField setStringValue:[books filter]];
+}
+
+- (IBAction) changeFilter:(id) sender {
+  [currentBooks setFilter:[sender stringValue]];
 }
 
 - (IBAction) rebuild:(id) sender {

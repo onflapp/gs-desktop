@@ -33,11 +33,14 @@
   IBOutlet NSWindow *window;
   IBOutlet NSTableView* resultsView;
   IBOutlet NSTextField* queryField;
+  IBOutlet NSPopUpButton* queryTypeButton;
+  IBOutlet NSTextField* statusField;
 
   Books* books;
   NSString* filePath;
 }
 - (void) openFile:(NSString*) file;
+- (void) showWindow;
 
 @end
 

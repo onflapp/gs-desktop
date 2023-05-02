@@ -3,6 +3,8 @@
 $BASE_DIR = $ARGV[0];
 $RECOLL_CONF = "$BASE_DIR/recoll.conf";
 @PATHS = ();
+@FILTER = ();
+@IGNORE = ();
 
 $cmd = "recollindex";
 
@@ -32,6 +34,19 @@ if ($cfg =~ m/paths\s*=\s*\((.*?)\);/) {
     push(@PATHS, $_);
   }
 }
+if ($cfg =~ m/filter\s*=\s*"(.*?)";/) {
+  @a = split(' ', $1);
+  foreach(@a) {
+    $_ =~ s/^\s*"//;
+    $_ =~ s/"\s*$//;
+    if ($_ =~ /^!/) {
+      push(@IGNORE, substr($_, 1));
+    }
+    else {
+      push(@FILTER, $_);
+    }
+  }
+}
 
 if ($#PATHS == -1) {
   print("X:nothing to index\n");
@@ -40,6 +55,9 @@ if ($#PATHS == -1) {
 
 open(OUT, "> $RECOLL_CONF");
 print(OUT "topdirs = " . join(' ', @PATHS) . "\n");
+print(OUT "onlyNames = " . join(' ', @FILTER) . "\n") if ($#FILTER != -1);
+print(OUT "skippedNames = " . join(' ', @IGNORE) . "\n") if ($#IGNORE != -1);
+#print(OUT "loglevel = 1\n");
 close(OUT);
 
 print(STDOUT "S:indexing...\n");

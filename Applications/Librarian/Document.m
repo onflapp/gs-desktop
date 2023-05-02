@@ -30,10 +30,7 @@
 - (id) init {
   self = [super init];
   [NSBundle loadNibNamed:@"Document" owner:self];
-  [window setFrameAutosaveName:@"document_window"];
   
-  [window makeKeyAndOrderFront:self];
-
   books = [[Books alloc] init];
 
   [resultsView setHeaderView:nil];
@@ -66,11 +63,32 @@
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
+- (void) showWindow {
+  [window setFrameAutosaveName:@"document_window"];
+  [window makeKeyAndOrderFront:self];
+
+  if ([books status] == -1) {
+    [statusField setStringValue:@"create new index first"];
+  }
+}
+
 - (void) searchHasEnded:(NSNotification*) not {
   [resultsView reloadData];
+  
+  NSInteger c = [[books searchResults] count];
+  [statusField setStringValue:[NSString stringWithFormat:@"%ld results found", c]];
 }
 
 - (void) statusHasChanged:(NSNotification*) not {
+  if ([books status] == 0) {
+    [statusField setStringValue:@"ready"];
+  }
+  else if ([books status] == 1) {
+    [statusField setStringValue:@"building index..."];
+  }
+  else {
+    [statusField setStringValue:@"working..."];
+  }
 }
 
 - (void) openFile:(NSString*) file {
@@ -97,16 +115,50 @@
   }
 }
 
+- (void) displayErrorMessage:(NSString*) msg info:(NSString*) info {
+  NSAlert* alert = [NSAlert alertWithMessageText:msg
+                                  defaultButton:@"OK" 
+                                alternateButton:nil 
+                                    otherButton:nil 
+                      informativeTextWithFormat:info];
+  [alert runModal];
+}
+
 - (void) inspect:(id) sender {
-  [[[Inspector sharedInstance] window] orderFront:sender];
+  Inspector* ip = [Inspector sharedInstance];
+  [ip inspectBooks:books];
+  [[ip window] orderFront:sender];
 }
 
 - (void) search:(id) sender {
+  if ([books status] == -1) {
+    [self displayErrorMessage:@"Index has not been built yet" 
+                         info:@"Use the inspector to configure and build the index"];
+    return;
+  }
+  else if ([books status] > 0) {
+    return;
+  }
+
   NSString* txt = [queryField stringValue];
-  [books search:txt];
+  NSInteger type = [[queryTypeButton selectedItem] tag];
+  [statusField setStringValue:@"searching..."];
+
+  [books search:txt type:type];
 }
 
 - (void) list:(id) sender {
+  if ([books status] == -1) {
+    [self displayErrorMessage:@"Index has not been built yet" 
+                         info:@"Use the inspector to configure and build the index"];
+    return;
+  }
+  else if ([books status] > 0) {
+    return;
+  }
+
+  [statusField setStringValue:@"listing..."];
+
   [books list];
 }
 
@@ -129,6 +181,14 @@
     [books openFile:fileName];
     ASSIGN(filePath, fileName);
   }
+}
+
+- (void) rebuild:(id) sender {
+  [books rebuild];
+}
+
+- (void) windowWillClose: (NSNotification*)aNotification {
+  [books close];
 }
 
 - (void) windowDidBecomeKey:(NSWindow*) win {

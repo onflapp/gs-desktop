@@ -3,6 +3,7 @@
     FirstResponder = {
 	Actions = (
 	    "addFolder:",
+	    "changeFilter:",
 	    "rebuild:",
 	    "removeFolder:"
 	);
@@ -12,11 +13,13 @@
 	Actions = (
 	    "rebuild:",
 	    "addFolder:",
-	    "removeFolder:"
+	    "removeFolder:",
+	    "changeFilter:"
 	);
 	Outlets = (
 	    window,
-	    pathsTable
+	    pathsTable,
+	    filterField
 	);
 	Super = NSObject;
     };
