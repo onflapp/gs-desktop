@@ -19,7 +19,8 @@
 	Outlets = (
 	    window,
 	    pathsTable,
-	    filterField
+	    filterField,
+	    statusField
 	);
 	Super = NSObject;
     };

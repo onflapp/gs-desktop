@@ -54,6 +54,7 @@
   NSMutableData* buff;
   NSFileHandle* fh;
   NSTask* task;
+  id delegate;
 
   NSMutableArray* results;
 }
@@ -61,11 +62,14 @@
 - (id) init;
 - (void) openFile:(NSString*) file;
 - (void) saveFile:(NSString*) file;
+
 - (void) search:(NSString*) qry;
 - (void) search:(NSString*) qry type:(NSInteger) type;
+
 - (NSInteger) status;
 - (void) list;
 - (void) rebuild;
+- (void) rebuild:(NSInteger) type;
 - (void) close;
 
 - (NSArray*) searchResults;
@@ -73,6 +77,7 @@
 - (void) setPaths:(NSArray*) paths;
 - (NSString*) filter;
 - (void) setFilter:(NSString*) filter;
+- (void) setDelegate:(id) del;
 
 @end
 

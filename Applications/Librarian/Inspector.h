@@ -33,6 +33,7 @@
   IBOutlet NSWindow* window;
   IBOutlet NSTableView* pathsTable;
   IBOutlet NSTextField* filterField;
+  IBOutlet NSTextField* statusField;
 
   Books* currentBooks;
 }

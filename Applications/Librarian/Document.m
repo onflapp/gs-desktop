@@ -142,8 +142,11 @@
 
   NSString* txt = [queryField stringValue];
   NSInteger type = [[queryTypeButton selectedItem] tag];
+
+
   [statusField setStringValue:@"searching..."];
 
+  NSLog(@"search[%@]", txt);
   [books search:txt type:type];
 }
 
@@ -188,6 +191,10 @@
 }
 
 - (void) windowWillClose: (NSNotification*)aNotification {
+  Inspector* ip = [Inspector sharedInstance];
+  [ip inspectBooks:nil];
+  [[ip window] orderOut:self];
+
   [books close];
 }
 

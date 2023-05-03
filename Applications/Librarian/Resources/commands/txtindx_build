@@ -1,15 +1,23 @@
 #!/bin/perl
 
 $BASE_DIR = $ARGV[0];
+$TYPE = $ARGV[1];
+
 $RECOLL_CONF = "$BASE_DIR/recoll.conf";
 @PATHS = ();
 @FILTER = ();
 @IGNORE = ();
 
-$cmd = "recollindex";
+$SIG{INT} = *handle_int;
+
+sub handle_int {
+  sleep(1);
+  print(STDOUT "E:abort indexing\n");
+  exit 1;
+}
 
 if (! -d $BASE_DIR) {
-  print("X:directory not specified\n");
+  print("E:directory not specified\n");
   exit 1;
 }
 
@@ -22,7 +30,7 @@ while(<IN>) {
 close(IN);
 
 if ($cfg eq "") {
-  print("X:config not found\n");
+  print("E:config not found\n");
   exit 1;
 }
 
@@ -49,17 +57,104 @@ if ($cfg =~ m/filter\s*=\s*"(.*?)";/) {
 }
 
 if ($#PATHS == -1) {
-  print("X:nothing to index\n");
+  print("E:nothing to index\n");
   exit 1;
 }
 
+### create config file
 open(OUT, "> $RECOLL_CONF");
-print(OUT "topdirs = " . join(' ', @PATHS) . "\n");
-print(OUT "onlyNames = " . join(' ', @FILTER) . "\n") if ($#FILTER != -1);
-print(OUT "skippedNames = " . join(' ', @IGNORE) . "\n") if ($#IGNORE != -1);
-#print(OUT "loglevel = 1\n");
+
+#print(OUT "topdirs = " . join(' ', @PATHS) . "\n");
+#print(OUT "onlyNames = " . join(' ', @FILTER) . "\n") if ($#FILTER != -1);
+#print(OUT "skippedNames = " . join(' ', @IGNORE) . "\n") if ($#IGNORE != -1);
+print(OUT "loglevel = 2\n");
+print(OUT "underscoreasletter = true\n");
+
 close(OUT);
 
+
+if ($TYPE == 1) {
+  unlink ("$BASE_DIR/filelist.txt");
+  system ("rm", "-r", "$BASE_DIR/xapiandb");
+
+  sleep(1);
+  print(STDOUT "S:index dropped\n");
+  exit 1;
+}
+
+
+### build file list
+print(STDOUT "S:making file list...\n");
+
+$cmd = "find";
+$xfl = "";
+$ifl = "";
+
+$c = 0;
+foreach(@FILTER) {
+  $ifl .= " -o " if ($c);
+  $ifl .= " -name \"$_\"";
+  $c++;
+}
+
+$c = 0;
+foreach(@IGNORE) {
+  $xfl .= " -o " if ($c);
+  $xfl .= " -name \"$_\"";
+  $c++;
+}
+
+open(OUT, ">", "$BASE_DIR/filelist.txt");
+foreach(@PATHS) {
+  my $root = $_;
+  my $xcmd = "$cmd $root ";
+
+  if ($xfl ne "") {
+    $xcmd .= " \\( $xfl \\) -prune -o ";
+  }
+  
+  $xcmd .= " -type f ";
+  if ($ifl ne "") {
+    $xcmd .= " \\( $ifl \\)";
+  }
+  
+  print (OUT "R:$root\n");
+
+  $xcmd .= " -print";
+  open(IN, "$xcmd |");
+  while(<IN>) {
+    chomp();
+
+    my $r = substr($_, length($root)+1);
+    print (OUT "P:$r\n");
+  }
+  close(IN);
+}
+close(OUT);
+
+### start indexing
 print(STDOUT "S:indexing...\n");
-system($cmd, "-c", $BASE_DIR);
-print(STDOUT "E:indexing\n");
+
+$cmd = "recollindex";
+open(IN, "$BASE_DIR/filelist.txt");
+open(OUT, "| $cmd -c $BASE_DIR -if"); # use -e to erase the index first
+
+$root = "";
+while(<IN>) {
+  chomp();
+
+  my $t = substr($_, 0, 2);
+  if ($t eq "R:") {
+    $root = substr($_, 2);
+  }
+  elsif ($t eq "P:") {
+    $p = $root . "/" . substr($_, 2);
+    print(OUT "$p\n");
+  }
+}
+
+close(OUT);
+close(IN);
+
+sleep(1);
+print(STDOUT "S:finished indexing\n");

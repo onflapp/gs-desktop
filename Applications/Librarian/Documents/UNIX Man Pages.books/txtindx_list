@@ -1,0 +1,21 @@
+#!/bin/perl
+
+$BASE_DIR = $ARGV[0];
+
+if (! -f "$BASE_DIR/filelist.txt") {
+  print (STDOUT "E:index doesn't exist\n");
+  exit 1;
+}
+
+$section = "";
+open (IN, "$BASE_DIR/filelist.txt");
+while (<IN>) {
+  chomp();
+  ($s, $n, $d) = split(/\t/, $_);
+  if ($s ne $section) {
+    print (STDOUT "T:Section $s\n");
+    $section = $s;
+  }
+  print (STDOUT "U:man:$n/$s\t$n - \t$d\n");
+}
+close (IN);

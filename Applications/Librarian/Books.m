@@ -76,6 +76,8 @@
   RELEASE(config);
   RELEASE(baseDir);
   RELEASE(task);
+
+  delegate = nil;
   [super dealloc];
 }
 
@@ -144,7 +146,16 @@
     stringByAppendingPathComponent:name];
 }
 
+
+- (void) setDelegate:(id) del {
+  delegate = del;
+}
+
 - (void) rebuild {
+  [self rebuild:0];
+}
+
+- (void) rebuild:(NSInteger) type {
   if (!baseDir) {
     NSAlert* alert = [NSAlert alertWithMessageText:@"Index has not been saved yet"
                                      defaultButton:@"OK" 
@@ -155,7 +166,7 @@
     return;
   }
 
-  if (status > 1) {
+  if (status > 0) {
     NSLog(@"busy");
     return;
   }
@@ -166,6 +177,7 @@
   NSString* cmd = [self commandForName:@"txtindx_build"];
 
   [args addObject:baseDir];
+  [args addObject:[NSString stringWithFormat:@"%ld", type, nil]];
 
   status = 1;
   [self execTask:cmd withArguments:args];
@@ -294,31 +306,55 @@
 
 - (void) processLine:(NSString*) line {
   ResultItem* item = [[ResultItem alloc] init];
+  NSRange r = [line rangeOfString:@"\t"];
+  NSString* loc = nil;
+  NSString* title = nil;
+
+  if (r.location == NSNotFound) {
+    loc = line;
+  }
+  else {
+    loc = [line substringToIndex:r.location];
+    title = [line substringFromIndex:r.location+1];
+  }
 
   if ([line hasPrefix:@"T:"]) {
-    [item setTitle:[line substringFromIndex:2]];
+    if (title) {
+      [item setTitle:title];
+      [item setPath:[loc substringFromIndex:2]];
+    }
+    else {
+      [item setTitle:[loc substringFromIndex:2]];
+      [item setPath:[loc substringFromIndex:2]];
+    }
+
     [item setType:1];
 
     [results addObject:item];
     [item release];
   }
-  else if ([line hasPrefix:@"P:"]) {
-    NSString* p = [line substringFromIndex:2];
-    [item setPath:p];
-    [item setTitle:[p lastPathComponent]];
+  else if ([line hasPrefix:@"P:"] || [line hasPrefix:@"U:"]) {
+    if (title) {
+      [item setTitle:title];
+      [item setPath:[loc substringFromIndex:2]];
+    }
+    else {
+      [item setTitle:[loc substringFromIndex:2]];
+      [item setPath:[loc substringFromIndex:2]];
+    }
+
     [item setType:2];
 
     [results addObject:item];
     [item release];
   }
-  else if ([line hasPrefix:@"U:"]) {
-    NSString* p = [line substringFromIndex:2];
-    [item setPath:p];
-    [item setTitle:p];
-    [item setType:2];
-
-    [results addObject:item];
-    [item release];
+  else if ([line hasPrefix:@"S:"]) {
+    NSString* s = [line substringFromIndex:2];
+    [delegate performSelector:@selector(books:didUpdateStatus:) withObject:self withObject:s];
+  }
+  else if ([line hasPrefix:@"E:"]) {
+    NSString* s = [line substringFromIndex:2];
+    [delegate performSelector:@selector(books:shouldDisplayError:) withObject:self withObject:s];
   }
   else {
     NSLog(@"[%@]", line);

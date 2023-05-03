@@ -51,10 +51,15 @@ static Inspector* __sharedinstance;
 }
 
 - (void) inspectBooks:(Books*) books {
+  [currentBooks setDelegate:nil];
+
   ASSIGN(currentBooks, books);
   [pathsTable reloadData];
 
   [filterField setStringValue:[books filter]];
+  [statusField setStringValue:@""];
+
+  [books setDelegate:self];
 }
 
 - (IBAction) changeFilter:(id) sender {
@@ -62,7 +67,7 @@ static Inspector* __sharedinstance;
 }
 
 - (IBAction) rebuild:(id) sender {
-  [currentBooks rebuild];
+  [currentBooks rebuild:[sender tag]];
 }
 
 - (IBAction) addFolder:(id) sender {
@@ -88,6 +93,14 @@ static Inspector* __sharedinstance;
   
     [pathsTable reloadData];
   }
+}
+
+- (void) books:(Books*) books didUpdateStatus:(NSString*) msg {
+  [statusField setStringValue:msg];
+}
+
+- (void) books:(Books*) books shouldDisplayError:(NSString*) msg {
+  [statusField setStringValue:msg];
 }
 
 - (NSInteger) numberOfRowsInTableView:(NSTableView*) table {

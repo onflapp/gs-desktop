@@ -13,12 +13,12 @@ if ($TYPE == 1) {
 }
 
 if (! -d $BASE_DIR) {
-  print("X:file not found\n");
+  print(STDOUT "E:file not found\n");
   exit 1;
 }
 
 if ($QUERY eq "") {
-  print("X:no query specified\n");
+  print(STDOUT "E:no query specified\n");
   exit 1;
 }
 
@@ -42,8 +42,7 @@ while(<IN>) {
     $in_abstract = 1;
   }
   elsif (m/^\/ABSTRACT/) {
-    print("T:$title\n");
-    print("U:$url\n");
+    print("U:$url\t$title\n");
 
     $url = "";
     $in_abstract = 0;
@@ -53,3 +52,4 @@ while(<IN>) {
   }
 }
 close(IN);
+sleep(1);

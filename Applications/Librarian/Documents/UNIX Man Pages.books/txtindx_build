@@ -1,0 +1,18 @@
+#!/bin/perl
+
+$BASE_DIR = $ARGV[0];
+
+print(STDOUT "S:indexing...\n");
+
+open (SOUT, "| sort -k 1 > \"$BASE_DIR/filelist.txt\"");
+open (IN, "apropos . |");
+while (<IN>) {
+  chomp();
+  if ($_ =~ m/^(.*?) \((\w+)\)\s+-\s+(.*?)$/) {
+    print(SOUT "$2\t$1\t$3\n");
+  }
+}
+close (IN);
+close (SOUT);
+
+print(STDOUT "S:index done\n");
