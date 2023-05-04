@@ -52,4 +52,3 @@ while(<IN>) {
   }
 }
 close(IN);
-sleep(1);

@@ -32,7 +32,8 @@
     );
     IMAGES = (
 	"Icon.tiff",
-	"Books.tiff"
+	"Books.tiff",
+	"chapter.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (

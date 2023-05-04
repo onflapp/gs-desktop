@@ -37,7 +37,8 @@
   [resultsView setDelegate:self];
   [resultsView setDataSource:self];
   [resultsView setDoubleAction:@selector(selectFile:)];
-  [[resultsView tableColumnWithIdentifier:@"column1"] setEditable:NO];
+  [[resultsView tableColumnWithIdentifier:@"icon"] setEditable:NO];
+  [[resultsView tableColumnWithIdentifier:@"title"] setEditable:NO];
 
   NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
   [nc addObserver:self
@@ -208,21 +209,29 @@
 
 - (void) tableView:(NSTableView*)table willDisplayCell:(id)cell forTableColumn:(NSTableColumn*)col row: (NSInteger)row {
   ResultItem* item = [[books searchResults] objectAtIndex:row];
-  if ([item type] == 1) {
-    [cell setTextColor:[NSColor redColor]];
-  }
-  else {
-    [cell setTextColor:[NSColor textColor]];
+  if ([[col identifier] isEqualToString:@"title"]) {
+    if ([item type] == 1) {
+      [cell setTextColor:[NSColor grayColor]];
+      [cell setFont:[NSFont boldSystemFontOfSize:12]];
+      [cell setAlignment:NSCenterTextAlignment];
+    }
+    else {
+      [cell setTextColor:[NSColor textColor]];
+      [cell setFont:[NSFont labelFontOfSize:12]];
+      [cell setAlignment:NSLeftTextAlignment];
+    }
   }
 }
 
 - (id) tableView:(NSTableView*) table objectValueForTableColumn:(NSTableColumn*) col row:(NSInteger) row {
   ResultItem* item = [[books searchResults] objectAtIndex:row];
-  if ([item type] == 1) {
-    return [NSString stringWithFormat:@"*** %@ ***", [item title]];
+  if ([[col identifier] isEqualToString:@"icon"]) {
+    if ([item type] == 1) return nil;
+    else                  return [NSImage imageNamed:@"chapter"];
   }
   else {
-    return [NSString stringWithFormat:@"%@", [item title]];
+    if ([item type] == 1) return [NSString stringWithFormat:@"--- %@ ---", [item title]];
+    else                  return [NSString stringWithFormat:@"%@", [item title]];
   }
 }
 

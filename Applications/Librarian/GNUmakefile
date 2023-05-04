@@ -37,6 +37,7 @@ Resources/Document.gorm \
 Resources/Inspector.gorm \
 Resources/Icon.tiff \
 Resources/Books.tiff \
+Resources/chapter.tiff \
 Resources/commands 
 
 
