@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function show_status {
-  xsetroot -solid "$1"
+  xsetroot -solid "$1" || exit 1
 }
 
 function start_workspace {
@@ -186,27 +186,52 @@ function cleanup {
   exit
 }
 
-show_status "black"
-echo "starting GS Desktop"
+echo "==============================================="
+echo " Starting GNUstep Desktop"
+echo "==============================================="
 
 if [ "$1" == "--safe-mode-continue" ];then
+  show_status "blue"
   export GS_DESKTOP_SAFEMODE="safe"
 
   echo ""
-  echo "press [y] to exit to the shell, otherwise continue"
-  read -s -n 1 DD
+  echo "you are about to enter SAFE MODE"
+  echo ""
+  echo " [l] - to exit to your login shell ($SHELL)"
+  echo " [s] - to exit to /bin/sh"
+  echo " [x] - to run in Xnest"
+  echo ""
+  echo "any other key to continue"
 
-  if [ "$DD" == "y" ];then
+  read -s -n 1 DD
+  clear
+
+  if [ "$DD" == "x" ];then
+    exec /bin/bash --rcfile <(echo "/System/bin/startgsde-xnest")
+  fi
+ 
+  if [ "$DD" == "l" ] || [ "$DD" == "s" ];then
+    clear
+    echo "running in the safe mode"
+    echo "use use following commands:"
     echo ""
-    echo "switching to the safe mode"
-    echo "/System/bin/startgsde to run the desktop environment"
-    exec /bin/sh
+    echo " /System/bin/startgsde       - to start the desktop environment"
+    echo " /System/bin/startgsde-xnest - to start the desktop environment in Xnest"
+    echo ""
+
+    if [ "$DD" == "l" ];then
+       exec $SHELL
+     else
+       exec "/bin/sh"
+     fi
   fi
 fi
 
 if [ "$1" == "--safe-mode" ];then
-  exec xterm -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
+  exec xterm -bd green -geometry 200x18+0-0 -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
 fi
+
+show_status "black"
 
 ## clean up
 rm -R "/tmp/GNUstepSecure$UID" 2>/dev/null
@@ -228,7 +253,12 @@ WM_ARGS=""
 if [ -n "$GS_DESKTOP_SAFEMODE" ];then
   echo "running in SAFE mode"
   trap cleanup SIGINT
-  start_debug |& tee $GS_DESKTOP_LOG
+  if [ "$GS_DESKTOP_SAFEMODE" = "xnest" ];then
+    echo "logging to $GS_DESKTOP_LOG"
+    start_debug > $GS_DESKTOP_LOG 2>&1
+  else
+    start_debug |& tee $GS_DESKTOP_LOG
+  fi
 else
   start_normal > $GS_DESKTOP_LOG 2>&1
 fi

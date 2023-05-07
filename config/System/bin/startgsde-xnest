@@ -1,0 +1,34 @@
+#!/bin/bash
+
+W=`xwininfo -root | awk '/Width:/{ print $2 }'`
+H=`xwininfo -root | awk '/Height:/{ print $2 }'`
+
+if [ -z "$W" ] || [ -z "$H" ];then
+  echo "unable to get root size"
+  exit 1
+fi
+
+TH="245"
+TW="$W"
+
+XW="$W"
+XH=$(( H - TH ))
+XX="0"
+XY="0"
+
+Xnest -geometry "${XW}x${XH}+${XX}+${XY}" :1 2>/dev/null  &
+XPID=$!
+
+sleep 1
+
+export DISPLAY=":1"
+export GS_DESKTOP_SAFEMODE="xnest"
+
+clear
+echo "ctrl-c will drop you back to the shell"
+
+/System/bin/startgsde
+
+kill $XPID 2>/dev/null
+echo ""
+echo "use /System/bin/startgsde-xnest to start the desktop again"
