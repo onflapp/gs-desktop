@@ -33,7 +33,9 @@ CloudManager_APPLICATION_ICON = CloudManager.tiff
 #
 CloudManager_RESOURCE_FILES = \
 Resources/CloudManager.gorm \
-Resources/CloudManager.tiff 
+Resources/RCloneSetup.gorm \
+Resources/CloudManager.tiff \
+Resources/services 
 
 
 #
@@ -42,7 +44,10 @@ Resources/CloudManager.tiff
 CloudManager_HEADER_FILES = \
 AppController.h \
 ServiceManager.h \
-ServiceTask.h
+ServiceTask.h \
+RCloneServiceTask.h \
+RCloneSetup.h \
+CustomServiceTask.h
 
 #
 # Objective-C Class files
@@ -50,7 +55,10 @@ ServiceTask.h
 CloudManager_OBJC_FILES = \
 AppController.m \
 ServiceManager.m \
-ServiceTask.m
+ServiceTask.m \
+RCloneServiceTask.m \
+RCloneSetup.m \
+CustomServiceTask.m
 
 #
 # Other sources

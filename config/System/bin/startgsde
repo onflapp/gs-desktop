@@ -186,9 +186,9 @@ function cleanup {
   exit
 }
 
-echo "==============================================="
+echo "=================================================="
 echo " Starting GNUstep Desktop"
-echo "==============================================="
+echo "=================================================="
 
 if [ "$1" == "--safe-mode-continue" ];then
   show_status "blue"
@@ -196,12 +196,14 @@ if [ "$1" == "--safe-mode-continue" ];then
 
   echo ""
   echo "you are about to enter SAFE MODE"
+  echo "WARNING: you will not be able to modify the dock"
   echo ""
   echo " [l] - to exit to your login shell ($SHELL)"
   echo " [s] - to exit to /bin/sh"
   echo " [x] - to run in Xnest"
   echo ""
   echo "any other key to continue"
+  echo "ctrl-c to interrupt"
 
   read -s -n 1 DD
   clear
@@ -213,10 +215,10 @@ if [ "$1" == "--safe-mode-continue" ];then
   if [ "$DD" == "l" ] || [ "$DD" == "s" ];then
     clear
     echo "running in the safe mode"
-    echo "use use following commands:"
+    echo "use use the following commands to start"
     echo ""
-    echo " /System/bin/startgsde       - to start the desktop environment"
-    echo " /System/bin/startgsde-xnest - to start the desktop environment in Xnest"
+    echo " /System/bin/startgsde       - start the desktop"
+    echo " /System/bin/startgsde-xnest - use separate Xserver (Xnest)"
     echo ""
 
     if [ "$DD" == "l" ];then

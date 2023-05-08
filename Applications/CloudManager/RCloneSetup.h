@@ -1,11 +1,11 @@
 /*
    Project: CloudManager
 
-   Copyright (C) 2022 Free Software Foundation
+   Copyright (C) 2023 Free Software Foundation
 
    Author: Parallels
 
-   Created: 2022-09-16 15:40:26 +0000 by parallels
+   Created: 2023-05-08 13:10:39 +0000 by parallels
 
    This application is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,20 +22,26 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#ifndef _SERVICEMANAGER_H_
-#define _SERVICEMANAGER_H_
+#ifndef _RCLONESETUP_H_
+#define _RCLONESETUP_H_
 
-#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
+#import <TerminalKit/TerminalKit.h>
 
-@interface ServiceManager : NSObject {
-   NSMutableArray* services;
+@interface RCloneTerminalView : TerminalView
+- (void) runSetup;
+@end
+
+@interface RCloneSetup : NSObject
+{
+   IBOutlet RCloneTerminalView* terminalView;
+   IBOutlet NSPanel* panel;
 }
 
-- (NSArray*) listServices;
-- (void) stopAllServices;
-- (void) configureAllServices;
+- (NSPanel*) panel;
+- (void) showPanelAndRunSetup:(id)sender;
 
 @end
 
-#endif // _SERVICEMANAGER_H_
+#endif // _RCLONESETUP_H_
 

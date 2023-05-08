@@ -4,7 +4,8 @@
 	Actions = (
 	    "showPrefPanel:",
 	    "controlService:",
-	    "openMountPoint:"
+	    "openMountPoint:",
+	    "configRCloneService:"
 	);
 	Outlets = (
 	    serviceStatus,
@@ -19,6 +20,7 @@
     FirstResponder = {
 	Actions = (
 	    "controlService:",
+	    "configRCloneService:",
 	    "openMountPoint:",
 	    "orderFrontFontPanel:",
 	    "showPrefPanel:"

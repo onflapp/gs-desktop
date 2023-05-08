@@ -5,7 +5,7 @@
 
    Author: Parallels
 
-   Created: 2022-09-16 15:40:26 +0000 by parallels
+   Created: 2022-09-16 15:44:39 +0000 by parallels
 
    This application is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,20 +22,28 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#ifndef _SERVICEMANAGER_H_
-#define _SERVICEMANAGER_H_
+#import "RCloneServiceTask.h"
 
-#import <Foundation/Foundation.h>
+@implementation RCloneServiceTask
 
-@interface ServiceManager : NSObject {
-   NSMutableArray* services;
+- (NSArray*) serviceTaskArguments {
+  NSFileManager* fm = [NSFileManager defaultManager];
+  NSString*   gwdir = [mountpoint stringByAppendingPathComponent:@".gwdir"];
+
+  /* we need to remove the .gwdir file which may have been created by GWorkspace */
+  [fm removeFileAtPath:gwdir handler:nil];
+
+  NSMutableArray* args = [NSMutableArray array];
+  [args addObject:@"mount"];
+  [args addObject:remotename];
+  [args addObject:mountpoint];
+  [args addObject:@"--vfs-cache-mode"];
+  [args addObject:@"full"];
+  return args;
 }
 
-- (NSArray*) listServices;
-- (void) stopAllServices;
-- (void) configureAllServices;
+- (NSString*) serviceTaskExec {
+  return @"/usr/bin/rclone";
+}
 
 @end
-
-#endif // _SERVICEMANAGER_H_
-

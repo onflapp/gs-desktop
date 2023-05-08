@@ -1,0 +1,13 @@
+#!/bin/bash
+
+export BROWSER="$0 --browser"
+export TERM="linux"
+
+if [ "$1" == "--browser" ];then
+  /Library/bin/gopen "$2"
+elif [ "$1" == "--services" ];then
+  /usr/bin/rclone listremotes 
+else
+  clear
+  /usr/bin/rclone config
+fi

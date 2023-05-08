@@ -13,24 +13,25 @@
 @implementation AppController
 
 + (void) initialize {
-  NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
+  NSMutableDictionary* defaults = [NSMutableDictionary dictionary];
 
-  /*
-   * Register your app's defaults here by adding objects to the
-   * dictionary, eg
-   *
-   * [defaults setObject:anObject forKey:keyForThatObject];
-   *
-   */
+  [defaults setObject:@"~/Cloud" forKey:@"default_base"];
   
-  [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
+  [[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
   [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (id) init {
   if ((self = [super init])) {
      serviceManager = [[ServiceManager alloc] init];
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(serviceStatusHasChanged:) name:@"serviceStatusHasChanged" object:nil];
+
+     [[NSNotificationCenter defaultCenter] addObserver:self 
+                                              selector:@selector(serviceStatusHasChanged:) 
+                                                  name:@"serviceStatusHasChanged" object:nil];
+
+     [[NSNotificationCenter defaultCenter] addObserver:self 
+                                              selector:@selector(serviceRegistrationHasChanged:) 
+                                                  name:@"serviceRegistrationHasChanged" object:nil];
   }
   return self;
 }
@@ -41,9 +42,19 @@
 }
 
 - (void) awakeFromNib {
+   NSButtonCell* cell = AUTORELEASE([NSButtonCell new]);
+   [cell setButtonType:NSMomentaryPushInButton];
+   [cell setImagePosition:NSImageOverlaps];
+
+   NSRect r = [serviceListView frame];
+   [serviceListView setCellSize:NSMakeSize(r.size.width-23,48)];
+   [serviceListView setPrototype:cell];
+   [serviceListView setMode:NSRadioModeMatrix];
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif {
+  [serviceManager configureAllServices];
+
    [self refreshServiceListView];
 }
 
@@ -61,7 +72,8 @@
   for (ServiceTask* task in [serviceManager listServices]) {
     [task stopTask];
   }
-  NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.3];
+
+  NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.5];
   [[NSRunLoop currentRunLoop] runUntilDate: limit];
 }
 
@@ -71,17 +83,14 @@
 }
 
 - (void) refreshServiceListView {
-   NSButtonCell* cell = AUTORELEASE([NSButtonCell new]);
-   [cell setButtonType:NSPushOnPushOffButton];
-   [cell setImagePosition:NSImageOverlaps];
+   while ([serviceListView numberOfRows]) {
+     [serviceListView removeRow:0];
+   }
 
    NSInteger row = 0;
-   //[serviceListView setCellSize:NSMakeSize(64,64)];
-   [serviceListView setPrototype:cell];
-   [serviceListView setMode:NSRadioModeMatrix];
-
    for (ServiceTask* task in [serviceManager listServices]) {
       [serviceListView addRow];
+
       NSCell* cell = [serviceListView cellAtRow:row column:0];
       [cell setRefusesFirstResponder:YES];
       [cell setTitle:[task name]];
@@ -91,6 +100,7 @@
    [serviceListView setAllowsEmptySelection:YES];
    [serviceListView setTarget:self];
    [serviceListView setAction: @selector(showServiceInfo:)];
+   [serviceListView sizeToCells];
 }
 
 - (IBAction) showServiceInfo:(id) sender {
@@ -108,7 +118,10 @@
   [serviceMountPoint setStringValue:[task mountPoint]];
 }
 
-- (IBAction) addService:(id)sender {
+- (IBAction) configRCloneService:(id)sender {
+  if (!rcloneSetup) rcloneSetup = [[RCloneSetup alloc] init];
+
+  [rcloneSetup showPanelAndRunSetup:sender];
 }
 
 - (IBAction) openMountPoint:(id)sender {
@@ -136,6 +149,12 @@
 - (void) showPrefPanel: (id)sender {
   if (!launched) return;
   [window makeKeyAndOrderFront:self];
+}
+
+- (void) serviceRegistrationHasChanged:(NSNotification*) not {
+  [serviceManager configureAllServices];
+
+  [self refreshServiceListView];
 }
 
 - (void) serviceStatusHasChanged:(NSNotification*) not {

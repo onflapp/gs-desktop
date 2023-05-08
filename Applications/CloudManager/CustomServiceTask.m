@@ -5,7 +5,7 @@
 
    Author: Parallels
 
-   Created: 2022-09-16 15:40:26 +0000 by parallels
+   Created: 2022-09-16 15:44:39 +0000 by parallels
 
    This application is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,20 +22,20 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#ifndef _SERVICEMANAGER_H_
-#define _SERVICEMANAGER_H_
+#import "CustomServiceTask.h"
 
-#import <Foundation/Foundation.h>
+@implementation CustomServiceTask
 
-@interface ServiceManager : NSObject {
-   NSMutableArray* services;
+- (NSArray*) serviceTaskArguments {
+  NSMutableArray* args = [NSMutableArray array];
+  [args addObject:mountpoint];
+  return args;
+}
+  
+- (NSString*) serviceTaskExec {
+  NSString* exec = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"services"];
+  exec = [exec stringByAppendingPathComponent:remotename];
+  return exec;
 }
 
-- (NSArray*) listServices;
-- (void) stopAllServices;
-- (void) configureAllServices;
-
 @end
-
-#endif // _SERVICEMANAGER_H_
-

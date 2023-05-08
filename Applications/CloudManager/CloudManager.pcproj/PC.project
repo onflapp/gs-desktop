@@ -14,7 +14,10 @@
     "CLASS_FILES" = (
 	"AppController.m",
 	"ServiceManager.m",
-	"ServiceTask.m"
+	"ServiceTask.m",
+	"RCloneServiceTask.m",
+	"RCloneSetup.m",
+	"CustomServiceTask.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -26,27 +29,32 @@
     "HEADER_FILES" = (
 	"AppController.h",
 	"ServiceManager.h",
-	"ServiceTask.h"
+	"ServiceTask.h",
+	"RCloneServiceTask.h",
+	"RCloneSetup.h",
+	"CustomServiceTask.h"
     );
     IMAGES = (
 	"CloudManager.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
-	"CloudManager.gorm"
+	"CloudManager.gorm",
+	"RCloneSetup.gorm"
     );
     LANGUAGE = English;
     LIBRARIES = (
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "";
+    LINKEROPTIONS = "-lTerminalKit ";
     "LOCALIZED_RESOURCES" = (
     );
     MAININTERFACE = "CloudManager.gorm";
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
+	services
     );
     "OTHER_SOURCES" = (
 	"CloudManager_main.m"

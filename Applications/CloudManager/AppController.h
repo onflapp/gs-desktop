@@ -14,6 +14,7 @@
 #import <AppKit/AppKit.h>
 #import "ServiceManager.h"
 #import "ServiceTask.h"
+#import "RCloneSetup.h"
 
 @interface AppController : NSObject {
   IBOutlet NSMatrix* serviceListView;
@@ -26,6 +27,8 @@
   
   BOOL launched;
   ServiceManager* serviceManager;
+
+  RCloneSetup* rcloneSetup;
 }
 
 + (void) initialize;
@@ -42,7 +45,7 @@
 	    openFile: (NSString *)fileName;
 
 - (IBAction) showPrefPanel:(id)sender;
-- (IBAction) addService:(id)sender;
+- (IBAction) configRCloneService:(id)sender;
 - (IBAction) controlService:(id)sender;
 
 @end

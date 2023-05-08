@@ -22,20 +22,15 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#ifndef _SERVICEMANAGER_H_
-#define _SERVICEMANAGER_H_
+#ifndef _CUSTOMSERVICETASK_H_
+#define _CUSTOMSERVICETASK_H_
 
 #import <Foundation/Foundation.h>
+#import "ServiceTask.h"
 
-@interface ServiceManager : NSObject {
-   NSMutableArray* services;
+@interface CustomServiceTask : ServiceTask {
 }
-
-- (NSArray*) listServices;
-- (void) stopAllServices;
-- (void) configureAllServices;
-
 @end
 
-#endif // _SERVICEMANAGER_H_
+#endif // _CUSTOMSERVICETASK_H_
 

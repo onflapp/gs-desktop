@@ -67,13 +67,17 @@
   return status;
 }
 
+- (NSArray*) serviceTaskArguments {
+  return nil;
+}
+
+- (NSString*) serviceTaskExec {
+  return nil;
+}
+
 - (void) execTask {
-  NSMutableArray* args = [NSMutableArray array];
-  [args addObject:@"mount"];
-  [args addObject:remotename];
-  [args addObject:mountpoint];
-  [args addObject:@"--vfs-cache-mode"];
-  [args addObject:@"full"];
+  NSArray* args = [self serviceTaskArguments];
+  NSString* exec = [self serviceTaskExec];
   
   //NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.3];
   //[[NSRunLoop currentRunLoop] runUntilDate: limit];
@@ -82,7 +86,7 @@
   NSPipe* pipe = [NSPipe pipe];
   fh = [[pipe fileHandleForReading] retain];
   task = [[NSTask alloc] init];
-  [task setLaunchPath:@"/usr/bin/rclone"];
+  [task setLaunchPath:exec];
   [task setArguments:args];
   [task setStandardOutput:pipe];
   //[task setCurrentDirectoryPath:wp];

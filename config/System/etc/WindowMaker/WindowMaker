@@ -167,6 +167,7 @@
   NextWorkspaceLayerKey = None;
   ViKeyMenus = NO;
   StickyIcons = NO;
+  DbClickFullScreen = YES;
   RaiseLowerKey = None;
   MoveToWorkspace4Key = None;
   RTCMaximizeKey = None;
