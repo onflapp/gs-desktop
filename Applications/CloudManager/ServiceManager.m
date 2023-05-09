@@ -75,7 +75,13 @@
     [task setMountPoint:mdir];
     [task setRemoteName:@"personal-ftp.sh"];
     [services addObject:task];
+    [task release];
   }
+
+  task = [[CustomServiceTask alloc] initWithName:@"Personal VNC"];
+  [task setRemoteName:@"personal-vnc.sh"];
+  [services addObject:task];
+  [task release];
 }
 
 @end

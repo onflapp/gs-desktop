@@ -31,6 +31,7 @@
   NSString* name;
   NSString* remotename;
   NSString* mountpoint;
+  NSMutableString* log;
   
   NSTask* task;
   NSFileHandle* fh;
@@ -39,6 +40,7 @@
 - (id) initWithName:(NSString*) name;
 - (NSString*) name;
 - (NSInteger) status;
+- (NSString*) message;
 
 - (void) setRemoteName:(NSString*) rn;
 - (NSString*) remoteName;

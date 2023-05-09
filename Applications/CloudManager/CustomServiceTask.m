@@ -28,7 +28,9 @@
 
 - (NSArray*) serviceTaskArguments {
   NSMutableArray* args = [NSMutableArray array];
-  [args addObject:mountpoint];
+  if (mountpoint) {
+    [args addObject:mountpoint];
+  }
   return args;
 }
   

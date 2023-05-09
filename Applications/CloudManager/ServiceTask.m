@@ -29,6 +29,7 @@
 - (id) initWithName:(NSString*) nm {
   if ((self = [super init])) {
     name = [nm retain];
+    log = [[NSMutableString alloc]init];
     status = -1;
   }
   return self;
@@ -36,6 +37,7 @@
 
 - (void) dealloc {
   [self stopTask];
+  [log release];
   [name release];
   [task release];
   [super dealloc];
@@ -65,6 +67,10 @@
 
 - (NSInteger) status {
   return status;
+}
+
+- (NSString*) message {
+  return [log description];
 }
 
 - (NSArray*) serviceTaskArguments {
@@ -112,6 +118,7 @@
 }
 
 - (void) taskDidTerminate:(NSNotification*) not {
+  [log setString:@""];
   NSLog(@"task terminated");
   status = 0;
 
@@ -131,16 +138,21 @@
   NSData* data = [[not userInfo] objectForKey:NSFileHandleNotificationDataItem];
   NSString* str = [[NSString alloc] initWithData:data encoding:[NSString defaultCStringEncoding]];
   
-  NSLog(@"[[[%@]]]", str);
+  [log appendString:str];
+
+  [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"serviceStatusHasChanged" object:self];
+
+  [fh readInBackgroundAndNotify];
 }
 
 - (void) startTask {
-  NSLog(@"aaa");
   if (task) {
     NSLog(@"task running already?");
     return;
   }
   
+  [log setString:@""];
   [self execTask];
 }
 

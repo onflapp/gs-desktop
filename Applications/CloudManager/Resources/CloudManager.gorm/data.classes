@@ -13,7 +13,8 @@
 	    serviceName,
 	    serviceMountPoint,
 	    serviceRemoteName,
-	    window
+	    window,
+	    serviceDescription
 	);
 	Super = NSObject;
     };

@@ -20,6 +20,7 @@
   IBOutlet NSMatrix* serviceListView;
   IBOutlet NSTextField* serviceName;
   IBOutlet NSTextField* serviceStatus;
+  IBOutlet NSTextField* serviceDescription;
   IBOutlet NSTextField* serviceRemoteName;
   IBOutlet NSTextField* serviceMountPoint;
 

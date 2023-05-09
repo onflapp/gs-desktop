@@ -114,6 +114,7 @@
   
   [serviceName setStringValue:[task name]];
   [serviceStatus setStringValue:stat];
+  [serviceDescription setStringValue:[task message]];
   [serviceRemoteName setStringValue:[task remoteName]];
   [serviceMountPoint setStringValue:[task mountPoint]];
 }

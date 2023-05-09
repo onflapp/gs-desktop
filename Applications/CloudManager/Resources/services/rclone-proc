@@ -1,0 +1,6 @@
+#!/bin/sh
+
+echo "Use the mount point bellow"
+echo "to access this cloud service"
+
+exec /usr/bin/rclone $*

@@ -43,7 +43,8 @@
 }
 
 - (NSString*) serviceTaskExec {
-  return @"/usr/bin/rclone";
+  NSString* exec = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"services/rclone-proc"];
+  return exec;
 }
 
 @end
