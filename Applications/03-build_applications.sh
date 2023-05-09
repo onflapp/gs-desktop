@@ -4,17 +4,6 @@ D=`pwd`
 . /Developer/Makefiles/GNUstep.sh
 
 echo "=================="
-echo " Terminal Kit"
-echo "=================="
-
-cd ../../gs-terminal/TerminalKit || exit 1
-
-make clean
-make -j2 || exit 1
-
-sudo -E make install
-
-echo "=================="
 echo " Terminal App"
 echo "=================="
 

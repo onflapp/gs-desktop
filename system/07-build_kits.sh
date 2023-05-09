@@ -73,7 +73,7 @@ sudo -E make install
 sudo -E ldconfig
 
 echo "=================="
-echo " Netclasses"
+echo " Pantomine"
 echo "=================="
 
 cd "$D"
@@ -83,6 +83,17 @@ make -j2 || exit 1
 
 sudo -E make install
 sudo -E ldconfig
+
+echo "=================="
+echo " Terminal Kit"
+echo "=================="
+
+cd ../../gs-terminal/TerminalKit || exit 1
+
+make clean
+make -j2 || exit 1
+
+sudo -E make install
 
 echo "=================="
 echo " Addresses Kit"
