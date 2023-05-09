@@ -47,7 +47,7 @@
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "-lTerminalKit ";
+    LINKEROPTIONS = "-lTerminalKit -lutil";
     "LOCALIZED_RESOURCES" = (
     );
     MAININTERFACE = "CloudManager.gorm";
