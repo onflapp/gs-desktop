@@ -27,6 +27,7 @@ libxml2-dev
 libxslt-dev
 libpth-dev
 openssl
+libvncserver-dev
 libtiff-dev
 libjpeg-dev
 libpng-dev
