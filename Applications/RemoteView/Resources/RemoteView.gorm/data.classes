@@ -1,0 +1,25 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    AppController = {
+	Actions = (
+	    "showPrefPanel:",
+	    "newDisplay:",
+	    "connectDisplay:"
+	);
+	Outlets = (
+	    connectionHostname,
+	    connectionPanel,
+	    connectionPassword
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "connectDisplay:",
+	    "newDisplay:",
+	    "orderFrontFontPanel:",
+	    "showPrefPanel:"
+	);
+	Super = NSObject;
+    };
+}
