@@ -52,6 +52,7 @@
 
   [services removeAllObjects];
 
+  /* register rclone services */
   NSUserDefaults* cfg = [NSUserDefaults standardUserDefaults];
   NSArray* rclone = [cfg objectForKey:@"rclone_services"];
 
@@ -69,19 +70,37 @@
     [task release];
   }
 
-  CustomServiceTask* task = [[CustomServiceTask alloc] initWithName:@"Personal FTP"];
-  NSString* mdir = [self makeMountPointForName:@"FTPDrop"];
-  if (mdir) {
-    [task setMountPoint:mdir];
-    [task setRemoteName:@"personal-ftp.sh"];
-    [services addObject:task];
-    [task release];
+  /* register custom services */
+  NSFileManager* fm = [NSFileManager defaultManager];
+  NSMutableDictionary* found = [NSMutableDictionary new];
+  NSArray* paths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSAllDomainsMask, YES);
+
+  for (NSString* it in paths) {
+    NSString* path = [it stringByAppendingPathComponent:@"CloudManager/Services"];
+    NSArray* spaths = [fm directoryContentsAtPath:path];
+    for (NSString* it in spaths) {
+      if (![[it pathExtension] isEqualToString:@"cservice"]) continue;
+
+      NSString* name = [[it lastPathComponent] stringByDeletingPathExtension];
+      if (![found valueForKey:name]) {
+        NSString* spath = [path stringByAppendingPathComponent:it];
+        [found setValue:spath forKey:name];
+      }
+    }
   }
 
-  task = [[CustomServiceTask alloc] initWithName:@"Personal VNC"];
-  [task setRemoteName:@"personal-vnc.sh"];
-  [services addObject:task];
-  [task release];
+  for (NSString* name in [found allKeys]) {
+    CustomServiceTask* task = [[CustomServiceTask alloc] initWithName:name];
+    NSString* mdir = [self makeMountPointForName:name];
+    NSString* path = [found valueForKey:name];
+
+    if (mdir) {
+      [task setMountPoint:mdir];
+      [task setRemoteName:path];
+      [services addObject:task];
+      [task release];
+    }
+  }
 }
 
 @end

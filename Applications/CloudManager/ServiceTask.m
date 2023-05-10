@@ -87,7 +87,7 @@
   
   //NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.3];
   //[[NSRunLoop currentRunLoop] runUntilDate: limit];
-  NSLog(@"start");
+  NSLog(@"start %@ [%@]", exec, args);
   
   NSPipe* pipe = [NSPipe pipe];
   fh = [[pipe fileHandleForReading] retain];

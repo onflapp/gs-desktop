@@ -34,9 +34,12 @@
   return args;
 }
   
+- (NSString*) remoteName {
+  return [remotename pathExtension];
+}
+
 - (NSString*) serviceTaskExec {
-  NSString* exec = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"services"];
-  exec = [exec stringByAppendingPathComponent:remotename];
+  NSString* exec = remotename;
   return exec;
 }
 
