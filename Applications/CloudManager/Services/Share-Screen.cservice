@@ -1,0 +1,5 @@
+#!/bin/sh
+
+ip -o -4 a | awk '{print $4}'
+
+/usr/bin/x11vnc -nopw -solid darkblue -norc -q

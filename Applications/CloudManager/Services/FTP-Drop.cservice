@@ -1,0 +1,19 @@
+#!/bin/sh
+
+echo "Use port 2121 to connect"
+echo "login is anonymous"
+
+ip -o -4 a | awk '{print $4}'
+
+BASEDIR="$HOME/Library/CloudManager"
+mkdir -p "$BASEDIR"
+
+if [ -d "$1" ];then
+  D=`dirname $0`
+  R="$1"
+  cd "$BASEDIR" || exit 1
+  /usr/sbin/vsftpd "$D/vsftpd.conf" \
+  "-oanon_root=$R" \
+  "-oupload_file={$R/*}" \
+  "-odownload_file={$R/*}"
+fi
