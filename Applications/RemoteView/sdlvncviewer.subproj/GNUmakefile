@@ -20,57 +20,37 @@ endif
 include $(GNUSTEP_MAKEFILES)/common.make
 
 #
-# Application
+# Tool
 #
 VERSION = 0.1
-PACKAGE_NAME = RemoteView
-APP_NAME = RemoteView
-RemoteView_APPLICATION_ICON = 
+PACKAGE_NAME = sdlvncviewer
+TOOL_NAME = sdlvncviewer
+sdlvncviewer_TOOL_ICON = 
 
-
-#
-# Subprojects
-#
-SUBPROJECTS = \
-sdlvncviewer.subproj 
 
 #
 # Resource files
 #
-RemoteView_RESOURCE_FILES = \
-Resources/RemoteView.gorm \
-Resources/VNCDisplay.gorm \
-Resources/../sdlvncviewer.subproj/obj/sdlvncviewer 
+sdlvncviewer_RESOURCE_FILES = \
+Resources/Version \
 
 
 #
 # Header files
 #
-RemoteView_HEADER_FILES = \
-AppController.h \
-VNCDisplay.h \
-XEmbeddedView.h \
-VNCDisplayView.h
-
-#
-# Objective-C Class files
-#
-RemoteView_OBJC_FILES = \
-AppController.m \
-VNCDisplay.m \
-XEmbeddedView.m \
-VNCDisplayView.m
+sdlvncviewer_HEADER_FILES = \
+main.h
 
 #
 # Other sources
 #
-RemoteView_OBJC_FILES += \
-RemoteView_main.m 
+sdlvncviewer_OBJC_FILES += \
+main.m 
 
 #
 # Makefiles
 #
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/aggregate.make
-include $(GNUSTEP_MAKEFILES)/application.make
+include $(GNUSTEP_MAKEFILES)/tool.make
 -include GNUmakefile.postamble

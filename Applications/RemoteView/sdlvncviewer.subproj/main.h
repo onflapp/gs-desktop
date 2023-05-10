@@ -4,6 +4,4 @@
 #import <Foundation/Foundation.h>
 #include <X11/Xlib.h>
 
-int main_proc(id view, int argc,char** argv);
-
 #endif

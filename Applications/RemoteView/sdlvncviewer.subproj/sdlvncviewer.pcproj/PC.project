@@ -1,0 +1,64 @@
+{
+    "CLASS_FILES" = (
+    );
+    COMPILEROPTIONS = "";
+    CPPOPTIONS = "";
+    "CREATION_DATE" = "2023-05-10 20:42:05 +0000";
+    "DOCU_FILES" = (
+    );
+    FRAMEWORKS = (
+    );
+    "HEADER_FILES" = (
+	"main.h"
+    );
+    IMAGES = (
+    );
+    INSTALLDIR = "$(HOME)/GNUstep/Tools";
+    LANGUAGE = English;
+    LIBRARIES = (
+	"gnustep-base"
+    );
+    LINKEROPTIONS = "-lX11 -lSDL2 -lvncclient";
+    "LOCALIZED_RESOURCES" = (
+    );
+    MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
+    "OBJC_COMPILEROPTIONS" = "";
+    "OTHER_RESOURCES" = (
+	Version
+    );
+    "OTHER_SOURCES" = (
+	"main.m"
+    );
+    "PROJECT_AUTHORS" = (
+    );
+    "PROJECT_COPYRIGHT" = "Copyright (C) 200x";
+    "PROJECT_COPYRIGHT_DESC" = "Released under ...";
+    "PROJECT_CREATOR" = Parallels;
+    "PROJECT_DESCRIPTION" = "No description available!";
+    "PROJECT_GROUP" = "No group available!";
+    "PROJECT_MAINTAINER" = Parallels;
+    "PROJECT_NAME" = sdlvncviewer;
+    "PROJECT_RELEASE" = "0.1";
+    "PROJECT_SUMMARY" = "No summary available!";
+    "PROJECT_TYPE" = Tool;
+    "PROJECT_URL" = "";
+    "SEARCH_HEADER_DIRS" = (
+	"/usr/include/SDL2"
+    );
+    "SEARCH_LIB_DIRS" = (
+    );
+    SUBPROJECTS = (
+    );
+    "SUPPORTING_FILES" = (
+	"GNUmakefile.preamble",
+	GNUmakefile,
+	"GNUmakefile.postamble",
+	"sdlvncviewerInfo.plist"
+    );
+    TOOLICON = "";
+    "USER_LANGUAGES" = (
+	English,
+	German,
+	French
+    );
+}

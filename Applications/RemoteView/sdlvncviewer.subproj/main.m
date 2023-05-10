@@ -6,7 +6,7 @@
 #include <SDL2/SDL_syswm.h>
 #include <signal.h>
 #include <rfb/rfbclient.h>
-#include "SDLvncclient.h"
+#include "main.h"
 
 struct { int sdl; int rfb; } buttonMapping[]={
 	{1, rfbButton1Mask},
@@ -31,8 +31,7 @@ int sdlFlags;
 SDL_Texture *sdlTexture;
 SDL_Renderer *sdlRenderer;
 SDL_Window *sdlWindow;
-Window * xWindow;
-id parentView;
+Window xWindow = 0;
 /* client's pointer position */
 int x,y;
 
@@ -254,17 +253,21 @@ static void cleanup(rfbClient* cl)
 
 static void reparentWindow(SDL_Window* win) 
 {
+	if (xWindow) return;
+
 	SDL_SysWMinfo info;
 	SDL_VERSION(&info.version);
 	if (SDL_GetWindowWMInfo(win, &info)) {
-		Window xwinid = info.info.x11.window;
-		NSLog(@"XWINID:%x %@", xwinid, parentView);
+		xWindow = (Window)info.info.x11.window;
+		printf("S:% ld\n", xWindow);
+		/*
 		[parentView performSelectorOnMainThread:@selector(reparentXWindowID:) 
 																 withObject:[NSNumber numberWithLong:xwinid]
                               waitUntilDone:NO];
+															*/
 	}
 	else {
-		NSLog(@"unable to reparent!");
+		printf("E:unable to reparent!\n");
 	}
 }
 
@@ -400,7 +403,8 @@ static rfbBool handleSDLEvent(rfbClient *cl, SDL_Event *e)
 		    exit(0);
 		  }
 	default:
-		NSLog(@"ignore SDL event: 0x%x\n", e->type);
+		//NSLog(@"ignore SDL event: 0x%x\n", e->type);
+		break;
 	}
 	return TRUE;
 }
@@ -426,14 +430,13 @@ static rfbCredential* get_credential(rfbClient* cl, int credentialType){
 	c->userCredential.password = malloc(RFB_BUF_SIZE);
 
 	if(credentialType != rfbCredentialTypeUser) {
-	    rfbClientErr("something else than username and password required for authentication\n");
+		printf("E:something else than username and password required for authentication\n");
 	    return NULL;
 	}
 
-	NSLog(@"username and password required for authentication!\n");
-	printf("user: ");
+	printf("G:user\n");
 	fgets(c->userCredential.username, RFB_BUF_SIZE, stdin);
-	printf("pass: ");
+	printf("G:pass\n");
 	fgets(c->userCredential.password, RFB_BUF_SIZE, stdin);
 
 	/* remove trailing newlines */
@@ -443,13 +446,12 @@ static rfbCredential* get_credential(rfbClient* cl, int credentialType){
 	return c;
 }
 
-int main_proc(id view, int argc,char** argv) {
+int main(int argc,char** argv) {
 	rfbClient* cl;
 	int i, j;
 	SDL_Event e;
 
-	NSLog(@"main proc");
-	parentView = view;
+	printf("I:starting process\n");
 
 	for (i = 1, j = 1; i < argc; i++)
 		if (!strcmp(argv[i], "-viewonly"))
@@ -471,7 +473,10 @@ int main_proc(id view, int argc,char** argv) {
 	argc = j;
 
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_NOPARACHUTE);
-	//sdlWindow = SDL_CreateWindowFrom((void*)xwid);
+	atexit(SDL_Quit);
+	signal(SIGINT, exit);
+
+	printf("I:initialized\n");
 
 	do {
 	  /* 16-bit: cl=rfbGetClient(5,3,2); */
@@ -486,12 +491,16 @@ int main_proc(id view, int argc,char** argv) {
 	  cl->GetCredential = get_credential;
 	  cl->listenPort = LISTEN_PORT_OFFSET;
 	  cl->listen6Port = LISTEN_PORT_OFFSET;
+
+		printf("I:connecting\n");
 	  if(!rfbInitClient(cl,&argc,argv))
 	    {
+				printf("E:failed to connect\n");
 	      cl = NULL; /* rfbInitClient has already freed the client struct */
 	      cleanup(cl);
 	      break;
 	    }
+		printf("I:connected\n");
 
 	  while(1) {
 	    if(SDL_PollEvent(&e)) {
@@ -521,6 +530,7 @@ int main_proc(id view, int argc,char** argv) {
 	while(listenLoop);
 
 	SDL_Quit();
+	printf("I:the end\n");
 	return 0;
 }
 

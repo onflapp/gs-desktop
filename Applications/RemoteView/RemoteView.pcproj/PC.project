@@ -42,17 +42,17 @@
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "-lX11 -lSDL2 -lvncclient";
+    LINKEROPTIONS = "-lX11";
     "LOCALIZED_RESOURCES" = (
     );
     MAININTERFACE = "RemoteView.gorm";
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
+	"../sdlvncviewer.subproj/obj/sdlvncviewer"
     );
     "OTHER_SOURCES" = (
-	"RemoteView_main.m",
-	"SDLvncclient.m"
+	"RemoteView_main.m"
     );
     "PRINCIPAL_CLASS" = NSApplication;
     "PROJECT_AUTHORS" = (
@@ -71,11 +71,11 @@
     "PROJECT_TYPE" = Application;
     "PROJECT_URL" = "";
     "SEARCH_HEADER_DIRS" = (
-	"/usr/include/SDL2"
     );
     "SEARCH_LIB_DIRS" = (
     );
     SUBPROJECTS = (
+	sdlvncviewer
     );
     "SUPPORTING_FILES" = (
 	"GNUmakefile.preamble",
