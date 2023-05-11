@@ -30,8 +30,16 @@
 
 @interface VNCDisplay : NSObject
 {
+  BOOL connected;
   NSWindow* window;
   VNCDisplayView* displayView;
+
+  NSURL* displayURL;
+
+  NSTask* task;
+  NSFileHandle* fin;
+  NSFileHandle* fout;
+  NSMutableData* buff;
 }
 - (void) connect:(NSURL*) url;
 - (void) showWindow;

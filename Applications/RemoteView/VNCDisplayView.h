@@ -30,13 +30,8 @@
 
 @interface VNCDisplayView : XEmbeddedView
 {
-   long pid;
-   NSURL* displayURL;
-   BOOL connected;
 }
 
-- (NSURL*) displayURL;
-- (void) connect:(NSURL*) url;
 @end
 
 #endif // _VNCDISPLAYVIEW_H_

@@ -13,12 +13,4 @@
   return self;
 }
 
-- (NSURL*) displayURL {
-  return displayURL;
-}
-
-- (void) connect:(NSURL*) url {
-  ASSIGN(displayURL, url);  
-}
-
 @end

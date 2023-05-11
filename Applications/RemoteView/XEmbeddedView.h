@@ -40,7 +40,7 @@
   int filterMod;
 }
 
-- (void) reparentXWindowID:(NSValue*)val;
+- (void) reparentXWindowID:(Window)xwinid;
 - (void) windowWillClose:(NSNotification*) note;
 - (void) destroyXWindow;
 - (void) activateXWindow;

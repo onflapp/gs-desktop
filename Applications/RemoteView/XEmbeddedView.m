@@ -71,6 +71,7 @@
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 
   if (xdisplay && xwindowid) {
+    NSLog(@"aaa");
     XDestroyWindow(xdisplay, xwindowid);
     XFlush(xdisplay);
 
@@ -197,13 +198,13 @@
   }
 }
 
-- (void) reparentXWindowID:(NSValue*)val {
+- (void) reparentXWindowID:(Window)xwinid {
   if (xwindowid != 0) return;
   if (!isvisible) return;
 
   Window myxwindowid = (Window)[[self window]windowRef];
   xdisplay = XOpenDisplay(NULL);
-  xwindowid = [val longValue];
+  xwindowid = xwinid;
   int screen = DefaultScreen(xdisplay);
 
   NSLog(@"reparent %x", xwindowid);
@@ -288,7 +289,11 @@
       XAllowEvents(d, ReplayPointer, e.xbutton.time);
     }
     else if (e.type == DestroyNotify) {
+      NSLog(@"bbbbbbbbbbbb");
       break;
+    }
+    else {
+      NSLog(@"EEEE %d", e.type);
     }
   }
 

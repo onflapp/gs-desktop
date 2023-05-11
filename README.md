@@ -6,7 +6,7 @@ It should work on any Debian-based system (I personally use Raspberry PI4 as my 
 
 ### 1. Install Dependencies
 
-The desktop relies on many other libraries and binaries to work as intended. This step is more important than you might realize at first. As many build systems use autoconfig to find dependencies, a missing dependency will not necessarily result in failed build. It might however cause all kinds of weird runtime problems or desktop now working as intended.
+The desktop relies on many other libraries and binaries to work as intended. This step is more important than you might realize at first. As many build systems use autoconfig to find dependencies, a missing dependency will not necessarily result in failed build. It might however cause all kind of weird runtime problems or desktop now working as intended.
 
 There is a script you can use to help you install all that is needed.
 

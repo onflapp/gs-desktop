@@ -27,7 +27,7 @@ struct { char mask; int bits_stored; } utf8Mapping[]= {
 };
 
 static int enableResizable = 1, viewOnly, listenLoop, buttonMask;
-int sdlFlags;
+int sdlFlags = SDL_WINDOW_HIDDEN;
 SDL_Texture *sdlTexture;
 SDL_Renderer *sdlRenderer;
 SDL_Window *sdlWindow;
@@ -239,6 +239,13 @@ static void text_chat(rfbClient* cl, int value, char *text) {
 	fflush(stderr);
 }
 
+static void do_quit() {
+	SDL_Quit();
+
+	fprintf(stderr,"Q:the end\n");
+	fflush(stderr);
+}
+
 static void cleanup(rfbClient* cl)
 {
   /*
@@ -259,15 +266,12 @@ static void reparentWindow(SDL_Window* win)
 	SDL_VERSION(&info.version);
 	if (SDL_GetWindowWMInfo(win, &info)) {
 		xWindow = (Window)info.info.x11.window;
-		printf("S:% ld\n", xWindow);
-		/*
-		[parentView performSelectorOnMainThread:@selector(reparentXWindowID:) 
-																 withObject:[NSNumber numberWithLong:xwinid]
-                              waitUntilDone:NO];
-															*/
+		fprintf(stdout, "S:%ld\n", xWindow);
+		fflush(stdout);
 	}
 	else {
-		printf("E:unable to reparent!\n");
+		fprintf(stdout, "E:unable to reparent!\n");
+		fflush(stdout);
 	}
 }
 
@@ -277,7 +281,7 @@ static rfbBool handleSDLEvent(rfbClient *cl, SDL_Event *e)
 	case SDL_WINDOWEVENT:
 	    switch (e->window.event) {
 	    case SDL_WINDOWEVENT_SHOWN:
-				reparentWindow(sdlWindow);
+				//reparentWindow(sdlWindow);
 				break;
 	    case SDL_WINDOWEVENT_CLOSE:
 				NSLog(@"CLOSE %x", e->window.windowID);
@@ -473,10 +477,11 @@ int main(int argc,char** argv) {
 	argc = j;
 
 	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_NOPARACHUTE);
-	atexit(SDL_Quit);
+	atexit(do_quit);
 	signal(SIGINT, exit);
 
-	printf("I:initialized\n");
+	fprintf(stdout, "I:initialized\n");
+	fflush(stdout);
 
 	do {
 	  /* 16-bit: cl=rfbGetClient(5,3,2); */
@@ -492,15 +497,23 @@ int main(int argc,char** argv) {
 	  cl->listenPort = LISTEN_PORT_OFFSET;
 	  cl->listen6Port = LISTEN_PORT_OFFSET;
 
-		printf("I:connecting\n");
+		fprintf(stdout, "I:connecting\n");
+		fflush(stdout);
+
 	  if(!rfbInitClient(cl,&argc,argv))
 	    {
-				printf("E:failed to connect\n");
+				fprintf(stdout, "E:failed to connect\n");
+				fflush(stdout);
+
 	      cl = NULL; /* rfbInitClient has already freed the client struct */
 	      cleanup(cl);
 	      break;
 	    }
-		printf("I:connected\n");
+
+		fprintf(stdout, "I:connected\n");
+		fflush(stdout);
+
+		reparentWindow(sdlWindow);
 
 	  while(1) {
 	    if(SDL_PollEvent(&e)) {
@@ -529,8 +542,7 @@ int main(int argc,char** argv) {
 	}
 	while(listenLoop);
 
-	SDL_Quit();
-	printf("I:the end\n");
+	do_quit();
 	return 0;
 }
 
