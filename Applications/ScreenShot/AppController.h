@@ -16,6 +16,7 @@
 //#import <Renaissance/Renaissance.h>
 
 @interface AppController : NSObject {
+  NSString* screenshotFile;
 }
 
 + (void)  initialize;

@@ -56,12 +56,19 @@
 }
 
 - (void) execScrot:(NSInteger) type {
-  NSMutableArray* args = [NSMutableArray array];
-  NSString* file = @"/tmp/screenshot.png";
-  [[NSFileManager defaultManager] removeItemAtPath:file error:nil];
-  [NSApp hide:self];
-  
+  [screenshotFile release];
+
   NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.3];
+  NSInteger tm = (NSInteger)[limit timeIntervalSinceReferenceDate];
+
+  NSMutableArray* args = [NSMutableArray array];
+  screenshotFile = [NSString stringWithFormat:@"/tmp/%ld-screenshot.png", tm];
+  [screenshotFile retain];
+
+  if ([NSApp isActive]) {
+    [NSApp hide:self];
+  }
+  
   [[NSRunLoop currentRunLoop] runUntilDate: limit];
   
   if (type == 1) {
@@ -77,7 +84,7 @@
     [args addObject:@"-b"];
     [args addObject:@"--select"];
   }
-  [args addObject:file];
+  [args addObject:screenshotFile];
   
   NSTask* task = [[[NSTask alloc] init] autorelease];
   [task setLaunchPath:@"/usr/bin/scrot"];
@@ -91,10 +98,10 @@
 
 - (void) checkTaskStatus:(id) not {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  NSString* file = @"/tmp/screenshot.png";
-  if ([[NSFileManager defaultManager] fileExistsAtPath:file]) {
+
+  if ([[NSFileManager defaultManager] fileExistsAtPath:screenshotFile]) {
     NSWorkspace* ws = [NSWorkspace sharedWorkspace];
-    [ws openFile:file];
+    [ws openFile:screenshotFile];
   }
 }
 
