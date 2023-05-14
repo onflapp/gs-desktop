@@ -151,6 +151,21 @@
     return YES;
 }
 
+- (BOOL) supportsReturnType:(NSString *)rtype forSendType:(NSString *)stype
+{
+    NSDictionary* info = [[NSBundle mainBundle] infoDictionary];
+    NSArray* services = [info valueForKey:@"NSServices"];
+    for (NSDictionary* it in services) {
+      NSArray* rtypes = [it valueForKey:@"NSReturnTypes"];
+      NSArray* stypes = [it valueForKey:@"NSSendTypes"];
+
+      if ([rtypes containsObject:rtype] && [stypes containsObject:stype]) {
+        return YES;
+      }
+    }
+    return NO;
+} 
+
 - (void) executeFilter: (NSPasteboard *)pboard
               userData: (NSString *)userData
                  error: (NSString **)error
@@ -173,13 +188,24 @@
         
         NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
         NSString *ext = @"";
+        BOOL found = NO;
 
         if ( ![files count] ) {
             for (int i = 0; i < [[pboard types] count]; i++) {
                 NSString* it = [[pboard types] objectAtIndex: i];
                 if ([it hasPrefix:@"NSTypedFileContentsPboardType"]) {
                     ext = [it substringFromIndex:30];
+                    if ([self supportsReturnType:outDataType forSendType:it]) {
+                      found = YES;
+                      break;
+                    }
                 }
+            }
+
+            if ( !found ) {
+                *error = @"no filter available for datatype";
+                NSLog(@"no filter script for type %@ found", outDataType);
+                return;
             }
 
             NSString *tmpf = [NSString stringWithFormat:@"%@/filter.%lx.%@", NSTemporaryDirectory(), [self hash], ext];
@@ -203,6 +229,7 @@
 
         NSTask *task = [serviceAction createTaskWithFiles: files];
         if ( !task ) {
+            *error = @"filter error";
             NSLog(@"exit with error");
             return;
         }

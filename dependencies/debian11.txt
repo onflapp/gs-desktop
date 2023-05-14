@@ -87,3 +87,4 @@ vlc-plugin-base
 xutils-dev
 libxcb-util0-dev
 libxcb-randr0-dev
+discount

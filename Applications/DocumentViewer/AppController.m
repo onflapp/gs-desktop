@@ -77,15 +77,32 @@
     return doc;
   }
   else {    
-    NSLog(@"try to convert %@", fileName);
+    NSLog(@"try to convert %@ as PDF", fileName);
 
     NSPasteboard* pboard = [NSPasteboard pasteboardByFilteringFile:fileName];
     NSData* data = [pboard dataForType:NSPDFPboardType];
+
+    // try filter to PDF
     if (data) {
       NSString* tfile = [NSString stringWithFormat:@"%@/temp.%lx.pdf", NSTemporaryDirectory(), [data hash]];
       [data writeToFile:tfile atomically:NO];
 
       PdfDocument* doc = [[PdfDocument alloc] init];
+      [doc loadFile:tfile];
+
+      return doc;
+    }
+    else {
+      NSLog(@"try to convert %@ as HTML", fileName);
+      data = [pboard dataForType:NSHTMLPboardType];
+    }
+
+    // try filter to HTML
+    if (data) {
+      NSString* tfile = [NSString stringWithFormat:@"%@/temp.%lx.html", NSTemporaryDirectory(), [data hash]];
+      [data writeToFile:tfile atomically:NO];
+
+      HtmlDocument* doc = [[HtmlDocument alloc] init];
       [doc loadFile:tfile];
 
       return doc;

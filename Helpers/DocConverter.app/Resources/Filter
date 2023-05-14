@@ -4,4 +4,10 @@ case "$1" in
    ;;
    *.dvi)
     dvipdfm "$1" -o -
+   ;;
+   *.md)
+    echo "<html><body>"
+    markdown "$1"
+    echo "</body></html>"
+   ;;
 esac
