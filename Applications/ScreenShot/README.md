@@ -2,7 +2,7 @@
 
 Application for taking screenshots of your desktop. 
 It is loosely based on Grab.app from NeXT/MacOS X and it is intended to be used as part of GNUstep Desktop.
-It can make screenshots in 3 different ways:
+It can take screenshots in 3 different ways:
 
 - use mouse to select selection of your screen
 - focused window (the screenshot will be take after 1s)
