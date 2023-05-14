@@ -25,7 +25,13 @@
 #import "Document.h"
 #import "InspectorPanel.h"
 
+static NSWindow* _lastMainWindow;
+
 @implementation Document
+
++ (Document*) lastActiveDocument {
+  return (Document*)[_lastMainWindow delegate];
+}
 
 - (id) init {
   self = [super init];
@@ -35,8 +41,18 @@
 }
 
 - (void) dealloc {
+  [fileName release];
+  [imageView setImage:nil];
   [originalImage release];
   [super dealloc];
+}
+
+- (NSString*) fileName {
+  return fileName;
+}
+
+- (NSWindow*) window {
+  return window;
 }
 
 - (void) showWindow {
@@ -44,8 +60,9 @@
   [window makeFirstResponder:imageView];
   [self resizeToFit:self];
 
-  if ([NSApp mainWindow]) {
-    NSRect  r = [[NSApp mainWindow] frame];
+  if (!_lastMainWindow) _lastMainWindow = [[NSApp orderedWindows] lastObject];
+  if (_lastMainWindow) {
+    NSRect  r = [_lastMainWindow frame];
     NSPoint p = r.origin;
 
     p.x += 24;
@@ -78,12 +95,10 @@
 }
 
 - (void) setImage:(NSImage*) img {
-  [originalImage release];
-  originalImage = [img retain];
+  ASSIGN(originalImage, img);
 
   [imageView setFrameSize:[img size]];
   [imageView setImage:img];
-  [img release];
   [self resizeToFit:nil];
 }
 
@@ -98,6 +113,8 @@
   }
   [self setImage:img];
   [img release];
+
+  ASSIGN(fileName, path);
 }
 
 - (NSInteger) typeForFilename:(NSString*) path {
@@ -196,7 +213,15 @@
 }
 
 - (void) windowDidBecomeMain: (NSNotification*)aNotification {
+  _lastMainWindow = window;
   [[InspectorPanel sharedInstance] updateSelection:[imageView selectedRectangle]];
+}
+
+- (void) windowWillClose:(NSNotification *)notification {
+  if (_lastMainWindow == window) _lastMainWindow = nil;
+
+  [window setDelegate: nil];
+  [self release];
 }
 
 @end

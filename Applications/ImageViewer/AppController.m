@@ -72,6 +72,10 @@
   return NO;
 }
 
+- (Document*) currentDocument {
+  return [Document lastActiveDocument];
+}
+
 - (void) newDocument:(id)sender {
   Document* doc = [[Document alloc] init];
   [doc readFromPasteboard];

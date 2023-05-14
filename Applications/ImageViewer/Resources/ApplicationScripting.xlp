@@ -1,0 +1,7 @@
+- currentDocument -> Document
+- newDocument -> Document
+
+Document
+- fileName
+- displayFile:
+- writeImageDataToFile:

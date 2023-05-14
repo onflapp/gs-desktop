@@ -43,7 +43,8 @@ Resources/PNGImage.tiff \
 Resources/TIFFImage.tiff \
 Resources/XPMImage.tiff \
 Resources/ImageViewer.tiff \
-Resources/ScriptingInfo.plist 
+Resources/ScriptingInfo.plist \
+Resources/ApplicationScripting.xlp 
 
 
 #
@@ -63,7 +64,9 @@ ImageViewer_OBJC_FILES = \
 AppController.m \
 Document.m \
 InspectorPanel.m \
-ImageView.m
+ImageView.m \
+AppController+scripting.m \
+Document+scripting.m
 
 #
 # Other sources

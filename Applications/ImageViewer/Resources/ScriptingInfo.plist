@@ -6,6 +6,6 @@
   );
   Objects =
   {
-    test = "test";
+    currentDocument = "currentDocuments";
   };
 }

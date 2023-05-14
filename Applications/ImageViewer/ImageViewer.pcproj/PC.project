@@ -15,7 +15,9 @@
 	"AppController.m",
 	"Document.m",
 	"InspectorPanel.m",
-	"ImageView.m"
+	"ImageView.m",
+	"AppController+scripting.m",
+	"Document+scripting.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -59,7 +61,8 @@
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
-	"ScriptingInfo.plist"
+	"ScriptingInfo.plist",
+	"ApplicationScripting.xlp"
     );
     "OTHER_SOURCES" = (
 	"ImageViewer_main.m",

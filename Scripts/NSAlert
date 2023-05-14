@@ -13,10 +13,10 @@ ifTrue:
   but2  := 'Cancel'.
   msg   := ''.
   
-  ((Args count) > 2) 
+  ((Args count) >= 2) 
     ifTrue:[ msg := Args @ 1 ].
   
-  ((Args count) > 3) 
+  ((Args count) >= 3) 
     ifTrue:[ but1  := Args @ 2 ].
 
   ((Args count) = 4) 

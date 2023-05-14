@@ -29,15 +29,20 @@
 #import "ImageView.h"
 
 @interface Document : NSObject {
-  IBOutlet NSWindow *window;
+  IBOutlet NSWindow* window;
   IBOutlet ImageView* imageView;
 
-  NSImage *originalImage;
+  NSImage* originalImage;
+  NSString* fileName;
 }
+
++ (Document*) lastActiveDocument;
 
 - (id) init;
 - (void) displayFile:(NSString*) path;
 - (void) readFromPasteboard;
+
+- (NSString*) fileName;
 
 - (void) showWindow;
 
