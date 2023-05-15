@@ -12,4 +12,16 @@
   return doc;
 }
 
+- (NSArray*) documents {
+  NSMutableSet* ls = [NSMutableSet setWithCapacity:1];
+
+  for (NSWindow* win in [NSApp windows]) {
+    id del = [win delegate];
+    if ([del isKindOfClass:[Document class]]) {
+      [ls addObject:del];
+    }
+  }
+  return [ls allObjects];
+}
+
 @end

@@ -1,7 +1,9 @@
 - currentDocument -> Document
+- docunents -> Array
 - newDocument -> Document
 
 Document
 - fileName
 - displayFile:
 - writeImageDataToFile:
+- readImageDataFromFile:
