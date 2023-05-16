@@ -109,12 +109,19 @@ function stop_services {
 
 function init_config {
   show_status "gray10"
- 
+
+  if [ ! -d "$HOME/Library" ];then
+    echo "init user defaults"
+    mkdir "$HOME/Library" 2>/dev/null
+    cp -R /etc/skel/Library/* "$HOME/Library"
+  fi
+
   if [ ! -f "$HOME/Library/WindowMaker/Defaults/WindowMaker" ];then
     echo "init WindowMaker defaults"
     /System/bin/wmaker.inst --batch
     cp /System/etc/WindowMaker/WMRootMenu "$HOME/Library/WindowMaker/Defaults"
   fi
+
   if [ ! -f "$HOME/Library/Preferences/NSGlobalDomain.plist" ];then
     echo "init user preferences defaults"
     mkdir "$HOME/Library/Preferences" 2>/dev/null
@@ -122,11 +129,6 @@ function init_config {
 
     mkdir "$HOME/Library/Preferences/.NextSpace" 2>/dev/null
     cp /Library/Preferences/.NextSpace/* "$HOME/Library/Preferences/.NextSpace"
-  fi
-  if [ ! -d "$HOME/Library/Services" ];then
-    echo "init user services defaults"
-    mkdir "$HOME/Library/Services" 2>/dev/null
-    cp /Library/Services/*.plist "$HOME/Library/Services/"
   fi
 
   defaults read NSGlobalDomain "Local Time Zone" 2>&1 > /dev/null

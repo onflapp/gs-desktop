@@ -1,0 +1,7 @@
+{
+  Default = {
+    Name = "Edit Scrollback Log";
+    Description = "Dump the scrollback log and edit it";
+    MenuKey = "b";
+  };
+}
