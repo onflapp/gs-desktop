@@ -1,3 +1,4 @@
+systemd-coredump
 libavahi-client-dev
 libavahi-core-dev
 libpocketsphinx3
