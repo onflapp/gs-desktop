@@ -88,3 +88,6 @@ xutils-dev
 libxcb-util0-dev
 libxcb-randr0-dev
 discount
+imagemagick
+libsdl2-dev
+libvncserver-dev

@@ -42,8 +42,14 @@ static NSWindow* _lastMainWindow;
 
 - (void) dealloc {
   [fileName release];
+  fileName = nil;
+
   [imageView setImage:nil];
+  imageView = nil;
+
   [originalImage release];
+  originalImage = nil;
+
   [super dealloc];
 }
 

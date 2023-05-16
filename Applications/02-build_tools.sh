@@ -20,6 +20,8 @@ build_app "Calculator"
 build_app "ImageViewer"
 build_app "DocumentViewer"
 build_app "DictionaryReader"
+build_app "RemoteView"
+build_app "FTP"
 build_app "Librarian"
 build_app "Player"
 

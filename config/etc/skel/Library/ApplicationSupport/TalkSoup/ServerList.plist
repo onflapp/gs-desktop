@@ -3,7 +3,7 @@
 	{
 	    Entries = (
 		{
-		    AutoConnect = YES;
+		    AutoConnect = NO;
 		    Commands = "/join #GNUstep";
 		    Name = "irc.liberta.chat - GNUstep";
 		    Nick = gsdefoo;
