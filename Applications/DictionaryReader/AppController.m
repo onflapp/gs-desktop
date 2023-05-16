@@ -396,7 +396,20 @@ NSDictionary* normalAttributes;
   NSString* searchString = [aNotification object];
   
   if ( ![[searchStringControl stringValue] isEqualToString: searchString] ) {
+    if ( [searchString hasPrefix: @"("] && \
+         [searchString hasSuffix: @")"] && \
+         [searchString length] > 5 ) {
+
+      // maybe it is URL?
+      NSRange r = NSMakeRange(1, [searchString length] - 2);
+      NSURL* url = [NSURL URLWithString: [searchString substringWithRange:r]];
+      if ( url ) {
+        [[NSWorkspace sharedWorkspace] openURL:url];
+        return;
+      }
+    }
     // invoke search
+
     [self defineWord: searchString];
   }
 }
