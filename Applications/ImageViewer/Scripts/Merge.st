@@ -1,6 +1,6 @@
 Environment loadModule:'SystemShell'.
 
-docs := documents.
+docs := ImageViewer documents.
 args := (NSMutableArray new).
 
 args += '-append'.
@@ -20,7 +20,5 @@ Shell executeCommand:'convert' withArguments:args.
 
 Transcript show:args.
 
-doc := newDocument.
-Transcript show:doc.
-
+doc := ImageViewer newDocument.
 doc displayFile:t.

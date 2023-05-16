@@ -24,4 +24,8 @@
   return [ls allObjects];
 }
 
+- (Document*) currentDocument {
+  return [Document lastActiveDocument];
+}
+
 @end

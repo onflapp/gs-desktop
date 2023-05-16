@@ -1,6 +1,6 @@
 Environment loadModule:'SystemShell'.
 
-d := currentDocument.
+d := ImageViewer currentDocument.
 t := '/tmp/a.tiff'.
 d writeImageDataToFile:t.
 
