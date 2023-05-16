@@ -1,0 +1,1 @@
+{ApplicationDescription = "A wrapped application"; ApplicationName = "HandleUnknown.app"; ApplicationRelease = "1.0"; ApplicationURL = ""; FullVersionID = "1.0/1.0"; NSIcon = "AppIcon.tiff"; NSPrincipalClass = NSApplication; NSRole = None; NSTypes = ({NSIcon = "FileType_000.tiff"; NSName = "Terminal command"; NSUnixExtensions = (command); }); }

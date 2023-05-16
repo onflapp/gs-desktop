@@ -1,0 +1,30 @@
+case "$1" in
+  *.command)
+    echo "Terminal runCommand:'$1'" | /Library/bin/stexec -
+    exit $?
+  ;;
+  *)
+  T=`file "$1"`
+  ;;
+esac
+
+case "$T" in
+  *script*ASCII?text?executable)
+    /Library/Scripts/NSAlert "Executable Script" "file type $T" "Execute" "Edit"
+    if [ "$?" -eq 1 ];then
+      echo "Terminal runCommand:'$1'" | /Library/bin/stexec -
+    else
+      /Library/bin/gopen -a TextEdit -o "$1"
+    fi
+ 
+    exit $?
+  ;;
+  *ASCII?text*)
+    /Library/bin/gopen -a TextEdit "$1"
+    exit $?
+  ;;
+  *)
+    /Library/Scripts/NSAlert "Unknown File" "file type $T"
+    exit $?
+  ;;
+esac
