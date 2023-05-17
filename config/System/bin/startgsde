@@ -188,6 +188,13 @@ function cleanup {
   exit
 }
 
+xset b 0 || exit 1
+
+if [ "$UID" -eq 0 ];then
+  echo "GNUstep Desktop cannot run as root"
+  exit 1
+fi
+
 echo "=================================================="
 echo " Starting GNUstep Desktop"
 echo "=================================================="
@@ -234,8 +241,6 @@ fi
 if [ "$1" == "--safe-mode" ];then
   exec xterm -bg black -fg gray -bd green -geometry 200x18+0-0 -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
 fi
-
-xset b 0
 
 show_status "black"
 

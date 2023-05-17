@@ -118,7 +118,7 @@
 }
 
 - (void) taskDidTerminate:(NSNotification*) not {
-  [log appendString:@"task terminated!"];
+  [log appendString:@"task terminated!\n"];
 
   NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
   [[NSRunLoop currentRunLoop] runUntilDate: limit];
