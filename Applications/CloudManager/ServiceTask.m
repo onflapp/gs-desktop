@@ -118,8 +118,11 @@
 }
 
 - (void) taskDidTerminate:(NSNotification*) not {
-  [log setString:@""];
-  NSLog(@"task terminated");
+  [log appendString:@"task terminated!"];
+
+  NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
+  [[NSRunLoop currentRunLoop] runUntilDate: limit];
+
   status = 0;
 
   [[NSNotificationCenter defaultCenter]
@@ -138,6 +141,7 @@
   NSData* data = [[not userInfo] objectForKey:NSFileHandleNotificationDataItem];
   NSString* str = [[NSString alloc] initWithData:data encoding:[NSString defaultCStringEncoding]];
   
+  NSLog(@"task:[%@]", str);
   [log appendString:str];
 
   [[NSNotificationCenter defaultCenter]
