@@ -232,7 +232,7 @@ if [ "$1" == "--safe-mode-continue" ];then
 fi
 
 if [ "$1" == "--safe-mode" ];then
-  exec xterm -bg white -fg black -bd green -geometry 200x18+0-0 -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
+  exec xterm -bg black -fg gray -bd green -geometry 200x18+0-0 -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
 fi
 
 xset b 0
