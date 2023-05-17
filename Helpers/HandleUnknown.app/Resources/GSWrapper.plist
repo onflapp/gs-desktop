@@ -1,0 +1,1 @@
+{Filter = {Action = Ignore; Shell = "/bin/sh"; }; Open = {Action = Ignore; Shell = "/bin/sh"; }; Start = {Action = Ignore; Shell = "/bin/sh"; }; StartOpen = {Action = RunScript; Shell = "/bin/bash"; }; Version = 1; }
