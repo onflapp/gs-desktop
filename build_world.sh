@@ -9,6 +9,14 @@ if [ "$UID" -ne 0 ];then
   exit 1
 fi
 
+if ! [ -d "../libobjc2" ];then
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  echo " sustem sources not found"
+  echo " run './fetch_world.sh' first"
+  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  exit 1
+fi
+
 export PATH=/System/bin:$PATH
 
 D=`pwd`

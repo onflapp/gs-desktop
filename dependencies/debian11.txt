@@ -98,4 +98,4 @@ imagemagick
 libsdl2-dev
 libvncserver-dev
 recollcmd
-chromium-browser
+chromium
