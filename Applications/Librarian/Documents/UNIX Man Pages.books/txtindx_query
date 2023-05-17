@@ -15,7 +15,7 @@ while (<IN>) {
   ($s, $n, $d) = split(/\t/, $_);
  
   if ($_ =~ /$QUERY/) { 
-    print (STDOUT "U:man:$n/$s\t$n - \t$d\n");
+    print (STDOUT "U:man://$n/$s\t$n - \t$d\n");
   }
 }
 close (IN);

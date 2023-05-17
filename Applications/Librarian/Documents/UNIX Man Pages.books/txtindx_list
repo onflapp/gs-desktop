@@ -16,6 +16,6 @@ while (<IN>) {
     print (STDOUT "T:Section $s\n");
     $section = $s;
   }
-  print (STDOUT "U:man:$n/$s\t$n - \t$d\n");
+  print (STDOUT "U:man://$n/$s\t$n - \t$d\n");
 }
 close (IN);
