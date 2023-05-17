@@ -15,6 +15,7 @@ flite1-dev
 libcups2-dev
 libgl1-mesa-dev
 util-linux-locales
+gdb
 clang
 lldb
 lld
@@ -55,6 +56,7 @@ libudisks2-dev
 libdbus-1-dev
 libxkbfile-dev
 libpulse-dev
+pulseaudio
 libxmu-dev
 libxft-dev
 libxpm-dev
@@ -79,6 +81,8 @@ scrot
 rclone
 htop
 vim-nox
+curl
+wget
 sudo
 dict
 vlc-bin
@@ -86,9 +90,12 @@ vlc-data
 vlc-plugin-video-output
 vlc-plugin-base
 xutils-dev
+xnest
 libxcb-util0-dev
 libxcb-randr0-dev
 discount
 imagemagick
 libsdl2-dev
 libvncserver-dev
+recollcmd
+chromium-browser

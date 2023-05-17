@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = RemoteView
 APP_NAME = RemoteView
-RemoteView_APPLICATION_ICON = 
+RemoteView_APPLICATION_ICON = RemoteView.tiff
 
 
 #
@@ -40,7 +40,8 @@ sdlvncviewer.subproj
 RemoteView_RESOURCE_FILES = \
 Resources/RemoteView.gorm \
 Resources/VNCDisplay.gorm \
-Resources/../sdlvncviewer.subproj/obj/sdlvncviewer 
+Resources/../sdlvncviewer.subproj/obj/sdlvncviewer \
+Resources/RemoteView.tiff 
 
 
 #

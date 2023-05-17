@@ -73,7 +73,7 @@
     [task stopTask];
   }
 
-  NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.5];
+  NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
   [[NSRunLoop currentRunLoop] runUntilDate: limit];
 }
 
