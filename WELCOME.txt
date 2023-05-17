@@ -9,7 +9,7 @@
  - /usr/share/xsessions contains the session files
  - logout and login again
 
- Raspbian OS:
+ Raspbian or Debian:
  - add 'exec /System/bin/startgsde' to your ~/.xsessionrc
 
  anything else:
