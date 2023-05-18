@@ -49,32 +49,67 @@
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif
 {
+  [NSApp registerServicesMenuSendTypes:[NSArray array] 
+                           returnTypes:[NSArray arrayWithObject:NSTIFFPboardType]];
+
   if([NSApp isScriptingSupported])
   {
       [NSApp initializeApplicationScripting];
   }
 }
 
-- (BOOL) applicationShouldTerminate: (id)sender
-{
+- (BOOL) applicationShouldTerminate: (id)sender {
   return YES;
 }
 
-- (void) applicationWillTerminate: (NSNotification *)aNotif
-{
+- (void) applicationWillTerminate: (NSNotification *)aNotif {
 }
 
 - (BOOL) application: (NSApplication *)application
 	    openFile: (NSString *)fileName {
-  Document* doc = [[Document alloc] init];
+
+  Document* doc = [self documentForFile:fileName];
   [doc displayFile:fileName];
   [doc showWindow];
   return NO;
 }
 
+/*
+- (id) validRequestorForSendType:(NSString*) sendType
+                      returnType:(NSString*) returnType {
+  if ([returnType isEqualToString:NSTIFFPboardType]) {
+    return self;
+  }
+  else {
+    return nil;
+  }
+}
+
+- (BOOL) readSelectionFromPasteboard:(NSPasteboard*) pboard {
+  Document* doc = [[Document alloc]init];
+  [doc showWindow];
+  return [doc readFromPasteboard:pboard];
+}
+*/
+
+- (Document*) documentForFile:(NSString*) fileName {
+  for (NSWindow* win in [NSApp windows]) {
+    id del = [win delegate];
+    if ([del isKindOfClass:[Document class]]) {
+      if ([[del fileName]isEqualToString:fileName]) {
+        return (Document*)del;
+      }
+    }
+  }
+
+  Document* doc = [[Document alloc] init];
+  return doc;
+}
+
 - (void) newDocument:(id)sender {
   Document* doc = [[Document alloc] init];
-  [doc readFromPasteboard];
+  NSPasteboard* pboard = [NSPasteboard generalPasteboard];
+  [doc readFromPasteboard:pboard];
   [doc showWindow];
 }
 
@@ -90,8 +125,9 @@
 - (void) openDocument:(id)sender {
   NSOpenPanel* panel = [NSOpenPanel openPanel];
   if ([panel runModal]) {
-    Document* doc = [[Document alloc] init];
-    [doc displayFile:[panel filename]];
+    NSString* fileName = [panel filename];
+    Document* doc = [self documentForFile:fileName];
+    [doc displayFile:fileName];
     [doc showWindow];
   }
 }

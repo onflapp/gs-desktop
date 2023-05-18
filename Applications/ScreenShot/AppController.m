@@ -41,6 +41,9 @@
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif {
+  [NSApp setServicesProvider:self];
+  [NSApp registerServicesMenuSendTypes:[NSArray array] 
+                           returnTypes:[NSArray arrayWithObject:NSTIFFPboardType]];
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender {
@@ -55,6 +58,13 @@
   return NO;
 }
 
+- (void) grabScreenShot: (NSPasteboard *) pboard
+               userData: (NSString *) userData
+                  error: (NSString **) error
+{
+  *error = @"doesn't work yet";
+}
+
 - (void) execScrot:(NSInteger) type {
   [screenshotFile release];
 
@@ -62,7 +72,7 @@
   NSInteger tm = (NSInteger)[limit timeIntervalSinceReferenceDate];
 
   NSMutableArray* args = [NSMutableArray array];
-  screenshotFile = [NSString stringWithFormat:@"/tmp/%ld-screenshot.png", tm];
+  screenshotFile = [NSString stringWithFormat:@"/tmp/%ld-screenshot.tiff", tm];
   [screenshotFile retain];
 
   if ([NSApp isActive]) {

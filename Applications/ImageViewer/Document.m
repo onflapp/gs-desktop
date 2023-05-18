@@ -79,13 +79,16 @@ static NSWindow* _lastMainWindow;
   [window makeKeyAndOrderFront:self];
 }
 
-- (void) readFromPasteboard {
-  NSPasteboard* pboard = [NSPasteboard generalPasteboard];
+- (BOOL) readFromPasteboard:(NSPasteboard*) pboard {
   NSData* data = [pboard dataForType:NSTIFFPboardType];
   if (data) {
     NSImage* img = [[NSImage alloc] initWithData:data];
     [self setImage:img];
     [img release];
+    return YES;
+  }
+  else {
+    return NO;
   }
 }
 
@@ -121,6 +124,17 @@ static NSWindow* _lastMainWindow;
   [img release];
 
   ASSIGN(fileName, path);
+
+  [self updateTitle:path];
+}
+
+- (void) updateTitle:(NSString*) path {
+  NSString* name = [path lastPathComponent];
+  NSString* dir  = [path stringByDeletingLastPathComponent];
+  dir            = [dir substringToIndex:[dir length]];
+  dir            = [dir stringByAbbreviatingWithTildeInPath];
+
+  [window setTitle:[NSString stringWithFormat:@"%@ (%@)", name, dir]];
 }
 
 - (NSInteger) typeForFilename:(NSString*) path {
@@ -155,7 +169,8 @@ static NSWindow* _lastMainWindow;
 }
 
 - (void) paste:(id)sender {
-  [self readFromPasteboard];
+  NSPasteboard* pboard = [NSPasteboard generalPasteboard];
+  [self readFromPasteboard:pboard];
 }
 
 - (void) copy:(id)sender {
@@ -168,15 +183,37 @@ static NSWindow* _lastMainWindow;
 }
 
 - (void) saveDocument:(id)sender {
+  if (fileName) {
+    [self writeToFile:fileName];
+  }
+  else {
+    NSSavePanel* panel = [NSSavePanel savePanel];
+    if ([panel runModal]) {
+      NSString* path = [panel filename];
+
+      [self writeToFile:path];
+      [self updateTitle:path];
+
+      ASSIGN(fileName, path);
+    }
+  }
+}
+
+- (void) saveDocumentAs:(id)sender {
   NSSavePanel* panel = [NSSavePanel savePanel];
   if ([panel runModal]) {
-    NSString* filename = [panel filename];
-    NSInteger type = [self typeForFilename:filename];
-    NSData* data = [[imageView image]TIFFRepresentation];
-    NSBitmapImageRep* rep = [[[NSBitmapImageRep alloc]initWithData:data]autorelease];
-    data = [rep representationUsingType:type properties:nil];
-    [data writeToFile:filename atomically:YES];
+    NSString* path = [panel filename];
+    [self writeToFile:path];
   }
+}
+
+- (void) writeToFile:(NSString*) path {
+  NSInteger type = [self typeForFilename:path];
+  NSData* data = [[imageView image]TIFFRepresentation];
+  NSBitmapImageRep* rep = [[[NSBitmapImageRep alloc]initWithData:data]autorelease];
+  
+  data = [rep representationUsingType:type properties:nil];
+  [data writeToFile:path atomically:YES];
 }
 
 - (IBAction) revertDocumentToSaved:(id) sender {
