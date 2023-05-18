@@ -4,7 +4,7 @@ GNUstep Desktop attempts to build fully functional desktop by bringing various G
 
 ### Important concepts:
 - filters and services to enhance functionality - [Helpers](https://github.com/onflapp/gs-desktop/blob/main/Helpers/README.md)
-- scriptability
+- scriptability - [StepTalk](https://github.com/onflapp/libs-steptalk)
 
 It should work on any Debian-based system (I personally use Raspberry PI4 as my main development and user platform) and possibly any modern Linux distribution with a bit tweaking.
 
