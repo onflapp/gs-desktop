@@ -1,6 +1,10 @@
-# GS Desktop
+# GNUstep Desktop - GSDE
 
 GNUstep Desktop attempts to build fully functional desktop by bringing various GNUstep apps together and making sure everything works as expected.
+
+### Important concepts:
+- filters and services to enhance functionality - [Helpers](https://github.com/onflapp/gs-desktop/blob/main/Helpers/README.md)
+- scriptability
 
 It should work on any Debian-based system (I personally use Raspberry PI4 as my main development and user platform) and possibly any modern Linux distribution with a bit tweaking.
 
