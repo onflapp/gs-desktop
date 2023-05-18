@@ -6,7 +6,7 @@ It should work on any Debian-based system (I personally use Raspberry PI4 as my 
 
 ### 1. Install Dependencies
 
-The desktop relies on many other libraries and binaries to work as intended. This step is more important than you might realize at first. As many build systems use autoconfig to find dependencies, a missing dependency will not necessarily result in failed build. It might however cause all kind of weird runtime problems or desktop now working as intended.
+The desktop relies on many other libraries and binaries to work as intended. This step is more important than you might realize at first. As many build systems use autoconfig to find dependencies, a missing dependency will not necessarily result in failed build but it might cause all kind of weird runtime problems or desktop now working as intended.
 
 There is a script you can use to help you install all that is needed.
 
@@ -47,4 +47,4 @@ The whole desktop is going to be installed in `/Application`, `/System` and `/Li
 
 If you use modern login manager, you will see two new xsessions (normal startup and safe mode) for you to choose to log in.
 
-Otherwise use `/System/bin/startgsde` to start the desktop manually or add it into your `~/.xinitrc`
+Otherwise, use `/System/bin/startgsde` to start the desktop within your existing X session or add to your `~/.xsessionrc` or `~/.xinitrc`.
