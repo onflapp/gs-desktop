@@ -41,6 +41,9 @@
 - (void) initNavigation;
 - (void) displayPage:(NSInteger) page;
 - (void) displayNavigation;
+
+- (void) loadFile:(NSString*) path;
+- (void) reload;
 - (NSInteger) currentPage;
 - (NSInteger) pageCount;
 - (NSString*) fileName;

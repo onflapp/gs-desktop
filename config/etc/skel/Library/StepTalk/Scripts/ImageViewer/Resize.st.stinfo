@@ -1,0 +1,7 @@
+{
+  Default = {
+    Name = "Resize by 75%";
+    Description = "Resize current image by 75%";
+    MenuKey = "b";
+  };
+}

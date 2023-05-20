@@ -56,6 +56,13 @@ static NSWindow* _lastMainWindow;
   }
 }
 
+- (void) reload {
+  [self loadFile:fileName];
+}
+
+- (void) loadFile:(NSString*) path {
+}
+
 - (void) initNavigation {
   [navScroll setBorderType:NSBezelBorder];
   [navScroll setHasHorizontalScroller:YES];

@@ -36,7 +36,6 @@
 }
 
 - (id) init;
-- (void) loadFile:(NSString*) path;
 
 @end
 

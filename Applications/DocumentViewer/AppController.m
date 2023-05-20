@@ -58,6 +58,7 @@
     if ([[win delegate] isKindOfClass:[Document class]]) {
       Document* doc = (Document*) [win delegate];
       if ([[doc fileName] isEqualToString: fileName]) {
+        [doc reload];
         return doc;
       }
     }

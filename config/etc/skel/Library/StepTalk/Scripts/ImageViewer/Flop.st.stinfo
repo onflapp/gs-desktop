@@ -1,0 +1,7 @@
+{
+  Default = {
+    Name = "Flop Image";
+    Description = "Flop image horizontally";
+    MenuKey = "b";
+  };
+}

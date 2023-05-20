@@ -1,0 +1,7 @@
+{
+  Default = {
+    Name = "Merge Images";
+    Description = "Merge all open images into new document";
+    MenuKey = "b";
+  };
+}
