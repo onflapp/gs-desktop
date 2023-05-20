@@ -1,6 +1,6 @@
 # GNUstep Desktop - GSDE
 
-GNUstep Desktop attempts to build fully functional desktop by bringing various GNUstep apps together and making sure everything works as expected.
+[GNUstep Desktop](https://onflapp.github.io/gs-desktop/index.html) attempts to build fully functional desktop by bringing various GNUstep apps together and making sure everything works as expected.
 
 ### Important concepts:
 - filters and services to enhance functionality - [Helpers](https://github.com/onflapp/gs-desktop/blob/main/Helpers/README.md)
@@ -20,7 +20,7 @@ cd dependencies
 ./install-dependencies-debian.sh debian11.txt
 ```
 
-My favorite way to get GS Desktop working is to install minimal Debian distribution (no X or any desktop environment) and then do something like this:
+My favorite way to get GSDE working is to install minimal Debian distribution (no X or any desktop environment) and then do something like this:
 
 ```
 apt-get install git
@@ -31,7 +31,7 @@ sudo ./install-dependencies-debian.sh debian11.txt
 
 ### 2. Fetch sources
 
-GS Desktop come from different places. Some are official github repos, others are my forks. Many apps have been patched and/or configured in a way to "play nice with others". Hopefully most of those changes will be merged back
+GSDE come from different places. Some are official github repos, others are my forks. Many apps have been patched and/or configured in a way to "play nice with others". Hopefully most of those changes will be merged back
 to the original source tree one day.
 
 ```
