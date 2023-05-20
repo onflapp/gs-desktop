@@ -161,21 +161,13 @@ _process_file_ := [ :path |
 
     "write page style"
 
-    html += 'body {'.
-    html += '}\n'.
+    style_file := Controller currentFileScript fileName 
+                    stringByDeletingPathExtension
+                    stringByAppendingString:'.css'.
 
-    html += 'img {'.
-    html += 'max-width:100%;'.
-    html += '}\n'.
+    Transcript showLine:('loading document style from ',style_file).
 
-    html += 'article {'.
-    html += 'background-color:white;'.
-    html += 'border:1px solid lightgray;'.
-    html += 'padding:10px;'.
-    html += 'max-width:600px;'.
-    html += 'margin-left:auto;'.
-    html += 'margin-right:auto;'.
-    html += '}\n'.
+    html += (NSString stringWithContentsOfFile:style_file).
 
     "write all used styles"
 

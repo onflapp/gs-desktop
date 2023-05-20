@@ -2,6 +2,7 @@
 *.o
 *.a
 *.log
+config.status
 obj
 derived_src
 *.framework

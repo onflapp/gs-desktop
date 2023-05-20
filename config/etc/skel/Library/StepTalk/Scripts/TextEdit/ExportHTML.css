@@ -1,0 +1,12 @@
+img {
+  max-width:100%;
+}
+
+article {
+  background-color:white;
+  border:1px solid lightgray;
+  padding:10px;
+  max-width:600px;
+  margin-left:auto;
+  margin-right:auto;
+}
