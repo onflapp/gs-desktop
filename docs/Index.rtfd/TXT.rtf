@@ -1,6 +1,67 @@
 {\rtf1\ansi\ansicpg1252\cocoartf102{\fonttbl\f0\fswiss Helvetica;}
-\paperw11680\paperh15020\hyphauto1\hyphfactor0\f0\fs36\b\pard\ql Welcome to GSstep Desktop\fs24\b0 \par
+{\colortbl;\red0\green0\blue0;\red0\green0\blue255;}
+\paperw13040\paperh12900\hyphauto1\hyphfactor0\f0\fs48\b\pard\ql Welcome to GNU\cf0 step Desktop\par
+\fs24\b0 \par
+{\field{\*\fldinst HYPERLINK "https://github.com/onflapp/gs-desktop"}{\fldrslt GNUstep Desktop}}\f0\fs24  (GSDE) is modern Linux desktop environment that will give you \cf0 NeXT/Open\cf0 Step-like user \cf0 experience. It runs on top of amazing \cf0{\field{\*\fldinst HYPERLINK "https://gnustep.github.io/"}{\fldrslt GNUstep}}\f0\fs24  framework and includes many wonderful apps and utilities that GNUstep community has developed over the years.\par
+\cf0\cf1 \par
+Its philosophy goes back to the UNIX roots. It encourages you to combine different commands (apps) together to accomplish your goal. It is toolbox, rather than one monolithic beast.\par
 \par
-NeXTStep-like experience\par
+\b Important concepts:\par
+\b0 \par
+- inter-process communication using services and filters\par
+- script-ability using \cf0\ulw\ul{\field{\*\fldinst HYPERLINK "https://github.com/onflapp/libs-steptalk"}{\fldrslt \cf2 StepTalk}}\ulnone\cf0 .\cf1 \par
+\cf0 - easy integration with UNIX command\par
+- extensible using bundles and/or scripts\par
 \par
-\pard\ql\cf0{{\NeXTGraphic desktop.tiff \width25200 \height15760}\pard\ql \'AC}}
+\fs36\b Why should you care?\par
+\fs24\b0 \par
+- based on the best run-time/framework of all time - ObjectiveC + OpenStep\par
+\cf0\cf1 - it is compact, ObjectiveC/plain C/some scripting, can be easily understood by one person\par
+- can compile in 30min or so (on Raspberry PI!)\par
+- very "hackable"\par
+\cf0 - it looks great ;-)\par
+\cf0 \par
+\pard\ql{{\NeXTGraphic gs-desktop.png \width15360 \height11520}\pard\ql \'AC}\f0\fs24 \par
+\fs36\b How is GNUstep Desktop different from NEXTSPACE?\fs24\b0 \par
+\par
+\cf0{\field{\*\fldinst HYPERLINK "https://github.com/trunkmaster/nextspace"}{\fldrslt NEXTSPACE}}\f0\fs24  and work done by Sergii has been great  inspiration for me. I don\rquote t think GSDE would even exist \par
+if I would not have had played with NEXTSPACE first. Although GSDE \cf0{\field{\*\fldinst HYPERLINK "https://github.com/onflapp/nextspace"}{\fldrslt shares some code with it}}\f0\fs24  and I hope some of my work will benefit NEXTSPACE in the future, GSDE is taking different path.\par
+\par
+\b 1. It uses existing apps and frameworks\b0 \par
+\par
+GNUstep Desktop builds on and extends existing apps and frameworks that have been developed over the years. Some of them have been abandoned and GSDE does provide new home and purpose for those projects. \par
+A lot of effort goes into making sure all of it works together well. \par
+In this regard GSDE is more of a "glue" whereas NEXTSPACE attempts to recreate complete system from top to bottom.\par
+\par
+\b 2. It is pragmatic\b0 \par
+\par
+GNUstep Desktop doesn\rquote t shy away from leveraging existing (non-GNUstep) code/app/utility whenever it makes sense. Many apps are "wrappers" with native GNUstep UI on top. There are different ways how this is done. For example: \par
+\par
+- \cf0{\field{\*\fldinst HYPERLINK "https://github.com/onflapp/gs-webbrowser"}{\fldrslt WebBrowser}}\f0\fs24 .app uses Google Chrome via Xembedding + chrome extension API\par
+- \cf0{\field{\*\fldinst HYPERLINK "https://github.com/onflapp/gs-terminal/tree/main/Applications/VimGS"}{\fldrslt VimGS}}\f0\fs24 .app is regular command line version of vim embedded into TerminalKit\par
+- Player.app uses VLC command for control and embeds VLC XWindow for output \par
+- Librarian.app provides nice interface on top of recoll + some scripting.\par
+\par
+One huge advantage of this approach is that GSDE gains a lot of functionality without extensive development. However, this doesn\rquote t mean that any app is allowed to be part of the desktop. The main requirement is that the resulting app must have native UI (GNUstep) and can be fully scripted using \cf0{\field{\*\fldinst HYPERLINK "https://github.com/onflapp/libs-steptalk"}{\fldrslt StepTalk}}\f0\fs24 . The only exception to this rule is \cf0{\field{\*\fldinst HYPERLINK "https://github.com/onflapp/gs-wmaker"}{\fldrslt WindowMaker}}\f0\fs24 , although it includes many tweaks to make it fit in.\par
+\pard\ql\pard\ql \par
+\b 3. It aims to be good enough, rather than perfect\par
+\b0 \par
+Fixing bugs and making sure it works is more important than beautiful and elegant architecture. As GSDE reuses a lot of code written by different individuals, using different styles and driven by different philosophies, it tries not to impose any particular "right way".\par
+The new code is very utilitarian. I personally prefer to get stuff done rather than implementing complex abstract designs.\par
+\cf0 \par
+\b 4\cf0 . It doesn\rquote t\cf0  follow NextSTEP\rquote s UI as strictly as NEXTSPACE does\b0 \par
+\par
+Although the user interface is clearly inspired by NeXT, its main goal is to provide use-friendly and consistent user experience. I expect the UI to diverge from NextSTEP\rquote s one even more as it matures.\par
+\pard\ql\pard\ql \par
+\fs36\b How is it different from GAP?\fs24\b0 \par
+\par
+\b 1. It is more than collection of apps\par
+\b0 \par
+GNUstep Desktop aims to covers entire user experience. The default configuration, startup scripts, integrations are all very important parts of the project. Surprising amount of effort goes into selecting the right combination of applications. Although the end user will be able to configure the desktop to fit his/her needs, GSDE needs to provide sensible and well tested defaults to start with.\par
+\par
+\b 2. It is Linux / XWindow specific\par
+\b0 \par
+GNUstep Desktop is very tightly tied to Linux and XWindow.\par
+Linux dependency might change in the future. I would love to have Net-BSD-based system! :-) However, Linux makes building fully functioning desktop environment very easy. For example: fast display drivers, functioning WIFI, sound, etc. \par
+\par
+XWindow - that\rquote s not going to change anytime soon. Xembedding is great when it comes to integration. Many GSDE apps would not be possible without it. I also like how flexible XWindow system is. It fits GNUstep Desktop philosophy very well.}
