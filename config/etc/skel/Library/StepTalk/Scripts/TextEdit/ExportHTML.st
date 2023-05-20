@@ -128,6 +128,8 @@ _process_file_ := [ :path |
     dattr := d objectValue.
     title := path lastPathComponent stringByDeletingPathExtension.
 
+    Transcript showLine:(dattr).
+
     i    := 0.
     sz   := astr length.
     p    := NSNumber pointerForRange.
@@ -135,9 +137,11 @@ _process_file_ := [ :path |
     html += '<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">'.
     html += '<html>'.
 
-    body += '<body>'.
+    body += '<body><article>'.
 
     _align_start_ value:0.
+
+    "parse the RTF file"
 
     [i < sz] whileTrue: [
         attr := astr attributesAtIndex:i effectiveRange:p.
@@ -151,14 +155,32 @@ _process_file_ := [ :path |
 
     _align_end_ value:current_alignment.
 
-    body += '</body>'.
+    body += '</article></body>'.
     html += ('<head><title>',title,'</title>').
     html += '<style>'.
 
+    "write page style"
+
+    html += 'body {'.
+    html += '}\n'.
+
+    html += 'img {'.
+    html += 'max-width:100%;'.
+    html += '}\n'.
+
+    html += 'article {'.
+    html += 'background-color:white;'.
+    html += 'border:1px solid lightgray;'.
+    html += 'padding:10px;'.
+    html += 'max-width:600px;'.
+    html += 'margin-left:auto;'.
+    html += 'margin-right:auto;'.
+    html += '}\n'.
+
+    "write all used styles"
+
     (styles allKeys) do: [ :key |
-            html += '\n'.
             html += (styles @ key).
-            html += '\n'.
     ].
 
     html += '</style></head>'.
@@ -178,8 +200,12 @@ ifTrue: [
 
     _process_file_ value:path.
 
+    "write final output"
+
     html writeToFile:pout atomically:NO.
     Transcript showLine:('wrote to ',pout).
+
+    "open it in the workspace"
 
     NSWorkspace sharedWorkspace openFile:pout.
 ]
