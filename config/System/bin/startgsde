@@ -200,12 +200,11 @@ echo " Starting GNUstep Desktop"
 echo "=================================================="
 
 if [ "$1" == "--safe-mode-continue" ];then
-  show_status "blue"
   export GS_DESKTOP_SAFEMODE="safe"
 
   echo ""
   echo "you are about to enter SAFE MODE"
-  echo "WARNING: you will not be able to modify the dock"
+  echo "WARNING: you will not be able to modify the dock!"
   echo ""
   echo " [l] - to exit to your login shell ($SHELL)"
   echo " [s] - to exit to /bin/sh"
@@ -224,12 +223,14 @@ if [ "$1" == "--safe-mode-continue" ];then
   if [ "$DD" == "l" ] || [ "$DD" == "s" ];then
     clear
     echo "running in the safe mode"
-    echo "use use the following commands to start"
+    echo ""
+    echo "use use the following commands to start:"
     echo ""
     echo " /System/bin/startgsde       - start the desktop"
     echo " /System/bin/startgsde-xnest - use separate Xserver (Xnest)"
     echo ""
 
+    export GS_DESKTOP_SAFEMODE="safe"
     if [ "$DD" == "l" ];then
        exec $SHELL
      else
@@ -239,7 +240,7 @@ if [ "$1" == "--safe-mode-continue" ];then
 fi
 
 if [ "$1" == "--safe-mode" ];then
-  exec xterm -bg black -fg gray -bd green -geometry 200x18+0-0 -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
+  exec xterm -bg black -fg gray -bd green -geometry 160x18+0-0 -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
 fi
 
 show_status "black"
