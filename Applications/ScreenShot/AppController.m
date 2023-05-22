@@ -81,17 +81,18 @@
   
   [[NSRunLoop currentRunLoop] runUntilDate: limit];
   
-  if (type == 1) {
+  if (type == 1) { //screen
     [args addObject:@"--delay"];
     [args addObject:@"1"];
   }
-  else if (type == 2) {
+  else if (type == 2) { //window
     [args addObject:@"--delay"];
     [args addObject:@"1"];
+    [args addObject:@"-b"];
     [args addObject:@"--focused"];
   }
   else {
-    [args addObject:@"-b"];
+    [args addObject:@"-b"]; //selection
     [args addObject:@"--select"];
   }
   [args addObject:screenshotFile];

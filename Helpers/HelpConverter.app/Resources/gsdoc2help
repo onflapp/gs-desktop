@@ -97,7 +97,7 @@ sub handle_end {
 
   if ($s eq "desc") {
     $DESC = 0;
-    print("<br>[[$DESC_TX]]<br>");
+    print("<br>$DESC_TX<br>");
   }
   elsif ($EL eq "heading") {
   }
@@ -134,10 +134,10 @@ sub handle_char {
     print("declared:$s<br>\n");
   }
   elsif ($EL eq "sel") {
-    print("<b>$s</b>");
+    print("<b>$s </b>");
   }
   elsif ($EL eq "arg") {
-    print("<i>$s</i>");
+    print("<i>$s </i>");
   }
   elsif ($DESC) {
     $DESC_TX .= "$s";

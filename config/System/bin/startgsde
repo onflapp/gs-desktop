@@ -151,7 +151,12 @@ function init_config {
 }
 
 function start_debug {
-  WM_ARGS="--static --dont-restore"
+  if [ "$GS_DESKTOP_SAFEMODE" = "protected" ];then
+    WM_ARGS="--static --dont-restore"
+  else
+    WM_ARGS="--dont-restore"
+  fi
+
   init_config
   main_process
 
@@ -201,10 +206,8 @@ echo "=================================================="
 
 if [ "$1" == "--safe-mode-continue" ];then
   export GS_DESKTOP_SAFEMODE="safe"
-
   echo ""
   echo "you are about to enter SAFE MODE"
-  echo "WARNING: you will not be able to modify the dock!"
   echo ""
   echo " [l] - to exit to your login shell ($SHELL)"
   echo " [s] - to exit to /bin/sh"
@@ -223,6 +226,7 @@ if [ "$1" == "--safe-mode-continue" ];then
   if [ "$DD" == "l" ] || [ "$DD" == "s" ];then
     clear
     echo "running in the safe mode"
+    echo "WARNING: you will not be able to modify the dock!"
     echo ""
     echo "use use the following commands to start:"
     echo ""
@@ -230,7 +234,7 @@ if [ "$1" == "--safe-mode-continue" ];then
     echo " /System/bin/startgsde-xnest - use separate Xserver (Xnest)"
     echo ""
 
-    export GS_DESKTOP_SAFEMODE="safe"
+    export GS_DESKTOP_SAFEMODE="protected"
     if [ "$DD" == "l" ];then
        exec $SHELL
      else

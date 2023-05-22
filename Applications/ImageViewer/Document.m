@@ -114,6 +114,7 @@ static NSWindow* _lastMainWindow;
 - (void) displayFile:(NSString*) path {
   NSImage* img = [[NSImage alloc] initWithContentsOfFile:path];
   if (!img) {
+    NSLog(@"try to use filter");
     NSPasteboard* pboard = [NSPasteboard pasteboardByFilteringFile:path];
     NSData* data = [pboard dataForType:NSTIFFPboardType];
     if (data) {
@@ -131,7 +132,6 @@ static NSWindow* _lastMainWindow;
 - (void) updateTitle:(NSString*) path {
   NSString* name = [path lastPathComponent];
   NSString* dir  = [path stringByDeletingLastPathComponent];
-  dir            = [dir substringToIndex:[dir length]];
   dir            = [dir stringByAbbreviatingWithTildeInPath];
 
   [window setTitle:[NSString stringWithFormat:@"%@ (%@)", name, dir]];

@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [ -n "$GS_DESKTOP_SAFEMODE" ];then
+  echo "running in SAFE mode already"
+  exit
+fi
+
+exec /System/bin/startgsde --safe-mode

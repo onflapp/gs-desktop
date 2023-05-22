@@ -1,49 +1,65 @@
 #!/usr/bin/perl
 
+sub escapeXml {
+  my ($s) = @_;
+  $s =~ s/\&/\&amp;/g;
+  $s =~ s/</\&lt;/g;
+  $s =~ s/>/\&gt;/g;
+  $s =~ s/"/\&quot;/g;
+  return $s;
+}
+
 sub closeSection {
   if ($SECTION ne "") {
-    print ("</section>\n");
+    print ("</chapter>\n");
   }
   $SECTION = "";
 }
 
 sub printLine {
   if ($LAST_LINE =~ m/^'(.*?)'$/) {
-    print ("<b>$1</b><br>\n");
+    print ("<b>" . escapeXml($1) . "</b><br>\n");
   }
   else {
-	  $LAST_LINE =~ s/'(.*?)'/<b>\1 <\/b>/g;
+    $LAST_LINE = escapeXml($LAST_LINE);
+    $LAST_LINE =~ s/\W'(.*?)'\W/ <b>\1 <\/b>/g;
     print ("$LAST_LINE<br>\n");
   }
 }
 
 if (-f $ARGV[0]) {
-	$CMD="info --subnodes -f " . $ARGV[0];
-	$COMMAND="cmd";
+  $CMD="info --subnodes -f " . $ARGV[0];
+  $COMMAND="cmd";
 }
 elsif ($ARGV[0] =~ m/^info:\/\/(.*?)$/) {
-	$CMD="info --subnodes " . $1;
-	$COMMAND=$1;
+  $CMD="info --subnodes " . $1;
+  $COMMAND=$1;
 }
 elsif ($ARGV[0] ne "") {
-	$CMD="info --subnodes " . $ARGV[0];
-	$COMMAND=$ARGV[0];
+  $CMD="info --subnodes " . $ARGV[0];
+  $COMMAND=$ARGV[0];
 }
 
+$N = 0;
 $LAST_LINE = "";
 $SECTION = "";
 
-open (INFO, "PATH=/opt/local/bin:/usr/local/bin:/usr/bin:/bin $CMD |");
+open (INFO, "PATH=/opt/local/bin:/usr/local/bin:/usr/bin:/bin LANG=C $CMD |");
 
 print ("<document><header><title>UNIX info page: $COMMAND</title></header>\n");
 print ("<plain name=\"$COMMAND\">\n");
 
 while (<INFO>) {
-	chomp ();
+  if ($N > 5000) {
+    print("<br>!!! finish after 5000 lines! !!!<br>");
+    last;
+  }
+
+  chomp ();
 
   if ($_ =~ /^===+$/ || $_ =~ /^\*\*\*+$/ || $_ =~ /^---+$/) {
     closeSection();
-    print ("<section name=\"$LAST_LINE\">\n");
+    print ("<chapter name=\"" . escapeXml($LAST_LINE) . "\">\n");
     $SECTION = $LAST_LINE;
     $LAST_LINE = "";
     next;
@@ -53,6 +69,7 @@ while (<INFO>) {
   }
 
   $LAST_LINE = $_;
+  $N++;
 }
 
 printLine();

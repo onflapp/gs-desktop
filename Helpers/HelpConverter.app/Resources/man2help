@@ -1,10 +1,13 @@
 #!/usr/bin/perl
 
+use utf8;
+
 sub getIndent {
 	my ($l) = @_;
 
 	$l =~ m/^(\s+)/;
-	return length ($1);
+	#return length ($1);
+	return -1;
 }
 
 sub closeSection {
@@ -26,33 +29,33 @@ sub printBlock {
 	#$CODE_BLOCK =~ s/\$/<span class="oper">\$<\/span>/g;
 
 	print ("<CODE>\n");
-	print ("$CODE_BLOCK");
+	print ($CODE_BLOCK);
 	print ("</CODE><br>\n");
 	$CODE_BLOCK = "";
 }
 
 if (-f $ARGV[0]) {
-	$CMD="man -l -Tutf8 " . $ARGV[0];
+	$CMD="man -Tascii -l " . $ARGV[0];
 	$COMMAND="cmd";
 	$SECTION=1;
 }
 elsif ($ARGV[0] =~ m/^man:\/\/(.*?)\/(.*?)$/) {
-	$CMD="man -P cat $2 $1";
+	$CMD="man -Tascii -P cat $2 $1";
 	$COMMAND="$1";
 	$SECTION=$2;
 }
 elsif ($ARGV[0] =~ m/^man:\/\/(.*?)$/) {
-	$CMD="man -P cat $1";
+	$CMD="man -Tascii -P cat $1";
 	$COMMAND="$1";
 	$SECTION=1;
 }
 elsif ($ARGV[0] =~ m/^(.*?)\/(.*?)$/ || $ARGV[0] =~ m/^(.*?)\((.*?)\)$/) {
-	$CMD="man -P cat $2 $1";
+	$CMD="man -Tascii -P cat $2 $1";
 	$COMMAND="$1";
 	$SECTION=$2;
 }
 else {
-	$CMD="man -P cat $ARGV[0]";
+	$CMD="man -Tascii -P cat $ARGV[0]";
 	$COMMAND="$ARGV[0]";
 	$SECTION=1;
 }
@@ -74,7 +77,6 @@ while (<MAN>) {
 	chomp ();
 	$l = $_;
 	$l =~ s/\s*$//;
-	#print ("$l\n");
 
 	if (m/^(([A-Z][A-Z]?)+)$/) {
 		closeSection();
@@ -107,6 +109,8 @@ while (<MAN>) {
 
 	$l =~ s/>//g;
 	$l =~ s/<//g;
+  $l =~ s/\&//g;
+  $l =~ s/\"//g;
 
 	$l =~ s/_(.)(.)/<I><B>\1<\/B><\/I>/g;
 	$l =~ s/_(.)/<I>\1<\/I>/g;
@@ -124,6 +128,8 @@ while (<MAN>) {
 
 	$l =~ s//\&gt;/g;
 	$l =~ s//\&lt;/g;
+  $l =~ s//\&amp;/g;
+  $l =~ s//\&quot;/g;
 
 	if ($LAST_SECTION eq "NAME" && $SPACER == -1 && $l !~ /^\s*$/) {
 		$SPACER = getIndent ($l);
