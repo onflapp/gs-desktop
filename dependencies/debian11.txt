@@ -99,4 +99,4 @@ imagemagick
 libsdl2-dev
 libvncserver-dev
 recollcmd
-chromium
+libical-dev

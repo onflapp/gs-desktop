@@ -98,3 +98,16 @@ make clean
 make -j2 || exit 1
 
 sudo -E make install
+
+echo "=================="
+echo " SimpleAgenda App"
+echo "=================="
+
+cd "$D"
+cd ../../simpleagenda || exit 1
+
+./configure || exit 1
+make clean
+make -j2 || exit 1
+
+sudo -E make install

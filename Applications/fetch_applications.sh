@@ -59,3 +59,11 @@ if [ -d apps-projectcenter ];then
 else
   git clone https://github.com/gnustep/apps-projectcenter.git
 fi
+
+cd "$D"
+if [ -d simpleagenda ];then
+  cd ./simpleagenda
+  git pull
+else
+  git clone https://github.com/poroussel/simpleagenda.git
+fi
