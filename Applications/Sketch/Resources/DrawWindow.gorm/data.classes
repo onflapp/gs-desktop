@@ -1,0 +1,69 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "alignBottomEdges:",
+	    "alignHorizontalCenters:",
+	    "alignLeftEdges:",
+	    "alignRightEdges:",
+	    "alignTopEdges:",
+	    "alignVerticalCenters:",
+	    "alignWithGrid:",
+	    "bringToFront:",
+	    "makeNaturalSize:",
+	    "makeSameHeight:",
+	    "makeSameWidth:",
+	    "newDocumentWindow:",
+	    "sendToBack:",
+	    "showOrHideRulers:",
+	    "toggleGridConstraining:",
+	    "toggleGridShowing:"
+	);
+	Super = NSObject;
+    };
+    SKTGraphicView = {
+	Actions = (
+	    "alignBottomEdges:",
+	    "alignHorizontalCenters:",
+	    "alignLeftEdges:",
+	    "alignRightEdges:",
+	    "alignTopEdges:",
+	    "alignVerticalCenters:",
+	    "alignWithGrid:",
+	    "bringToFront:",
+	    "copy:",
+	    "cut:",
+	    "delete:",
+	    "deselectAll:",
+	    "makeNaturalSize:",
+	    "makeSameHeight:",
+	    "makeSameWidth:",
+	    "paste:",
+	    "sendToBack:",
+	    "showOrHideRulers:"
+	);
+	Outlets = (
+	);
+	Super = NSView;
+    };
+    SKTWindowController = {
+	Actions = (
+	    "newDocumentWindow:",
+	    "toggleGridConstraining:",
+	    "toggleGridShowing:"
+	);
+	Outlets = (
+	    "_graphicsController",
+	    "_graphicView",
+	    "_zoomingScrollView"
+	);
+	Super = NSWindowController;
+    };
+    SKTZoomingScrollView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSScrollView;
+    };
+}

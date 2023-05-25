@@ -1,0 +1,18 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "selectToolAction:"
+	);
+	Super = NSObject;
+    };
+    SKTToolPaletteController = {
+	Actions = (
+	    "selectToolAction:"
+	);
+	Outlets = (
+	    toolButtons
+	);
+	Super = NSWindowController;
+    };
+}
