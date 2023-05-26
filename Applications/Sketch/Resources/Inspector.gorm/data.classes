@@ -1,9 +1,27 @@
 {
     "## Comment" = "Do NOT change this file, Gorm maintains it";
-    "java.lang.Object" = {
+    FirstResponder = {
 	Actions = (
+	    "updateSelection:"
+	);
+	Super = NSObject;
+    };
+    SKInspectorController = {
+	Actions = (
+	    "updateSelection:"
 	);
 	Outlets = (
+	    lineButtton,
+	    fillButtton,
+	    lineColorWell,
+	    fillColorWell,
+	    lineWidthSlider,
+	    lineWidthField,
+	    boundsXField,
+	    boundsYField,
+	    boundsWField,
+	    boundsHField
 	);
+	Super = NSWindowController;
     };
 }

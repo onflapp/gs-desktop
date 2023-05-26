@@ -26,7 +26,9 @@
 	"SKTText.m",
 	"SKTToolPaletteController.m",
 	"SKTWindowController.m",
-	"SKTZoomingScrollView.m"
+	"SKTZoomingScrollView.m",
+	"SKGridPanelController.m",
+	"SKInspectorController.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -50,7 +52,9 @@
 	"SKTText.h",
 	"SKTToolPaletteController.h",
 	"SKTWindowController.h",
-	"SKTZoomingScrollView.h"
+	"SKTZoomingScrollView.h",
+	"SKGridPanelController.h",
+	"SKInspectorController.h"
     );
     IMAGES = (
 	"Arrow.tiff",
@@ -95,11 +99,11 @@
     "PROJECT_DOCUMENTTYPES" = (
 	{
 	    NSDocumentClass = SKTDocument;
-	    NSHumanReadableName = sketch;
-	    NSName = sketch;
+	    NSHumanReadableName = "Sketch Document";
+	    NSName = "Sketch Document";
 	    NSRole = Editor;
 	    NSUnixExtensions = (
-		graph
+		sketch
 	    );
 	}
     );

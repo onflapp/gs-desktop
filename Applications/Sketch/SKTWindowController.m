@@ -1,47 +1,6 @@
 /*
      File: SKTWindowController.m
  Abstract: A window controller to manage display of a Sketch window.
-  Version: 1.8
- 
- Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
- Inc. ("Apple") in consideration of your agreement to the following
- terms, and your use, installation, modification or redistribution of
- this Apple software constitutes acceptance of these terms.  If you do
- not agree with these terms, please do not use, install, modify or
- redistribute this Apple software.
- 
- In consideration of your agreement to abide by the following terms, and
- subject to these terms, Apple grants you a personal, non-exclusive
- license, under Apple's copyrights in this original Apple software (the
- "Apple Software"), to use, reproduce, modify and redistribute the Apple
- Software, with or without modifications, in source and/or binary forms;
- provided that if you redistribute the Apple Software in its entirety and
- without modifications, you must retain this notice and the following
- text and disclaimers in all such redistributions of the Apple Software.
- Neither the name, trademarks, service marks or logos of Apple Inc. may
- be used to endorse or promote products derived from the Apple Software
- without specific prior written permission from Apple.  Except as
- expressly stated in this notice, no other rights or licenses, express or
- implied, are granted by Apple herein, including but not limited to any
- patent rights that may be infringed by your derivative works or by other
- works in which the Apple Software may be incorporated.
- 
- The Apple Software is provided by Apple on an "AS IS" basis.  APPLE
- MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION
- THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS
- FOR A PARTICULAR PURPOSE, REGARDING THE APPLE SOFTWARE OR ITS USE AND
- OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS.
- 
- IN NO EVENT SHALL APPLE BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL
- OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- INTERRUPTION) ARISING IN ANY WAY OUT OF THE USE, REPRODUCTION,
- MODIFICATION AND/OR DISTRIBUTION OF THE APPLE SOFTWARE, HOWEVER CAUSED
- AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE),
- STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
- POSSIBILITY OF SUCH DAMAGE.
- 
- Copyright (C) 2012 Apple Inc. All Rights Reserved.
  
  */
 
@@ -55,8 +14,8 @@
 
 
 // A value that's used as a context by this class' invocation of a KVO observer registration method. See the comment near the top of SKTGraphicView.m for a discussion of this.
-static NSString *SKTWindowControllerCanvasSizeObservationContext = @"com.apple.SKTWindowController.canvasSize";
-
+static NSString *SKTWindowControllerCanvasSizeObservationContext = @"SKTWindowController.canvasSize";
+static NSString *SKTWindowControllerGraphicsChanged = @"SKTWindowControllerGraphicsChanged";
 
 @implementation SKTWindowController
 
@@ -109,7 +68,6 @@ static NSString *SKTWindowControllerCanvasSizeObservationContext = @"com.apple.S
 
 // An override of the NSObject(NSKeyValueObserving) method.
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(NSObject *)observedObject change:(NSDictionary *)change context:(void *)context {
-
     // Make sure we don't intercept an observer notification that's meant for NSWindowController. In Mac OS 10.5 and earlier NSWindowControllers don't observe anything, but that could change in the future. We can do a simple pointer comparison because KVO doesn't do anything at all with the context value, not even retain or copy it.
     if (context==SKTWindowControllerCanvasSizeObservationContext) {
 
@@ -118,7 +76,9 @@ static NSString *SKTWindowControllerCanvasSizeObservationContext = @"com.apple.S
 	if (![documentCanvasSizeValue isEqual:[NSNull null]]) {
 	    [self observeDocumentCanvasSize:[documentCanvasSizeValue sizeValue]];
 	}
-
+    } else if (context==SKTWindowControllerGraphicsChanged) {
+        NSArray* _graphics = [[self document] valueForKey:SKTDocumentGraphicsKey];
+        [_graphicsController setContent:_graphics];
     } else {
 	
 	// In overrides of -observeValueForKeyPath:ofObject:change:context: always invoke super when the observer notification isn't recognized. Code in the superclass is apparently doing observation of its own. NSObject's implementation of this method throws an exception. Such an exception would be indicating a programming error that should be fixed.
@@ -142,6 +102,10 @@ static NSString *SKTWindowControllerCanvasSizeObservationContext = @"com.apple.S
     [[_graphicView enclosingScrollView] setDocumentCursor:theCursor];
 }
 
+- (void) redraw {
+    [_graphicView setNeedsDisplay:YES];
+}
+
 
 #pragma mark *** Overrides of NSWindowController Methods ***
 
@@ -150,8 +114,6 @@ static NSString *SKTWindowControllerCanvasSizeObservationContext = @"com.apple.S
 
     // Cocoa Bindings makes many things easier. Unfortunately, one of the things it makes easier is creation of reference counting cycles. In Mac OS 10.4 and later NSWindowController has a feature that keeps bindings to File's Owner, when File's Owner is a window controller, from retaining the window controller in a way that would prevent its deallocation. We're setting up bindings programmatically in -windowDidLoad though, so that feature doesn't kick in, and we have to explicitly unbind to make sure this window controller and everything in the nib it owns get deallocated. We do this here instead of in an override of -[NSWindowController close] because window controllers aren't sent -close messages for every kind of window closing. Fortunately, window controllers are sent -setDocument:nil messages during window closing.
     if (!document) {
-	[_zoomingScrollView unbind:SKTZoomingScrollViewFactor];
-	[_graphicView unbind:SKTGraphicViewGridBindingName];
 	[_graphicView unbind:SKTGraphicViewGraphicsBindingName];
     }
     
@@ -176,7 +138,8 @@ static NSString *SKTWindowControllerCanvasSizeObservationContext = @"com.apple.S
     // We're already observing the document's canvas size in case it changes, but we haven't been able to size the graphic view to match until now.
     [self observeDocumentCanvasSize:[(SKTDocument *)[self document] canvasSize]];
 
-    [_graphicsController bind:NSContentArrayBinding toObject:self withKeyPath:[NSString stringWithFormat:@"%@.%@", @"document", SKTDocumentGraphicsKey] options:nil];
+    [self addObserver:self forKeyPath:[NSString stringWithFormat:@"%@.%@", @"document", SKTDocumentGraphicsKey] options:0 context:SKTWindowControllerGraphicsChanged];
+    //[_graphicsController bind:NSContentArrayBinding toObject:self withKeyPath:[NSString stringWithFormat:@"%@.%@", @"document", SKTDocumentGraphicsKey] options:nil];
 
     // Bind the graphic view's selection indexes to the controller's selection indexes. The graphics controller's content array is bound to the document's graphics in the nib, so it knows when graphics are added and remove, so it can keep the selection indexes consistent.
     [_graphicView bind:SKTGraphicViewSelectionIndexesBindingName toObject:_graphicsController withKeyPath:@"selectionIndexes" options:nil];
@@ -184,12 +147,6 @@ static NSString *SKTWindowControllerCanvasSizeObservationContext = @"com.apple.S
     // Bind the graphic view's graphics to the document's graphics. We do this instead of binding to the graphics controller because NSArrayController is not KVC-compliant enough for "arrangedObjects" to work properly when the graphic view sends its bound-to object a -mutableArrayValueForKeyPath: message. The binding to self's "document.graphics" is 1) easy and 2) appropriate for a window controller that may someday be able to show one of several documents in its window. If we instead bound the graphic view to [self document] then we would have to redo the binding in -setDocument:.
     [_graphicView bind:SKTGraphicViewGraphicsBindingName toObject:self withKeyPath:[NSString stringWithFormat:@"%@.%@", @"document", SKTDocumentGraphicsKey] options:nil];
 
-    // Bind the graphic view's grid to this window controller's grid.
-    [_graphicView bind:SKTGraphicViewGridBindingName toObject:self withKeyPath:@"grid" options:nil];
-
-    // Bind the zooming scroll view's factor to this window's controller's zoom factor.
-    [_zoomingScrollView bind:SKTZoomingScrollViewFactor toObject:self withKeyPath:@"zoomFactor" options:nil];
-    
     // Start observing the tool palette.
     [self selectedToolDidChange:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(selectedToolDidChange:) name:SKTSelectedToolDidChangeNotification object:[SKTToolPaletteController sharedToolPaletteController]];
@@ -249,10 +206,8 @@ static NSString *SKTWindowControllerCanvasSizeObservationContext = @"com.apple.S
 
 
 - (IBAction)toggleGridShowing:(id)sender{
-
-    // Simple.
     [_grid setAlwaysShown:![_grid isAlwaysShown]];
-
+    [_graphicView setNeedsDisplay:YES];
 }
 
 

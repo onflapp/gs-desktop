@@ -64,7 +64,9 @@ SKTRenderingView.h \
 SKTText.h \
 SKTToolPaletteController.h \
 SKTWindowController.h \
-SKTZoomingScrollView.h
+SKTZoomingScrollView.h \
+SKGridPanelController.h \
+SKInspectorController.h
 
 #
 # Objective-C Class files
@@ -84,7 +86,9 @@ SKTRenderingView.m \
 SKTText.m \
 SKTToolPaletteController.m \
 SKTWindowController.m \
-SKTZoomingScrollView.m
+SKTZoomingScrollView.m \
+SKGridPanelController.m \
+SKInspectorController.m
 
 #
 # Other sources

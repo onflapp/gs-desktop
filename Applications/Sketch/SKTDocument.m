@@ -21,12 +21,6 @@
 NSString *SKTDocumentCanvasSizeKey = @"canvasSize";
 NSString *SKTDocumentGraphicsKey = @"graphics";
 
-// The document type names that must also be used in the application's Info.plist file. We'll take out all uses of SKTDocumentOldTypeName and SKTDocumentOldVersion1TypeName (and NSPDFPboardType and NSTIFFPboardType) someday when we drop 10.4 compatibility and we can just use UTIs everywhere.
-static NSString *SKTDocumentOldTypeName = @"Apple Sketch document";
-static NSString *SKTDocumentNewTypeName = @"com.apple.sketch2";
-static NSString *SKTDocumentOldVersion1TypeName = @"Apple Sketch 1 document";
-static NSString *SKTDocumentNewVersion1TypeName = @"com.apple.sketch1";
-
 // More keys, and a version number, which are just used in Sketch's property-list-based file format.
 static NSString *SKTDocumentVersionKey = @"version";
 static NSString *SKTDocumentPrintInfoKey = @"printInfo";
@@ -78,6 +72,9 @@ static NSInteger SKTDocumentCurrentVersion = 2;
 
 }
 
++ (BOOL)isNativeType: (NSString*)type {
+    return YES;
+}
 
 - (void)dealloc {
     [_graphics release];
@@ -95,10 +92,17 @@ static NSInteger SKTDocumentCurrentVersion = 2;
 
 - (void)insertGraphics:(NSArray *)graphics atIndexes:(NSIndexSet *)indexes {
     [_graphics insertObjects:graphics atIndexes:indexes];
+
+    // Start observing the just-inserted graphics so that, when they're changed, we can record undo operations.
+    [self startObservingGraphics:graphics];
 }
 
 
 - (void)removeGraphicsAtIndexes:(NSIndexSet *)indexes {
+    NSArray *graphics = [_graphics objectsAtIndexes:indexes];
+    // Stop observing the just-removed graphics to balance what was done in -insertGraphics:atIndexes:.
+    [self stopObservingGraphics:graphics];
+    // Do the actual removal.
     [_graphics removeObjectsAtIndexes:indexes];
 }
 
@@ -129,51 +133,40 @@ static NSInteger SKTDocumentCurrentVersion = 2;
 // This method will only be invoked on Mac 10.4 and later. If you're writing an application that has to run on 10.3.x and earlier you should override -loadDataRepresentation:ofType: instead.
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError {
 
-    // This application's Info.plist only declares two document types, which go by the names SKTDocumentOldTypeName/SKTDocumentOldVersion1TypeName (on Mac OS 10.4) or SKTDocumentNewTypeName/SKTDocumentNewVersion1TypeName (on 10.5), for which it can play the "editor" role, and none for which it can play the "viewer" role, so the type better match one of those. Notice that we don't compare uniform type identifiers (UTIs) with -isEqualToString:. We use -[NSWorkspace type:conformsToType:] (new in 10.5), which is nearly always the correct thing to do with UTIs.
     BOOL readSuccessfully;
     NSArray *graphics = nil;
     NSPrintInfo *printInfo = nil;
-    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-    BOOL useTypeConformance = [workspace respondsToSelector:@selector(type:conformsToType:)];
-    if ((useTypeConformance && [workspace type:typeName conformsToType:SKTDocumentNewTypeName]) || [typeName isEqualToString:SKTDocumentOldTypeName]) {
+    NSDictionary *properties = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:NULL errorDescription:NULL];
+    if (properties) {
 
-	// The file uses Sketch 2's new format. Read in the property list.
-	NSDictionary *properties = [NSPropertyListSerialization propertyListFromData:data mutabilityOption:NSPropertyListImmutable format:NULL errorDescription:NULL];
-	if (properties) {
+        // Get the graphics. Strictly speaking the property list of an empty document should have an empty graphics array, not no graphics array, but we cope easily with either. Don't trust the type of something you get out of a property list unless you know your process created it or it was read from your application or framework's resources.
+        NSArray *graphicPropertiesArray = [properties objectForKey:SKTDocumentGraphicsKey];
+        graphics = [graphicPropertiesArray isKindOfClass:[NSArray class]] ? [SKTGraphic graphicsWithProperties:graphicPropertiesArray] : [NSArray array];
 
-	    // Get the graphics. Strictly speaking the property list of an empty document should have an empty graphics array, not no graphics array, but we cope easily with either. Don't trust the type of something you get out of a property list unless you know your process created it or it was read from your application or framework's resources.
-	    NSArray *graphicPropertiesArray = [properties objectForKey:SKTDocumentGraphicsKey];
-	    graphics = [graphicPropertiesArray isKindOfClass:[NSArray class]] ? [SKTGraphic graphicsWithProperties:graphicPropertiesArray] : [NSArray array];
+        /*
+        NSData *printInfoData = [properties objectForKey:SKTDocumentPrintInfoKey];
+        printInfo = [printInfoData isKindOfClass:[NSData class]] ? [NSUnarchiver unarchiveObjectWithData:printInfoData] : [[[NSPrintInfo alloc] init] autorelease];
+        */
 
-	    // Get the page setup. There's no point in considering the opening of the document to have failed if we can't get print info. A more finished app might present a panel warning the user that something's fishy though.
-	    NSData *printInfoData = [properties objectForKey:SKTDocumentPrintInfoKey];
-	    printInfo = [printInfoData isKindOfClass:[NSData class]] ? [NSUnarchiver unarchiveObjectWithData:printInfoData] : [[[NSPrintInfo alloc] init] autorelease];
+    } else if (outError) {
 
-	} else if (outError) {
-
-	    // If property list parsing fails we have no choice but to admit that we don't know what went wrong. The error description returned by +[NSPropertyListSerialization propertyListFromData:mutabilityOption:format:errorDescription:] would be pretty technical, and not the sort of thing that we should show to a user.
-	    *outError = SKTErrorWithCode(SKTUnknownFileReadError);
-	
-	}
-	readSuccessfully = properties ? YES : NO;
-
-    } else {
-	NSParameterAssert((useTypeConformance && [workspace type:typeName conformsToType:SKTDocumentNewVersion1TypeName]) || [typeName isEqualToString:SKTDocumentOldVersion1TypeName]);
-
-	// The file uses Sketch's old format. Sketch is still a work in progress.
-	graphics = [NSArray array];
-	printInfo = [[[NSPrintInfo alloc] init] autorelease];
-	readSuccessfully = YES;
-
+        // If property list parsing fails we have no choice but to admit that we don't know what went wrong. The error description returned by +[NSPropertyListSerialization propertyListFromData:mutabilityOption:format:errorDescription:] would be pretty technical, and not the sort of thing that we should show to a user.
+        *outError = SKTErrorWithCode(SKTUnknownFileReadError);
+    
     }
+    readSuccessfully = properties ? YES : NO;
 
-    // Did the reading work? In this method we ought to either do nothing and return an error or overwrite every property of the document. Don't leave the document in a half-baked state.
     if (readSuccessfully) {
 
 	// Update the document's list of graphics by going through KVC-compliant mutation methods. KVO notifications will be automatically sent to observers (which does matter, because this might be happening at some time other than document opening; reverting, for instance). Update its page setup the regular way. Don't let undo actions get registered while doing any of this. The fact that we have to explicitly protect against useless undo actions is considered an NSDocument bug nowadays, and will someday be fixed.
-	[self removeGraphicsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [[self graphics] count])]];
-	[self insertGraphics:graphics atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [graphics count])]];
-	[self setPrintInfo:printInfo];
+@try {
+        [self removeGraphicsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [[self graphics] count])]];
+        [self insertGraphics:graphics atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [graphics count])]];
+}
+@catch(NSException* ex) {
+    NSLog(@"xxx:%@", ex);
+}
+    ///[self setPrintInfo:printInfo];
 
     } // else it was the responsibility of something in the previous paragraph to set *outError.
     return readSuccessfully;
@@ -183,36 +176,27 @@ static NSInteger SKTDocumentCurrentVersion = 2;
 
 // This method will only be invoked on Mac OS 10.4 and later. If you're writing an application that has to run on 10.3.x and earlier you should override -dataRepresentationOfType: instead.
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError {
+    @try {
+        NSData *data;
+        NSArray *graphics = [self graphics];
+        NSPrintInfo *printInfo = [self printInfo];
 
-    // This method must be prepared for typeName to be any value that might be in the array returned by any invocation of -writableTypesForSaveOperation:. Because this class:
-    // doesn't - override -writableTypesForSaveOperation:, and
-    // doesn't - override +writableTypes or +isNativeType: (which the default implementation of -writableTypesForSaveOperation: invokes),
-    // and because:
-    // - Sketch has a "Save a Copy As..." file menu item that results in NSSaveToOperations,
-    // we know that that the type names we have to handle here include:
-    // - SKTDocumentOldTypeName (on Mac OS 10.4) or SKTDocumentNewTypeName (on 10.5), because this application's Info.plist file declares that instances of this class can play the "editor" role for it, and
-    // - NSPDFPboardType (on 10.4) or kUTTypePDF (on 10.5) and NSTIFFPboardType (on 10.4) or kUTTypeTIFF (on 10.5), because according to the Info.plist a Sketch document is exportable as them.
-    // We use -[NSWorkspace type:conformsToType:] (new in 10.5), which is nearly always the correct thing to do with UTIs, but the arguments are reversed here compared to what's typical. Think about it: this method doesn't know how to write any particular subtype of the supported types, so it should assert if it's asked to. It does however effectively know how to write all of the supertypes of the supported types (like public.data), and there's no reason for it to refuse to do so. Not particularly useful in the context of an app like Sketch, but correct.
-    // If we had reason to believe that +[SKTRenderingView pdfDataWithGraphics:] or +[SKTGraphic propertiesWithGraphics:] could return nil we would have to arrange for *outError to be set to a real value when that happens. If you signal failure in a method that takes an error: parameter and outError!=NULL you must set *outError to something decent.
-    NSData *data;
-    NSArray *graphics = [self graphics];
-    NSPrintInfo *printInfo = [self printInfo];
-    NSWorkspace *workspace = [NSWorkspace sharedWorkspace];
-    BOOL useTypeConformance = [workspace respondsToSelector:@selector(type:conformsToType:)];
-    if ((useTypeConformance && [workspace type:SKTDocumentNewTypeName conformsToType:typeName]) || [typeName isEqualToString:SKTDocumentOldTypeName]) {
+        // Convert the contents of the document to a property list and then flatten the property list.
+        NSMutableDictionary *properties = [NSMutableDictionary dictionary];
+        [properties setObject:[NSNumber numberWithInteger:SKTDocumentCurrentVersion] forKey:SKTDocumentVersionKey];
+        [properties setObject:[SKTGraphic propertiesWithGraphics:graphics] forKey:SKTDocumentGraphicsKey];
+        //error while archiving!
+        //[properties setObject:[NSArchiver archivedDataWithRootObject:printInfo] forKey:SKTDocumentPrintInfoKey];
 
-	// Convert the contents of the document to a property list and then flatten the property list.
-	NSMutableDictionary *properties = [NSMutableDictionary dictionary];
-	[properties setObject:[NSNumber numberWithInteger:SKTDocumentCurrentVersion] forKey:SKTDocumentVersionKey];
-	[properties setObject:[SKTGraphic propertiesWithGraphics:graphics] forKey:SKTDocumentGraphicsKey];
-	[properties setObject:[NSArchiver archivedDataWithRootObject:printInfo] forKey:SKTDocumentPrintInfoKey];
-	data = [NSPropertyListSerialization dataFromPropertyList:properties format:NSPropertyListBinaryFormat_v1_0 errorDescription:NULL];
+        data = [NSPropertyListSerialization dataFromPropertyList:properties format:NSPropertyListBinaryFormat_v1_0 errorDescription:NULL];
 
-    } else {
-	data = [SKTRenderingView tiffDataWithGraphics:graphics error:outError];
+        //data = [SKTRenderingView tiffDataWithGraphics:graphics error:outError];
+        return data;
     }
-    return data;
-
+    @catch(NSException* ex) {
+        NSLog(@"%@", ex);
+        return nil;
+    }
 }
 
 
@@ -260,6 +244,14 @@ static NSInteger SKTDocumentCurrentVersion = 2;
     SKTWindowController *windowController = [[SKTWindowController alloc] init];
     [self addWindowController:windowController];
     [windowController release];
+}
+
+- (void)startObservingGraphics:(NSArray *)graphics {
+
+}
+
+- (void)stopObservingGraphics:(NSArray *)graphics {
+
 }
 
 - (NSArray *)graphicsWithClass:(Class)theClass {

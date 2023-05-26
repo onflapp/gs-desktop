@@ -3,60 +3,31 @@
     ApplicationName = Sketch;
     ApplicationRelease = "0.1";
     CFBundleDevelopmentRegion = English;
-    CFBundleDocumentTypes = (
-	{
-	    CFBundleTypeRole = Editor;
-	    LSItemContentTypes = (
-		"com.apple.sketch2"
-	    );
-	    NSDocumentClass = SKTDocument;
-	    NSExportableTypes = (
-		"com.adobe.pdf",
-		"public.tiff"
-	    );
-	}
-    );
     CFBundleExecutable = Sketch;
     CFBundleIconFile = Draw2App;
     CFBundleInfoDictionaryVersion = "6.0";
     CFBundlePackageType = APPL;
     CFBundleShortVersionString = "2.0.2";
-    CFBundleSignature = sktc;
     CFBundleVersion = 52;
     Copyright = "Copyright (C) 200x";
     CopyrightDescription = "Released under ...";
     FullVersionID = "0.1";
-    NSAppleScriptEnabled = YES;
     NSExecutable = Sketch;
     NSMainNibFile = "Sketch.gorm";
     NSPrincipalClass = NSApplication;
     NSRole = Application;
-    NSSupportsSuddenTermination = <*BY>;
     NSTypes = (
 	{
 	    NSDocumentClass = SKTDocument;
-	    NSHumanReadableName = sketch;
-	    NSName = sketch;
+	    NSHumanReadableName = "Sketch Document";
+	    NSName = "Sketch Document";
 	    NSRole = Editor;
+	    NSExportableAs = (
+                sketch
+            );
 	    NSUnixExtensions = (
-		graph
+		sketch
 	    );
-	}
-    );
-    OSAScriptingDefinition = "Sketch.sdef";
-    UTExportedTypeDeclarations = (
-	{
-	    UTTypeConformsTo = (
-		"public.data"
-	    );
-	    UTTypeDescription = "Apple Sketch document";
-	    UTTypeIconFile = Draw2File;
-	    UTTypeIdentifier = "com.apple.sketch2";
-	    UTTypeTagSpecification = {
-		"public.filename-extension" = (
-		    sketch2
-		);
-	    };
 	}
     );
 }

@@ -10,18 +10,17 @@
 #import "SKTImage.h"
 #import "SKTRenderingView.h"
 #import "SKTToolPaletteController.h"
+#import "SKInspectorController.h"
 
 
 // The names of the bindings supported by this class, in addition to the ones whose support is inherited from NSView.
 NSString *SKTGraphicViewGraphicsBindingName = @"graphics";
 NSString *SKTGraphicViewSelectionIndexesBindingName = @"selectionIndexes";
-NSString *SKTGraphicViewGridBindingName = @"grid";
 
 // The values that are used as contexts by this class' invocations of KVO observer registration methods. When an object like this one receives an -observeValueForKeyPath:ofObject:change:context: message it has to figure out why it's getting the message. It could distinguish based on the observed object and key path, but that's not perfectly safe, because code in the superclass might be observing the same thing for a different reason, and there's a danger of intercepting observer notifications that are meant for superclass code. The way to make sure that doesn't happen is to use a context, and make sure it's unlikely to be used as a context by superclass or subclass code. Strings like these whose pointers are not available to other compiled modules are pretty unlikely to be used by superclass or subclass code. In practice this is not a common problem, especially in a simple application like Sketch, but you should know how to do things like this the perfect way even if you decide it's not worth the hassle in your application.
 static NSString *SKTGraphicViewGraphicsObservationContext = @"com.apple.SKTGraphicView.graphics";
 static NSString *SKTGraphicViewIndividualGraphicObservationContext = @"com.apple.SKTGraphicView.individualGraphic";
 static NSString *SKTGraphicViewSelectionIndexesObservationContext = @"com.apple.SKTGraphicView.selectionIndexes";
-static NSString *SKTGraphicViewAnyGridPropertyObservationContext = @"com.apple.SKTGraphicView.anyGridProperty";
 
 // The type name that this class uses when putting flattened graphics on the pasteboard during cut, copy, and paste operations. The format that's identified by it is not the exact same thing as the native document format used by SKTDocument, because SKTDocuments store NSPrintInfos (and maybe other stuff too in the future). We could easily use the exact same format for pasteboard data and document files if we decide it's worth it, but so far we haven't.
 static NSString *SKTGraphicViewPasteboardType = @"Apple Sketch 2 pasteboard type";
@@ -136,7 +135,8 @@ A person who assumes that a -set... method always succeeds, and always sets the 
     // Set the selection index set in the bound-to object (an array controller, in Sketch's case). The bound-to object is responsible for being KVO-compliant enough that all observers of the bound-to property get notified of the setting. Trying to set the selection indexes of a graphic view whose selection indexes aren't bound to anything is a programming error.
     NSAssert((_selectionIndexesContainer && _selectionIndexesKeyPath), @"An SKTGraphicView's 'selectionIndexes' property is not bound to anything.");
     [_selectionIndexesContainer setValue:indexes forKeyPath:_selectionIndexesKeyPath];
-    
+
+    [[SKInspectorController sharedInspectorController]refreshSelection];
 }
 
 
@@ -144,17 +144,8 @@ A person who assumes that a -set... method always succeeds, and always sets the 
     
     // Weed out redundant invocations.
     if (grid!=_grid) {
-
-	// Stop observing changes in the old grid.
-	[_grid removeObserver:self forKeyPath:SKTGridAnyKey];
-
-	// Do the regular Cocoa thing.
 	[_grid release];
 	_grid = [grid retain];
-
-	// Start observing changes in the new grid so we know when to redraw it.
-	[_grid addObserver:self forKeyPath:SKTGridAnyKey options:0 context:SKTGraphicViewAnyGridPropertyObservationContext];
-	
     }
 
 }
@@ -348,12 +339,6 @@ A person who assumes that a -set... method always succeeds, and always sets the 
 	} else {
 	    [self setNeedsDisplay:YES];
 	}
-	    
-    } else if (context==SKTGraphicViewAnyGridPropertyObservationContext) {
-
-	// Either a new grid is to be used (this only happens once in Sketch) or one of the properties of the grid has changed. Regardless, redraw everything.
-	[self setNeedsDisplay:YES];
-
     } else {
 
 	// In overrides of -observeValueForKeyPath:ofObject:change:context: always invoke super when the observer notification isn't recognized. Code in the superclass is apparently doing observation of its own. NSObject's implementation of this method throws an exception. Such an exception would be indicating a programming error that should be fixed.
@@ -939,33 +924,11 @@ A person who assumes that a -set... method always succeeds, and always sets the 
 }
 
 
-#pragma mark *** Keyboard Event Handling ***
-
-
-// An override of the NSResponder method. NSResponder's implementation would just forward the message to the next responder (an NSClipView, in Sketch's case) and our overrides like -delete: would never be invoked.
-- (void)keyDown:(NSEvent *)event {
-    
-    // Ask the key binding manager to interpret the event for us.
-    [self interpretKeyEvents:[NSArray arrayWithObject:event]];
-
-}
-
-
-- (IBAction)delete:(id)sender {
+- (IBAction)removeObject:(id)sender {
     // Pretty simple.
     [[self mutableGraphics] removeObjectsAtIndexes:[self selectionIndexes]];
 
 }
-
-
-// Overrides of the NSResponder(NSStandardKeyBindingMethods) methods.
-- (void)deleteBackward:(id)sender {
-    [self delete:sender];
-}
-- (void)deleteForward:(id)sender {
-    [self delete:sender];
-}
-
 
 - (void)invalidateHandlesOfGraphics:(NSArray *)graphics {
     NSUInteger i, c = [graphics count];
@@ -1072,7 +1035,7 @@ A person who assumes that a -set... method always succeeds, and always sets the 
 
 - (IBAction)cut:(id)sender {
     [self copy:sender];
-    [self delete:sender];
+    [self removeObject:sender];
 }
 
 - (IBAction)paste:(id)sender {
@@ -1251,7 +1214,7 @@ A person who assumes that a -set... method always succeeds, and always sets the 
             }
         }
         return NO;
-    } else if ((action == @selector(alignWithGrid:)) || (action == @selector(delete:)) || (action == @selector(bringToFront:)) || (action == @selector(sendToBack:)) || (action == @selector(cut:)) || (action == @selector(copy:))) {
+    } else if ((action == @selector(alignWithGrid:)) || (action == @selector(removeObject:)) || (action == @selector(bringToFront:)) || (action == @selector(sendToBack:)) || (action == @selector(cut:)) || (action == @selector(copy:))) {
 	
 	// The  grid is not always in a valid state.
 	if (action==@selector(alignWithGrid:) && ![_grid canAlign]) {
