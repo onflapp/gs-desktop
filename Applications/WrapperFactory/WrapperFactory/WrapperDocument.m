@@ -1106,6 +1106,9 @@ static NSString *actionIgnore = @"Ignore";
             for (NSString *ext in [self arrayFromCommaSeparatedString: [type extensions]]) {
                 NSString *xx = [NSString stringWithFormat:@"NSTypedFileContentsPboardType:%@", ext];
                 [sx addObject: xx];
+
+                xx = [NSString stringWithFormat:@"NSFilenamesPboardType:%@", ext];
+                [sx addObject: xx];
             }
 
             [serviceDict setObject: sx forKey: @"NSSendTypes"];

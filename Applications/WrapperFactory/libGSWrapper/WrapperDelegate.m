@@ -44,7 +44,6 @@
 
 - (void)applicationDidFinishLaunching: (NSNotification*)not
 {
-    NSLog(@"LAUNCH");
     appDidFinishLaunching = YES;
     NSRegisterServicesProvider(self, [[NSApp applicationName] stringByDeletingPathExtension]);
 
@@ -188,30 +187,49 @@
         
         NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
         NSString *ext = @"";
-        BOOL found = NO;
+        NSInteger found = 0;
 
         if ( ![files count] ) {
             for (int i = 0; i < [[pboard types] count]; i++) {
                 NSString* it = [[pboard types] objectAtIndex: i];
-                if ([it hasPrefix:@"NSTypedFileContentsPboardType"]) {
+                if ([it hasPrefix:@"NSTypedFileContentsPboardType:"]) {
                     ext = [it substringFromIndex:30];
                     if ([self supportsReturnType:outDataType forSendType:it]) {
-                      found = YES;
+                      found = 1;
+                      break;
+                    }
+                }
+                else if ([it hasPrefix:@"NSFilenamesPboardType:"]) {
+                    ext = [it substringFromIndex:22];
+                    if ([self supportsReturnType:outDataType forSendType:it]) {
+                      found = 2;
+                      NSData *fdata = [pboard dataForType:it];
+                      NSString *path = [[NSString alloc]initWithData:fdata encoding:NSUTF8StringEncoding];
+
+                      if (path) {
+                        files = [NSArray arrayWithObject:path];
+                        [path release];
+                      }
+                      else {
+                        found = 0;
+                      }
+
                       break;
                     }
                 }
             }
 
-            if ( !found ) {
+            if ( found == 0 ) {
                 *error = @"no filter available for datatype";
                 NSLog(@"no filter script for type %@ found", outDataType);
                 return;
             }
-
-            NSString *tmpf = [NSString stringWithFormat:@"%@/filter.%lx.%@", NSTemporaryDirectory(), [self hash], ext];
-            NSLog(@"creating temp file for %@ in %@", ext, tmpf);
-            [pboard readFileContentsType:ext toFile:tmpf];
-            files = [NSArray arrayWithObject:tmpf];
+            else if (found == 1) {
+              NSString *tmpf = [NSString stringWithFormat:@"%@/filter.%lx.%@", NSTemporaryDirectory(), [self hash], ext];
+              NSLog(@"creating temp file for %@ in %@", ext, tmpf);
+              [pboard readFileContentsType:ext toFile:tmpf];
+              files = [NSArray arrayWithObject:tmpf];
+            }
         }
 
         if ( ![files count] ) {
@@ -244,7 +262,7 @@
             NSData *outData = [inFh readDataToEndOfFile];
             [inFh closeFile];
 
-            if (outData) {
+            if ([task terminationStatus] == 0 && [outData length] > 0) {
                 if ([outDataType isEqualToString:@"NSStringPboardType"]) {
                     NSLog(@"provide data as string");
                     NSString *str = [[NSString alloc] initWithData: outData encoding:NSUTF8StringEncoding];
@@ -256,12 +274,19 @@
                     [pboard declareTypes: [NSArray arrayWithObject: outDataType] owner: nil];
                     [pboard setData: outData forType: outDataType];
                 }
+                NSLog(@"filter done");
             }
-            NSLog(@"filter done");
+            else {
+                *error = @"filter did not provide any data";
+                NSLog(@"exit with error %d", [task terminationStatus]);
+                return;
+            }
         }
     }
     @catch (NSException* ex) {
+        *error = @"filter exception";
         NSLog(@"FILTER exception %@", ex);
+        return;
     }
 }
 
