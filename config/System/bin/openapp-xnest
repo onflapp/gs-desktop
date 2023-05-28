@@ -1,0 +1,28 @@
+#!/bin/bash
+
+function cleanup { 
+  kill "$PID" 2>/dev/null
+}
+
+OPENCMD=/System/bin/openapp
+
+if [ -n "$DEBUGMODE" ];then
+  OPENCMD=/System/bin/debugapp
+fi
+
+if [ -z "$1" ];then
+  exec $OPENCMD
+fi
+
+trap cleanup SIGINT SIGTERM
+
+Xnest -once -geometry 800x600 :1 2>/dev/null &
+export DISPLAY=:1
+sleep 1
+PID=$!
+APP="$1"
+shift
+
+$OPENCMD $APP -GSBackHandlesWindowDecorations NO $*
+
+cleanup
