@@ -79,11 +79,19 @@
   }
   else {    
     NSLog(@"try to convert %@ as PDF", fileName);
+    NSString* ptype = [NSString stringWithFormat:@"NSFilenamesPboardType:%@", ext];
+    NSData* fdata = [fileName dataUsingEncoding:NSUTF8StringEncoding];
 
-    NSPasteboard* pboard = [NSPasteboard pasteboardByFilteringFile:fileName];
+    // try filter to PDF from fileName
+    NSPasteboard* pboard = [NSPasteboard pasteboardByFilteringData:fdata ofType:ptype];
     NSData* data = [pboard dataForType:NSPDFPboardType];
 
-    // try filter to PDF
+    if (!data) {
+      // try filter to PDF from data
+      pboard = [NSPasteboard pasteboardByFilteringFile:fileName];
+      data = [pboard dataForType:NSPDFPboardType];
+    }
+
     if (data) {
       NSString* tfile = [NSString stringWithFormat:@"%@/temp.%lx.pdf", NSTemporaryDirectory(), [data hash]];
       [data writeToFile:tfile atomically:NO];
@@ -93,10 +101,9 @@
 
       return doc;
     }
-    else {
-      NSLog(@"try to convert %@ as HTML", fileName);
-      data = [pboard dataForType:NSHTMLPboardType];
-    }
+    
+    NSLog(@"try to convert %@ as HTML", fileName);
+    data = [pboard dataForType:NSHTMLPboardType];
 
     // try filter to HTML
     if (data) {

@@ -65,6 +65,7 @@ libart-2.0-dev
 texi2html
 texinfo
 texlive
+texlive-latex-extra
 libreadline-dev
 libcairo2-dev
 libglx-dev

@@ -1,5 +1,5 @@
 case "$1" in
-  *.xpm|*.xcf|*.pnm)
+  *.xpm|*.xcf|*.pnm|*.bpm)
     convert "$1" tiff:-
   ;;
 esac

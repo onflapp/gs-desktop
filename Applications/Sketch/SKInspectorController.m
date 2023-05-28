@@ -4,6 +4,7 @@
  */
 
 #import "SKInspectorController.h"
+#import "SKTGraphic.h"
 
 @implementation SKInspectorController
 
@@ -37,14 +38,14 @@
     [lineWidthField setIntegerValue:1];
 
     for (id it in sel) {
-        if ([[it valueForKey:@"drawingFill"] integerValue]) {
+        if ([[it valueForKey:SKTGraphicIsDrawingFillKey] integerValue]) {
             [fillButtton     setState:1];
-            [fillColorWell   setColor:[it valueForKey:@"fillColor"]];
+            [fillColorWell   setColor:[it valueForKey:SKTGraphicFillColorKey]];
         }
-        if ([[it valueForKey:@"drawingStroke"] integerValue]) {
+        if ([[it valueForKey:SKTGraphicIsDrawingStrokeKey] integerValue]) {
             [lineButtton     setState:1];
-            [lineColorWell   setColor:[it valueForKey:@"strokeColor"]];
-            NSInteger val = [[it valueForKey:@"strokeWidth"] integerValue];
+            [lineColorWell   setColor:[it valueForKey:SKTGraphicStrokeColorKey]];
+            NSInteger val = [[it valueForKey:SKTGraphicStrokeWidthKey] integerValue];
             if (val) {
                 [lineWidthField  setIntegerValue:val];
                 [lineWidthSlider setIntegerValue:val];
@@ -60,30 +61,30 @@
     if (sender == fillColorWell) {
         [fillButtton setState:1];
         for (id it in sel) {
-            [it setValue:[NSNumber numberWithInteger:1] forKey:@"drawingFill"];
-            [it setValue:[fillColorWell color] forKey:@"fillColor"];
+            [it setValue:[NSNumber numberWithInteger:1] forKey:SKTGraphicIsDrawingFillKey];
+            [it setValue:[fillColorWell color] forKey:SKTGraphicFillColorKey];
         }
     }
-    if (sender == fillButtton) {
+    else if (sender == fillButtton) {
         for (id it in sel) {
-            [it setValue:[NSNumber numberWithInteger:[fillButtton state]] forKey:@"drawingFill"];
-            [it setValue:[fillColorWell color] forKey:@"fillColor"];
+            [it setValue:[NSNumber numberWithInteger:[fillButtton state]] forKey:SKTGraphicIsDrawingFillKey];
+            [it setValue:[fillColorWell color] forKey:SKTGraphicFillColorKey];
         }
     }
-    if (sender == lineButtton) {
+    else if (sender == lineButtton) {
         for (id it in sel) {
-            [it setValue:[NSNumber numberWithInteger:[lineButtton state]] forKey:@"drawingStroke"];
-            [it setValue:[lineColorWell color] forKey:@"strokeColor"];
+            [it setValue:[NSNumber numberWithInteger:[lineButtton state]] forKey:SKTGraphicIsDrawingStrokeKey];
+            [it setValue:[lineColorWell color] forKey:SKTGraphicStrokeColorKey];
         }
     }
-    if (sender == lineColorWell) {
+    else if (sender == lineColorWell) {
         [lineButtton setState:1];
         for (id it in sel) {
-            [it setValue:[NSNumber numberWithInteger:1] forKey:@"drawingStroke"];
-            [it setValue:[lineColorWell color] forKey:@"strokeColor"];
+            [it setValue:[NSNumber numberWithInteger:1] forKey:SKTGraphicIsDrawingStrokeKey];
+            [it setValue:[lineColorWell color] forKey:SKTGraphicStrokeColorKey];
         }
     }
-    if (sender == lineWidthSlider) {
+    else if (sender == lineWidthSlider) {
         NSInteger val = floor([lineWidthSlider floatValue]);
         NSInteger drs = 1;
         [lineWidthField setIntegerValue:val];
@@ -95,14 +96,14 @@
             [lineButtton setState:1];
         }
         for (id it in sel) {
-            [it setValue:[NSNumber numberWithInteger:val] forKey:@"strokeWidth"];
-            [it setValue:[NSNumber numberWithInteger:drs] forKey:@"drawingStroke"];
+            [it setValue:[NSNumber numberWithInteger:val] forKey:SKTGraphicStrokeWidthKey];
+            [it setValue:[NSNumber numberWithInteger:drs] forKey:SKTGraphicIsDrawingStrokeKey];
         }
     }
-    if (sender == lineWidthField) {
+    else if (sender == lineWidthField) {
         [lineWidthSlider setIntegerValue:[lineWidthField integerValue]];
         for (id it in sel) {
-            [it setValue:[NSNumber numberWithInteger:[lineWidthField integerValue]] forKey:@"strokeWidth"];
+            [it setValue:[NSNumber numberWithInteger:[lineWidthField integerValue]] forKey:SKTGraphicStrokeWidthKey];
         }
     }
 

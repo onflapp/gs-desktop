@@ -1,13 +1,21 @@
 case "$1" in
   *.ps)
     ps2pdf "$1" -
-   ;;
+    ;;
    *.dvi)
     dvipdfm "$1" -o -
-   ;;
+    ;;
+   *.tex)
+    T="/tmp/filter-tex-$$"
+    B="${1%/*}"
+    mkdir "$T"
+    cd "$B"
+    pdflatex -interaction nonstopmode -output-directory "$T" "$1" 1>&2
+    cat $T/*.pdf
+    ;;
    *.md)
     echo "<html><body>"
     markdown "$1"
     echo "</body></html>"
-   ;;
+    ;;
 esac
