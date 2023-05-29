@@ -30,6 +30,14 @@
     [super windowDidLoad];
 }
 
+- (BOOL)isSelectingLineColor {
+    return [lineColorWell isActive];
+}
+
+- (BOOL)isSelectingFillColor {
+    return [fillColorWell isActive];
+}
+
 - (void)refreshSelection {
     NSArray* sel = [NSApp valueForKeyPath:@"mainWindow.windowController.graphicsController.selectedObjects"];
     [fillButtton setState:0];

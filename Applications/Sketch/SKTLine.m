@@ -313,15 +313,6 @@ enum {
 
 }
 
-
-- (void)setColor:(NSColor *)color {
-
-    // Because lines aren't filled we'll consider the stroke's color to be the one.
-    [self setValue:color forKey:SKTGraphicStrokeColorKey];
-
-}
-
-
 - (NSSet *)keysForValuesToObserveForUndo {
     
     // When the user drags one of the handles of a line we don't want to just have changes to "bounds" registered in the undo group. That would be:

@@ -1151,7 +1151,7 @@ A person who assumes that a -set... method always succeeds, and always sets the 
             
             if (hitGraphic) {
                 NSColor *color = [[NSColor colorFromPasteboard:pboard] colorWithAlphaComponent:1.0];
-                [hitGraphic setColor:color];
+                [hitGraphic setFillColor:color];
             }
         } else if ([type isEqualToString:NSFilenamesPboardType]) {
             NSArray *filenames = [pboard propertyListForType:NSFilenamesPboardType];
@@ -1399,8 +1399,13 @@ A person who assumes that a -set... method always succeeds, and always sets the 
 - (void)changeColor:(id)sender {
     
     // Change the color of every selected graphic.
-    [[self selectedGraphics] makeObjectsPerformSelector:@selector(setColor:) withObject:[sender color]];
-    
+    SKInspectorController* inspector = [SKInspectorController sharedInspectorController];
+    if ([inspector isSelectingLineColor]) {
+        [[self selectedGraphics] makeObjectsPerformSelector:@selector(setStrokeColor:) withObject:[sender color]];
+    }
+    else {
+        [[self selectedGraphics] makeObjectsPerformSelector:@selector(setFillColor:) withObject:[sender color]];
+    }
 }
 
 

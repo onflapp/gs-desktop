@@ -156,36 +156,6 @@ static NSString *SKTWindowControllerGraphicsChanged = @"SKTWindowControllerGraph
 
 #pragma mark *** Actions ***
 
-
-// Conformance to the NSObject(NSMenuValidation) informal protocol.
-- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
-
-    // Which menu item?
-    BOOL enabled;
-    SEL action = [menuItem action];
-    if (action==@selector(newDocumentWindow:)) {
-
-	// Give the menu item that creates new sibling windows for this document a reasonably descriptive title. It's important to use the document's "display name" in places like this; it takes things like file name extension hiding into account. We could do a better job with the punctuation!
-	[menuItem setTitle:[NSString stringWithFormat:NSLocalizedStringFromTable(@"New window for '%@'", @"MenuItems", @"Formatter string for the new document window menu item. Argument is a the display name of the document."), [[self document] displayName]]];
-	enabled = YES;
-
-    } else if (action==@selector(toggleGridConstraining:) || action==@selector(toggleGridShowing:)) {
-
-	// The grid can be in an unusable state, in which case the menu items that control it are disabled.
-	enabled = [_grid isUsable];
-
-	// The Snap to Grid and Show Grid menu items are toggles.
-	BOOL menuItemIsOn = action==@selector(toggleGridConstraining:) ? [_grid isConstraining] : [_grid isAlwaysShown];
-	[menuItem setState:(menuItemIsOn ? NSOnState : NSOffState)];
-
-    } else {
-	enabled = [super validateMenuItem:menuItem];
-    }
-    return enabled;
-
-}
-
-
 - (IBAction)newDocumentWindow:(id)sender {
 
     // Do the same thing that a typical override of -[NSDocument makeWindowControllers] would do, but then also show the window. This is here instead of in SKTDocument, though it would work there too, with one small alteration, because it's really view-layer code.
@@ -210,5 +180,13 @@ static NSString *SKTWindowControllerGraphicsChanged = @"SKTWindowControllerGraph
     [_graphicView setNeedsDisplay:YES];
 }
 
+- (IBAction)insertImage:(id)sender{
+  NSOpenPanel *panel = [NSOpenPanel openPanel];
+  if ([panel runModal]) {
+    NSString* path = [[panel filenames]firstObject];
+    NSPoint point = NSMakePoint(10, 10);
+    [_graphicView makeNewImageFromContentsOfFile:path atPoint:point];
+  }
+}
 
 @end

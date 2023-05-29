@@ -19,6 +19,10 @@
 }
 
 + (id)sharedInspectorController;
+
+- (BOOL) isSelectingLineColor;
+- (BOOL) isSelectingFillColor;
+
 - (void)refreshSelection;
 - (IBAction)updateSelection:(id) sender;
 @end

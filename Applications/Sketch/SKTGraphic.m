@@ -720,23 +720,17 @@ static CGFloat SKTGraphicHandleHalfWidth = 6.0f / 2.0f;
 }
 
 
-- (void)setColor:(NSColor *)color {
-
-    // This method demonstrates something interesting: we haven't bothered to provide setter methods for the properties we want to change, but we can still change them using KVC. KVO autonotification will make sure observers hear about the change (it works with -setValue:forKey: as well as -set<Key>:). Of course, if we found ourselvings doing this a little more often we would go ahead and just add the setter methods. The point is that KVC direct instance variable access very often makes boilerplate accessors unnecessary but if you want to just put them in right away, eh, go ahead.
-
-    // Can we fill the graphic?
-    if ([self canSetDrawingFill]) {
-
-	// Are we filling it? If not, start, using the new color.
-	if (![self isDrawingFill]) {
-	    [self setValue:[NSNumber numberWithBool:YES] forKey:SKTGraphicIsDrawingFillKey];
-	}
-	[self setValue:color forKey:SKTGraphicFillColorKey];
-
+- (void)setFillColor:(NSColor *)color {
+    if ([self canSetDrawingFill] && [self isDrawingFill]) {
+      ASSIGN(_fillColor, color);
     }
-
 }
 
+- (void)setStrokeColor:(NSColor *)color {
+    if ([self canSetDrawingStroke] && [self isDrawingStroke]) {
+      ASSIGN(_strokeColor, color);
+    }
+}
 
 - (NSView *)newEditingViewWithSuperviewBounds:(NSRect)superviewBounds {
     
