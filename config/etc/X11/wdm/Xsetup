@@ -1,0 +1,7 @@
+#!/bin/sh
+#
+# /etc/X11/wdm/Xsetup
+#
+# This script is run whenever wdm is asked to manage a display other than :0
+
+exit 0

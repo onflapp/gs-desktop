@@ -1,0 +1,10 @@
+# /etc/X11/wdm/wdm.options
+#
+# configuration options for wdm
+# See wdm.options(5) for an explanation of the available options.
+
+check-local-server
+no-ignore-nologin
+no-restart-on-upgrade
+use-sessreg
+auto-update-wmlist

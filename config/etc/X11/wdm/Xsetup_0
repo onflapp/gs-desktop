@@ -1,0 +1,10 @@
+#!/bin/sh
+#
+# /etc/X11/wdm/Xsetup_0
+#
+# This script is run whenever wdm is asked to manage a display on :0
+
+if grep -qs '^run-xconsole' /etc/X11/wdm/wdm.options; then
+  xconsole -geometry 480x62+0-0 -daemon -notify -verbose -fn fixed \
+    -exitOnFail -file /dev/xconsole
+fi

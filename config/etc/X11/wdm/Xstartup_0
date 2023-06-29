@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# /etc/X11/wdm/Xstartup_0
+#
+# This script is run as root after a user starts a session on :0.
+
+set -e
+
+# Call the global Xstartup script, if it exists
+if [ -x /etc/X11/wdm/Xstartup ]; then
+  /etc/X11/wdm/Xstartup || exit $?
+fi
+
+# :0 specific startup commands go here
+
+exit 0

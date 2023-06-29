@@ -1,0 +1,14 @@
+#!/bin/sh
+#
+# /etc/X11/wdm/Xreset_0
+#
+# This script is run as root after the session on :0 ends.
+
+# Call the global Xreset script, if it exists
+if [ -x /etc/X11/wdm/Xreset ]; then
+  /etc/X11/wdm/Xreset
+fi
+
+# :0 specific reset commands go here
+
+exit 0
