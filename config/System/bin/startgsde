@@ -15,11 +15,13 @@ function start_workspace {
 function stop_workspace {
   PID=`cat /tmp/$UID-gw.pid 2>/dev/null`
   if [ -n "$PID" ];then
+    echo "stopping all children of Workspace $PID"
+    pkill -P "$PID"
+
     echo "stopping Workspace on $PID"
     kill -9 $PID 2> /dev/null && rm /tmp/$UID-gw.pid
   fi
 }
-
 
 function start_windowmanager {
   (/System/bin/wmaker $WM_ARGS) &
@@ -29,7 +31,6 @@ function start_windowmanager {
   echo "WM is running on $WM_PID"
   echo "$WM_PID" > /tmp/$UID-wm.pid
   export GS_DESKTOP_WM_PID="$WM_PID"
-  sleep 1
 }
 
 function stop_windowmanager {
@@ -148,27 +149,49 @@ function init_config {
  
   wdwrite WMWindowAttributes 'GSDE-Safe-Mode.XTerm' '{ DontSaveSession = Yes; NoAppIcon = Yes; StartMiniaturized = Yes; }'
   wdwrite WMWindowAttributes 'GWorkspace.GNUstep'   '{ DontSaveSession = Yes; NoAppIcon = Yes; }'
+
+  if [ -f "$HOME/.gsderc" ];then
+    echo "sourcing $HOME/.gsderc"
+    . "$HOME/.gsderc"
+  fi
 }
 
 function start_debug {
   if [ "$GS_DESKTOP_SAFEMODE" = "protected" ];then
-    WM_ARGS="--static --dont-restore"
+    WM_ARGS="--no-autolaunch --static --dont-restore"
   else
-    WM_ARGS="--dont-restore"
+    WM_ARGS="--no-autolaunch --dont-restore"
   fi
 
   init_config
   main_process
+  startup_scripts
 
   wait $GW_PID
   sleep 1
   cleanup
 }
 
+function wait_for_workspace {
+  local c=0
+  while [ $c -lt 20 ];do
+    sleep 0.5
+    (xwininfo -root -tree | grep -e 'File.Viewer.*GWorkspace.*') && return
+    c=$((c + 1))
+  done
+}
+
+function startup_scripts {
+  #wait_for_workspace
+  sleep 3
+  /Library/Scripts/AutoLaunchApps
+}
+
 function start_normal {
-  WM_ARGS="--dont-restore"
+  WM_ARGS="--no-autolaunch --dont-restore"
   init_config
   main_process
+  startup_scripts
  
   wait $GW_PID
   sleep 1
@@ -177,10 +200,11 @@ function start_normal {
 
 function main_process {
   start_services
-  sleep 1
+  sleep 0.5
   start_windowmanager
-  sleep 1
+  sleep 0.5
   start_workspace 
+  sleep 0.5
 }
 
 function cleanup {
@@ -267,9 +291,10 @@ unset XTERM_LOCAL
 source /Developer/Makefiles/GNUstep.sh
 
 WM_ARGS=""
+trap cleanup SIGINT
+
 if [ -n "$GS_DESKTOP_SAFEMODE" ];then
   echo "running in SAFE mode"
-  trap cleanup SIGINT
   if [ "$GS_DESKTOP_SAFEMODE" = "xnest" ];then
     echo "logging to $GS_DESKTOP_LOG"
     start_debug > $GS_DESKTOP_LOG 2>&1

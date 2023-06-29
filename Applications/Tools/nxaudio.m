@@ -45,7 +45,7 @@
   }
 
   for (NSInteger i = 100; i > 0; i--) {
-    NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
+    NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.05];
     [[NSRunLoop currentRunLoop] runUntilDate: limit];
     
     if (status == 1) return YES;
@@ -131,9 +131,12 @@
 void printUsage() {
   fprintf(stderr, "Usage: nxaudio\n");
   fprintf(stderr, "\n");
-  fprintf(stderr, "Help: invoke Workspace commands from command line\n");
+  fprintf(stderr, "Help: conntrol audio from command line\n");
   fprintf(stderr, "Options:\n");
-  fprintf(stderr, "  --activate            activate the Workspace\n");
+  fprintf(stderr, "  --set volume\n");
+  fprintf(stderr, "  --mute\n");
+  fprintf(stderr, "  --increase\n");
+  fprintf(stderr, "  --decrease\n");
   fprintf(stderr, "\n");
 }
 

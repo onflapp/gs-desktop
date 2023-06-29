@@ -38,6 +38,7 @@ void printUsage() {
   fprintf(stderr, "  --open <path> <app>   open path with specific application\n");
   fprintf(stderr, "  --select <file>       select file\n");
   fprintf(stderr, "  --select <file> <dir> select file at this directory\n");
+  fprintf(stderr, "  --autolaunch <app>    autolaunch application\n");
   fprintf(stderr, "  --activate <app>      launch or activate application\n");
   fprintf(stderr, "  --activate            activate the Workspace\n");
   fprintf(stderr, "\n");
@@ -76,7 +77,7 @@ int main(int argc, char** argv, char** env)
 
       if ([fm fileExistsAtPath:path isDirectory:&isdir]) {
         if (isdir && [ws isFilePackageAtPath:path] == NO) {
-          [ws selectFile:path inFileViewerRootedAtPath:@""];
+          [ws selectFile:@"." inFileViewerRootedAtPath:path];
         }
         else if ([ext isEqualToString: @"app"]
               || [ext isEqualToString: @"debug"]
@@ -104,6 +105,12 @@ int main(int argc, char** argv, char** env)
       NSString* app = [arguments objectAtIndex:2];
 
       [ws launchApplication:app];
+    }
+    else if ([[arguments objectAtIndex:1] isEqualToString:@"--autolaunch"] && [arguments count] == 3) {
+      NSWorkspace* ws = [NSWorkspace sharedWorkspace];
+      NSString* app = [arguments objectAtIndex:2];
+
+      [ws launchApplication:app showIcon:NO autolaunch:YES];
     }
     else if ([[arguments objectAtIndex:1] isEqualToString:@"--activate"] && [arguments count] == 2) {
       NSWorkspace* ws = [NSWorkspace sharedWorkspace];
