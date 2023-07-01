@@ -46,7 +46,7 @@
 #ADDITIONAL_INCLUDE_DIRS +=
 
 # Additional LDFLAGS to pass to the linker
-ADDITIONAL_LDFLAGS += -lgnustep-gui -lSoundKit
+ADDITIONAL_LDFLAGS += -lgnustep-gui -lSoundKit -lSystemKit -lDesktopKit
 
 # Additional library directories the linker should search
 #ADDITIONAL_LIB_DIRS +=
