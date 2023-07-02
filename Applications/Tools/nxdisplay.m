@@ -24,9 +24,9 @@
 void printUsage() {
   fprintf(stderr, "Usage: nxdisplay\n");
   fprintf(stderr, "\n");
-  fprintf(stderr, "Help: conntrol display command line\n");
+  fprintf(stderr, "Help: conntrol display' backlight from command line\n");
   fprintf(stderr, "Options:\n");
-  fprintf(stderr, "  --set volume\n");
+  fprintf(stderr, "  --set brightness\n");
   fprintf(stderr, "  --increase\n");
   fprintf(stderr, "  --decrease\n");
   fprintf(stderr, "\n");
@@ -47,8 +47,11 @@ int main(int argc, char** argv, char** env)
 
   OSEScreen* systemScreen = [OSEScreen new];
   OSEDisplay* display = nil;
+  CGFloat val = -1;
+
   for (OSEDisplay *d in [systemScreen connectedDisplays]) {
-    if ([d isDisplayBrightnessSupported]) {
+    val = [d displayBrightness];
+    if (val >= 0) {
       display = d;
       break;
     }
@@ -69,8 +72,14 @@ int main(int argc, char** argv, char** env)
       [display setDisplayBrightness:(CGFloat)v];
     }
     else if ([[arguments objectAtIndex:1] isEqualToString:@"--increase"]) {
+      val += 15;
+      if (val > 100) val = 100;
+      [display setDisplayBrightness:val];
     }
     else if ([[arguments objectAtIndex:1] isEqualToString:@"--decrease"]) {
+      val -= 15;
+      if (val < 0) val = 0;
+      [display setDisplayBrightness:val];
     }
     else {
       printUsage();

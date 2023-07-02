@@ -1,3 +1,6 @@
 #!/bin/bash
 
+exec 100> /tmp/gsde-audio-$GS_DESKTOP_ID.lock
+flock -n 100 || exit 1
+
 /Library/bin/nxaudio --mute

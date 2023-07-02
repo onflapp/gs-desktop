@@ -1,10 +1,51 @@
 (
   "Window Maker",
-  (
-    Info,
-    ("Info Panel...", INFO_PANEL),
-    (Preferences..., EXEC, "WPrefs")
-  ),
+  (Info, ("Info Panel...", INFO_PANEL), (Preferences..., EXEC, WPrefs)),
   (Workspaces, WORKSPACE_MENU),
-  (Windows, WINDOWS_MENU)
+  (
+    Desktop,
+    (
+      Audio,
+      (
+        "+",
+        SHORTCUT,
+        XF86AudioRaiseVolume,
+        EXEC,
+        "/Library/Scripts/AudioIncreaseVolume"
+      ),
+      (
+        "-",
+        SHORTCUT,
+        XF86AudioLowerVolume,
+        EXEC,
+        "/Library/Scripts/AudioDecreaseVolume"
+      ),
+      (
+        Mute,
+        SHORTCUT,
+        XF86AudioMute,
+        EXEC,
+        "/Library/Scripts/AudioToggleMute"
+      )
+    ),
+    (
+      Display,
+      (
+        "+",
+        SHORTCUT,
+        XF86MonBrightnessUp,
+        EXEC,
+        "/Library/Scripts/DisplayIncreaseBrightness"
+      ),
+      (
+        "-",
+        SHORTCUT,
+        XF86MonBrightnessDown,
+        EXEC,
+        "/Library/Scripts/DisplayDecreaseBrightness"
+      )
+    )
+  ),
+  (Windows, WINDOWS_MENU),
+  (Logout, EXEC, "/Library/Scripts/WorkspaceLogout")
 )

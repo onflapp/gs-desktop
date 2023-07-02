@@ -281,6 +281,7 @@ export WMAKER_USER_ROOT="$HOME/Library/WindowMaker"
 export PATH="/System/bin:/Library/bin:$HOME/Library/Scripts:/Library/Scripts:$PATH"
 export MANPATH=":/System/share/man:/Library/Documentation/man"
 export GS_DESKTOP_LOG="/tmp/$UID-gs-desktop.log"
+export GS_DESKTOP_ID="$$"
 export BROWSER="/Library/bin/nxbrowser"
 
 ## unset envs in case we are running from a terminal window
