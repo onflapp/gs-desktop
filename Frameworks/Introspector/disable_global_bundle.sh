@@ -1,0 +1,1 @@
+defaults delete NSGlobalDomain GSAppKitUserBundles

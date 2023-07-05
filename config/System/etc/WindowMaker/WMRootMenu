@@ -44,6 +44,12 @@
         EXEC,
         "/Library/Scripts/DisplayDecreaseBrightness"
       )
+    ),
+    (
+      "Grab ScreenShot",
+      (Selection, EXEC, "/Library/Scripts/ScreenShotSelection"),
+      (Window, EXEC, "/Library/Scripts/ScreenShotWindow"),
+      (Screen, EXEC, "/Library/Scripts/ScreenShotScreen")
     )
   ),
   (Windows, WINDOWS_MENU),

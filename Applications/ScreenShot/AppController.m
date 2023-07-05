@@ -46,9 +46,11 @@
     [NSApp initializeApplicationScripting];
   }
 
+  /*
   [NSApp setServicesProvider:self];
   [NSApp registerServicesMenuSendTypes:[NSArray array] 
                            returnTypes:[NSArray arrayWithObject:NSTIFFPboardType]];
+  */
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender {
