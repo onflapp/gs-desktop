@@ -12,7 +12,9 @@
     );
     "BUNDLE_IDENTIFIER" = "";
     "CLASS_FILES" = (
-	"AppController.m"
+	"AppController.m",
+	"AppController+scripting.m",
+	"STScriptingSupport.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -22,7 +24,8 @@
     FRAMEWORKS = (
     );
     "HEADER_FILES" = (
-	"AppController.h"
+	"AppController.h",
+	"STScriptingSupport.h"
     );
     IMAGES = (
 	"ScreenShot.tiff"
@@ -43,6 +46,8 @@
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
+	"ApplicationScripting.xlp",
+	"ScriptingInfo.plist"
     );
     "OTHER_SOURCES" = (
 	"ScreenShot_main.m"

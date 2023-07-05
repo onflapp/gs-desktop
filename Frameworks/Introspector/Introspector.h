@@ -25,13 +25,22 @@
 
 #import <Foundation/Foundation.h>
 
-extern void introspect_something(id val);
 
 @interface Introspector : NSObject
 {
-
+   id _object;
 }
-+ (void) xxxx;
+- (void) printDescription;
+- (void) printObject;
+- (void) printMethods;
+
++ (void) printDescription:(id)val;
++ (void) printObject:(id)val;
++ (void) printMethods:(id)val;
+@end
+
+@interface NSObject (Introspect)
+- (Introspector*) introspect;
 @end
 
 #endif // _INTROSPECTOR_H_

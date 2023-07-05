@@ -33,20 +33,25 @@ ScreenShot_APPLICATION_ICON = ScreenShot.tiff
 #
 ScreenShot_RESOURCE_FILES = \
 Resources/ScreenShot.gorm \
-Resources/ScreenShot.tiff 
+Resources/ScreenShot.tiff \
+Resources/ApplicationScripting.xlp \
+Resources/ScriptingInfo.plist 
 
 
 #
 # Header files
 #
 ScreenShot_HEADER_FILES = \
-AppController.h
+AppController.h \
+STScriptingSupport.h
 
 #
 # Objective-C Class files
 #
 ScreenShot_OBJC_FILES = \
-AppController.m
+AppController.m \
+AppController+scripting.m \
+STScriptingSupport.m
 
 #
 # Other sources

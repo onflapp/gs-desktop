@@ -9,6 +9,7 @@
 */
 
 #import "AppController.h"
+#import "STScriptingSupport.h"
 
 @implementation AppController
 
@@ -41,6 +42,10 @@
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif {
+  if([NSApp isScriptingSupported]) {
+    [NSApp initializeApplicationScripting];
+  }
+
   [NSApp setServicesProvider:self];
   [NSApp registerServicesMenuSendTypes:[NSArray array] 
                            returnTypes:[NSArray arrayWithObject:NSTIFFPboardType]];
@@ -66,6 +71,11 @@
 }
 
 - (void) execScrot:(NSInteger) type {
+  if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/scrot"]) {
+    NSRunAlertPanel(@"Scrot command not found", @"ScreenShot app needs command '/usr/bin/scrot' to work properly\nPlease install it and try again.", @"Ok", nil, nil);
+    return;
+  }
+
   [screenshotFile release];
 
   NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.3];
@@ -117,11 +127,6 @@
 }
 
 - (IBAction) takeScreenShot:(id) sender {
-  if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/scrot"]) {
-    NSRunAlertPanel(@"Scrot command not found", @"ScreenShot app needs command '/usr/bin/scrot' to work properly\nPlease install it and try again.", @"Ok", nil, nil);
-    return;
-  }
-
   [self execScrot:[sender tag]];
 }
 

@@ -18,11 +18,11 @@
 		default = "ScreenShot/Selection";
 	    };
 	    NSMessage = grabScreenShot;
-	    NSUserData = selection;
 	    NSPortName = ScreenShot;
 	    NSReturnTypes = (
 		NSTIFFPboardType
 	    );
+	    NSUserData = selection;
 	}
     );
 }
