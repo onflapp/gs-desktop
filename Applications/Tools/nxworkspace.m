@@ -99,7 +99,7 @@ int main(int argc, char** argv, char** env)
       NSString* root = absolutePath(([arguments count] == 4)?[arguments objectAtIndex:3]:nil);
 
       if (root) [ws selectFile:path inFileViewerRootedAtPath:root];
-      else      [ws selectFile:@"." inFileViewerRootedAtPath:path];
+      else      [ws selectFile:path inFileViewerRootedAtPath:[path stringByDeletingLastPathComponent]];
     }
     else if ([[arguments objectAtIndex:1] isEqualToString:@"--activate"] && [arguments count] == 3) {
       NSWorkspace* ws = [NSWorkspace sharedWorkspace];
