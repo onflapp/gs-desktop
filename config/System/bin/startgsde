@@ -17,9 +17,11 @@ function stop_workspace {
   if [ -n "$PID" ];then
     echo "stopping all children of Workspace $PID"
     pkill -P "$PID"
+    sleep 1
 
     echo "stopping Workspace on $PID"
-    kill -9 $PID 2> /dev/null && rm /tmp/$UID-gw.pid
+    kill -9 $PID 2> /dev/null
+    rm /tmp/$UID-gw.pid
   fi
 }
 
@@ -183,7 +185,7 @@ function wait_for_workspace {
 
 function startup_scripts {
   #wait_for_workspace
-  sleep 3
+  sleep 1
   /Library/Scripts/AutoLaunchApps
 }
 

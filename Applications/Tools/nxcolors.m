@@ -19,6 +19,7 @@
 
 #import	<AppKit/AppKit.h>
 #import <GNUstepGUI/GSTheme.h>
+#import "nxcolors.h"
 
 @implementation NSColor (StringRepresentation)
 
@@ -31,16 +32,28 @@
 
 @end
 
+@implementation Delegate
+- (void) applicationDidFinishLaunching:(id) not {
+  NSColorPanel* panel = [NSColorPanel sharedColorPanel];
+  [NSApp runModalForWindow:panel];
+  NSColor* color = [panel color];
+  NSLog(@"%@", [color stringRepresentation]);
+  exit(0);
+}
+@end
+
 void printOut() {
   fprintf(stdout, "Usage: nxcolor [--system]\n");
 }
 
 void printUsage() {
-  fprintf(stderr, "Usage: nxcolor [--system]\n");
+  fprintf(stderr, "Usage: nxcolor [--system] [--theme] [--panel]\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Help: print standard colors\n");
   fprintf(stderr, "Options:\n");
   fprintf(stderr, "  --system            system colors\n");
+  fprintf(stderr, "  --theme             theme colors\n");
+  fprintf(stderr, "  --panel             color panel\n");
   fprintf(stderr, "\n");
 }
 
@@ -62,6 +75,11 @@ int main(int argc, char** argv, char** env) {
     if ([arguments count] == 1)  {
       printUsage();
       rv = 1;
+    }
+    else if ([arguments containsObject: @"--panel"] == YES) {
+      NSApplication* app = [NSApplication sharedApplication];
+      [app setDelegate:[[Delegate alloc]init]];
+      [app run];
     }
     else if ([arguments containsObject: @"--theme"] == YES) {
       GSTheme* theme = [GSTheme theme];

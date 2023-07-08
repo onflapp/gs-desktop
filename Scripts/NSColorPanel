@@ -1,13 +1,27 @@
 #!/Library/bin/stexec
 
-| rv app |
+[|
+  main
+    Environment loadModule:'AppKit'.
 
-Environment loadModule:'AppKit'.
+    app := NSApplication sharedApplication.
+    app setDelegate:self.
+    app run.
 
-app := NSApplication sharedApplication.
-panel := NSColorPanel sharedColorPanel.
+    ^self
+  !
 
-app runModalForWindow:panel.
-rv := panel color.
+  application:app openFile:file
+    ^self
+  !
 
-Transcript showLine: rv.
+  applicationDidFinishLaunching:not
+    panel := NSColorPanel sharedColorPanel.
+
+    NSApplication sharedApplication runModalForWindow:panel.
+    rv := panel color.
+
+    Transcript showLine:rv.
+
+    NSApplication sharedApplication terminate:nil.
+]

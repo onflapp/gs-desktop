@@ -1,38 +1,54 @@
 #!/Library/bin/stexec
 
-| app title msg rv |
+[|
+  main
+    Environment loadModule:'AppKit'.
 
-Environment loadModule:'AppKit'.
+    app := NSApplication sharedApplication.
+    app setDelegate:self.
+    app run.
 
-((Args count) > 0)
-ifTrue: 
-[
-  app   := NSApplication sharedApplication.
-  title := Args @ 0.
-  but1  := 'OK'.
-  but2  := 'Cancel'.
-  msg   := ''.
-  
-  ((Args count) >= 2) 
-    ifTrue:[ msg := Args @ 1 ].
-  
-  ((Args count) >= 3) 
-    ifTrue:[ but1  := Args @ 2 ].
+    ^self
+  !
 
-  ((Args count) = 4) 
-    ifTrue:[ but2  := Args @ 3 ].
+  application:app openFile:file
+    ^self
+  !
 
-  rv := app runAlertPanelWithTitle: title
-                           message: msg
-                     defaultButton: but1
-                   alternateButton: but2
-                       otherButton: nil.
+  applicationDidFinishLaunching:not
+    ((Args count) > 0)
+    ifTrue: 
+    [
+      app   := NSApplication sharedApplication.
+      title := Args @ 0.
+      but1  := 'OK'.
+      but2  := 'Cancel'.
+      msg   := ''.
+      
+      ((Args count) >= 2) 
+        ifTrue:[ msg := Args @ 1 ].
+      
+      ((Args count) >= 3) 
+        ifTrue:[ but1  := Args @ 2 ].
 
-  Script returnExitCode: rv.
+      ((Args count) = 4) 
+        ifTrue:[ but2  := Args @ 3 ].
+
+      rv := app runAlertPanelWithTitle: title
+                               message: msg
+                         defaultButton: but1
+                       alternateButton: but2
+                           otherButton: nil.
+
+      Script returnExitCode: rv.
+    ]
+    ifFalse: 
+    [
+      Transcript showLine:'nsalert [title] [message] [button1] [button2]'.
+      Script returnExitCode: 1.
+    ].
+
+    NSApplication sharedApplication terminate:nil.
+
+    ^self
 ]
-ifFalse: 
-[
-  Transcript showLine:'nsalert [title] [message] [button1] [button2]'.
-  Script returnExitCode: 1.
-]
-

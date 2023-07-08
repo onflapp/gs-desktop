@@ -22,4 +22,7 @@
 - (NSString *)stringRepresentation;
 @end
 
+@interface Delegate : NSObject
+@end
+
 void printUsage();
