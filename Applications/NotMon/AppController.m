@@ -34,6 +34,8 @@ Application Controller
 
 - (void) awakeFromNib
 {
+  [panelProgress setUsesThreadedAnimation:YES];
+  [panel setBecomesKeyOnlyIfNeeded:YES];
 }
 
 - (NSDictionary*) parseURL:(NSURL*) url 
@@ -106,7 +108,6 @@ Application Controller
           error:(NSString **)error  {
   NSString *path = [[pboard stringForType:NSStringPboardType] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n\r"]];
 
-  NSLog(@"xxxxxxxxx");
   if (path) {
     [self application:NSApp openFile:path];
   }
@@ -118,15 +119,30 @@ Application Controller
 {
   [panelTitle setStringValue:title?title:@""];
   [panelInfo setStringValue:info?info:@""];
+  [panelProgress animate:self];
 
   [panel setLevel:NSDockWindowLevel];
   [panel center];
   [panel orderFront:self];
+
+  [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:5.0];
+}
+
+- (void) __hidePanel {
+  [panel orderOut:self];
 }
 
 - (void) hidePanelAfter:(NSTimeInterval) time
 {
-  [panel orderOut:self];
+  [NSObject cancelPreviousPerformRequestsWithTarget:self];
+  if (time == 0.0) {
+    NSLog(@"hide panel now");
+    [self __hidePanel];
+  }
+  else {
+    NSLog(@"hide panel after %f", time);
+    [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:time];
+  }
 }
 
 - (void) showPrefPanel:(id)sender

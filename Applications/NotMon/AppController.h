@@ -17,6 +17,7 @@
 {
   NSTextField* panelTitle;
   NSTextField* panelInfo;
+  NSProgressIndicator* panelProgress;
   NSPanel* panel;
 
   BOOL launched;

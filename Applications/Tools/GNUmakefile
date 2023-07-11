@@ -43,10 +43,10 @@ PACKAGE_NAME = nxtools
 include $(GNUSTEP_MAKEFILES)/common.make
 
 # Manual pages to install
-MAN1_PAGES = nxbrowser.1 nxworkspace.1 nxpasteboard.1 nxcolors.1 nxaudio.1 nxdisplay.1
+MAN1_PAGES = nxbrowser.1 nxworkspace.1 nxpasteboard.1 nxcolors.1 nxaudio.1 nxdisplay.1 nxnotify.1
 
 # The application to be compiled
-TOOL_NAME = nxbrowser nxworkspace nxpasteboard nxcolors nxaudio nxdisplay
+TOOL_NAME = nxbrowser nxworkspace nxpasteboard nxcolors nxaudio nxdisplay nxnotify
 
 # The source files to be compiled
 nxworkspace_OBJC_FILES = nxworkspace.m
@@ -55,6 +55,7 @@ nxcolors_OBJC_FILES = nxcolors.m
 nxaudio_OBJC_FILES = nxaudio.m
 nxbrowser_OBJC_FILES = nxbrowser.m
 nxdisplay_OBJC_FILES = nxdisplay.m
+nxnotify_OBJC_FILES = nxnotify.m
 
 include GNUmakefile.preamble
 
