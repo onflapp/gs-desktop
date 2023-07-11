@@ -101,3 +101,4 @@ libsdl2-dev
 libvncserver-dev
 recollcmd
 libical-dev
+p7zip

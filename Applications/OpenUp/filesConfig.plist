@@ -66,6 +66,12 @@
         command = "%%WRAPPED_PROGRAM_UNARJ%% e %%FILE%%"; 
     }, 
     {
+        Comments = "7z files, file archiver with high compression ratio"; 
+        file_extension = .7z; 
+        wrapped_programs = (p7zip); 
+        command = "%%WRAPPED_PROGRAM_UNZ%% -df %%FILE%%"; 
+    }, 
+    {
         Comments = {
             .bin = "Macbinary file, common on Macintosh"; 
             .cpt = "Compactor Pro file, older compression format on the Macintosh"; 

@@ -1,6 +1,6 @@
 !_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
 !_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
-!_TAG_OUTPUT_EXCMD	mixed	/number, pattern, mixed, or combineV2/
+!_TAG_OUTPUT_EXCMD	number	/number, pattern, mixed, or combineV2/
 !_TAG_OUTPUT_FILESEP	slash	/slash or backslash/
 !_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
 !_TAG_PATTERN_LENGTH_LIMIT	96	/0 for no limit/
@@ -9,92 +9,134 @@
 !_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
 !_TAG_PROGRAM_URL	https://ctags.io/	/official site/
 !_TAG_PROGRAM_VERSION	5.9.0	//
-ApplicationDelegate	ApplicationDelegate+compression.m	/^@implementation ApplicationDelegate(compression)$/;"	c
-ApplicationDelegate	ApplicationDelegate+decompression.m	/^@implementation ApplicationDelegate(decompression)$/;"	c
-ApplicationDelegate	ApplicationDelegate+infopanel.m	/^@implementation ApplicationDelegate(infopanel)$/;"	c
-ApplicationDelegate	ApplicationDelegate.h	/^@interface ApplicationDelegate : NSObject$/;"	i
-ApplicationDelegate	ApplicationDelegate.h	/^@interface ApplicationDelegate(compression)$/;"	i	category:compression
-ApplicationDelegate	ApplicationDelegate.h	/^@interface ApplicationDelegate(decompression)$/;"	i	category:decompression
-ApplicationDelegate	ApplicationDelegate.h	/^@interface ApplicationDelegate(infopanel)$/;"	i	category:infopanel
-ApplicationDelegate	ApplicationDelegate.m	/^@implementation ApplicationDelegate$/;"	c
-NSArray	NSArray+utils.h	/^@interface NSArray(utils)$/;"	i	category:utils
-NSArray	NSArray+utils.m	/^@implementation NSArray(utils)$/;"	c
-NSColor	NSColor+utils.h	/^@interface NSColor(utils)$/;"	i	category:utils
-NSColor	NSColor+utils.m	/^@implementation NSColor(utils)$/;"	c
-NSFileManager	NSFileManager+unique.h	/^@interface NSFileManager(unique)$/;"	i	category:unique
-NSFileManager	NSFileManager+unique.m	/^@implementation NSFileManager(unique)$/;"	c
-NSMutableArray	NSArray+utils.h	/^@interface NSMutableArray(utils)$/;"	i	category:utils
-NSMutableArray	NSArray+utils.m	/^@implementation NSMutableArray (utils)$/;"	c
-NSString	NSString+utils.h	/^@interface NSString (utils)$/;"	i	category:utils
-NSString	NSString+utils.m	/^@implementation NSString(utils)$/;"	c
-NSTask	NSTask+utils.h	/^@interface NSTask(utils)$/;"	i	category:utils
-NSTask	NSTask+utils.m	/^@implementation NSTask(utils)$/;"	c
-allSupportedFileExtensions	ApplicationDelegate.h	/^- (NSArray *)allSupportedFileExtensions;$/;"	m	interface:ApplicationDelegate	category:decompression
-appWorkingDirectory	ApplicationDelegate.h	/^    NSString *appWorkingDirectory;$/;"	E	interface:ApplicationDelegate
-application	ApplicationDelegate.m	/^- (BOOL)application:(NSApplication *)sender$/;"	M
-application:openFile:	ApplicationDelegate.h	/^- (BOOL)application:(NSApplication *)sender openFile:(NSString *)filename;$/;"	m	interface:ApplicationDelegate
-application:openTempFile:	ApplicationDelegate.h	/^- (BOOL)application:(NSApplication *)sender openTempFile:(NSString *)filename;$/;"	m	interface:ApplicationDelegate
-applicationDidFinishLaunching:	ApplicationDelegate.h	/^- (void)applicationDidFinishLaunching:(NSNotification *)aNotification;$/;"	m	interface:ApplicationDelegate
-applicationShouldTerminate:	ApplicationDelegate.h	/^- (BOOL)applicationShouldTerminate:(NSApplication *)app;$/;"	m	interface:ApplicationDelegate
-arrayByReplacingInEachStringValuesInArray:withValuesInArray:	NSArray+utils.h	/^- arrayByReplacingInEachStringValuesInArray:(NSArray *)values withValuesInArray:(NSArray *)newVa/;"	m	interface:NSArray	category:utils
-arrayByReplacingInEachStringValuesInArray:withValuesInArray:	NSArray+utils.h	/^- arrayByReplacingInEachStringValuesInArray:(NSArray *)values withValuesInArray:(NSArray *)newVa/;"	m	interface:NSMutableArray	category:utils
-arrayWithShellCharactersQuoted	NSArray+utils.h	/^- arrayWithShellCharactersQuoted;$/;"	m	interface:NSArray	category:utils
-arrayWithShellCharactersQuoted	NSArray+utils.h	/^- arrayWithShellCharactersQuoted;$/;"	m	interface:NSMutableArray	category:utils
-awakeFromNib	ApplicationDelegate.h	/^- (void)awakeFromNib;$/;"	m	interface:ApplicationDelegate
-compressFiles:intoArchive:usingConfig:	ApplicationDelegate.h	/^- (void)compressFiles:(NSArray *)files intoArchive:(NSString *)archivePath usingConfig:(NSDictio/;"	m	interface:ApplicationDelegate	category:compression
-compressFiles:userData:error:	ApplicationDelegate.h	/^- (void)compressFiles:(NSPasteboard *)pboard userData:(NSString *)data error:(NSString **)error;$/;"	m	interface:ApplicationDelegate	category:compression
-compressFiles:withFileExtension:	ApplicationDelegate.h	/^- (BOOL)compressFiles:(NSArray *)files withFileExtension:(NSString *)extension;$/;"	m	interface:ApplicationDelegate	category:compression
-compression	ApplicationDelegate.h	/^@interface ApplicationDelegate(compression)$/;"	C	interface:ApplicationDelegate
-createUniqueDirectoryAtPath	NSFileManager+unique.m	/^- (NSString *)createUniqueDirectoryAtPath:(NSString *)path$/;"	M
-createUniqueDirectoryAtPath:withBaseFilename:attributes:	NSFileManager+unique.h	/^- (NSString *)createUniqueDirectoryAtPath:(NSString *)path withBaseFilename:(NSString *)baseName/;"	m	interface:NSFileManager	category:unique
-createUniqueDirectoryAtPath:withBaseFilename:attributes:maximumRetries:	NSFileManager+unique.h	/^- (NSString *)createUniqueDirectoryAtPath:(NSString *)path withBaseFilename:(NSString *)baseName/;"	m	interface:NSFileManager	category:unique
-dealloc	ApplicationDelegate.h	/^- (void)dealloc;$/;"	m	interface:ApplicationDelegate
-debugTextView	ApplicationDelegate.h	/^    id debugTextView;$/;"	E	interface:ApplicationDelegate
-debugWindow	ApplicationDelegate.h	/^    id debugWindow;$/;"	E	interface:ApplicationDelegate
-decompressFile:	ApplicationDelegate.h	/^- (void)decompressFile:(NSString *)archivePath;$/;"	m	interface:ApplicationDelegate	category:decompression
-decompression	ApplicationDelegate.h	/^@interface ApplicationDelegate(decompression)$/;"	C	interface:ApplicationDelegate
-errorTextField	ApplicationDelegate.h	/^    id errorTextField;$/;"	E	interface:ApplicationDelegate
-errorTextView	ApplicationDelegate.h	/^    id errorTextView;$/;"	E	interface:ApplicationDelegate
-errorWindow	ApplicationDelegate.h	/^    id errorWindow;$/;"	E	interface:ApplicationDelegate
-fileExtensionIn:matchingString:	ApplicationDelegate.h	/^- (NSString *)fileExtensionIn:extensions matchingString:(NSString *)theString;$/;"	m	interface:ApplicationDelegate	category:decompression
-fileTypeConfigArray	ApplicationDelegate.h	/^    NSArray *fileTypeConfigArray;$/;"	E	interface:ApplicationDelegate
-infoAboutSupportedFileExtensions	ApplicationDelegate.h	/^- (NSArray *)infoAboutSupportedFileExtensions;$/;"	m	interface:ApplicationDelegate	category:infopanel
-infoPanel	ApplicationDelegate.h	/^    id infoPanel;$/;"	E	interface:ApplicationDelegate
-infoPanelSupportedTypes	ApplicationDelegate.h	/^    NSArray *infoPanelSupportedTypes;$/;"	E	interface:ApplicationDelegate
-infoPanelTextField	ApplicationDelegate.h	/^    id infoPanelTextField;$/;"	E	interface:ApplicationDelegate
-infoTableView	ApplicationDelegate.h	/^    id infoTableView;$/;"	E	interface:ApplicationDelegate
-infopanel	ApplicationDelegate.h	/^@interface ApplicationDelegate(infopanel)$/;"	C	interface:ApplicationDelegate
-initializationFailure:	ApplicationDelegate.h	/^- (void)initializationFailure:(NSString *)value;$/;"	m	interface:ApplicationDelegate
-matchFileToConfig:	ApplicationDelegate.h	/^- (NSDictionary *)matchFileToConfig:(NSString *)archivePath;$/;"	m	interface:ApplicationDelegate	category:decompression
-numberOfRowsInTableView	NSArray+utils.m	/^- (int)numberOfRowsInTableView:(NSTableView *)aTableView$/;"	M
-numberOfRowsInTableView:	NSArray+utils.h	/^- (int)numberOfRowsInTableView:(NSTableView *)aTableView;$/;"	m	interface:NSArray	category:utils
-numberOfRowsInTableView:	NSArray+utils.h	/^- (int)numberOfRowsInTableView:(NSTableView *)aTableView;$/;"	m	interface:NSMutableArray	category:utils
-openArchive:	ApplicationDelegate.h	/^- (void)openArchive:(id)sender;$/;"	m	interface:ApplicationDelegate	category:decompression
-performTask	NSTask+utils.m	/^+ (NSDictionary *)performTask:(NSString *)command$/;"	M
-performTask:inDirectory:withArgs:	NSTask+utils.h	/^                     withArgs:(NSArray *)values;$/;"	c	interface:NSTask	category:utils
-preferencesDeleteFilesCheckbox	ApplicationDelegate.h	/^    id preferencesDeleteFilesCheckbox;$/;"	E	interface:ApplicationDelegate
-preferencesWindow	ApplicationDelegate.h	/^    id preferencesWindow;$/;"	E	interface:ApplicationDelegate
-selectedDeleteTempFilesOnQuit:	ApplicationDelegate.h	/^- selectedDeleteTempFilesOnQuit:sender;$/;"	m	interface:ApplicationDelegate
-servicesDictionary	ApplicationDelegate.h	/^    NSDictionary *servicesDictionary;$/;"	E	interface:ApplicationDelegate
-setupUserDefaults	ApplicationDelegate.h	/^- (void)setupUserDefaults;$/;"	m	interface:ApplicationDelegate
-shellArgsUsingConfiguration:	ApplicationDelegate.h	/^- (NSArray *)shellArgsUsingConfiguration:(NSDictionary *)fileConfig;$/;"	m	interface:ApplicationDelegate
-shellPathUsingConfiguration:	ApplicationDelegate.h	/^- (NSString *)shellPathUsingConfiguration:(NSDictionary *)fileConfig;$/;"	m	interface:ApplicationDelegate
-showInfoPanel	ApplicationDelegate+infopanel.m	/^- (void) showInfoPanel:(id)sender$/;"	M
-showInfoPanel:	ApplicationDelegate.h	/^- (void)showInfoPanel:(id)sender;$/;"	m	interface:ApplicationDelegate	category:infopanel
-stringByDeletingSuffix:	NSString+utils.h	/^- stringByDeletingSuffix:(NSString *)suffix;$/;"	m	interface:NSString	category:utils
-stringByReplacing:with:	NSString+utils.h	/^- stringByReplacing:(NSString *)value with:(NSString *)newValue;$/;"	m	interface:NSString	category:utils
-stringByReplacingValuesInArray:withValuesInArray:	NSString+utils.h	/^- stringByReplacingValuesInArray:(NSArray *)values withValuesInArray:(NSArray *)newValues;$/;"	m	interface:NSString	category:utils
-stringContainsValueFromArray	NSString+utils.m	/^- (BOOL)stringContainsValueFromArray:(NSArray *)theValues$/;"	M
-stringContainsValueFromArray:	NSString+utils.h	/^- (BOOL)stringContainsValueFromArray:(NSArray *)theValues;$/;"	m	interface:NSString	category:utils
-stringWithShellCharactersQuoted	NSString+utils.h	/^- stringWithShellCharactersQuoted;$/;"	m	interface:NSString	category:utils
-tableView	NSArray+utils.m	/^- (id)tableView:(NSTableView *)aTableView$/;"	M
-tableView:objectValueForTableColumn:row:	NSArray+utils.h	/^            row:(int)rowIndex;$/;"	m	interface:NSArray	category:utils
-tableView:objectValueForTableColumn:row:	NSArray+utils.h	/^            row:(int)rowIndex;$/;"	m	interface:NSMutableArray	category:utils
-tanTextBackgroundColor	NSColor+utils.h	/^+ (NSColor *)tanTextBackgroundColor;$/;"	c	interface:NSColor	category:utils
-unique	NSFileManager+unique.h	/^@interface NSFileManager(unique)$/;"	C	interface:NSFileManager
-utils	NSArray+utils.h	/^@interface NSArray(utils)$/;"	C	interface:NSArray
-utils	NSArray+utils.h	/^@interface NSMutableArray(utils)$/;"	C	interface:NSMutableArray
-utils	NSColor+utils.h	/^@interface NSColor(utils)$/;"	C	interface:NSColor
-utils	NSString+utils.h	/^@interface NSString (utils)$/;"	C	interface:NSString
-utils	NSTask+utils.h	/^@interface NSTask(utils)$/;"	C	interface:NSTask
-wrappedProgramsUsingConfiguration:	ApplicationDelegate.h	/^- (NSDictionary *)wrappedProgramsUsingConfiguration:(NSDictionary *)fileConfig;$/;"	m	interface:ApplicationDelegate
+ApplicationDelegate	ApplicationDelegate+compression.m	14;"	I	category:compression
+ApplicationDelegate	ApplicationDelegate+decompression.m	15;"	I	category:decompression
+ApplicationDelegate	ApplicationDelegate+infopanel.m	11;"	I	category:infopanel
+ApplicationDelegate	ApplicationDelegate.h	10;"	i
+ApplicationDelegate	ApplicationDelegate.h	47;"	i	category:compression
+ApplicationDelegate	ApplicationDelegate.h	54;"	i	category:decompression
+ApplicationDelegate	ApplicationDelegate.h	64;"	i	category:infopanel
+ApplicationDelegate	ApplicationDelegate.m	14;"	I
+NSArray	NSArray+utils.h	10;"	i	category:utils
+NSArray	NSArray+utils.m	11;"	I	category:utils
+NSColor	NSColor+utils.h	10;"	i	category:utils
+NSColor	NSColor+utils.m	10;"	I	category:utils
+NSFileManager	NSFileManager+unique.h	10;"	i	category:unique
+NSFileManager	NSFileManager+unique.m	10;"	I	category:unique
+NSMutableArray	NSArray+utils.h	24;"	i	category:utils
+NSMutableArray	NSArray+utils.m	73;"	I	category:utils
+NSString	NSString+utils.h	10;"	i	category:utils
+NSString	NSString+utils.m	10;"	I	category:utils
+NSTask	NSTask+utils.h	10;"	i	category:utils
+NSTask	NSTask+utils.m	10;"	I	category:utils
+allSupportedFileExtensions	ApplicationDelegate+decompression.m	41;"	m	implementation:ApplicationDelegate	category:decompression
+allSupportedFileExtensions	ApplicationDelegate.h	56;"	m	interface:ApplicationDelegate	category:decompression
+appWorkingDirectory	ApplicationDelegate.h	12;"	E	interface:ApplicationDelegate
+application:openFile:	ApplicationDelegate.h	34;"	m	interface:ApplicationDelegate
+application:openFile:	ApplicationDelegate.m	87;"	m	implementation:ApplicationDelegate
+application:openTempFile:	ApplicationDelegate.h	35;"	m	interface:ApplicationDelegate
+application:openTempFile:	ApplicationDelegate.m	97;"	m	implementation:ApplicationDelegate
+applicationDidFinishLaunching:	ApplicationDelegate.h	38;"	m	interface:ApplicationDelegate
+applicationDidFinishLaunching:	ApplicationDelegate.m	222;"	m	implementation:ApplicationDelegate
+applicationShouldTerminate:	ApplicationDelegate.h	33;"	m	interface:ApplicationDelegate
+applicationShouldTerminate:	ApplicationDelegate.m	21;"	m	implementation:ApplicationDelegate
+arrayByReplacingInEachStringValuesInArray:withValuesInArray:	NSArray+utils.h	12;"	m	interface:NSArray	category:utils
+arrayByReplacingInEachStringValuesInArray:withValuesInArray:	NSArray+utils.h	26;"	m	interface:NSMutableArray	category:utils
+arrayByReplacingInEachStringValuesInArray:withValuesInArray:	NSArray+utils.m	14;"	m	implementation:NSArray	category:utils
+arrayByReplacingInEachStringValuesInArray:withValuesInArray:	NSArray+utils.m	75;"	m	implementation:NSMutableArray	category:utils
+arrayWithShellCharactersQuoted	NSArray+utils.h	13;"	m	interface:NSArray	category:utils
+arrayWithShellCharactersQuoted	NSArray+utils.h	27;"	m	interface:NSMutableArray	category:utils
+arrayWithShellCharactersQuoted	NSArray+utils.m	33;"	m	implementation:NSArray	category:utils
+arrayWithShellCharactersQuoted	NSArray+utils.m	95;"	m	implementation:NSMutableArray	category:utils
+awakeFromNib	ApplicationDelegate.h	37;"	m	interface:ApplicationDelegate
+awakeFromNib	ApplicationDelegate.m	133;"	m	implementation:ApplicationDelegate
+compressFiles:intoArchive:usingConfig:	ApplicationDelegate+compression.m	88;"	m	implementation:ApplicationDelegate	category:compression
+compressFiles:intoArchive:usingConfig:	ApplicationDelegate.h	50;"	m	interface:ApplicationDelegate	category:compression
+compressFiles:userData:error:	ApplicationDelegate+compression.m	24;"	m	implementation:ApplicationDelegate	category:compression
+compressFiles:userData:error:	ApplicationDelegate.h	48;"	m	interface:ApplicationDelegate	category:compression
+compressFiles:withFileExtension:	ApplicationDelegate+compression.m	49;"	m	implementation:ApplicationDelegate	category:compression
+compressFiles:withFileExtension:	ApplicationDelegate.h	49;"	m	interface:ApplicationDelegate	category:compression
+compression	ApplicationDelegate+compression.m	14;"	C	implementation:ApplicationDelegate
+compression	ApplicationDelegate.h	47;"	C	interface:ApplicationDelegate
+createUniqueDirectoryAtPath:withBaseFilename:attributes:	NSFileManager+unique.h	11;"	m	interface:NSFileManager	category:unique
+createUniqueDirectoryAtPath:withBaseFilename:attributes:	NSFileManager+unique.m	45;"	m	implementation:NSFileManager	category:unique
+createUniqueDirectoryAtPath:withBaseFilename:attributes:maximumRetries:	NSFileManager+unique.h	12;"	m	interface:NSFileManager	category:unique
+createUniqueDirectoryAtPath:withBaseFilename:attributes:maximumRetries:	NSFileManager+unique.m	15;"	m	implementation:NSFileManager	category:unique
+dealloc	ApplicationDelegate.h	40;"	m	interface:ApplicationDelegate
+dealloc	ApplicationDelegate.m	276;"	m	implementation:ApplicationDelegate
+debugTextView	ApplicationDelegate.h	27;"	E	interface:ApplicationDelegate
+debugWindow	ApplicationDelegate.h	26;"	E	interface:ApplicationDelegate
+decompressFile:	ApplicationDelegate+decompression.m	149;"	m	implementation:ApplicationDelegate	category:decompression
+decompressFile:	ApplicationDelegate.h	59;"	m	interface:ApplicationDelegate	category:decompression
+decompression	ApplicationDelegate+decompression.m	15;"	C	implementation:ApplicationDelegate
+decompression	ApplicationDelegate.h	54;"	C	interface:ApplicationDelegate
+errorTextField	ApplicationDelegate.h	18;"	E	interface:ApplicationDelegate
+errorTextView	ApplicationDelegate.h	17;"	E	interface:ApplicationDelegate
+errorWindow	ApplicationDelegate.h	16;"	E	interface:ApplicationDelegate
+fileExtensionIn:matchingString:	ApplicationDelegate+decompression.m	68;"	m	implementation:ApplicationDelegate	category:decompression
+fileExtensionIn:matchingString:	ApplicationDelegate.h	57;"	m	interface:ApplicationDelegate	category:decompression
+fileTypeConfigArray	ApplicationDelegate.h	13;"	E	interface:ApplicationDelegate
+infoAboutSupportedFileExtensions	ApplicationDelegate+infopanel.m	31;"	m	implementation:ApplicationDelegate	category:infopanel
+infoAboutSupportedFileExtensions	ApplicationDelegate.h	65;"	m	interface:ApplicationDelegate	category:infopanel
+infoPanel	ApplicationDelegate.h	23;"	E	interface:ApplicationDelegate
+infoPanelSupportedTypes	ApplicationDelegate.h	28;"	E	interface:ApplicationDelegate
+infoPanelTextField	ApplicationDelegate.h	24;"	E	interface:ApplicationDelegate
+infoTableView	ApplicationDelegate.h	29;"	E	interface:ApplicationDelegate
+infopanel	ApplicationDelegate+infopanel.m	11;"	C	implementation:ApplicationDelegate
+infopanel	ApplicationDelegate.h	64;"	C	interface:ApplicationDelegate
+initializationFailure:	ApplicationDelegate.h	36;"	m	interface:ApplicationDelegate
+initializationFailure:	ApplicationDelegate.m	115;"	m	implementation:ApplicationDelegate
+main	OpenUp_main.m	3;"	f
+matchFileToConfig:	ApplicationDelegate+decompression.m	100;"	m	implementation:ApplicationDelegate	category:decompression
+matchFileToConfig:	ApplicationDelegate.h	58;"	m	interface:ApplicationDelegate	category:decompression
+numberOfRowsInTableView:	NSArray+utils.h	18;"	m	interface:NSArray	category:utils
+numberOfRowsInTableView:	NSArray+utils.h	32;"	m	interface:NSMutableArray	category:utils
+numberOfRowsInTableView:	NSArray+utils.m	128;"	m	implementation:NSMutableArray	category:utils
+numberOfRowsInTableView:	NSArray+utils.m	66;"	m	implementation:NSArray	category:utils
+openArchive:	ApplicationDelegate+decompression.m	18;"	m	implementation:ApplicationDelegate	category:decompression
+openArchive:	ApplicationDelegate.h	55;"	m	interface:ApplicationDelegate	category:decompression
+performTask:inDirectory:withArgs:	NSTask+utils.h	13;"	c	interface:NSTask	category:utils
+performTask:inDirectory:withArgs:	NSTask+utils.m	15;"	c	implementation:NSTask	category:utils
+preferencesDeleteFilesCheckbox	ApplicationDelegate.h	20;"	E	interface:ApplicationDelegate
+preferencesWindow	ApplicationDelegate.h	19;"	E	interface:ApplicationDelegate
+selectedDeleteTempFilesOnQuit:	ApplicationDelegate.h	41;"	m	interface:ApplicationDelegate
+selectedDeleteTempFilesOnQuit:	ApplicationDelegate.m	291;"	m	implementation:ApplicationDelegate
+servicesDictionary	ApplicationDelegate.h	14;"	E	interface:ApplicationDelegate
+setupUserDefaults	ApplicationDelegate.h	39;"	m	interface:ApplicationDelegate
+setupUserDefaults	ApplicationDelegate.m	234;"	m	implementation:ApplicationDelegate
+shellArgsUsingConfiguration:	ApplicationDelegate.h	43;"	m	interface:ApplicationDelegate
+shellArgsUsingConfiguration:	ApplicationDelegate.m	312;"	m	implementation:ApplicationDelegate
+shellPathUsingConfiguration:	ApplicationDelegate.h	42;"	m	interface:ApplicationDelegate
+shellPathUsingConfiguration:	ApplicationDelegate.m	304;"	m	implementation:ApplicationDelegate
+showInfoPanel:	ApplicationDelegate+infopanel.m	14;"	m	implementation:ApplicationDelegate	category:infopanel
+showInfoPanel:	ApplicationDelegate.h	66;"	m	interface:ApplicationDelegate	category:infopanel
+stringByDeletingSuffix:	NSString+utils.h	13;"	m	interface:NSString	category:utils
+stringByDeletingSuffix:	NSString+utils.m	62;"	m	implementation:NSString	category:utils
+stringByReplacing:with:	NSString+utils.h	11;"	m	interface:NSString	category:utils
+stringByReplacing:with:	NSString+utils.m	12;"	m	implementation:NSString	category:utils
+stringByReplacingValuesInArray:withValuesInArray:	NSString+utils.h	12;"	m	interface:NSString	category:utils
+stringByReplacingValuesInArray:withValuesInArray:	NSString+utils.m	47;"	m	implementation:NSString	category:utils
+stringContainsValueFromArray:	NSString+utils.h	15;"	m	interface:NSString	category:utils
+stringContainsValueFromArray:	NSString+utils.m	77;"	m	implementation:NSString	category:utils
+stringWithShellCharactersQuoted	NSString+utils.h	14;"	m	interface:NSString	category:utils
+stringWithShellCharactersQuoted	NSString+utils.m	69;"	m	implementation:NSString	category:utils
+tableView:objectValueForTableColumn:row:	NSArray+utils.h	17;"	m	interface:NSArray	category:utils
+tableView:objectValueForTableColumn:row:	NSArray+utils.h	31;"	m	interface:NSMutableArray	category:utils
+tableView:objectValueForTableColumn:row:	NSArray+utils.m	117;"	m	implementation:NSMutableArray	category:utils
+tableView:objectValueForTableColumn:row:	NSArray+utils.m	55;"	m	implementation:NSArray	category:utils
+tanTextBackgroundColor	NSColor+utils.h	11;"	c	interface:NSColor	category:utils
+tanTextBackgroundColor	NSColor+utils.m	12;"	c	implementation:NSColor	category:utils
+unique	NSFileManager+unique.h	10;"	C	interface:NSFileManager
+unique	NSFileManager+unique.m	10;"	C	implementation:NSFileManager
+utils	NSArray+utils.h	10;"	C	interface:NSArray
+utils	NSArray+utils.h	24;"	C	interface:NSMutableArray
+utils	NSArray+utils.m	11;"	C	implementation:NSArray
+utils	NSArray+utils.m	73;"	C	implementation:NSMutableArray
+utils	NSColor+utils.h	10;"	C	interface:NSColor
+utils	NSColor+utils.m	10;"	C	implementation:NSColor
+utils	NSString+utils.h	10;"	C	interface:NSString
+utils	NSString+utils.m	10;"	C	implementation:NSString
+utils	NSTask+utils.h	10;"	C	interface:NSTask
+utils	NSTask+utils.m	10;"	C	implementation:NSTask
+wrappedProgramsUsingConfiguration:	ApplicationDelegate.h	44;"	m	interface:ApplicationDelegate
+wrappedProgramsUsingConfiguration:	ApplicationDelegate.m	320;"	m	implementation:ApplicationDelegate
