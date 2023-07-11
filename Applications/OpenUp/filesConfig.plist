@@ -69,7 +69,7 @@
         Comments = "7z files, file archiver with high compression ratio"; 
         file_extension = .7z; 
         wrapped_programs = (p7zip); 
-        command = "%%WRAPPED_PROGRAM_UNZ%% -df %%FILE%%"; 
+        command = "%%WRAPPED_PROGRAM_P7ZIP%% -f -d %%FILE%%"; 
     }, 
     {
         Comments = {
