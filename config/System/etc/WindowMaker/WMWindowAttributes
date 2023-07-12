@@ -14,6 +14,22 @@
     NoAppIcon = Yes;
     AlwaysUserIcon = No;
   };
+  NotMon.GNUstep = {
+    Unfocusable = Yes;
+    SkipWindowList = Yes;
+    NoTitlebar = Yes;
+    SkipSwitchPanel = Yes;
+    KeepInsideScreen = Yes;
+    NoMiniaturizable = Yes;
+    NoMiniaturizeButton = Yes;
+    NoBorder = Yes;
+    NoAppIcon = Yes;
+    AlwaysUserIcon = No;
+    NoResizebar = Yes;
+    KeepOnTop = Yes;
+    NoCloseButton = Yes;
+    Omnipresent = Yes;
+  };
   Terminal.GNUstep = {
     Icon = Terminal.GNUstep.xpm;
   };
