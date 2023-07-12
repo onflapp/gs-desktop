@@ -198,22 +198,22 @@ function wait_for_workspace {
 }
 
 function startup_scripts {
+  /Library/bin/nxnotify --show-panel --title "GSDE" --info "Launching applications..."
   show_status "gray50"
+
   #wait_for_workspace
   sleep 1
   /Library/Scripts/AutoLaunchApps
+
+  /Library/bin/nxnotify --hide-panel 1
 }
 
 function start_normal {
   WM_ARGS="--no-autolaunch --dont-restore"
   init_config
   main_process
-
-  /Library/bin/nxnotify --show-panel --title "GSDE" --info "Launching applications..."
-
   startup_scripts
  
-  /Library/bin/nxnotify --hide-panel 1
   wait $GW_PID
   sleep 1
   cleanup
