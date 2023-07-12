@@ -37,7 +37,7 @@ void introsp_print_info(id val) {
   }
 }
 
-void introsp_print_descripion(id val) {
+void introsp_print_description(id val) {
   if (!val) {
     printf("nil\n");
     return;
@@ -215,7 +215,7 @@ void introsp_print_ivars(id val) {
 }
 
 + (void) printDescription:(id)val {
-  introsp_print_descripion(val);
+  introsp_print_description(val);
 }
 
 + (void) printObject:(id)val {

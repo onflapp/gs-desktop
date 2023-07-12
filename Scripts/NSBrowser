@@ -1,0 +1,44 @@
+#!/Library/bin/stexec
+
+[|
+  main
+    Environment loadModule:'AppKit'.
+    Environment includeProtocol:'NSBrowserDelegate'.
+    Environment includeProtocol:'NSApplicationDelegate'.
+
+    app := NSApplication sharedApplication.
+    app setDelegate:self.
+    app run.
+
+    ^self
+  !
+
+  application:app openFile:file
+    ^nil
+  !
+
+  browser:b numberOfRowsInColumn:col
+    ^5
+  !
+
+  browser:b willDisplayCell:cell atRow:row column:col
+    cell setLeaf:YES.
+    cell setStringValue:'a'.
+    ^nil
+  !
+
+  applicationDidFinishLaunching:not
+    frame := (10 @ 10) extent: (180 @@ 160).
+    browser := NSBrowser alloc initWithFrame:frame.
+    browser setDelegate:self.
+
+    frame := (10 @ 10) extent: (200 @@ 200).
+    panel := NSPanel alloc init.
+    panel contentView addSubview:browser.
+    panel setFrame:frame display:YES.
+
+    app runModalForWindow: panel.
+    app terminate:nil.
+
+    ^nil
+]
