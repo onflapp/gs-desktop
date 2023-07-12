@@ -5,8 +5,6 @@ function show_status {
 }
 
 function start_workspace {
-  show_status "gray45"
- 
   (/System/Applications/GWorkspace.app/GWorkspace) &
   GW_PID="$!"
 
@@ -199,7 +197,6 @@ function wait_for_workspace {
 
 function startup_scripts {
   /Library/bin/nxnotify --show-panel --title "GSDE" --info "Launching applications..."
-  show_status "gray50"
 
   #wait_for_workspace
   sleep 1
