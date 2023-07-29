@@ -3,8 +3,9 @@
 [|
   main
     Environment loadModule:'AppKit'.
-    Environment includeProtocol:'NSBrowserDelegate'.
-    Environment includeProtocol:'NSApplicationDelegate'.
+
+    self implementProtocol:'NSBrowserDelegate'.
+    self implementProtocol:'NSApplicationDelegate'.
 
     app := NSApplication sharedApplication.
     app setDelegate:self.
@@ -27,10 +28,19 @@
     ^nil
   !
 
+  selectRow
+    sel := browser selectedCell stringValue.
+    Transcript showLine:sel.
+    app terminate:self.
+  !
+
   applicationDidFinishLaunching:not
+    Shell readLines:'/dev/stdin'.
+
     frame := (10 @ 10) extent: (180 @@ 160).
     browser := NSBrowser alloc initWithFrame:frame.
     browser setDelegate:self.
+    browser setDoubleAction:#selectRow.
 
     frame := (10 @ 10) extent: (200 @@ 200).
     panel := NSPanel alloc init.
