@@ -3,6 +3,7 @@
 [|
   main
     Environment loadModule:'AppKit'.
+    Environment loadModule:'SystemShell'.
 
     self implementProtocol:'NSBrowserDelegate'.
     self implementProtocol:'NSApplicationDelegate'.
@@ -19,12 +20,12 @@
   !
 
   browser:b numberOfRowsInColumn:col
-    ^5
+    ^(lines count)
   !
 
   browser:b willDisplayCell:cell atRow:row column:col
     cell setLeaf:YES.
-    cell setStringValue:'a'.
+    cell setStringValue:(lines objectAtIndex:row).
     ^nil
   !
 
@@ -35,17 +36,19 @@
   !
 
   applicationDidFinishLaunching:not
-    Shell readLines:'/dev/stdin'.
+    lines := (Shell readString:'/dev/stdin') componentsSeparatedByString:'\n'.
 
-    frame := (10 @ 10) extent: (180 @@ 160).
+    frame := (10 @ 10) extent: (180 @@ 180).
     browser := NSBrowser alloc initWithFrame:frame.
     browser setDelegate:self.
     browser setDoubleAction:#selectRow.
+    browser setAutoresizesSubviews:YES.
+    browser setAutoresizingMask:NSViewWidthSizable + NSViewHeightSizable.
 
     frame := (10 @ 10) extent: (200 @@ 200).
-    panel := NSPanel alloc init.
+    mask :=  NSTitledWindowMask + NSClosableWindowMask + NSResizableWindowMask.
+    panel := NSPanel alloc initWithContentRect:frame styleMask:mask backing:NSBackingStoreRetained defer:NO.
     panel contentView addSubview:browser.
-    panel setFrame:frame display:YES.
 
     app runModalForWindow: panel.
     app terminate:nil.
