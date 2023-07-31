@@ -1,0 +1,56 @@
+#!/Library/bin/stexec
+
+Environment loadModule:'AppKit'.
+rv := 1.
+
+((Args count) > 1)
+ifTrue: 
+[
+  op   := Args @ 0.
+
+  (op isEqualToString:'--add')
+  ifTrue:
+  [
+    name := Args @ 1.
+    key  := Args @ 2.
+    ctrl := Environment objectWithName:name.
+
+    ctrl Controller processInfo debugSet addObject:key.
+    rv := 0.
+  ].
+
+  ((op isEqualToString:'--remove') and: ((Args count) > 2))
+  ifTrue:
+  [
+    name := Args @ 1.
+    key  := Args @ 2.
+    ctrl := Environment objectWithName:name.
+
+    ctrl Controller processInfo debugSet removeObject:key.
+    rv := 0.
+  ].
+
+  ((op isEqualToString:'--remove') and: ((Args count) == 2))
+  ifTrue:
+  [
+    name := Args @ 1.
+    ctrl := Environment objectWithName:name.
+
+    ctrl Controller processInfo debugSet removeAllObjects.
+    rv := 0.
+  ].
+
+].
+
+(rv == 0)
+ifTrue: 
+[
+  Script returnExitCode: rv.
+]
+ifFalse: 
+[
+  Transcript showLine:'NSDebugLog --add [appname] [key]'.
+  Transcript showLine:'           --remove [appname] [key]'.
+  Transcript showLine:'           --remove [appname]'.
+  Script returnExitCode: rv.
+].
