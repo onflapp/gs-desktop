@@ -29,7 +29,7 @@
 {
   self = [super init];
   videoExtensions = [[NSArray arrayWithObjects:@"mp4", @"m4v", @"ogv", nil] retain];
-  audioExtensions = [[NSArray arrayWithObjects:@"mp3", @"au", @"snd", @"pls", nil] retain];
+  audioExtensions = [[NSArray arrayWithObjects:@"mp3", @"au", @"snd", @"pls", @"wav", nil] retain];
 
   return self;
 }

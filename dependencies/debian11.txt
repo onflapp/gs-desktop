@@ -93,6 +93,7 @@ vlc-plugin-video-output
 vlc-plugin-base
 xutils-dev
 xnest
+xterm
 libxcb-util0-dev
 libxcb-randr0-dev
 discount

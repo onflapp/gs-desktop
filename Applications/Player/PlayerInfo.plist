@@ -38,6 +38,12 @@
 	    );
 	},
 	{
+	    NSIcon = "file_au.tiff";
+	    NSUnixExtensions = (
+		wav
+	    );
+	},
+	{
 	    NSIcon = "file_video.tiff";
 	    NSUnixExtensions = (
 		ogv
