@@ -63,7 +63,7 @@
   FocusPrevKey = None;
   NewStyle = old;
   WindowListKey = None;
-  WorkspaceNameDisplayPosition = center;
+  WorkspaceNameDisplayPosition = none;
   IconSize = 64;
   ScreenSwitchKey = None;
   AdvanceToNewWorkspace = NO;
