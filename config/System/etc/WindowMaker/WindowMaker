@@ -123,7 +123,6 @@
   MoveToWorkspace1Key = None;
   Workspace3Key = None;
   ColormapMode = auto;
-  ShowClipTitle = YES;
   DisableDock = NO;
   Superfluous = NO;
   WindowShortcut2Key = None;
@@ -171,6 +170,8 @@
   RaiseLowerKey = None;
   MoveToWorkspace4Key = None;
   RTCMaximizeKey = None;
+  ClipMergedInDock = NO;
+  ShowClipTitle = NO;
   EdgeResistance = 30;
   ModifierKey = Mod5;
   UTitleBack = (solid, "#aaaaaa");
