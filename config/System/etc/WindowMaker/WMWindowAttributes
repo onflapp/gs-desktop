@@ -61,6 +61,10 @@
     NoResizebar = Yes;
     AlwaysUserIcon = No;
     NoMiniaturizeButton = Yes;
+    Omnipresent = Yes;
+  };
+  Preferences.GNUstep = {
+    Omnipresent = Yes;
   };
   "*" = {
     Icon = defaultAppIcon.tiff;

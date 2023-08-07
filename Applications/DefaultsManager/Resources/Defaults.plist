@@ -35,6 +35,11 @@
 	defaultvalue = <*BY>;
 	editor = <*I1>;
     };
+    GSScaleFactor = {
+	category = back;
+	defaultvalue = "1";
+	editor = <*I0>;
+    };
     GSFontMask = {
 	category = back;
 	defaultvalue = "*";

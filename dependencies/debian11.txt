@@ -54,6 +54,7 @@ libxrandr-dev
 libbsd-dev
 libudisks2-dev
 libdbus-1-dev
+libdbus-glib-1-dev
 libxkbfile-dev
 libpulse-dev
 pulseaudio

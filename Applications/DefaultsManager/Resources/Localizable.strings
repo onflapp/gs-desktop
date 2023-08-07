@@ -47,5 +47,6 @@ If set to YES the newly started copy makes the process which is already running 
 If set to NO, the newly started copy runs, but has a different name (so it cannot be contacted to provide services for other applications).";
 "UseWindowMakerIcons" = "UseWindowMakerIcons is for app icons, and has no effect when the window manager isn't Window Maker. It displays the application's icon window in the window Window Maker provides instead of creating one controlled by the app. This allows the icon to be docked. It is a boolean value which defaults to YES.";
 "XGPS-Shm" = "A boolean value which defaults to YES (as long as shared memory is available). If set to NO, shared memory is not used for various display specific operations.";
+"GSScaleFactor" = "A floating point number, 1.0 by default. Scales GUI elements by the given factor for high-DPI monitors. DPI auto-detection on some platforms (only Windows, for now) will cause the default to appear to change. For example, setting this to 1.5 would make everything appear 50% larger.";
 
 
