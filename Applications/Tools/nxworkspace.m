@@ -41,6 +41,7 @@ void printUsage() {
   fprintf(stderr, "  --autolaunch <app>    autolaunch application\n");
   fprintf(stderr, "  --activate <app>      launch or activate application\n");
   fprintf(stderr, "  --activate            activate the Workspace\n");
+  fprintf(stderr, "  --fileviewer          show root file viewer\n");
   fprintf(stderr, "  --logout              logout from Workspace\n");
   fprintf(stderr, "\n");
 }
@@ -117,6 +118,12 @@ int main(int argc, char** argv, char** env)
       NSWorkspace* ws = [NSWorkspace sharedWorkspace];
 
       [ws launchApplication:@"GWorkspace"];
+    }
+    else if ([[arguments objectAtIndex:1] isEqualToString:@"--fileviewer"]) {
+      id gworkspace = [NSConnection rootProxyForConnectionWithRegisteredName:@"GWorkspace" host:@""];
+      if (gworkspace) {
+        [gworkspace showRootViewer];
+      }
     }
     else if ([[arguments objectAtIndex:1] isEqualToString:@"--logout"]) {
       id gworkspace = [NSConnection rootProxyForConnectionWithRegisteredName:@"GWorkspace" host:@""];

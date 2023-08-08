@@ -10,7 +10,7 @@
         DropCommand = "nxworkspace --select %d";
         Lock = Yes;
         AutoLaunch = No;
-        Command = "nxworkspace --activate";
+        Command = "nxworkspace --fileviewer";
         Position = "0,0";
         Forced = No;
         OneShot = Yes;
@@ -112,7 +112,7 @@
       Clip = {
         AutoAttractIcons = No;
         AutoCollapse = No;
-        Lowered = Yes;
+        Lowered = No;
         Collapsed = No;
         AutoRaiseLower = No;
         Applications = ();
