@@ -1,7 +1,9 @@
 /* 
-   Project: NotMon
+   Project: MountUp
 
-   Created: 2023-07-08 22:24:53 +0200 by oflorian
+   Author: Ondrej Florian,,,
+
+   Created: 2023-08-09 19:25:27 +0000 by oflorian
    
    Application Controller
 */
@@ -10,18 +12,11 @@
 #define _PCAPPPROJ_APPCONTROLLER_H
 
 #import <AppKit/AppKit.h>
-#import "MessageController.h"
+#import <DBusKit/DBusKit.h>
 
 @interface AppController : NSObject
 {
-  NSTextField* panelTitle;
-  NSTextField* panelInfo;
-  NSProgressIndicator* panelProgress;
-  NSPanel* panel;
-
-  NSMutableArray* messages;
-
-  BOOL launched;
+  IBOutlet NSView* controlView;
 }
 
 + (void)  initialize;
@@ -37,12 +32,7 @@
 - (BOOL) application: (NSApplication *)application
 	    openFile: (NSString *)fileName;
 
-- (void) showPanelWithTitle:(NSString*) title 
-                       info:(NSString*) info;
-- (void) hidePanelAfter:(NSTimeInterval) time;
-
-- (void) showPrefPanel:(id)sender;
-- (void) removeMessageController:(id) mctrl;
+- (void) showPrefPanel: (id)sender;
 
 @end
 

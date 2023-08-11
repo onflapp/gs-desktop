@@ -28,6 +28,7 @@ void printUsage() {
   fprintf(stderr, "  --show-panel --title <text> --info <text>\n");
   fprintf(stderr, "  --show-panel --title <text> --info <text> --hide-panel <timeout>\n");
   fprintf(stderr, "  --hide-panel\n");
+  fprintf(stderr, "  --show-message --title <text> --info <text>\n");
   fprintf(stderr, "\n");
 }
 
@@ -69,6 +70,9 @@ int main(int argc, char** argv, char** env)
         else if ([it isEqualToString:@"--show-panel"]) {
           type = 1;
         }
+        else if ([it isEqualToString:@"--show-message"]) {
+          type = 2;
+        }
         else if ([it isEqualToString:@"--hide-panel"]) {
           hide = [[en nextObject] floatValue];
         }
@@ -82,6 +86,9 @@ int main(int argc, char** argv, char** env)
 
       if (type == 1) {
         [app showPanelWithTitle:title info:info];
+      }
+      else if (type == 2) {
+        [app showMessageWithTitle:title info:info];
       }
       if (hide >= 0) {
         [app hidePanelAfter:hide];

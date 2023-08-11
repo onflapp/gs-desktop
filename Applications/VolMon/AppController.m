@@ -18,7 +18,7 @@
   if ((self = [super init])) {
     MiniView *mv = [[MiniView alloc] initWithFrame:NSMakeRect(0, 0, 64, 64)];
     [[NSApp iconWindow] setContentView:mv];
-    lastValue = -1;
+    lastValue = 0;
   }
   return self;
 }
@@ -103,7 +103,11 @@
            selector:@selector(deviceDidUpdate:)
                name:SNDDeviceDidChangeNotification
              object:nil];
-    [self _updateControls];    
+
+    NSTimeInterval d = [[NSDate date] timeIntervalSinceReferenceDate] - lastChange;
+    if (d > 0.5) {
+      [self _updateControls];
+    }  
   }
   else if (soundServer.status == SNDServerFailedState ||
            soundServer.status == SNDServerTerminatedState) {

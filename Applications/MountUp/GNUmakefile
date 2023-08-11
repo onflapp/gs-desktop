@@ -23,38 +23,37 @@ include $(GNUSTEP_MAKEFILES)/common.make
 # Application
 #
 VERSION = 0.1
-PACKAGE_NAME = NotMon
-APP_NAME = NotMon
-NotMon_APPLICATION_ICON = 
+PACKAGE_NAME = MountUp
+APP_NAME = MountUp
+MountUp_APPLICATION_ICON = 
 
 
 #
 # Resource files
 #
-NotMon_RESOURCE_FILES = \
-Resources/NotMon.gorm \
-Resources/Message.gorm 
+MountUp_RESOURCE_FILES = \
+Resources/MountUp.gorm \
 
 
 #
 # Header files
 #
-NotMon_HEADER_FILES = \
+MountUp_HEADER_FILES = \
 AppController.h \
-MessageController.h
+MiniView.h
 
 #
 # Objective-C Class files
 #
-NotMon_OBJC_FILES = \
+MountUp_OBJC_FILES = \
 AppController.m \
-MessageController.m
+MiniView.m
 
 #
 # Other sources
 #
-NotMon_OBJC_FILES += \
-NotMon_main.m 
+MountUp_OBJC_FILES += \
+MountUp_main.m 
 
 #
 # Makefiles

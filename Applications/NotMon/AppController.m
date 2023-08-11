@@ -1,8 +1,6 @@
 /* 
 Project: NotMon
 
-Author: Ondrej Florian,,,
-
 Created: 2023-07-08 22:24:53 +0200 by oflorian
 
 Application Controller
@@ -23,12 +21,14 @@ Application Controller
 - (id) init
 {
   if ((self = [super init])) {
+    messages = [[NSMutableArray alloc] init];
   }
   return self;
 }
 
 - (void) dealloc
 {
+  [messages release];
   [super dealloc];
 }
 
@@ -92,11 +92,25 @@ Application Controller
       NSString* title = [dict valueForKey:@"title"];
       NSString* info = [dict valueForKey:@"info"];
       NSLog(@"show:%@", dict);
+
       [self showPanelWithTitle:title info:info];
     }
     else if ([[url host] isEqualToString:@"hide-panel"]) {
       NSLog(@"hide");
       [self hidePanelAfter:0];
+    }
+    else if ([[url host] isEqualToString:@"show-message"]) {
+      NSDictionary* dict = [self parseURL:url];
+      NSString* title = [dict valueForKey:@"title"];
+      NSString* info = [dict valueForKey:@"info"];
+      NSLog(@"show:%@", dict);
+
+      [self showMessageWithTitle:title info:info];
+      [self showMessageWithTitle:title info:info];
+      [self showMessageWithTitle:title info:info];
+      [self showMessageWithTitle:title info:info];
+      [self showMessageWithTitle:title info:info];
+      [self showMessageWithTitle:title info:info];
     }
   }
 
@@ -113,6 +127,20 @@ Application Controller
   }
 }
 
+- (void) showMessageWithTitle:(NSString*) title
+                       info:(NSString*) info
+{
+  MessageController* ctrl = [[MessageController alloc] init];
+  NSPanel* mpanel = [ctrl panel];
+
+  [mpanel setLevel:NSDockWindowLevel];
+
+  [[ctrl panelTitle] setStringValue:title?title:@""];
+  [[ctrl panelInfo] setStringValue:info?info:@""];
+
+  [messages addObject:ctrl];
+  [self reoderMessages];
+}
 
 - (void) showPanelWithTitle:(NSString*) title 
                        info:(NSString*) info
@@ -125,7 +153,34 @@ Application Controller
   [panel center];
   [panel orderFront:self];
 
+  [NSObject cancelPreviousPerformRequestsWithTarget:self];
   [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:5.0];
+}
+
+- (void) reoderMessages {
+  NSScreen* screen = [NSScreen mainScreen];
+  NSRect sr = [screen visibleFrame];
+  CGFloat margin = 8;
+  CGFloat height = 0;
+  NSInteger c = 1;
+
+  for (MessageController* ctrl in messages) {
+    NSPanel* mpanel = [ctrl panel];
+    NSRect pr = [mpanel frame];
+
+    height = pr.size.height;
+    pr.origin.x = sr.size.width - 64 - margin - pr.size.width;
+    pr.origin.y = sr.size.height - ((height + 2) * c);
+    
+    [mpanel setFrame:pr display:NO];
+    [mpanel orderFront:self];
+    c++;
+  }
+}
+
+- (void) removeMessageController:(id) mctrl {
+  [messages removeObject:mctrl];
+  [self reoderMessages];
 }
 
 - (void) __hidePanel {

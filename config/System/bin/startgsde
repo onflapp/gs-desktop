@@ -103,7 +103,7 @@ function stop_services {
     kill $PID 2> /dev/null && rm /tmp/$UID-fswatcher.pid
   fi
 
-  echo "about to stop Notification Montitor"
+  echo "about to stop Notification Monitor"
   PID=`cat /tmp/$UID-notmon.pid 2>/dev/null`
   if [ -n "$PID" ];then
     kill $PID 2> /dev/null && rm /tmp/$UID-notmon.pid

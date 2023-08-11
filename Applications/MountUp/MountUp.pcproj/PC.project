@@ -13,41 +13,40 @@
     "BUNDLE_IDENTIFIER" = "";
     "CLASS_FILES" = (
 	"AppController.m",
-	"MessageController.m"
+	"MiniView.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
-    "CREATION_DATE" = "2023-07-08 22:24:53 +0200";
+    "CREATION_DATE" = "2023-08-09 19:25:27 +0000";
     "DOCU_FILES" = (
     );
     FRAMEWORKS = (
     );
     "HEADER_FILES" = (
 	"AppController.h",
-	"MessageController.h"
+	"MiniView.h"
     );
     IMAGES = (
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
-	"NotMon.gorm",
-	"Message.gorm"
+	"MountUp.gorm"
     );
     LANGUAGE = English;
     LIBRARIES = (
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "";
+    LINKEROPTIONS = "-lDBusKit";
     "LOCALIZED_RESOURCES" = (
     );
-    MAININTERFACE = "NotMon.gorm";
+    MAININTERFACE = "MountUp.gorm";
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
     );
     "OTHER_SOURCES" = (
-	"NotMon_main.m"
+	"MountUp_main.m"
     );
     "PRINCIPAL_CLASS" = NSApplication;
     "PROJECT_AUTHORS" = (
@@ -60,7 +59,7 @@
     );
     "PROJECT_GROUP" = "No group avaliable!";
     "PROJECT_MAINTAINER" = "Ondrej Florian,,,";
-    "PROJECT_NAME" = NotMon;
+    "PROJECT_NAME" = MountUp;
     "PROJECT_RELEASE" = "0.1";
     "PROJECT_SUMMARY" = "No summary avaliable!";
     "PROJECT_TYPE" = Application;
@@ -68,6 +67,7 @@
     "SEARCH_HEADER_DIRS" = (
     );
     "SEARCH_LIB_DIRS" = (
+	"/Library/Frameworks"
     );
     SUBPROJECTS = (
     );
@@ -75,7 +75,7 @@
 	"GNUmakefile.preamble",
 	GNUmakefile,
 	"GNUmakefile.postamble",
-	"NotMonInfo.plist"
+	"MountUpInfo.plist"
     );
     "USER_LANGUAGES" = (
 	English,
