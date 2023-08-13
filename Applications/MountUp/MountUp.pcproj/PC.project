@@ -13,10 +13,13 @@
     "BUNDLE_IDENTIFIER" = "";
     "CLASS_FILES" = (
 	"AppController.m",
-	"MiniView.m"
+	"MiniView.m",
+	"ServiceManager.m",
+	"ServiceTask.m",
+	"LoopbackServiceTask.m"
     );
     COMPILEROPTIONS = "";
-    CPPOPTIONS = "";
+    CPPOPTIONS = "-DWITH_UDISKS";
     "CREATION_DATE" = "2023-08-09 19:25:27 +0000";
     "DOCU_FILES" = (
     );
@@ -24,7 +27,10 @@
     );
     "HEADER_FILES" = (
 	"AppController.h",
-	"MiniView.h"
+	"MiniView.h",
+	"ServiceManager.h",
+	"ServiceTask.h",
+	"LoopbackServiceTask.h"
     );
     IMAGES = (
     );
@@ -37,13 +43,14 @@
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "-lDBusKit";
+    LINKEROPTIONS = "-lDBusKit -lSystemKit -lDesktopKit";
     "LOCALIZED_RESOURCES" = (
     );
     MAININTERFACE = "MountUp.gorm";
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
+	services
     );
     "OTHER_SOURCES" = (
 	"MountUp_main.m"
@@ -56,6 +63,24 @@
     "PROJECT_CREATOR" = "Ondrej Florian,,,";
     "PROJECT_DESCRIPTION" = "No description avaliable!";
     "PROJECT_DOCUMENTTYPES" = (
+	{
+	    NSIcon = "disk_image.tiff";
+	    NSUnixExtensions = (
+		img
+	    );
+	},
+	{
+	    NSIcon = "disk_image.tiff";
+	    NSUnixExtensions = (
+		dmg
+	    );
+	},
+	{
+	    NSIcon = "disk_image.tiff";
+	    NSUnixExtensions = (
+		iso
+	    );
+	}
     );
     "PROJECT_GROUP" = "No group avaliable!";
     "PROJECT_MAINTAINER" = "Ondrej Florian,,,";
@@ -65,6 +90,7 @@
     "PROJECT_TYPE" = Application;
     "PROJECT_URL" = "";
     "SEARCH_HEADER_DIRS" = (
+	". `pkg-config --cflags udisks2` `pkg-config --cflags dbus-1`"
     );
     "SEARCH_LIB_DIRS" = (
 	"/Library/Frameworks"

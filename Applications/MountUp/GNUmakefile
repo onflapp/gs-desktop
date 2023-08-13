@@ -33,6 +33,7 @@ MountUp_APPLICATION_ICON =
 #
 MountUp_RESOURCE_FILES = \
 Resources/MountUp.gorm \
+Resources/services 
 
 
 #
@@ -40,14 +41,20 @@ Resources/MountUp.gorm \
 #
 MountUp_HEADER_FILES = \
 AppController.h \
-MiniView.h
+MiniView.h \
+ServiceManager.h \
+ServiceTask.h \
+LoopbackServiceTask.h
 
 #
 # Objective-C Class files
 #
 MountUp_OBJC_FILES = \
 AppController.m \
-MiniView.m
+MiniView.m \
+ServiceManager.m \
+ServiceTask.m \
+LoopbackServiceTask.m
 
 #
 # Other sources

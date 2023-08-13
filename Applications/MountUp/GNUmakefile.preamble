@@ -3,7 +3,7 @@
 #
 
 # Additional flags to pass to the preprocessor
-ADDITIONAL_CPPFLAGS += 
+ADDITIONAL_CPPFLAGS += -DWITH_UDISKS
 
 # Additional flags to pass to Objective C compiler
 ADDITIONAL_OBJCFLAGS += 
@@ -12,10 +12,10 @@ ADDITIONAL_OBJCFLAGS +=
 ADDITIONAL_CFLAGS += 
 
 # Additional flags to pass to the linker
-ADDITIONAL_LDFLAGS += -lDBusKit 
+ADDITIONAL_LDFLAGS += -lDBusKit -lSystemKit -lDesktopKit 
 
 # Additional include directories the compiler should search
-ADDITIONAL_INCLUDE_DIRS += 
+ADDITIONAL_INCLUDE_DIRS += -I. `pkg-config --cflags udisks2` `pkg-config --cflags dbus-1` 
 
 # Additional library directories the linker should search
 ADDITIONAL_LIB_DIRS += -L/Library/Frameworks 

@@ -1,0 +1,52 @@
+#!/bin/bash
+
+LOOPDEV=""
+LOOPFILE="$1"
+MOUNTDIR=""
+export LANG=C
+
+trap unmount SIGINT SIGTERM
+
+function mount { 
+  X=`udisksctl loop-setup --no-user-interaction -f "$1"`
+  if [[ "$X" =~ as\ (/.*).$ ]];then
+    LOOPDEV="${BASH_REMATCH[1]}"
+    echo "D:$LOOPDEV"
+  else
+    echo "unable to create loop device"
+    exit 1
+  fi
+  
+  X=`udisksctl mount --no-user-interaction -b "$LOOPDEV"`
+  if [[ "$X" =~ at\ (/.*)$ ]];then
+    MOUNTDIR="${BASH_REMATCH[1]}"
+    echo "P:$MOUNTDIR"
+  else
+    echo "E:unable to mount file $LOOPFILE to $LOOPDEV"
+    unmount
+    exit 1
+  fi
+}
+
+function unmount() {
+  if [ -n "$LOOPDEV" ];then
+    udisksctl unmount --no-user-interaction -b "$LOOPDEV"
+    udisksctl loop-delete --no-user-interaction -b "$LOOPDEV"
+    exit 0
+  else
+    echo "E:file $LOOPFILE not mounted"
+    exit 1
+  fi
+}
+
+function dowait() {
+  while [ 1 ];do
+    sleep 10
+  done
+}
+
+if [ -f "$1" ];then
+  mount "$1"
+  dowait
+  unmount
+fi

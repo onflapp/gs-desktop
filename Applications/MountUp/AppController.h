@@ -12,11 +12,23 @@
 #define _PCAPPPROJ_APPCONTROLLER_H
 
 #import <AppKit/AppKit.h>
-#import <DBusKit/DBusKit.h>
+#import <SystemKit/OSEUDisksAdaptor.h>
+#import <SystemKit/OSEUDisksVolume.h>
+#import "ServiceManager.h"
 
 @interface AppController : NSObject
 {
   IBOutlet NSView* controlView;
+  IBOutlet NSBrowser* volumesBrowser;
+  IBOutlet NSPanel* volumesPanel;
+  IBOutlet NSButton* actionButton;
+  IBOutlet NSTextField* device;
+  IBOutlet NSTextField* path;
+  IBOutlet NSTextField* status;
+
+  OSEUDisksAdaptor* disks;
+  NSMutableArray* volumes;
+  ServiceManager* services;
 }
 
 + (void)  initialize;
@@ -33,6 +45,8 @@
 	    openFile: (NSString *)fileName;
 
 - (void) showPrefPanel: (id)sender;
+- (void) showMountPanel:(id)sender;
+- (void) showVolumesPanel: (id)sender;
 
 @end
 

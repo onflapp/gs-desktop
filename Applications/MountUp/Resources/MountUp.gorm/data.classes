@@ -2,17 +2,30 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     AppController = {
 	Actions = (
-	    "showPrefPanel:"
+	    "showPrefPanel:",
+	    "showVolumesPanel:",
+	    "mountOrEject:",
+	    "open:",
+	    "showMountPanel:"
 	);
 	Outlets = (
-	    controlView
+	    controlView,
+	    volumesPanel,
+	    volumesBrowser,
+	    device,
+	    path,
+	    status,
+	    actionButton
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
+	    "mountOrEject:",
+	    "showMountPanel:",
 	    "orderFrontFontPanel:",
-	    "showPrefPanel:"
+	    "showPrefPanel:",
+	    "showVolumesPanel:"
 	);
 	Super = NSObject;
     };

@@ -34,6 +34,7 @@ if [ -d apps-gorm ];then
   git pull
 else
   git clone https://github.com/gnustep/apps-gorm.git
+  cd ./apps-gorm && git checkout aefd2667209291398a2f3d0d63d5811c184cd6fc
 fi
 
 cd "$D"

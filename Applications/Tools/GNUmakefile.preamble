@@ -37,13 +37,13 @@
 #ADDITIONAL_CPPFLAGS +=
 
 # Additional flags to pass to the Objective-C compiler
-#ADDITIONAL_OBJCFLAGS +=
+ADDITIONAL_OBJCFLAGS += -DWITH_UDISKS
 
 # Additional flags to pass to the C compiler
 #ADDITIONAL_CFLAGS += 
 
 # Additional include directories the compiler should search
-#ADDITIONAL_INCLUDE_DIRS +=
+ADDITIONAL_INCLUDE_DIRS += `pkg-config --cflags udisks2` `pkg-config --cflags dbus-1`
 
 # Additional LDFLAGS to pass to the linker
 ADDITIONAL_LDFLAGS += -lgnustep-gui -lSoundKit -lSystemKit -lDesktopKit

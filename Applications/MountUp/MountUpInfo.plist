@@ -10,4 +10,24 @@
     NSMainNibFile = "MountUp.gorm";
     NSPrincipalClass = NSApplication;
     NSRole = Application;
+    NSTypes = (
+	{
+	    NSIcon = "disk_image.tiff";
+	    NSUnixExtensions = (
+		img
+	    );
+	},
+	{
+	    NSIcon = "disk_image.tiff";
+	    NSUnixExtensions = (
+		dmg
+	    );
+	},
+	{
+	    NSIcon = "disk_image.tiff";
+	    NSUnixExtensions = (
+		iso
+	    );
+	}
+    );
 }
