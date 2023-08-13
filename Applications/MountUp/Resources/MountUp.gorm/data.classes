@@ -6,7 +6,8 @@
 	    "showVolumesPanel:",
 	    "mountOrEject:",
 	    "open:",
-	    "showMountPanel:"
+	    "showMountPanel:",
+	    "ejectLastMounted:"
 	);
 	Outlets = (
 	    controlView,
@@ -15,15 +16,18 @@
 	    device,
 	    path,
 	    status,
-	    actionButton
+	    actionButton,
+	    openButton,
+	    mountPanel
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
 	    "mountOrEject:",
-	    "showMountPanel:",
+	    "ejectLastMounted:",
 	    "orderFrontFontPanel:",
+	    "showMountPanel:",
 	    "showPrefPanel:",
 	    "showVolumesPanel:"
 	);

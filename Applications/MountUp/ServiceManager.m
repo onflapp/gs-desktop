@@ -29,6 +29,11 @@
   [services addObject:task];
 }
 
+- (void) stopService:(ServiceTask*) task {
+  [task stopTask];
+  [services removeObject:task];
+}
+
 - (void) stopAllServices {
   for (ServiceTask* task in services) {
     [task stopTask];

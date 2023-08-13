@@ -33,7 +33,9 @@ MountUp_APPLICATION_ICON =
 #
 MountUp_RESOURCE_FILES = \
 Resources/MountUp.gorm \
-Resources/services 
+Resources/services \
+Resources/ApplicationScripting.xlp \
+Resources/ScriptingInfo.plist 
 
 
 #
@@ -44,7 +46,8 @@ AppController.h \
 MiniView.h \
 ServiceManager.h \
 ServiceTask.h \
-LoopbackServiceTask.h
+LoopbackServiceTask.h \
+STScriptingSupport.h
 
 #
 # Objective-C Class files
@@ -54,7 +57,9 @@ AppController.m \
 MiniView.m \
 ServiceManager.m \
 ServiceTask.m \
-LoopbackServiceTask.m
+LoopbackServiceTask.m \
+AppController+scripting.m \
+STScriptingSupport.m
 
 #
 # Other sources

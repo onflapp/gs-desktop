@@ -21,7 +21,9 @@
   IBOutlet NSView* controlView;
   IBOutlet NSBrowser* volumesBrowser;
   IBOutlet NSPanel* volumesPanel;
+  IBOutlet NSPanel* mountPanel;
   IBOutlet NSButton* actionButton;
+  IBOutlet NSButton* openButton;
   IBOutlet NSTextField* device;
   IBOutlet NSTextField* path;
   IBOutlet NSTextField* status;
@@ -43,6 +45,8 @@
 - (void) applicationWillTerminate: (NSNotification *)aNotif;
 - (BOOL) application: (NSApplication *)application
 	    openFile: (NSString *)fileName;
+
+- (void) ejectLastMounted:(id)sender;
 
 - (void) showPrefPanel: (id)sender;
 - (void) showMountPanel:(id)sender;

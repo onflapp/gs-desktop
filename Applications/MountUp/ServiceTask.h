@@ -45,6 +45,8 @@
 - (NSString*) mountPoint;
 - (NSString*) UNIXDevice;
 
+- (BOOL) isMounted;
+
 - (void) startTask;
 - (void) stopTask;
 

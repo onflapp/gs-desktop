@@ -16,7 +16,9 @@
 	"MiniView.m",
 	"ServiceManager.m",
 	"ServiceTask.m",
-	"LoopbackServiceTask.m"
+	"LoopbackServiceTask.m",
+	"AppController+scripting.m",
+	"STScriptingSupport.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "-DWITH_UDISKS";
@@ -30,7 +32,8 @@
 	"MiniView.h",
 	"ServiceManager.h",
 	"ServiceTask.h",
-	"LoopbackServiceTask.h"
+	"LoopbackServiceTask.h",
+	"STScriptingSupport.h"
     );
     IMAGES = (
     );
@@ -50,7 +53,9 @@
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
-	services
+	services,
+	"ApplicationScripting.xlp",
+	"ScriptingInfo.plist"
     );
     "OTHER_SOURCES" = (
 	"MountUp_main.m"

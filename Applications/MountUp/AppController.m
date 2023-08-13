@@ -7,6 +7,7 @@
 */
 
 #import "AppController.h"
+#import "STScriptingSupport.h"
 #import "MiniView.h"
 #import "ServiceTask.h"
 #import "LoopbackServiceTask.h"
@@ -42,6 +43,8 @@
 }
 
 - (void) awakeFromNib {
+  [mountPanel setFrameAutosaveName:@"mount_window"];
+  [volumesPanel setFrameAutosaveName:@"volume_window"];
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif {
@@ -53,6 +56,9 @@
   [controlView setFrame:NSMakeRect(8, 8, 48, 48)];
   [controlView setNeedsDisplay:YES];
   
+  if([NSApp isScriptingSupported]) {
+    [NSApp initializeApplicationScripting];
+  }
 
   NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
   [nc addObserver:self
@@ -63,6 +69,11 @@
   [nc addObserver:self
          selector:@selector(didReceiveDeviceNotification:)
              name:OSEDiskDisappeared
+           object:nil];
+
+  [nc addObserver:self
+         selector:@selector(didReceiveServiceNotification:)
+             name:@"serviceStatusHasChanged"
            object:nil];
 
   [self refreshDrives];
@@ -95,11 +106,21 @@
   [services startService:lser];
 }
 
-- (void) didReceiveDeviceNotification:(NSNotification*) val {
-  NSLog(@"notification:%@", val);
-  if ([volumesPanel isVisible]) {
-    [self refreshDrives];
+- (void) didReceiveServiceNotification:(NSNotification*) val {
+  ServiceTask* ser = [val object];
+  if ([ser isMounted]) {
+    NSString* p = [ser mountPoint];
+    if ([p length]) {
+      [[NSWorkspace sharedWorkspace] selectFile:@"." inFileViewerRootedAtPath:p];
+    }
   }
+
+  [self performSelector:@selector(refreshDrives) withObject:nil afterDelay:1.0];
+}
+
+- (void) didReceiveDeviceNotification:(NSNotification*) val {
+  NSLog(@"device notification:%@", val);
+  [self performSelector:@selector(refreshDrives) withObject:nil afterDelay:1.0];
 }
 
 - (NSInteger) browser:(NSBrowser*) browser numberOfRowsInColumn:(NSInteger) col {
@@ -142,10 +163,12 @@
         stat = @"mounted";
         [actionButton setTitle:@"Eject"];
         [actionButton setEnabled:YES];
+        [openButton setEnabled:YES];
       }
       else {
         [actionButton setTitle:@"Mount"];
         [actionButton setEnabled:YES];
+        [openButton setEnabled:NO];
       }
 
       [device setStringValue:[vol UNIXDevice]];
@@ -154,17 +177,19 @@
     }
     else if ([d isKindOfClass:[ServiceTask class]]) {
       ServiceTask* ser = d;
-      if ([[ser mountPoint] length]) {
+      if ([ser isMounted]) {
         [device setStringValue:[ser UNIXDevice]];
         [path setStringValue:[ser mountPoint]];
         [status setStringValue:@"mounted"];
 
         [actionButton setTitle:@"Unmout"];
         [actionButton setEnabled:YES];
+        [openButton setEnabled:YES];
       }
       else {
         [actionButton setTitle:@"Mount"];
         [actionButton setEnabled:NO];
+        [openButton setEnabled:NO];
       }
     }
   }
@@ -173,6 +198,7 @@
     [path setStringValue:@""];
     [status setStringValue:@""];
     [actionButton setEnabled:NO];
+    [openButton setEnabled:NO];
   }
 }
 
@@ -209,14 +235,12 @@
   if ([d isKindOfClass:[OSEUDisksVolume class]]) {
     OSEUDisksVolume* vol = d;
     if (![vol isMounted]) {
-      [vol mount:YES];
+      return;
     }
 
-    if ([vol isMounted]) {
-      NSString* p = [vol mountPoints];
-      if ([p length]) {
-        [[NSWorkspace sharedWorkspace] selectFile:@"." inFileViewerRootedAtPath:p];
-      }
+    NSString* p = [vol mountPoints];
+    if ([p length]) {
+      [[NSWorkspace sharedWorkspace] selectFile:@"." inFileViewerRootedAtPath:p];
     }
   }
   else if ([d isKindOfClass:[ServiceTask class]]) {
@@ -228,6 +252,30 @@
   }
 
   [self refreshInfo];
+}
+
+- (void) ejectLastMounted:(id)sender {
+  for (id d in volumes) {
+    if ([d isMounted]) {
+      if ([d isKindOfClass:[OSEUDisksVolume class]]) {
+        OSEUDisksVolume* vol = d;
+        [[vol drive]unmountVolumes:YES];
+        if ([[vol drive]isEjectable]) {
+          [[vol drive]eject:YES];
+          break;
+        }
+        else {
+          break;
+        }
+      }
+      else if ([d isKindOfClass:[ServiceTask class]]) {
+        [services stopService:d];
+        break;
+      }
+    }
+  }
+
+  [self performSelector:@selector(refreshDrives) withObject:nil afterDelay:1.0];
 }
 
 - (void) mountOrEject:(id)sender {
@@ -249,9 +297,8 @@
   }
   else if ([d isKindOfClass:[ServiceTask class]]) {
     ServiceTask* ser = d;
-    NSString* p = [ser mountPoint];
-    if ([p length]) {
-      [ser stopTask];
+    if ([ser isMounted]) {
+      [services stopService:ser];
     }
   }
 
@@ -262,6 +309,7 @@
 }
 
 - (void) showMountPanel:(id)sender {
+  [mountPanel makeKeyAndOrderFront:sender];
 }
 
 - (void) showVolumesPanel:(id)sender {
