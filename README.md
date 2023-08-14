@@ -7,7 +7,7 @@
 - scriptability - [StepTalk](https://github.com/onflapp/libs-steptalk)
 - intergration with command line utilities / scripts [Tools](https://github.com/onflapp/gs-desktop/tree/main/Applications/Tools)
 
-It should work on any Debian-based system (I personally use Raspberry PI4 as my main development and user platform) and possibly any modern Linux distribution with a bit tweaking.
+It should work on any modern Debian or Fedora-based system (I personally use Raspberry PI4 as my main development and user platform) and possibly any modern Linux distribution with a bit tweaking.
 
 ### 1. Install Dependencies
 
@@ -50,6 +50,6 @@ The whole desktop is going to be installed in `/Application`, `/System` and `/Li
 
 ### Start GS Desktop
 
-If you use modern login manager, you will see two new xsessions (normal startup and safe mode) for you to choose to log in.
+If you use modern login manager, you will see two new xsessions (normal startup and safe mode) for you to choose to log into.
 
 Otherwise, use `/System/bin/startgsde` to start the desktop within your existing X session or add to your `~/.xsessionrc` or `~/.xinitrc`.
