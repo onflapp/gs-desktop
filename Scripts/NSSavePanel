@@ -1,0 +1,36 @@
+#!/Library/bin/stexec
+
+[|
+  main
+    Environment loadModule:'AppKit'.
+
+    app := NSApplication sharedApplication.
+    app setDelegate:self.
+    app run.
+
+    ^self
+  !
+
+  application:app openFile:file
+    ^self
+  !
+
+  applicationDidFinishLaunching:not
+    panel := NSSavePanel savePanel.
+    rv := panel runModal.
+    
+    (rv > 0)
+    ifTrue: 
+    [
+      Transcript showLine: (panel filename).
+      Script returnExitCode: 0.
+    ]
+    ifFalse:
+    [
+      Script returnExitCode: 1.
+    ].
+
+    NSApplication sharedApplication terminate:nil.
+
+    ^self
+]

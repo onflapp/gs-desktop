@@ -1,0 +1,93 @@
+#!/Library/bin/stexec
+
+[|
+  main
+    Environment loadModule:'AppKit'.
+
+    app := NSApplication sharedApplication.
+    app setDelegate:self.
+    app run.
+
+    ^self
+  !
+
+  doAction:sender
+    ((sender tag) == 1)
+    ifTrue:
+    [
+      Transcript showLine:field stringValue.
+    ].
+    app terminate:self.
+  !
+
+  application:app openFile:file
+    ^self
+  !
+
+  applicationDidFinishLaunching:not
+    ((Args count) > 0)
+    ifTrue: 
+    [
+      app   := NSApplication sharedApplication.
+      title := Args @ 0.
+      but1  := 'OK'.
+      but2  := 'Cancel'.
+      val   := ''.
+      
+      ((Args count) >= 2) 
+        ifTrue:[ val := Args @ 1 ].
+      
+      ((Args count) >= 3) 
+        ifTrue:[ but1  := Args @ 2 ].
+
+      ((Args count) = 4) 
+        ifTrue:[ but2  := Args @ 3 ].
+
+      frame := ((350 - 70 - 8) @ 8) extent: (70 @@ 24).
+      ok := NSButton alloc initWithFrame:frame.
+      ok setTitle: but1.
+      ok setTag:1.
+      ok setAction:#doAction:.
+
+      frame := ((350 - 70 - 8 - 70 - 8) @ 8) extent: (70 @@ 24).
+      cancel := NSButton alloc initWithFrame:frame.
+      cancel setTitle: but2.
+      cancel setTag:0.
+      cancel setAction:#doAction:.
+
+      frame := (8 @ (8 + 24 + 8)) extent: ((350 - 8 - 8) @@ 22).
+      field := NSTextField alloc initWithFrame:frame.
+      field setStringValue:val.
+      field setTag:1.
+      field setAction:#doAction:.
+
+      frame := (8 @ (8 + 24 + 8 + 22)) extent: ((350 - 8 - 8) @@ 22).
+      label:= NSTextField alloc initWithFrame:frame.
+      label setEditable:NO.
+      label setStringValue:title.
+      label setBezeled:NO.
+      label setDrawsBackground:NO.
+
+      frame := (10 @ 10) extent: (350 @@ 100).
+      mask :=  NSTitledWindowMask.
+      panel := NSPanel alloc initWithContentRect:frame styleMask:mask backing:NSBackingStoreRetained defer:NO.
+
+      panel contentView addSubview:label.
+      panel contentView addSubview:field.
+      panel contentView addSubview:cancel.
+      panel contentView addSubview:ok.
+
+      app runModalForWindow: panel.
+ 
+      Script returnExitCode: rv.
+    ]
+    ifFalse: 
+    [
+      Transcript showLine:'nstextfield [title] [value] [button1] [button2]'.
+      Script returnExitCode: 1.
+    ].
+
+    NSApplication sharedApplication terminate:nil.
+
+    ^self
+]
