@@ -17,7 +17,7 @@ There is a script you can use to help you install all that is needed.
 
 ```
 cd dependencies
-./install-dependencies-debian.sh debian11.txt
+sudo ./install-dependencies-debian.sh
 ```
 
 My favorite way to get GSDE working is to install minimal Debian distribution (no X or any desktop environment) and then do something like this:
@@ -26,7 +26,7 @@ My favorite way to get GSDE working is to install minimal Debian distribution (n
 apt-get install git
 git clone https://github.com/onflapp/gs-desktop
 cd gs-desktop/dependencies
-sudo ./install-dependencies-debian.sh debian11.txt
+sudo ./install-dependencies-debian.sh
 ```
 
 ### 2. Fetch sources
