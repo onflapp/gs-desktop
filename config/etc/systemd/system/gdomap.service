@@ -1,11 +1,11 @@
 [Unit]
-Description=GNUstep Distributed Objects
+Description=GNUstep Distributed Objects GSDE
 After=syslog.target network.target
 
 [Service]
 Type=forking
 Environment=LD_LIBRARY_PATH=/Library/Libraries
-ExecStart=/usr/local/bin/gdomap-gsde -p -a /System/etc/gdomap.interfaces
+ExecStart=/usr/local/bin/gdomap-gsde -p
 ExecStop=/bin/kill -INT $MAINPID
 KillMode=process
 Restart=on-failure
