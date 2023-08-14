@@ -1,5 +1,5 @@
 {
-    APPLICATIONICON = "";
+    APPLICATIONICON = "MountUp.tiff";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
     "BUILDER_TARGETS" = (
@@ -36,6 +36,8 @@
 	"STScriptingSupport.h"
     );
     IMAGES = (
+	"MountUp.tiff",
+	"disk_image.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (

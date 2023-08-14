@@ -6,7 +6,7 @@
 @implementation AppController (scripting)
 
 - (void) ejectLastMounted {
-  [super ejectLastMounted:self];
+  [self ejectLastMounted:self];
 }
 
 @end

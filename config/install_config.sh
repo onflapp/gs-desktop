@@ -29,7 +29,10 @@ echo " gdomap service"
 echo "=================="
 
 systemctl stop gdomap.service
+
 cp ./etc/systemd/system/gdomap.service /etc/systemd/system
+cp /Library/bin/gdomap /usr/local/bin/gdomap-gsde
+
 systemctl enable gdomap.service
 systemctl start gdomap.service
 systemctl --no-pager  status gdomap.service || exit 1

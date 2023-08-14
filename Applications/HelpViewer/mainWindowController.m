@@ -354,7 +354,7 @@
 
 	if (column == 0) // First column
 	{
-		Section* section = [handler sections];
+		Section* section = (Section*)[handler sections];
 		ret = [[section subs] count];
 	}	
 	else
@@ -375,7 +375,7 @@
 
 	if (column == 0) // First column
 	{
-		Section* section = [handler sections];
+		Section* section = (Section*)[handler sections];
 		sub = [[section subs] objectAtIndex: row];
 	}
 	else
@@ -428,7 +428,7 @@
 
 - (void) browserClick: (id) sender
 {
-	Section* sub = [[sender selectedCell] section];
+	Section* sub = (Section*)[[sender selectedCell] section];
 	if (sub != nil)
 	{
 		//NSLog (@"browserClick");

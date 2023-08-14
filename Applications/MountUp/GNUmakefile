@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = MountUp
 APP_NAME = MountUp
-MountUp_APPLICATION_ICON = 
+MountUp_APPLICATION_ICON = MountUp.tiff
 
 
 #
@@ -33,6 +33,8 @@ MountUp_APPLICATION_ICON =
 #
 MountUp_RESOURCE_FILES = \
 Resources/MountUp.gorm \
+Resources/MountUp.tiff \
+Resources/disk_image.tiff \
 Resources/services \
 Resources/ApplicationScripting.xlp \
 Resources/ScriptingInfo.plist 
