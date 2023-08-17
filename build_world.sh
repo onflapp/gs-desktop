@@ -17,7 +17,7 @@ if ! [ -d "../libobjc2" ];then
   exit 1
 fi
 
-export PATH=/System/bin:$PATH
+export PATH=/System/bin:/Library/bin:$PATH
 
 D=`pwd`
 cd ./system
