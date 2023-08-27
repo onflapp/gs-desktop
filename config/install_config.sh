@@ -6,6 +6,7 @@ echo "=================="
 
 mkdir -p /usr/share/xsessions 2>/dev/null
 cp ./usr/share/xsessions/* /usr/share/xsessions
+cp ./usr/local/bin/* /usr/local/bin
 cp ./System/bin/* /System/bin
 cp -R ./System/etc/* /System/etc
 cp -R ./etc/skel/* /etc/skel
@@ -28,10 +29,10 @@ echo "=================="
 echo " gdomap service"
 echo "=================="
 
+systemctl daemon-reload
 systemctl stop gdomap.service
 
 cp ./etc/systemd/system/gdomap.service /etc/systemd/system
-cp /Library/bin/gdomap /usr/local/bin/gdomap-gsde
 
 systemctl enable gdomap.service
 systemctl start gdomap.service

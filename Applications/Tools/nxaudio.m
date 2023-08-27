@@ -26,6 +26,7 @@
 {
   if ((self = [super init])) {
     status = -1;
+    [NSUserDefaults standardUserDefaults]; //prevents crash in the serverStateChanged
   }
   return self;
 }
@@ -45,9 +46,9 @@
   }
 
   for (NSInteger i = 100; i > 0; i--) {
-    NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.05];
+    NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
     [[NSRunLoop currentRunLoop] runUntilDate: limit];
-    
+
     if (status == 1) return YES;
     else if (status == 0) return NO;
   }
@@ -56,7 +57,7 @@
 }
 
 - (void)setOutputVolumeUp {
-  NSInteger max = [soundOut volumeSteps] - 1;
+  NSInteger max = max_volume;
   NSInteger d = max / 20;
   NSInteger v = [soundOut volume] + d;
   if (v > max) v = max;
@@ -64,7 +65,7 @@
 }
 
 - (void)setOutputVolumeDown {
-  NSInteger max = [soundOut volumeSteps] - 1;
+  NSInteger max = max_volume;
   NSInteger d = max / 20;
   NSInteger v = [soundOut volume] - d;
   if (v < 0) v = 0;
@@ -72,8 +73,7 @@
 }
 
 - (void)setOutputVolume:(NSInteger) val {
-  NSInteger max = [soundOut volumeSteps] - 1;
-  NSInteger v = ((float)max * ((float)val / 100));
+  NSInteger v = ((float)max_volume * ((float)val / 100));
   [soundOut setVolume:v];
 }
 
@@ -90,15 +90,16 @@
   if (soundServer.status == SNDServerReadyState) {
     soundOut = [[soundServer defaultOutput] retain];
     soundIn = [[soundServer defaultInput] retain];
-    
+
+    max_volume = [soundOut volumeSteps] - 1;
+
     [[NSNotificationCenter defaultCenter]
         addObserver:self
            selector:@selector(deviceDidUpdate:)
                name:SNDDeviceDidChangeNotification
              object:nil];
 
-    NSInteger max = [soundOut volumeSteps] - 1;
-    float val = ((float)[soundOut volume] / (float)max);
+    float val = ((float)[soundOut volume] / (float)max_volume);
     NSLog(@"output: %d", (int)(val*100));
     status = 1;
   }

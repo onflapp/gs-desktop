@@ -101,7 +101,7 @@
     Lock = No;
     AutoLaunch = No;
     Command = "-";
-    Position = "151,0";
+    Position = "160,0";
     Forced = No;
     BuggyApplication = No;
   };
@@ -112,7 +112,7 @@
       Clip = {
         AutoAttractIcons = No;
         AutoCollapse = No;
-        Lowered = No;
+        Lowered = Yes;
         Collapsed = No;
         AutoRaiseLower = No;
         Applications = ();

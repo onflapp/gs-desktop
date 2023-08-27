@@ -105,3 +105,4 @@ recollcmd
 libical-dev
 p7zip
 udisks2
+chromium

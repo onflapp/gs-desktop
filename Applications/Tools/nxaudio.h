@@ -24,6 +24,7 @@
 @interface SoundController : NSObject
 {
    NSInteger status;
+   NSInteger max_volume;
 
    SNDServer *soundServer;
    SNDOut	   *soundOut;

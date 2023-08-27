@@ -96,7 +96,7 @@
     soundIn = [[soundServer defaultInput] retain];
     
     if (soundOut) {
-      [volumeSlider setMaxValue:[soundOut volumeSteps]-1];
+      [volumeSlider setMaxValue:[soundOut volumeSteps]];
     }
     [[NSNotificationCenter defaultCenter]
         addObserver:self

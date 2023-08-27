@@ -65,3 +65,5 @@ htop
 scrot
 rclone
 vlc-core
+pulseaudio-libs-devel
+chromium
