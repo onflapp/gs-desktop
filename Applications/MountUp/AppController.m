@@ -12,6 +12,16 @@
 #import "ServiceTask.h"
 #import "LoopbackServiceTask.h"
 
+BOOL hasFSTab(NSDictionary* props) {
+  NSString* opts = [[props valueForKey:@"org.freedesktop.UDisks2.Block"] valueForKey:@"Configuration"];
+  if ([opts hasPrefix:@"[('fstab'"]) {
+    return TRUE;
+  }
+  else {
+    return FALSE;
+  }
+}
+
 @implementation AppController
 
 + (void) initialize
@@ -211,9 +221,16 @@
     NSDictionary* vl = [disks availableVolumesForDrive:[d objectPath]];
     NSEnumerator *ve = [vl objectEnumerator];
     OSEUDisksVolume *vol;
+    NSLog(@"dev:%@", d);
         
     while ((vol = [ve nextObject]) != nil) {
-      if ([vol isFilesystem] && ![vol isSystem]) {
+      BOOL am = [vol boolPropertyForKey:@"HintAuto" interface:BLOCK_INTERFACE];
+      BOOL fs = [vol isFilesystem];
+      BOOL ss = [vol isSystem];
+      BOOL tb = hasFSTab([vol properties]);
+      NXTFSType ft = [vol type];
+
+      if (fs && !ss && ft != -1 && !tb) {
         [volumes addObject:vol];
       }
     }
