@@ -199,21 +199,33 @@ function wait_for_workspace {
 function startup_scripts {
   /Library/bin/nxnotify --show-panel --title "GSDE" --info "Launching applications..."
 
-  #wait_for_workspace
+  wait_for_workspace
   sleep 1
   /Library/Scripts/AutoLaunchApps
 
   /Library/bin/nxnotify --hide-panel 1
 }
 
+function save_screen {
+  autorandr --force -s gsdesktop
+}
+
+function restore_screen {
+  autorandr -c
+}
+
 function start_normal {
   WM_ARGS="--no-autolaunch --dont-restore"
+ 
+  restore_screen
   init_config
   main_process
   startup_scripts
  
   wait $GW_PID
   sleep 1
+
+  save_screen
   cleanup
 }
 

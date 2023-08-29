@@ -107,3 +107,4 @@ p7zip
 udisks2
 chromium
 libpcap-dev
+autorandr
