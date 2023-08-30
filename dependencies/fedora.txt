@@ -36,6 +36,7 @@ libtiff-devel
 giflib-devel
 cairo-devel
 libXrandr-devel
+xrandr
 dbus-devel
 dbus-glib-devel
 libblocksruntime-devel
@@ -67,3 +68,10 @@ rclone
 vlc-core
 pulseaudio-libs-devel
 chromium
+autorandr
+git
+texlive-metafont
+texlive-latex
+texlive-dvips
+texlive-ec
+texinfo

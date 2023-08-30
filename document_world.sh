@@ -68,7 +68,7 @@ echo " gorm documentation"
 echo "=================="
 
 cd "$D"
-cd ../apps-gorm/Documentation
+cd ../apps-gorm/Applications/Gorm/Documentation
 
 make clean
 make || exit 1

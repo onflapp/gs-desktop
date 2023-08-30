@@ -2,11 +2,13 @@
 
 cd ../../
 
-if [ `dpkg --print-architecture 2>/dev/null` = "armhf" ];then
-  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-  echo "this is ARM 32bit, we need to downgrade to version 1.9"
-  echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-  BRANCH="origin/1.9"
+if command -V dpkg >/dev/null 2>&1 ;then
+  if [ `dpkg --print-architecture 2>/dev/null` = "armhf" ];then
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    echo "this is ARM 32bit, we need to downgrade to version 1.9"
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    BRANCH="origin/1.9"
+  fi
 fi
   
 if [ -d libobjc2 ];then
