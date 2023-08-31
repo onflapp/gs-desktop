@@ -3,6 +3,8 @@ D=`pwd`
 
 . /Developer/Makefiles/GNUstep.sh
 
+export PATH=/System/bin:$PATH
+
 cd ../../apps-gorm || exit 1
 
 make clean

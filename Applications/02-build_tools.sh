@@ -3,6 +3,8 @@ D=`pwd`
 
 . /Developer/Makefiles/GNUstep.sh
 
+export PATH=/System/bin:$PATH
+
 function build_app {
   cd "$D"
   cd ./$1 || exit 1

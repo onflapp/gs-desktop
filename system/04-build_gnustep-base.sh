@@ -2,6 +2,8 @@
 
 . /Developer/Makefiles/GNUstep.sh
 
+export PATH=/System/bin:$PATH
+
 echo "=================="
 echo " GNUstep base"
 echo "=================="

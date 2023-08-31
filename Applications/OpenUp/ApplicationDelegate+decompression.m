@@ -183,6 +183,9 @@
   if (!fileConfig)
     return;
 
+  NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
+  [[NSRunLoop currentRunLoop] runUntilDate: limit];
+
   shellPath = [self shellPathUsingConfiguration:fileConfig];
   shellArgs = [self shellArgsUsingConfiguration:fileConfig];
   NSLog(@"RUN: %@ %@", shellPath, shellArgs);

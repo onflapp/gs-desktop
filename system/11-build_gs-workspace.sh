@@ -2,6 +2,8 @@
 
 . /Developer/Makefiles/GNUstep.sh
 
+export PATH=/System/bin:$PATH
+
 cd ../../gs-workspace || exit 1
 
 ./configure || exit 1

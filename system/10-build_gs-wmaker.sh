@@ -3,6 +3,8 @@
 . /Developer/Makefiles/GNUstep.sh
 . ../BUILD_SETTINGS.sh
 
+export PATH=/System/bin:$PATH
+
 unset LD
 unset LDFLAGS
 

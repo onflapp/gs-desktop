@@ -29,6 +29,7 @@ libXpm-devel
 gnutls-devel
 libicu-devel
 avahi-devel
+libcurl-devel
 libvncserver-devel
 libjpeg-turbo-devel
 libpng-devel
@@ -70,6 +71,7 @@ pulseaudio-libs-devel
 chromium
 autorandr
 git
+libpcap-devel
 texlive-metafont
 texlive-latex
 texlive-dvips

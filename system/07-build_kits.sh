@@ -3,6 +3,8 @@
 . /Developer/Makefiles/GNUstep.sh
 D=`pwd`
 
+export PATH=/System/bin:$PATH
+
 echo "=================="
 echo " DBus Kit"
 echo "=================="

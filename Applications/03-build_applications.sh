@@ -3,6 +3,8 @@ D=`pwd`
 
 . /Developer/Makefiles/GNUstep.sh
 
+export PATH=/System/bin:$PATH
+
 echo "=================="
 echo " Terminal App"
 echo "=================="
