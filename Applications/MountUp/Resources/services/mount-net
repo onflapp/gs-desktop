@@ -1,0 +1,39 @@
+#!/bin/bash
+
+URL="$1"
+DIR=""
+
+trap disconnect SIGINT SIGTERM
+
+function process {
+  while [ -x "$DIR" ];do
+    sleep 5
+  done
+}
+
+function connect {
+  A=`ls -t /run/user/$UID/gvfs/ | tail -n 1`
+
+  echo "connecting $URL"
+  gio mount "$URL"
+  sleep 1
+
+  B=`ls -t /run/user/$UID/gvfs/ | tail -n 1`
+  if [ "$A" != "$B" ];then
+    DIR="/run/user/$UID/gvfs/$B"
+    echo "$DIR"
+  else
+    echo "no mount found"
+    disconnect
+  fi
+}
+
+function disconnect {
+  echo "disconnect"
+  gio mount -u "$URL"
+  exit 0
+}
+
+connect
+process
+disconnect

@@ -24,6 +24,7 @@
   IBOutlet NSPanel* mountPanel;
   IBOutlet NSButton* actionButton;
   IBOutlet NSButton* openButton;
+  IBOutlet NSButton* toggleButton;
   IBOutlet NSTextField* device;
   IBOutlet NSTextField* path;
   IBOutlet NSTextField* status;
@@ -51,6 +52,7 @@
 - (void) showPrefPanel: (id)sender;
 - (void) showMountPanel:(id)sender;
 - (void) showVolumesPanel: (id)sender;
+- (void) toggleShowAll: (id)sender;
 
 @end
 

@@ -214,6 +214,7 @@ BOOL hasFSTab(NSDictionary* props) {
 
 - (void) refreshDrives {
   [volumes removeAllObjects];
+  BOOL all = (BOOL)[toggleButton state];
 
   id d;
   NSEnumerator* e = [[disks availableDrives] objectEnumerator];
@@ -230,7 +231,10 @@ BOOL hasFSTab(NSDictionary* props) {
       BOOL tb = hasFSTab([vol properties]);
       NXTFSType ft = [vol type];
 
-      if (fs && !ss && ft != -1 && !tb) {
+      if (all) {
+        [volumes addObject:vol];
+      }
+      else if (fs && !ss && ft != -1 && !tb) {
         [volumes addObject:vol];
       }
     }
@@ -319,6 +323,10 @@ BOOL hasFSTab(NSDictionary* props) {
     }
   }
 
+  [self refreshDrives];
+}
+
+- (void) toggleShowAll: (id)sender {
   [self refreshDrives];
 }
 
