@@ -39,6 +39,7 @@
 - (IBAction) connect:(id) sender;
 
 - (void) showPanel;
+- (void) showPanelWithURL:(NSURL*)url;
 - (void) closePanel;
 @end
 

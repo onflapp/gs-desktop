@@ -99,10 +99,28 @@ BOOL hasFSTab(NSDictionary* props) {
 - (void) applicationWillTerminate: (NSNotification *)aNotif {
 }
 
+- (void)openURL:(NSPasteboard *)pboard
+       userData:(NSString *)userData
+          error:(NSString **)error  {
+  NSString* fileName = [pboard stringForType:NSStringPboardType];
+
+  if (fileName) {
+    [self application:NSApp openFile:fileName];
+  }
+}
+
 - (BOOL) application: (NSApplication *)application
 	    openFile: (NSString *)fileName {
 
-  [self openLoopbackFile:fileName];
+  if ([[NSFileManager defaultManager] fileExistsAtPath:fileName]) {
+    [self openLoopbackFile:fileName];
+  }
+  else {
+    NSURL* url = [NSURL URLWithString:fileName];
+    if (url) {
+      [networkDrive showPanelWithURL:url];
+    }
+  }
   return NO;
 }
 

@@ -65,6 +65,43 @@
   [panel makeKeyAndOrderFront:self];
 }
 
+- (void) showPanelWithURL:(NSURL*)url {
+  NSString* h = [url host];
+  NSString* u = [url user];
+  NSString* x = [url password];
+  NSString* p = [url path];
+  NSString* t = [url scheme];
+  NSNumber* o = [url port];
+
+  if (x) [password setStringValue:x];
+  if (u) [user setStringValue:u];
+
+  if (h) {
+    NSMutableString* l = [NSMutableString string];
+    [l appendString:h];
+    if (o) {
+      [l appendFormat:@":%@", o];
+    }
+    if (p) {
+      [l appendString:p];
+    }
+
+    [location setStringValue:l];
+  }
+
+  if ([t isEqualToString:@"dav"] || [t isEqualToString:@"davs"]) {
+    [type selectItemAtIndex:1];
+  }
+  else if ([t isEqualToString:@"sftp"]) {
+    [type selectItemAtIndex:2];
+  }
+  else {
+    [type selectItemAtIndex:0];
+  }
+
+  [panel makeKeyAndOrderFront:self];
+}
+
 - (void) closePanel {
   [panel orderOut:self];
 }

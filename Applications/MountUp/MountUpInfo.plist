@@ -12,6 +12,17 @@
     NSMainNibFile = "MountUp.gorm";
     NSPrincipalClass = NSApplication;
     NSRole = Application;
+    CFBundleURLTypes = (
+        {
+            CFBundleURLName = "Network Drive URL";
+            CFBundleURLSchemes = (
+                smb,
+                dav,davs,
+                sftp,
+                gitfs
+            );
+        }
+    );
     NSTypes = (
 	{
 	    NSIcon = "disk_image.tiff";
