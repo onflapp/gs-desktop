@@ -1,0 +1,53 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    AppController = {
+	Actions = (
+	    "showPrefPanel:",
+	    "showVolumesPanel:",
+	    "mountOrEject:",
+	    "open:",
+	    "showMountPanel:",
+	    "ejectLastMounted:",
+	    "toggleShowAll:"
+	);
+	Outlets = (
+	    controlView,
+	    volumesPanel,
+	    volumesBrowser,
+	    device,
+	    path,
+	    status,
+	    actionButton,
+	    openButton,
+	    mountPanel,
+	    toggleButton
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "ejectLastMounted:",
+	    "mountOrEject:",
+	    "connect:",
+	    "orderFrontFontPanel:",
+	    "showMountPanel:",
+	    "showPrefPanel:",
+	    "showVolumesPanel:",
+	    "toggleShowAll:"
+	);
+	Super = NSObject;
+    };
+    NetworkDrive = {
+	Actions = (
+	    "connect:"
+	);
+	Outlets = (
+	    panel,
+	    type,
+	    location,
+	    user,
+	    password
+	);
+	Super = NSObject;
+    };
+}

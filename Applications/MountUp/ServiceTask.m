@@ -84,6 +84,10 @@
   [task setLaunchPath:exec];
   [task setArguments:args];
   [task setStandardOutput:pipe];
+
+  pipe = [NSPipe pipe];
+  fo = [[pipe fileHandleForWriting] retain];
+  [task setStandardInput:pipe];
   //[task setCurrentDirectoryPath:wp];
 
   [[NSNotificationCenter defaultCenter] 
@@ -121,9 +125,12 @@
 
   [fh closeFile];
   [fh release];
+  [fo closeFile];
+  [fo release];
   [task release];
   task = nil;
   fh = nil;
+  fo = nil;
 }
 
 - (void) dataReceived:(NSNotification*) not {
@@ -147,6 +154,11 @@
     [buff appendBytes:bytes+c length:sz - c];
   }
   [fh readInBackgroundAndNotify];
+}
+
+- (void) writeLine:(NSString*) line {
+  NSData* data = [[NSString stringWithFormat:@"%@\n", line?line:@""] dataUsingEncoding:NSUTF8StringEncoding];
+  [fo writeData:data];
 }
 
 - (void) processLine:(NSString*) line {

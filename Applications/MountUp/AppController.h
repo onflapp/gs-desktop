@@ -15,13 +15,13 @@
 #import <SystemKit/OSEUDisksAdaptor.h>
 #import <SystemKit/OSEUDisksVolume.h>
 #import "ServiceManager.h"
+#import "NetworkDrive.h"
 
 @interface AppController : NSObject
 {
   IBOutlet NSView* controlView;
   IBOutlet NSBrowser* volumesBrowser;
   IBOutlet NSPanel* volumesPanel;
-  IBOutlet NSPanel* mountPanel;
   IBOutlet NSButton* actionButton;
   IBOutlet NSButton* openButton;
   IBOutlet NSButton* toggleButton;
@@ -32,6 +32,8 @@
   OSEUDisksAdaptor* disks;
   NSMutableArray* volumes;
   ServiceManager* services;
+
+  NetworkDrive* networkDrive;
 }
 
 + (void)  initialize;

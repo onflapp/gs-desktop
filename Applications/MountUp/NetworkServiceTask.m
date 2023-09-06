@@ -22,13 +22,13 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#import "LoopbackServiceTask.h"
+#import "NetworkServiceTask.h"
 
-@implementation LoopbackServiceTask
+@implementation NetworkServiceTask
 
-- (id) initWithName:(NSString*) nm {
+- (id) initWithURL:(NSString*) url {
   if ((self = [super init])) {
-    name = [nm retain];
+    name = [url retain];
     status = -1;
   }
   return self;
@@ -36,8 +36,17 @@
 
 - (void) dealloc {
   [self stopTask];
-  [name release];
+  [user release];
+  [password release];
   [super dealloc];
+}
+
+- (void) setUser:(NSString*) v {
+  ASSIGN(user, v);
+}
+
+- (void) setPassword:(NSString*) v {
+  ASSIGN(password, v);
 }
 
 - (NSArray*) serviceTaskArguments {
@@ -47,8 +56,29 @@
 }
 
 - (NSString*) serviceTaskExec {
-  NSString* exec = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"services/mount-loopback"];
+  NSString* exec = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"services/mount-net"];
   return exec;
 }
+
+- (void) processLine:(NSString*) line {
+  if ([line hasPrefix:@"P:"]) {
+    ASSIGN(mountpoint, [line substringFromIndex:2]);
+    status = 2;
+
+    [[NSNotificationCenter defaultCenter]
+       postNotificationName:@"serviceStatusHasChanged" object:self];
+  }
+  else if ([line hasPrefix:@"D:"]) {
+    ASSIGN(device, [line substringFromIndex:2]);
+  }
+  else if ([line hasPrefix:@"Enter user and password"]) {
+    [self writeLine:user];
+    [self writeLine:password];
+  }
+  else {
+    NSLog(@"[%@]", line);
+  }
+}
+
 
 @end

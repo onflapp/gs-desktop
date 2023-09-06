@@ -33,6 +33,7 @@ MountUp_APPLICATION_ICON = MountUp.tiff
 #
 MountUp_RESOURCE_FILES = \
 Resources/MountUp.gorm \
+Resources/NetworkDrive.gorm \
 Resources/MountUp.tiff \
 Resources/disk_image.tiff \
 Resources/services \
@@ -49,7 +50,9 @@ MiniView.h \
 ServiceManager.h \
 ServiceTask.h \
 LoopbackServiceTask.h \
-STScriptingSupport.h
+STScriptingSupport.h \
+NetworkDrive.h \
+NetworkServiceTask.h
 
 #
 # Objective-C Class files
@@ -61,7 +64,9 @@ ServiceManager.m \
 ServiceTask.m \
 LoopbackServiceTask.m \
 AppController+scripting.m \
-STScriptingSupport.m
+STScriptingSupport.m \
+NetworkDrive.m \
+NetworkServiceTask.m
 
 #
 # Other sources

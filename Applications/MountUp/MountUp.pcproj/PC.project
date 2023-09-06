@@ -18,7 +18,9 @@
 	"ServiceTask.m",
 	"LoopbackServiceTask.m",
 	"AppController+scripting.m",
-	"STScriptingSupport.m"
+	"STScriptingSupport.m",
+	"NetworkDrive.m",
+	"NetworkServiceTask.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "-DWITH_UDISKS";
@@ -33,7 +35,9 @@
 	"ServiceManager.h",
 	"ServiceTask.h",
 	"LoopbackServiceTask.h",
-	"STScriptingSupport.h"
+	"STScriptingSupport.h",
+	"NetworkDrive.h",
+	"NetworkServiceTask.h"
     );
     IMAGES = (
 	"MountUp.tiff",
@@ -41,7 +45,8 @@
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
-	"MountUp.gorm"
+	"MountUp.gorm",
+	"NetworkDrive.gorm"
     );
     LANGUAGE = English;
     LIBRARIES = (

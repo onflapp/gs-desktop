@@ -32,6 +32,7 @@
    NSMutableArray* services;
 }
 
+- (void) registerService:(ServiceTask*) task;
 - (void) startService:(ServiceTask*) task;
 - (void) stopService:(ServiceTask*) task;
 - (NSArray*) listServices;

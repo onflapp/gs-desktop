@@ -16,10 +16,13 @@ while(<IN>) {
   chomp();
   if ($_ =~ /^=;/) {
     @a = split(';',$_);
+    $i = $a[2];
     $n = $a[3];
     $t = $a[4];
     $a = $a[7];
     $p = $a[8];
+
+    next if ($i ne "IPv4");
 
     if ($t eq "Microsoft Windows Network") {
       list_smb_shares($a, $p);

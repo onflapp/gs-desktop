@@ -11,6 +11,7 @@
 #import "MiniView.h"
 #import "ServiceTask.h"
 #import "LoopbackServiceTask.h"
+#import "NetworkServiceTask.h"
 
 BOOL hasFSTab(NSDictionary* props) {
   NSString* opts = [[props valueForKey:@"org.freedesktop.UDisks2.Block"] valueForKey:@"Configuration"];
@@ -40,6 +41,7 @@ BOOL hasFSTab(NSDictionary* props) {
     disks = [OSEUDisksAdaptor new];
     volumes = [NSMutableArray new];
     services = [[ServiceManager alloc]init];
+    networkDrive = [[NetworkDrive alloc]init];
   }
   return self;
 }
@@ -48,12 +50,12 @@ BOOL hasFSTab(NSDictionary* props) {
   [volumes release];
   [disks release];
   [services release];
+  [networkDrive release];
 
   [super dealloc];
 }
 
 - (void) awakeFromNib {
-  [mountPanel setFrameAutosaveName:@"mount_window"];
   [volumesPanel setFrameAutosaveName:@"volume_window"];
 }
 
@@ -118,6 +120,14 @@ BOOL hasFSTab(NSDictionary* props) {
 
 - (void) didReceiveServiceNotification:(NSNotification*) val {
   ServiceTask* ser = [val object];
+
+  if ([ser isKindOfClass:[NetworkServiceTask class]]) {
+    if ([ser isMounted]) {
+      [services registerService:ser];
+      [networkDrive closePanel];
+    }
+  }
+
   if ([ser isMounted]) {
     NSString* p = [ser mountPoint];
     if ([p length]) {
@@ -334,7 +344,7 @@ BOOL hasFSTab(NSDictionary* props) {
 }
 
 - (void) showMountPanel:(id)sender {
-  [mountPanel makeKeyAndOrderFront:sender];
+  [networkDrive showPanel];
 }
 
 - (void) showVolumesPanel:(id)sender {

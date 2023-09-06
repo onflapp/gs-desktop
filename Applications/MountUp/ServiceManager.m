@@ -24,6 +24,10 @@
   return services;
 }
 
+- (void) registerService:(ServiceTask*) task {
+  [services addObject:task];
+}
+
 - (void) startService:(ServiceTask*) task {
   [task startTask];
   [services addObject:task];

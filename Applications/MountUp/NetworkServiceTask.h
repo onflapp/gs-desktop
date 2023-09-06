@@ -22,38 +22,20 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#ifndef _SERVICETASK_H_
-#define _SERVICETASK_H_
+#ifndef _NETWORKSERVICETASK_H_
+#define _NETWORKSERVICETASK_H_
 
 #import <Foundation/Foundation.h>
+#import "ServiceTask.h"
 
-@interface ServiceTask : NSObject {
-
-  NSString* name;
-  NSString* mountpoint;
-  NSString* device;
-  
-  NSTask* task;
-  NSFileHandle* fh;
-  NSFileHandle* fo;
-  NSInteger status;
-  NSMutableData* buff;
+@interface NetworkServiceTask : ServiceTask {
+   NSString* user;
+   NSString* password;
 }
-- (id) initWithName:(NSString*) name;
-- (NSString*) name;
-- (NSInteger) status;
-
-- (NSString*) mountPoint;
-- (NSString*) UNIXDevice;
-
-- (void) writeLine:(NSString*) line;
-
-- (BOOL) isMounted;
-
-- (void) startTask;
-- (void) stopTask;
-
+- (id) initWithURL:(NSString*) url;
+- (void) setUser:(NSString*) v;
+- (void) setPassword:(NSString*) v;
 @end
 
-#endif // _SERVICETASK_H_
+#endif // _NETWORKSERVICETASK_H_
 

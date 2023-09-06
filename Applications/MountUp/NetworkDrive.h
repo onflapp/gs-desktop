@@ -1,11 +1,11 @@
 /*
-   Project: CloudManager
+   Project: MountUp
 
    Copyright (C) 2022 Free Software Foundation
 
    Author: Parallels
 
-   Created: 2022-09-16 15:40:26 +0000 by parallels
+   Created: 2022-11-02 17:46:05 +0000 by parallels
 
    This application is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,38 +22,25 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#ifndef _SERVICETASK_H_
-#define _SERVICETASK_H_
+#ifndef _NETWORKDRIVE_H_
+#define _NETWORKDRIVE_H_
 
-#import <Foundation/Foundation.h>
+#import <AppKit/AppKit.h>
+#import "NetworkDrive.h"
 
-@interface ServiceTask : NSObject {
-
-  NSString* name;
-  NSString* mountpoint;
-  NSString* device;
-  
-  NSTask* task;
-  NSFileHandle* fh;
-  NSFileHandle* fo;
-  NSInteger status;
-  NSMutableData* buff;
+@interface NetworkDrive : NSObject
+{
+   IBOutlet NSPanel* panel;
+   IBOutlet NSPopUpButton* type;
+   IBOutlet NSTextField* location;
+   IBOutlet NSTextField* user;
+   IBOutlet NSTextField* password;
 }
-- (id) initWithName:(NSString*) name;
-- (NSString*) name;
-- (NSInteger) status;
+- (IBAction) connect:(id) sender;
 
-- (NSString*) mountPoint;
-- (NSString*) UNIXDevice;
-
-- (void) writeLine:(NSString*) line;
-
-- (BOOL) isMounted;
-
-- (void) startTask;
-- (void) stopTask;
-
+- (void) showPanel;
+- (void) closePanel;
 @end
 
-#endif // _SERVICETASK_H_
+#endif // _NETWORKDRIVE_H_
 

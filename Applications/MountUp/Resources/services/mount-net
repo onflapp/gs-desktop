@@ -21,7 +21,8 @@ function connect {
   B=`ls -t /run/user/$UID/gvfs/ | tail -n 1`
   if [ "$A" != "$B" ];then
     DIR="/run/user/$UID/gvfs/$B"
-    echo "$DIR"
+    echo "D:network share"
+    echo "P:$DIR"
   else
     echo "no mount found"
     disconnect
@@ -30,7 +31,7 @@ function connect {
 
 function disconnect {
   echo "disconnect"
-  gio mount -u "$URL"
+  gio mount -f -u "$URL"
   exit 0
 }
 
