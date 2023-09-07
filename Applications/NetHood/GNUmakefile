@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = NetHood
 APP_NAME = NetHood
-NetHood_APPLICATION_ICON = 
+NetHood_APPLICATION_ICON = neighbor.tiff
 
 
 #
@@ -33,6 +33,7 @@ NetHood_APPLICATION_ICON =
 #
 NetHood_RESOURCE_FILES = \
 Resources/NetHood.gorm \
+Resources/neighbor.tiff \
 Resources/services \
 Resources/ApplicationScripting.xlp \
 Resources/ScriptingInfo.plist 

@@ -1,5 +1,5 @@
 {
-    APPLICATIONICON = "";
+    APPLICATIONICON = "neighbor.tiff";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
     "BUILDER_TARGETS" = (
@@ -28,6 +28,7 @@
 	"NetworkServices.h"
     );
     IMAGES = (
+	"neighbor.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
