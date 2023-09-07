@@ -1,0 +1,38 @@
+#!/bin/perl
+
+sub list_smb_shares {
+  my ($a, $p) = @_;
+  open(X, "gio list -u smb://$a:$p |");
+  while(<X>) {
+    chomp();
+    s/\/\._/\//;
+    print("$_\n");
+  }
+  close(X);
+}
+
+open(IN, "avahi-browse -p -a --resolve -t|");
+while(<IN>) {
+  chomp();
+  if ($_ =~ /^=;/) {
+    @a = split(';',$_);
+    $i = $a[2];
+    $n = $a[3];
+    $t = $a[4];
+    $a = $a[7];
+    $p = $a[8];
+
+    next if ($i ne "IPv4");
+
+    if ($t eq "Microsoft Windows Network") {
+      list_smb_shares($a, $p);
+    }
+    elsif ($t eq "WebDAV File Share") {
+      print ("S:$n\nT:$t\nU:$a:$p\n");
+    }
+    else {
+      print ("S:$n\nT:$t\nU:$a:$p\n");
+    }
+  }
+}
+close(IN);

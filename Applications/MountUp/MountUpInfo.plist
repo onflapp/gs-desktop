@@ -4,6 +4,18 @@
     ApplicationIcon = "MountUp.tiff";
     ApplicationName = MountUp;
     ApplicationRelease = "0.1";
+    CFBundleURLTypes = (
+	{
+	    CFBundleURLName = "Network Drive URL";
+	    CFBundleURLSchemes = (
+		smb,
+		dav,
+		davs,
+		sftp,
+		gitfs
+	    );
+	}
+    );
     Copyright = "Copyright (C) 200x";
     CopyrightDescription = "Released under ...";
     FullVersionID = "0.1";
@@ -12,17 +24,6 @@
     NSMainNibFile = "MountUp.gorm";
     NSPrincipalClass = NSApplication;
     NSRole = Application;
-    CFBundleURLTypes = (
-        {
-            CFBundleURLName = "Network Drive URL";
-            CFBundleURLSchemes = (
-                smb,
-                dav,davs,
-                sftp,
-                gitfs
-            );
-        }
-    );
     NSTypes = (
 	{
 	    NSIcon = "disk_image.tiff";
