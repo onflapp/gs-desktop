@@ -8,51 +8,60 @@ $HOME = $ENV{'HOME'};
 %INFO = ();
 $INFO_IN = 0;
 
-### launch dock items
-print(STDERR "WindowMaker Docs:\n");
-open (IN, "/System/bin/wdread WMState Dock |");
-while (<IN>) {
-  chomp();
-  if (/{/) {
-    %INFO = ();
-    $INFO_IN = 1;
-  }
-  elsif (/}/) {
-    $INFO_IN = 0;
-    if ($INFO{'AutoLaunch'} eq "Yes") {
-      $CMD = $INFO{'Command'};
+sub lauchproc {
+  my ($cmd) = @_;
+  open (IN, "$cmd |");
+  while (<IN>) {
+    chomp();
+    if (/{/) {
+      %INFO = ();
+      $INFO_IN = 1;
+    }
+    elsif (/}/) {
+      $INFO_IN = 0;
+      if ($INFO{'AutoLaunch'} eq "Yes") {
+        $CMD = $INFO{'Command'};
 
-      if ($INFO{'OneShot'} eq "Yes" && -e $CMD) {
-        if ($CMD ne "" && $DONE{$CMD} eq "") {
-          $DONE{$CMD} = $CMD;
-          push(@DOCUMENTS, $CMD);
+        if ($INFO{'OneShot'} eq "Yes" && -e $CMD) {
+          if ($CMD ne "" && $DONE{$CMD} eq "") {
+            $DONE{$CMD} = $CMD;
+            push(@DOCUMENTS, $CMD);
+          }
         }
-      }
-      else {
-        @a = split('/', $CMD);
-        $CMD = $a[$#a];
+        else {
+          @a = split('/', $CMD);
+          $CMD = $a[$#a];
 
-        if ($CMD ne "" && $DONE{$CMD} eq "") {
-          print(STDERR "lauch $CMD\n");
-          system("/Library/bin/nxworkspace", "--autolaunch", $CMD);
-          $DONE{$CMD} = $CMD;
-          usleep(100);
+          if ($CMD ne "" && $DONE{$CMD} eq "") {
+            print(STDERR " lauch $CMD\n");
+            system("/Library/bin/nxworkspace", "--autolaunch", $CMD);
+            $DONE{$CMD} = $CMD;
+            usleep(100);
+          }
         }
       }
     }
+    elsif ($INFO_IN && m/\s*(.*?)\s*=\s*"?(.*?)"?\s*;/) {
+      $INFO{$1}=$2;
+    }
   }
-  elsif ($INFO_IN && m/\s*(.*?)\s*=\s*"?(.*?)"?\s*;/) {
-    $INFO{$1}=$2;
-  }
+  close (IN);
 }
-close (IN);
+
+### launch dock items
+print(STDERR "WindowMaker Dock:\n");
+lauchproc ("/System/bin/wdread WMState Dock");
+
+### launch workspaces items
+print(STDERR "WindowMaker Workspaces:\n");
+lauchproc ("/System/bin/wdread WMState Workspaces");
 
 ### Startup folder
 print(STDERR "Startup Scripts:\n");
 while (<$HOME/Library/Startup/*>) {
   $FILE = $_;
   if (-x $FILE) {
-    print(STDERR "exec $_\n");
+    print(STDERR " exec $_\n");
     system($FILE);
   }
   else {
@@ -62,11 +71,10 @@ while (<$HOME/Library/Startup/*>) {
 }
 
 ### Open documents/files
-
 print(STDERR "Open Documents:\n");
 foreach (@DOCUMENTS) {
   $FILE = $_;
-  print(STDERR "open $FILE\n");
+  print(STDERR " open $FILE\n");
   system("/Library/bin/nxworkspace", "--open", $FILE);
   usleep(100);
 }

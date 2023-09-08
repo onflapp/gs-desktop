@@ -39,12 +39,12 @@
         BuggyApplication = No;
       },
       {
-        PasteCommand = "TimeMon %s";
-        Name = TimeMon.GNUstep;
-        DropCommand = "TimeMon %d";
+        PasteCommand = "MountUp %s";
+        Name = MountUp.GNUstep;
+        DropCommand = "MountUp %d";
         Lock = No;
         AutoLaunch = Yes;
-        Command = "TimeMon";
+        Command = "MountUp";
         Position = "0,3";
         Forced = No;
         BuggyApplication = No;
@@ -115,7 +115,21 @@
         Lowered = Yes;
         Collapsed = No;
         AutoRaiseLower = No;
-        Applications = ();
+        Applications = (
+          {
+            Forced = No;
+            OneShot = No;
+            Name = TimeMon.GNUstep;
+            DropCommand = "TimeMon %d";
+            BuggyApplication = No;
+            AutoLaunch = Yes;
+            Position = "1,0";
+            Lock = No;
+            PasteCommand = "TimeMon %s";
+            Command = TimeMon;
+            Omnipresent = No;
+          }
+        );
       };
       Name = Main;
     }

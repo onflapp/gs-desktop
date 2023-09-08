@@ -6,11 +6,17 @@
   IBOutlet NSTextField* sel_yField;
   IBOutlet NSTextField* sel_wField;
   IBOutlet NSTextField* sel_hField;
+
+  IBOutlet NSTextField* img_wField;
+  IBOutlet NSTextField* img_hField;
+
+  IBOutlet NSPopUpButton* img_reps;
 }
 
 + (id)sharedInstance;
 - (void)orderFrontInspectorPanel:(id)sender;
 
 - (void)updateSelection:(NSRect)r;
+- (void)updateImageInfo:(NSImage*)img;
 
 @end

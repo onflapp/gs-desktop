@@ -257,7 +257,9 @@ static NSWindow* _lastMainWindow;
 
 - (void) windowDidBecomeMain: (NSNotification*)aNotification {
   _lastMainWindow = window;
-  [[InspectorPanel sharedInstance] updateSelection:[imageView selectedRectangle]];
+  InspectorPanel* inspector = [InspectorPanel sharedInstance];
+  [inspector updateSelection:[imageView selectedRectangle]];
+  [inspector updateImageInfo:[imageView image]];
 }
 
 - (void) windowWillClose:(NSNotification *)notification {

@@ -32,6 +32,18 @@ static id sharedInspectorPanel = nil;
   [sel_hField setIntegerValue:(NSInteger)r.size.height];
 }
 
+- (void)updateImageInfo:(NSImage*)img {
+  NSSize sz = [img size];
+  [img_wField setIntegerValue:(NSInteger)sz.width];
+  [img_hField setIntegerValue:(NSInteger)sz.height];
+  
+  [img_reps removeAllItems];
+  for (NSImageRep* rep in [img representations]) {
+    NSString* title = [rep description];
+    [img_reps addItemWithTitle:title];
+  }
+}
+
 - (void) orderFrontInspectorPanel:(id)sender {
   [panel makeKeyAndOrderFront:nil];
 }
