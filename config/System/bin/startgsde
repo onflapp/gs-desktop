@@ -159,7 +159,10 @@ function init_config {
     defaults write NSGlobalDomain "GSBackend" "cairo"
   fi
 
-  export FONTCONFIG_FILE=/System/etc/fonts.conf
+  /System/bin/mkfontconfig
+  if [ -f "$HOME/Library/etc/fonts.conf" ];then
+    export FONTCONFIG_FILE=$HOME/Library/etc/fonts.conf
+  fi
  
   wdwrite WMWindowAttributes 'GSDE-Safe-Mode.XTerm' '{ DontSaveSession = Yes; NoAppIcon = Yes; StartMiniaturized = Yes; Omnipresent = Yes; }'
   wdwrite WMWindowAttributes 'GWorkspace.GNUstep'   '{ DontSaveSession = Yes; NoAppIcon = Yes; }'

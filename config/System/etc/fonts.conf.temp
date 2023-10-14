@@ -3,9 +3,10 @@
 <fontconfig>
   <dir>/System/Fonts</dir>
   <dir>/Library/Fonts</dir>
+  <dir>USER_HOME/Library/Fonts</dir>
   <match target="font" >
     <edit mode="assign" name="antialias" >
-      <bool>false</bool>
+      <bool>ENABLE_ANTIALIAS</bool>
     </edit>
   </match>
   <match target="font" >

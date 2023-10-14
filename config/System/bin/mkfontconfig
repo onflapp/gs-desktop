@@ -1,0 +1,39 @@
+#!/bin/perl
+
+$HOME=$ENV{'HOME'};
+$SYSCFG="/System/etc/fonts.conf.temp";
+$USRCFG="$HOME/Library/etc/fonts.conf";
+
+sub readkey {
+  my ($k) = @_;
+  my $rv = "";
+  open(IN, "/Library/bin/defaults read NSGlobalDomain $k |");
+  while(<IN>) {
+    chomp();
+    @a = split(" ", $_);
+    $rv = $a[2];
+  }
+  close(IN);
+
+  return $rv;
+}
+
+mkdir("$HOME/Library/Fonts");
+mkdir("$HOME/Library/etc");
+
+$ENABLE_ANTIALIAS="false";
+$ENABLE_ANTIALIAS = readkey ("GSFontAntiAlias");
+if ($ENABLE_ANTIALIAS eq "YES" || $ENABLE_ANTIALIAS eq "1") {
+  $ENABLE_ANTIALIAS = "true";
+}
+
+open(IN, "$SYSCFG");
+open(OUT, "> $USRCFG");
+while(<IN>) {
+  $line = $_;
+  $line =~ s/ENABLE_ANTIALIAS/$ENABLE_ANTIALIAS/;
+  $line =~ s/USER_HOME/$HOME/;
+  print(OUT "$line");
+}
+close(OUT);
+close(IN);
