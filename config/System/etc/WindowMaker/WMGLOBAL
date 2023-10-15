@@ -3,7 +3,7 @@
   AntialiasedText = Yes;
   BoldSystemFont = "Sans:weight=200:pixelsize=12";
   DefaultFontSize = 12;
-  DoubleClickTime = 250;
+  DoubleClickTime = 300;
   FloppyPath = "/media/floppy";
   SystemFont = "Sans:pixelsize=12";
   MouseWheelUp = Button4;
