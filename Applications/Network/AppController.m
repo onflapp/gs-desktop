@@ -7,6 +7,7 @@
 #import <DesktopKit/NXTAlert.h>
 
 #import "EthernetController.h"
+#import "WifiController.h"
 #import "AppController.h"
 
 #define CONNECTION_NAME @"org.freedesktop.NetworkManager"
@@ -142,6 +143,22 @@
 
 @implementation AppController
 
++ (void) initialize
+{
+  NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
+
+  [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
+  [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (id) init {
+  if ((self = [super init])) {
+     MiniView *mv = [[MiniView alloc] initWithFrame:NSMakeRect(0, 0, 64, 64)];
+    [[NSApp iconWindow] setContentView:mv];
+  }
+  return self;
+}
+
 //
 // --- Application
 //
@@ -153,6 +170,14 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notif
 {
+  [[[NSApp iconWindow] contentView] addSubview:controlView];
+  [controlView setFrame:NSMakeRect(8, 8, 48, 48)];
+  [controlView setNeedsDisplay:YES];
+
+  [labelInfo setFont:[NSFont labelFontOfSize:7]];
+  [labelInfo setStringValue:@"..."];
+  [signalInfo setDoubleValue:0];
+  
   [self performSelector:@selector(initConnection) 
              withObject:nil 
              afterDelay:0.1];
@@ -180,6 +205,8 @@
                  name:@"DKSignal_org.freedesktop.NetworkManager.Device_StateChanged"
                object:nil];
     [connectionAction setEnabled:YES];
+
+    [self updateSignalInfo];
   }
   else {
     [window setTitle:@"Connection to NetworkManager failed!"];
@@ -255,6 +282,31 @@
   }
 }
 
+- (void) updateSignalInfo
+{
+  NSArray       *allDevices = [_networkManager GetAllDevices];
+    
+  [labelInfo setStringValue:@"..."];
+  for (DKProxy<NMDevice> *device in allDevices) {
+    // Wi-Fi
+    if ([device respondsToSelector:@selector(AccessPoints)]) {
+      for (DKPort<NMAccessPoint> *ap in device.GetAllAccessPoints) {
+        NSMutableString* sid = [NSMutableString string];
+        for (id c in ap.Ssid) {
+          [sid appendFormat:@"%c", [c charValue]];
+        }
+        //fprintf(stderr, "(%s)", [ap.HwAddress cString]);
+        //fprintf(stderr, " - Strength: %d%% Bitrate: %d Mb/s Frequency: %.2f Hz\n",
+        //        [ap.Strength intValue], [ap.MaxBitrate intValue]/1000,
+        //        [ap.Frequency floatValue]/1000.0);
+        
+        [labelInfo setStringValue:sid];
+        [signalInfo setDoubleValue:(double)[ap.Strength intValue]];
+      }
+    }
+  }
+}
+
 - (void)_setConnectionView:(NSView *)view
 {
   NSRect viewFrame;
@@ -319,16 +371,16 @@
     break;
   case 2: // Wi-Fi
     if ([self _isActiveConnection:[cell title] forDevice:device] != NO) {
-      [self _setConnectionView:[EthernetController view]];
+      [self _setConnectionView:[WifiController view]];
       NSLog(@"%@ is active connection.", [cell title]);
-      [[EthernetController controller]
+      [[WifiController controller]
         updateForConnection:device.ActiveConnection];
       [self _updateStatusInfoForDevice:device];
       [connectionView setHidden:NO];
     }
     else {
       conn = [self _connectionWithName:[cell title] forDevice:device];
-      [[EthernetController controller] updateForConnection:conn];
+      [[WifiController controller] updateForConnection:conn];
       // [connectionView setHidden:YES];
       [self _clearFields];
       [statusInfo setStringValue:@"Not Connected"];
@@ -387,6 +439,12 @@
       break;
     }
 }
+
+- (void)showConfig:(id) sender
+{
+  [window makeKeyAndOrderFront:sender];
+}
+
 - (void)addConnection
 {
   if (connMan == nil) {

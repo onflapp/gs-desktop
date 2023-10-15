@@ -3,7 +3,8 @@
     AppController = {
 	Actions = (
 	    "connectionListClick:",
-	    "connectionActionClick:"
+	    "connectionActionClick:",
+	    "showConfig:"
 	);
 	Outlets = (
 	    connectionList,
@@ -13,14 +14,18 @@
 	    window,
 	    connectionView,
 	    contentBox,
-	    statusBox
+	    statusBox,
+	    controlView,
+	    signalInfo,
+	    labelInfo
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
+	    "connectionActionClick:",
 	    "connectionListClick:",
-	    "connectionActionClick:"
+	    "showConfig:"
 	);
 	Super = NSObject;
     };

@@ -24,6 +24,7 @@ Network_LANGUAGES = English
 Network_LOCALIZED_RESOURCE_FILES = \
 	Network.gorm \
 	EthernetView.gorm \
+	WifiView.gorm \
 	AddConnection.gorm
 
 #
@@ -31,6 +32,8 @@ Network_LOCALIZED_RESOURCE_FILES = \
 #
 Network_HEADER_FILES = \
 	AppController.h \
+	MiniView.h \
+	WifiController.h \
 	EthernetController.h
 
 #
@@ -38,7 +41,9 @@ Network_HEADER_FILES = \
 #
 Network_OBJC_FILES = \
 	AppController.m \
+	MiniView.m \
 	ConnectionManager.m \
+	WifiController.m \
 	EthernetController.m
 
 #
