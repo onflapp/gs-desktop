@@ -19,11 +19,3 @@ make clean
 make -j2 || exit 1
 
 sudo -E make install 'APP_INSTALL_DIR=$(GNUSTEP_LOCAL_ADMIN_APPS)'
-
-cd "$D"
-cd ../../nextspace/Applications/Network || exit 1
-
-make clean
-make -j2 || exit 1
-
-sudo -E make install 'APP_INSTALL_DIR=$(GNUSTEP_LOCAL_ADMIN_APPS)'

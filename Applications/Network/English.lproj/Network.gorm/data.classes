@@ -1,0 +1,27 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    AppController = {
+	Actions = (
+	    "connectionListClick:",
+	    "connectionActionClick:"
+	);
+	Outlets = (
+	    connectionList,
+	    connectionAction,
+	    statusDescription,
+	    statusInfo,
+	    window,
+	    connectionView,
+	    contentBox,
+	    statusBox
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "connectionListClick:",
+	    "connectionActionClick:"
+	);
+	Super = NSObject;
+    };
+}
