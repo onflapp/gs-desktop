@@ -8,6 +8,7 @@ flite-devel
 clang-devel
 cups-devel
 mesa-libGL-devel
+picom
 cmake
 libtool
 pam-libs

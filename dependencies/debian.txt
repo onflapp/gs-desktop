@@ -15,6 +15,7 @@ flite1-dev
 libcups2-dev
 libgl1-mesa-dev
 util-linux-locales
+picom
 gdb
 clang
 lldb
