@@ -243,6 +243,18 @@
   [statusDescription setStringValue:@""];
 }
 
+- (void)_lockControls
+{
+  [wifiToggle setEnabled:NO];
+  [connectionToggle setEnabled:NO];
+}
+
+- (void)_unlockControls
+{
+  [wifiToggle setEnabled:YES];
+  [connectionToggle setEnabled:YES];
+}
+
 - (void)awakeFromNib
 {
   [statusBox retain];
@@ -251,6 +263,19 @@
   [window setTitle:@"Connecting to NetworkManager..."];
   [connectionAction setRefusesFirstResponder:YES];
   [self _clearFields];
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+  if ([menuItem action] == @selector(wifiToggleClick:)) {
+    if (wifiActive) {
+      [menuItem setTitle:@"Turn Off"];
+    }
+    else {
+      [menuItem setTitle:@"Turn On"];
+    }
+  }
+  return YES;
 }
 
 - (void)     browser:(NSBrowser *)sender
@@ -294,9 +319,9 @@
   [labelInfo setStringValue:@"..."];
   for (DKProxy<NMDevice> *device in allDevices) {
     // Wi-Fi
-    if ([device respondsToSelector:@selector(AccessPoints)]) {
+    if ([device respondsToSelector:@selector(ActiveAccessPoint)]) {
       DKPort<NMAccessPoint> *ap = device.ActiveAccessPoint;
-      if (ap) {
+      if (ap && [ap respondsToSelector:@selector(Ssid)]) {
         NSMutableString* sid = [NSMutableString string];
         for (id c in ap.Ssid) {
           [sid appendFormat:@"%c", [c charValue]];
@@ -337,6 +362,7 @@
   else {
     [wifiToggle setState:0];
     [labelInfo setStringValue:@"N/A"];
+    [signalInfo setDoubleValue:0.0];
   }
 }
 
@@ -344,11 +370,11 @@
 {
   if (wifiActive) {
     [wifiToggle setState:0];
-    wifiActive = NO;
+    [self performSelector:@selector(deactivateWifi) withObject:nil afterDelay:0.1];
   }
   else {
     [wifiToggle setState:1];
-    wifiActive = YES;
+    [self performSelector:@selector(activateWifi) withObject:nil afterDelay:0.1];
   }
 }
 
@@ -533,14 +559,46 @@
     [conn Delete];
     [connectionList reloadColumn:0];
   }
+
 }
 - (void)deactivateConnection
 {
+  [self _lockControls];
+
   DKProxy<NMDevice> *device = [[connectionList selectedCell] representedObject];
   [_networkManager DeactivateConnection:device.ActiveConnection];
 }
+
+- (void)deactivateWifi
+{  
+  [self _lockControls];
+
+  NSArray       *allDevices = [_networkManager GetAllDevices];
+  DKProxy<NMDevice> *device = nil;
+
+  for (DKProxy<NMDevice> *dev in allDevices) {
+    if ([dev respondsToSelector:@selector(ActiveAccessPoint)]) {
+      DKPort<NMAccessPoint> *ap = dev.ActiveAccessPoint;
+      if (ap && [ap respondsToSelector:@selector(Ssid)]) {
+        device = dev;
+        break;
+      }
+    }
+  }
+
+  if (device) {
+    [_networkManager DeactivateConnection:device.ActiveConnection];
+  }
+  else {
+    [self _unlockControls];
+  }
+
+}
+
 - (void)activateConnection
 {
+  [self _lockControls];
+
   DKProxy<NMDevice>             *device;
   DKProxy<NMConnectionSettings> *conn;
 
@@ -554,6 +612,39 @@
                                      :device
                                      :device];
 }
+
+- (void)activateWifi
+{
+  [self _lockControls];
+
+  NSArray       *allDevices = [_networkManager GetAllDevices];
+  DKProxy<NMDevice>             *device = nil;
+  DKProxy<NMConnectionSettings> *conn = nil;
+
+  for (DKProxy<NMDevice> *dev in allDevices) {
+    if ([dev respondsToSelector:@selector(AccessPoints)]) {
+      for (DKProxy<NMConnectionSettings> *c in dev.AvailableConnections) {
+        if ([c respondsToSelector:@selector(GetSettings)]) {
+          conn = c;
+          device = dev;
+          break;
+        }
+      }
+    }
+  }
+
+  if (device && conn) {
+    NSLog(@"activate");
+    [_networkManager ActivateConnection:conn
+                                       :device
+                                       :device];
+  }
+  else {
+    [self _unlockControls];
+  }
+
+}
+
 
 /* Signals/Notifications */
 - (void)deviceStateDidChange:(NSNotification *)aNotif
@@ -578,6 +669,7 @@
 
 - (void)updateConnectionInfo:(NSTimer *)ti
 {
+  [self _unlockControls];
   [self updateSignalInfo];
   [self connectionListClick:connectionList];
   [timer invalidate];
