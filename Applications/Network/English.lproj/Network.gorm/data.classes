@@ -3,8 +3,11 @@
     AppController = {
 	Actions = (
 	    "connectionListClick:",
-	    "connectionActionClick:",
-	    "showConfig:"
+	    "showConfig:",
+	    "wifiToggleClick:",
+	    "showNetworkSetup:",
+	    "connectionAction:",
+	    "connectionToggleClick:"
 	);
 	Outlets = (
 	    connectionList,
@@ -17,15 +20,20 @@
 	    statusBox,
 	    controlView,
 	    signalInfo,
-	    labelInfo
+	    labelInfo,
+	    wifiToggle,
+	    connectionToggle
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
-	    "connectionActionClick:",
+	    "connectionAction:",
 	    "connectionListClick:",
-	    "showConfig:"
+	    "connectionToggleClick:",
+	    "showConfig:",
+	    "showNetworkSetup:",
+	    "wifiToggleClick:"
 	);
 	Super = NSObject;
     };

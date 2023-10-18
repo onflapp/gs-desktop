@@ -155,6 +155,8 @@
   if ((self = [super init])) {
      MiniView *mv = [[MiniView alloc] initWithFrame:NSMakeRect(0, 0, 64, 64)];
     [[NSApp iconWindow] setContentView:mv];
+
+    nmSetupPanel = [[NMSetup alloc] init];
   }
   return self;
 }
@@ -177,7 +179,7 @@
   [labelInfo setFont:[NSFont labelFontOfSize:7]];
   [labelInfo setStringValue:@"..."];
   [signalInfo setDoubleValue:0];
-  
+
   [self performSelector:@selector(initConnection) 
              withObject:nil 
              afterDelay:0.1];
@@ -191,9 +193,12 @@
   receivePort = [DKPort portForBusType:DKDBusSessionBus];
   connection = [NSConnection connectionWithReceivePort:receivePort
                                               sendPort:sendPort];
+
   if (connection) {
     [DKPort enableWorkerThread];
     _networkManager = (DKProxy<NetworkManager> *)[connection proxyAtPath:OBJECT_PATH];
+    NSLog(@"awakeFromNib: NetworkManager: %@", _networkManager.Version);
+
     [connection retain];
     [_networkManager retain];
     [window setTitle:@"Network Connections"];
@@ -240,7 +245,6 @@
 
 - (void)awakeFromNib
 {
-  NSLog(@"awakeFromNib: NetworkManager: %@", _networkManager.Version);
   [statusBox retain];
   [statusBox removeFromSuperview];
   [window center];
@@ -285,25 +289,66 @@
 - (void) updateSignalInfo
 {
   NSArray       *allDevices = [_networkManager GetAllDevices];
-    
+
+  wifiActive = NO;
   [labelInfo setStringValue:@"..."];
   for (DKProxy<NMDevice> *device in allDevices) {
     // Wi-Fi
     if ([device respondsToSelector:@selector(AccessPoints)]) {
-      for (DKPort<NMAccessPoint> *ap in device.GetAllAccessPoints) {
+      DKPort<NMAccessPoint> *ap = device.ActiveAccessPoint;
+      if (ap) {
         NSMutableString* sid = [NSMutableString string];
         for (id c in ap.Ssid) {
           [sid appendFormat:@"%c", [c charValue]];
         }
-        //fprintf(stderr, "(%s)", [ap.HwAddress cString]);
-        //fprintf(stderr, " - Strength: %d%% Bitrate: %d Mb/s Frequency: %.2f Hz\n",
-        //        [ap.Strength intValue], [ap.MaxBitrate intValue]/1000,
-        //        [ap.Frequency floatValue]/1000.0);
+        fprintf(stderr, "(%s)", [ap.HwAddress cString]);
+        fprintf(stderr, " - Strength: %d%% Bitrate: %d Mb/s Frequency: %.2f Hz\n",
+                [ap.Strength intValue], [ap.MaxBitrate intValue]/1000,
+                [ap.Frequency floatValue]/1000.0);
+        
+        [labelInfo setStringValue:sid];
+        [signalInfo setDoubleValue:(double)[ap.Strength intValue]];
+        wifiActive = YES;
+
+        break;
+      }
+
+      /*
+      for (DKPort<NMAccessPoint> *ap in device.GetAccessPoints) {
+        NSMutableString* sid = [NSMutableString string];
+        for (id c in ap.Ssid) {
+          [sid appendFormat:@"%c", [c charValue]];
+        }
+        fprintf(stderr, "(%s)", [ap.HwAddress cString]);
+        fprintf(stderr, " - Strength: %d%% Bitrate: %d Mb/s Frequency: %.2f Hz\n",
+                [ap.Strength intValue], [ap.MaxBitrate intValue]/1000,
+                [ap.Frequency floatValue]/1000.0);
         
         [labelInfo setStringValue:sid];
         [signalInfo setDoubleValue:(double)[ap.Strength intValue]];
       }
+      */
     }
+  }
+
+  if (wifiActive) {
+    [wifiToggle setState:1];
+  }
+  else {
+    [wifiToggle setState:0];
+    [labelInfo setStringValue:@"N/A"];
+  }
+}
+
+- (void) wifiToggleClick:(id) sender
+{
+  if (wifiActive) {
+    [wifiToggle setState:0];
+    wifiActive = NO;
+  }
+  else {
+    [wifiToggle setState:1];
+    wifiActive = YES;
   }
 }
 
@@ -312,11 +357,9 @@
   NSRect viewFrame;
 
   if (connectionView) {
-    viewFrame = [connectionView frame];
     [connectionView removeFromSuperview];
   }
   if (view) {
-    [view setFrame:viewFrame];
     [contentBox addSubview:view];
   }
   connectionView = view;
@@ -353,6 +396,7 @@
   
   switch([device.DeviceType intValue]) {
   case 1: // Ethernet
+    [connectionToggle setEnabled:YES];
     if ([self _isActiveConnection:[cell title] forDevice:device] != NO) {
       [self _setConnectionView:[EthernetController view]];
       NSLog(@"%@ is active connection.", [cell title]);
@@ -370,6 +414,7 @@
     }
     break;
   case 2: // Wi-Fi
+    [connectionToggle setEnabled:YES];
     if ([self _isActiveConnection:[cell title] forDevice:device] != NO) {
       [self _setConnectionView:[WifiController view]];
       NSLog(@"%@ is active connection.", [cell title]);
@@ -390,6 +435,7 @@
     break;
   case 14: // Generic
   default:
+    [connectionToggle setEnabled:NO];
     [connectionView setHidden:YES];
     break;
   }
@@ -398,9 +444,21 @@
                 itemAtIndex:[connectionAction indexOfItemWithTag:3]];
   if ([self _isActiveConnection:[cell title] forDevice:device]) {
     [popupItem setTitle:@"Deactivate..."];
+    [connectionToggle setTitle:@"Disable"];
   }
   else {
     [popupItem setTitle:@"Activate..."];
+    [connectionToggle setTitle:@"Enable"];
+  }
+}
+
+- (void)connectionToggleClick:(id)sender
+{
+  if ([[sender title] isEqualToString:@"Disable"]) {
+    [self deactivateConnection];
+  }
+  else {
+    [self activateConnection];
   }
 }
 
@@ -438,6 +496,11 @@
     default:
       break;
     }
+}
+
+- (void)showNetworkSetup:(id) sender
+{
+  [nmSetupPanel showPanelAndRunSetup:sender];
 }
 
 - (void)showConfig:(id) sender
@@ -515,6 +578,7 @@
 
 - (void)updateConnectionInfo:(NSTimer *)ti
 {
+  [self updateSignalInfo];
   [self connectionListClick:connectionList];
   [timer invalidate];
   timer = nil;

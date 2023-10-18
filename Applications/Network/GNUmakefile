@@ -17,7 +17,8 @@ SUBPROJECTS = Test
 Network_RESOURCE_FILES = \
 	Resources/eunet.tiff \
 	Resources/net.tiff \
-	Resources/asianet.tiff
+	Resources/asianet.tiff \
+	Resources/nmsetup.sh \
 
 # Localization
 Network_LANGUAGES = English
@@ -25,6 +26,7 @@ Network_LOCALIZED_RESOURCE_FILES = \
 	Network.gorm \
 	EthernetView.gorm \
 	WifiView.gorm \
+	NMSetupPanel.gorm \
 	AddConnection.gorm
 
 #
@@ -33,6 +35,7 @@ Network_LOCALIZED_RESOURCE_FILES = \
 Network_HEADER_FILES = \
 	AppController.h \
 	MiniView.h \
+	NMSetup.h \
 	WifiController.h \
 	EthernetController.h
 
@@ -43,6 +46,7 @@ Network_OBJC_FILES = \
 	AppController.m \
 	MiniView.m \
 	ConnectionManager.m \
+	NMSetup.m \
 	WifiController.m \
 	EthernetController.m
 
