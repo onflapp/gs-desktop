@@ -13,7 +13,8 @@
     "BUNDLE_IDENTIFIER" = "";
     "CLASS_FILES" = (
 	"AppController.m",
-	"MessageController.m"
+	"MessageController.m",
+	"ConsoleController.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -24,21 +25,23 @@
     );
     "HEADER_FILES" = (
 	"AppController.h",
-	"MessageController.h"
+	"MessageController.h",
+	"ConsoleController.h"
     );
     IMAGES = (
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
 	"NotMon.gorm",
-	"Message.gorm"
+	"Message.gorm",
+	"Console.gorm"
     );
     LANGUAGE = English;
     LIBRARIES = (
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "";
+    LINKEROPTIONS = "-lTerminalKit";
     "LOCALIZED_RESOURCES" = (
     );
     MAININTERFACE = "NotMon.gorm";

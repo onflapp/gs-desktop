@@ -11,6 +11,7 @@
 
 #import <AppKit/AppKit.h>
 #import "MessageController.h"
+#import "ConsoleController.h"
 
 @interface AppController : NSObject
 {
@@ -22,6 +23,8 @@
   NSMutableArray* messages;
 
   BOOL launched;
+
+  ConsoleController* consoleController;
 }
 
 + (void)  initialize;

@@ -33,7 +33,8 @@ NotMon_APPLICATION_ICON =
 #
 NotMon_RESOURCE_FILES = \
 Resources/NotMon.gorm \
-Resources/Message.gorm 
+Resources/Message.gorm \
+Resources/Console.gorm 
 
 
 #
@@ -41,14 +42,16 @@ Resources/Message.gorm
 #
 NotMon_HEADER_FILES = \
 AppController.h \
-MessageController.h
+MessageController.h \
+ConsoleController.h
 
 #
 # Objective-C Class files
 #
 NotMon_OBJC_FILES = \
 AppController.m \
-MessageController.m
+MessageController.m \
+ConsoleController.m
 
 #
 # Other sources

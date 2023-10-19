@@ -22,12 +22,14 @@ Application Controller
 {
   if ((self = [super init])) {
     messages = [[NSMutableArray alloc] init];
+    consoleController = [[ConsoleController alloc] init];
   }
   return self;
 }
 
 - (void) dealloc
 {
+  [consoleController release];
   [messages release];
   [super dealloc];
 }
@@ -106,11 +108,13 @@ Application Controller
       NSLog(@"show:%@", dict);
 
       [self showMessageWithTitle:title info:info];
-      [self showMessageWithTitle:title info:info];
-      [self showMessageWithTitle:title info:info];
-      [self showMessageWithTitle:title info:info];
-      [self showMessageWithTitle:title info:info];
-      [self showMessageWithTitle:title info:info];
+    }
+    else if ([[url host] isEqualToString:@"show-console"]) {
+      NSDictionary* dict = [self parseURL:url];
+      NSString* cmd = [dict valueForKey:@"cmd"];
+      NSLog(@"console:%@", dict);
+
+      [self showConsole:@"console" exec:cmd];
     }
   }
 
@@ -127,8 +131,21 @@ Application Controller
   }
 }
 
+- (void) showConsole:(NSString*) title
+                exec:(NSString*) exec
+{
+  NSPanel* cpanel = [consoleController panel];
+  [cpanel setLevel:NSDockWindowLevel];
+  [cpanel makeKeyAndOrderFront:self];
+
+  [consoleController execCommand:exec];
+
+  //[[ctrl panelTitle] setStringValue:title?title:@""];
+  //[[ctrl panelInfo] setStringValue:info?info:@""];
+}
+
 - (void) showMessageWithTitle:(NSString*) title
-                       info:(NSString*) info
+                         info:(NSString*) info
 {
   MessageController* ctrl = [[MessageController alloc] init];
   NSPanel* mpanel = [ctrl panel];
