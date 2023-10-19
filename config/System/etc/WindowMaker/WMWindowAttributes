@@ -15,7 +15,6 @@
     AlwaysUserIcon = No;
   };
   NotMon.GNUstep = {
-    Unfocusable = Yes;
     SkipWindowList = Yes;
     NoTitlebar = Yes;
     SkipSwitchPanel = Yes;

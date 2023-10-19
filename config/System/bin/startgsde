@@ -179,7 +179,7 @@ function init_config {
  
   wdwrite WMWindowAttributes 'GSDE-Safe-Mode.XTerm' '{ DontSaveSession = Yes; NoAppIcon = Yes; StartMiniaturized = Yes; Omnipresent = Yes; }'
   wdwrite WMWindowAttributes 'GWorkspace.GNUstep'   '{ DontSaveSession = Yes; NoAppIcon = Yes; }'
-  wdwrite WMWindowAttributes 'NotMon.GNUstep'       '{ Unfocusable = Yes; SkipWindowList = Yes; SkipSwitchPanel = Yes; NoAppIcon = Yes; KeepOnTop = Yes; Omnipresent = Yes; }'
+  wdwrite WMWindowAttributes 'NotMon.GNUstep'       '{ SkipWindowList = Yes; SkipSwitchPanel = Yes; NoAppIcon = Yes; KeepOnTop = Yes; Omnipresent = Yes; }'
  
   if [ -f "$HOME/.gsderc" ];then
     echo "sourcing $HOME/.gsderc"

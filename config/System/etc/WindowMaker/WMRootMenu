@@ -54,5 +54,12 @@
   ),
   (Windows, WINDOWS_MENU),
   ("Show Workspace", EXEC, "/Library/bin/nxworkspace --fileviewer"),
+  (
+    "Show Launcher",
+    SHORTCUT,
+    "Control+space",
+    EXEC,
+    "/Library/Scripts/ShowLauncher"
+  ),
   (Logout, EXEC, "/Library/Scripts/WorkspaceLogout")
 )

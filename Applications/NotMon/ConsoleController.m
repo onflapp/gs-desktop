@@ -91,6 +91,7 @@
   NSMutableArray* args = [NSMutableArray array];
   if (arg) [args addObject:arg];
 
+  NSLog(@"exec:%@ args:%@", cmd, args);
   [console clearBuffer:self];
   [console runProgram:cmd
         withArguments:args
@@ -100,10 +101,12 @@
 }
 
 - (void) viewBecameIdle:(NSNotification*) n {
+  NSLog(@"close 1");
   [panel performClose:self];
 }
 
 - (void) windowDidResignKey:(NSNotification *)notification {
+  NSLog(@"close 2");
   [panel performClose:self];
 }
 
