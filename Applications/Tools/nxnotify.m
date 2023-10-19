@@ -29,6 +29,7 @@ void printUsage() {
   fprintf(stderr, "  --show-panel --title <text> --info <text> --hide-panel <timeout>\n");
   fprintf(stderr, "  --hide-panel\n");
   fprintf(stderr, "  --show-message --title <text> --info <text>\n");
+  fprintf(stderr, "  --show-console --cmd <command> --arg <text>\n");
   fprintf(stderr, "\n");
 }
 
@@ -56,6 +57,8 @@ int main(int argc, char** argv, char** env)
 
       NSInteger type = 0;
       NSString* title = nil;
+      NSString* cmd = nil;
+      NSString* arg = nil;
       NSString* info = nil;
       NSTimeInterval hide = -1;
 
@@ -67,11 +70,20 @@ int main(int argc, char** argv, char** env)
         else if ([it isEqualToString:@"--info"]) {
           info = [en nextObject];
         }
+        else if ([it isEqualToString:@"--cmd"]) {
+          cmd = [en nextObject];
+        }
+        else if ([it isEqualToString:@"--arg"]) {
+          arg = [en nextObject];
+        }
         else if ([it isEqualToString:@"--show-panel"]) {
           type = 1;
         }
         else if ([it isEqualToString:@"--show-message"]) {
           type = 2;
+        }
+        else if ([it isEqualToString:@"--show-console"]) {
+          type = 3;
         }
         else if ([it isEqualToString:@"--hide-panel"]) {
           hide = [[en nextObject] floatValue];
@@ -89,6 +101,9 @@ int main(int argc, char** argv, char** env)
       }
       else if (type == 2) {
         [app showMessageWithTitle:title info:info];
+      }
+      else if (type == 3) {
+        [app showConsoleWithCommand:cmd argument:arg];
       }
       if (hide >= 0) {
         [app hidePanelAfter:hide];

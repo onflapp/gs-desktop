@@ -1,0 +1,16 @@
+#!/bin/perl
+
+open(IN, "/Library/bin/defaults read |");
+while(<IN>) {
+  chomp();
+  if ($_ =~ / NSRecentDocuments /) {
+    $IN_RECENT = 1;
+  }
+  elsif ($IN_RECENT && $_ eq ")'") {
+    $IN_RECENT = 0;
+  }
+  elsif ($IN_RECENT) {
+    print("$_\n");
+  }
+}
+close(IN);

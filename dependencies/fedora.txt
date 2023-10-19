@@ -9,6 +9,7 @@ clang-devel
 cups-devel
 mesa-libGL-devel
 picom
+fzf
 cmake
 libtool
 pam-libs

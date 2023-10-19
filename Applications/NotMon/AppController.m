@@ -112,9 +112,10 @@ Application Controller
     else if ([[url host] isEqualToString:@"show-console"]) {
       NSDictionary* dict = [self parseURL:url];
       NSString* cmd = [dict valueForKey:@"cmd"];
+      NSString* arg = [dict valueForKey:@"arg"];
       NSLog(@"console:%@", dict);
 
-      [self showConsole:@"console" exec:cmd];
+      [self showConsoleWithCommand:cmd argument:arg];
     }
   }
 
@@ -131,17 +132,14 @@ Application Controller
   }
 }
 
-- (void) showConsole:(NSString*) title
-                exec:(NSString*) exec
+- (void) showConsoleWithCommand:(NSString*) exec
+                       argument:(NSString*) arg
 {
-  NSPanel* cpanel = [consoleController panel];
+  NSWindow* cpanel = [consoleController panel];
   [cpanel setLevel:NSDockWindowLevel];
   [cpanel makeKeyAndOrderFront:self];
 
-  [consoleController execCommand:exec];
-
-  //[[ctrl panelTitle] setStringValue:title?title:@""];
-  //[[ctrl panelInfo] setStringValue:info?info:@""];
+  [consoleController execCommand:exec argument:arg];
 }
 
 - (void) showMessageWithTitle:(NSString*) title

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+function show_selector {
+  T="/tmp/$$-apps"
+  find /Applications -type d -name "*.app" > $T
+
+  SEL=`cat $T | sort | fzf --no-info --color='hl+:black,hl:blue,gutter:-1,bg+:white,fg+:white'`
+  if [ -d "$SEL" ];then
+    /Library/bin/gopen $SEL
+  fi
+}
+
+if [ -n "$1" ];then
+  show_selector
+else
+  L="/Library/Scripts/ShowLauncher"
+  /Library/bin/nxnotify --show-console --cmd "$L" --arg "apps"
+fi

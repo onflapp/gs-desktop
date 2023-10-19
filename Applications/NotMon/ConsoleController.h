@@ -39,7 +39,7 @@
 }
 
 - (NSWindow*) panel;
-- (void) execCommand:(NSString*) cmd;
+- (void) execCommand:(NSString*) cmd argument:(NSString*) arg;
 
 @end
 

@@ -38,6 +38,7 @@
   //[prefs setCursorColor:[NSColor redColor]];
   [prefs setScrollBottomOnInput:NO];
 
+  [self setFont:[NSFont userFixedPitchFontOfSize:18]];
   [self setCursorStyle:[prefs cursorStyle]];
 
   return self;
@@ -49,6 +50,7 @@
 - (void) _initBackendWindow {
   [super _initBackendWindow];
 
+  /*
   Window xwindowid = (Window)[self windowRef];
   Display* xdisplay = XOpenDisplay(NULL);
   XClassHint* xhint = XAllocClassHint();
@@ -58,6 +60,7 @@
   XSetClassHint(xdisplay, xwindowid, xhint);
   XFree(xhint);
   XSync(xdisplay, False);
+  */
 }
 @end
 
@@ -66,6 +69,12 @@
 - (id) init {
   self = [super init];
   [NSBundle loadNibNamed:@"Console" owner:self];
+
+  [[NSNotificationCenter defaultCenter]
+    addObserver:self
+       selector:@selector(viewBecameIdle:)
+           name:TerminalViewBecameIdleNotification
+         object:console];
 
   return self;
 }
@@ -78,12 +87,24 @@
   return panel;
 }
 
-- (void) execCommand:(NSString*) cmd {
+- (void) execCommand:(NSString*) cmd argument:(NSString*) arg {
   NSMutableArray* args = [NSMutableArray array];
+  if (arg) [args addObject:arg];
+
   [console clearBuffer:self];
   [console runProgram:cmd
         withArguments:args
          initialInput:nil];
+
+  [panel center];
+}
+
+- (void) viewBecameIdle:(NSNotification*) n {
+  [panel performClose:self];
+}
+
+- (void) windowDidResignKey:(NSNotification *)notification {
+  [panel performClose:self];
 }
 
 - (void) windowWillClose:(NSNotification*) not {
