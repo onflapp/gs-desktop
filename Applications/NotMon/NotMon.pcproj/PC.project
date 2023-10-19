@@ -41,7 +41,7 @@
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "-lTerminalKit";
+    LINKEROPTIONS = "-lTerminalKit -lutil -lX11";
     "LOCALIZED_RESOURCES" = (
     );
     MAININTERFACE = "NotMon.gorm";
