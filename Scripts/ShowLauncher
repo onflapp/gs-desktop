@@ -5,7 +5,7 @@ function show_selector {
   T="/tmp/$$-apps"
   find /Applications -type d -name "*.app" > $T
 
-  SEL=`cat $T | sort | fzf --no-info --color='hl+:black,hl:blue,gutter:-1,bg+:white,fg+:white'`
+  SEL=`cat $T | sort | fzf --no-info --color='hl+:4,hl:4,gutter:-1,bg+:0,fg+:4'`
   if [ -d "$SEL" ];then
     /Library/bin/gopen $SEL
   fi
