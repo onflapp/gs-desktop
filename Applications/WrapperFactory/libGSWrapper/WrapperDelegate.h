@@ -31,6 +31,7 @@
 {
     BOOL appDidFinishLaunching;
 
+    NSTimeInterval lastActionTime;
     NSArray *startupFiles;
     NSDictionary *properties;
 

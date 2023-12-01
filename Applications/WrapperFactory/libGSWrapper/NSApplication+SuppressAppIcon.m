@@ -24,11 +24,13 @@
 
 @implementation NSApplication (SuppressAppIcon)
 
+/*
 - _appIconInit
 {
     NSLog(@"Initialization of AppIcon suppressed");
     [self setApplicationIconImage: [NSImage imageNamed: @"AppIcon"]];
     return self;
 }
+*/
 
 @end

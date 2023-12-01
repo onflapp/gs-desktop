@@ -27,7 +27,9 @@
 
 @interface NSApplication (SuppressAppIcon)
 
+/*
 - _appIconInit;
+*/
 
 @end
 

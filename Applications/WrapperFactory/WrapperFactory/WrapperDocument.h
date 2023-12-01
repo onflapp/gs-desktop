@@ -64,10 +64,14 @@ typedef enum {
     NSString *url;
     NSString *authors;
     ApplicationRole role;
+    NSInteger userInterface;
 
     NSString *startScript;
     NSString *startScriptShell;
     ScriptAction startScriptAction;
+    NSString *activateScript;
+    NSString *activateScriptShell;
+    ScriptAction activateScriptAction;
     NSString *startOpenScript;
     NSString *startOpenScriptShell;
     ScriptAction startOpenScriptAction;
@@ -102,6 +106,9 @@ typedef enum {
  * attributes
  */
 
+- (NSInteger)userInterface;
+- (void)setUserInterface: (NSInteger)n;
+
 - (Icon *)appIcon;
 - (void)setAppIcon: (Icon *)i;
 
@@ -134,6 +141,15 @@ typedef enum {
 
 - (ScriptAction)startScriptAction;
 - (void)setStartScriptAction: (ScriptAction)action;
+
+- (NSString *)activateScript;
+- (void)setActivateScript: (NSString *)n;
+
+- (NSString *)activateScriptShell;
+- (void)setActivateScriptShell: (NSString *)n;
+
+- (ScriptAction)activateScriptAction;
+- (void)setActivateScriptAction: (ScriptAction)action;
 
 - (NSString *)startOpenScript;
 - (void)setStartOpenScript: (NSString *)n;

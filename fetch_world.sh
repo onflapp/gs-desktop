@@ -1,6 +1,8 @@
 #!/bin/bash
 set -e
 
+git pull
+
 export PATH=/System/bin:$PATH
 
 D=`pwd`

@@ -167,6 +167,9 @@ static NSString *actionIgnore = @"Ignore";
         startOpenScript = RETAIN(@"");
         startOpenScriptShell = RETAIN(startScriptShell);
         startOpenScriptAction = RunScriptAction;
+        activateScript = RETAIN(@"");
+        activateScriptShell = RETAIN(startScriptShell);
+        activateScriptAction = RunScriptAction;
         openScript = RETAIN(@"");
         openScriptShell = RETAIN(startScriptShell);
         openScriptAction = IgnoreAction;
@@ -192,6 +195,8 @@ static NSString *actionIgnore = @"Ignore";
 
     RELEASE(startScript);
     RELEASE(startScriptShell);
+    RELEASE(activateScript);
+    RELEASE(activateScriptShell);
     RELEASE(startOpenScript);
     RELEASE(startOpenScriptShell);
     RELEASE(openScript);
@@ -285,6 +290,14 @@ static NSString *actionIgnore = @"Ignore";
  * attributes
  */
 
+- (NSInteger)userInterface
+{
+    return userInterface;
+}
+- (void)setUserInterface: (NSInteger)n
+{
+    userInterface = n;
+}
 - (Icon *)appIcon
 {
     return appIcon;
@@ -396,6 +409,35 @@ static NSString *actionIgnore = @"Ignore";
     [self attributeChangedName: @"startScriptAction" value: [NSNumber numberWithInt: action]];
 }
 
+- (NSString *)activateScript
+{
+    return activateScript;
+}
+- (void)setActivateScript: (NSString *)s
+{
+    ASSIGN(activateScript, s);
+    [self attributeChangedName: @"activateScript" value: s];
+}
+
+- (NSString *)activateScriptShell
+{
+    return activateScriptShell;
+}
+- (void)setActivateScriptShell: (NSString *)s
+{
+    ASSIGN(activateScriptShell, s);
+    [self attributeChangedName: @"activateScriptShell" value: s];
+}
+
+- (ScriptAction)activateScriptAction
+{
+    return activateScriptAction;
+}
+- (void)setActivateScriptAction: (ScriptAction)action
+{
+    activateScriptAction = action;
+    [self attributeChangedName: @"activateScriptAction" value: [NSNumber numberWithInt: action]];
+}
 - (NSString *)startOpenScript
 {
     return startOpenScript;
@@ -746,6 +788,27 @@ static NSString *actionIgnore = @"Ignore";
         else {
             NSLog(@"No info for Open script");
         }
+        dict = [gsWrapperInfo objectForKey: @"Activate"];
+        if ( dict ) {
+            value = [dict objectForKey: @"Shell"];
+            if ( value ) {
+                [self setActivateScriptShell: value];
+            }
+            else {
+                NSLog(@"No shell for Activate script set");
+            }
+            value = [dict objectForKey: @"Action"];
+            if ( value ) {
+                [self setActivateScriptAction: [WrapperDocument stringToScriptAction: value]];
+            }
+            else {
+                NSLog(@"No action for Activate script set");
+                [self setActivateScriptAction: RunScriptAction];
+            }
+        }
+        else {
+            NSLog(@"No info for Activate script");
+        }
         dict = [gsWrapperInfo objectForKey: @"Filter"];
         if ( dict ) {
             value = [dict objectForKey: @"Shell"];
@@ -963,6 +1026,13 @@ static NSString *actionIgnore = @"Ignore";
         else {
             NSLog(@"No Open script");
         }
+        NSFileWrapper *activateFile = [resources objectForKey: @"Activate"];
+        if ( openFile ) {
+            [self setActivateScript: [NSString stringWithContentsOfFile: [activateFile filename]]];
+        }
+        else {
+            NSLog(@"No Activate script");
+        }
         NSFileWrapper *filterFile = [resources objectForKey: @"Filter"];
         if ( filterFile ) {
             [self setFilterScript: [NSString stringWithContentsOfFile: [filterFile filename]]];
@@ -1000,6 +1070,10 @@ static NSString *actionIgnore = @"Ignore";
                              url, @"ApplicationURL",
                              @"NSApplication", @"NSPrincipalClass",
                              nil];
+    if ( userInterface ) {
+        [infoDict setValue:@"Launcher" forKey:@"NSMainNibFile"];
+    }
+
     switch ( role ) {
     case NoneRole:
         [infoDict setObject: @"None" forKey: @"NSRole"];
@@ -1154,6 +1228,10 @@ static NSString *actionIgnore = @"Ignore";
                                        [WrapperDocument scriptActionToString: openScriptAction], @"Action",
                                        nil], @"Open",
                          [NSDictionary dictionaryWithObjectsAndKeys:
+                                       activateScriptShell, @"Shell",
+                                       [WrapperDocument scriptActionToString: activateScriptAction], @"Action",
+                                       nil], @"Activate",
+                         [NSDictionary dictionaryWithObjectsAndKeys:
                                        filterScriptShell, @"Shell",
                                        [WrapperDocument scriptActionToString: filterScriptAction], @"Action",
                                        nil], @"Filter",
@@ -1178,6 +1256,10 @@ static NSString *actionIgnore = @"Ignore";
     NSFileWrapper *start = AUTORELEASE([[NSFileWrapper alloc] initRegularFileWithContents: data]);
     [start setPreferredFilename: @"Start"];
 
+    data = [activateScript dataUsingEncoding: [NSString defaultCStringEncoding]];
+    NSFileWrapper *activate = AUTORELEASE([[NSFileWrapper alloc] initRegularFileWithContents: data]);
+    [activate setPreferredFilename: @"Activate"];
+
     data = [startOpenScript dataUsingEncoding: [NSString defaultCStringEncoding]];
     NSFileWrapper *startOpen = AUTORELEASE([[NSFileWrapper alloc] initRegularFileWithContents: data]);
     [startOpen setPreferredFilename: @"StartOpen"];
@@ -1197,6 +1279,7 @@ static NSString *actionIgnore = @"Ignore";
                                                                         gsWrapper, [gsWrapper preferredFilename],
                                                                         icon, [icon preferredFilename],
                                                                         start, [start preferredFilename],
+                                                                        activate, [activate preferredFilename],
                                                                         startOpen, [startOpen preferredFilename],
                                                                         open, [open preferredFilename],
                                                                         filter, [filter preferredFilename],
@@ -1216,6 +1299,13 @@ static NSString *actionIgnore = @"Ignore";
         NSFileWrapper *serviceScript = AUTORELEASE([[NSFileWrapper alloc] initRegularFileWithContents: data]);
         [serviceScript setPreferredFilename: [NSString stringWithFormat: @"Service_%03d", i]];
         [resources addFileWrapper: serviceScript];
+    }
+
+    if ( userInterface ) {
+        NSString* nibPath = [[NSBundle mainBundle] pathForResource: @"Launcher" ofType: @"gorm"];
+        NSFileWrapper *nibFile = AUTORELEASE([[NSFileWrapper alloc] initWithPath: nibPath]);
+        [nibFile setPreferredFilename: @"Launcher.gorm"];
+        [resources addFileWrapper: nibFile];
     }
 
     [resources setPreferredFilename: @"Resources"];

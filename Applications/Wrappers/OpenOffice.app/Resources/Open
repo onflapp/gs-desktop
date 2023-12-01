@@ -1,0 +1,2 @@
+unset FONTCONFIG_FILE
+libreoffice "$1"

@@ -18,7 +18,7 @@
 #import	<AppKit/AppKit.h>
 
 void printUsage() {
-  fprintf(stderr, "Usage: nxbrowser <url> [--open <url>] [--seach <text>]\n");
+  fprintf(stderr, "Usage: nxbrowser <url> [--open <url>] [--search <text>]\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Help: open url in the WebBrowser.app\n");
   fprintf(stderr, "Options:\n");

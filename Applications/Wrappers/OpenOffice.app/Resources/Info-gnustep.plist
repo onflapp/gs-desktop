@@ -1,0 +1,1 @@
+{ApplicationDescription = "A wrapped application"; ApplicationName = "OpenOffice.app"; ApplicationRelease = "1.0"; ApplicationURL = ""; FullVersionID = "1.0/1.0"; NSIcon = "AppIcon.tiff"; NSMainNibFile = Launcher; NSPrincipalClass = NSApplication; NSRole = None; }

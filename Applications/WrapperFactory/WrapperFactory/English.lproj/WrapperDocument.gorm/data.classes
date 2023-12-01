@@ -7,10 +7,12 @@
 	    "controlTextDidChange:",
 	    "deleteService:",
 	    "deleteType:",
-	    "setCurrentScriptToFilter:",
+	    "setUserInterface:",
 	    "newService:",
 	    "newType:",
 	    "orderFrontFontPanel:",
+	    "setCurrentScriptToActivate:",
+	    "setCurrentScriptToFilter:",
 	    "setCurrentScriptToOpen:",
 	    "setCurrentScriptToStart:",
 	    "setCurrentScriptToStartOpen:",
@@ -100,7 +102,9 @@
 	    "setRole:",
 	    "chooseIcon:",
 	    "setCurrentScriptAction:",
-	    "setCurrentScriptToFilter:"
+	    "setCurrentScriptToFilter:",
+	    "setCurrentScriptToActivate:",
+	    "setUserInterface:"
 	);
 	Outlets = (
 	    windowController,
@@ -115,7 +119,8 @@
 	    currentScript,
 	    document,
 	    rolePopUp,
-	    currentScriptActionPopUp
+	    currentScriptActionPopUp,
+	    userInterface
 	);
 	Super = NSObject;
     };

@@ -22,7 +22,7 @@
 
 #include "WrapperDelegate.h"
 #include "NSApplication+AppName.h"
-
+#include "AppIconView.h"
 
 @implementation WrapperDelegate
 
@@ -35,6 +35,10 @@
     self = [super init];
     appDidFinishLaunching = NO;
     startupFiles = nil;
+
+    //AppIconView *mv = [[AppIconView alloc] initWithFrame:NSMakeRect(0, 0, 64, 64)];
+    //[[NSApp iconWindow] setContentView:mv];
+
     return self;
 }
 
@@ -44,6 +48,7 @@
 
 - (void)applicationDidFinishLaunching: (NSNotification*)not
 {
+    NSLog(@"finish");
     appDidFinishLaunching = YES;
     NSRegisterServicesProvider(self, [[NSApp applicationName] stringByDeletingPathExtension]);
 
@@ -58,6 +63,10 @@
         mainAction = [self actionForMessage: @"Start"];
     }
     [mainAction executeWithFiles: startupFiles];
+    lastActionTime = [[NSDate date] timeIntervalSinceReferenceDate];
+    [startupFiles release];
+    startupFiles = nil;
+
     if ( !mainAction ) {
         [NSApp terminate: self];
         return;
@@ -122,6 +131,8 @@
         }
 
         BOOL retval = [openAction executeWithFiles: files];
+        lastActionTime = [[NSDate date] timeIntervalSinceReferenceDate];
+
         NSTask *task = [openAction task];
         if ( !task ) {
             return retval;
@@ -140,6 +151,22 @@
             }
         }
     }
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification
+{
+  if ( mainAction && appDidFinishLaunching ) {
+    [self performSelector:@selector(reactivateApplication) withObject:nil afterDelay:0.1];
+  }
+}
+
+- (void) reactivateApplication
+{
+    NSTimeInterval td = ([[NSDate date] timeIntervalSinceReferenceDate] - lastActionTime);
+    if (td < 1.0) return;
+
+    RunScriptAction *activateAction = (RunScriptAction*)[self actionForMessage: @"Activate"];
+    [activateAction executeWithFiles: nil];
 }
 
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender

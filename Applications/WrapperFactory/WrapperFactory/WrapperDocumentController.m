@@ -58,6 +58,15 @@
 }
 
 
+- (IBAction)setUserInterface: (id)sender
+{
+    if ([sender state] == 1) {
+        [document setUserInterface:1];
+    }
+    else {
+        [document setUserInterface:0];
+    }
+}
 
 /*
  * delegate methods
@@ -102,6 +111,9 @@
         case OpenScript:
             [document setOpenScriptShell: shell];
             break;
+        case ActivateScript:
+            [document setActivateScriptShell: shell];
+            break;
         case FilterScript:
             [document setFilterScriptShell: shell];
             break;
@@ -120,6 +132,9 @@
             break;
         case OpenScript:
             [document setOpenScript: script];
+            break;
+        case ActivateScript:
+            [document setActivateScript: script];
             break;
         case FilterScript:
             [document setFilterScript: script];
@@ -164,6 +179,11 @@
     [self setCurrentScriptId: OpenScript];
 }
 
+- (IBAction)setCurrentScriptToActivate: (id)sender
+{
+    [self setCurrentScriptId: ActivateScript];
+}
+
 - (IBAction)setCurrentScriptToFilter: (id)sender
 {
     [self setCurrentScriptId: FilterScript];
@@ -200,6 +220,9 @@
         break;
     case OpenScript:
         [document setOpenScriptAction: tag];
+        break;
+    case ActivateScript:
+        [document setActivateScriptAction: tag];
         break;
     case FilterScript:
         [document setFilterScriptAction: tag];
@@ -406,6 +429,11 @@
         script = [document openScript];
         action = [document openScriptAction];
         break;
+    case ActivateScript:
+        shell = [document activateScriptShell];
+        script = [document activateScript];
+        action = [document activateScriptAction];
+        break;
     case FilterScript:
         shell = [document filterScriptShell];
         script = [document filterScript];
@@ -507,6 +535,21 @@
     }
     else if ( [attr isEqualToString: @"startScriptAction"] && currentScriptActionPopUp ) {
         if ( currentScriptId == StartScript ) {
+            [currentScriptActionPopUp selectItemAtIndex: [currentScriptActionPopUp indexOfItemWithTag: [val intValue]]];
+        }
+    }
+    else if ( [attr isEqualToString: @"activateScript"] && currentScript) {
+        if ( currentScriptId == ActivateScript ) {
+            [[[currentScript textStorage] mutableString] setString:val];
+        }
+    }
+    else if ( [attr isEqualToString: @"activateScriptShell"] && currentScriptShell ) {
+        if ( currentScriptId == ActivateScript ) {
+            [currentScriptShell setStringValue: val];
+        }
+    }
+    else if ( [attr isEqualToString: @"activateScriptAction"] && currentScriptActionPopUp ) {
+        if ( currentScriptId == ActivateScript ) {
             [currentScriptActionPopUp selectItemAtIndex: [currentScriptActionPopUp indexOfItemWithTag: [val intValue]]];
         }
     }

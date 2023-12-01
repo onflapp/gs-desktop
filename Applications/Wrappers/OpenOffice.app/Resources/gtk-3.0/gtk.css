@@ -1,0 +1,56 @@
+@define-color controlBackground #aaaaaa;
+@define-color controlDarkShadow #000000;
+@define-color controlShadow #555555;
+@define-color controlText #000000;
+@define-color controlTextBackground #ffffff;
+
+* {
+    -GtkScrollbar-has-backward-stepper: false;
+    -GtkScrollbar-has-forward-stepper: true;
+    -GtkScrollbar-has-secondary-forward-stepper: false;
+    -GtkScrollbar-has-secondary-backward-stepper: true;
+    border-radius: 0px 0px 0px 0px;
+
+    background-color: @controlBackground;
+    color: @controlText;
+
+    font-size: 12px;
+    font-family: 'Helvetica';
+    font-style: normal;
+    transition: none;
+    outline: none;
+    box-shadow: none;
+}
+
+treeview {
+    background-color: @controlTextBackground;
+}
+
+menubar {
+    border: 0;
+}
+menuitem {
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    border-right: 2px solid @controlShadow;
+    border-bottom: 2px solid @controlShadow;
+}
+
+button,toolbarbutton {
+    padding: 0px;
+    border-left: 1px solid white;
+    border-top: 1px solid white;
+    border-right: 2px solid @controlShadow;
+    border-bottom: 2px solid @controlShadow;
+}
+
+button:hover {
+  box-shadow: none;
+  text-shadow: none;
+  background: none;
+  transition: none;
+}

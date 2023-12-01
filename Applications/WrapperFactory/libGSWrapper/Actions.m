@@ -106,12 +106,27 @@
     }
 }
 
+- (NSDictionary*)makeEnvironment
+{
+    NSDictionary* env = [[NSProcessInfo processInfo] environment];
+    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary: env];
+    NSString* cmdkey = [[NSUserDefaults standardUserDefaults] valueForKey:@"GSFirstCommandKey"];
+
+    if ([cmdkey hasPrefix:@"Super_"])        [dict setValue:@"SUPER" forKey:@"GS_COMMAND_KEY"];
+    else if ([cmdkey hasPrefix:@"Control_"]) [dict setValue:@"CTRL" forKey:@"GS_COMMAND_KEY"];
+    else if ([cmdkey hasPrefix:@"Meta_"])    [dict setValue:@"META" forKey:@"GS_COMMAND_KEY"];
+    else                                     [dict setValue:@"ALT" forKey:@"GS_COMMAND_KEY"];
+
+    return dict;
+}
+
 - (NSTask*)createTaskWithFiles: (NSArray *)files
 {
     NSString *shell;
     NSString *script;
     NSArray *args;
     NSMutableArray *realArgs;
+    NSDictionary *env = [self makeEnvironment];
     int fileCount;
     int i;
 
@@ -157,6 +172,7 @@
     task = [[NSTask alloc] init];
     [task setLaunchPath: shell];
     [task setArguments: realArgs];
+    [task setEnvironment: env];
     [task setCurrentDirectoryPath: [[NSBundle mainBundle] bundlePath]];
 
     return task;

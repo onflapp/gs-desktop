@@ -30,14 +30,46 @@ static NSBundle* __my_main_bundle;
 @end
 
 @implementation NSBundle (Launcher)
-+ (NSBundle*) mainBundle {
++ (NSBundle*) mainBundle 
+{
     return __my_main_bundle;
+}
+@end
+
+static NSString* __my_process_name;
+static NSString* __my_process_cmd;
+static NSMutableArray* __my_process_args;
+
+@interface NSProcessInfo (Launcher)
+- (NSString*) processName;
+- (NSArray*) arguments;
+@end
+
+@implementation NSProcessInfo (Launcher)
+- (NSString*) processName 
+{
+    return __my_process_name;
+}
+- (NSArray*) arguments 
+{
+    return __my_process_args;
 }
 @end
 
 int main(int argc, const char *argv[]) {
     NSFileManager* fm = [NSFileManager defaultManager];
-    __my_main_bundle = [NSBundle bundleWithPath:[fm currentDirectoryPath]];
+    NSString* cd      = [fm currentDirectoryPath];
+    __my_process_name = [[[cd lastPathComponent] stringByDeletingPathExtension] retain];
+    __my_process_cmd  = [[cd stringByAppendingPathComponent:__my_process_name] retain];
+    __my_process_args = [[NSMutableArray alloc] init];
+
+    [__my_process_args addObject:__my_process_cmd];
+    for (int c = 1; c < argc; c++) {
+        NSString* a = [NSString stringWithUTF8String:argv[c]];
+        [__my_process_args addObject:a];
+    }
+
+    __my_main_bundle  = [NSBundle bundleWithPath:cd];
 
     [NSApplication sharedApplication];
     [NSApp setDelegate: [[WrapperDelegate alloc] init]];

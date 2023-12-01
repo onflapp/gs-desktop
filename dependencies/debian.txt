@@ -26,6 +26,7 @@ autoconf
 libtool
 xinit
 x11-xserver-utils
+xdotool
 libffcall-dev
 libxml2-dev
 libxslt-dev

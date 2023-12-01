@@ -45,6 +45,7 @@ WrapperFactory_RESOURCE_FILES = \
 WrapperFactory_LANGUAGES = English
 
 WrapperFactory_LOCALIZED_RESOURCE_FILES = Localizable.strings \
+	Launcher.gorm \
 	WrapperFactory.gorm \
 	WrapperDocument.gorm \
 

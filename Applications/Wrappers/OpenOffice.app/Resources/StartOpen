@@ -1,0 +1,4 @@
+wdwrite WMWindowAttributes 'soffice' '{ NoAppIcon = Yes; }'
+
+unset FONTCONFIG_FILE
+libreoffice "$1"

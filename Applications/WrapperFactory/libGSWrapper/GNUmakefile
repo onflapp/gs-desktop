@@ -25,6 +25,7 @@ LIBRARY_NAME=libGSWrapper
 
 libGSWrapper_OBJC_FILES = WrapperDelegate.m \
 	Actions.m \
+	AppIconView.m \
 	NSApplication+SuppressAppIcon.m \
 	NSApplication+AppName.m \
 

@@ -29,4 +29,9 @@
     return (NSString *)[[[NSBundle mainBundle] infoDictionary] objectForKey: @"ApplicationName"];
 }
 
+- (void) xactivateIgnoringOtherApps:(BOOL) flag
+{
+    [[self delegate] performSelector:@selector(activateApplication) withObject:nil];
+}
+
 @end

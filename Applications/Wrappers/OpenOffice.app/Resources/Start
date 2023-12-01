@@ -1,0 +1,5 @@
+wdwrite WMWindowAttributes 'soffice' '{ NoAppIcon = Yes; }'
+
+unset FONTCONFIG_FILE
+#export XDG_CONFIG_HOME=`pwd`
+libreoffice

@@ -30,6 +30,7 @@
 #define StartScript 0
 #define StartOpenScript 1
 #define OpenScript 2
+#define ActivateScript 4
 #define FilterScript 3
 
 
@@ -49,6 +50,7 @@
     IBOutlet NSTextField *url;
     IBOutlet NSTextField *authors;
     IBOutlet NSPopUpButton *rolePopUp;
+    IBOutlet NSButton *userInterface;
 
     IBOutlet NSTextField *currentScriptShell;
     IBOutlet NSTextView *currentScript;
@@ -78,10 +80,11 @@
 - (IBAction)setCurrentScriptToStart: (id)sender;
 - (IBAction)setCurrentScriptToStartOpen: (id)sender;
 - (IBAction)setCurrentScriptToOpen: (id)sender;
+- (IBAction)setCurrentScriptToActivate: (id)sender;
 - (IBAction)setCurrentScriptToFilter: (id)sender;
 - (IBAction)setRole: (id)sender;
 - (IBAction)setCurrentScriptAction: (id)sender;
-
+- (IBAction)setUserInterface: (id)sender;
 
 /*
  * outlets
