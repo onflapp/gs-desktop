@@ -24,7 +24,7 @@
 void printUsage() {
   fprintf(stderr, "Usage: nxdisplay\n");
   fprintf(stderr, "\n");
-  fprintf(stderr, "Help: conntrol display' backlight from command line\n");
+  fprintf(stderr, "Help: control display's backlight from the command line\n");
   fprintf(stderr, "Options:\n");
   fprintf(stderr, "  --set brightness\n");
   fprintf(stderr, "  --increase\n");

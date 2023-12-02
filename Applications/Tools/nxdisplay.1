@@ -6,19 +6,22 @@
 .\"notice and this notice are preserved.
 .\"
 .\"Process this file with
-.\"groff -man -Tascii nxworkspace.1
+.\"groff -man -Tascii nxdisplay.1
 .\"
-.TH NXAUDIO 1 "August 2020" GNUstep "NEXTSPACE System Manual"
+.TH NXDISPLAY 1 "August 2020" GSDE "User Manual"
 .SH NAME
-nxaudio \- control audio volume from the command line
+nxdisplay \- control display's backlight from the command line
 .SH SYNOPSIS
-.B nxaudio +|- <value>
+.B nxdisplay [\-\-set <brightness>] [\-\-increase] [\-\-decrease]
 .P
 .SH DESCRIPTION
 .P
-Control audio volume from the command line.
+Control display's backlight from the command line. 
+This command uses OSEDisplay API to do the actual work. 
 
 .SH OPTIONS
 .P
-+ or \- value
+\-\-set <brightness>
+\-\-increase
+\-\-decrease
 .P
