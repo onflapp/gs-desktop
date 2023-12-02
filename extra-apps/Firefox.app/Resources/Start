@@ -2,6 +2,7 @@ PROF="$HOME/Library/Firefox"
 mkdir -p "$PROF" 2>/dev/null
 
 wdwrite WMWindowAttributes 'Firefox-esr' '{ NoAppIcon = Yes; }'
+wdwrite WMWindowAttributes 'Firefox' '{ NoAppIcon = Yes; }'
 
 K="18"
 if [ "x$GS_COMMAND_KEY" = "xCTRL" ];then

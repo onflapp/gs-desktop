@@ -21,6 +21,7 @@ xterm
 xset
 xsetroot
 xwininfo
+xdotool
 openssl-devel
 ffcall-devel
 libffi-devel

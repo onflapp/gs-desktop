@@ -1,6 +1,15 @@
 PROF="$HOME/Library/Chrome"
-CHROME="chromium"
 mkdir -p "$PROF" 2>/dev/null
+
+CHROME=`type -p google-chrome`
+[ -z "$CHROME" ] && CHROME=`type -p chromium`
+[ -z "$CHROME" ] && CHROME=`type -p chromium-browser`
+[ -z "$CHROME" ] && CHROME=`type -p chrome`
+
+if [ -z "$CHROME" ];then
+  echo "no google-chrome|chromium|chromium-browser|chrome found!"
+  exit 10
+fi
 
 #wdwrite WMWindowAttributes 'Firefox-esr' '{ NoAppIcon = Yes; }'
 
