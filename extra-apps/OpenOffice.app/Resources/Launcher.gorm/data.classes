@@ -1,0 +1,12 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    WrapperDelegate = {
+	Actions = (
+	);
+	Outlets = (
+	    mainAction,
+	    openAction
+	);
+	Super = NSObject;
+    };
+}

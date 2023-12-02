@@ -1,0 +1,2 @@
+FILE="$1"
+. ./Resources/Start

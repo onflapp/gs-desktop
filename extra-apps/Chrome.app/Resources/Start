@@ -1,0 +1,13 @@
+PROF="$HOME/Library/Chrome"
+CHROME="chromium"
+mkdir -p "$PROF" 2>/dev/null
+
+#wdwrite WMWindowAttributes 'Firefox-esr' '{ NoAppIcon = Yes; }'
+
+unset FONTCONFIG_FILE
+
+if [ -n "$FILE" ];then
+  $CHROME --user-data-dir="$PROF" "$FILE"
+else
+  $CHROME --user-data-dir="$PROF"
+fi

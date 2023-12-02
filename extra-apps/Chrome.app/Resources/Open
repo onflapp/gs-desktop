@@ -1,0 +1,3 @@
+PROF="$HOME/Library/Chrome"
+CHROME="chromium"
+"$CHROME" --user-data-dir="$PROF" "$1"
