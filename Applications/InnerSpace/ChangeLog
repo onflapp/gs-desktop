@@ -1,0 +1,64 @@
+2005-07-28 21:50 Gregory John Casamento <greg_casamento@yahoo.com>
+
+	* config.h.in: Configuration file header.
+	* configure.ac: Configuration script.
+
+2005-07-28 21:29 Gregory John Casamento <greg_casamento@yahoo.com>
+
+	* InnerSpace.xcode: Added xcode directory.
+
+2005-01-17 20:29 Gregory John Casamento <greg_casamento@yahoo.com>
+
+	* InnerSpace.gorm: Move "hide:" below "Run".
+	* SaverWindow.m: Override "hide:" to prevent the saver window
+	from being hidden.
+
+2005-01-17 20:13 Gregory John Casamento <greg_casamento@yahoo.com>
+
+	* InnerSpaceController.h: Made some formerly private methods public.
+	* InnerSpaceController.m: Make some formerly private methods public.
+	Also removed the makeWindowOmnipresent forward declaration.  Added
+	a call to the new method on SaverWindow which does this.
+	* InnerSpace.gorm: Changed the layout of the GUI a little.
+	* InnerSpaceInfo.plist: added information in the plist for a 
+	nicer panel.
+	* NickSpace.bproj/English.lproj/NickSpace.gorm: Changed mikes email to
+	the new email.
+	* SaverWindow.h: Added new method for makeOmnipresent.
+	* SaverWindow.m: Added new method implementation for makeOmnipresent.
+	Special thanks to Enrico Sersale who did it first in GWorkspace.
+	* UtilFunctions.c: Removed the makeWindowOmnipresent function and 
+	also removed some commented out code.
+
+2005-01-08 07:18 Gregory John Casamento <greg_casamento@yahoo.com>
+
+	* InnerSpaceController.m: Added code to select the module name.
+	* InnerSpace.gorm: Replaced the browser and reconnected.
+	* NickSpace.bproj/NickSpaceView.m: Changed code to thicken the
+	lines draw so that they are erased completely.
+
+2005-01-07 00:26 Gregory John Casamento <greg_casamento@yahoo.com>
+
+	* GNUmakefile: Added NickSpace.
+	* NickSpace.bproj: Added dir and all files for this module.
+
+2003-07-26 Gregory John Casamento <greg_casamento@yahoo.com>
+
+	* Version 0.0.2: This is the initial release so people can
+	start to take a look at what's been done.
+
+2003-06-23 Gregory John Casamento <greg_casamento@yahoo.com>
+
+	* InnerSpaceContoller.[hm]: Bugfixes and improvements.
+	Started on code to put SaverWindow into the background as an
+	"omnipresent" window.
+	* Black.bproj: Added. Contains "Black" screensaver
+	* Boxes.bproj: Added. Contains "Boxes" screensaver
+	
+2003-01-12 Gregory John Casamento <greg_casamento@yahoo.com>
+
+	* InnerSpaceController.[hm]: Added
+	* ModuleView.h: Added
+	* InnerSpace.gorm: Added
+	* SaverWindow.[hm]: Added
+	* main.m: Added

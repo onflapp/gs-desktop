@@ -1,0 +1,28 @@
+1/13/95
+
+This is a BackSpace module.  I named it NickSpace after the noted human Nick Manjoine, because it was inspired by a characteristic behavior of his.
+
+The distribution includes a fat binary (Intel and Motorola) and source.  The source should compile readily under NS 3.1 and 3.2, but will probably require some makefile tweaking for earlier versions.
+
+If you like it, or do anything further to it, let me know.
+
+Michael Koehrsen
+koehrsen@whitewater.chem.wisc.edu
+
+----
+
+1/7/2005
+
+A decade on here, I got permisson from Micheal, who is a friend of mine to distribute this module with InnerSpace under the GPL.
+
+So here it is, one of the classic BackSpace modules now under GNUstep, and soon Mac OS X.
+
+GJC
+
+
+
+
+
+
+
+
