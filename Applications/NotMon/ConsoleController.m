@@ -28,18 +28,19 @@
 
 - (id) initWithFrame:(NSRect) frame {
   [super initWithFrame:frame];
-
-  Defaults* prefs = [[Defaults alloc] init];
-  [prefs setScrollBackEnabled:NO];
-  [prefs setWindowBackgroundColor:[NSColor whiteColor]];
+  [defaults setScrollBackEnabled:NO];
+  [defaults setWindowBackgroundColor:[NSColor whiteColor]];
   //[prefs setTextNormalColor:[NSColor blackColor]];
   //[prefs setTextBoldColor:[NSColor greenColor]];
-  //[prefs setUseBoldTerminalFont:NO];
   //[prefs setCursorColor:[NSColor redColor]];
-  [prefs setScrollBottomOnInput:NO];
+  [defaults setScrollBottomOnInput:NO];
+  [defaults setUseBoldTerminalFont:NO];
 
-  [self setFont:[NSFont userFixedPitchFontOfSize:18]];
-  [self setCursorStyle:[prefs cursorStyle]];
+  NSFont* font = [NSFont userFixedPitchFontOfSize:18];
+
+  [self setFont:font];
+  [self setBoldFont:font];
+  [self setCursorStyle:[defaults cursorStyle]];
 
   return self;
 }

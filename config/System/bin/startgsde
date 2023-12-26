@@ -159,8 +159,12 @@ function init_config {
     cp /Library/Preferences/.NextSpace/* "$HOME/Library/Preferences/.NextSpace"
   fi
 
-  defaults read NSGlobalDomain "Local Time Zone" 2>&1 > /dev/null
-  if [ $? -ne 0 ]; then
+  TZ=`defaults read NSGlobalDomain "Local Time Zone" 2>/dev/null`
+  TZ=${TZ:33}
+  if [ -n "$TZ" ]; then
+    echo "setting session timezone to $TZ"
+    export TZ
+  else
     TZ=`cat /etc/timezone`
     echo "setting default timezone to $TZ"
     defaults write NSGlobalDomain "Local Time Zone" $TZ
