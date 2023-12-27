@@ -16,6 +16,7 @@ libcups2-dev
 libgl1-mesa-dev
 util-linux-locales
 picom
+info
 fzf
 gdb
 clang
