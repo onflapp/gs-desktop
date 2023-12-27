@@ -2,23 +2,17 @@
 
 #include <AppKit/AppKit.h>
 #include "SaverWindow.h"
-# include <GNUstepGUI/GSDisplayServer.h>
-
-// I need to put defines here to make it not tied to X, 
-// nor any backend..  this is temporary.
-#ifdef HAVE_OMNIPRESENT
 #include <X11/Xlib.h>
-#endif
+#include <GNUstepGUI/GSDisplayServer.h>
 
 @implementation SaverWindow
 
 - (void) makeOmnipresent
 {
-#ifdef HAVE_OMNIPRESENT
   GSDisplayServer *server = GSCurrentServer();
   Display *dpy = (Display *)[server serverDevice];
   void *winptr = [server windowDevice: [self windowNumber]];
-  Window win = *(Window *)winptr;
+  Window win = (Window)winptr;
   Atom atom = 0;
   long data = 1;
   
@@ -35,7 +29,6 @@
     XChangeProperty(dpy, win, atom, atom, 32, 
 		    PropModeReplace, (unsigned char *)&data, 1);
   }
-#endif
 }
 
 - (void) setAction: (SEL)a forTarget: (id)t

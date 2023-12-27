@@ -335,7 +335,7 @@ void doSeg(float x1, float y1, float x2, float y2)
 	  [self newSize:YES];
 	  if (image) 
 	    {
-	      [image free];
+	      [image release];
 	      image = nil;
 	    }
 	}
@@ -472,7 +472,7 @@ void doSeg(float x1, float y1, float x2, float y2)
 
 -(id)initWithFrame:(NSRect)frameRect
 {
-  NSString *defaults = [NSString stringWithString: @"{\"spacing\" = \"\"; \"tcRatio\" = \"\"; \"tlRatio\" = \"\";}"];
+  NSString *defaults = @"{\"spacing\" = \"\"; \"tcRatio\" = \"\"; \"tlRatio\" = \"\";}";
   NSDictionary *defDict = [defaults propertyList];
   NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
   int i;

@@ -19,24 +19,32 @@ endif
 
 include $(GNUSTEP_MAKEFILES)/common.make
 
-NickSpace_MAIN_MODEL_FILE = NickSpace.gorm
-
-# The application to be compiled
-BUNDLE_NAME = NickSpace
+#
+# Bundle
+#
+VERSION = 0.1
+PACKAGE_NAME = Boxes
+BUNDLE_NAME = Boxes
+Boxes_PRINCIPAL_CLASS = BoxesView
 BUNDLE_EXTENSION = .InnerSpace
 
-# The Objective-C source files to be compiled
-NickSpace_OBJC_FILES = NickSpaceView.m
-NickSpace_PRINCIPAL_CLASS = NickSpaceView
-NickSpace_STANDARD_INSTALL = no
 
-# The Resource files to be copied into the bundle's resources directory
-NickSpace_RESOURCE_FILES = English.lproj/NickSpace.gorm
+#
+# Header files
+#
+Boxes_HEADER_FILES = \
+BoxesView.h
 
+#
+# Objective-C Class files
+#
+Boxes_OBJC_FILES = \
+BoxesView.m
+
+#
+# Makefiles
+#
 -include GNUmakefile.preamble
-
--include ../GNUmakefile.local
-
--include $(GNUSTEP_MAKEFILES)/bundle.make
-
+include $(GNUSTEP_MAKEFILES)/aggregate.make
+include $(GNUSTEP_MAKEFILES)/bundle.make
 -include GNUmakefile.postamble

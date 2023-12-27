@@ -29,20 +29,45 @@ InnerSpace_APPLICATION_ICON =
 
 
 #
+# Subprojects
+#
+SUBPROJECTS = \
+Black.subproj \
+NickSpace.subproj \
+Boxes.subproj 
+
+#
 # Resource files
 #
 InnerSpace_RESOURCE_FILES = \
 Resources/InnerSpace.gorm \
-Resources/Info-gnustep.plist 
+Black.subproj/Black.InnerSpace \
+Boxes.subproj/Boxes.InnerSpace \
+NickSpace.subproj/NickSpace.InnerSpace 
 
+
+#
+# Header files
+#
+InnerSpace_HEADER_FILES = \
+InnerSpaceController.h \
+SaverWindow.h
 
 #
 # Objective-C Class files
 #
 InnerSpace_OBJC_FILES = \
+main.m \
 InnerSpaceController.m \
-SaverWindow.m \
-main.m
+SaverWindow.m
+
+#
+# Other sources
+#
+InnerSpace_C_FILES = \
+UtilFunctions.c 
+
+
 
 #
 # Makefiles

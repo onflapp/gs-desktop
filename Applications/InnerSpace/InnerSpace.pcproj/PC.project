@@ -2,11 +2,25 @@
     APPCLASS = NSApplication;
     APPKIT = "GNUSTEP-GUI";
     APPLICATIONICON = "";
+    "APP_DOCUMENT_BASED" = NO;
+    "APP_TYPE" = GORM;
+    "BUILDER_TARGETS" = (
+	all,
+	install,
+	uninstall,
+	clean,
+	distclean,
+	dist
+    );
     BUILDTOOL = "/usr/bin/make";
+    "BUNDLE_IDENTIFIER" = "";
     "CLASS_FILES" = (
-	"main.m"
+	"main.m",
+	"InnerSpaceController.m",
+	"SaverWindow.m"
     );
     COMPILEROPTIONS = "";
+    CPPOPTIONS = "";
     "CREATION_DATE" = "";
     "DOCU_FILES" = (
     );
@@ -14,6 +28,8 @@
     FRAMEWORKS = (
     );
     "HEADER_FILES" = (
+	"InnerSpaceController.h",
+	"SaverWindow.h"
     );
     IMAGES = (
     );
@@ -26,19 +42,31 @@
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "";
+    LINKEROPTIONS = "-lX11";
+    "LOCALIZED_RESOURCES" = (
+    );
     MAININTERFACE = "InnerSpace.gorm";
     MAKEFILEDIR = "$(GNUSTEP_SYSTEM_ROOT)/Makefiles";
+    "OBJC_COMPILEROPTIONS" = "";
     "OTHER_FILES" = (
     );
     "OTHER_RESOURCES" = (
-	"Info-gnustep.plist"
+	"Black.subproj/Black.InnerSpace",
+	"Boxes.subproj/Boxes.InnerSpace",
+	"NickSpace.subproj/NickSpace.InnerSpace"
     );
     "OTHER_SOURCES" = (
+	"UtilFunctions.c"
+    );
+    "PRINCIPAL_CLASS" = NSApplication;
+    "PROJECT_AUTHORS" = (
     );
     "PROJECT_COPYRIGHT" = "No license specified!";
+    "PROJECT_COPYRIGHT_DESC" = "Released under ...";
     "PROJECT_CREATOR" = "";
     "PROJECT_DESCRIPTION" = "No description avaliable!";
+    "PROJECT_DOCUMENTTYPES" = (
+    );
     "PROJECT_GROUP" = "No description avaliable!";
     "PROJECT_MAINTAINER" = "";
     "PROJECT_NAME" = InnerSpace;
@@ -46,12 +74,20 @@
     "PROJECT_SOURCE" = "%{gs_name}-%{gs_version}.tar.gz";
     "PROJECT_SUMMARY" = "No summary avaliable!";
     "PROJECT_TYPE" = Application;
+    "PROJECT_URL" = "";
     "PROJECT_VERSION" = "1.0";
+    "SEARCH_HEADER_DIRS" = (
+    );
+    "SEARCH_LIB_DIRS" = (
+    );
     SUBPROJECTS = (
+	Black,
+	NickSpace,
+	Boxes
     );
     "SUPPORTING_FILES" = (
-	"GNUmakefile.preamble",
-	GNUmakefile,
-	"GNUmakefile.postamble"
+	"InnerSpaceInfo.plist"
+    );
+    "USER_LANGUAGES" = (
     );
 }

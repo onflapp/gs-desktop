@@ -1,6 +1,6 @@
 {
   NOTE = "Automatically generated, do not edit!";
   NSExecutable = "NickSpace";
-  NSMainNibFile = "NickSpace";
+  NSMainNibFile = "";
   NSPrincipalClass = "NickSpaceView";
 }

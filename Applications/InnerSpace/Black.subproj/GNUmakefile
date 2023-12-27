@@ -19,27 +19,32 @@ endif
 
 include $(GNUSTEP_MAKEFILES)/common.make
 
-# Boxes_MAIN_MODEL_FILE = Boxes.gorm
-Boxes_PRINCIPAL_CLASS = BoxesView
-
-#  include ../../Version
-
-# The application to be compiled
-BUNDLE_NAME = Boxes
+#
+# Bundle
+#
+VERSION = 0.1
+PACKAGE_NAME = Black
+BUNDLE_NAME = Black
+Black_PRINCIPAL_CLASS = BlackView
 BUNDLE_EXTENSION = .InnerSpace
 
-# The Objective-C source files to be compiled
-Boxes_OBJC_FILES = BoxesView.m
-Boxes_PRINCIPAL_CLASS = BoxesView
-Boxes_STANDARD_INSTALL = no
 
-# The Resource files to be copied into the bundle's resources directory
-# Boxes_RESOURCE_FILES = English.lproj/Boxes.gmodel
+#
+# Header files
+#
+Black_HEADER_FILES = \
+BlackView.h
 
+#
+# Objective-C Class files
+#
+Black_OBJC_FILES = \
+BlackView.m
+
+#
+# Makefiles
+#
 -include GNUmakefile.preamble
-
--include ../GNUmakefile.local
-
--include $(GNUSTEP_MAKEFILES)/bundle.make
-
+include $(GNUSTEP_MAKEFILES)/aggregate.make
+include $(GNUSTEP_MAKEFILES)/bundle.make
 -include GNUmakefile.postamble

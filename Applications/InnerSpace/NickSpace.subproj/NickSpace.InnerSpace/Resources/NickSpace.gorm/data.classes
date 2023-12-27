@@ -2,21 +2,13 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     FirstResponder = {
 	Actions = (
-	    "cut:",
-	    "indent:",
-	    "moveToBeginningOfLine:",
 	    "getNumberFrom:",
 	    "scrollColor:",
 	    "removeColor:",
 	    "addColor:",
 	    "updateCurrColor:",
 	    "getMaxLenFrom:",
-	    "getSpacingFrom:",
-	    "pageUp:",
-	    "saveDocument:",
-	    "showContextHelp:",
-	    "toggleContinuousSpellChecking:",
-	    "useStandardLigatures:"
+	    "getSpacingFrom:"
 	);
 	Super = NSObject;
     };

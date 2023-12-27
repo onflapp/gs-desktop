@@ -19,27 +19,39 @@ endif
 
 include $(GNUSTEP_MAKEFILES)/common.make
 
-# Black_MAIN_MODEL_FILE = Black.gmodel
-Black_PRINCIPAL_CLASS = BlackView
-
-#  include ../../Version
-
-# The application to be compiled
-BUNDLE_NAME = Black
+#
+# Bundle
+#
+VERSION = 0.1
+PACKAGE_NAME = NickSpace
+BUNDLE_NAME = NickSpace
+NickSpace_PRINCIPAL_CLASS = NickSpaceView
 BUNDLE_EXTENSION = .InnerSpace
 
-# The Objective-C source files to be compiled
-Black_OBJC_FILES = BlackView.m
-Black_PRINCIPAL_CLASS = BlackView
-Black_STANDARD_INSTALL = no
 
-# The Resource files to be copied into the bundle's resources directory
-# Black_RESOURCE_FILES = English.lproj/Black.gmodel
+#
+# Resource files
+#
+NickSpace_RESOURCE_FILES = \
+Resources/NickSpace.gorm \
 
+
+#
+# Header files
+#
+NickSpace_HEADER_FILES = \
+NickSpaceView.h
+
+#
+# Objective-C Class files
+#
+NickSpace_OBJC_FILES = \
+NickSpaceView.m
+
+#
+# Makefiles
+#
 -include GNUmakefile.preamble
-
--include ../GNUmakefile.local
-
--include $(GNUSTEP_MAKEFILES)/bundle.make
-
+include $(GNUSTEP_MAKEFILES)/aggregate.make
+include $(GNUSTEP_MAKEFILES)/bundle.make
 -include GNUmakefile.postamble

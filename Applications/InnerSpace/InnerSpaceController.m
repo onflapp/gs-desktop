@@ -69,7 +69,7 @@
 
 - (void) loadDefaults
 {
-  NSMutableDictionary *appDefs = [NSDictionary dictionaryWithObjectsAndKeys:
+  NSMutableDictionary *appDefs = [NSMutableDictionary dictionaryWithObjectsAndKeys:
 						 @"Black",@"currentModule",nil];
   int row = 0;
   float runSpeed = 0.10;
@@ -148,6 +148,8 @@
   RELEASE(modules);
   RELEASE(currentModuleName);
   RELEASE(emptyView);
+  
+  [super dealloc];
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
@@ -199,11 +201,13 @@
   // run the saver in on the desktop...
   if(desktop)
     {
+      NSLog(@"desktop");
       [saverWindow setLevel: NSDesktopWindowLevel];
       [saverWindow makeOmnipresent];
     } 
   else
     {
+      NSLog(@"screensaver");
       [saverWindow setLevel: NSScreenSaverWindowLevel];
     }
 
