@@ -26,25 +26,6 @@
 
 - (void) initButtons 
 {
-    [search setTitle: _(@"Search")];
-    [search setFont: [NSFont systemFontOfSize: 0]];
-    [search setImagePosition: NSImageAbove];
-    [search setImage: [NSImage imageNamed: @"Search.tiff"]];
-
-    [index setTitle: _(@"Index")];
-    [index setFont: [NSFont systemFontOfSize: 0]];
-    [index setImagePosition: NSImageAbove];
-    [index setImage: [NSImage imageNamed: @"Index.tiff"]];
-
-    [back setTitle: _(@"Back")];
-    [back setFont: [NSFont systemFontOfSize: 0]];
-    [back setImagePosition: NSImageAbove];
-    [back setImage: [NSImage imageNamed: @"Back.tiff"]];
-
-    [bookshelf setTitle: _(@"Bookshelf")];
-    [bookshelf setFont: [NSFont systemFontOfSize: 0]];
-    [bookshelf setImagePosition: NSImageAbove];
-    [bookshelf setImage: [NSImage imageNamed: @"Bookshelf.tiff"]];
 }
 
 - (void) awakeFromNib
@@ -58,7 +39,7 @@
     [self initButtons];
 
     [window setFrameAutosaveName:@"help_window"];
-    [window setTitle: @"HelpViewer"];
+    [window setTitle: @"Help Viewer"];
     [windowController setWindow: window];
 
     [NSApp setDelegate: self];
@@ -99,7 +80,7 @@
 
 - (void) search: (id) sender
 {
-    NSLog (@"Search ...");
+    [windowController search: sender];
 }
 
 - (void) index: (id) sender 
@@ -109,17 +90,28 @@
 
 - (void) back: (id) sender
 {
-    NSLog (@"Back ...");
+    [windowController back: sender];
+}
+
+- (void) forward: (id) sender
+{
+    [windowController forward: sender];
 }
 
 - (void) bookshelf: (id) sender
 {
-    NSLog (@"Bookshelf ...");
+    NSString* bfile = [[NSUserDefaults standardUserDefaults] valueForKey:@"bookshelf_file"];
+    if (bfile) {
+      [windowController loadFile: bfile];
+    }
+    else {
+      NSLog (@"no bookshelf_file defined");
+    }
 }
 
 - (void) print: (id) sender
 {
-	[windowController print: sender];
+    [windowController print: sender];
 }
 
 @end

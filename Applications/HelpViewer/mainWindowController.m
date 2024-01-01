@@ -61,8 +61,21 @@
   return self;
 }
 
-- (void) print: (id) sender {
+- (void) print: (id) sender 
+{
         [[NSPrintOperation printOperationWithView: resultTextView] runOperation];
+}
+
+- (void) back: (id) sender 
+{
+}
+
+- (void) forward: (id) sender 
+{
+}
+
+- (void) search: (id) sender 
+{
 }
 
 - (BOOL) loadFile: (NSString*) fileName 

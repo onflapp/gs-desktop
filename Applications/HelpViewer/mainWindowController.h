@@ -47,6 +47,10 @@
 - (void) setWindow: (id) win;
 - (void) browserClick: (id) sender;
 - (void) print: (id) sender;
+- (void) back: (id) sender;
+- (void) forward: (id) sender;
+- (void) search: (id) sender;
+
 @end;
 
 #endif

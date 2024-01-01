@@ -31,6 +31,7 @@
   id search;
   id index;
   id back;
+  id forward;
   id bookshelf;
     
   id textview;
@@ -47,6 +48,7 @@
 - (void) search: (id) sender;
 - (void) index: (id) sender;
 - (void) back: (id) sender;
+- (void) forward: (id) sender;
 - (void) bookshelf: (id) sender;
 - (void) print: (id) sender;
 - (void) initButtons;
