@@ -36,6 +36,7 @@
 
 - (void) awakeFromNib
 {
+  [panel setFrameAutosaveName:@"main_browser"];
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif
@@ -53,7 +54,15 @@
 
 }
 
-- (BOOL) applicationShouldTerminate: (id)sender
+- (void) applicationDidBecomeActive:(NSNotification *)notification
+{
+  if (running && ![panel isVisible]) {
+    [self showPanel:self];
+  }
+  running = YES;
+}
+
+- (BOOL) applicationShouldTerminate:(id)sender
 {
   return YES;
 }
@@ -69,28 +78,87 @@
 }
 
 - (void) didReceiveServiceNotification:(NSNotification*) val {
-  [browser reloadColumn:0];
+  if ([networkServices status]) {
+    [location setStringValue:@""];
+    [service setStringValue:@"refreshing..."];
+    [browser setEnabled:NO];
+  }
+  else {
+    [location setStringValue:@""];
+    [service setStringValue:@""];
+    [browser setEnabled:YES];
+
+    [browser reloadColumn:0];
+  }
 }
 
-- (BOOL)browser:(NSBrowser *)sender selectRow:(NSInteger)row inColumn:(NSInteger)col {
-  return YES;
+- (void) browser:(NSBrowser*) brow willDisplayCell:(NSBrowserCell*) cell atRow:(NSInteger)row column:(NSInteger)col {
+  if (col == 0) {
+    NSString* title = [[networkServices foundServiceGroups]objectAtIndex:row];
+    [cell setLeaf:NO];
+    [cell setStringValue:title];
+  }
+  else if (col == 1) {
+    NSString* group = [[brow selectedCellInColumn:0] stringValue];
+    NSArray* ls = [networkServices foundServicesForGroup:group];
+    NSDictionary* it = [ls objectAtIndex:row];
+    NSString* title = [it valueForKey:@"service"];
+
+    [cell setRepresentedObject:it];
+    [cell setLeaf:YES];
+    [cell setStringValue:title];
+  }
 }
 
-- (void) browser:(NSBrowser*) browser willDisplayCell:(NSBrowserCell*) cell atRow:(NSInteger)row column:(NSInteger)col {
-  NSDictionary* it = [[networkServices foundServices]objectAtIndex:row];
-  NSString* title = [it valueForKey:@"title"];
-  [cell setLeaf:YES];
-  [cell setStringValue:title];
+- (NSInteger) browser:(NSBrowser*) brow numberOfRowsInColumn:(NSInteger) col {
+  if (col == 0) {
+    return [[networkServices foundServiceGroups]count];
+  }
+  else {
+    NSString* group = [[brow selectedCellInColumn:0] stringValue];
+    NSArray* ls = [networkServices foundServicesForGroup:group];
+    return [ls count];
+  }
 }
 
-- (NSInteger) browser:(NSBrowser*) browser numberOfRowsInColumn:(NSInteger) col {
-  return [[networkServices foundServices]count];
+- (void) selectService: (id)sender
+{
+  if ([networkServices status]) return;
+
+  id it = [[sender selectedCell] representedObject];
+  if (it) {
+    [location setStringValue:[it valueForKey:@"location"]];
+    [service setStringValue:[it valueForKey:@"service"]];
+  }
+  else {
+    [location setStringValue:@""];
+    [service setStringValue:@""];
+  }
+}
+- (void) openService: (id)sender
+{
+  NSString* loc = [location stringValue];
+  if (!loc) return;
+
+  if ([loc containsString:@"://"]) {
+    NSURL* url = [NSURL URLWithString:loc];
+    if (url) [[NSWorkspace sharedWorkspace] openURL:url];
+  }
+  else {
+    NSURL* url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@", loc]];
+    if (url) [[NSWorkspace sharedWorkspace] openURL:url];
+  }
+}
+
+- (void) refreshServices: (id)sender
+{
+  [networkServices refresh];
 }
 
 - (void) showPanel: (id)sender
 {
   [panel makeKeyAndOrderFront:sender];
-  [networkServices refresh];
+  [self refreshServices:sender];
 }
 
 - (void) showPrefPanel: (id)sender

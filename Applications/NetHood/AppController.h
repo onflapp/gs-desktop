@@ -18,8 +18,12 @@
 {
   IBOutlet NSPanel* panel;
   IBOutlet NSBrowser* browser;
+  IBOutlet NSTextField* location;
+  IBOutlet NSTextField* service;
   
   NetworkServices* networkServices;
+
+  BOOL running;
 }
 
 + (void)  initialize;
@@ -35,6 +39,8 @@
 - (BOOL) application: (NSApplication *)application
 	    openFile: (NSString *)fileName;
 
+- (void) selectService: (id)sender;
+- (void) openService: (id)sender;
 - (void) showPrefPanel: (id)sender;
 - (void) showPanel: (id)sender;
 

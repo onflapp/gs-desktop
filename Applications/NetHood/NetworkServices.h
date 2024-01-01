@@ -42,6 +42,8 @@
 
 - (void) refresh;
 - (NSArray*) foundServices;
+- (NSArray*) foundServiceGroups;
+- (NSArray*) foundServicesForGroup:(NSString*) group;
 
 @end
 

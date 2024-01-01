@@ -4,18 +4,26 @@
 	Actions = (
 	    "showPrefPanel:",
 	    "discoverServices:",
-	    "showPanel:"
+	    "showPanel:",
+	    "openService:",
+	    "selectService:",
+	    "refreshServices:"
 	);
 	Outlets = (
 	    panel,
-	    browser
+	    browser,
+	    location,
+	    service
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
 	    "discoverServices:",
+	    "refreshServices:",
+	    "openService:",
 	    "orderFrontFontPanel:",
+	    "selectService:",
 	    "showPanel:",
 	    "showPrefPanel:"
 	);

@@ -11,14 +11,25 @@ sub list_smb_shares {
   close(X);
 }
 
+sub xtoc {
+  my ($x) = @_;
+  return chr($x);
+}
+
+sub unescape {
+  my ($s) = @_;
+  $s =~ s/\\(\d\d\d)/xtoc($1)/ge;
+  return $s;
+}
+
 open(IN, "avahi-browse -p -a --resolve -t|");
 while(<IN>) {
   chomp();
   if ($_ =~ /^=;/) {
     @a = split(';',$_);
     $i = $a[2];
-    $n = $a[3];
-    $t = $a[4];
+    $n = unescape ($a[3]);
+    $t = unescape ($a[4]);
     $a = $a[7];
     $p = $a[8];
 

@@ -45,6 +45,28 @@
   return services;
 }
 
+- (NSArray*) foundServiceGroups {
+  NSMutableArray* ls = [NSMutableArray array];
+  for (NSDictionary* it in services) {
+    NSString* title = [it valueForKey:@"title"];
+    if (![ls containsObject:title]) {
+      [ls addObject:title];
+    }
+  }
+  return [ls sortedArrayUsingSelector:@selector(compare:)];
+}
+
+- (NSArray*) foundServicesForGroup:(NSString*) group {
+  NSMutableArray* ls = [NSMutableArray array];
+  for (NSDictionary* it in services) {
+    NSString* title = [it valueForKey:@"title"];
+    if ([title isEqualToString:group]) {
+      [ls addObject:it];
+    }
+  }
+  return ls;
+}
+
 - (NSInteger) status {
   return status;
 }
@@ -62,6 +84,8 @@
   NSArray* args = [self serviceTaskArguments];
   NSString* exec = [self serviceTaskExec];
   
+  [services removeAllObjects];
+
   //NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.3];
   //[[NSRunLoop currentRunLoop] runUntilDate: limit];
   NSLog(@"start %@ [%@]", exec, args);
@@ -145,16 +169,16 @@
 - (void) processLine:(NSString*) line {
   if ([line hasPrefix:@"S:"]) {
     NSMutableDictionary* item = [NSMutableDictionary dictionary];
-    [item setValue:line forKey:@"service"];
+    [item setValue:[line substringFromIndex:2] forKey:@"service"];
     
     [services addObject:item];
     li = item;
   }
   else if ([line hasPrefix:@"T:"]) {
-    [li setValue:line forKey:@"title"];
+    [li setValue:[line substringFromIndex:2] forKey:@"title"];
   }
   else if ([line hasPrefix:@"U:"]) {
-    [li setValue:line forKey:@"location"];
+    [li setValue:[line substringFromIndex:2] forKey:@"location"];
   }
 
   NSLog(@">%@<", line);
