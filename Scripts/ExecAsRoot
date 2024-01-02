@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ -z "$1" ];then
+  echo "ExecAsRoot [cmd]"
+  exit 1
+else
+  P=`/Library/bin/nxprompt --secret "Password:" ""`
+  if [ -z "$P" ];then
+    echo "no password"
+    exit 1
+  fi
+  echo "$P" | sudo -k -S $@
+fi
