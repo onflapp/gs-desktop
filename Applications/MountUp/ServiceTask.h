@@ -41,6 +41,7 @@
 }
 - (id) initWithName:(NSString*) name;
 - (NSString*) name;
+- (NSString*) title;
 - (NSInteger) status;
 
 - (NSString*) mountPoint;

@@ -41,6 +41,10 @@
   [super dealloc];
 }
 
+- (NSString*) title {
+  return [NSString stringWithFormat:@"network:%@", name];
+}
+
 - (void) setUser:(NSString*) v {
   ASSIGN(user, v);
 }

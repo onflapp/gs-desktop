@@ -56,6 +56,10 @@
   return name;
 }
 
+- (NSString*) title {
+  return @"unknown";
+}
+
 - (NSInteger) status {
   return status;
 }

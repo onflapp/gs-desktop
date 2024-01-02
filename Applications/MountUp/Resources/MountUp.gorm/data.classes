@@ -8,7 +8,8 @@
 	    "open:",
 	    "showMountPanel:",
 	    "ejectLastMounted:",
-	    "toggleShowAll:"
+	    "toggleShowAll:",
+	    "openDirectory:"
 	);
 	Outlets = (
 	    controlView,
@@ -28,11 +29,12 @@
 	Actions = (
 	    "ejectLastMounted:",
 	    "mountOrEject:",
-	    "toggleShowAll:",
+	    "openDirectory:",
 	    "orderFrontFontPanel:",
 	    "showMountPanel:",
 	    "showPrefPanel:",
-	    "showVolumesPanel:"
+	    "showVolumesPanel:",
+	    "toggleShowAll:"
 	);
 	Super = NSObject;
     };

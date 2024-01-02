@@ -20,7 +20,8 @@
 	"AppController+scripting.m",
 	"STScriptingSupport.m",
 	"NetworkDrive.m",
-	"NetworkServiceTask.m"
+	"NetworkServiceTask.m",
+	"RootServiceTask.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "-DWITH_UDISKS";
@@ -37,7 +38,8 @@
 	"LoopbackServiceTask.h",
 	"STScriptingSupport.h",
 	"NetworkDrive.h",
-	"NetworkServiceTask.h"
+	"NetworkServiceTask.h",
+	"RootServiceTask.h"
     );
     IMAGES = (
 	"MountUp.tiff",

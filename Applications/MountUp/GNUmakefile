@@ -52,7 +52,8 @@ ServiceTask.h \
 LoopbackServiceTask.h \
 STScriptingSupport.h \
 NetworkDrive.h \
-NetworkServiceTask.h
+NetworkServiceTask.h \
+RootServiceTask.h
 
 #
 # Objective-C Class files
@@ -66,7 +67,8 @@ LoopbackServiceTask.m \
 AppController+scripting.m \
 STScriptingSupport.m \
 NetworkDrive.m \
-NetworkServiceTask.m
+NetworkServiceTask.m \
+RootServiceTask.m
 
 #
 # Other sources

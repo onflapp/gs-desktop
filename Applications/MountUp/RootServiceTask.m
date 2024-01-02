@@ -22,9 +22,9 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#import "LoopbackServiceTask.h"
+#import "RootServiceTask.h"
 
-@implementation LoopbackServiceTask
+@implementation RootServiceTask
 
 - (id) initWithName:(NSString*) nm {
   if ((self = [super init])) {
@@ -40,10 +40,6 @@
   [super dealloc];
 }
 
-- (NSString*) title {
-  return [NSString stringWithFormat:@"local:%@", name];
-}
-
 - (NSArray*) serviceTaskArguments {
   NSMutableArray* args = [NSMutableArray array];
   [args addObject:name];
@@ -51,7 +47,7 @@
 }
 
 - (NSString*) serviceTaskExec {
-  NSString* exec = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"services/mount-loopback"];
+  NSString* exec = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"services/mount-root"];
   return exec;
 }
 

@@ -11,6 +11,7 @@
 #import "MiniView.h"
 #import "ServiceTask.h"
 #import "LoopbackServiceTask.h"
+#import "RootServiceTask.h"
 #import "NetworkServiceTask.h"
 
 BOOL hasFSTab(NSDictionary* props) {
@@ -131,9 +132,24 @@ BOOL hasFSTab(NSDictionary* props) {
   }
 }
 
+- (void) openDirectory:(id)sender {
+  NSOpenPanel* panel = [NSOpenPanel openPanel];
+  [panel setCanChooseDirectories:YES];
+  [panel setCanChooseFiles:NO];
+  [panel setShowsHiddenFiles:YES];
+  if ([panel runModal]) {
+    [self openRootDirectory:[panel filename]];
+  }
+}
+
 - (void) openLoopbackFile:(NSString*) fileName {
   LoopbackServiceTask* lser = [[LoopbackServiceTask alloc]initWithName:fileName];
   [services startService:lser];
+}
+
+- (void) openRootDirectory:(NSString*) fileName {
+  RootServiceTask* rser = [[RootServiceTask alloc]initWithName:fileName];
+  [services startService:rser];
 }
 
 - (void) didReceiveServiceNotification:(NSNotification*) val {
@@ -180,7 +196,7 @@ BOOL hasFSTab(NSDictionary* props) {
   }
   else if ([d isKindOfClass:[ServiceTask class]]) {
     ServiceTask* ser = d;
-    NSString* title = [NSString stringWithFormat:@"local: %@", [ser name]];
+    NSString* title = [ser title];
     [cell setStringValue:title];
   }
 }

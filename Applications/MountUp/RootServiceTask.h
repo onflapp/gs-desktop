@@ -5,7 +5,7 @@
 
    Author: Parallels
 
-   Created: 2022-09-16 15:44:39 +0000 by parallels
+   Created: 2022-09-16 15:40:26 +0000 by parallels
 
    This application is free software; you can redistribute it and/or
    modify it under the terms of the GNU General Public
@@ -22,37 +22,16 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#import "LoopbackServiceTask.h"
+#ifndef _ROOTSERVICETASK_H_
+#define _ROOTSERVICETASK_H_
 
-@implementation LoopbackServiceTask
+#import <Foundation/Foundation.h>
+#import "ServiceTask.h"
 
-- (id) initWithName:(NSString*) nm {
-  if ((self = [super init])) {
-    name = [nm retain];
-    status = -1;
-  }
-  return self;
+@interface RootServiceTask : ServiceTask {
 }
-
-- (void) dealloc {
-  [self stopTask];
-  [name release];
-  [super dealloc];
-}
-
-- (NSString*) title {
-  return [NSString stringWithFormat:@"local:%@", name];
-}
-
-- (NSArray*) serviceTaskArguments {
-  NSMutableArray* args = [NSMutableArray array];
-  [args addObject:name];
-  return args;
-}
-
-- (NSString*) serviceTaskExec {
-  NSString* exec = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"services/mount-loopback"];
-  return exec;
-}
-
+- (id) initWithName:(NSString*) name;
 @end
+
+#endif // _ROOTSERVICETASK_H_
+
