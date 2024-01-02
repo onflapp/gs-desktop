@@ -46,7 +46,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 MAN1_PAGES = nxbrowser.1 nxworkspace.1 nxpasteboard.1 nxcolors.1 nxaudio.1 nxdisplay.1 nxnotify.1 nxmount.1
 
 # The application to be compiled
-TOOL_NAME = nxbrowser nxworkspace nxpasteboard nxcolors nxaudio nxdisplay nxnotify nxmount
+TOOL_NAME = nxbrowser nxworkspace nxpasteboard nxcolors nxaudio nxdisplay nxnotify nxmount nxprompt
 
 # The source files to be compiled
 nxworkspace_OBJC_FILES = nxworkspace.m
@@ -57,6 +57,7 @@ nxbrowser_OBJC_FILES = nxbrowser.m
 nxdisplay_OBJC_FILES = nxdisplay.m
 nxnotify_OBJC_FILES = nxnotify.m
 nxmount_OBJC_FILES = nxmount.m
+nxprompt_OBJC_FILES = nxprompt.m
 
 include GNUmakefile.preamble
 

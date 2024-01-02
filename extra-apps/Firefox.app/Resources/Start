@@ -1,8 +1,8 @@
 PROF="$HOME/Library/Firefox"
+CLASS="Wrapper_Firefox"
 mkdir -p "$PROF" 2>/dev/null
 
-wdwrite WMWindowAttributes 'Firefox-esr' '{ NoAppIcon = Yes; }'
-wdwrite WMWindowAttributes 'Firefox' '{ NoAppIcon = Yes; }'
+wdwrite WMWindowAttributes $CLASS '{ NoAppIcon = Yes; }'
 
 K="18"
 if [ "x$GS_COMMAND_KEY" = "xCTRL" ];then
@@ -18,7 +18,7 @@ EOF
 unset FONTCONFIG_FILE
 
 if [ -n "$FILE" ];then
-  firefox --profile "$PROF" "$FILE"
+  firefox --profile "$PROF" "$FILE" --class $CLASS
 else
-  firefox --browser --profile "$PROF"
+  firefox --browser --profile "$PROF" --class $CLASS
 fi

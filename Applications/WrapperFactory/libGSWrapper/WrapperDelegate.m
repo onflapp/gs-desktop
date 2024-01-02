@@ -22,7 +22,9 @@
 
 #include "WrapperDelegate.h"
 #include "NSApplication+AppName.h"
+#include "NSMenu+Suppress.h"
 #include "AppIconView.h"
+#include "X11/Xutil.h"
 
 @implementation WrapperDelegate
 
@@ -44,6 +46,11 @@
 
 - (void)applicationWillFinishLaunching: (NSNotification*)not
 {
+  //[[[NSApp mainMenu] window] setHidesOnDeactivate:NO];
+
+  if ([self wrapperClassName]) {
+    [self performSelectorInBackground:@selector(processXWindowsEvents:) withObject:self];
+  }
 }
 
 - (void)applicationDidFinishLaunching: (NSNotification*)not
@@ -89,6 +96,10 @@
                                           selector: @selector(unixAppExited:)
                                           name: (NSTaskDidTerminateNotification)
                                           object: [mainAction task]];
+}
+
+- (void) applicationDidResignActive:(NSNotification*) not
+{
 }
 
 - (BOOL)application: (NSApplication*)app
@@ -153,6 +164,23 @@
     }
 }
 
+- (void)activateMenu
+{
+  NSLog(@"ACTIVATE");
+  [[NSApp mainMenu] display];
+}
+
+- (void)wrapperDidBecomeActive 
+{
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(activateMenu) object:nil];
+  [self performSelector:@selector(activateMenu) withObject:nil afterDelay:0.3];
+}
+
+- (void)wrapperDidResignActive
+{
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(activateMenu) object:nil];
+}
+
 - (void)applicationDidBecomeActive:(NSNotification *)notification
 {
   if ( mainAction && appDidFinishLaunching ) {
@@ -166,7 +194,7 @@
     if (td < 1.0) return;
 
     RunScriptAction *activateAction = (RunScriptAction*)[self actionForMessage: @"Activate"];
-    [activateAction executeWithFiles: nil];
+    //[activateAction executeWithFiles: nil];
 }
 
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender
@@ -410,7 +438,10 @@
     }
 }
 
-
+- (NSString*)wrapperClassName
+{
+  return @"Wrapper_Firefox";
+}
 
 /*
  * initializing actions
@@ -442,6 +473,56 @@
                                 @"OK", nil, nil);
         return nil;
     }
+}
+
+- (void) processXWindowsEvents:(id)sender {
+  const char* wrapper = [[sender wrapperClassName] cString];
+  if (!wrapper) return;
+
+  XInitThreads();
+
+  Display *d;
+  XEvent e;
+ 
+  d = XOpenDisplay(NULL);
+
+  Atom naw = XInternAtom(d, "_NET_ACTIVE_WINDOW", False);
+
+  Window root = XDefaultRootWindow(d);
+  XSelectInput(d, root, PropertyChangeMask);
+
+  while (1) {
+    XNextEvent(d, &e);
+    if (e.xproperty.atom == naw) {
+      unsigned char *data = NULL;
+      int format;
+      Atom real;
+      unsigned long extra, n;
+
+      XGetWindowProperty(d, root, naw, 0, ~0, False,
+                         AnyPropertyType, &real, &format, &n, &extra, &data);
+
+      if (data) {
+        Window win = *(unsigned long *) data;
+        XClassHint hint;
+        XGetClassHint(d, win, &hint);
+
+        //NSLog(@"xxxx:%d %lx %s", rv, win, hint.res_class);
+        
+        if (strcmp(hint.res_class, wrapper) == 0) {
+          [self performSelectorOnMainThread:@selector(wrapperDidBecomeActive) withObject:nil waitUntilDone:NO];
+        }
+        else {
+          [self performSelectorOnMainThread:@selector(wrapperDidResignActive) withObject:nil waitUntilDone:NO];
+        }
+
+        XFree (data);
+        XFree (hint.res_class);
+        XFree (hint.res_name);
+      }
+
+    }
+  }
 }
 
 @end

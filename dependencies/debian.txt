@@ -26,6 +26,7 @@ cmake
 autoconf
 libtool
 xinit
+binfs
 x11-xserver-utils
 xdotool
 libffcall-dev

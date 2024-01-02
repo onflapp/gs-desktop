@@ -1,6 +1,22 @@
 #!/bin/bash
 
 DIR="$1"
-MOUNT="/run/"
+MOUNTDIR="/run/user/$UID/root"
+L="$0"
 
-sudo bindfs -u $USER $DIR $MOUNT
+if [ -d "$1" ];then
+  P=`/Library/bin/nxprompt --secret Password: "$DIR" "Mount Directory as Root"`
+  if [ -z "$P" ];then
+    echo "E:invalid password"
+    exit 1
+  fi
+
+  mkdir -p $MOUNTDIR 2>/dev/null
+
+  echo "D:$DIR"
+  echo "P:$MOUNTDIR"
+  echo "$P" | sudo -kS bindfs -f -u "$USER" "$DIR" "$MOUNTDIR"
+else
+  echo "E: $DIR is not a directory"
+  exit 1
+fi

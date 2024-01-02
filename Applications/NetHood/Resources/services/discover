@@ -19,6 +19,7 @@ sub xtoc {
 sub unescape {
   my ($s) = @_;
   $s =~ s/\\(\d\d\d)/xtoc($1)/ge;
+  $s =~ s/\\\././g;
   return $s;
 }
 

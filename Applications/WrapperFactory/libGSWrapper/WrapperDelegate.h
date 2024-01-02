@@ -52,6 +52,8 @@
 
 - (id<Action>)actionForMessage: (NSString *)msg;
 
+- (NSString*)wrapperClassName;
+
 @end
 
 #endif

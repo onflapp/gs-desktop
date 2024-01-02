@@ -41,6 +41,7 @@
   [self setFont:font];
   [self setBoldFont:font];
   [self setCursorStyle:[defaults cursorStyle]];
+  [self setTermProgram:@"GNUstep_NotMonConsole"];
 
   return self;
 }

@@ -27,9 +27,10 @@ libGSWrapper_OBJC_FILES = WrapperDelegate.m \
 	Actions.m \
 	AppIconView.m \
 	NSApplication+SuppressAppIcon.m \
+	NSMenu+Suppress.m \
 	NSApplication+AppName.m \
 
-libGSWrapper_LIBRARIES_DEPEND_UPON = -lgnustep-base -lgnustep-gui
+libGSWrapper_LIBRARIES_DEPEND_UPON = -lgnustep-base -lgnustep-gui -lX11
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/library.make

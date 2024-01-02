@@ -40,6 +40,10 @@
   [super dealloc];
 }
 
+- (NSString*) title {
+  return [NSString stringWithFormat:@"root:%@", name];
+}
+
 - (NSArray*) serviceTaskArguments {
   NSMutableArray* args = [NSMutableArray array];
   [args addObject:name];
