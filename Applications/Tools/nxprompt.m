@@ -55,20 +55,20 @@
   [msg setStringValue: @"Enter text value and press OK."];
 
   if (type) {
-    field = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(10, 39, 340, 21)];
+    field = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(10, 39, 340, 22)];
   }
   else {
-    field = [[NSTextField alloc] initWithFrame:NSMakeRect(10, 39, 340, 21)];
+    field = [[NSTextField alloc] initWithFrame:NSMakeRect(10, 39, 340, 22)];
   }
   [field setTarget:self];
   [field setAction:@selector(ok:)];
 
-  NSButton* ok = [[NSButton alloc] initWithFrame:NSMakeRect(294, 10, 56, 24)];
+  NSButton* ok = [[NSButton alloc] initWithFrame:NSMakeRect(280, 10, 70, 24)];
   [ok setTitle:@"Ok"];
   [ok setTarget:self];
   [ok setAction:@selector(ok:)];
 
-  NSButton* cancel = [[NSButton alloc] initWithFrame:NSMakeRect(232, 10, 56, 24)];
+  NSButton* cancel = [[NSButton alloc] initWithFrame:NSMakeRect(202, 10, 70, 24)];
   [cancel setTitle:@"Cancel"];
   [cancel setTarget:self];
   [cancel setAction:@selector(cancel:)];
