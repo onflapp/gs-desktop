@@ -15,5 +15,5 @@ if [ -n "$1" ];then
   show_selector
 else
   L="/Library/Scripts/ShowLauncher"
-  /Library/bin/nxnotify --show-console --cmd "$L" --arg "apps"
+  /Library/bin/nxnotify show-console --cmd "$L" --arg "apps"
 fi

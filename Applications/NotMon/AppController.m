@@ -97,6 +97,14 @@ Application Controller
 
       [self showPanelWithTitle:title info:info];
     }
+    else if ([[url host] isEqualToString:@"show-modal-panel"]) {
+      NSDictionary* dict = [self parseURL:url];
+      NSString* title = [dict valueForKey:@"title"];
+      NSString* info = [dict valueForKey:@"info"];
+      NSLog(@"show:%@", dict);
+
+      [self showModalPanelWithTitle:title info:info];
+    }
     else if ([[url host] isEqualToString:@"hide-panel"]) {
       NSLog(@"hide");
       [self hidePanelAfter:0];
@@ -164,6 +172,7 @@ Application Controller
   [panelInfo setStringValue:info?info:@""];
   [panelProgress animate:self];
 
+  [panel setBecomesKeyOnlyIfNeeded:YES];
   [panel setLevel:NSDockWindowLevel];
   [panel center];
   [panel orderFront:self];
@@ -171,6 +180,25 @@ Application Controller
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
   [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:5.0];
 }
+
+- (void) showModalPanelWithTitle:(NSString*) title 
+                            info:(NSString*) info
+{
+  [panelTitle setStringValue:title?title:@""];
+  [panelInfo setStringValue:info?info:@""];
+  [panelProgress animate:self];
+
+  [panel setBecomesKeyOnlyIfNeeded:NO];
+  [panel setLevel:NSDockWindowLevel];
+  [panel center];
+  [panel orderFront:self];
+
+  [NSObject cancelPreviousPerformRequestsWithTarget:self];
+  [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:5.0];
+
+  [self _grabEvents];
+}
+
 
 - (void) reoderMessages {
   NSScreen* screen = [NSScreen mainScreen];
@@ -197,6 +225,15 @@ Application Controller
   [messages removeObject:mctrl];
   [self reoderMessages];
 }
+
+- (void) _grabEvents {
+  Window win = (Window)[panel windowRef];
+  Display* dpy = XOpenDisplay(NULL);
+  XGrabPointer(dpy, win, False,
+		     PointerMotionMask | ButtonReleaseMask | ButtonPressMask,
+		     GrabModeAsync, GrabModeAsync, win, None, CurrentTime);
+}
+
 
 - (void) __hidePanel {
   [panel orderOut:self];

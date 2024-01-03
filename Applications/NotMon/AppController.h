@@ -9,6 +9,7 @@
 #ifndef _PCAPPPROJ_APPCONTROLLER_H
 #define _PCAPPPROJ_APPCONTROLLER_H
 
+#include <X11/Xlib.h>
 #import <AppKit/AppKit.h>
 #import "MessageController.h"
 #import "ConsoleController.h"
@@ -42,6 +43,8 @@
 
 - (void) showPanelWithTitle:(NSString*) title 
                        info:(NSString*) info;
+- (void) showModalPanelWithTitle:(NSString*) title 
+                            info:(NSString*) info;
 - (void) hidePanelAfter:(NSTimeInterval) time;
 
 - (void) showPrefPanel:(id)sender;

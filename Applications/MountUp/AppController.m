@@ -125,6 +125,17 @@ BOOL hasFSTab(NSDictionary* props) {
   return NO;
 }
 
+- (void) mountNetworkService:(NSPasteboard *)pboard
+                    userData:(NSString *)userData
+                       error:(NSString **)error {
+}
+
+- (void) mountDirectoryService:(NSPasteboard *)pboard
+                      userData:(NSString *)userData
+                         error:(NSString **)error {
+}
+
+
 - (void) openDocument:(id)sender {
   NSOpenPanel* panel = [NSOpenPanel openPanel];
   if ([panel runModal]) {
@@ -162,6 +173,12 @@ BOOL hasFSTab(NSDictionary* props) {
     }
   }
 
+  if ([ser isKindOfClass:[RootServiceTask class]]) {
+    if ([ser status] == 0) {
+      [services stopService:ser];
+    }
+  }
+
   if ([ser isMounted]) {
     NSString* p = [ser mountPoint];
     if ([p length]) {
@@ -169,7 +186,7 @@ BOOL hasFSTab(NSDictionary* props) {
     }
   }
 
-  [self performSelector:@selector(refreshDrives) withObject:nil afterDelay:1.0];
+  [self performSelector:@selector(refreshDrives) withObject:nil afterDelay:0.5];
 }
 
 - (void) didReceiveDeviceNotification:(NSNotification*) val {

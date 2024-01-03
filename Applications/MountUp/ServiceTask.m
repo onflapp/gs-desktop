@@ -120,13 +120,6 @@
 
   status = 0;
 
-  [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"serviceStatusHasChanged" object:self];
-  
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-
-  NSLog(@"terminated");
-
   [fh closeFile];
   [fh release];
   [fo closeFile];
@@ -135,6 +128,13 @@
   task = nil;
   fh = nil;
   fo = nil;
+
+  [[NSNotificationCenter defaultCenter]
+     postNotificationName:@"serviceStatusHasChanged" object:self];
+  
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
+
+  NSLog(@"terminated");
 }
 
 - (void) dataReceived:(NSNotification*) not {

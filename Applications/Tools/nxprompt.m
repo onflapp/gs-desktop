@@ -40,14 +40,14 @@
 }
 
 - (void) buildUI:(NSInteger) type {
-  label = [[NSTextField alloc] initWithFrame:NSMakeRect(10, 65, 343, 18)];
+  label = [[NSTextField alloc] initWithFrame:NSMakeRect(10, 65, 340, 18)];
   [label setEditable: NO];
   [label setSelectable: NO];
   [label setBezeled: NO];
   [label setDrawsBackground: NO];
   [label setStringValue: @"Text Value"];
 
-  msg = [[NSTextField alloc] initWithFrame:NSMakeRect(10, 88, 343, 52)];
+  msg = [[NSTextField alloc] initWithFrame:NSMakeRect(10, 88, 340, 52)];
   [msg setEditable: NO];
   [msg setSelectable: NO];
   [msg setBezeled: NO];
@@ -55,20 +55,20 @@
   [msg setStringValue: @"Enter text value and press OK."];
 
   if (type) {
-    field = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(10, 39, 343, 21)];
+    field = [[NSSecureTextField alloc] initWithFrame:NSMakeRect(10, 39, 340, 21)];
   }
   else {
-    field = [[NSTextField alloc] initWithFrame:NSMakeRect(10, 39, 343, 21)];
+    field = [[NSTextField alloc] initWithFrame:NSMakeRect(10, 39, 340, 21)];
   }
   [field setTarget:self];
   [field setAction:@selector(ok:)];
 
-  NSButton* ok = [[NSButton alloc] initWithFrame:NSMakeRect(297, 10, 56, 24)];
+  NSButton* ok = [[NSButton alloc] initWithFrame:NSMakeRect(294, 10, 56, 24)];
   [ok setTitle:@"Ok"];
   [ok setTarget:self];
   [ok setAction:@selector(ok:)];
 
-  NSButton* cancel = [[NSButton alloc] initWithFrame:NSMakeRect(235, 10, 56, 24)];
+  NSButton* cancel = [[NSButton alloc] initWithFrame:NSMakeRect(232, 10, 56, 24)];
   [cancel setTitle:@"Cancel"];
   [cancel setTarget:self];
   [cancel setAction:@selector(cancel:)];
@@ -107,7 +107,7 @@
 @end
 
 void printUsage() {
-  fprintf(stderr, "Usage: nxprompt --secret | --text [field] [message] [title] [value]\n");
+  fprintf(stderr, "Usage: nxprompt --secret --field <val> --message <val> --title <val> --value <val>\n");
   fprintf(stderr, "\n");
 }
 
@@ -131,20 +131,42 @@ int main(int argc, char** argv, char** env) {
       rv = 1;
     }
     else {
+      NSEnumerator* en = [arguments objectEnumerator];
+      [en nextObject];
+
+      NSInteger type = 0;
+      NSString* title = nil;
+      NSString* msg = nil;
+      NSString* field = nil;
+      NSString* value = nil;
+
+      id it = nil;
+      while (it = [en nextObject]) {
+        if ([it isEqualToString:@"--secret"]) {
+          type = 1;
+        }
+        else if ([it isEqualToString:@"--field"]) {
+          field = [en nextObject];
+        }
+        else if ([it isEqualToString:@"--message"]) {
+          msg = [en nextObject];
+        }
+        else if ([it isEqualToString:@"--title"]) {
+          title = [en nextObject];
+        }
+        else if ([it isEqualToString:@"--value"]) {
+          value = [en nextObject];
+        }
+      }
       NSApplication* app = [NSApplication sharedApplication];
       Delegate* del = [[Delegate alloc]init];
 
-      if ([[arguments objectAtIndex:1] isEqualToString:@"--secret"]) {
-        [del buildUI:1];
-      }
-      else {
-        [del buildUI:0];
-      }
+      [del buildUI:type];
       
-      if ([arguments count] >= 3) [[del label] setStringValue:[arguments objectAtIndex:2]];
-      if ([arguments count] >= 4) [[del message] setStringValue:[arguments objectAtIndex:3]];
-      if ([arguments count] >= 5) [[del panel] setTitle:[arguments objectAtIndex:4]];
-      if ([arguments count] >= 6) [[del field] setStringValue:[arguments objectAtIndex:5]];
+      if (field) [[del label] setStringValue:field];
+      if (msg)   [[del message] setStringValue:msg];
+      if (title) [[del panel] setTitle:title];
+      if (value) [[del field] setStringValue:value];
 
       [app setDelegate:del];
       [app run];

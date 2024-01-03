@@ -1,7 +1,6 @@
 #!/bin/bash
 
-mkdir -p /Applications/Utilities/Helpers 2>/dev/null
-cp -R --preserve=mode ../Helpers/*.app /Applications/Utilities/Helpers
+cp -R --preserve=mode ../Helpers/*.app /System/Applications
 
 mkdir -p /Applications/Utilities/Admin 2>/dev/null
 cp -R --preserve=mode ../Admin/* /Applications/Utilities/Admin

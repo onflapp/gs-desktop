@@ -1,11 +1,22 @@
 #!/bin/bash
 
 DIR="$1"
-MOUNTDIR="/run/user/$UID/root"
+MOUNTDIR="/run/user/$UID/root/${DIR//\//_}"
 L="$0"
 
+trap cleanup EXIT
+
+function cleanup {
+  rm -R $MOUNTDIR 2>/dev/null
+}
+
 if [ -d "$1" ];then
-  P=`/Library/bin/nxprompt --secret Password: "$DIR" "Mount Directory as Root"`
+  if [ -d "$MOUNTDIR" ];then
+    echo "E:mount dir exists already"
+    exit 1
+  fi
+
+  P=`/Library/bin/nxprompt --secret --field Password: --message "$DIR" --title "Mount Directory as Root"`
   if [ -z "$P" ];then
     echo "E:invalid password"
     exit 1
@@ -14,8 +25,8 @@ if [ -d "$1" ];then
   mkdir -p $MOUNTDIR 2>/dev/null
 
   echo "D:$DIR"
-  echo "P:$MOUNTDIR"
-  echo "$P" | sudo -kS bindfs -f -u "$USER" "$DIR" "$MOUNTDIR"
+  echo "$P" | sudo -psudo_bindfs -kS sh -c "echo \"P:$MOUNTDIR\";bindfs -f -u $USER $DIR $MOUNTDIR"
+
 else
   echo "E: $DIR is not a directory"
   exit 1

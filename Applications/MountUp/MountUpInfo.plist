@@ -44,4 +44,22 @@
 	    );
 	}
     );
+    NSServices = (
+    {
+      NSPortName = MountUp;
+      NSMessage = mountNetworkService;
+      NSSendTypes = (NSStringPboardType);
+      NSMenuItem = {
+        default = "Mount/Network Address";
+      };
+    },
+    {
+      NSPortName = MountUp;
+      NSMessage = mountDirectoryService;
+      NSSendTypes = (NSFilenamesPboardType);
+      NSMenuItem = {
+        default = "Mount/Directory as Root";
+      };
+    }
+  );
 }

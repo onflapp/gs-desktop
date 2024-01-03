@@ -25,11 +25,12 @@ void printUsage() {
   fprintf(stderr, "\n");
   fprintf(stderr, "Help: send notification from the command line\n");
   fprintf(stderr, "Options:\n");
-  fprintf(stderr, "  --show-panel --title <text> --info <text>\n");
-  fprintf(stderr, "  --show-panel --title <text> --info <text> --hide-panel <timeout>\n");
-  fprintf(stderr, "  --hide-panel\n");
-  fprintf(stderr, "  --show-message --title <text> --info <text>\n");
-  fprintf(stderr, "  --show-console --cmd <command> --arg <text>\n");
+  fprintf(stderr, "  show-panel --title <text> --info <text>\n");
+  fprintf(stderr, "  show-panel --title <text> --info <text> --hide-panel <timeout>\n");
+  fprintf(stderr, "  show-modal-panel --title <text> --info <text> --hide-panel <timeout>\n");
+  fprintf(stderr, "  hide-panel\n");
+  fprintf(stderr, "  show-message --title <text> --info <text>\n");
+  fprintf(stderr, "  show-console --cmd <command> --arg <text>\n");
   fprintf(stderr, "\n");
 }
 
@@ -76,14 +77,20 @@ int main(int argc, char** argv, char** env)
         else if ([it isEqualToString:@"--arg"]) {
           arg = [en nextObject];
         }
-        else if ([it isEqualToString:@"--show-panel"]) {
+        else if ([it isEqualToString:@"show-panel"]) {
           type = 1;
         }
-        else if ([it isEqualToString:@"--show-message"]) {
+        else if ([it isEqualToString:@"show-modal-panel"]) {
+          type = 4;
+        }
+        else if ([it isEqualToString:@"show-message"]) {
           type = 2;
         }
-        else if ([it isEqualToString:@"--show-console"]) {
+        else if ([it isEqualToString:@"show-console"]) {
           type = 3;
+        }
+        else if ([it isEqualToString:@"hide-panel"]) {
+          hide = 0;
         }
         else if ([it isEqualToString:@"--hide-panel"]) {
           hide = [[en nextObject] floatValue];
@@ -98,6 +105,9 @@ int main(int argc, char** argv, char** env)
 
       if (type == 1) {
         [app showPanelWithTitle:title info:info];
+      }
+      else if (type == 4) {
+        [app showModalPanelWithTitle:title info:info];
       }
       else if (type == 2) {
         [app showMessageWithTitle:title info:info];
