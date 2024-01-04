@@ -17,6 +17,8 @@ pam-devel
 autoconf
 gdb
 xorg-x11-xinit
+bindfs
+picom
 xterm
 xset
 xsetroot
