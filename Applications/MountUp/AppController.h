@@ -16,6 +16,7 @@
 #import <SystemKit/OSEUDisksVolume.h>
 #import "ServiceManager.h"
 #import "NetworkDrive.h"
+#import "PasswordPanel.h"
 
 @interface AppController : NSObject
 {
@@ -34,6 +35,7 @@
   ServiceManager* services;
 
   NetworkDrive* networkDrive;
+  PasswordPanel* passwordPanel;
 }
 
 + (void)  initialize;
@@ -42,6 +44,8 @@
 - (void) dealloc;
 
 - (void) awakeFromNib;
+
+- (NSString*) askForPasswordWithMessage:(NSString*) msg;
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif;
 - (BOOL) applicationShouldTerminate: (id)sender;

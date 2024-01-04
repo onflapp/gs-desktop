@@ -23,6 +23,7 @@
 */
 
 #import "RootServiceTask.h"
+#import "PasswordPanel.h"
 
 @implementation RootServiceTask
 
@@ -42,6 +43,34 @@
 
 - (NSString*) title {
   return [NSString stringWithFormat:@"root:%@", name];
+}
+
+- (void) processLine:(NSString*) line {
+  if ([line hasPrefix:@"P:"]) {
+    ASSIGN(mountpoint, [line substringFromIndex:2]);
+  }
+  else if ([line hasPrefix:@"X:"]) {
+    NSString* msg = [NSString stringWithFormat:@"Provide user password to access root protected diretory %@", name];
+    NSString* pass = [[NSApp delegate] askForPasswordWithMessage:msg];
+    [self performSelector:@selector(_notify) withObject:nil afterDelay:1];
+
+    [self writeLine:pass];
+  }
+  else if ([line hasPrefix:@"D:"]) {
+    ASSIGN(device, [line substringFromIndex:2]);
+  }
+}
+
+- (void) _notify {
+  if (mountpoint) {
+    status = 2;
+    [[NSNotificationCenter defaultCenter]
+      postNotificationName:@"serviceStatusHasChanged" object:self];
+  }
+  else {
+    NSLog(@"did not mount, terminate");
+    [self stopTask];
+  }
 }
 
 - (NSArray*) serviceTaskArguments {

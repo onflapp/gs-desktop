@@ -133,6 +133,7 @@
      postNotificationName:@"serviceStatusHasChanged" object:self];
   
   [[NSNotificationCenter defaultCenter] removeObserver:self];
+  [NSObject cancelPreviousPerformRequestsWithTarget:self];
 
   NSLog(@"terminated");
 }

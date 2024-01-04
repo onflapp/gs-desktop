@@ -24,6 +24,28 @@
     NSMainNibFile = "MountUp.gorm";
     NSPrincipalClass = NSApplication;
     NSRole = Application;
+    NSServices = (
+	{
+	    NSMenuItem = {
+		default = "Mount/Network Address";
+	    };
+	    NSMessage = mountNetworkService;
+	    NSPortName = MountUp;
+	    NSSendTypes = (
+		NSStringPboardType
+	    );
+	},
+	{
+	    NSMenuItem = {
+		default = "Mount/Directory as Root";
+	    };
+	    NSMessage = mountDirectoryService;
+	    NSPortName = MountUp;
+	    NSSendTypes = (
+		NSFilenamesPboardType
+	    );
+	}
+    );
     NSTypes = (
 	{
 	    NSIcon = "disk_image.tiff";
@@ -44,22 +66,4 @@
 	    );
 	}
     );
-    NSServices = (
-    {
-      NSPortName = MountUp;
-      NSMessage = mountNetworkService;
-      NSSendTypes = (NSStringPboardType);
-      NSMenuItem = {
-        default = "Mount/Network Address";
-      };
-    },
-    {
-      NSPortName = MountUp;
-      NSMessage = mountDirectoryService;
-      NSSendTypes = (NSFilenamesPboardType);
-      NSMenuItem = {
-        default = "Mount/Directory as Root";
-      };
-    }
-  );
 }

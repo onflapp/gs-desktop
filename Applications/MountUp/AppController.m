@@ -43,6 +43,7 @@ BOOL hasFSTab(NSDictionary* props) {
     volumes = [NSMutableArray new];
     services = [[ServiceManager alloc]init];
     networkDrive = [[NetworkDrive alloc]init];
+    passwordPanel = [[PasswordPanel alloc]init];
   }
   return self;
 }
@@ -52,6 +53,7 @@ BOOL hasFSTab(NSDictionary* props) {
   [disks release];
   [services release];
   [networkDrive release];
+  [passwordPanel release];
 
   [super dealloc];
 }
@@ -68,6 +70,8 @@ BOOL hasFSTab(NSDictionary* props) {
   [[[NSApp iconWindow] contentView] addSubview:controlView];
   [controlView setFrame:NSMakeRect(8, 8, 48, 48)];
   [controlView setNeedsDisplay:YES];
+
+  [NSApp setServicesProvider:self];
   
   if([NSApp isScriptingSupported]) {
     [NSApp initializeApplicationScripting];
@@ -128,11 +132,32 @@ BOOL hasFSTab(NSDictionary* props) {
 - (void) mountNetworkService:(NSPasteboard *)pboard
                     userData:(NSString *)userData
                        error:(NSString **)error {
+
+  NSString* loc = [pboard stringForType:NSStringPboardType];
+  NSURL* url = [NSURL URLWithString:loc];
+  if (url) {
+    [networkDrive performSelector:@selector(showPanelWithURL:) withObject:url afterDelay:0.1];
+  }
 }
 
 - (void) mountDirectoryService:(NSPasteboard *)pboard
                       userData:(NSString *)userData
                          error:(NSString **)error {
+ 
+  NSString* fileName = nil;
+  NSArray *files = [pboard propertyListForType: NSFilenamesPboardType];
+
+  if ([files count]) fileName = [files firstObject];
+  if (!fileName) fileName = [pboard stringForType:NSStringPboardType];
+
+  if (fileName) {
+    NSFileManager* fm = [NSFileManager defaultManager];
+    BOOL dir;
+    BOOL rv = [fm fileExistsAtPath:fileName isDirectory:&dir];
+    if (rv && dir) {
+      [self performSelector:@selector(openRootDirectory:) withObject:fileName afterDelay:0.1];
+    }
+  }
 }
 
 
@@ -161,6 +186,10 @@ BOOL hasFSTab(NSDictionary* props) {
 - (void) openRootDirectory:(NSString*) fileName {
   RootServiceTask* rser = [[RootServiceTask alloc]initWithName:fileName];
   [services startService:rser];
+}
+
+- (NSString*) askForPasswordWithMessage:(NSString*) msg {
+  return [passwordPanel askForPasswordWithMessage:msg];
 }
 
 - (void) didReceiveServiceNotification:(NSNotification*) val {

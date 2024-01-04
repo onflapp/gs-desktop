@@ -34,6 +34,7 @@ MountUp_APPLICATION_ICON = MountUp.tiff
 MountUp_RESOURCE_FILES = \
 Resources/MountUp.gorm \
 Resources/NetworkDrive.gorm \
+Resources/PasswordPanel.gorm \
 Resources/MountUp.tiff \
 Resources/disk_image.tiff \
 Resources/services \
@@ -53,7 +54,8 @@ LoopbackServiceTask.h \
 STScriptingSupport.h \
 NetworkDrive.h \
 NetworkServiceTask.h \
-RootServiceTask.h
+RootServiceTask.h \
+PasswordPanel.h
 
 #
 # Objective-C Class files
@@ -68,7 +70,8 @@ AppController+scripting.m \
 STScriptingSupport.m \
 NetworkDrive.m \
 NetworkServiceTask.m \
-RootServiceTask.m
+RootServiceTask.m \
+PasswordPanel.m
 
 #
 # Other sources

@@ -21,7 +21,8 @@
 	"STScriptingSupport.m",
 	"NetworkDrive.m",
 	"NetworkServiceTask.m",
-	"RootServiceTask.m"
+	"RootServiceTask.m",
+	"PasswordPanel.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "-DWITH_UDISKS";
@@ -39,7 +40,8 @@
 	"STScriptingSupport.h",
 	"NetworkDrive.h",
 	"NetworkServiceTask.h",
-	"RootServiceTask.h"
+	"RootServiceTask.h",
+	"PasswordPanel.h"
     );
     IMAGES = (
 	"MountUp.tiff",
@@ -48,7 +50,8 @@
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
 	"MountUp.gorm",
-	"NetworkDrive.gorm"
+	"NetworkDrive.gorm",
+	"PasswordPanel.gorm"
     );
     LANGUAGE = English;
     LIBRARIES = (

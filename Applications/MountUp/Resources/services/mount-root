@@ -16,17 +16,16 @@ if [ -d "$1" ];then
     exit 1
   fi
 
-  P=`/Library/bin/nxprompt --secret --field Password: --message "$DIR" --title "Mount Directory as Root"`
-  if [ -z "$P" ];then
-    echo "E:invalid password"
-    exit 1
-  fi
-
   mkdir -p $MOUNTDIR 2>/dev/null
 
   echo "D:$DIR"
-  echo "$P" | sudo -psudo_bindfs -kS sh -c "echo \"P:$MOUNTDIR\";bindfs -f -u $USER $DIR $MOUNTDIR"
-
+  echo "X:password"
+  export LANG=C
+  sudo -kS sh -c "echo \"P:$MOUNTDIR\";exec bindfs -f -u $USER \"$DIR\" \"$MOUNTDIR\""
+  if [ $? -ne 0 ];then
+    echo "E:invalid password"
+    exit 1
+  fi
 else
   echo "E: $DIR is not a directory"
   exit 1
