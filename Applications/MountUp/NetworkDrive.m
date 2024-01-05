@@ -42,6 +42,8 @@
 - (IBAction) connect:(id) sender {
   if ([[location stringValue] length] == 0) return;
   NSInteger i = [type indexOfSelectedItem];
+  NSString* ustr = [user stringValue];
+  NSString* pstr = [password stringValue];
 
   NSMutableString* url = [NSMutableString string];
   if (i == 1) {
@@ -52,13 +54,16 @@
   }
   else {
     [url appendString:@"smb://"];
+    ustr = [ustr stringByAppendingString:@"\n"];//default domain
   }
   [url appendString:[location stringValue]];
 
   NetworkServiceTask* task = [[NetworkServiceTask alloc]initWithURL:url];
-  [task setUser:[user stringValue]];
-  [task setPassword:[password stringValue]];
+  [task setUser:ustr];
+  [task setPassword:pstr];
   [task startTask];
+
+  [panel orderOut:self];
 }
 
 - (void) showPanel {  
@@ -83,6 +88,7 @@
       [l appendFormat:@":%@", o];
     }
     if (p) {
+      p = [p stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
       [l appendString:p];
     }
 

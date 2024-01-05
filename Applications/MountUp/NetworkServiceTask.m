@@ -35,6 +35,7 @@
 }
 
 - (void) dealloc {
+  [NSObject cancelPreviousPerformRequestsWithTarget:self];
   [self stopTask];
   [user release];
   [password release];
@@ -65,24 +66,38 @@
 }
 
 - (void) processLine:(NSString*) line {
+  NSLog(@">%@<", line);
   if ([line hasPrefix:@"P:"]) {
     ASSIGN(mountpoint, [line substringFromIndex:2]);
     status = 2;
 
     [[NSNotificationCenter defaultCenter]
-       postNotificationName:@"serviceStatusHasChanged" object:self];
+      postNotificationName:@"serviceStatusHasChanged" object:self];
   }
   else if ([line hasPrefix:@"D:"]) {
     ASSIGN(device, [line substringFromIndex:2]);
   }
-  else if ([line hasPrefix:@"Enter user and password"]) {
-    [self writeLine:user];
-    [self writeLine:password];
+  else if ([line hasPrefix:@"Password"]) {
+    if (status != 99) {
+      [self performSelector:@selector(_notify) withObject:nil afterDelay:5];
+      [self waitFor:0.2];
+      [self writeLine:user];
+      [self waitFor:0.2];
+      [self writeLine:password];
+      [self waitFor:0.2];
+      status = 99;
+    }
   }
   else {
     NSLog(@"[%@]", line);
   }
 }
 
+- (void) _notify {
+  if (!mountpoint) {
+    NSLog(@"did not mount, terminate");
+    [self stopTask];
+  }
+}
 
 @end

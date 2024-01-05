@@ -161,6 +161,11 @@
   [fh readInBackgroundAndNotify];
 }
 
+- (void) waitFor:(NSTimeInterval) val {
+  NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:val];
+  [[NSRunLoop currentRunLoop] runUntilDate: limit];
+}
+
 - (void) writeLine:(NSString*) line {
   NSData* data = [[NSString stringWithFormat:@"%@\n", line?line:@""] dataUsingEncoding:NSUTF8StringEncoding];
   [fo writeData:data];

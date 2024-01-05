@@ -14,7 +14,7 @@ function process {
 function connect {
   A=`ls -t /run/user/$UID/gvfs/ | tail -n 1`
 
-  echo "connecting $URL"
+  export LANG=C
   gio mount "$URL"
   sleep 1
 

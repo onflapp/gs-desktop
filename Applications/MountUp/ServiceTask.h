@@ -48,6 +48,7 @@
 - (NSString*) UNIXDevice;
 
 - (void) writeLine:(NSString*) line;
+- (void) waitFor:(NSTimeInterval) val;
 
 - (BOOL) isMounted;
 
