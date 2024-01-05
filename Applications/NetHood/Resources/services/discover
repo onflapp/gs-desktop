@@ -1,12 +1,21 @@
 #!/bin/perl
 
+use URI::Escape;
+
 sub list_smb_shares {
   my ($a, $p) = @_;
+  my $x = 0;
   open(X, "gio list -u smb://$a:$p |");
   while(<X>) {
     chomp();
     s/\/\._/\//;
-    print("$_\n");
+    $u = $_;
+    $s = uri_unescape($u);
+    print("S:$s\nT:Microsoft Windows Network\nU:$u\n");
+    $x++;
+  }
+  if (!$x) {
+    print("S:$a\nT:Microsoft Windows Network\nU:smb://$a:$p\n");
   }
   close(X);
 }
