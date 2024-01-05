@@ -15,4 +15,7 @@ rm /etc/ld.so.conf.d/gs-desktop.conf
 rm /usr/share/xsessions/gs-desktop-safe.desktop
 rm /usr/share/xsessions/gs-desktop.desktop
 
+rm /usr/bin/startgsde-safe
+rm /usr/bin/startgsde
+
 ldconfig

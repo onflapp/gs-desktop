@@ -22,6 +22,9 @@ cp -r ./Library/Themes/* /Library/Themes
 
 cp ./System/share/WindowMaker/Icons/* /System/share/WindowMaker/Icons
 
+ln -s /System/bin/startgsde-safe /usr/bin/startgsde-safe
+ln -s /System/bin/startgsde /usr/bin/startgsde
+
 ./make_hidden.sh
 echo "done"
 
