@@ -14,6 +14,7 @@
   id saver;
   id run;
   id controlsView;
+  id iconView;
   id emptyView;
   id lockerPanel;
   id speedSlider;

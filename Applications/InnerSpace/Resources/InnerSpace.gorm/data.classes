@@ -30,7 +30,8 @@
 	    emptyView,
 	    lockerPanel,
 	    controlsView,
-	    speedSlider
+	    speedSlider,
+	    iconView
 	);
 	Super = NSObject;
     };

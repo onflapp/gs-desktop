@@ -1,7 +1,7 @@
 {
     APPCLASS = NSApplication;
     APPKIT = "GNUSTEP-GUI";
-    APPLICATIONICON = "";
+    APPLICATIONICON = "InnerSpace.tiff";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
     "BUILDER_TARGETS" = (
@@ -32,6 +32,7 @@
 	"SaverWindow.h"
     );
     IMAGES = (
+	"InnerSpace.tiff"
     );
     INSTALLDIR = "$(GNUSTEP_LOCAL_ROOT)/";
     INTERFACES = (

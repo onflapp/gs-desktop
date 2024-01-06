@@ -154,6 +154,10 @@
 
 - (void) applicationDidFinishLaunching: (NSNotification *)notification
 {
+  [[[NSApp iconWindow] contentView] addSubview:iconView];
+  [iconView setFrame:NSMakeRect(8, 8, 48, 48)];
+  [iconView setNeedsDisplay:YES];
+
   // The saver is *always* running...
   // [self doSaverInBackground: self];
 }
