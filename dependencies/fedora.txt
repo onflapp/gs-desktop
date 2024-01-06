@@ -24,7 +24,10 @@ xset
 xsetroot
 xwininfo
 xdotool
+gnuplot
+discount
 openssl-devel
+texlive-dvipdfmx
 ffcall-devel
 libffi-devel
 libxml2-devel

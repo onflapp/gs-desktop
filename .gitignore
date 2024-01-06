@@ -2,6 +2,7 @@
 *.o
 *.a
 *.log
+*.InnerSpace
 config.status
 obj
 derived_src
