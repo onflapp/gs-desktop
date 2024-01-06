@@ -172,13 +172,13 @@
 
 - (void)wrapperDidBecomeActive 
 {
-  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(activateMenu) object:nil];
-  [self performSelector:@selector(activateMenu) withObject:nil afterDelay:0.3];
+  //[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(activateMenu) object:nil];
+  //[self performSelector:@selector(activateMenu) withObject:nil afterDelay:0.3];
 }
 
 - (void)wrapperDidResignActive
 {
-  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(activateMenu) object:nil];
+  //[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(activateMenu) object:nil];
 }
 
 - (void)applicationDidBecomeActive:(NSNotification *)notification
