@@ -43,6 +43,43 @@
   *l = '\0';
 }
 
+/*
+ * to differentiate bluetooth mouses from BAT power supplies, look for "online" parameter == 1
+ * -1: online parameter not found
+ *  0: online parameter is 0
+ *  1: online parameter is 1
+ */
+
+- (int) onlineStatus:(NSString *)dirName
+{
+  char		onlineStatePath[1024]; // same as batterStatePath0
+  NSString	*onlineFileName;
+  FILE *	onlineFile;
+  char		line[128];
+  int		result = -1;
+
+  onlineFileName = [dirName stringByAppendingPathComponent:@"online"];
+
+  [[DEV_SYS_POWERSUPPLY stringByAppendingPathComponent:onlineFileName] getCString:onlineStatePath];
+  NSLog(@"/sys checking: %s", onlineStatePath);
+  onlineFile = fopen(onlineStatePath, "r");
+  if (onlineFile != NULL)
+    {
+      [self _readLine :onlineFile :line];
+      if (!strcmp(line, "1"))
+	{
+	  result = 1;
+	}
+      else
+	{
+	  result = 0;
+	}
+	
+      fclose(onlineFile);
+    }
+  return result;  
+}
+
 - (void)initPlatformSpecific
 {
   NSFileManager       *fm;
@@ -85,6 +122,12 @@
                   [self _readLine :presentFile :line];
                   if (!strcmp(line, "1"))
                     {
+		      /* 2024-01-04 ignore batteries with online status - like Bluetooth Mouse */
+		      if ([self onlineStatus:dirName] == 1)
+			{
+			  NSLog(@"/sys skipping :%@", [DEV_SYS_POWERSUPPLY stringByAppendingPathComponent:dirName]);
+			  continue;
+			}
                       done = YES;
                       NSLog(@"/sys: found it!: %@", [DEV_SYS_POWERSUPPLY stringByAppendingPathComponent:dirName]);
                       batterySysAcpiString = [[DEV_SYS_POWERSUPPLY stringByAppendingPathComponent:dirName] retain];
