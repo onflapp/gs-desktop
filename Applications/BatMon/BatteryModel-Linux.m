@@ -44,6 +44,40 @@
 }
 
 /*
+ * look for type "Battery"
+ */
+
+- (int) isTypeBattery:(NSString *)dirName
+{
+  char		typePath[1024]; // same as batterStatePath0
+  NSString	*typeFileName;
+  FILE *	typeFile;
+  char		line[128];
+  int		result = -1;
+
+  typeFileName = [dirName stringByAppendingPathComponent:@"type"];
+
+  [[DEV_SYS_POWERSUPPLY stringByAppendingPathComponent:typeFileName] getCString:typePath];
+  NSLog(@"/sys checking type: %s", typePath);
+  typeFile = fopen(typePath, "r");
+  if (typeFile != NULL)
+    {
+      [self _readLine :typeFile :line];
+      if (!strcmp(line, "Battery"))
+	{
+	  result = 1;
+	}
+      else
+	{
+	  result = 0;
+	}
+	
+      fclose(typeFile);
+    }
+  return result;  
+}
+
+/*
  * to differentiate bluetooth mouses from BAT power supplies, look for "online" parameter == 1
  * -1: online parameter not found
  *  0: online parameter is 0
@@ -122,6 +156,12 @@
                   [self _readLine :presentFile :line];
                   if (!strcmp(line, "1"))
                     {
+		      if ([self isTypeBattery:dirName] != 1)
+                        {
+			  NSLog(@"/sys skipping, not a battery:%@", [DEV_SYS_POWERSUPPLY stringByAppendingPathComponent:dirName]);
+                          continue;
+                        }
+
 		      /* 2024-01-04 ignore batteries with online status - like Bluetooth Mouse */
 		      if ([self onlineStatus:dirName] == 1)
 			{
