@@ -136,7 +136,6 @@
   modules = RETAIN([NSMutableDictionary dictionary]);
   [self findModules];
   [self loadDefaults];
-  [self loadModule: currentModuleName];
   RETAIN(emptyView); // hold on to this.
 }
 

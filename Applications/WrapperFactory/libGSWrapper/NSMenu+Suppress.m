@@ -3,6 +3,7 @@
 #include "NSMenu+Suppress.h"
 
 @implementation NSWindow (Supress)
+/*
 - (void) becomeKeyWindow {
 }
 - (void) makeKeyWindow {
@@ -11,4 +12,5 @@
 - (BOOL) canBecomeKeyWindow {
   return NO;
 }
+*/
 @end

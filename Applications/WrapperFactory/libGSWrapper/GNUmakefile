@@ -29,6 +29,8 @@ libGSWrapper_OBJC_FILES = WrapperDelegate.m \
 	NSApplication+SuppressAppIcon.m \
 	NSMenu+Suppress.m \
 	NSApplication+AppName.m \
+	ShellUITask.m \
+	ShellUIProxy.m
 
 libGSWrapper_LIBRARIES_DEPEND_UPON = -lgnustep-base -lgnustep-gui -lX11
 

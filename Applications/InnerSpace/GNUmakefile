@@ -42,9 +42,9 @@ Boxes.subproj
 InnerSpace_RESOURCE_FILES = \
 Resources/InnerSpace.gorm \
 Resources/InnerSpace.tiff \
-Resources/Black.subproj/Black.InnerSpace \
-Resources/Boxes.subproj/Boxes.InnerSpace \
-Resources/NickSpace.subproj/NickSpace.InnerSpace 
+Black.subproj/Black.InnerSpace \
+Boxes.subproj/Boxes.InnerSpace \
+NickSpace.subproj/NickSpace.InnerSpace 
 
 
 #
