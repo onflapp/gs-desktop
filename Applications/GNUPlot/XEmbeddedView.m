@@ -152,7 +152,7 @@
 - (NSRect) convertToNativeWindowRect {
   NSRect r = [self convertRect: [self bounds] toView:nil];
 
-  NSInteger x = (NSInteger)r.origin.x;
+  NSInteger x = (NSInteger)r.origin.x - 1;
   NSInteger y = (NSInteger)r.origin.y;
   NSInteger w = (NSInteger)r.size.width;
   NSInteger h = (NSInteger)r.size.height;
