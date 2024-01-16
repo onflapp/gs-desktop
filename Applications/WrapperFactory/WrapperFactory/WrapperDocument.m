@@ -177,6 +177,10 @@ static NSString *actionIgnore = @"Ignore";
         filterScriptShell = RETAIN(startScriptShell);
         filterScriptAction = IgnoreAction;
 
+        userInterface = 0;
+        userInterfaceScript = RETAIN(@"");
+        userInterfaceScriptShell = RETAIN(@"/bin/sh");
+
         types = [[NSMutableArray alloc] init];
         services = [[NSMutableArray alloc] init];
     }
@@ -185,6 +189,11 @@ static NSString *actionIgnore = @"Ignore";
 
 - (void)dealloc
 {
+    if ( userInterfacePath ) {
+        NSFileManager* fm = [NSFileManager defaultManager];
+        [fm removeItemAtPath:userInterfacePath error:nil];
+    }
+
     RELEASE(appIcon);
     RELEASE(name);
     RELEASE(version);
@@ -203,6 +212,10 @@ static NSString *actionIgnore = @"Ignore";
     RELEASE(openScriptShell);
     RELEASE(filterScript);
     RELEASE(filterScriptShell);
+
+    RELEASE(userInterfaceScript);
+    RELEASE(userInterfaceScriptShell);
+    RELEASE(userInterfacePath);
 
     RELEASE(types);
     RELEASE(services);
@@ -298,6 +311,32 @@ static NSString *actionIgnore = @"Ignore";
 {
     userInterface = n;
 }
+
+- (NSString *)userInterfacePath
+{
+    return userInterfacePath;
+}
+- (void)setUserInterfacePath: (NSString*)path
+{
+    ASSIGN(userInterfacePath, path);
+}
+- (NSString *)userInterfaceScript
+{
+    return userInterfaceScript;
+}
+- (void)setUserInterfaceScript: (NSString*)str
+{
+    ASSIGN(userInterfaceScript, str);
+}
+- (NSString *)userInterfaceScriptShell
+{
+    return userInterfaceScriptShell;
+}
+- (void)setUserInterfaceScriptShell: (NSString*)str
+{
+    ASSIGN(userInterfaceScriptShell, str);
+}
+
 - (Icon *)appIcon
 {
     return appIcon;
@@ -830,7 +869,27 @@ static NSString *actionIgnore = @"Ignore";
         else {
             NSLog(@"No info for Filter script");
         }
-
+        dict = [gsWrapperInfo objectForKey: @"UserInterface"];
+        if ( dict ) {
+            value = [dict objectForKey: @"Shell"];
+            if ( value ) {
+                [self setUserInterfaceScriptShell: value];
+            }
+            else {
+                NSLog(@"No shell for UserInterface script set");
+            }
+            value = [dict objectForKey: @"Action"];
+            if ( [value isEqualToString: @"RunScript"] ) {
+                [self setUserInterface:1];
+            }
+            else {
+                NSLog(@"No action for UserInterface script set");
+                [self setUserInterface:0];
+            }
+        }
+        else {
+            NSLog(@"No info for Activate script");
+        }
 
         // Load Info-gnustep.plist
         NSDictionary *info = [NSDictionary dictionaryWithContentsOfFile: [infoFile filename]];
@@ -1040,6 +1099,19 @@ static NSString *actionIgnore = @"Ignore";
         else {
             NSLog(@"No Filter script");
         }
+        NSFileWrapper *userInterfaceFile = [resources objectForKey: @"Launcher"];
+        if ( userInterfaceFile ) {
+            [self setUserInterfaceScript: [NSString stringWithContentsOfFile: [userInterfaceFile filename]]];
+        }
+        else {
+            NSLog(@"No Launcher script");
+        }
+        NSFileWrapper *nibFile = [resources objectForKey: @"Launcher.gorm"];
+        if ( nibFile ) {
+            NSString *tfile = [NSString stringWithFormat:@"%@/Launcher-%lx.gorm", NSTemporaryDirectory(), [self hash]];
+            [nibFile writeToFile:tfile atomically:NO updateFilenames:YES];
+            ASSIGN(userInterfacePath, tfile);
+        }
 
         // done
         [self updateChangeCount: NSChangeCleared];
@@ -1070,10 +1142,6 @@ static NSString *actionIgnore = @"Ignore";
                              url, @"ApplicationURL",
                              @"NSApplication", @"NSPrincipalClass",
                              nil];
-    if ( userInterface ) {
-        [infoDict setValue:@"Launcher" forKey:@"NSMainNibFile"];
-    }
-
     switch ( role ) {
     case NoneRole:
         [infoDict setObject: @"None" forKey: @"NSRole"];
@@ -1232,6 +1300,10 @@ static NSString *actionIgnore = @"Ignore";
                                        [WrapperDocument scriptActionToString: activateScriptAction], @"Action",
                                        nil], @"Activate",
                          [NSDictionary dictionaryWithObjectsAndKeys:
+                                       userInterfaceScriptShell, @"Shell",
+                                       (userInterface?@"RunScript":@"Ignore"), @"Action",
+                                       nil], @"UserInterface",
+                         [NSDictionary dictionaryWithObjectsAndKeys:
                                        filterScriptShell, @"Shell",
                                        [WrapperDocument scriptActionToString: filterScriptAction], @"Action",
                                        nil], @"Filter",
@@ -1268,6 +1340,10 @@ static NSString *actionIgnore = @"Ignore";
     NSFileWrapper *open = AUTORELEASE([[NSFileWrapper alloc] initRegularFileWithContents: data]);
     [open setPreferredFilename: @"Open"];
 
+    data = [userInterfaceScript dataUsingEncoding: [NSString defaultCStringEncoding]];
+    NSFileWrapper *ui = AUTORELEASE([[NSFileWrapper alloc] initRegularFileWithContents: data]);
+    [ui setPreferredFilename: @"Launcher"];
+
     data = [filterScript dataUsingEncoding: [NSString defaultCStringEncoding]];
     NSFileWrapper *filter = AUTORELEASE([[NSFileWrapper alloc] initRegularFileWithContents: data]);
     [filter setPreferredFilename: @"Filter"];
@@ -1283,6 +1359,7 @@ static NSString *actionIgnore = @"Ignore";
                                                                         startOpen, [startOpen preferredFilename],
                                                                         open, [open preferredFilename],
                                                                         filter, [filter preferredFilename],
+                                                                        ui, [ui preferredFilename],
                                                                         nil]];
     // file type icons
     for ( i=0; i<typeCount; i++ ) {
@@ -1301,9 +1378,8 @@ static NSString *actionIgnore = @"Ignore";
         [resources addFileWrapper: serviceScript];
     }
 
-    if ( userInterface ) {
-        NSString* nibPath = [[NSBundle mainBundle] pathForResource: @"Launcher" ofType: @"gorm"];
-        NSFileWrapper *nibFile = AUTORELEASE([[NSFileWrapper alloc] initWithPath: nibPath]);
+    if ( userInterfacePath ) {
+        NSFileWrapper *nibFile = AUTORELEASE([[NSFileWrapper alloc] initWithPath: userInterfacePath]);
         [nibFile setPreferredFilename: @"Launcher.gorm"];
         [resources addFileWrapper: nibFile];
     }

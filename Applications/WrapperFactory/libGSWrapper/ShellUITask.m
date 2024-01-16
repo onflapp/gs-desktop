@@ -28,7 +28,7 @@
 
 - (id) initWithScript:(NSString*) nm {
   if ((self = [super init])) {
-    exec = [nm retain];
+    script = [nm retain];
   }
   return self;
 }
@@ -39,6 +39,7 @@
   [buff release];
   [env release];
   [exec release];
+  [script release];
   [task release];
   [super dealloc];
 }
@@ -49,7 +50,6 @@
 
   [self stopTask];
   ASSIGN(delegate, del);
-  NSLog(@"start %@ [%@]", exec, args);
   
   NSPipe* pipe = [NSPipe pipe];
   fh = [[pipe fileHandleForReading] retain];
@@ -63,8 +63,22 @@
     [task setEnvironment:nenv];
   }
 
-  [task setLaunchPath:exec];
-  [task setArguments:args];
+  if (exec) {
+    [task setLaunchPath:exec];
+    NSMutableArray* a = [NSMutableArray array];
+    [a addObject:script];
+    if ([args count])  {
+      [a addObjectsFromArray:args];
+    }
+    NSLog(@"start %@ [%@]", exec, a);
+    [task setArguments:a];
+  }
+  else {
+    [task setLaunchPath:script];
+    [task setArguments:args];
+    NSLog(@"start %@ [%@]", script, args);
+  }
+
   [task setStandardOutput:pipe];
 
   pipe = [NSPipe pipe];
@@ -84,9 +98,17 @@
      name:NSFileHandleReadCompletionNotification 
      object:fh];
      
+  @try {
+    [task launch];
+  }
+  @catch (NSException* ex) {
+    NSLog(@"exception %@", ex);
+    [self taskDidTerminate:nil];
+    return;
+  }
+   
   status = 1;
   [fh readInBackgroundAndNotify];
-  [task launch];
 
   if ([data length]) {
     NSLog(@"write data");
@@ -98,11 +120,16 @@
   }
 }
 
+- (void) setShellExec:(NSString*) sh {
+  ASSIGN(exec, sh);
+}
+
 - (void) setEnvironment:(NSDictionary*) e {
   ASSIGN(env, e);
 }
 
 - (void) taskDidTerminate:(NSNotification*) not {
+  NSLog(@"1");
   NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
   [[NSRunLoop currentRunLoop] runUntilDate: limit];
 

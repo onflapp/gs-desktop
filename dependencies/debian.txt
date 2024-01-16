@@ -28,6 +28,7 @@ libtool
 xinit
 bindfs
 x11-xserver-utils
+gnuplot-x11
 xdotool
 libffcall-dev
 libxml2-dev

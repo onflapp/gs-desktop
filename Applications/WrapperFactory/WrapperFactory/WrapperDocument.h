@@ -82,6 +82,10 @@ typedef enum {
     NSString *filterScriptShell;
     ScriptAction filterScriptAction;
 
+    NSString *userInterfaceScript;
+    NSString *userInterfaceScriptShell;
+    NSString *userInterfacePath;
+
     NSMutableArray *types;
     NSMutableArray *services;
 }
@@ -106,8 +110,17 @@ typedef enum {
  * attributes
  */
 
+- (NSString *)userInterfacePath;
+- (void)setUserInterfacePath: (NSString *)path;
+
 - (NSInteger)userInterface;
 - (void)setUserInterface: (NSInteger)n;
+
+- (NSString *)userInterfaceScript;
+- (void)setUserInterfaceScript: (NSString*)str;
+
+- (NSString *)userInterfaceScriptShell;
+- (void)setUserInterfaceScriptShell: (NSString*)str;
 
 - (Icon *)appIcon;
 - (void)setAppIcon: (Icon *)i;

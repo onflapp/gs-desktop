@@ -38,6 +38,18 @@
   [super dealloc];
 }
 
+- (NSView*) iconView {
+  return iconView;
+}
+
+- (NSWindow*) window {
+  return window;
+}
+
+- (NSMenu*) menu {
+  return menu;
+}
+
 - (NSString*) stringForControl:(id) val {
   if (!val) return @"";
 
@@ -89,13 +101,21 @@
   return [NSMethodSignature signatureWithObjCTypes:"@^v^v^c@"];
 }
 
-
 - (void)forwardInvocation:(NSInvocation *)anInvocation {
   NSString* sel = NSStringFromSelector([anInvocation selector]);
   id val = nil;
   [anInvocation getArgument:&val atIndex:2];
 
-  if ([sel hasPrefix:@"set"]) {
+  if ([sel isEqualToString:@"setMenu:"]) {
+    ASSIGN(menu, val);
+  }
+  else if ([sel isEqualToString:@"setWindow:"]) {
+    ASSIGN(window, val);
+  }
+  else if ([sel isEqualToString:@"setIconView:"]) {
+    ASSIGN(iconView, val);
+  }
+  else if ([sel hasPrefix:@"set"]) {
     NSString* key = [sel substringFromIndex:3];
     key = [key substringToIndex:[key length] - 1];
     key = [key uppercaseString];
@@ -128,7 +148,7 @@
   NSMutableString* buff = [NSMutableString string];
   for (NSString* key in [context allKeys]) {
     NSString* val = [context valueForKey:key];
-    [buff appendFormat:@"%@=%@\n", key, val];
+    [buff appendFormat:@"%@='%@'\n", key, val];
   }
   return buff;
 }

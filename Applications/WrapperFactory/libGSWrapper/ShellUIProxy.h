@@ -24,9 +24,17 @@
    NSMutableDictionary* controls;
    NSMutableDictionary* context;
    ShellUITask* delegate;
+
+   NSView* iconView;
+   NSWindow* window;
+   NSMenu* menu;
 }
 
 - (id) init;
 - (void) updateValue:(NSString*) val forControl:(NSString*) name;
 - (void) handleActions:(id) del;
+
+- (NSView*) iconView;
+- (NSWindow*) window;
+- (NSMenu*) menu;
 @end

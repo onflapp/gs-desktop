@@ -55,16 +55,79 @@
 //                        cursor: (defaultCursor)];
 //     }
 //    [self setCurrentScriptId: StartScript];
+//
+
+    [userInterface setState: [document userInterface]];
+
+    NSString *uishell = [document userInterfaceScriptShell];
+    [userInterfaceShell setStringValue: uishell];
+
+    if ([uishell isEqualToString:@"stexec"]) {
+        [userInterfaceTypePopUp selectItemWithTag:1];
+    }
+    else {
+        [userInterfaceTypePopUp selectItemWithTag:0];
+    }
+
+
+    NSString *uiscript = [document userInterfaceScript];
+    if ( uiscript ) {
+        [[[userInterfaceScript textStorage] mutableString] setString: uiscript];
+    }
 }
 
+- (IBAction)openNibFile: (id)sender
+{
+    NSLog(@"open nib");
+    NSString* path = [document userInterfacePath];
+    if ( path ) {
+        [[NSWorkspace sharedWorkspace] openFile: path];
+    }
+}
 
-- (IBAction)setUserInterface: (id)sender
+- (IBAction)changeUserInterface: (id)sender
 {
     if ([sender state] == 1) {
         [document setUserInterface:1];
+        [self prepareUserInterfaceFile];
     }
     else {
         [document setUserInterface:0];
+    }
+}
+
+- (IBAction)changeUserInterfaceType: (id)sender
+{
+    if ([sender selectedTag] == 1) {
+        [userInterfaceShell setStringValue: @"stexec"];
+        [document setUserInterfaceScriptShell: @"stexec"];
+    }
+    else {
+        [userInterfaceShell setStringValue: @"/bin/sh"];
+        [document setUserInterfaceScriptShell: @"/bin/sh"];
+    }
+
+}
+
+- (void) prepareUserInterfaceFile
+{
+    NSString* uiPath = [document userInterfacePath];
+    if (! uiPath ) {
+        NSString *nibPath = [[NSBundle mainBundle] pathForResource: @"Launcher" ofType: @"gorm"];
+        NSString *tfile = [NSString stringWithFormat:@"%@/Launcher-%lx.gorm", NSTemporaryDirectory(), [document hash]];
+
+        NSError *error = nil;
+        NSFileManager* fm = [NSFileManager defaultManager];
+        BOOL rv = [fm copyItemAtPath:nibPath
+                              toPath:tfile
+                               error:&error];
+
+        if (rv) {
+            [document setUserInterfacePath:tfile];
+        }
+        else {
+            NSLog(@"writing uifile %@ to %@ %@", nibPath, tfile, error);
+        }
     }
 }
 
@@ -142,6 +205,15 @@
         default:
             NSLog(@"Unknown script ID: %d", currentScriptId);
         }
+        [script release];
+    }
+    else if ( src == userInterfaceShell) {
+        NSString *shell = [userInterfaceShell stringValue];
+        [document setUserInterfaceScriptShell: shell];
+    }
+    else if ( src == userInterfaceScript) {
+        NSString *script = [[[userInterfaceScript textStorage] string] copy];
+        [document setUserInterfaceScript: script];
         [script release];
     }
     else {
@@ -308,6 +380,7 @@
     }
     [self setCurrentScriptId: currentScriptId];
 
+   
     if ( document ) {
         [[NSNotificationCenter defaultCenter] addObserver: self
                                               selector: @selector(wrapperDocumentChangedNotification:)

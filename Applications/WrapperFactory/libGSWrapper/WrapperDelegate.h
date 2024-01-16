@@ -22,10 +22,10 @@
 #define GSWrapper_libGSWrapper_WrapperDelegate_H
 
 
-#include <AppKit/AppKit.h>
-
-#include "Actions.h"
-
+#import <AppKit/AppKit.h>
+#import "Actions.h"
+#import "ShellUIProxy.h"
+#import "ShellUITask.h"
 
 @interface WrapperDelegate : NSObject
 {
@@ -37,6 +37,10 @@
 
     id<Action> mainAction;
     id<Action> openAction;
+    
+    ShellUIProxy *shellDelegate;
+    ShellUITask *shellTask;
+    NSMutableDictionary *shellEnv;
 }
 
 - (id)init;

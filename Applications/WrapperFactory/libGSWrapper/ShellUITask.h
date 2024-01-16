@@ -34,11 +34,13 @@
   NSInteger status;
   NSMutableData* buff;
   NSString* exec;
+  NSString* script;
   NSDictionary* env;
   id delegate;
 }
 - (id) initWithScript:(NSString*) name;
 
+- (void) setShellExec:(NSString*) sh;
 - (void) setEnvironment:(NSDictionary*) e;
 
 - (void) writeLine:(NSString*) line;

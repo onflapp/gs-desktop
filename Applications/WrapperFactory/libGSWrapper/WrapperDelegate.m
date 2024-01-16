@@ -18,12 +18,11 @@
  * $HeadURL: file:///home/rherzog/Subversion/GNUstep/GSWrapper/tags/release-0.1.0/libGSWrapper/WrapperDelegate.m $
  */
 
-#include <AppKit/AppKit.h>
-
-#include "WrapperDelegate.h"
-#include "NSApplication+AppName.h"
-#include "NSMenu+Suppress.h"
-#include "AppIconView.h"
+#import <AppKit/AppKit.h>
+#import "WrapperDelegate.h"
+#import "NSApplication+AppName.h"
+#import "NSMenu+Suppress.h"
+#import "AppIconView.h"
 #include "X11/Xutil.h"
 
 @implementation WrapperDelegate
@@ -38,10 +37,51 @@
     appDidFinishLaunching = NO;
     startupFiles = nil;
 
-    //AppIconView *mv = [[AppIconView alloc] initWithFrame:NSMakeRect(0, 0, 64, 64)];
-    //[[NSApp iconWindow] setContentView:mv];
 
+    [self startupUI];
     return self;
+}
+
+- (void)startupUI
+{
+    NSString *path = [[NSBundle mainBundle] pathForResource: @"GSWrapper" ofType: @"plist"];
+
+    properties = RETAIN([NSDictionary dictionaryWithContentsOfFile: path]);
+    shellEnv = [[NSMutableDictionary alloc] init];
+
+    NSDictionary *uiprops = [properties objectForKey:@"UserInterface"];
+    NSString *uishell = [uiprops objectForKey:@"Shell"];
+    NSString *uiaction = [uiprops objectForKey:@"Action"];
+
+    NSLog(@"startup user interface %@ %@", uishell, uiaction);
+
+    if ([uiaction isEqualToString:@"RunScript"]) {
+      if ([uishell isEqualToString:@"stexec"]) {
+      }
+      else {
+        NSString* script = [[NSBundle mainBundle] pathForResource: @"Launcher" ofType: @""];
+        NSString* gorm = [[NSBundle mainBundle] pathForResource: @"Launcher" ofType: @"gorm"];
+
+        shellTask = [[ShellUITask alloc]initWithScript:script];
+        [shellTask setShellExec:uishell];
+
+        [shellEnv setValue:gorm forKey:@"GSWRAPPER_UI_FILE"];
+
+        shellDelegate = [[ShellUIProxy alloc]init];
+
+        NSMutableDictionary* o = [NSMutableDictionary dictionary];
+        [o setValue:shellDelegate forKey:@"NSOwner"];
+        [NSBundle loadNibFile:gorm externalNameTable:o withZone:nil];
+
+        NSView* vv = [shellDelegate iconView];
+        if (vv) {
+          AppIconView *mv = [[AppIconView alloc] initWithFrame:NSMakeRect(0, 0, 64, 64)];
+          [[NSApp iconWindow] setContentView:mv];
+          [mv addSubview:vv];
+          [vv setFrame:NSMakeRect(8, 8, 48, 48)];
+        }
+      }
+    }
 }
 
 - (void)applicationWillFinishLaunching: (NSNotification*)not
@@ -55,47 +95,54 @@
 
 - (void)applicationDidFinishLaunching: (NSNotification*)not
 {
+    if([NSApp isScriptingSupported]) {
+      [NSApp initializeApplicationScripting];
+    }
+
     NSLog(@"finish");
     appDidFinishLaunching = YES;
     NSRegisterServicesProvider(self, [[NSApp applicationName] stringByDeletingPathExtension]);
 
-    NSString *path = [[NSBundle mainBundle] pathForResource: @"GSWrapper"
-                                            ofType: @"plist"];
-    properties = RETAIN([NSDictionary dictionaryWithContentsOfFile: path]);
-
     if ( startupFiles ) {
         mainAction = [self actionForMessage: @"StartOpen"];
+        [shellEnv setValue:[startupFiles componentsJoinedByString:@":"] forKey:@"GSWRAPPER_FILES"];
     }
     else {
         mainAction = [self actionForMessage: @"Start"];
     }
+
     [mainAction executeWithFiles: startupFiles];
     lastActionTime = [[NSDate date] timeIntervalSinceReferenceDate];
     [startupFiles release];
     startupFiles = nil;
 
-    if ( !mainAction ) {
-        [NSApp terminate: self];
-        return;
+    if ( shellDelegate ) {
+      [shellTask setEnvironment:shellEnv];
+      [shellDelegate handleActions:shellTask];
     }
-    if ( ![mainAction task] ) {
-        if ( [properties objectForKey: @"Filter"] ) {
-            NSLog(@"Service handler configured - continue running for 6os");
-            [NSApp performSelector:@selector(terminate:) withObject: self afterDelay:60];
-            return;
-        }
-        else {
-            NSLog(@"Main action has no task assigned - exiting");
-            [NSApp terminate: self];
-            return;
-        }
-    }
+    else {
+      if ( !mainAction ) {
+          [NSApp terminate: self];
+          return;
+      }
+      if ( ![mainAction task] ) {
+          if ( [properties objectForKey: @"Filter"] ) {
+              NSLog(@"Service handler configured - continue running for 60s");
+              [NSApp performSelector:@selector(terminate:) withObject: self afterDelay:60];
+              return;
+          }
+          else {
+              NSLog(@"Main action has no task assigned - exiting");
+              [NSApp terminate: self];
+              return;
+          }
+      }
 
-
-    [[NSNotificationCenter defaultCenter] addObserver: self
+      [[NSNotificationCenter defaultCenter] addObserver: self
                                           selector: @selector(unixAppExited:)
                                           name: (NSTaskDidTerminateNotification)
                                           object: [mainAction task]];
+    }
 }
 
 - (void) applicationDidResignActive:(NSNotification*) not
@@ -194,7 +241,7 @@
     if (td < 1.0) return;
 
     RunScriptAction *activateAction = (RunScriptAction*)[self actionForMessage: @"Activate"];
-    //[activateAction executeWithFiles: nil];
+    [activateAction executeWithFiles: nil];
 }
 
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender
@@ -310,7 +357,7 @@
             NSPipe *outPipe = [NSPipe pipe];
 
             [task setStandardOutput:outPipe];
-            [task setEnvironment:env];
+            [task setEnvironment:shellEnv];
             [task launch];
 
             NSFileHandle *inFh = [outPipe fileHandleForReading];

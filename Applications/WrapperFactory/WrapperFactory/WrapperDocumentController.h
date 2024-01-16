@@ -50,11 +50,15 @@
     IBOutlet NSTextField *url;
     IBOutlet NSTextField *authors;
     IBOutlet NSPopUpButton *rolePopUp;
-    IBOutlet NSButton *userInterface;
 
     IBOutlet NSTextField *currentScriptShell;
     IBOutlet NSTextView *currentScript;
     IBOutlet NSPopUpButton *currentScriptActionPopUp;
+
+    IBOutlet NSButton *userInterface;
+    IBOutlet NSTextField *userInterfaceShell;
+    IBOutlet NSTextView *userInterfaceScript;
+    IBOutlet NSPopUpButton *userInterfaceTypePopUp;
 
     int currentScriptId;
 }
@@ -77,6 +81,9 @@
 /*
  * actions
  */
+
+- (IBAction)openNibFile: (id)sender;
+
 - (IBAction)setCurrentScriptToStart: (id)sender;
 - (IBAction)setCurrentScriptToStartOpen: (id)sender;
 - (IBAction)setCurrentScriptToOpen: (id)sender;
@@ -84,7 +91,9 @@
 - (IBAction)setCurrentScriptToFilter: (id)sender;
 - (IBAction)setRole: (id)sender;
 - (IBAction)setCurrentScriptAction: (id)sender;
-- (IBAction)setUserInterface: (id)sender;
+
+- (IBAction)changeUserInterface: (id)sender;
+- (IBAction)changeUserInterfaceType: (id)sender;
 
 /*
  * outlets

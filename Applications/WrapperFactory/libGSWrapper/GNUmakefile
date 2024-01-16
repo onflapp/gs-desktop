@@ -29,6 +29,7 @@ libGSWrapper_OBJC_FILES = WrapperDelegate.m \
 	NSApplication+SuppressAppIcon.m \
 	NSMenu+Suppress.m \
 	NSApplication+AppName.m \
+	STScriptingSupport.m \
 	ShellUITask.m \
 	ShellUIProxy.m
 
