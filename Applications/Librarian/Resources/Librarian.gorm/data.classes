@@ -2,17 +2,22 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     AppController = {
 	Actions = (
-	    "showPrefPanel:"
+	    "showPrefPanel:",
+	    "changePrefs:"
 	);
 	Outlets = (
+	    prefsDefaultBook,
+	    prefsWindow,
+	    prefsHideOnDeactivate
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
 	    "inspect:",
-	    "rebuild:",
+	    "changePrefs:",
 	    "orderFrontFontPanel:",
+	    "rebuild:",
 	    "showPrefPanel:"
 	);
 	Super = NSObject;

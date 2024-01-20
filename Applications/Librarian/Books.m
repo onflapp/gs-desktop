@@ -225,7 +225,7 @@
 
 
 - (void) execTask:(NSString*) cmd withArguments:(NSArray*) args {
-  NSLog(@"start");
+  NSLog(@"start %@ %@", cmd, args);
   NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
   
   [buff setLength:0];
@@ -256,6 +256,9 @@
 }
 
 - (void) taskDidTerminate:(NSNotification*) not {
+  NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
+  [[NSRunLoop currentRunLoop] runUntilDate: limit];
+
   NSLog(@"task terminated");
   NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
 

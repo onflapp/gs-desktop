@@ -34,6 +34,7 @@
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification *) aNotif {
+  [NSApp setServicesProvider:self];
 }
 
 - (BOOL) applicationShouldTerminate:(id) sender {
@@ -46,10 +47,45 @@
 - (BOOL) application:(NSApplication* )application
 	    openFile:(NSString*) fileName {
 
-  Document* doc = [[Document alloc] init];
-  [doc openFile: fileName];
+  Document* doc = [self documentForFile:fileName];
   [doc showWindow];
+  [doc list:self];
   return YES;
+}
+
+- (void) searchSelectionService:(NSPasteboard *)pboard
+                       userData:(NSString *)userData
+                          error:(NSString **)error {
+  NSString *text = [[pboard stringForType:NSStringPboardType] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\n\r"]];
+  NSString* defbook = [[NSUserDefaults standardUserDefaults] valueForKey:@"DEFAULT_BOOK"];
+
+  if ([text length] > 0 && defbook) {
+    [self performSelector:@selector(_searchText:) withObject:text afterDelay:0.3];
+  }
+}
+
+- (void) _searchText:(NSString*) text {
+  NSString* defbook = [[NSUserDefaults standardUserDefaults] valueForKey:@"DEFAULT_BOOK"];
+  Document* doc = [self documentForFile:defbook];
+  [doc showWindow];
+  [doc searchText:text];
+}
+
+- (Document*) documentForFile:(NSString*) fileName {
+  Document* doc = nil;
+
+  for (NSWindow* win in [NSApp windows]) {
+    if ([[win delegate] isKindOfClass:[Document class]]) {
+      doc = (Document*) [win delegate];
+      if ([[doc fileName] isEqualToString: fileName]) {
+        return doc;
+      }
+    }
+  }
+
+  doc = [[Document alloc] init];
+  [doc openFile: fileName];
+  return doc;
 }
 
 - (void) newDocument:(id) sender {
@@ -64,13 +100,28 @@
 
   if ([panel runModalForTypes:[NSArray arrayWithObject:@"books"]] == NSOKButton) {
     NSString* fileName = [[panel filenames] firstObject];
-    Document* doc = [[Document alloc] init];
-    [doc openFile: fileName];
+    Document* doc = [self documentForFile:fileName];
     [doc showWindow];
+    [doc list:self];
   }
 }
 
 - (void) showPrefPanel:(id) sender {
+  NSInteger t = [[[NSUserDefaults standardUserDefaults] valueForKey:@"hide_on_deactivate"] integerValue];
+  [prefsHideOnDeactivate setState:t];
+
+  NSString* s = [[NSUserDefaults standardUserDefaults] valueForKey:@"DEFAULT_BOOK"];
+  [prefsDefaultBook setStringValue:s];
+
+  [prefsWindow makeKeyAndOrderFront:sender];
 }
 
+- (void) changePrefs: (id)sender {
+  if (sender == prefsHideOnDeactivate) {
+    [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithInteger:[sender state]] forKey:@"hide_on_deactivate"];
+  }
+  if (sender == prefsDefaultBook) {
+    [[NSUserDefaults standardUserDefaults] setValue:[sender stringValue] forKey:@"hide_on_deactivate"];
+  }
+}
 @end

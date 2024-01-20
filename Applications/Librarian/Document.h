@@ -1,5 +1,5 @@
 /*
-   Project: WebBrowser
+   Project: Librarian
 
    Copyright (C) 2020 Free Software Foundation
 
@@ -39,8 +39,13 @@
   Books* books;
   NSString* filePath;
 }
++ (Document*) lastActiveDocument;
+
 - (void) openFile:(NSString*) file;
 - (void) showWindow;
+- (void) list:(id) sender;
+- (NSString*) fileName;
+- (void) searchText:(NSString*) text;
 
 @end
 

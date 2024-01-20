@@ -20,4 +20,19 @@
 	    );
 	}
     );
+    NSServices = (
+	{
+	    NSKeyEquivalent = {
+		default = L;
+	    };
+	    NSMenuItem = {
+		default = "Search in Library";
+	    };
+	    NSMessage = searchSelectionService;
+	    NSPortName = Librarian;
+	    NSSendTypes = (
+		NSStringPboardType
+	    );
+	}
+    );
 }

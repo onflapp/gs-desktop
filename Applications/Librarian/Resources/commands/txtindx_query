@@ -7,9 +7,17 @@ $TYPE = $ARGV[2];
 $cmd = "recollq";
 $qt = "-a";
 
-if ($TYPE == 1) {
-  $qt = "-f";
-  $QUERY = "$QUERY*";
+sub f_basename {
+  my ($c) = @_;
+  my @a = split ('/', $c);
+  return pop (@a);
+}
+
+sub f_dirname {
+  my ($c) = @_;
+  my @a = split ('/', $c);
+  pop (@a);
+  return join ('/', @a);
 }
 
 if (! -d $BASE_DIR) {
@@ -22,33 +30,76 @@ if ($QUERY eq "") {
   exit 1;
 }
 
-$cmd = "$cmd $qt -C -c \"$BASE_DIR\" -A \"$QUERY\"";
-print("$cmd\n");
+if ($TYPE == 1) {
+  $cmd = "grep \"$QUERY\" $BASE_DIR/filelist.txt";
+  print("$cmd\n");
 
-open(IN, "$cmd |");
-while(<IN>) {
-  chomp();
-  #print("$_\n");
-  if (m/^([\w\-]+\/[\w\-]+)\s+\[(.*?)\]\s+\[(.*?)\]/) {
-    $mine = $1;
-    $url = $2;
-    $title = $3;
-    $abstract = "";
-    $in_abstract = 0;
+  open(IN, "$BASE_DIR/filelist.txt");
 
-    $title = "Unknown" if ($title eq "");
-  }
-  elsif (m/^ABSTRACT/) {
-    $in_abstract = 1;
-  }
-  elsif (m/^\/ABSTRACT/) {
-    print("U:$url\t$title\n");
+  $last = "";
+  $root = "";
+  while(<IN>) {
+    chomp();
 
-    $url = "";
-    $in_abstract = 0;
+    my $t = substr($_, 0, 2);
+    if ($t eq "R:") {
+      $root = substr($_, 2);
+    }
+    elsif ($t eq "P:") {
+      $p = substr($_, 2);
+      $name = f_basename($p);
+      if ($name =~ /$QUERY/i) {
+        $path = $root . "/" . $p;
+        $dir  = f_dirname($path);
+
+        if ($last ne $dir) {
+          $p = f_dirname($path);
+          print(STDOUT "T:$p\t$dir\n");
+        }
+        $last = $dir;
+
+        print(STDOUT "P:$path\t$name\n");
+      }
+    }
   }
-  elsif ($url ne "" && $in_abstract) {
-    $abstract .= "$_\n";
-  }
+
+  close(IN);
 }
-close(IN);
+else {
+  $cmd = "$cmd $qt -C -c \"$BASE_DIR\" -A \"$QUERY\"";
+  $last = "";
+  print("$cmd\n");
+
+  open(IN, "$cmd |");
+  while(<IN>) {
+    chomp();
+    #print("$_\n");
+    if (m/^([\w\-]+\/[\w\-]+)\s+\[(.*?)\]\s+\[(.*?)\]/) {
+      $mine = $1;
+      $url = $2;
+      $title = $3;
+      $abstract = "";
+      $in_abstract = 0;
+
+      $title = "Unknown" if ($title eq "");
+    }
+    elsif (m/^ABSTRACT/) {
+      $in_abstract = 1;
+    }
+    elsif (m/^\/ABSTRACT/) {
+      #$dir  = f_dirname($url);
+      #if ($dir ne $last) {
+      #  print(STDOUT "T:$dir\t$dir\n");
+      #  $last = $dir;
+      #}
+      print("U:$url\t$title\n");
+
+      $url = "";
+      $in_abstract = 0;
+    }
+    elsif ($url ne "" && $in_abstract) {
+      $abstract .= "$_\n";
+    }
+  }
+  close(IN);
+}

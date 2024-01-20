@@ -1,5 +1,5 @@
 /*
-   Project: WebBrowser
+   Project: Librarian
 
    Copyright (C) 2020 Free Software Foundation
 
@@ -24,6 +24,8 @@
 
 #import "Document.h"
 #import "Inspector.h"
+
+static NSWindow* _lastMainWindow;
 
 @implementation Document
 
@@ -55,6 +57,9 @@
 }
 
 - (void) dealloc {
+  [[NSNotificationCenter defaultCenter]
+    removeObserver:self];
+
   RELEASE(filePath);
   RELEASE(books);
 
@@ -64,13 +69,42 @@
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void) showWindow {
-  [window setFrameAutosaveName:@"document_window"];
-  [window makeKeyAndOrderFront:self];
++ (Document*) lastActiveDocument {
+  return (Document*)[_lastMainWindow delegate];
+}
 
+- (void) awakeFromNib {
+  NSInteger t = [[[NSUserDefaults standardUserDefaults] valueForKey:@"default_search_type"] integerValue];
+  [queryTypeButton selectItemWithTag:t];
+}
+
+- (void) showWindow {
   if ([books status] == -1) {
     [statusField setStringValue:@"create new index first"];
   }
+
+  if ([window isVisible]) {
+    [window makeKeyAndOrderFront:self];
+  }
+  else {
+    if (!_lastMainWindow) _lastMainWindow = [[NSApp orderedWindows] lastObject];
+    if (_lastMainWindow) {
+      NSRect r = [_lastMainWindow frame];
+      r.origin.x += 24;
+
+      [window setFrame:r display:NO];
+    }
+    else {
+      [window setFrameUsingName:@"document_window"];
+      [window setFrameAutosaveName:@"document_window"];
+    }
+
+    [window makeKeyAndOrderFront:self];
+  }
+}
+
+- (NSString*) fileName {
+  return filePath;
 }
 
 - (void) searchHasEnded:(NSNotification*) not {
@@ -95,6 +129,8 @@
 - (void) openFile:(NSString*) file {
   [books openFile: file];
   ASSIGN(filePath, file);
+
+  [window setTitle:[file lastPathComponent]];
 }
 
 - (void) selectFile:(id) sender {
@@ -118,10 +154,10 @@
 
 - (void) displayErrorMessage:(NSString*) msg info:(NSString*) info {
   NSAlert* alert = [NSAlert alertWithMessageText:msg
-                                  defaultButton:@"OK" 
-                                alternateButton:nil 
-                                    otherButton:nil 
-                      informativeTextWithFormat:info];
+                                   defaultButton:@"OK" 
+                                 alternateButton:nil 
+                                     otherButton:nil 
+                       informativeTextWithFormat:info];
   [alert runModal];
 }
 
@@ -129,6 +165,11 @@
   Inspector* ip = [Inspector sharedInstance];
   [ip inspectBooks:books];
   [[ip window] orderFront:sender];
+}
+
+- (void) searchText:(NSString*) text {
+  [queryField setStringValue:text];
+  [self search:self];
 }
 
 - (void) search:(id) sender {
@@ -146,9 +187,11 @@
 
 
   [statusField setStringValue:@"searching..."];
+  [[NSUserDefaults standardUserDefaults] setValue:[NSNumber numberWithInteger:type] forKey:@"default_search_type"];
 
   NSLog(@"search[%@]", txt);
   [books search:txt type:type];
+  [resultsView reloadData];
 }
 
 - (void) list:(id) sender {
@@ -167,6 +210,10 @@
 }
 
 - (void) saveDocument:(id) sender {
+  if ([[NSUserDefaults standardUserDefaults] valueForKey:@"DEFAULT_BOOK"] == nil && filePath) {
+    [[NSUserDefaults standardUserDefaults] setValue:filePath forKey:@"DEFAULT_BOOK"];
+  }
+
   if (filePath) {
     [books saveFile:filePath];
   }
@@ -184,6 +231,8 @@
     [books saveFile:fileName];
     [books openFile:fileName];
     ASSIGN(filePath, fileName);
+
+    [window setTitle:[fileName lastPathComponent]];
   }
 }
 
@@ -196,11 +245,18 @@
   [ip inspectBooks:nil];
   [[ip window] orderOut:self];
 
+  if (_lastMainWindow == window) _lastMainWindow = nil;
+
+  [window setDelegate:nil];
   [books close];
 }
 
-- (void) windowDidBecomeKey:(NSWindow*) win {
+- (void) windowDidBecomeKey:(NSNotification*) not {
+  NSInteger t = [[[NSUserDefaults standardUserDefaults] valueForKey:@"hide_on_deactivate"] integerValue];
+  [window setHidesOnDeactivate:t];
+
   [[Inspector sharedInstance] inspectBooks:books];
+  _lastMainWindow = window;
 }
 
 - (NSInteger) numberOfRowsInTableView:(NSTableView*) table {

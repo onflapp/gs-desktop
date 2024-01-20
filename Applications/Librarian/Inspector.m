@@ -60,6 +60,19 @@ static Inspector* __sharedinstance;
   [statusField setStringValue:@""];
 
   [books setDelegate:self];
+  NSInteger st = [books status];
+  if (st == -1) {
+    [statusField setStringValue:@"doesn't exist"];
+  }
+  else if (st == 0) {
+    [statusField setStringValue:@"ready"];
+  }
+  else if (st == 1) {
+    [statusField setStringValue:@"building"];
+  }
+  else {
+    [statusField setStringValue:@"busy"];
+  }
 }
 
 - (IBAction) changeFilter:(id) sender {
