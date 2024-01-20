@@ -88,18 +88,19 @@ static NSWindow* _lastMainWindow;
   }
   else {
     if (!_lastMainWindow) _lastMainWindow = [[NSApp orderedWindows] lastObject];
-    if (_lastMainWindow) {
+    if (filePath) {
+      NSString* n = [NSString stringWithFormat:@"document_window_%lx", [filePath hash]];
+      [window setFrameUsingName:n];
+      [window setFrameAutosaveName:n];
+
+      [window makeKeyAndOrderFront:self];
+    }
+    else if (_lastMainWindow) {
       NSRect r = [_lastMainWindow frame];
       r.origin.x += 24;
 
       [window setFrame:r display:NO];
     }
-    else {
-      [window setFrameUsingName:@"document_window"];
-      [window setFrameAutosaveName:@"document_window"];
-    }
-
-    [window makeKeyAndOrderFront:self];
   }
 }
 
@@ -241,6 +242,11 @@ static NSWindow* _lastMainWindow;
 }
 
 - (void) windowWillClose: (NSNotification*)aNotification {
+  if ([window frameAutosaveName] == nil) {
+    NSString* n = [NSString stringWithFormat:@"document_window_%lx", [filePath hash]];
+    [window setFrameAutosaveName:n];
+  }
+
   Inspector* ip = [Inspector sharedInstance];
   [ip inspectBooks:nil];
   [[ip window] orderOut:self];

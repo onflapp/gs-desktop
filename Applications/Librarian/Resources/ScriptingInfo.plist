@@ -1,0 +1,11 @@
+{
+  Classes =
+  (
+    Document,
+    AppController
+  );
+  Objects =
+  {
+    currentDocument = "currentDocument";
+  };
+}

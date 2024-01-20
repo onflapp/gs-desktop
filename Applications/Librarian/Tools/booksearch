@@ -1,0 +1,28 @@
+#!/bin/bash
+
+C="/Applications/Librarian.app/Resources/commands/txtindx_query"
+F="$1"
+Q=""
+
+function usage {
+  echo "booksearch [books file] [-f name] | [text]"
+  exit 1
+}
+
+if [ "$2" = "-f" ];then
+  T="1"
+  Q="$3"
+else
+  Q="$2"
+fi
+if [ -z "$Q" ];then
+  usage
+fi
+if [ -f "$F/config.plist" ];then
+  if [ -f "$F/txtindx_query" ];then
+    C="$F/txtindx_query"
+  fi
+  exec "$C" "$F" "$Q" $T
+else
+  usage
+fi

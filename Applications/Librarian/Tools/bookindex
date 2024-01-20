@@ -1,0 +1,13 @@
+#!/bin/bash
+
+C="/Applications/Librarian.app/Resources/commands/txtindx_build"
+
+if [ -f "$1/config.plist" ];then
+  if [ -f "$1/txtindx_build" ];then
+    C="$1/txtindx_build"
+  fi
+  exec "$C" "$1"
+else
+  echo "bookindex [books file]"
+  exit 1
+fi

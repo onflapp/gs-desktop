@@ -12,14 +12,6 @@
     NSMainNibFile = "Librarian.gorm";
     NSPrincipalClass = NSApplication;
     NSRole = Application;
-    NSTypes = (
-	{
-	    NSIcon = "Books.tiff";
-	    NSUnixExtensions = (
-		books
-	    );
-	}
-    );
     NSServices = (
 	{
 	    NSKeyEquivalent = {
@@ -32,6 +24,14 @@
 	    NSPortName = Librarian;
 	    NSSendTypes = (
 		NSStringPboardType
+	    );
+	}
+    );
+    NSTypes = (
+	{
+	    NSIcon = "Books.tiff";
+	    NSUnixExtensions = (
+		books
 	    );
 	}
     );

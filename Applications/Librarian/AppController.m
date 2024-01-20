@@ -34,6 +34,10 @@
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification *) aNotif {
+  if([NSApp isScriptingSupported]) {
+    [NSApp initializeApplicationScripting];
+  }
+
   [NSApp setServicesProvider:self];
 }
 
@@ -69,6 +73,10 @@
   Document* doc = [self documentForFile:defbook];
   [doc showWindow];
   [doc searchText:text];
+}
+
+- (Document*) currentDocument {
+  return [Document lastActiveDocument];
 }
 
 - (Document*) documentForFile:(NSString*) fileName {

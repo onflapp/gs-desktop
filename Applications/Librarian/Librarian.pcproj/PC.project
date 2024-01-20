@@ -15,7 +15,9 @@
 	"AppController.m",
 	"Document.m",
 	"Books.m",
-	"Inspector.m"
+	"Inspector.m",
+	"STScriptingSupport.m",
+	"Document+scripting.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -28,7 +30,8 @@
 	"AppController.h",
 	"Document.h",
 	"Books.h",
-	"Inspector.h"
+	"Inspector.h",
+	"STScriptingSupport.h"
     );
     IMAGES = (
 	"Icon.tiff",
@@ -53,7 +56,9 @@
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
-	commands
+	commands,
+	"ScriptingInfo.plist",
+	"ApplicationScripting.xlp"
     );
     "OTHER_SOURCES" = (
 	"Librarian_main.m"

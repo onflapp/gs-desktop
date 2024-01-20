@@ -38,7 +38,9 @@ Resources/Inspector.gorm \
 Resources/Icon.tiff \
 Resources/Books.tiff \
 Resources/chapter.tiff \
-Resources/commands 
+Resources/commands \
+Resources/ScriptingInfo.plist \
+Resources/ApplicationScripting.xlp 
 
 
 #
@@ -48,7 +50,8 @@ Librarian_HEADER_FILES = \
 AppController.h \
 Document.h \
 Books.h \
-Inspector.h
+Inspector.h \
+STScriptingSupport.h
 
 #
 # Objective-C Class files
@@ -57,7 +60,9 @@ Librarian_OBJC_FILES = \
 AppController.m \
 Document.m \
 Books.m \
-Inspector.m
+Inspector.m \
+STScriptingSupport.m \
+Document+scripting.m
 
 #
 # Other sources

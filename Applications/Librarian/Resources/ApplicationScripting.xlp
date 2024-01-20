@@ -1,0 +1,6 @@
+- currentDocument -> Document
+- documents -> array
+
+Document
+- fileName
+- searchText:text
