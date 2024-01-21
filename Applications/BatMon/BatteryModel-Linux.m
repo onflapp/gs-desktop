@@ -114,6 +114,37 @@
   return result;  
 }
 
+- (int) deviceScope:(NSString *)dirName
+{
+  char		onlineStatePath[1024]; // same as batterStatePath0
+  NSString	*onlineFileName;
+  FILE *	onlineFile;
+  char		line[128];
+  int		result = -1;
+
+  onlineFileName = [dirName stringByAppendingPathComponent:@"scope"];
+
+  [[DEV_SYS_POWERSUPPLY stringByAppendingPathComponent:onlineFileName] getCString:onlineStatePath];
+  NSLog(@"/sys scope: %s", onlineStatePath);
+  onlineFile = fopen(onlineStatePath, "r");
+  if (onlineFile != NULL)
+    {
+      [self _readLine :onlineFile :line];
+      if (!strcmp(line, "Device"))
+	{
+	  result = 1;
+	}
+      else
+	{
+	  result = 0;
+	}
+	
+      fclose(onlineFile);
+    }
+  return result;  
+}
+
+
 - (void)initPlatformSpecific
 {
   NSFileManager       *fm;
@@ -168,6 +199,12 @@
 			  NSLog(@"/sys skipping :%@", [DEV_SYS_POWERSUPPLY stringByAppendingPathComponent:dirName]);
 			  continue;
 			}
+		      if ([self deviceScope:dirName] != -1)
+			{
+			  NSLog(@"/sys skipping :%@", [DEV_SYS_POWERSUPPLY stringByAppendingPathComponent:dirName]);
+			  continue;
+			}
+
                       done = YES;
                       NSLog(@"/sys: found it!: %@", [DEV_SYS_POWERSUPPLY stringByAppendingPathComponent:dirName]);
                       batterySysAcpiString = [[DEV_SYS_POWERSUPPLY stringByAppendingPathComponent:dirName] retain];
