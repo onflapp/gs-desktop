@@ -1,5 +1,5 @@
 {
-    APPLICATIONICON = "";
+    APPLICATIONICON = "SystemManager.tiff";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
     "BUILDER_TARGETS" = (
@@ -29,6 +29,7 @@
 	"ConsoleController.h"
     );
     IMAGES = (
+	"SystemManager.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (

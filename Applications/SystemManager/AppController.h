@@ -19,6 +19,7 @@
 {
   SystemWindow* systemWindow;
   ConsoleController* consoleController;
+  NSWindow* controlPanel;
 }
 
 + (void)  initialize;

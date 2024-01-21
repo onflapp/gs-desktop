@@ -50,9 +50,41 @@
   return NO;
 }
 
+- (void) control:(id)sender {
+  NSWindow* panel = [consoleController  panel];
+  NSString* exec = [[[[NSBundle mainBundle] resourcePath] 
+    stringByAppendingPathComponent:@"commands"]
+    stringByAppendingPathComponent:@"system_control"];
+
+  NSString* type = nil;
+  if ([sender tag] == 1) {
+    type = @"shutdown";
+  }
+  if ([sender tag] == 2) {
+    type = @"sleep";
+  }
+  if ([sender tag] == 3) {
+    type = @"emergency";
+  }
+  if ([sender tag] == 4) {
+    type = @"reboot";
+  }
+
+  if (type) {
+    [self executeConsoleCommand:exec withArguments:[NSArray arrayWithObject:type]];
+    [panel makeKeyAndOrderFront:self];
+    [panel center];
+  }
+}
+
 - (void) showSystemProcesses:(id)sender {
   [systemWindow showWindow];
   [systemWindow refresh:sender];
+}
+
+- (void) showSystemControl:(id)sender {
+  [controlPanel center];
+  [controlPanel makeKeyAndOrderFront:sender];
 }
 
 - (NSWindow*) executeConsoleCommand:(NSString*) exec withArguments:args{
@@ -60,7 +92,6 @@
 
   [consoleController execCommand:exec withArguments:args];
   [panel makeKeyAndOrderFront:self];
-  [panel setTitle:exec];
   [panel center];
 
   return panel;

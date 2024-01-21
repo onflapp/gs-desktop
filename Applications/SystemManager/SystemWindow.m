@@ -81,14 +81,17 @@
   NSString* unit = [[processItems objectAtIndex:[processList selectedRow]] objectAtIndex:0];
   NSString* cmd = [self commandForName:@"system_control"];
   NSArray* args = nil;
+  NSString* title = nil;
 
   if (!unit) return;
 
   if ([sender tag] == 11) {
     args = [NSArray arrayWithObjects:@"start", unit, nil];
+    title = @"SUDO servive start";
   }
   else if ([sender tag] == 10) {
     args = [NSArray arrayWithObjects:@"stop", unit, nil];
+    title = @"SUDO servive stop";
   }
 
 
@@ -96,6 +99,7 @@
     NSWindow* win = [[NSApp delegate] executeConsoleCommand:cmd 
                                               withArguments:args];
 
+    [win setTitle:title];
     //[NSApp runModalForWindow:win];
     //[self refresh:self];
   }
@@ -117,14 +121,24 @@
   id item = [processItems objectAtIndex:[processList selectedRow]];
   NSString* unit = [item objectAtIndex:0];
 
+  [self setDetailMessage:@""];
   [processDetails setString:@""];
-  [[[processInfo textStorage] mutableString] setString:@""];
 
   if (unit) {
     status = 2;
     NSString* cmd = [self commandForName:@"system_process"];
     [self execTask:cmd withArguments:[NSArray arrayWithObjects:@"status", unit, nil]];
   }
+}
+
+- (void) setDetailMessage:(NSString*) str {
+  NSFont* font = [NSFont userFixedPitchFontOfSize:[NSFont systemFontSize]];
+  NSDictionary* attrs = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
+
+  NSAttributedString* message = [[NSAttributedString alloc] initWithString:str
+                                                                attributes:attrs];
+
+  [[processInfo textStorage] setAttributedString:message];
 }
 
 - (NSString*) commandForName:(NSString*) name {
@@ -187,7 +201,7 @@
     [processList reloadData];
   }
   else if (status == 2) {
-    [[[processInfo textStorage] mutableString] setString:processDetails];
+    [self setDetailMessage:processDetails];
   }
 
   status = 0;

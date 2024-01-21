@@ -20,4 +20,16 @@ case "$1" in
     sleep 1
     systemctl status $2
     ;;
+  shutdown)
+    exec_sudo "systemctl poweroff"
+    ;;
+  sleep)
+    exec_sudo "systemctl suspend"
+    ;;
+  emergency)
+    exec_sudo "systemctl emergency"
+    ;;
+  reboot)
+    exec_sudo "systemctl reboot"
+    ;;
 esac

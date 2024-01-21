@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = SystemManager
 APP_NAME = SystemManager
-SystemManager_APPLICATION_ICON = 
+SystemManager_APPLICATION_ICON = SystemManager.tiff
 
 
 #
@@ -35,6 +35,7 @@ SystemManager_RESOURCE_FILES = \
 Resources/SystemManager.gorm \
 Resources/SystemWindow.gorm \
 Resources/Console.gorm \
+Resources/SystemManager.tiff \
 Resources/commands 
 
 

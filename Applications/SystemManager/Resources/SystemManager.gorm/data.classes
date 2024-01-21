@@ -3,17 +3,22 @@
     AppController = {
 	Actions = (
 	    "showPrefPanel:",
-	    "showSystemProcesses:"
+	    "showSystemProcesses:",
+	    "control:",
+	    "showSystemControl:"
 	);
 	Outlets = (
+	    controlPanel
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
-	    "showSystemProcesses:",
+	    "control:",
 	    "orderFrontFontPanel:",
-	    "showPrefPanel:"
+	    "showPrefPanel:",
+	    "showSystemControl:",
+	    "showSystemProcesses:"
 	);
 	Super = NSObject;
     };
