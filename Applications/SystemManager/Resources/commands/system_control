@@ -1,0 +1,23 @@
+#!/bin/bash
+
+clear
+
+function exec_sudo {
+  echo "=== about to execute command as root ==="
+  echo "$1"
+  echo ""
+  sudo sh -c "$1"
+}
+
+case "$1" in
+  start)
+    exec_sudo "systemctl start $2"
+    sleep 1
+    systemctl status $2
+    ;;
+  stop)
+    exec_sudo "systemctl stop $2"
+    sleep 1
+    systemctl status $2
+    ;;
+esac

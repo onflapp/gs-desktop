@@ -1,0 +1,20 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    AppController = {
+	Actions = (
+	    "showPrefPanel:",
+	    "showSystemProcesses:"
+	);
+	Outlets = (
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "showSystemProcesses:",
+	    "orderFrontFontPanel:",
+	    "showPrefPanel:"
+	);
+	Super = NSObject;
+    };
+}

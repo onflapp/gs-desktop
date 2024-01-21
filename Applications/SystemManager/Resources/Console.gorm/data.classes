@@ -1,0 +1,53 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    ConsoleController = {
+	Actions = (
+	);
+	Outlets = (
+	    panel,
+	    console
+	);
+	Super = NSObject;
+    };
+    ConsoleView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = TerminalView;
+    };
+    ConsoleWindow = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSWindow;
+    };
+    FirstResponder = {
+	Actions = (
+	    "actionButton:",
+	    "} - initWithPreferences:"
+	);
+	Super = NSObject;
+    };
+    MessageController = {
+	Actions = (
+	    "actionButton:"
+	);
+	Outlets = (
+	    panel,
+	    panelAction,
+	    panelInfo,
+	    panelTitle
+	);
+	Super = NSObject;
+    };
+    TerminalView = {
+	Actions = (
+	    "} - initWithPreferences:"
+	);
+	Outlets = (
+	);
+	Super = NSView;
+    };
+}

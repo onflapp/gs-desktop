@@ -1,0 +1,89 @@
+{
+    APPLICATIONICON = "";
+    "APP_DOCUMENT_BASED" = NO;
+    "APP_TYPE" = GORM;
+    "BUILDER_TARGETS" = (
+	all,
+	install,
+	uninstall,
+	clean,
+	distclean,
+	dist
+    );
+    "BUNDLE_IDENTIFIER" = "";
+    "CLASS_FILES" = (
+	"AppController.m",
+	"SystemWindow.m",
+	"ConsoleController.m"
+    );
+    COMPILEROPTIONS = "";
+    CPPOPTIONS = "";
+    "CREATION_DATE" = "2024-01-19 23:40:24 +0100";
+    "DOCU_FILES" = (
+    );
+    FRAMEWORKS = (
+    );
+    "HEADER_FILES" = (
+	"AppController.h",
+	"SystemWindow.h",
+	"ConsoleController.h"
+    );
+    IMAGES = (
+    );
+    INSTALLDIR = "$(HOME)/GNUstep";
+    INTERFACES = (
+	"SystemManager.gorm",
+	"SystemWindow.gorm",
+	"Console.gorm"
+    );
+    LANGUAGE = English;
+    LIBRARIES = (
+	"gnustep-base",
+	"gnustep-gui"
+    );
+    LINKEROPTIONS = "-lTerminalKit -lutil";
+    "LOCALIZED_RESOURCES" = (
+    );
+    MAININTERFACE = "SystemManager.gorm";
+    MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
+    "OBJC_COMPILEROPTIONS" = "";
+    "OTHER_RESOURCES" = (
+	commands
+    );
+    "OTHER_SOURCES" = (
+	"SystemManager_main.m"
+    );
+    "PRINCIPAL_CLASS" = NSApplication;
+    "PROJECT_AUTHORS" = (
+    );
+    "PROJECT_COPYRIGHT" = "Copyright (C) 200x";
+    "PROJECT_COPYRIGHT_DESC" = "Released under ...";
+    "PROJECT_CREATOR" = "Ondrej Florian";
+    "PROJECT_DESCRIPTION" = "No description avaliable!";
+    "PROJECT_DOCUMENTTYPES" = (
+    );
+    "PROJECT_GROUP" = "No group avaliable!";
+    "PROJECT_MAINTAINER" = "Ondrej Florian";
+    "PROJECT_NAME" = SystemManager;
+    "PROJECT_RELEASE" = "0.1";
+    "PROJECT_SUMMARY" = "No summary avaliable!";
+    "PROJECT_TYPE" = Application;
+    "PROJECT_URL" = "";
+    "SEARCH_HEADER_DIRS" = (
+    );
+    "SEARCH_LIB_DIRS" = (
+    );
+    SUBPROJECTS = (
+    );
+    "SUPPORTING_FILES" = (
+	"GNUmakefile.preamble",
+	GNUmakefile,
+	"GNUmakefile.postamble",
+	"SystemManagerInfo.plist"
+    );
+    "USER_LANGUAGES" = (
+	English,
+	German,
+	French
+    );
+}
