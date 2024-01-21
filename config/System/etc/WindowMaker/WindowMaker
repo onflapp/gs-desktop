@@ -45,7 +45,7 @@
   MiniaturizeKey = None;
   MoveToNextWorkspaceLayerKey = None;
   WorkspaceMapKey = None;
-  FocusNextKey = None;
+  FocusNextKey = "Mod1+Tab";
   ShadeKey = None;
   MiniwindowTitleBalloons = NO;
   WindowShortcut7Key = None;
@@ -60,7 +60,7 @@
   AntialiasedText = NO;
   DisableBlinking = NO;
   MoveToWorkspace5Key = None;
-  FocusPrevKey = None;
+  FocusPrevKey = "Shift+Mod1+Tab";
   NewStyle = old;
   WindowListKey = None;
   WorkspaceNameDisplayPosition = none;
@@ -159,7 +159,7 @@
   WrapMenus = YES;
   Workspace10Key = None;
   DisableDrawers = NO;
-  VMaximizeKey = None;
+  VMaximizeKey = "Shift+Mod1+M";
   IconSlideSpeed = medium;
   WindowShortcut5Key = None;
   RaiseKey = None;
