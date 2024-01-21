@@ -1,0 +1,13 @@
+#!/Library/bin/stexec
+
+((Args count) == 1) 
+ifTrue:
+[
+  text := Args @ 0.
+  Librarian searchText:text.
+]
+ifFalse:
+[
+  Transcript showLine:'SearchInLibrary [text]'.
+  Script returnExitCode: 1.
+]
