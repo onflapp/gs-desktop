@@ -64,13 +64,17 @@
   NSString* defbook = [[NSUserDefaults standardUserDefaults] valueForKey:@"DEFAULT_BOOK"];
 
   if ([text length] > 0 && defbook) {
-    [self performSelector:@selector(_searchText:) withObject:text afterDelay:0.3];
+    [self performSelector:@selector(searchText:) withObject:text afterDelay:0.3];
   }
 }
 
-- (void) _searchText:(NSString*) text {
+- (void) searchText:(NSString*) text {
   NSString* defbook = [[NSUserDefaults standardUserDefaults] valueForKey:@"DEFAULT_BOOK"];
-  Document* doc = [self documentForFile:defbook];
+  [self searchText:text inLibrary:defbook];
+}
+
+- (void) searchText:(NSString*) text inLibrary:(NSString*) file {
+  Document* doc = [self documentForFile:file];
   [doc showWindow];
   [doc searchText:text];
 }

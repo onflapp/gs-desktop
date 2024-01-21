@@ -27,6 +27,10 @@
 
 static NSWindow* _lastMainWindow;
 
+NSString* make_title(NSString* path) {
+  return [[path lastPathComponent] stringByDeletingPathExtension];
+}
+
 @implementation Document
 
 - (id) init {
@@ -131,7 +135,7 @@ static NSWindow* _lastMainWindow;
   [books openFile: file];
   ASSIGN(filePath, file);
 
-  [window setTitle:[file lastPathComponent]];
+  [window setTitle:make_title(file)];
 }
 
 - (void) selectFile:(id) sender {
@@ -169,6 +173,7 @@ static NSWindow* _lastMainWindow;
 }
 
 - (void) searchText:(NSString*) text {
+  [self showWindow];
   [queryField setStringValue:text];
   [self search:self];
 }
@@ -233,7 +238,7 @@ static NSWindow* _lastMainWindow;
     [books openFile:fileName];
     ASSIGN(filePath, fileName);
 
-    [window setTitle:[fileName lastPathComponent]];
+    [window setTitle:make_title(fileName)];
   }
 }
 

@@ -30,6 +30,9 @@
 
 - (Document*) documentForFile:(NSString*) fileName;
 
+- (void) searchText:(NSString*) text;
+- (void) searchText:(NSString*) text inLibrary:(NSString*) file;
+
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif;
 - (BOOL) applicationShouldTerminate: (id)sender;
 - (void) applicationWillTerminate: (NSNotification *)aNotif;

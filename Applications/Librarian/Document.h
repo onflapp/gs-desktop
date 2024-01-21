@@ -28,6 +28,8 @@
 #import <AppKit/AppKit.h>
 #import "Books.h"
 
+NSString* make_title(NSString* path);
+
 @interface Document : NSObject
 {
   IBOutlet NSWindow *window;

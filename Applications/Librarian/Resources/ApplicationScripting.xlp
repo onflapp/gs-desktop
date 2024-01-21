@@ -1,6 +1,9 @@
 - currentDocument -> Document
 - documents -> array
 
+- searchText:
+- searchText: inLibrary:
+
 Document
 - fileName
 - searchText:text
