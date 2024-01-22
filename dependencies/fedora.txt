@@ -85,4 +85,6 @@ texlive-latex
 texlive-dvips
 texlive-ec
 texinfo
+info
+emacs
 NetworkManager-tui

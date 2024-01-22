@@ -17,6 +17,7 @@ libgl1-mesa-dev
 util-linux-locales
 picom
 info
+emacs
 fzf
 gdb
 clang

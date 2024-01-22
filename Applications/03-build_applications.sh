@@ -30,6 +30,18 @@ make -j2 || exit 1
 make install
 
 echo "=================="
+echo " EmacsGS App"
+echo "=================="
+
+cd "$D"
+cd ../../gs-terminal/Applications/EmacsGS || exit 1
+
+make clean
+make -j2 || exit 1
+
+make install
+
+echo "=================="
 echo " HtopGS App"
 echo "=================="
 
