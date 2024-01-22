@@ -10,7 +10,7 @@ cd ../../apps-gorm || exit 1
 make clean
 make -j2 || exit 1
 
-sudo -E make install
+make install
 
 cd "$D"
 cd ../../apps-projectcenter || exit 1
@@ -18,4 +18,4 @@ cd ../../apps-projectcenter || exit 1
 make clean
 make -j2 || exit 1
 
-sudo -E make install
+make install

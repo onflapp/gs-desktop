@@ -34,5 +34,5 @@ cmake .. \
 
 make -j2 || exit 1
 
-sudo -E make install
-sudo -E ldconfig
+make install
+ldconfig

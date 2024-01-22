@@ -14,4 +14,4 @@ make clean
 ./configure --disable-icu-config || exit 1
 
 make || exit 1
-sudo -E make install
+make install

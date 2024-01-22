@@ -22,4 +22,4 @@ fi
 ./configure --prefix=/System $DEBUG_ARGS --enable-randr --enable-dbus || exit 1
 
 make -j2 || exit 1
-sudo -E make install
+make install

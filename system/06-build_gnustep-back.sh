@@ -20,4 +20,4 @@ make clean
 ./configure --enable-graphics=cairo --with-name=cairo
 make || exit 1
 
-sudo -E make fonts=no install
+make fonts=no install

@@ -21,15 +21,23 @@ case "$1" in
     systemctl status $2
     ;;
   shutdown)
-    exec_sudo "systemctl poweroff"
+    echo "your system is going to power off"
+    sleep 3
+    systemctl poweroff
     ;;
   sleep)
-    exec_sudo "systemctl suspend"
+    echo "your system is going to suspend"
+    sleep 3
+    systemctl suspend
     ;;
   emergency)
-    exec_sudo "systemctl emergency"
+    echo "your system is going to go to emergency mode"
+    sleep 3
+    systemctl rescue --no-block
     ;;
   reboot)
-    exec_sudo "systemctl reboot"
+    echo "your system is going to reboot"
+    sleep 3
+    systemctl reboot
     ;;
 esac

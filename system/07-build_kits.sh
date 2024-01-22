@@ -15,8 +15,8 @@ make distclean
 ./configure
 make -j2 || exit 1
 
-sudo -E make install
-sudo -E ldconfig
+make install
+ldconfig
 
 echo "=================="
 echo " StepTalk Kit"
@@ -27,13 +27,13 @@ cd ../../libs-steptalk || exit 1
 
 make -j2 || exit 1
 
-sudo -E make install
-sudo -E ldconfig
+make install
+ldconfig
 
 cd ./Examples/Shell || exit 1
 
 make || exit 1
-sudo -E make install
+make install
 
 echo "=================="
 echo " SimpleWeb Kit"
@@ -44,8 +44,8 @@ cd ../../libs-simplewebkit || exit 1
 
 make -j2 || exit 1
 
-sudo -E make install
-sudo -E ldconfig
+make install
+ldconfig
 
 echo "=================="
 echo " PDF Kit"
@@ -58,8 +58,8 @@ make distclean
 ./configure || exit 1
 make -j2 || exit 1
 
-sudo -E make install
-sudo -E ldconfig
+make install
+ldconfig
 
 echo "=================="
 echo " Netclasses"
@@ -71,8 +71,8 @@ cd ../Frameworks/netclasses || exit 1
 ./configure || exit 1
 make -j2 || exit 1
 
-sudo -E make install
-sudo -E ldconfig
+make install
+ldconfig
 
 echo "=================="
 echo " Pantomine"
@@ -83,8 +83,8 @@ cd ../../gnumail/pantomime || exit 1
 
 make -j2 || exit 1
 
-sudo -E make install
-sudo -E ldconfig
+make install
+ldconfig
 
 echo "=================="
 echo " Terminal Kit"
@@ -95,7 +95,7 @@ cd ../../gs-terminal/TerminalKit || exit 1
 make clean
 make -j2 || exit 1
 
-sudo -E make install
+make install
 
 echo "=================="
 echo " Addresses Kit"
@@ -106,5 +106,5 @@ cd ../Applications/Addresses/Frameworks || exit 1
 
 make -j2 || exit 1
 
-sudo -E make install
-sudo -E ldconfig
+make install
+ldconfig

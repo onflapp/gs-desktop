@@ -87,11 +87,11 @@
 
   if ([sender tag] == 11) {
     args = [NSArray arrayWithObjects:@"start", unit, nil];
-    title = @"SUDO servive start";
+    title = @"SUDO service start";
   }
   else if ([sender tag] == 10) {
     args = [NSArray arrayWithObjects:@"stop", unit, nil];
-    title = @"SUDO servive stop";
+    title = @"SUDO service stop";
   }
 
 

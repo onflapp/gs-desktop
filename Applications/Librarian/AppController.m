@@ -64,6 +64,7 @@
   NSString* defbook = [[NSUserDefaults standardUserDefaults] valueForKey:@"DEFAULT_BOOK"];
 
   if ([text length] > 0 && defbook) {
+    [NSApp activateIgnoringOtherApps:YES];
     [self performSelector:@selector(searchText:) withObject:text afterDelay:0.3];
   }
 }

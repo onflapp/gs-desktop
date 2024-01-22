@@ -15,7 +15,7 @@ cd ../../gs-terminal/Terminal || exit 1
 make clean
 make -j2 || exit 1
 
-sudo -E make install
+make install
 
 echo "=================="
 echo " VimGS App"
@@ -27,7 +27,7 @@ cd ../../gs-terminal/Applications/VimGS || exit 1
 make clean
 make -j2 || exit 1
 
-sudo -E make install
+make install
 
 echo "=================="
 echo " HtopGS App"
@@ -39,7 +39,7 @@ cd ../../gs-terminal/Applications/HtopGS || exit 1
 make clean
 make -j2 || exit 1
 
-sudo -E make install 'APP_INSTALL_DIR=$(GNUSTEP_LOCAL_ADMIN_APPS)'
+make install 'APP_INSTALL_DIR=$(GNUSTEP_LOCAL_ADMIN_APPS)'
 
 echo "=================="
 echo " Console App"
@@ -51,7 +51,7 @@ cd ../../gs-terminal/Applications/Console || exit 1
 make clean
 make -j2 || exit 1
 
-sudo -E make install 'APP_INSTALL_DIR=$(GNUSTEP_LOCAL_ADMIN_APPS)'
+make install 'APP_INSTALL_DIR=$(GNUSTEP_LOCAL_ADMIN_APPS)'
 
 echo "=================="
 echo " Console App"
@@ -63,7 +63,7 @@ cd ../../gs-webbrowser || exit 1
 make clean
 make -j2 || exit 1
 
-sudo -E make install
+make install
 
 echo "=================="
 echo " TextEdit App"
@@ -75,7 +75,7 @@ cd ../../gs-textedit || exit 1
 make clean
 make -j2 || exit 1
 
-sudo -E make install
+make install
 
 echo "=================="
 echo " GNUMail App"
@@ -87,7 +87,7 @@ cd ../../gnumail/gnumail || exit 1
 make clean
 make -j2 || exit 1
 
-sudo -E make install
+make install
 
 echo "=================="
 echo " TalkSoap App"
@@ -99,7 +99,7 @@ cd ../../gs-talksoup || exit 1
 make clean
 make -j2 || exit 1
 
-sudo -E make install
+make install
 
 echo "=================="
 echo " SimpleAgenda App"
@@ -112,4 +112,17 @@ cd ../../simpleagenda || exit 1
 make clean
 make -j2 || exit 1
 
-sudo -E make install
+make install
+
+echo "=================="
+echo " GNUPlot"
+echo "=================="
+
+cd "$D"
+cd ../../gs-terminal/Applications/GNUPlot || exit 1
+
+./configure || exit 1
+make clean
+make -j2 || exit 1
+
+make install

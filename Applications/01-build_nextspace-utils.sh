@@ -10,7 +10,7 @@ cd ../../nextspace/Applications/Preferences || exit 1
 make clean
 make -j2 || exit 1
 
-sudo -E make install
+make install
 
 cd "$D"
 cd ../../nextspace/Applications/TimeMon || exit 1
@@ -18,4 +18,4 @@ cd ../../nextspace/Applications/TimeMon || exit 1
 make clean
 make -j2 || exit 1
 
-sudo -E make install 'APP_INSTALL_DIR=$(GNUSTEP_LOCAL_ADMIN_APPS)'
+make install 'APP_INSTALL_DIR=$(GNUSTEP_LOCAL_ADMIN_APPS)'
