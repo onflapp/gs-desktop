@@ -4,18 +4,6 @@
 #import <time.h>
 #import <limits.h>
 
-/*
- * the file originally used MAXINT and MAXLONG
- * ANSI c89 defines LONG_MAX and INT_MAX
- */
-#ifndef INT_MAX
-#define INT_MAX MAXINT
-#endif
-#ifndef LONG_MAX
-#define LONG_MAX MAXLONG
-#endif
-
-
 #define COLORWIDTH 2
 #define ERASEWIDTH 5
 
@@ -34,7 +22,7 @@ void doSeg(float x1, float y1, float x2, float y2)
 @implementation NSColor (GetColorsFromString)
 + (NSColor *)colorFromStringRepresentation:(NSString *)colorString
 {
-    float r, g, b, a;
+    CGFloat r, g, b, a;
     NSArray *array = [colorString componentsSeparatedByString:@" "];
     if(!array) return nil;
     if([array count] < 3) {
@@ -46,14 +34,16 @@ void doSeg(float x1, float y1, float x2, float y2)
     g = [[array objectAtIndex:1] floatValue];
     b = [[array objectAtIndex:2] floatValue];
     a = [array count] > 3 ? [[array objectAtIndex:3] floatValue] : 1.0;
-    return [NSColor colorWithCalibratedRed:r green:g blue:b alpha:a];
+    NSColor* c = [NSColor colorWithCalibratedRed:r green:g blue:b alpha:a];
+    return c;
 }
 
 - (NSString *)stringRepresentation
 {
-    float r, g, b, a;
+    CGFloat r, g, b, a;
     [[self colorUsingColorSpaceName:NSCalibratedRGBColorSpace] getRed:&r green:&g blue:&b alpha:&a];
-    return [NSString stringWithFormat:@"%f %f %f %f",r,g,b,a];
+    NSString* s = [NSString stringWithFormat:@"%f %f %f %f",r,g,b,a];
+    return s;
 }
 @end
 
@@ -472,8 +462,8 @@ void doSeg(float x1, float y1, float x2, float y2)
 
 -(id)initWithFrame:(NSRect)frameRect
 {
-  NSString *defaults = @"{\"spacing\" = \"\"; \"tcRatio\" = \"\"; \"tlRatio\" = \"\";}";
-  NSDictionary *defDict = [defaults propertyList];
+  //NSString *defaults = @"{\"spacing\" = \"\"; \"tcRatio\" = \"\"; \"tlRatio\" = \"\";}";
+  //NSDictionary *defDict = [defaults propertyList];
   NSUserDefaults *userDef = [NSUserDefaults standardUserDefaults];
   int i;
   
@@ -504,7 +494,6 @@ void doSeg(float x1, float y1, float x2, float y2)
       /* Check the first default; if it hasn't been written before, get all
        * parameters from the controls; else,  read all defaults and set the controls
        */
-      [userDef registerDefaults: defDict];
       if ([[userDef stringForKey: @"spacing"] length] == 0) 
 	{
 	  // Some empirically determined initial settings:
@@ -524,9 +513,9 @@ void doSeg(float x1, float y1, float x2, float y2)
 	  // randomize an initial set of colors:
 	  for (i=0;i<numColors;i++) 
 	    {
-	      float red = (float)random()/(float)LONG_MAX;
-	      float green = (float)random()/(float)LONG_MAX;
-	      float blue = (float)random()/(float)LONG_MAX;
+	      float red = (float)random()/(float)INT_MAX;
+	      float green = (float)random()/(float)INT_MAX;
+	      float blue = (float)random()/(float)INT_MAX;
 	      NSColor *color = [NSColor colorWithCalibratedRed: red
 					green: green
 					blue: blue
@@ -538,17 +527,17 @@ void doSeg(float x1, float y1, float x2, float y2)
 	} 
       else 
 	{
-	  spacing = [userDef floatForKey: @"spacing"];
-	  tcRatio = [userDef floatForKey: @"tcRatio"];
-	  tlRatio = [userDef floatForKey: @"tlRatio"];
+	  spacing = (float)[userDef floatForKey: @"spacing"];
+	  tcRatio = (float)[userDef floatForKey: @"tcRatio"];
+	  tlRatio = (float)[userDef floatForKey: @"tlRatio"];
 	  numColors = [userDef integerForKey: @"numColors"];
 	  colors = [[NSMutableArray alloc] initWithArray: AUTORELEASE([userDef arrayForKey: @"colors"])];
 	  currColor = 0;
 	}
       
-      [spaceControl setIntValue:spacing];
-      [countControl setFloatValue:tcRatio];
-      [lengthControl setFloatValue:tlRatio];
+      [spaceControl setIntValue:(int)spacing];
+      [countControl setFloatValue:(float)tcRatio];
+      [lengthControl setFloatValue:(float)tlRatio];
       [colorWell setColor: [[colors objectAtIndex: currColor] colorValue]]; 
       [numColorsField setStringValue: [NSString stringWithFormat: @"%d/%d", currColor+1, numColors]];
       

@@ -42,6 +42,18 @@ make -j2 || exit 1
 make install
 
 echo "=================="
+echo " GNUPlot"
+echo "=================="
+
+cd "$D"
+cd ../../gs-terminal/Applications/GNUPlot || exit 1
+
+make clean
+make -j2 || exit 1
+
+make install
+
+echo "=================="
 echo " HtopGS App"
 echo "=================="
 
@@ -119,19 +131,6 @@ echo "=================="
 
 cd "$D"
 cd ../../simpleagenda || exit 1
-
-./configure || exit 1
-make clean
-make -j2 || exit 1
-
-make install
-
-echo "=================="
-echo " GNUPlot"
-echo "=================="
-
-cd "$D"
-cd ../../gs-terminal/Applications/GNUPlot || exit 1
 
 ./configure || exit 1
 make clean

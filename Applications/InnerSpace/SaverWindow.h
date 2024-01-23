@@ -9,4 +9,5 @@
 }
 - (void) setAction: (SEL)action forTarget: (id) target;
 - (void) makeOmnipresent;
+- (void) makeFullscreen:(BOOL) fullscreen_flag;
 @end

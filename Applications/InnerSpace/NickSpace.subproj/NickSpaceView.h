@@ -17,9 +17,9 @@ typedef struct {
 
 typedef struct {
   intPair tailEdge;
-  short   tailOrient;
+  int    tailOrient;
   intPair headEdge;   /* head edge */
-  short   headOrient; /* orientation of headEdge */
+  int     headOrient; /* orientation of headEdge */
   int     maxLength;
   int     currentLength; 
   BOOL    dead;       /* YES if head edge currently can't progress */
@@ -46,10 +46,10 @@ typedef struct {
   id image;	
   
   float tcRatio;
-  short trailCount;
+  int trailCount;
   trail *trails;
   
-  short spacing;
+  int spacing;
   
   float tlRatio;
   int maxTrailLen;

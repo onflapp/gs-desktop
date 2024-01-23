@@ -20,6 +20,8 @@
       module = [[modules allKeys] objectAtIndex: row];
       [defaults setObject: module forKey: @"currentModule"];
       [self loadModule: module];
+      [self createSaverWindow: YES];
+      [self startTimer];
     }
 
   NSDebugLog(@"Called");
@@ -29,6 +31,7 @@
 - (void) inBackground: (id)sender
 {
   isInBackground = ([inBackground state] == NSOnState);
+  [defaults setObject:[NSNumber numberWithInt:isInBackground] forKey:@"runInBackgroud"];
 }
 
 - (void) locker: (id)sender
@@ -43,15 +46,20 @@
 
 - (void) doSaver: (id)sender
 {
-  NSDebugLog(@"Called");
-  // [self createSaverWindow: NO];
-  // [self startTimer];
-  [saverWindow setLevel: NSScreenSaverWindowLevel];
+  if (!currentModule && currentModuleName) {
+    [self loadModule:currentModuleName];
+  }
+  if (currentModule) {
+    NSLog(@"Do Saver");
+    [self createSaverWindow: NO];
+    [saverWindow setLevel: NSScreenSaverWindowLevel];
+    [self startTimer];
+    [NSCursor hide];
+  }
 }
 
 - (void) doSaverInBackground: (id)sender
 {
-  NSDebugLog(@"Called");
   [self createSaverWindow: YES];
   [self startTimer];
 }
@@ -81,6 +89,9 @@
   runSpeed = [defaults floatForKey: @"runSpeed"];
   [speedSlider setFloatValue: runSpeed];
 
+  isInBackground = [[defaults objectForKey:@"runInBackgroud"]intValue];
+  [inBackground setState:isInBackground];
+
   currentModuleName = [defaults stringForKey: @"currentModule"];
   row = [[modules allKeys] indexOfObject: currentModuleName];  
   if(row < [[modules allKeys] count])
@@ -89,7 +100,7 @@
       [moduleList selectRow: row inColumn: 0];
     }
 
-  NSDebugLog(@"current module = %@",currentModuleName);
+  NSLog(@"current module = %@",currentModuleName);
 }
 
 - (NSMutableDictionary *) modules
@@ -157,12 +168,30 @@
   [iconView setFrame:NSMakeRect(8, 8, 48, 48)];
   [iconView setNeedsDisplay:YES];
 
-  // The saver is *always* running...
-  // [self doSaverInBackground: self];
+  if (currentModuleName && isInBackground) {
+    NSLog(@"Run in Background %@", currentModuleName);
+    [self loadModule:currentModuleName];
+    [self doSaverInBackground: self];
+  }
+}
+
+- (void) windowWillClose: (NSNotification*) not
+{
+  if (isInBackground) {
+    [self doSaverInBackground: self];
+  }
+  else {
+    if(currentModule) [self _stopModule: currentModule];
+    [self stopSaver];
+  }
 }
 
 - (void) createSaverWindow: (BOOL)desktop
 {
+  if (saverWindow) {
+    [saverWindow close];
+    saverWindow = nil;
+  }
   NSRect frame = [[NSScreen mainScreen] frame];
   int store = NSBackingStoreRetained;
 
@@ -182,9 +211,9 @@
 
   // create the window...
   saverWindow = [[SaverWindow alloc] initWithContentRect: frame
-				     styleMask: NSBorderlessWindowMask
-				     backing: store
-				     defer: NO];
+                                               styleMask: NSBorderlessWindowMask
+				                 backing: store
+				                   defer: NO];
 
   // set some attributes...
   [saverWindow setAction: @selector(stopAndStartSaver) forTarget: self];
@@ -212,6 +241,7 @@
     {
       NSLog(@"screensaver");
       [saverWindow setLevel: NSScreenSaverWindowLevel];
+      [saverWindow makeFullscreen:YES];
     }
 
   // load the view from the currently active module, if
@@ -248,14 +278,11 @@
 
 - (void) stopAndStartSaver
 {
-  /*
-  NSDebugLog(@"%@",[inBackground stringValue]);
-  [self destroySaverWindow];
-  [self stopTimer];
-  NSDebugLog(@"stopping");
-  [self doSaverInBackground: self];
-  */
-  [saverWindow setLevel: NSDesktopWindowLevel];
+  [NSCursor unhide];
+  [self stopSaver];
+  if (isInBackground) {
+    [self doSaverInBackground: self];
+  }
 }
 
 // timer managment
@@ -360,8 +387,8 @@
 	    [moduleView inspectorInstalled];
 	  }
       }
-    [self createSaverWindow: YES];
-    [self startTimer];
+    //[self createSaverWindow: YES];
+    //[self startTimer];
   NS_HANDLER
     NSLog(@"EXCEPTION: %@",localException);
   NS_ENDHANDLER

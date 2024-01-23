@@ -31,6 +31,40 @@
   }
 }
 
+- (void) makeFullscreen:(BOOL) fullscreen_flag
+{
+  GSDisplayServer *server = GSCurrentServer();
+  Display *dpy = (Display *)[server serverDevice];
+  void *winptr = [server windowDevice: [self windowNumber]];
+  Window win = (Window)winptr;
+
+  XEvent xev;
+
+  Atom wm_state = XInternAtom(dpy, "_NET_WM_STATE", True);
+  Atom fullscreen = XInternAtom(dpy, "_NET_WM_STATE_FULLSCREEN", True);
+  long mask = SubstructureNotifyMask;
+
+  memset(&xev, 0, sizeof(xev));
+  xev.type = ClientMessage;
+  xev.xclient.display = dpy;
+  xev.xclient.window = win;
+  xev.xclient.message_type = wm_state;
+  xev.xclient.format = 32;
+  xev.xclient.data.l[0] = fullscreen_flag;
+  xev.xclient.data.l[1] = fullscreen;
+
+  if (!XSendEvent(dpy, DefaultRootWindow(dpy), False, mask, &xev)) {
+    NSLog(@"Error: sending fullscreen event to xserver\n");
+    return;
+  }
+
+  if (fullscreen_flag) {
+    XGrabPointer(dpy, win, False,
+                       PointerMotionMask | ButtonReleaseMask | ButtonPressMask,
+                       GrabModeAsync, GrabModeAsync, win, None, CurrentTime);
+  }
+}
+
 - (void) setAction: (SEL)a forTarget: (id)t
 {
   action = a;
@@ -39,28 +73,50 @@
 
 - (void) keyDown: (NSEvent *)theEvent
 {
-  if([self level] != NSDesktopWindowLevel)
+  if([self level] == NSScreenSaverWindowLevel)
     {
       [NSApp sendAction: action to: target from: self];
     }
 }
-
-- (void) mouseUp: (NSEvent *)theEvent
+- (void) keyUp: (NSEvent *)theEvent
 {
-  if([self level] != NSDesktopWindowLevel)
+
+}
+
+- (void) mouseDown: (NSEvent *)theEvent
+{
+  if([self level] == NSScreenSaverWindowLevel)
     {
       [NSApp sendAction: action to: target from: self];
     }
+}
+- (void) mouseUp: (NSEvent *)theEvent
+{
+
 }
 
 - (BOOL) canBecomeKeyWindow
 {
-  return YES;
+  if([self level] != NSDesktopWindowLevel)
+    {
+      return YES;
+    }
+  else
+    {
+      return NO;
+    }
 }
 
 - (BOOL) canBecomeMainWindow
 {
-  return YES;
+  if([self level] != NSDesktopWindowLevel)
+    {
+      return YES;
+    }
+  else
+    {
+      return NO;
+    }
 }
 
 - (void) hide: (id)sender

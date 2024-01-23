@@ -17,6 +17,9 @@
         NSPortName = Dictionary;
         NSMessage = lookupInDictionary;
         NSSendTypes = (NSStringPboardType);
+        NSKeyEquivalent = {
+          default = D;
+        };
         NSMenuItem = {
           default = "Look Up in Dictionary";
          };

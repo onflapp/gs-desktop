@@ -1,1 +1,33 @@
-{ApplicationDescription = "A wrapped application"; ApplicationName = "ImageConverter.app"; ApplicationRelease = "1.0"; ApplicationURL = ""; FullVersionID = "1.0/1.0"; NSIcon = "AppIcon.tiff"; NSPrincipalClass = NSApplication; NSRole = Editor; NSServices = ({NSFilter = executeFilter; NSPortName = ImageConverter; NSReturnTypes = (NSTIFFPboardType); NSSendTypes = (NSFilenamesPboardType, "NSTypedFileContentsPboardType:xpm", "NSFilenamesPboardType:xpm", "NSTypedFileContentsPboardType:xcf", "NSFilenamesPboardType:xcf", "NSTypedFileContentsPboardType:pnm", "NSFilenamesPboardType:pnm", "NSTypedFileContentsPboardType:bmp", "NSFilenamesPboardType:bmp"); NSUserData = NSTIFFPboardType; }); NSTypes = ({NSIcon = "FileType_000.tiff"; NSName = "image files"; NSUnixExtensions = (xpm, xcf, pnm, bmp); }); }
+{
+  ApplicationDescription = "A wrapped application"; 
+  ApplicationName = "ImageConverter.app"; 
+  ApplicationRelease = "1.0"; ApplicationURL = ""; 
+  FullVersionID = "1.0/1.0"; 
+  NSIcon = "AppIcon.tiff"; 
+  NSPrincipalClass = NSApplication; 
+  NSRole = Editor; 
+  NSServices = (
+    {
+      NSFilter = executeFilter;
+      NSPortName = ImageConverter;
+      NSReturnTypes = (NSTIFFPboardType);
+      NSSendTypes = (
+        NSFilenamesPboardType, 
+"NSTypedFileContentsPboardType:xpm", 
+"NSFilenamesPboardType:xpm", 
+"NSTypedFileContentsPboardType:xcf", 
+"NSFilenamesPboardType:xcf", 
+"NSTypedFileContentsPboardType:pnm", 
+"NSFilenamesPboardType:pnm", 
+"NSTypedFileContentsPboardType:bmp", 
+"NSFilenamesPboardType:bmp",
+"NSTypedFileContentsPboardType:ico", 
+"NSFilenamesPboardType:ico"); 
+        NSUserData = NSTIFFPboardType; 
+    }); 
+    NSTypes = (
+      {NSIcon = "FileType_000.tiff"; 
+        NSName = "image files"; 
+        NSUnixExtensions = (xpm, xcf, pnm, bmp, ico); 
+      }); 
+}
