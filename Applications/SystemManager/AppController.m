@@ -36,6 +36,9 @@
 }
 
 - (void) applicationDidFinishLaunching:(NSNotification*)aNotif {
+  if([NSApp isScriptingSupported]) {
+    [NSApp initializeApplicationScripting];
+  }
 }
 
 - (BOOL) applicationShouldTerminate:(id)sender {

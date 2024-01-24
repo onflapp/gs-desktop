@@ -34,6 +34,7 @@ ScreenShot_APPLICATION_ICON = ScreenShot.tiff
 ScreenShot_RESOURCE_FILES = \
 Resources/ScreenShot.gorm \
 Resources/ScreenShot.tiff \
+Resources/takeshot \
 Resources/ApplicationScripting.xlp \
 Resources/ScriptingInfo.plist 
 

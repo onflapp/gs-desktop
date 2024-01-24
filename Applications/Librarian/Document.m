@@ -96,8 +96,6 @@ NSString* make_title(NSString* path) {
       NSString* n = [NSString stringWithFormat:@"document_window_%lx", [filePath hash]];
       [window setFrameUsingName:n];
       [window setFrameAutosaveName:n];
-
-      [window makeKeyAndOrderFront:self];
     }
     else if (_lastMainWindow) {
       NSRect r = [_lastMainWindow frame];
@@ -105,6 +103,8 @@ NSString* make_title(NSString* path) {
 
       [window setFrame:r display:NO];
     }
+
+    [window makeKeyAndOrderFront:self];
   }
 }
 

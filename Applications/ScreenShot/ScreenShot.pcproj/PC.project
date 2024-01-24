@@ -46,6 +46,7 @@
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
+	takeshot,
 	"ApplicationScripting.xlp",
 	"ScriptingInfo.plist"
     );

@@ -75,6 +75,7 @@ htop
 scrot
 rclone
 vlc-core
+vlc-plugins-video-out
 pulseaudio-libs-devel
 chromium
 autorandr

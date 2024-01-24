@@ -14,7 +14,8 @@
     "CLASS_FILES" = (
 	"AppController.m",
 	"SystemWindow.m",
-	"ConsoleController.m"
+	"ConsoleController.m",
+	"STScriptingSupport.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -26,7 +27,8 @@
     "HEADER_FILES" = (
 	"AppController.h",
 	"SystemWindow.h",
-	"ConsoleController.h"
+	"ConsoleController.h",
+	"STScriptingSupport.h"
     );
     IMAGES = (
 	"SystemManager.tiff"

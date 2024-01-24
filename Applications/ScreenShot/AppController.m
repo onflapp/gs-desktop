@@ -92,25 +92,21 @@
   }
   
   [[NSRunLoop currentRunLoop] runUntilDate: limit];
+  NSString* t = @"";
+
+  if (type == 1) {
+    t = @"screen";
+  }
+  else if (type == 2) {
+    t = @"window";
+  }
   
-  if (type == 1) { //screen
-    [args addObject:@"--delay"];
-    [args addObject:@"1"];
-  }
-  else if (type == 2) { //window
-    [args addObject:@"--delay"];
-    [args addObject:@"1"];
-    [args addObject:@"-b"];
-    [args addObject:@"--focused"];
-  }
-  else {
-    [args addObject:@"-b"]; //selection
-    [args addObject:@"--select"];
-  }
+  [args addObject:t];
   [args addObject:screenshotFile];
-  
+
+  NSString* exec = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"takeshot"];
   NSTask* task = [[[NSTask alloc] init] autorelease];
-  [task setLaunchPath:@"/usr/bin/scrot"];
+  [task setLaunchPath:exec];
   [task setArguments:args];
   //[task setCurrentDirectoryPath:wp];
   

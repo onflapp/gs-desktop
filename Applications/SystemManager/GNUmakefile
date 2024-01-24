@@ -45,7 +45,8 @@ Resources/commands
 SystemManager_HEADER_FILES = \
 AppController.h \
 SystemWindow.h \
-ConsoleController.h
+ConsoleController.h \
+STScriptingSupport.h
 
 #
 # Objective-C Class files
@@ -53,7 +54,8 @@ ConsoleController.h
 SystemManager_OBJC_FILES = \
 AppController.m \
 SystemWindow.m \
-ConsoleController.m
+ConsoleController.m \
+STScriptingSupport.m
 
 #
 # Other sources
