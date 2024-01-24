@@ -88,3 +88,4 @@ texinfo
 info
 emacs
 NetworkManager-tui
+python3-pyftpdlib
