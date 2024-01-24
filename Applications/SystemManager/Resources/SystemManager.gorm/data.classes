@@ -5,16 +5,19 @@
 	    "showPrefPanel:",
 	    "showSystemProcesses:",
 	    "control:",
-	    "showSystemControl:"
+	    "showSystemControl:",
+	    "editStartup:"
 	);
 	Outlets = (
-	    controlPanel
+	    controlPanel,
+	    startupPanel
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
 	    "control:",
+	    "editStartup:",
 	    "orderFrontFontPanel:",
 	    "showPrefPanel:",
 	    "showSystemControl:",

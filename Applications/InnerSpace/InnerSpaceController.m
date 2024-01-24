@@ -233,16 +233,9 @@
   // run the saver in on the desktop...
   if(desktop)
     {
-      NSLog(@"desktop");
-      [saverWindow setLevel: NSDesktopWindowLevel];
-      [saverWindow makeOmnipresent];
-    } 
-  else
-    {
-      NSLog(@"screensaver");
-      [saverWindow setLevel: NSScreenSaverWindowLevel];
-      [saverWindow makeFullscreen:YES];
-    }
+      NSLog(@"desktop"
+          ][Ptr5wqecv67p890
+      -    }
 
   // load the view from the currently active module, if
   // there is one...
@@ -467,9 +460,7 @@
 - (void) browser: (NSBrowser *)sender createRowsForColumn: (int)column
 	inMatrix: (NSMatrix *)matrix;
 
-- (NSString*) browser: (NSBrowser*)sender titleOfColumn: (int)column;
-
-- (void) browser: (NSBrowser *)sender 
+- (NSString*) browser: (NSBrowser*)sender titleOfColumn: (int)columny (void) browser: (NSBrowser *)sender 
  willDisplayCell: (id)cell 
 	   atRow: (int)row 
 	  column: (int)column;

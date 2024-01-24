@@ -20,6 +20,7 @@
   SystemWindow* systemWindow;
   ConsoleController* consoleController;
   NSWindow* controlPanel;
+  NSWindow* startupPanel;
 }
 
 + (void)  initialize;
@@ -34,6 +35,8 @@
 - (void) applicationWillTerminate: (NSNotification *)aNotif;
 - (BOOL) application: (NSApplication *)application
 	    openFile: (NSString *)fileName;
+
+- (void) editStartup: (id)sender;
 
 - (void) showPrefPanel: (id)sender;
 - (void) showSystemProcesses: (id)sender;

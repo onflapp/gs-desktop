@@ -50,6 +50,29 @@
   return NO;
 }
 
+- (void) editStartup: (id)sender {
+  NSFileManager* fm = [NSFileManager defaultManager];
+  NSWorkspace* ws = [NSWorkspace sharedWorkspace];
+
+  if ([sender tag] == 1) {
+    NSString* gsde_file = [@"~/.gsderc" stringByExpandingTildeInPath];
+
+    if (![fm fileExistsAtPath:gsde_file]) {
+      [@"# exec before UI\n" writeToFile:gsde_file atomically:NO];
+    }
+    [ws openFile:gsde_file withApplication:@"TextEdit"];
+  }
+  else if ([sender tag] == 2) {
+    BOOL isdir = NO;
+    NSString* start_dir = [@"~/Library/Startup" stringByExpandingTildeInPath];
+
+    if (![fm fileExistsAtPath:start_dir isDirectory:&isdir]) {
+      [fm createDirectoryAtPath:start_dir attributes:nil]; 
+    }
+    [ws selectFile:@"." inFileViewerRootedAtPath:start_dir];
+  }
+}
+
 - (void) control:(id)sender {
   NSWindow* panel = [consoleController  panel];
   NSString* exec = [[[[NSBundle mainBundle] resourcePath] 

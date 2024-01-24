@@ -272,7 +272,9 @@
 }
 
 - (void) statusHasChanged:(NSNotification *)notification {
-  [self refresh:self];
+  if ([window isVisible]) {
+    [self refresh:self];
+  }
 }
 
 - (void) windowDidBecomeMain:(NSNotification *)notification {
