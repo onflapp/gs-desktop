@@ -104,14 +104,20 @@ BOOL hasFSTab(NSDictionary* props) {
 - (void) applicationWillTerminate: (NSNotification *)aNotif {
 }
 
-- (void)openURL:(NSPasteboard *)pboard
-       userData:(NSString *)userData
-          error:(NSString **)error  {
+- (void) openURL:(NSPasteboard *)pboard
+        userData:(NSString *)userData
+           error:(NSString **)error  {
   NSString* fileName = [pboard stringForType:NSStringPboardType];
 
   if (fileName) {
     [self application:NSApp openFile:fileName];
   }
+}
+
+- (BOOL) application: (NSApplication *)application
+	     openURL: (NSURL *)url {
+  [networkDrive showPanelWithURL:url];
+  return YES;
 }
 
 - (BOOL) application: (NSApplication *)application
@@ -126,7 +132,7 @@ BOOL hasFSTab(NSDictionary* props) {
       [networkDrive showPanelWithURL:url];
     }
   }
-  return NO;
+  return YES;
 }
 
 - (void) mountNetworkService:(NSPasteboard *)pboard
