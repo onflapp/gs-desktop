@@ -4,18 +4,23 @@
 	Actions = (
 	    "showPrefPanel:",
 	    "newDisplay:",
-	    "connectDisplay:"
+	    "connectDisplay:",
+	    "changeConnectionType:"
 	);
 	Outlets = (
-	    connectionHostname,
+	    connectionParA,
 	    connectionPanel,
-	    connectionPassword
+	    connectionPatB,
+	    connectionType,
+	    labelParA,
+	    labelParB
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
 	    "connectDisplay:",
+	    "changeConnectionType:",
 	    "newDisplay:",
 	    "orderFrontFontPanel:",
 	    "showPrefPanel:"

@@ -91,3 +91,4 @@ emacs
 NetworkManager-tui
 python3-pyftpdlib
 robin-map-devel
+telnet

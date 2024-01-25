@@ -1,0 +1,69 @@
+{
+    CursorBlinking = NO;
+    CursorColor = {
+	Alpha = <*R1>;
+	Blue = <*R0>;
+	Green = <*R0>;
+	Red = <*R1>;
+    };
+    CursorStyle = <*I0>;
+    LoginShell = NO;
+    "NSWindow Frame Preferences" = "94 398 402 318 0 0  1920 1080 ";
+    ScrollBackEnabled = YES;
+    ScrollBackLines = <*I4000>;
+    ScrollBackUnlimited = NO;
+    ScrollBottomOnInput = YES;
+    Shell = bash;
+    StartupAction = <*I3>;
+    TerminalFont = "Keith-Medium";
+    TerminalFontSize = <*I12>;
+    TerminalFontUseBold = NO;
+    TextBlinkColor = {
+	Alpha = <*R1>;
+	Blue = <*R0>;
+	Green = <*R1>;
+	Red = <*R1>;
+    };
+    TextBoldColor = {
+	Alpha = <*R1>;
+	Blue = <*R1>;
+	Green = <*R1>;
+	Red = <*R1>;
+    };
+    TextInverseBackgroundColor = {
+	Alpha = <*R1>;
+	Blue = <*R0.333>;
+	Green = <*R0.333>;
+	Red = <*R0.333>;
+    };
+    TextInverseForegroundColor = {
+	Alpha = <*R1>;
+	Blue = <*R1>;
+	Green = <*R1>;
+	Red = <*R1>;
+    };
+    TextNormalColor = {
+	Alpha = <*R1>;
+	Blue = <*R0.667>;
+	Green = <*R0.667>;
+	Red = <*R0.667>;
+    };
+    TitleBarElementsMask = <*I32>;
+    WindowBackgroundColor = {
+	Alpha = <*R1>;
+	Blue = <*R0>;
+	Green = <*R0>;
+	Red = <*R0>;
+    };
+    WindowCloseBehavior = <*I1>;
+    WindowFrame = "{x = 154; y = 462; width = 584; height = 384}";
+    WindowHeight = <*I25>;
+    WindowSelectionColor = {
+	Alpha = <*R1>;
+	Blue = <*R0.5>;
+	Green = <*R0.5>;
+	Red = <*R0.5>;
+    };
+    WindowWidth = <*I80>;
+    WordCharacters = ".:_";
+}

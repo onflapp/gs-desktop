@@ -41,7 +41,11 @@ RemoteView_RESOURCE_FILES = \
 Resources/RemoteView.gorm \
 Resources/VNCDisplay.gorm \
 Resources/../sdlvncviewer.subproj/obj/sdlvncviewer \
-Resources/RemoteView.tiff 
+Resources/RemoteView.tiff \
+Resources/connect \
+Resources/ssh.term \
+Resources/telnet.term \
+Resources/uart.term 
 
 
 #

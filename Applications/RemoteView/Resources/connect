@@ -1,0 +1,46 @@
+#!/bin/perl
+
+use URI;
+use URI::Escape;
+use File::Path qw(make_path);
+
+print $uri,"\n";
+
+$URL = $ARGV[0];
+$HOME = $ENV{'HOME'};
+
+$U = URI->new($URL);
+
+$HOST = $U->host();
+$PORT = $U->port();
+$SCHEME = $U->scheme();
+$USER = $U->user();
+
+$TERMFILE = "$HOME/Library/RemoteView/$SCHEME.term";
+
+if (! -f "$TERMFILE"){
+  system("mkdir -p $HOME/Library/RemoteView;cp ./$SCHEME.term $TERMFILE"); 
+}
+
+
+$TITLE = "remote:$URL";
+
+if ($SCHEME eq "ssh") {
+  $CMD = "ssh $HOST";
+  $CMD .= " -l $USER" if ($USER ne "");
+  $CMD .= " -p $PORT" if ($PORT ne "");
+}
+elsif ($SCHEME eq "telnet") {
+  $CMD = "telnet $HOST";
+  $CMD .= " -l $USER" if ($USER ne "");
+  $CMD .= " $PORT" if ($PORT ne "");
+}
+elsif ($SCHEME eq "uart") {
+  $CMD = "minicom -o -D /dev/$HOST";
+  $CMD .= " -b $USER" if ($USER ne "");
+}
+
+$CMD = uri_escape($CMD);
+$TITLE = uri_escape($TITLE);
+
+system("/Library/bin/gopen", "term://$TERMFILE?cmd=$CMD&title=$TITLE");

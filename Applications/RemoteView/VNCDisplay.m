@@ -127,7 +127,6 @@
 }
 
 - (void) processCommand:(NSString*) line {
-NSLog(@"xxxxx [%@]", line);
   if ([line hasPrefix:@"S:"]) {
     connected = YES;
     Window xwinid = [[line substringFromIndex:2] integerValue];

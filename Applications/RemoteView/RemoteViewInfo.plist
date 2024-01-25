@@ -4,6 +4,32 @@
     ApplicationIcon = "RemoteView.tiff";
     ApplicationName = RemoteView;
     ApplicationRelease = "0.1";
+    CFBundleURLTypes = (
+	{
+	    CFBundleURLName = "VNC host";
+	    CFBundleURLSchemes = (
+		vnc
+	    );
+	},
+	{
+	    CFBundleURLName = "ssh host";
+	    CFBundleURLSchemes = (
+		ssh
+	    );
+	},
+	{
+	    CFBundleURLName = "telnet host";
+	    CFBundleURLSchemes = (
+		telnet
+	    );
+	},
+	{
+	    CFBundleURLName = "uart device";
+	    CFBundleURLSchemes = (
+		uart
+	    );
+	}
+    );
     Copyright = "Copyright (C) 200x";
     CopyrightDescription = "Released under ...";
     FullVersionID = "0.1";

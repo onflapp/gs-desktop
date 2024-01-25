@@ -50,7 +50,11 @@
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
 	"../sdlvncviewer.subproj/obj/sdlvncviewer",
-	"RemoteView.tiff"
+	"RemoteView.tiff",
+	connect,
+	"ssh.term",
+	"telnet.term",
+	"uart.term"
     );
     "OTHER_SOURCES" = (
 	"RemoteView_main.m"
