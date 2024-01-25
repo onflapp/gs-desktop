@@ -117,3 +117,4 @@ libpcap-dev
 autorandr
 dict-wn
 dict-jargon
+python3-pyftpdlib
