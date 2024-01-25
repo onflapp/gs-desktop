@@ -1,0 +1,10 @@
+#!/bin/bash
+
+BASEDIR="$HOME/Library/CloudManager"
+
+mkdir $BASEDIR 2>/dev/null
+
+ip -o -4 a | awk '{print $4}' | grep -v 127.0.0.1
+echo "port 8888"
+
+python3 -m http.server 8888 -d $BASEDIR >/dev/null
