@@ -154,9 +154,11 @@
     /* we create a data source and set the tableviews */
     localTableData = [[FileTable alloc] init];
     [localTableData initData:dirList];
+    [localTableData sortByIdent: @"filename"];
     [localView setDataSource:localTableData];
     
     remoteTableData = [[FileTable alloc] init];
+    [remoteTableData sortByIdent: @"filename"];
     [remoteView setDataSource:remoteTableData];
 
     /* we update the path menu */

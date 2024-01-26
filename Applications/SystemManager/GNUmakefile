@@ -36,7 +36,8 @@ Resources/SystemManager.gorm \
 Resources/SystemWindow.gorm \
 Resources/Console.gorm \
 Resources/SystemManager.tiff \
-Resources/commands 
+Resources/commands \
+Resources/Tasks 
 
 
 #

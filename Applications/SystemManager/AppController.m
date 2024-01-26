@@ -76,6 +76,21 @@
   }
 }
 
+- (void) openDirectory:(id)sender {
+  NSWorkspace* ws = [NSWorkspace sharedWorkspace];
+ 
+  if ([sender tag] == 1) {
+    NSString* dir = [[[NSBundle mainBundle] resourcePath] 
+	    stringByAppendingPathComponent:@"Tasks"];
+
+    [ws selectFile:@"." inFileViewerRootedAtPath:dir];
+  }
+  else if ([sender tag] == 2) {
+    NSURL* url = [NSURL URLWithString:@"admin:///etc"];
+    [ws openURL:url];
+  }
+}
+
 - (void) control:(id)sender {
   NSWindow* panel = [consoleController  panel];
   NSString* exec = [[[[NSBundle mainBundle] resourcePath] 

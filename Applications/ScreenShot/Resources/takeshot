@@ -5,10 +5,8 @@ if [ "$1" = "screen" ];then
   exit
 fi
 if [ "$1" = "window" ];then
-  WID=`xwininfo | awk '/Window id:/{print $4 }'`
-  if [ -n "$WID" ];then
-    /usr/bin/scrot --b -w $WID "$2"
-  fi
+  xdotool selectwindow windowactivate || exit
+  /usr/bin/scrot --b -u "$2"
   exit
 fi
 

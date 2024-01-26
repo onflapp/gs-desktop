@@ -51,6 +51,12 @@ while(<IN>) {
     elsif ($t eq "WebDAV File Share") {
       print ("S:$n\nT:$t\nU:$a:$p\n");
     }
+    elsif ($t eq "SSH Remote Terminal") {
+      print ("S:$n\nT:$t\nU:ssh://$a:$p\n");
+    }
+    elsif ($t eq "SFTP File Transfer") {
+      print ("S:$n\nT:$t\nU:sftp://$a:$p\n");
+    }
     else {
       print ("S:$n\nT:$t\nU:$a:$p\n");
     }

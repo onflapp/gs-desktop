@@ -6,7 +6,8 @@
 	    "showSystemProcesses:",
 	    "control:",
 	    "showSystemControl:",
-	    "editStartup:"
+	    "editStartup:",
+	    "openDirectory:"
 	);
 	Outlets = (
 	    controlPanel,
@@ -18,6 +19,7 @@
 	Actions = (
 	    "control:",
 	    "editStartup:",
+	    "openDirectory:",
 	    "orderFrontFontPanel:",
 	    "showPrefPanel:",
 	    "showSystemControl:",

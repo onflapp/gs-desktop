@@ -36,6 +36,8 @@
 - (BOOL) application: (NSApplication *)application
 	    openFile: (NSString *)fileName;
 
+- (void) openDirectory: (id)sender;
+- (void) control: (id)sender;
 - (void) editStartup: (id)sender;
 
 - (void) showPrefPanel: (id)sender;

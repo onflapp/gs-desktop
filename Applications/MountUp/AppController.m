@@ -116,7 +116,21 @@ BOOL hasFSTab(NSDictionary* props) {
 
 - (BOOL) application: (NSApplication *)application
 	     openURL: (NSURL *)url {
-  [networkDrive showPanelWithURL:url];
+  if ([[url scheme]isEqualToString:@"admin"]) {
+    NSString* fileName = [url path];
+
+    if (fileName) {
+      NSFileManager* fm = [NSFileManager defaultManager];
+      BOOL dir;
+      BOOL rv = [fm fileExistsAtPath:fileName isDirectory:&dir];
+      if (rv && dir) {
+        [self performSelector:@selector(openRootDirectory:) withObject:fileName afterDelay:0.1];
+      }
+    }
+  }
+  else {
+    [networkDrive showPanelWithURL:url];
+  }
   return YES;
 }
 
@@ -129,7 +143,7 @@ BOOL hasFSTab(NSDictionary* props) {
   else {
     NSURL* url = [NSURL URLWithString:fileName];
     if (url) {
-      [networkDrive showPanelWithURL:url];
+      [self application:application openURL:url];
     }
   }
   return YES;

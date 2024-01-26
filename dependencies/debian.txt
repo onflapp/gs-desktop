@@ -112,10 +112,11 @@ recollcmd
 libical-dev
 p7zip
 udisks2
-chromium
 libpcap-dev
 autorandr
 dict-wn
 dict-jargon
 python3-pyftpdlib
+robin-map-dev
 telnet
+chromium

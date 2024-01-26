@@ -68,6 +68,10 @@
 	    NSUserData = bunzip2;
 	},
 	{
+
+	    NSKeyEquivalent = {
+		default = "T";
+	    };
 	    NSMenuItem = {
 		default = "Terminal/Open shell here";
 	    };

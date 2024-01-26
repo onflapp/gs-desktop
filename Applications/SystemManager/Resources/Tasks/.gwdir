@@ -1,0 +1,39 @@
+{
+    "fsn_info_type" = <*I0>;
+    geometry = "167 212 564 445 0 0  1224 768 ";
+    "hligh_table_col" = <*I0>;
+    iconposition = <*I2>;
+    iconsize = <*I48>;
+    labeltxtsize = <*I12>;
+    "list_view_columns" = {
+	0 = {
+	    identifier = <*I0>;
+	    minwidth = <*R80>;
+	    position = <*I0>;
+	    width = <*R316>;
+	};
+	1 = {
+	    identifier = <*I1>;
+	    minwidth = <*R80>;
+	    position = <*I3>;
+	    width = <*R243>;
+	};
+	2 = {
+	    identifier = <*I2>;
+	    minwidth = <*R80>;
+	    position = <*I1>;
+	    width = <*R90>;
+	};
+	3 = {
+	    identifier = <*I3>;
+	    minwidth = <*R50>;
+	    position = <*I2>;
+	    width = <*R50>;
+	};
+    };
+    shelfdicts = (
+    );
+    shelfheight = <*R2>;
+    singlenode = <*BY>;
+    viewtype = List;
+}

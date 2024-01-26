@@ -51,7 +51,8 @@
     MAKEFILEDIR = "$(GNUSTEP_MAKEFILES)";
     "OBJC_COMPILEROPTIONS" = "";
     "OTHER_RESOURCES" = (
-	commands
+	commands,
+	Tasks
     );
     "OTHER_SOURCES" = (
 	"SystemManager_main.m"
