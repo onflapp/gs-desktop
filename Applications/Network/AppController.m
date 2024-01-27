@@ -529,7 +529,7 @@
   [nmSetupPanel showPanelAndRunSetup:sender];
 }
 
-- (void)showNetworkInfo::(id) sender
+- (void)showNetworkInfo:(id) sender
 {
 }
 

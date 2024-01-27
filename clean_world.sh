@@ -1,5 +1,7 @@
 #!/bin/bash
 
+rm build_world*.log
+
 systemctl stop gdomap.service
 systemctl disable gdomap.service
 rm /etc/systemd/system/gdomap.service
