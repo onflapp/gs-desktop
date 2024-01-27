@@ -529,6 +529,10 @@
   [nmSetupPanel showPanelAndRunSetup:sender];
 }
 
+- (void)showNetworkInfo::(id) sender
+{
+}
+
 - (void)showConfig:(id) sender
 {
   [window makeKeyAndOrderFront:sender];
