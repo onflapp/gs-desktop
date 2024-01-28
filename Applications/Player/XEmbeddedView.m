@@ -25,7 +25,16 @@
 #import "XEmbeddedView.h"
 #import <GNUstepGUI/GSDisplayServer.h>
 #include "X11/Xutil.h"
+#include "X11/Xatom.h"
 #include "X11/keysymdef.h"
+
+unsigned long getXColorPixel(Display* display, char* color) {
+  XColor hex;
+  Colormap colormap = DefaultColormap(display, 0);
+  XParseColor(display, colormap, color, &hex);
+  XAllocColor(display, colormap, &hex);
+  return hex.pixel;
+}
 
 @implementation XEmbeddedView
 
@@ -205,8 +214,14 @@
   xdisplay = XOpenDisplay(NULL);
   int screen = DefaultScreen(xdisplay);
   xwindowid = XCreateSimpleWindow(xdisplay, myxwindowid,0,0,	
-		200, 300, 0, BlackPixel(xdisplay, screen), BlackPixel(xdisplay, screen));
+		200, 300, 0, BlackPixel(xdisplay, screen), WhitePixel(xdisplay, screen));
   
+  Atom _NET_WM_BYPASS_COMPOSITOR = XInternAtom(xdisplay, "_NET_WM_BYPASS_COMPOSITOR", False);
+
+  int value = 1;
+  XChangeProperty(xdisplay, myxwindowid, _NET_WM_BYPASS_COMPOSITOR,
+                  XA_CARDINAL, 32, PropModeReplace, (unsigned char*)&value, 1);
+
   XReparentWindow(xdisplay, xwindowid, myxwindowid, 0, 0);
   XSync(xdisplay, False);
   XMapWindow(xdisplay, xwindowid);

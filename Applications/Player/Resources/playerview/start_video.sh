@@ -2,4 +2,4 @@
 
 unset TERM
 XID="$1"
-vlc -q -I rc --rc-show-pos --no-playlist-autostart --drawable-xid "$XID" "$2"
+vlc -q -I rc --vout xvideo --rc-show-pos --no-playlist-autostart --drawable-xid "$XID" "$2"

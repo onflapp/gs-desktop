@@ -88,6 +88,7 @@ libicu-dev
 icu-devtools
 sane-utils
 scrot
+slop
 rclone
 htop
 vim-nox
@@ -99,6 +100,7 @@ vlc-bin
 vlc-data
 vlc-plugin-video-output
 vlc-plugin-base
+ffmpeg
 xutils-dev
 xnest
 xterm

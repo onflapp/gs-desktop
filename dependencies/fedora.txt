@@ -73,9 +73,11 @@ recoll
 vim-enhanced
 htop
 scrot
+slop
 rclone
 vlc-core
 vlc-plugins-video-out
+ffmpeg
 pulseaudio-libs-devel
 chromium
 autorandr

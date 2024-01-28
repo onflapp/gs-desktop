@@ -8,6 +8,9 @@ K="18"
 if [ "x$GS_COMMAND_KEY" = "xCTRL" ];then
   K="17"
 fi
+if [ "x$GS_COMMAND_KEY" = "xSUPER" ];then
+  K="91"
+fi
 
 cat << EOF > "$PROF/user.js"
 user_pref("ui.key.accelKey", $K);

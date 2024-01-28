@@ -180,6 +180,12 @@
   [labelInfo setStringValue:@"..."];
   [signalInfo setDoubleValue:0];
 
+  [NSApp setServicesProvider:self];
+  
+  if([NSApp isScriptingSupported]) {
+    [NSApp initializeApplicationScripting];
+  }
+
   [self performSelector:@selector(initConnection) 
              withObject:nil 
              afterDelay:0.1];
@@ -527,10 +533,6 @@
 - (void)showNetworkSetup:(id) sender
 {
   [nmSetupPanel showPanelAndRunSetup:sender];
-}
-
-- (void)showNetworkInfo:(id) sender
-{
 }
 
 - (void)showConfig:(id) sender
