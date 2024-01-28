@@ -1,0 +1,13 @@
+#!/bin/bash
+
+echo "=== address ==="
+ip -br a
+
+
+echo ""
+echo "=== route ==="
+ip -br r
+
+echo ""
+echo "=== managed devices ==="
+nmcli d

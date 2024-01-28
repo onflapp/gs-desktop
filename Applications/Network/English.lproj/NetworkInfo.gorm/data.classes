@@ -1,0 +1,77 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "goBack:",
+	    "refresh:",
+	    "registerServices:",
+	    "showPanelAndRunInfo:",
+	    "showPanelAndRunSetup:",
+	    "} - initWithPreferences:"
+	);
+	Super = NSObject;
+    };
+    NITerminalView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = TerminalView;
+    };
+    NMSetup = {
+	Actions = (
+	    "showPanelAndRunSetup:",
+	    "goBack:"
+	);
+	Outlets = (
+	    terminalView,
+	    panel
+	);
+	Super = NSObject;
+    };
+    NMTerminalView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = TerminalView;
+    };
+    NetworkInfo = {
+	Actions = (
+	    "showPanelAndRunInfo:",
+	    "refresh:"
+	);
+	Outlets = (
+	    panel,
+	    textView
+	);
+	Super = NSObject;
+    };
+    RCloneSetup = {
+	Actions = (
+	    "registerServices:"
+	);
+	Outlets = (
+	    panel,
+	    textView,
+	    terminalView
+	);
+	Super = NSObject;
+    };
+    RCloneTerminalView = {
+	Actions = (
+	);
+	Outlets = (
+	    scroller
+	);
+	Super = TerminalView;
+    };
+    TerminalView = {
+	Actions = (
+	    "} - initWithPreferences:"
+	);
+	Outlets = (
+	);
+	Super = NSView;
+    };
+}
