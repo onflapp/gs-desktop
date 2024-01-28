@@ -1,0 +1,27 @@
+PROF="$HOME/Library/Thunderbird"
+CLASS="Wrapper_Thunderbird"
+mkdir -p "$PROF" 2>/dev/null
+
+wdwrite WMWindowAttributes $CLASS '{ NoAppIcon = Yes; }'
+
+K="18"
+if [ "x$GS_COMMAND_KEY" = "xCTRL" ];then
+  K="17"
+fi
+if [ "x$GS_COMMAND_KEY" = "xSUPER" ];then
+  K="91"
+fi
+
+cat << EOF > "$PROF/user.js"
+user_pref("ui.key.accelKey", $K);
+user_pref("ui.key.menuAccessKey", -1);
+user_pref("ui.key.menuAccessKeyFocuses", false);
+EOF
+
+unset FONTCONFIG_FILE
+
+if [ -n "$FILE" ];then
+  thunderbird --profile "$PROF" "$FILE" --class $CLASS
+else
+  thunderbird -mail --profile "$PROF" --class $CLASS
+fi
