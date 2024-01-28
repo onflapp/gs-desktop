@@ -27,6 +27,11 @@
 
 #import <AppKit/AppKit.h>
 
+@interface MiniViewTextField : NSTextField
+{
+}
+@end
+
 @interface MiniView : NSView
 {
   NSImage *tileImage;

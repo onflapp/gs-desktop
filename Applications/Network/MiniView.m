@@ -27,6 +27,27 @@
 #include <X11/Xlib.h>
 #include <X11/X.h>
 
+@implementation MiniViewTextField
+
+- (id) initWithFrame: (NSRect)frame
+{
+  self = [super initWithFrame: frame];
+  return self;
+}
+
+- (BOOL) acceptsFirstMouse: (NSEvent*)theEvent
+{
+  return YES;
+}
+
+- (void) mouseDown:(NSEvent*) theEvent {
+  if ([theEvent clickCount] == 2) {
+    [NSApp sendAction:[self action] to:[self target] from:self];
+  }
+}
+
+@end
+
 @implementation MiniView
 
 - (id) initWithFrame: (NSRect)frame

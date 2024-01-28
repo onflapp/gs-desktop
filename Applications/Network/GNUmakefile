@@ -19,6 +19,7 @@ Network_RESOURCE_FILES = \
 	Resources/net.tiff \
 	Resources/asianet.tiff \
 	Resources/nmsetup.sh \
+	Resources/networkinfo \
 	Resources/ApplicationScripting.xlp \
 	Resources/ScriptingInfo.plist
 
@@ -29,6 +30,7 @@ Network_LOCALIZED_RESOURCE_FILES = \
 	EthernetView.gorm \
 	WifiView.gorm \
 	NMSetupPanel.gorm \
+	NetworkInfo.gorm \
 	AddConnection.gorm
 
 #
@@ -40,6 +42,7 @@ Network_HEADER_FILES = \
 	NMSetup.h \
 	WifiController.h \
 	EthernetController.h \
+	NetworkInfo.h \
 	STScriptingSupport.h
 
 #
@@ -52,6 +55,7 @@ Network_OBJC_FILES = \
 	NMSetup.m \
 	WifiController.m \
 	EthernetController.m \
+	NetworkInfo.m \
 	STScriptingSupport.m
 
 #

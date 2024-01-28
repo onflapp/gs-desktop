@@ -8,6 +8,7 @@
 #import "NetworkManager/NMConnectionSettings.h"
 #import "ConnectionManager.h"
 #import "NMSetup.h"
+#import "NetworkInfo.h"
 #import "MiniView.h"
 
 @interface AppController : NSObject
@@ -40,6 +41,7 @@
   NSView        *connectionView;
 
   NMSetup       *nmSetupPanel;
+  NetworkInfo   *networkInfo;
 }
 
 @property (readonly) DKProxy<NetworkManager> *networkManager;

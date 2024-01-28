@@ -157,6 +157,7 @@
     [[NSApp iconWindow] setContentView:mv];
 
     nmSetupPanel = [[NMSetup alloc] init];
+    networkInfo = [[NetworkInfo alloc] init];
   }
   return self;
 }
@@ -533,6 +534,11 @@
 - (void)showNetworkSetup:(id) sender
 {
   [nmSetupPanel showPanelAndRunSetup:sender];
+}
+
+- (void)showNetworkInfo:(id) sender
+{
+  [networkInfo showPanelAndRunInfo:sender];
 }
 
 - (void)showConfig:(id) sender
