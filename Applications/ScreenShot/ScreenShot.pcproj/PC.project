@@ -14,7 +14,8 @@
     "CLASS_FILES" = (
 	"AppController.m",
 	"AppController+scripting.m",
-	"STScriptingSupport.m"
+	"STScriptingSupport.m",
+	"MiniView.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -25,7 +26,8 @@
     );
     "HEADER_FILES" = (
 	"AppController.h",
-	"STScriptingSupport.h"
+	"STScriptingSupport.h",
+	"MiniView.h"
     );
     IMAGES = (
 	"ScreenShot.tiff"
@@ -48,7 +50,8 @@
     "OTHER_RESOURCES" = (
 	takeshot,
 	"ApplicationScripting.xlp",
-	"ScriptingInfo.plist"
+	"ScriptingInfo.plist",
+	capture
     );
     "OTHER_SOURCES" = (
 	"ScreenShot_main.m"

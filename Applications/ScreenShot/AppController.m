@@ -16,14 +16,6 @@
 + (void) initialize {
   NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
 
-  /*
-   * Register your app's defaults here by adding objects to the
-   * dictionary, eg
-   *
-   * [defaults setObject:anObject forKey:keyForThatObject];
-   *
-   */
-  
   [[NSUserDefaults standardUserDefaults] registerDefaults: defaults];
   [[NSUserDefaults standardUserDefaults] synchronize];
 }
@@ -39,6 +31,11 @@
 }
 
 - (void) awakeFromNib {
+  [recordButton setHidden:YES];
+
+  [[[NSApp iconWindow] contentView] addSubview:iconView];
+  [iconView setFrame:NSMakeRect(8, 8, 48, 48)];
+  [iconView setNeedsDisplay:YES];
 }
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif {
@@ -58,6 +55,7 @@
 }
 
 - (void) applicationWillTerminate: (NSNotification *)aNotif {
+  [task terminate];
 }
 
 - (BOOL) application: (NSApplication *)application
@@ -72,13 +70,63 @@
   *error = @"doesn't work yet";
 }
 
+- (void) execRecord:(NSInteger) type {
+  if (task) {
+    NSLog(@"task is running already");
+    return;
+  }
+
+  if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/ffmpeg"]) {
+    NSRunAlertPanel(@"ffmpeg command not found", @"ScreenShot app needs command '/usr/bin/ffmpeg' to work properly\nPlease install it and try again.", @"Ok", nil, nil);
+    return;
+  }
+
+  NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.3];
+  NSInteger tm = (NSInteger)[limit timeIntervalSinceReferenceDate];
+
+  NSMutableArray* args = [NSMutableArray array];
+  screenshotFile = [NSString stringWithFormat:@"/tmp/%ld-screencapture.mp4", tm];
+  [screenshotFile retain];
+
+  if ([NSApp isActive]) {
+    [NSApp hide:self];
+  }
+  
+  [[NSRunLoop currentRunLoop] runUntilDate: limit];
+  NSString* t = @"selection";
+
+  if (type == 1) {
+    t = @"screen";
+  }
+  
+  [args addObject:t];
+  [args addObject:screenshotFile];
+
+  NSString* exec = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"capture"];
+
+  NSLog(@"exec %@ [%@]", exec, args);
+
+  task = [[NSTask alloc] init];
+  [task setLaunchPath:exec];
+  [task setArguments:args];
+  //[task setCurrentDirectoryPath:wp];
+  
+  [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkTaskStatus:) name:NSTaskDidTerminateNotification object:task];
+  
+  [recordButton setHidden:NO];
+  [task launch];
+}
+
 - (void) execScrot:(NSInteger) type {
   if (![[NSFileManager defaultManager] fileExistsAtPath:@"/usr/bin/scrot"]) {
     NSRunAlertPanel(@"Scrot command not found", @"ScreenShot app needs command '/usr/bin/scrot' to work properly\nPlease install it and try again.", @"Ok", nil, nil);
     return;
   }
 
-  [screenshotFile release];
+  if (task) {
+    NSLog(@"task is running already");
+    return;
+  }
 
   NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.3];
   NSInteger tm = (NSInteger)[limit timeIntervalSinceReferenceDate];
@@ -92,7 +140,7 @@
   }
   
   [[NSRunLoop currentRunLoop] runUntilDate: limit];
-  NSString* t = @"";
+  NSString* t = @"selection";
 
   if (type == 1) {
     t = @"screen";
@@ -105,7 +153,7 @@
   [args addObject:screenshotFile];
 
   NSString* exec = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"takeshot"];
-  NSTask* task = [[[NSTask alloc] init] autorelease];
+  task = [[NSTask alloc] init];
   [task setLaunchPath:exec];
   [task setArguments:args];
   //[task setCurrentDirectoryPath:wp];
@@ -116,16 +164,32 @@
 }
 
 - (void) checkTaskStatus:(id) not {
+  [recordButton setHidden:YES];
+  [iconView setNeedsDisplay:YES];
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 
   if ([[NSFileManager defaultManager] fileExistsAtPath:screenshotFile]) {
     NSWorkspace* ws = [NSWorkspace sharedWorkspace];
     [ws openFile:screenshotFile];
   }
+
+  [screenshotFile release];
+  screenshotFile = nil;
+
+  [task release];
+  task = nil;
 }
 
 - (IBAction) takeScreenShot:(id) sender {
   [self execScrot:[sender tag]];
+}
+
+- (IBAction) recordScreen:(id) sender {
+  [self execRecord:[sender tag]];
+}
+
+- (IBAction) stopRecording:(id) sender {
+  [task interrupt];
 }
 
 - (IBAction) showPrefPanel: (id)sender {

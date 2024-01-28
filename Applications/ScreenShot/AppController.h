@@ -15,6 +15,10 @@
 
 @interface AppController : NSObject {
   NSString* screenshotFile;
+  NSTask* task;
+
+  IBOutlet NSButton* recordButton;
+  IBOutlet NSView* iconView;
 }
 
 + (void)  initialize;
@@ -32,8 +36,11 @@
 
 - (IBAction) showPrefPanel:(id) sender;
 - (IBAction) takeScreenShot:(id) sender;
+- (IBAction) recordScreen:(id) sender;
+- (IBAction) stopRecording:(id) sender;
 
 - (void) execScrot:(NSInteger) type;
+- (void) execRecord:(NSInteger) type;
 
 @end
 

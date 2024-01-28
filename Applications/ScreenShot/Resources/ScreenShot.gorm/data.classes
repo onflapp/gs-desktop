@@ -3,18 +3,31 @@
     AppController = {
 	Actions = (
 	    "showPrefPanel:",
-	    "takeScreenShot:"
+	    "takeScreenShot:",
+	    "recordScreen:",
+	    "stopRecording:"
 	);
 	Outlets = (
+	    iconView,
+	    recordButton
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
-	    "takeScreenShot:",
+	    "stopRecording:",
 	    "orderFrontFontPanel:",
-	    "showPrefPanel:"
+	    "recordScreen:",
+	    "showPrefPanel:",
+	    "takeScreenShot:"
 	);
 	Super = NSObject;
+    };
+    MiniView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSView;
     };
 }

@@ -36,7 +36,8 @@ Resources/ScreenShot.gorm \
 Resources/ScreenShot.tiff \
 Resources/takeshot \
 Resources/ApplicationScripting.xlp \
-Resources/ScriptingInfo.plist 
+Resources/ScriptingInfo.plist \
+Resources/capture 
 
 
 #
@@ -44,7 +45,8 @@ Resources/ScriptingInfo.plist
 #
 ScreenShot_HEADER_FILES = \
 AppController.h \
-STScriptingSupport.h
+STScriptingSupport.h \
+MiniView.h
 
 #
 # Objective-C Class files
@@ -52,7 +54,8 @@ STScriptingSupport.h
 ScreenShot_OBJC_FILES = \
 AppController.m \
 AppController+scripting.m \
-STScriptingSupport.m
+STScriptingSupport.m \
+MiniView.m
 
 #
 # Other sources
