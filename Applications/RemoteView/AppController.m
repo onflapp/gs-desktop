@@ -78,7 +78,19 @@
     [display connect:url];
   }
   else if (url) {
-    [self openTermWithURL:url];
+    NSInteger type = 0;
+    if ([[url scheme] isEqualToString:@"ssh"]) type = 1;
+    if ([[url scheme] isEqualToString:@"telnet"]) type = 2;
+    if ([[url scheme] isEqualToString:@"uart"]) type = 3;
+
+    [connectionType selectItemWithTag:type];
+    [self changeConnectionType:connectionType];
+
+    [connectionParA setStringValue:[url host]];
+    [connectionParB setStringValue:[url user]];
+    [connectionParC setStringValue:@""];
+
+    [connectionPanel makeKeyAndOrderFront:self];
   }
   return YES;
 }
@@ -105,17 +117,30 @@
 
 - (void) changeConnectionType: (id)sender {
   NSInteger t = [[connectionType selectedItem]tag];
+  [connectionParC setStringValue:@""];
   if (t == 1 || t == 2) {
     [labelParA setStringValue:@"Hostname:"];
     [labelParB setStringValue:@"User:"];
+    [labelParB setHidden:NO];
+    [labelParC setHidden:YES];
+    [connectionParC setHidden:YES];
+    [connectionParB setHidden:NO];
   }
   else if (t == 3) {
     [labelParA setStringValue:@"/dev/"];
     [labelParB setStringValue:@"Speed:"];
+    [labelParB setHidden:NO];
+    [labelParC setHidden:YES];
+    [connectionParC setHidden:YES];
+    [connectionParB setHidden:NO];
   }
   else {
     [labelParA setStringValue:@"Hostname:"];
-    [labelParB setStringValue:@"Password:"];
+    [labelParB setHidden:YES];
+    [connectionParB setHidden:YES];
+    [labelParC setStringValue:@"Password:"];
+    [labelParC setHidden:NO];
+    [connectionParC setHidden:NO];
   }
 }
 
@@ -141,7 +166,6 @@
   else {
     NSString* p = @"unknown";
     NSString* u = [connectionParB stringValue];
-    if (u == nil) u = @"";
 
     if (type == 1) p = @"ssh";
     if (type == 2) p = @"telnet";
@@ -151,7 +175,12 @@
 
     NSURL* url = [NSURL URLWithString:host];
     if (![url host]) {
-      url = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@%@", p, u, host]];
+      if ([u length]) {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@@%@", p, u, host]];
+      }
+      else {
+        url = [NSURL URLWithString:[NSString stringWithFormat:@"%@://%@", p, host]];
+      }
     }
     if (url) {
       [self openTermWithURL:url];

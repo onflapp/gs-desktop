@@ -22,6 +22,7 @@ picom
 xterm
 xset
 xsetroot
+xrefresh
 xwininfo
 xdotool
 gnuplot

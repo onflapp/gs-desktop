@@ -8,7 +8,6 @@
     };
     CursorStyle = <*I0>;
     LoginShell = NO;
-    "NSWindow Frame Preferences" = "94 398 402 318 0 0  1920 1080 ";
     ScrollBackEnabled = YES;
     ScrollBackLines = <*I4000>;
     ScrollBackUnlimited = NO;
@@ -48,7 +47,8 @@
 	Green = <*R0.667>;
 	Red = <*R0.667>;
     };
-    TitleBarElementsMask = <*I32>;
+    TitleBarCustomTitle = "SSH:";
+    TitleBarElementsMask = <*I33>;
     WindowBackgroundColor = {
 	Alpha = <*R1>;
 	Blue = <*R0>;
@@ -56,7 +56,6 @@
 	Red = <*R0>;
     };
     WindowCloseBehavior = <*I1>;
-    WindowFrame = "{x = 154; y = 462; width = 584; height = 384}";
     WindowHeight = <*I25>;
     WindowSelectionColor = {
 	Alpha = <*R1>;

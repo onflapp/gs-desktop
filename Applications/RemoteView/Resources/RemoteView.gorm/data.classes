@@ -10,10 +10,12 @@
 	Outlets = (
 	    connectionParA,
 	    connectionPanel,
-	    connectionPatB,
+	    connectionParB,
 	    connectionType,
 	    labelParA,
-	    labelParB
+	    labelParB,
+	    labelParC,
+	    connectionParC
 	);
 	Super = NSObject;
     };

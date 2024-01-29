@@ -15,10 +15,12 @@
 
 @interface AppController : NSObject
 {
-   NSTextField* connectionParB;
    NSTextField* connectionParA;
+   NSTextField* connectionParB;
+   NSSecureTextField* connectionParC;
    NSTextField* labelParA;
    NSTextField* labelParB;
+   NSTextField* labelParC;
    NSPopUpButton* connectionType;
    NSPanel* connectionPanel;
 }

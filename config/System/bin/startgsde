@@ -224,6 +224,8 @@ function startup_scripts {
   /Library/Scripts/AutoLaunchApps
 
   /Library/bin/nxnotify hide-panel
+
+  xrefresh
 }
 
 function save_screen {
