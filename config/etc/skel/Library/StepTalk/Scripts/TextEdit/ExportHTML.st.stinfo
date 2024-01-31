@@ -2,6 +2,6 @@
   Default = {
     Name = "Export as HTML";
     Description = "Export current document as a web page";
-    MenuKey = "b";
+    MenuKey = "";
   };
 }

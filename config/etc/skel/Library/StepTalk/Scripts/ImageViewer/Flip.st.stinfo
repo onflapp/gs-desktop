@@ -2,6 +2,6 @@
   Default = {
     Name = "Flip Image";
     Description = "Flip image vertically";
-    MenuKey = "b";
+    MenuKey = "";
   };
 }

@@ -1,0 +1,7 @@
+{
+  Default = {
+    Name = "Duplicate";
+    Description = "Load current page in new window";
+    MenuKey = "";
+  };
+}

@@ -2,6 +2,6 @@
   Default = {
     Name = "Help Command";
     Description = "This is sample command, sending :help to VIM";
-    MenuKey = "b";
+    MenuKey = "?";
   };
 }

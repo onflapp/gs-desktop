@@ -2,6 +2,6 @@
   Default = {
     Name = "Reveal File";
     Description = "Reveal current file in the Workspace";
-    MenuKey = "b";
+    MenuKey = "";
   };
 }
