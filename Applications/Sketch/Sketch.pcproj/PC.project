@@ -1,5 +1,5 @@
 {
-    APPLICATIONICON = "";
+    APPLICATIONICON = "Sketch.tiff";
     "APP_DOCUMENT_BASED" = YES;
     "APP_TYPE" = GORM;
     "BUILDER_TARGETS" = (
@@ -62,7 +62,8 @@
 	"Cross.tiff",
 	"Line.tiff",
 	"Rectangle.tiff",
-	"TextGraphic.tiff"
+	"TextGraphic.tiff",
+	"Sketch.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (

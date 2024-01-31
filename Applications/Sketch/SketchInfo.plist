@@ -1,5 +1,6 @@
 {
     ApplicationDescription = "No description avaliable!";
+    ApplicationIcon = "Sketch.tiff";
     ApplicationName = Sketch;
     ApplicationRelease = "0.1";
     CFBundleDevelopmentRegion = English;
@@ -13,6 +14,7 @@
     CopyrightDescription = "Released under ...";
     FullVersionID = "0.1";
     NSExecutable = Sketch;
+    NSIcon = "Sketch.tiff";
     NSMainNibFile = "Sketch.gorm";
     NSPrincipalClass = NSApplication;
     NSRole = Application;
@@ -22,9 +24,6 @@
 	    NSHumanReadableName = "Sketch Document";
 	    NSName = "Sketch Document";
 	    NSRole = Editor;
-	    NSExportableAs = (
-                sketch
-            );
 	    NSUnixExtensions = (
 		sketch
 	    );
