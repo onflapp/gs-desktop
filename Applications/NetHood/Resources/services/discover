@@ -32,7 +32,7 @@ sub unescape {
   return $s;
 }
 
-open(IN, "avahi-browse -p -a --resolve -t|");
+open(IN, "avahi-browse -l -p -a --resolve -t|");
 while(<IN>) {
   chomp();
   if ($_ =~ /^=;/) {

@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = Sketch
 APP_NAME = Sketch
-Sketch_APPLICATION_ICON = 
+Sketch_APPLICATION_ICON = Sketch.tiff
 
 
 #
@@ -43,7 +43,8 @@ Resources/Circle.tiff \
 Resources/Cross.tiff \
 Resources/Line.tiff \
 Resources/Rectangle.tiff \
-Resources/TextGraphic.tiff 
+Resources/TextGraphic.tiff \
+Resources/Sketch.tiff 
 
 
 #
