@@ -16,6 +16,8 @@ cat << EOF > "$PROF/user.js"
 user_pref("ui.key.accelKey", $K);
 user_pref("ui.key.menuAccessKey", -1);
 user_pref("ui.key.menuAccessKeyFocuses", false);
+user_pref("widget.gtk.overlay-scrollbars.enable", false);
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 EOF
 
 unset FONTCONFIG_FILE

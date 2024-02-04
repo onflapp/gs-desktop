@@ -1,5 +1,19 @@
 {
     "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "doNewPage:",
+	    "doNewTab:"
+	);
+	Super = NSObject;
+    };
+    NSApplication = {
+	Actions = (
+	    "doNewPage:",
+	    "doNewTab:"
+	);
+	Super = NSResponder;
+    };
     WrapperDelegate = {
 	Actions = (
 	);
