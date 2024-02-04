@@ -23,7 +23,6 @@
 #import "NSApplication+AppName.h"
 #import "NSMenu+Suppress.h"
 #import "AppIconView.h"
-#include "X11/Xutil.h"
 
 @implementation WrapperDelegate
 
@@ -37,9 +36,16 @@
     appDidFinishLaunching = NO;
     startupFiles = nil;
 
-
-    [self startupUI];
     return self;
+}
+
+- (void)dealloc
+{
+    RELEASE(wrappedApp);
+    RELEASE(shellTask);
+    RELEASE(shellDelegate);
+    RELEASE(shellEnv);
+    [super dealloc];
 }
 
 - (void)startupUI
@@ -86,10 +92,22 @@
 
 - (void)applicationWillFinishLaunching: (NSNotification*)not
 {
-  //[[[NSApp mainMenu] window] setHidesOnDeactivate:NO];
+  [self startupUI];
 
-  if ([self wrapperClassName]) {
-    [self performSelectorInBackground:@selector(processXWindowsEvents:) withObject:self];
+  NSString* wapp = [properties objectForKey:@"WrappedAppClassName"];
+  if ( wapp ) {
+    [[[NSApp mainMenu] window] setHidesOnDeactivate:NO];
+
+    wrappedApp = [[WrappedApp alloc] initWithClassName:wapp];
+    [wrappedApp setDelegate:self];
+    [wrappedApp startObservingEvents];
+  }
+}
+
+- (void)applicationDidBecomeActive: (NSNotification*)not
+{
+  if ( mainAction && appDidFinishLaunching ) {
+    [self performSelector:@selector(reactivateApplication) withObject:nil afterDelay:0.1];
   }
 }
 
@@ -211,32 +229,21 @@
     }
 }
 
-- (void)activateMenu
+- (void)wrappedAppDidBecomeActive
 {
+  //[NSApp setSuppressActivation:YES];
+  [[NSApp mainMenu] show];
   NSLog(@"ACTIVATE");
-  [[NSApp mainMenu] display];
 }
 
-- (void)wrapperDidBecomeActive 
+- (void)wrappedAppDidResignActive
 {
-  //[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(activateMenu) object:nil];
-  //[self performSelector:@selector(activateMenu) withObject:nil afterDelay:0.3];
-}
-
-- (void)wrapperDidResignActive
-{
-  //[NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(activateMenu) object:nil];
-}
-
-- (void)applicationDidBecomeActive:(NSNotification *)notification
-{
-  if ( mainAction && appDidFinishLaunching ) {
-    [self performSelector:@selector(reactivateApplication) withObject:nil afterDelay:0.1];
-  }
+  NSLog(@"RESIGN");
 }
 
 - (void) reactivateApplication
 {
+    NSLog(@"Reactivate");
     NSTimeInterval td = ([[NSDate date] timeIntervalSinceReferenceDate] - lastActionTime);
     if (td < 1.0) return;
 
@@ -485,11 +492,6 @@
     }
 }
 
-- (NSString*)wrapperClassName
-{
-  return @"Wrapper_Firefox";
-}
-
 /*
  * initializing actions
  */
@@ -520,56 +522,6 @@
                                 @"OK", nil, nil);
         return nil;
     }
-}
-
-- (void) processXWindowsEvents:(id)sender {
-  const char* wrapper = [[sender wrapperClassName] cString];
-  if (!wrapper) return;
-
-  XInitThreads();
-
-  Display *d;
-  XEvent e;
- 
-  d = XOpenDisplay(NULL);
-
-  Atom naw = XInternAtom(d, "_NET_ACTIVE_WINDOW", False);
-
-  Window root = XDefaultRootWindow(d);
-  XSelectInput(d, root, PropertyChangeMask);
-
-  while (1) {
-    XNextEvent(d, &e);
-    if (e.xproperty.atom == naw) {
-      unsigned char *data = NULL;
-      int format;
-      Atom real;
-      unsigned long extra, n;
-
-      XGetWindowProperty(d, root, naw, 0, ~0, False,
-                         AnyPropertyType, &real, &format, &n, &extra, &data);
-
-      if (data) {
-        Window win = *(unsigned long *) data;
-        XClassHint hint;
-        XGetClassHint(d, win, &hint);
-
-        //NSLog(@"xxxx:%d %lx %s", rv, win, hint.res_class);
-        
-        if (strcmp(hint.res_class, wrapper) == 0) {
-          [self performSelectorOnMainThread:@selector(wrapperDidBecomeActive) withObject:nil waitUntilDone:NO];
-        }
-        else {
-          [self performSelectorOnMainThread:@selector(wrapperDidResignActive) withObject:nil waitUntilDone:NO];
-        }
-
-        XFree (data);
-        XFree (hint.res_class);
-        XFree (hint.res_name);
-      }
-
-    }
-  }
 }
 
 @end

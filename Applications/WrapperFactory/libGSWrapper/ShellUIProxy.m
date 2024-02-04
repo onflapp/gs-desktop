@@ -50,6 +50,14 @@
   return menu;
 }
 
+- (BOOL) validateMenuItem:(NSMenuItem*) item {
+  return YES;
+}
+
+- (BOOL) validateUserInterfaceItem:(id) item {
+  return YES;
+}
+
 - (NSString*) stringForControl:(id) val {
   if (!val) return @"";
 
@@ -94,6 +102,7 @@
 }
 
 - (id)forwardingTargetForSelector:(SEL)aSelector {
+  //NSString* sel = NSStringFromSelector(aSelector);
   return nil;
 }
 

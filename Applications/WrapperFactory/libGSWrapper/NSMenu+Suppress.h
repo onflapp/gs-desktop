@@ -4,9 +4,7 @@
 
 #include <AppKit/AppKit.h>
 
-
-@interface NSPanel (Suppress)
-
+@interface NSMenu (Suppress)
 @end
 
 

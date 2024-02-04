@@ -18,46 +18,27 @@
  * $HeadURL: file:///home/rherzog/Subversion/GNUstep/GSWrapper/tags/release-0.1.0/libGSWrapper/WrapperDelegate.h $
  */
 
-#ifndef GSWrapper_libGSWrapper_WrapperDelegate_H
-#define GSWrapper_libGSWrapper_WrapperDelegate_H
+#ifndef GSWrapper_libGSWrapper_WrappedApp_H
+#define GSWrapper_libGSWrapper_WrappedApp_H
 
 
 #import <AppKit/AppKit.h>
 #import "Actions.h"
 #import "ShellUIProxy.h"
 #import "ShellUITask.h"
-#import "WrappedApp.h"
 
-@interface WrapperDelegate : NSObject
+@interface WrappedApp : NSObject
 {
-    BOOL appDidFinishLaunching;
-
-    NSTimeInterval lastActionTime;
-    NSArray *startupFiles;
-    NSDictionary *properties;
-
-    WrappedApp *wrappedApp;
-
-    id<Action> mainAction;
-    id<Action> openAction;
-    
-    ShellUIProxy *shellDelegate;
-    ShellUITask *shellTask;
-    NSMutableDictionary *shellEnv;
+  BOOL wrappedAppIsActive;
+  NSTimeInterval lastActionTime;
+  NSString* wrappedAppClassName;
+  id delegate;
 }
 
-- (id)init;
-
-- (void)applicationDidFinishLaunching: (NSNotification*) not;
-
-- (BOOL)application: (NSApplication*)app
-           openFile: (NSString*)file;
-- (BOOL)application: (NSApplication*)app
-          openFiles: (NSArray*)files;
-
-- (void)unixAppExited: (NSNotification*)not;
-
-- (id<Action>)actionForMessage: (NSString *)msg;
+- (id)initWithClassName:(NSString*) cname;
+- (void) startObservingEvents;
+- (NSString*)wrappedAppClassName;
+- (void)setDelegate:(id)del;
 
 @end
 

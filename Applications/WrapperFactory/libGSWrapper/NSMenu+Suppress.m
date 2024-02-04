@@ -2,15 +2,11 @@
 
 #include "NSMenu+Suppress.h"
 
-@implementation NSWindow (Supress)
-/*
-- (void) becomeKeyWindow {
+@implementation NSMenu (Supress)
+
+- (void) show 
+{
+  [self display];
 }
-- (void) makeKeyWindow {
-  NSLog(@"xxxxxx");
-}
-- (BOOL) canBecomeKeyWindow {
-  return NO;
-}
-*/
+
 @end

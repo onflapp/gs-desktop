@@ -71,7 +71,15 @@ int main(int argc, const char *argv[]) {
 
     __my_main_bundle  = [NSBundle bundleWithPath:cd];
 
-    [NSApplication sharedApplication];
-    [NSApp setDelegate: [[WrapperDelegate alloc] init]];
-    return NSApplicationMain(argc, argv);
+    NSApplication* app = [NSConnection rootProxyForConnectionWithRegisteredName:__my_process_name host:nil];
+    if (app) {
+        id del = [app performSelector:@selector(delegate) withObject:nil];
+        [app activateIgnoringOtherApps:YES];
+        return 0;
+    }
+    else {
+        app = [NSApplication sharedApplication];
+        [NSApp setDelegate: [[WrapperDelegate alloc] init]];
+        return NSApplicationMain(argc, argv);
+    }
 }
