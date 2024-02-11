@@ -1,0 +1,21 @@
+PROF="$HOME/Library/Firefox"
+case "$1" in
+  donewpage)
+    firefox --profile "$PROF" --new-window
+    ;;
+  donewtab)
+    firefox --profile "$PROF" --new-tab --url about:newtab
+    ;;
+  dowindowminimize)
+    xdotool windowminimize "0x$2"
+    ;;
+  dowindowactivate)
+    xdotool windowactivate "0x$2"
+    ;;
+  dowindowclose)
+    xdotool windowclose "0x$2"
+    ;;
+  doselectall)
+    xdotool key "$GS_COMMAND_KEY+a" "0x$2"
+    ;;
+esac
