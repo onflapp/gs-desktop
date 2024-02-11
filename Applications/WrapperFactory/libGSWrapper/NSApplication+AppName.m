@@ -38,6 +38,14 @@
         [super activateIgnoringOtherApps:flag];
     }
 }
+- (void) setKeyWindow:(id) key
+{
+    ASSIGN(keyWindow, key);
+}
+- (id) keyWindow
+{
+    return keyWindow;
+}
 
 @end
 

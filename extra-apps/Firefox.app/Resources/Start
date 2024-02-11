@@ -2,6 +2,12 @@ PROF="$HOME/Library/Firefox"
 CLASS="Wrapper_Firefox"
 mkdir -p "$PROF" 2>/dev/null
 
+cleanup() {
+  exit 0
+}
+
+trap cleanup 2 15
+
 wdwrite WMWindowAttributes $CLASS '{ NoAppIcon = Yes; }'
 
 K="18"
@@ -25,3 +31,5 @@ if [ -n "$FILE" ];then
 else
   firefox --browser --profile "$PROF" --class $CLASS
 fi
+
+exit 0

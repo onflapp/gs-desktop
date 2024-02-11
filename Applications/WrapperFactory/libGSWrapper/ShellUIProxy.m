@@ -148,6 +148,9 @@
       NSData* data = [[self stringForContext]dataUsingEncoding:NSUTF8StringEncoding];
       NSMutableArray* args = [NSMutableArray array];
       [args addObject:act];
+      if (val && [val isKindOfClass:[NSString class]]) {
+        [args addObject:val];
+      }
       [delegate execTaskWithArguments:args data:data delegate:self];
     }
   }

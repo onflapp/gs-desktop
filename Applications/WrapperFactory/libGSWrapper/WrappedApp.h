@@ -26,6 +26,9 @@
 #import "Actions.h"
 #import "ShellUIProxy.h"
 #import "ShellUITask.h"
+#import "WrappedWin.h"
+#include "X11/Xutil.h"
+#include "X11/Xatom.h"
 
 @interface WrappedApp : NSObject
 {
@@ -39,6 +42,8 @@
 - (void) startObservingEvents;
 - (NSString*)wrappedAppClassName;
 - (void)setDelegate:(id)del;
+- (BOOL)isActive;
+- (WrappedWin*) wrappedWindowForID:(Window) wid;
 
 @end
 

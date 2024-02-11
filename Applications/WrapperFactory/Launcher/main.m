@@ -73,7 +73,7 @@ int main(int argc, const char *argv[]) {
 
     NSApplication* app = [NSConnection rootProxyForConnectionWithRegisteredName:__my_process_name host:nil];
     if (app) {
-        id del = [app performSelector:@selector(delegate) withObject:nil];
+        NSLog(@"running already %@", app);
         [app activateIgnoringOtherApps:YES];
         return 0;
     }

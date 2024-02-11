@@ -44,6 +44,20 @@
   [super dealloc];
 }
 
+- (NSDictionary*)makeEnvironment
+{
+    NSDictionary* env = [[NSProcessInfo processInfo] environment];
+    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary: env];
+    NSString* cmdkey = [[NSUserDefaults standardUserDefaults] valueForKey:@"GSFirstCommandKey"];
+
+    if ([cmdkey hasPrefix:@"Super_"])        [dict setValue:@"SUPER" forKey:@"GS_COMMAND_KEY"];
+    else if ([cmdkey hasPrefix:@"Control_"]) [dict setValue:@"CTRL" forKey:@"GS_COMMAND_KEY"];
+    else if ([cmdkey hasPrefix:@"Meta_"])    [dict setValue:@"META" forKey:@"GS_COMMAND_KEY"];
+    else                                     [dict setValue:@"ALT" forKey:@"GS_COMMAND_KEY"];
+
+    return dict;
+}
+
 - (void) execTaskWithArguments:(NSArray*) args 
                           data:(NSData*) data
                       delegate:(id) del {
@@ -56,13 +70,15 @@
   task = [[NSTask alloc] init];
   buff = [[NSMutableData alloc]init];
 
+  NSMutableDictionary *nenv = [NSMutableDictionary dictionaryWithDictionary:[self makeEnvironment]];
+
   if (env) {
-    NSDictionary *myenv = [[NSProcessInfo processInfo] environment];
-    NSMutableDictionary *nenv = [NSMutableDictionary dictionaryWithDictionary:myenv];
     [nenv addEntriesFromDictionary:env];
-    [task setEnvironment:nenv];
   }
 
+  NSLog(@">>>%@", nenv);
+
+  [task setEnvironment:nenv];
   if (exec) {
     [task setLaunchPath:exec];
     NSMutableArray* a = [NSMutableArray array];
@@ -129,7 +145,6 @@
 }
 
 - (void) taskDidTerminate:(NSNotification*) not {
-  NSLog(@"1");
   NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
   [[NSRunLoop currentRunLoop] runUntilDate: limit];
 

@@ -14,30 +14,26 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
- * $Id: NSApplication+AppName.h 103 2004-08-09 16:30:51Z rherzog $
- * $HeadURL: file:///home/rherzog/Subversion/GNUstep/GSWrapper/tags/release-0.1.0/libGSWrapper/NSApplication+AppName.h $
+ * $Id: WrapperDelegate.h 103 2004-08-09 16:30:51Z rherzog $
+ * $HeadURL: file:///home/rherzog/Subversion/GNUstep/GSWrapper/tags/release-0.1.0/libGSWrapper/WrapperDelegate.h $
  */
 
-#ifndef _GSWrapper_libGSWRapper_NSApplication_AppName_H
-#define _GSWrapper_libGSWRapper_NSApplication_AppName_H
+#ifndef GSWrapper_libGSWrapper_WrappedWin_H
+#define GSWrapper_libGSWrapper_WrappedWin_H
 
 
-#include <AppKit/AppKit.h>
+#import <AppKit/AppKit.h>
+#import "Actions.h"
+#import "ShellUIProxy.h"
+#import "ShellUITask.h"
+#include "X11/Xutil.h"
 
-
-@interface MYApplication : NSApplication 
+@interface WrappedWin : NSWindow
 {
-    BOOL suppressActivation;
-    id keyWindow;
+  Window winid;
 }
-
-- (void) setKeyWindow:(id) key;
-- (void) setSuppressActivation:(BOOL) flag;
-@end
-
-@interface NSApplication (AppName)
-+ (id) sharedApplication;
-- (NSString *)applicationName;
+- (id)initWithWindowID:(Window) wid;
+- (Window) windowID;
 @end
 
 #endif

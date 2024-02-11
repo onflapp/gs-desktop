@@ -31,6 +31,9 @@
 @interface WrapperDelegate : NSObject
 {
     BOOL appDidFinishLaunching;
+    BOOL appIsTerminating;
+
+    NSMenu *menu;
 
     NSTimeInterval lastActionTime;
     NSArray *startupFiles;
@@ -58,6 +61,7 @@
 - (void)unixAppExited: (NSNotification*)not;
 
 - (id<Action>)actionForMessage: (NSString *)msg;
+- (void) performShellUISelector:(SEL) sel withObject:(id) val;
 
 @end
 

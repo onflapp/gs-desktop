@@ -45,6 +45,7 @@
     RELEASE(shellTask);
     RELEASE(shellDelegate);
     RELEASE(shellEnv);
+    RELEASE(mainAction);
     [super dealloc];
 }
 
@@ -96,7 +97,8 @@
 
   NSString* wapp = [properties objectForKey:@"WrappedAppClassName"];
   if ( wapp ) {
-    [[[NSApp mainMenu] window] setHidesOnDeactivate:NO];
+    menu = [NSApp mainMenu];
+    [[menu window] setHidesOnDeactivate:NO];
 
     wrappedApp = [[WrappedApp alloc] initWithClassName:wapp];
     [wrappedApp setDelegate:self];
@@ -106,7 +108,8 @@
 
 - (void)applicationDidBecomeActive: (NSNotification*)not
 {
-  if ( mainAction && appDidFinishLaunching ) {
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(reactivateApplication) object:nil];
+  if ( mainAction && appDidFinishLaunching && !appIsTerminating ) {
     [self performSelector:@selector(reactivateApplication) withObject:nil afterDelay:0.1];
   }
 }
@@ -122,11 +125,11 @@
     NSRegisterServicesProvider(self, [[NSApp applicationName] stringByDeletingPathExtension]);
 
     if ( startupFiles ) {
-        mainAction = [self actionForMessage: @"StartOpen"];
+        mainAction = [[self actionForMessage: @"StartOpen"] retain];
         [shellEnv setValue:[startupFiles componentsJoinedByString:@":"] forKey:@"GSWRAPPER_FILES"];
     }
     else {
-        mainAction = [self actionForMessage: @"Start"];
+        mainAction = [[self actionForMessage: @"Start"] retain];
     }
 
     [mainAction executeWithFiles: startupFiles];
@@ -155,16 +158,17 @@
               return;
           }
       }
-
-      [[NSNotificationCenter defaultCenter] addObserver: self
-                                          selector: @selector(unixAppExited:)
-                                          name: (NSTaskDidTerminateNotification)
-                                          object: [mainAction task]];
     }
+
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(unixAppExited:)
+                                                 name: (NSTaskDidTerminateNotification)
+                                               object: [mainAction task]];
 }
 
 - (void) applicationDidResignActive:(NSNotification*) not
 {
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(reactivateApplication) object:nil];
 }
 
 - (BOOL)application: (NSApplication*)app
@@ -231,14 +235,16 @@
 
 - (void)wrappedAppDidBecomeActive
 {
-  //[NSApp setSuppressActivation:YES];
-  [[NSApp mainMenu] show];
+  [NSApp setSuppressActivation:YES];
+  [menu show];
   NSLog(@"ACTIVATE");
 }
 
 - (void)wrappedAppDidResignActive
 {
   NSLog(@"RESIGN");
+  [NSApp deactivate];
+  [NSApp setSuppressActivation:NO];
 }
 
 - (void) reactivateApplication
@@ -253,8 +259,13 @@
 
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication *)sender
 {
+    appIsTerminating = YES;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(reactivateApplication) object:nil];
     if ( mainAction ) {
-        [[mainAction task] terminate];
+        [[mainAction task] interrupt];
+
+        NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
+        [[NSRunLoop currentRunLoop] runUntilDate: limit];
     }
     return YES;
 }
@@ -476,7 +487,7 @@
 - (void)unixAppExited: (NSNotification*)not
 {
     int status = [[not object] terminationStatus];
-    NSLog(@"UNIX application exited with code %d", status);
+    NSLog(@"UNIX application %@ exited with code %d", [[not object] arguments], status);
     if ( status ) {
         NSRunCriticalAlertPanel([NSApp applicationName],
                                 [NSString stringWithFormat: @"UNIX appliation exited with exit code %d",
@@ -490,6 +501,13 @@
     else {
         [NSApp terminate: self];
     }
+}
+
+- (void) performShellUISelector:(SEL) sel withObject:(id) val
+{
+  if ( shellDelegate ) {
+    [shellDelegate performSelector:sel withObject:val];
+  }
 }
 
 /*
