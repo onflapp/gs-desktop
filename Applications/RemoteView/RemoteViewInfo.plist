@@ -12,6 +12,12 @@
 	    );
 	},
 	{
+	    CFBundleURLName = "RDP host";
+	    CFBundleURLSchemes = (
+		rdp
+	    );
+	},
+	{
 	    CFBundleURLName = "ssh host";
 	    CFBundleURLSchemes = (
 		ssh

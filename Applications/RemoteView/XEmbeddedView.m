@@ -213,6 +213,24 @@
   XSync(xdisplay, False);
   XMapWindow(xdisplay, xwindowid);
 
+  [self _display];
+}
+
+- (void) createXWindow {
+  Window myxwindowid = (Window)[[self window]windowRef];
+  xdisplay = XOpenDisplay(NULL);
+  int screen = DefaultScreen(xdisplay);
+  xwindowid = XCreateSimpleWindow(xdisplay, myxwindowid,0,0,	
+		200, 300, 0, BlackPixel(xdisplay, screen), WhitePixel(xdisplay, screen));
+
+  XSync(xdisplay, False);
+  XMapWindow(xdisplay, xwindowid);
+
+  [self _display];
+}
+
+
+- (void) _display {
   NSNotificationCenter* nc = [NSNotificationCenter defaultCenter];
   [nc addObserver:self 
          selector:@selector(deactivateXWindow:) 
@@ -289,7 +307,6 @@
       XAllowEvents(d, ReplayPointer, e.xbutton.time);
     }
     else if (e.type == DestroyNotify) {
-      NSLog(@"bbbbbbbbbbbb");
       break;
     }
     else {

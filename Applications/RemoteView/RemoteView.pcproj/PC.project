@@ -15,7 +15,9 @@
 	"AppController.m",
 	"VNCDisplay.m",
 	"XEmbeddedView.m",
-	"VNCDisplayView.m"
+	"VNCDisplayView.m",
+	"RDPDisplay.m",
+	"RDPDisplayView.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -28,14 +30,17 @@
 	"AppController.h",
 	"VNCDisplay.h",
 	"XEmbeddedView.h",
-	"VNCDisplayView.h"
+	"VNCDisplayView.h",
+	"RDPDisplay.h",
+	"RDPDisplayView.h"
     );
     IMAGES = (
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (
 	"RemoteView.gorm",
-	"VNCDisplay.gorm"
+	"VNCDisplay.gorm",
+	"RDPDisplay.gorm"
     );
     LANGUAGE = English;
     LIBRARIES = (
@@ -54,7 +59,8 @@
 	connect,
 	"ssh.term",
 	"telnet.term",
-	"uart.term"
+	"uart.term",
+	"connect_rdp"
     );
     "OTHER_SOURCES" = (
 	"RemoteView_main.m"

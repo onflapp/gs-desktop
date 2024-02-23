@@ -40,12 +40,14 @@ sdlvncviewer.subproj
 RemoteView_RESOURCE_FILES = \
 Resources/RemoteView.gorm \
 Resources/VNCDisplay.gorm \
+Resources/RDPDisplay.gorm \
 Resources/../sdlvncviewer.subproj/obj/sdlvncviewer \
 Resources/RemoteView.tiff \
 Resources/connect \
 Resources/ssh.term \
 Resources/telnet.term \
-Resources/uart.term 
+Resources/uart.term \
+Resources/connect_rdp 
 
 
 #
@@ -55,7 +57,9 @@ RemoteView_HEADER_FILES = \
 AppController.h \
 VNCDisplay.h \
 XEmbeddedView.h \
-VNCDisplayView.h
+VNCDisplayView.h \
+RDPDisplay.h \
+RDPDisplayView.h
 
 #
 # Objective-C Class files
@@ -64,7 +68,9 @@ RemoteView_OBJC_FILES = \
 AppController.m \
 VNCDisplay.m \
 XEmbeddedView.m \
-VNCDisplayView.m
+VNCDisplayView.m \
+RDPDisplay.m \
+RDPDisplayView.m
 
 #
 # Other sources

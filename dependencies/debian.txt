@@ -110,6 +110,7 @@ discount
 imagemagick
 libsdl2-dev
 libvncserver-dev
+freerdp2-x11
 recollcmd
 libical-dev
 p7zip

@@ -10,6 +10,7 @@
 
 #import "AppController.h"
 #import "VNCDisplay.h"
+#import "RDPDisplay.h"
 
 @implementation AppController
 
@@ -76,6 +77,12 @@
     VNCDisplay* display = [[VNCDisplay alloc] init];
     [display connect:url];
     [display showWindow];
+  }
+  else if ([[url scheme] isEqualToString:@"rdp"]) {
+    RDPDisplay* display = [[RDPDisplay alloc] init];
+    [display setURL:url];
+    [display showWindow];
+    [display connect];
   }
   else if (url) {
     NSInteger type = 0;
@@ -162,6 +169,20 @@
     VNCDisplay* display = [[VNCDisplay alloc] init];
     [display connect:url];
     [display showWindow];
+  }
+  else if (type == 4) {
+    NSURL* url = [NSURL URLWithString:host];
+    if (![url host]) {
+      url = [NSURL URLWithString:[NSString stringWithFormat:@"rdp://%@", host]];
+    }
+
+    NSUserDefaults* cfg = [NSUserDefaults standardUserDefaults];
+    [cfg setValue:host forKey:@"last_hostname"];
+
+    RDPDisplay* display = [[RDPDisplay alloc] init];
+    [display setURL:url];
+    [display showWindow];
+    [display connect];
   }
   else {
     NSString* p = @"unknown";

@@ -1,0 +1,42 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    RDPDisplay = {
+	Actions = (
+	);
+	Outlets = (
+	    displayView,
+	    window
+	);
+	Super = NSObject;
+    };
+    RDPDisplayView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = XEmbeddedView;
+    };
+    VNCDisplay = {
+	Actions = (
+	);
+	Outlets = (
+	    displayView,
+	    window
+	);
+	Super = NSObject;
+    };
+    VNCDisplayView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = XEmbeddedView;
+    };
+    XEmbeddedView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSView;
+    };
+}

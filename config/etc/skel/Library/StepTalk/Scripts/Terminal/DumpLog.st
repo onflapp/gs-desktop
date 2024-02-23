@@ -1,4 +1,4 @@
-lf := '/tmp/terminal.log'.
+lf := '/tmp/terminal.txt'.
 
 term := currentTerminal.
 term dumpScrollBuffer:lf.

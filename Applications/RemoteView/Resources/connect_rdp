@@ -1,0 +1,3 @@
+#!/bin/bash
+
+xfreerdp /v:$1 /parent-window:$2 /dynamic-resolution

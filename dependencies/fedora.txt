@@ -41,6 +41,7 @@ avahi-devel
 libcurl-devel
 libvncserver-devel
 libjpeg-turbo-devel
+freerdp
 libpng-devel
 libtiff-devel
 giflib-devel
