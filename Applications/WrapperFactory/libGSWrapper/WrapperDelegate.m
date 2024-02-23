@@ -244,6 +244,7 @@
 {
   NSLog(@"RESIGN");
   [NSApp deactivate];
+  [[menu window] orderOut:self];
   [NSApp setSuppressActivation:NO];
 }
 
@@ -264,8 +265,12 @@
     if ( mainAction ) {
         [[mainAction task] interrupt];
 
-        NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
-        [[NSRunLoop currentRunLoop] runUntilDate: limit];
+        for ( NSInteger x = 0; x < 1000; x++) {
+          if (! [[mainAction task] isRunning] ) break;
+          NSLog(@"waiting for mainAction to terminate...");
+          NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
+          [[NSRunLoop currentRunLoop] runUntilDate: limit];
+        }
     }
     return YES;
 }
@@ -494,12 +499,14 @@
                                           status],
                                 @"OK", nil, nil);
     }
-    if ( [properties objectForKey: @"Filter"] ) {
+    if ( !appIsTerminating ) {
+      if ( [properties objectForKey: @"Filter"] ) {
         //give the service a chance to be called
         [NSApp performSelector:@selector(terminate:) withObject: self afterDelay:1];
-    }
-    else {
+      }
+      else {
         [NSApp terminate: self];
+      }
     }
 }
 

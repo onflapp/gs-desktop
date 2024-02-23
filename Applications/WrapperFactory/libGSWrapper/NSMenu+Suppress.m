@@ -4,6 +4,11 @@
 
 @implementation NSMenu (Supress)
 
+- (BOOL) _isMain
+{
+  return NO;
+}
+
 - (void) show 
 {
   [self display];

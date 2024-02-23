@@ -3,6 +3,7 @@ CLASS="Wrapper_Firefox"
 mkdir -p "$PROF" 2>/dev/null
 
 cleanup() {
+  echo "exit"
   exit 0
 }
 

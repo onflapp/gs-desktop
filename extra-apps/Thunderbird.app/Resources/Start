@@ -2,6 +2,13 @@ PROF="$HOME/Library/Thunderbird"
 CLASS="Wrapper_Thunderbird"
 mkdir -p "$PROF" 2>/dev/null
 
+cleanup() {
+  echo "exit"
+  exit 0
+}
+
+trap cleanup 2 15
+
 wdwrite WMWindowAttributes $CLASS '{ NoAppIcon = Yes; }'
 
 K="18"

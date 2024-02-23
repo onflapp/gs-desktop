@@ -76,8 +76,6 @@
     [nenv addEntriesFromDictionary:env];
   }
 
-  NSLog(@">>>%@", nenv);
-
   [task setEnvironment:nenv];
   if (exec) {
     [task setLaunchPath:exec];

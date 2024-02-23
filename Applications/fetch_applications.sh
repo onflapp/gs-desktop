@@ -67,3 +67,11 @@ if [ -d simpleagenda ];then
 else
   git clone https://github.com/poroussel/simpleagenda.git
 fi
+
+cd "$D"
+if [ -d apps-easydiff ];then
+  cd ./apps-easydiff
+  git pull
+else
+  git clone https://github.com/gnustep/apps-easydiff.git
+fi

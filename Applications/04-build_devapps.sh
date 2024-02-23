@@ -19,3 +19,11 @@ make clean
 make -j2 || exit 1
 
 make install
+
+cd "$D"
+cd ../../apps-easydiff || exit 1
+
+make clean
+make -j2 || exit 1
+
+make install 'APP_INSTALL_DIR=$(GNUSTEP_LOCAL_ADMIN_APPS)'

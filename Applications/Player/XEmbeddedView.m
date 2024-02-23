@@ -215,6 +215,8 @@ unsigned long getXColorPixel(Display* display, char* color) {
   int screen = DefaultScreen(xdisplay);
   xwindowid = XCreateSimpleWindow(xdisplay, myxwindowid,0,0,	
 		200, 300, 0, BlackPixel(xdisplay, screen), WhitePixel(xdisplay, screen));
+
+  XSetWindowBackgroundPixmap(xdisplay, myxwindowid, None);
   
   Atom _NET_WM_BYPASS_COMPOSITOR = XInternAtom(xdisplay, "_NET_WM_BYPASS_COMPOSITOR", False);
 
