@@ -27,8 +27,13 @@
 }
 
 - (void) showWindow {
-  [window setFrameAutosaveName:@"vncdisplay_window"];
+  NSString* tok = [NSString stringWithFormat:@"%lu_vncdisplay_window", [displayURL hash]];
+  NSString* tit = [NSString stringWithFormat:@"VNC - %@", [displayURL host]];
+  [window setFrameUsingName:tok];
+  [window setFrameAutosaveName:tok];
   [window makeKeyAndOrderFront:self];
+
+  [window setTitle:tit];
 }
 
 - (void) execTask {

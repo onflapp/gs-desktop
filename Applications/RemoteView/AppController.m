@@ -74,8 +74,8 @@
 {
   if ([[url scheme] isEqualToString:@"vnc"]) {
     VNCDisplay* display = [[VNCDisplay alloc] init];
-    [display showWindow];
     [display connect:url];
+    [display showWindow];
   }
   else if (url) {
     NSInteger type = 0;
@@ -160,8 +160,8 @@
     [cfg setValue:host forKey:@"last_hostname"];
 
     VNCDisplay* display = [[VNCDisplay alloc] init];
-    [display showWindow];
     [display connect:url];
+    [display showWindow];
   }
   else {
     NSString* p = @"unknown";
