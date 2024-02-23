@@ -79,6 +79,10 @@
 - (void) windowWillClose:(NSWindow*) win {
   NSLog(@"will close");
   [task interrupt];
+
+  NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.3];
+  [[NSRunLoop currentRunLoop] runUntilDate: limit];
+
   [self release];
 }
 
