@@ -63,6 +63,7 @@
     NSLog(@"startup user interface %@ %@", uishell, uiaction);
 
     if ([uiaction isEqualToString:@"RunScript"]) {
+      [NSApp setSuppressActivation:NO];
       if ([uishell isEqualToString:@"stexec"]) {
       }
       else {
@@ -218,6 +219,8 @@
             return retval;
         }
         else {
+            /*
+            the script might launch other apps so we should return asap and not wait
             [task waitUntilExit];
             if ( [task terminationStatus] ) {
                 NSRunCriticalAlertPanel([NSApp applicationName],
@@ -229,6 +232,8 @@
             else {
                 return YES;
             }
+            */
+            return YES;
         }
     }
 }

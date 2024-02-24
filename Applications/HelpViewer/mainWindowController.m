@@ -89,12 +89,11 @@
 	 needsBrowseTo: (id) aLocation
 {
   [self loadFile: aLocation];
+  return YES;
 }
 
 - (BOOL) loadFile: (NSString*) fileName 
 {
-    BOOL ret = NO;
-
     ASSIGN (handler, [HandlerStructureXLP new]);
 
     if ([[fileName pathExtension] isEqualToString:@"help"]) {
@@ -162,7 +161,7 @@
     [resultOutlineView selectRow:0 inColumn:0];
     [self browserClick: resultOutlineView];
 
-    return ret;
+    return YES;
 }
 
 - (void) setWindow: (id) win { window = win; }
@@ -337,6 +336,12 @@
 }
 */
 
+- (void) openExternalLink:(NSURL*) url
+{
+
+  [[NSWorkspace sharedWorkspace] openURL: url];
+}
+
 - (BOOL) textView: (NSTextView *) textView
     clickedOnLink: (id) link
               atIndex: (unsigned) charIndex
@@ -348,7 +353,10 @@
 	if ([link isKindOfClass: [NSURL class]])
 	{
 	    NSLog(@"Opening URL : <%@>", [link description]);
-	    ret = [[NSWorkspace sharedWorkspace] openURL: link];
+            [self performSelector:@selector(openExternalLink:)
+                       withObject:link
+                       afterDelay:0.1];
+            ret = YES;
 	}
 	else if ([link isKindOfClass: [NSString class]])
 	{

@@ -55,6 +55,7 @@
     if (NSApp == nil) 
     {
         [[MYApplication alloc] init];
+        [NSApp setSuppressActivation: YES];
     }
     return NSApp;
 }
