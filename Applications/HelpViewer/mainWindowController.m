@@ -57,6 +57,9 @@
 	[TextFormatter release];
 
 	prevRow = 0;
+
+        historyManager = [[HistoryManager alloc] init];
+        [historyManager setDelegate: self];
     }
   return self;
 }
@@ -68,14 +71,24 @@
 
 - (void) back: (id) sender 
 {
+  if ([historyManager canBrowseBack])
+    [historyManager browseBack];
 }
 
 - (void) forward: (id) sender 
 {
+  if ([historyManager canBrowseForward])
+    [historyManager browseForward];
 }
 
 - (void) search: (id) sender 
 {
+}
+
+-(BOOL) historyManager: (HistoryManager*) aHistoryManager
+	 needsBrowseTo: (id) aLocation
+{
+  [self loadFile: aLocation];
 }
 
 - (BOOL) loadFile: (NSString*) fileName 
@@ -86,13 +99,16 @@
 
     if ([[fileName pathExtension] isEqualToString:@"help"]) {
       NSBundle* Bundle = [NSBundle bundleWithPath: fileName];
+      NSString* path = [Bundle pathForResource: @"main" ofType: @"xlp"];
       [Section setBundle: Bundle];
-      [handler setPath: [Bundle pathForResource: @"main" ofType: @"xlp"]];
+      [handler setPath: path];
       [handler parse];
+      [historyManager browser:self didBrowseTo:path];
     }
     else if ([[fileName pathExtension] isEqualToString:@"xlp"]) {
       [handler setPath: fileName];
       [handler parse];
+      [historyManager browser:self didBrowseTo:fileName];
     }
     else {
       NSLog(@"try to convert %@", fileName);
@@ -106,6 +122,7 @@
 
         [handler setPath: tfile];
         [handler parse];
+        [historyManager browser:self didBrowseTo:tfile];
       }
       else {
         NSLog(@"don't know how to handle %@", fileName);
@@ -480,6 +497,7 @@
     RELEASE ((NSObject*)handler);
     RELEASE (resultTextView);
     RELEASE (resultOutlineView);
+    RELEASE (historyManager);
     [super dealloc];
 }
 

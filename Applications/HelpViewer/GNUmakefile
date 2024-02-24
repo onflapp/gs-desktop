@@ -6,6 +6,7 @@ APP_NAME = HelpViewer
 
 HelpViewer_OBJC_FILES = main.m mainWindowController.m Label.m \
 			Controller.m FigureCell.m Legend.m\
+			HistoryManager.m \
 			HandlerStructureXLP.m \
 			TextFormatterXLP.m \
 			BrowserCell.m NoteCell.m \

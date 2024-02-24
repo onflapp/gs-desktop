@@ -28,8 +28,9 @@
 #include "HandlerStructureXLP.h"
 #include "TextFormatterXLP.h"
 #include "BrowserCell.h"
+#include "HistoryManager.h"
 
-@interface MainWindowController : NSObject
+@interface MainWindowController : NSObject <HistoryManagerDelegate>
 {
 	NSTextView* resultTextView;
 	NSBrowser* resultOutlineView;
@@ -39,6 +40,7 @@
 	id <HandlerStructure> handler;
 	int prevRow;
 	id window;
+  HistoryManager* historyManager;
 }
 
 - (id) initWithTextView: (NSTextView*) text andBrowserView: (NSBrowser*) browser;
