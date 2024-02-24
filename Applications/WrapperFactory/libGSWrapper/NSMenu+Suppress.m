@@ -6,7 +6,10 @@
 
 - (BOOL) _isMain
 {
-  return NO;
+  if ([NSApp suppressActivation])
+    return NO;
+  else
+    return [NSApp mainMenu] == self;
 }
 
 - (void) show 

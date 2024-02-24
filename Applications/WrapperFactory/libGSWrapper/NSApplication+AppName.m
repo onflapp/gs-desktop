@@ -24,15 +24,19 @@
 
 @implementation MYApplication
 
+- (BOOL) suppressActivation
+{
+    return suppressActivation;
+}
+
 - (void) setSuppressActivation:(BOOL) flag
 {
     suppressActivation = flag;
 }
 - (void) activateIgnoringOtherApps:(BOOL) flag
 {
-    NSLog(@"activateIgnoringOtherApps");
     if (suppressActivation) {
-        NSLog(@"suppress activate!");
+        NSLog(@"activateIgnoringOtherApps, suppress");
     }
     else {
         [super activateIgnoringOtherApps:flag];
@@ -40,11 +44,18 @@
 }
 - (void) setKeyWindow:(id) key
 {
-    ASSIGN(keyWindow, key);
+    if (suppressActivation) {
+        ASSIGN(keyWindow, key);
+    }
 }
 - (id) keyWindow
 {
-    return keyWindow;
+    if (suppressActivation) {
+        return keyWindow;
+    }
+    else {
+        return [super keyWindow];
+    }
 }
 
 @end
@@ -55,7 +66,6 @@
     if (NSApp == nil) 
     {
         [[MYApplication alloc] init];
-        [NSApp setSuppressActivation: YES];
     }
     return NSApp;
 }

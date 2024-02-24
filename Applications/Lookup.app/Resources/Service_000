@@ -1,0 +1,5 @@
+#!/bin/bash
+
+CONTROL_FILE="/tmp/$UID-launcher-control.pipe"
+
+cat | head -n 1 > "$CONTROL_FILE"

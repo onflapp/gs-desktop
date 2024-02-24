@@ -65,8 +65,18 @@ int main(int argc, char** argv, char** env)
       exit(1);
     }
     else if ([[arguments objectAtIndex:1] isEqualToString:@"--open"] && [arguments count] >= 3 ) {
+      NSURL* url = nil;
       NSWorkspace* ws = [NSWorkspace sharedWorkspace];
-      NSString* path = absolutePath([arguments objectAtIndex:2]);
+      NSString* path = [arguments objectAtIndex:2];
+
+      if ([path containsString:@":"] == YES) {
+        url = [NSURL URLWithString:path];
+        path = absolutePath(path);
+      }
+      else {
+        path = absolutePath(path);
+      }
+
       NSString* app = ([arguments count] == 4)?[arguments objectAtIndex:3]:nil;
       BOOL isdir = NO;
       NSString* ext = [path pathExtension];
@@ -89,6 +99,9 @@ int main(int argc, char** argv, char** env)
         else {
           [ws openFile:path withApplication:app];
         }
+      }
+      else if (url) {
+        [ws openURL:url];
       }
       else {
         [ws openFile:path withApplication:app];

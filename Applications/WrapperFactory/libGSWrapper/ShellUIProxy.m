@@ -61,7 +61,15 @@
 - (NSString*) stringForControl:(id) val {
   if (!val) return @"";
 
-  if ([val isKindOfClass:[NSControl class]]) {
+  if ([val isKindOfClass:[NSPopUpButton class]]) {
+    NSInteger x = [val indexOfSelectedItem];
+    return [NSString stringWithFormat:@"%ld", x];
+  }
+  else if ([val isKindOfClass:[NSWindow class]]) {
+    if ([val isVisible]) return @"visible";
+    else return @"hidden";
+  }
+  else if ([val isKindOfClass:[NSControl class]]) {
     NSString* str = [val stringValue];
     return str?str:@"";
   }
@@ -120,6 +128,9 @@
   }
   else if ([sel isEqualToString:@"setWindow:"]) {
     ASSIGN(window, val);
+
+    [controls setValue:val forKey:@"WINDOW"];
+    [self updateContext];
   }
   else if ([sel isEqualToString:@"setIconView:"]) {
     ASSIGN(iconView, val);
@@ -133,8 +144,13 @@
       [controls setValue:val forKey:key];
       [self updateContext];
     }
+    else if ([val isKindOfClass:[NSWindow class]]) {
+      [controls setValue:val forKey:key];
+      [self updateContext];
+    }
   }
   else if ([sel hasPrefix:@"do"]) {
+    [self updateContext];
     NSString* key = [self nameForControl:val];
     if (key) {
       NSString* str = [self stringForControl:val];
@@ -168,9 +184,19 @@
 - (void) updateValue:(NSString*) val forControl:(NSString*) name {
   id control = [controls valueForKey:name];
   if (control) {
-    NSLog(@"control %@ = [%@]", name, val);
-    [control setStringValue:val];
-    [self updateContext];
+    NSLog(@"read from script %@ = [%@]", name, val);
+    if ([control isKindOfClass:[NSControl class]]) {
+      [control setStringValue:val];
+      [self updateContext];
+    }
+    else if ([control isKindOfClass:[NSWindow class]]) {
+      if ([val isEqualToString:@"visible"]) {
+        [control makeKeyAndOrderFront:self];
+      }
+      else {
+        [control orderOut:self];
+      }
+    }
   }
   else {
     NSLog(@"control name [%@] not found", name);
@@ -180,13 +206,21 @@
 
 - (void) processLine:(NSString*) line {
   NSInteger x = [line rangeOfString:@"="].location;
-  if (x != NSNotFound) {
+
+  if ([line hasPrefix:@"LOG:"]) {
+    NSLog(@"LOG:[%@]", [line substringFromIndex:4]);
+  }
+  else if (x != NSNotFound) {
     NSString* key = [line substringToIndex:x];
     NSString* val = [line substringFromIndex:x+1];
+    if ([val hasPrefix:@"'"] && [val hasSuffix:@"'"]) {
+      val = [[val substringFromIndex:1] substringToIndex:[val length] - 2];
+    }
+
     [self updateValue:val forControl:key];
   }
   else {
-    NSLog(@"[%@]", line);
+    NSLog(@"%@", line);
   }
 }
 

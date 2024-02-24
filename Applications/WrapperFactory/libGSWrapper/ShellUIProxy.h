@@ -25,8 +25,8 @@
    NSMutableDictionary* context;
    ShellUITask* delegate;
 
-   NSView* iconView;
-   NSWindow* window;
+   IBOutlet NSView* iconView;
+   IBOutlet NSWindow* window;
    NSMenu* menu;
 }
 

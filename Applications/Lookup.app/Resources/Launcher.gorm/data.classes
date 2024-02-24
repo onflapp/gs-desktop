@@ -1,0 +1,32 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "handleActions:",
+	    "doSearch:"
+	);
+	Super = NSObject;
+    };
+    ShellUIProxy = {
+	Actions = (
+	    "handleActions:",
+	    "doSearch:"
+	);
+	Outlets = (
+	    "search_type",
+	    "search_word",
+	    iconView,
+	    window
+	);
+	Super = NSObject;
+    };
+    WrapperDelegate = {
+	Actions = (
+	);
+	Outlets = (
+	    mainAction,
+	    openAction
+	);
+	Super = NSObject;
+    };
+}

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+CONTROL_FILE="/tmp/$UID-launcher-control.pipe"
+
+if [ -n "$1" ];then
+  source /dev/stdin
+
+  echo "LOG: $SEARCH_TYPE"
+  echo "LOG: $SEARCH_WORD"
+
+  case "$SEARCH_TYPE" in
+    "0")
+      nxworkspace --open "man://$SEARCH_WORD"
+      ;;
+    "1")
+      nxworkspace --open "info://$SEARCH_WORD"
+      ;;
+    "2")
+      nxworkspace --open "https://www.google.com/search?q=$SEARCH_WORD"
+      ;;
+  esac
+fi
+
+rm $CONTROL_FILE 2>/dev/null
+mkfifo $CONTROL_FILE
+
+while true ;do
+  echo "LOG: reading control file $CONTROL_FILE"
+
+  read -r LINE < $CONTROL_FILE
+  echo "SEARCH_WORD='$LINE'"
+  echo "WINDOW=visible"
+done

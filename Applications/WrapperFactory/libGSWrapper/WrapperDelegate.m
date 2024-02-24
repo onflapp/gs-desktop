@@ -59,11 +59,14 @@
     NSDictionary *uiprops = [properties objectForKey:@"UserInterface"];
     NSString *uishell = [uiprops objectForKey:@"Shell"];
     NSString *uiaction = [uiprops objectForKey:@"Action"];
+    NSString* wapp = [properties objectForKey:@"WrappedAppClassName"];
 
     NSLog(@"startup user interface %@ %@", uishell, uiaction);
 
     if ([uiaction isEqualToString:@"RunScript"]) {
-      [NSApp setSuppressActivation:NO];
+      if (wapp) {
+        [NSApp setSuppressActivation: YES];
+      }
       if ([uishell isEqualToString:@"stexec"]) {
       }
       else {
@@ -439,10 +442,10 @@
     }
     
     NSArray *files = [NSArray array];
-    NSData *inData = nil;
+    NSString *inData = nil;
     if ([inDataType isEqualToString:@"NSStringPboardType"]) {
         NSLog(@"input string");
-        inData = [pboard dataForType: NSStringPboardType];
+        inData = [pboard stringForType: NSStringPboardType];
     }
     else if ([inDataType isEqualToString:@"NSFilenamesPboardType"]) {
         files = [pboard propertyListForType:NSFilenamesPboardType];
@@ -463,7 +466,7 @@
             NSPipe *inPipe = [NSPipe pipe];
             [task setStandardInput:inPipe];
             NSFileHandle *outFh = [inPipe fileHandleForWriting];
-            [outFh writeData:inData];
+            [outFh writeData:[inData dataUsingEncoding:NSUTF8StringEncoding]];
             [outFh closeFile];
         }
 
@@ -504,6 +507,11 @@
                                           status],
                                 @"OK", nil, nil);
     }
+    if ( shellDelegate ) {
+      NSLog(@"has UI, continue running");
+      return;
+    }
+
     if ( !appIsTerminating ) {
       if ( [properties objectForKey: @"Filter"] ) {
         //give the service a chance to be called
