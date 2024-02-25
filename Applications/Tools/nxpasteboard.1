@@ -12,7 +12,7 @@
 .SH NAME
 nxpasteboard \- gives you ability to do copy & paste and invoke system services directly from command line
 .SH SYNOPSIS
-.B  nxpasteboard [--copy] [--paste] [--service <name>]
+.B  nxpasteboard [--copy] [--paste] [--selection] [--service <name>]
 .P
 .SH DESCRIPTION
 .P
@@ -31,6 +31,8 @@ If service returns any text, it will be written back to the standard output.
 --copy            copy text from standard input to the pasteboard
 
 --paste           paste text from the pasteboard to standard output
+
+--selection       get selected text from the pasteboard to standard output
 
 --service <name>  call service with text from standard input
 .P

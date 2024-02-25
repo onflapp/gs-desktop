@@ -2,15 +2,17 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     FirstResponder = {
 	Actions = (
+	    "doSearch:",
 	    "handleActions:",
-	    "doSearch:"
+	    "doShowPanel:"
 	);
 	Super = NSObject;
     };
     ShellUIProxy = {
 	Actions = (
 	    "handleActions:",
-	    "doSearch:"
+	    "doSearch:",
+	    "doShowPanel:"
 	);
 	Outlets = (
 	    "search_type",

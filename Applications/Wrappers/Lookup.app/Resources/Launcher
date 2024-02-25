@@ -2,7 +2,12 @@
 
 CONTROL_FILE="/tmp/$UID-launcher-control.pipe"
 
-if [ -n "$1" ];then
+if [ "$1" == "doshowpanel" ];then
+  #SEL=`nxpasteboard --selection | head -n 1`
+  #echo "SEARCH_WORD='$SEL'"
+  echo "WINDOW=visible"
+
+elif [ "$1" == "dosearch" ];then
   source /dev/stdin
 
   echo "LOG: $SEARCH_TYPE"

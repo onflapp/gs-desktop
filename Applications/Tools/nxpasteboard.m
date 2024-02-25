@@ -20,12 +20,13 @@
 #import	<AppKit/AppKit.h>
 
 void printUsage() {
-  fprintf(stderr, "Usage: nxpasteboard [--copy] [--paste] [--service <name>]\n");
+  fprintf(stderr, "Usage: nxpasteboard [--copy] [--paste] [--selection] [--service <name>]\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Help: gives you copy&paste and system services from command line\n");
   fprintf(stderr, "Options:\n");
   fprintf(stderr, "  --copy            copy text from standard input to the pasteboard\n");
   fprintf(stderr, "  --paste           paste text from the pasteboard to standard output\n");
+  fprintf(stderr, "  --selection       get selected text from the pasteboard to standard output\n");
   fprintf(stderr, "  --service <name>  call service with text from standard input\n");
   fprintf(stderr, "  --dump-types      dump types for general pasteboard\n");
   fprintf(stderr, "  --dump-types drag dump types for drag&drop pasteboard\n");
@@ -107,6 +108,17 @@ int main(int argc, char** argv, char** env) {
         else {
           rv = 4;
         }
+      }
+      else {
+        rv = 4;
+      }
+    }
+    else if ([arguments containsObject: @"--selection"] == YES) {
+      NSPasteboard *pboard = [NSPasteboard pasteboardWithName:@"Selection"];
+      NSString* str = [pboard stringForType:NSPasteboardTypeString];
+      if (str) {
+        printf("%s", [str UTF8String]);
+        rv = EXIT_SUCCESS;
       }
       else {
         rv = 4;
