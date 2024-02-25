@@ -16,7 +16,13 @@ if [ -n "$1" ];then
       nxworkspace --open "info://$SEARCH_WORD"
       ;;
     "2")
+      nxworkspace --open "dict://default/m:$SEARCH_WORD"
+      ;;
+    "3")
       nxworkspace --open "https://www.google.com/search?q=$SEARCH_WORD"
+      ;;
+    "4")
+      bash ./Resources/find_ref_api "$SEARCH_WORD"
       ;;
   esac
 fi

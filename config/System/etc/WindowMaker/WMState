@@ -128,6 +128,19 @@
             PasteCommand = "TimeMon %s";
             Command = TimeMon;
             Omnipresent = No;
+          },
+          {
+            Forced = No;
+            OneShot = No;
+            Name = Lookup.GNUstep;
+            DropCommand = "";
+            BuggyApplication = No;
+            AutoLaunch = Yes;
+            Position = "2,0";
+            Lock = No;
+            PasteCommand = "";
+            Command = "/Applications/Utilities/Lookup.app/Lookup";
+            Omnipresent = No;
           }
         );
       };

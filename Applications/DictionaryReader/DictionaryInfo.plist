@@ -12,6 +12,14 @@
     NSIcon = Dictionary.tiff;
     NSTypes = (
     );
+    CFBundleURLTypes = (
+	{
+	    CFBundleURLName = "dict protocol";
+	    CFBundleURLSchemes = (
+		dict
+	    );
+	}
+    );
     NSServices = (
       {
         NSPortName = Dictionary;

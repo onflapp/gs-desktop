@@ -496,6 +496,20 @@ NSDictionary* normalAttributes;
     [mut writeToFile: [self dictionaryStoreFile] atomically: YES];
 }
 
+- (BOOL)application: (NSApplication*)theApp openURL: (NSURL*)url 
+{
+    NSString* word = [url path];
+    if (word) {
+      NSArray* a = [word componentsSeparatedByString:@":"];
+      word = [a lastObject];
+      if (word) {
+        [self performSelector:@selector(defineWord:) withObject:word afterDelay:0.1];
+        return YES;
+      }
+    }
+    return NO;
+}
+
 -(void) applicationDidFinishLaunching: (NSNotification*) theNotification
 {
     [searchStatusField setStringValue:@""];

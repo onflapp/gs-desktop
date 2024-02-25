@@ -1,0 +1,25 @@
+#!/bin/bash
+
+function find_word {
+  BASE="$1"
+  WORDS="$2"
+
+  if ! [ -d "$BASE" ];then
+    return
+  fi
+
+  for WORD in $WORDS;do
+    for DD in `find "$BASE" -name Reference`;do
+      if [ -f "$DD/$WORD.gsdoc" ];then
+        nxworkspace --open "$DD/$WORD.gsdoc"
+        exit 0
+      fi
+    done
+  done
+}
+
+W="$1"
+L="$W ${W//NSMutable/NS}"
+
+find_word "/Library/Documentation" "$L"
+find_word "$HOME/Library/Documentation" "$L"
