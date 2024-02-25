@@ -57,9 +57,9 @@ ldconfig
 
 
 cd "$D"
-cp -R ./WPrefs.app $GNUSTEP_LOCAL_ADMIN_APPS
+cp -R ./Wrappers/WPrefs.app $GNUSTEP_LOCAL_ADMIN_APPS
 
-cp -R ./Lookup.app $GNUSTEP_LOCAL_ADMIN_APPS
+cp -R ./Wrappers/Lookup.app $GNUSTEP_LOCAL_ADMIN_APPS
 
 cp ./Librarian/Tools/* /System/bin
 
