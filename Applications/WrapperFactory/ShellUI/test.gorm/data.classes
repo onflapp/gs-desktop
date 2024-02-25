@@ -1,0 +1,20 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "doTest:"
+	);
+	Super = NSObject;
+    };
+    ShellUIProxy = {
+	Actions = (
+	    "doTest:"
+	);
+	Outlets = (
+	    iconView,
+	    window,
+	    textField
+	);
+	Super = NSObject;
+    };
+}

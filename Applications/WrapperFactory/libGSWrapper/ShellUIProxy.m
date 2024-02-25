@@ -225,8 +225,11 @@
 }
 
 - (void) handleActions:(id) del {
+  [self handleActions:del withArguments:[NSArray array]];
+}
+
+- (void) handleActions:(id) del withArguments:(NSArray*) args {
   ASSIGN(delegate, del);
-  NSArray* args = [NSArray array];
   NSData* data = nil;
   [delegate execTaskWithArguments:args data:data delegate:self];
 }

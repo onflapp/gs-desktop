@@ -28,10 +28,13 @@
 - (BOOL) application:(NSApplication*)app openFile:(NSString*) fileName {
   return YES;
 }
+- (void) windowWillClose:(NSNotification*)aNotification {
+  [NSApp terminate:self];
+}
 @end
 
 void printUsage() {
-  fprintf(stderr, "Usage: nxprompt --secret --field <val> --message <val> --title <val> --value <val>\n");
+  fprintf(stderr, "Usage: shellui <gorm file> <shell file> <args...>\n");
   fprintf(stderr, "\n");
 }
 
@@ -50,24 +53,33 @@ int main(int argc, char** argv, char** env) {
   int rv = 1;
 
   @try {
-    if ([arguments count] < 2)  {
+    if ([arguments count] < 3)  {
       printUsage();
       rv = 1;
     }
     else {
+      NSString* script   = [arguments objectAtIndex:2];
+      NSString* gorm     = [arguments objectAtIndex:1];
+      NSMutableArray* ha = [NSMutableArray array];
       NSApplication* app = [NSApplication sharedApplication];
-      Delegate* del = [[Delegate alloc]init];
+      Delegate* del      = [[Delegate alloc]init];
+
       [app setDelegate:del];
 
-      ShellUITask* shelltask = [[ShellUITask alloc]initWithScript:@"/home/oflorian/test.sh"];
-      ShellUIProxy* shellui = [[ShellUIProxy alloc]init];
+      for (NSInteger n = 3; n < [arguments count]; n++) {
+        [ha addObject:[arguments objectAtIndex:n]];
+      }
 
-      [shellui handleActions:shelltask];
+      ShellUITask* shelltask = [[ShellUITask alloc]initWithScript:script];
+      ShellUIProxy* shellui = [[ShellUIProxy alloc]init];
 
       NSMutableDictionary* o = [NSMutableDictionary dictionary];
       [o setValue:shellui forKey:@"NSOwner"];
-      [NSBundle loadNibFile:@"/home/oflorian/test.gorm" externalNameTable:o withZone:nil];
+      [NSBundle loadNibFile:gorm externalNameTable:o withZone:nil];
       
+      [[shellui window]setDelegate:del];
+      [shellui handleActions:shelltask withArguments:ha];
+
       [app run];
     }
   }
