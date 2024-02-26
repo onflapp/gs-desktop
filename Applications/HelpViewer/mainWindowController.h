@@ -35,7 +35,6 @@
 	NSTextView* resultTextView;
 	NSBrowser* resultOutlineView;
     
-	NSTextView* text;
 	//XMLHandler* handler;
 	id <HandlerStructure> handler;
 	int prevRow;

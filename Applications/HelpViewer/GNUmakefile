@@ -17,6 +17,7 @@ HelpViewer_RESOURCE_FILES = Resources/Index.tiff Resources/Back.tiff Resources/S
 			Resources/part.tiff Resources/chapter.tiff Resources/notloaded.tiff Resources/errorloading.tiff \
 			Resources/note.png Resources/caution.png Resources/listing.png Resources/information.png \
 			Resources/Point.tiff Resources/Point2.tiff Resources/Icon-hlpd.tiff\
+			Resources/GSFindPanel.gorm \
 			Resources/MainMenu.gorm HelpViewer.help
 HelpViewer_MAIN_MODEL_FILE = MainMenu.gorm
 #HelpViewer_PRINCIPAL_CLASS = NSApplication

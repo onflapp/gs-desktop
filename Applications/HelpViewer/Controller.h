@@ -41,6 +41,9 @@
   id infoMenu;
   id helpMenu;
   id servicesMenu;
+
+  id searchField;
+  id statusField;
   
   MainWindowController* windowController;
 }

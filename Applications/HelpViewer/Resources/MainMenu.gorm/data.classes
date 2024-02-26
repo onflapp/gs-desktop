@@ -21,7 +21,9 @@
 	    window,
 	    infoMenu,
 	    helpMenu,
-	    servicesMenu
+	    servicesMenu,
+	    searchField,
+	    statusField
 	);
 	Super = NSObject;
     };

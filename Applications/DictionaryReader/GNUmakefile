@@ -64,6 +64,7 @@ Dictionary_LANGUAGES = English
 
 Dictionary_LOCALIZED_RESOURCE_FILES = \
 DictionaryReader.gorm \
+GSFindPanel.gorm \
 Preferences.gorm
 
 

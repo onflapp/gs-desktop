@@ -22,10 +22,13 @@
 #include <AppKit/AppKit.h>
 #include "Controller.h"
 
+@class GSTextFinder;
+
 @implementation Controller
 
 - (void) initButtons 
 {
+    [statusField setStringValue:@""];
 }
 
 - (void) awakeFromNib
@@ -50,13 +53,16 @@
 
     if ([args count] > 1)
     {
-	if ([[NSFileManager defaultManager] fileExistsAtPath: [args objectAtIndex: 1]])
+        NSString* path = [args objectAtIndex: 1];
+	if ([[NSFileManager defaultManager] fileExistsAtPath: path])
 	{
-	    [windowController loadFile: [args objectAtIndex: 1]];
+            [self _updateStatus: path];
+	    [windowController loadFile: path];
 	}
     }
 }
 - (BOOL)application:(NSApplication *)theApplication openFile:(NSString *)filename {
+    [self _updateStatus: filename];
     return [windowController loadFile: filename];
 }
 
@@ -64,6 +70,11 @@
 {
   RELEASE (windowController);
   [super dealloc];
+}
+
+- (void) _updateStatus:(NSString*) aLocation
+{
+  [statusField setStringValue:@""];
 }
 
 - (void) openFile: (id) sender
@@ -74,12 +85,21 @@
     ret = [panel runModalForTypes: [NSArray arrayWithObjects: @"help", @"xlp", nil]];
     if (ret == NSOKButton)
     {
-	[windowController loadFile: [[panel filenames] objectAtIndex: 0]];
+        NSString* path = [[panel filenames] objectAtIndex: 0];
+        [self _updateStatus: path];
+	[windowController loadFile: path];
     }
 }
 
 - (void) search: (id) sender
 {
+    NSString* text = [searchField stringValue];
+    NSPasteboard *pboard = [NSPasteboard pasteboardWithName:NSFindPboard];
+    [pboard setString:text forType:NSStringPboardType];
+
+    id tf = [GSTextFinder sharedTextFinder];
+    [tf _getFindStringFromPasteboard];
+
     [windowController search: sender];
 }
 
@@ -102,6 +122,7 @@
 {
     NSString* bfile = [[NSUserDefaults standardUserDefaults] valueForKey:@"bookshelf_file"];
     if (bfile) {
+      [self _updateStatus: bfile];
       [windowController loadFile: bfile];
     }
     else {

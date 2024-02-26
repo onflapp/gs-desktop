@@ -20,6 +20,12 @@
     NoAppIcon = Yes;
     AlwaysUserIcon = No;
   };
+  shellui.GNUstep = {
+    SkipWindowList = Yes;
+    SkipSwitchPanel = Yes;
+    NoAppIcon = Yes;
+    AlwaysUserIcon = No;
+  };
   NotMon.GNUstep = {
     SkipWindowList = Yes;
     NoTitlebar = Yes;

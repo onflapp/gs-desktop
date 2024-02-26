@@ -81,8 +81,12 @@
     [historyManager browseForward];
 }
 
-- (void) search: (id) sender 
+- (void) search: (id) sender
 {
+  NSButton* tmp = [[NSButton alloc] init];
+  [tmp setTag:2];
+  [resultTextView performFindPanelAction:tmp];
+  [tmp release];
 }
 
 -(BOOL) historyManager: (HistoryManager*) aHistoryManager
