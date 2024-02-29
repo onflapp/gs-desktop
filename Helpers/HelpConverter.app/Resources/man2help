@@ -72,7 +72,7 @@ $SPACER = -1;
 $SECTION = 0;
 $LINES = 0;
 
-open (MAN, "PATH=/opt/local/bin:/usr/local/bin:/usr/bin:/bin MAN_KEEP_FORMATTING=Y MANWIDTH=200 $CMD |");
+open (MAN, "PATH=/opt/local/bin:/usr/local/bin:/usr/bin:/bin MAN_KEEP_FORMATTING=Y MANWIDTH=200 GROFF_NO_SGR=1 $CMD |");
 while (<MAN>) {
 	chomp ();
 	$l = $_;
