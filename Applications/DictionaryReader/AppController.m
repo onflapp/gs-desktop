@@ -285,7 +285,7 @@ NSDictionary* normalAttributes;
 	nil
        ];
   }
-  
+
   // Notifications --------------
   NSNotificationCenter* defaultCenter = [NSNotificationCenter defaultCenter];
   
@@ -299,9 +299,10 @@ NSDictionary* normalAttributes;
   return self;
 }
 
-
-
-
+-(void) awakeFromNib {
+  [dictionaryContentWindow setFrameUsingName:@"main_window"];
+  [dictionaryContentWindow setFrameAutosaveName:@"main_window"];
+}
 
 // ---- Some methods called by the GUI
 -(void) browseBackClicked: (id)sender {
@@ -325,6 +326,14 @@ NSDictionary* normalAttributes;
     if ([dict isActive]) {
     }
   }
+}
+
+-(void)updateStatus:(NSString*) str {
+  NSLog(@"status %@", str);
+
+  [searchStatusField setStringValue:str];
+  NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
+  [[NSRunLoop currentRunLoop] runUntilDate: limit];
 }
 
 -(void)updateGUI {
@@ -424,13 +433,16 @@ NSDictionary* normalAttributes;
  */ 
 -(void)defineWord: (NSString*)aWord
 {
+  [dictionaryContentWindow orderFront: self];
+  [NSApp activateIgnoringOtherApps:YES];
+
   if ( ![[searchStringControl stringValue] isEqualToString: aWord] ) {
     // set string in search field
     [searchStringControl setStringValue: aWord];
   }
-
-  [searchStatusField setStringValue:@"searching..."];
   
+  [self updateStatus:@"searching..."];
+
   // We need space for new content
   [self clearResults];
   
@@ -443,6 +455,7 @@ NSDictionary* normalAttributes;
     if ([dict isActive]) {
         NS_DURING
           {
+            [self updateStatus:[NSString stringWithFormat:@"searching %@...", [dict name]]];
 	    [dict open];
 	    [dict sendClientString: @"GNUstep DictionaryReader.app"];
 	    [dict definitionFor: aWord];
@@ -450,7 +463,7 @@ NSDictionary* normalAttributes;
           }
         NS_HANDLER
           {
-            [searchStatusField setStringValue:@"error"];
+            [self updateStatus:@"error"];
 	    NSRunAlertPanel
 	      (
 	       @"Word definition failed.",
@@ -467,10 +480,7 @@ NSDictionary* normalAttributes;
   [historyManager browser: self
 		  didBrowseTo: aWord];
   
-  [self updateGUI];
-  
-  [dictionaryContentWindow orderFront: self];
-  [NSApp activateIgnoringOtherApps:YES];
+  [self updateGUI];  
 }
 
 
@@ -512,12 +522,14 @@ NSDictionary* normalAttributes;
 
 -(void) applicationDidFinishLaunching: (NSNotification*) theNotification
 {
-    [searchStatusField setStringValue:@""];
+    [self updateStatus:@""];
     [NSApp setServicesProvider: self];
     
     if (firstStart) {
       NSLog(@"starting for the first time, rescanning all standard dicts");
+      [self updateStatus:@"rescanning dictionaries..."];
       [[Preferences shared] rescanDictionaries:nil];
+      [self updateStatus:@""];
     }
 }
 
