@@ -71,6 +71,7 @@ int main(int argc, char** argv, char** env)
 
       if ([path containsString:@":"] == YES) {
         url = [NSURL URLWithString:path];
+        if (![url scheme]) url = nil; //might not be proper URL!
         path = absolutePath(path);
       }
       else {
