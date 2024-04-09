@@ -1,5 +1,5 @@
 {
-    APPLICATIONICON = "";
+    APPLICATIONICON = "ScanImage.tiff";
     "APP_DOCUMENT_BASED" = NO;
     "APP_TYPE" = GORM;
     "BUILDER_TARGETS" = (
@@ -31,6 +31,7 @@
 	"ListDevices.h"
     );
     IMAGES = (
+	"ScanImage.tiff"
     );
     INSTALLDIR = "$(HOME)/GNUstep";
     INTERFACES = (

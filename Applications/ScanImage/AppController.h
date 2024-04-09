@@ -25,6 +25,7 @@
   NSWindow* panel;
   NSProgressIndicator* progress;
   NSPopUpButton* outputType;
+  NSPopUpButton* outputRes;
   NSTextField* outputPath;
 }
 

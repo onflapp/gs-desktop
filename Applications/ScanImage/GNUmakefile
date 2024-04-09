@@ -25,7 +25,7 @@ include $(GNUSTEP_MAKEFILES)/common.make
 VERSION = 0.1
 PACKAGE_NAME = ScanImage
 APP_NAME = ScanImage
-ScanImage_APPLICATION_ICON = 
+ScanImage_APPLICATION_ICON = ScanImage.tiff
 
 
 #
@@ -33,6 +33,7 @@ ScanImage_APPLICATION_ICON =
 #
 ScanImage_RESOURCE_FILES = \
 Resources/ScanImage.gorm \
+Resources/ScanImage.tiff \
 Resources/services 
 
 

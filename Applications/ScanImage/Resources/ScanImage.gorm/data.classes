@@ -18,7 +18,8 @@
 	    outputPath,
 	    outputType,
 	    progress,
-	    scanButton
+	    scanButton,
+	    outputRes
 	);
 	Super = NSObject;
     };

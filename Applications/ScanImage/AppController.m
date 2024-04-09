@@ -169,6 +169,7 @@
   }
 
   NSInteger type = [[outputType selectedItem] tag];
+  NSInteger res = [[outputRes selectedItem] tag];
 
   NSMutableArray* args = [NSMutableArray array];
   [args addObject:dev];
@@ -176,6 +177,9 @@
   if (type == 1) [args addObject:@"Gray"];
   if (type == 2) [args addObject:@"Color"];
   if (type == 3) [args addObject:@"Lineart"];
+
+  if (res == 0) res = 72;
+  [args addObject:[NSString stringWithFormat:@"%ld", res]];
 
   [scanImage scanWithArguments:args];
 }
