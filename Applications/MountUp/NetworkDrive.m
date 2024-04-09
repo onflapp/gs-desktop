@@ -50,7 +50,7 @@
     [url appendString:@"dav://"];
   }
   else if (i == 2) {
-    [url appendString:@"sftp://"];
+    [url appendFormat:@"sftp://%@@", ustr];
   }
   else {
     [url appendString:@"smb://"];

@@ -77,6 +77,21 @@
   else if ([line hasPrefix:@"D:"]) {
     ASSIGN(device, [line substringFromIndex:2]);
   }
+  else if ([line hasPrefix:@"Verifying the identity of"]) {
+    if (status != 99) {
+      [self performSelector:@selector(_notify) withObject:nil afterDelay:5];
+      [self writeLine:@"1"];
+    }
+  }
+  else if ([line hasPrefix:@"Enter password for"]) {
+    if (status != 99) {
+      [self performSelector:@selector(_notify) withObject:nil afterDelay:5];
+      [self waitFor:0.2];
+      [self writeLine:password];
+      [self waitFor:0.2];
+      status = 99;
+    }
+  }
   else if ([line hasPrefix:@"Password"]) {
     if (status != 99) {
       [self performSelector:@selector(_notify) withObject:nil afterDelay:5];
