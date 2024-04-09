@@ -1,0 +1,39 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    AppController = {
+	Actions = (
+	    "showPrefPanel:",
+	    "scanImage:",
+	    "refreshDevices:",
+	    "revealImage:",
+	    "openImage:",
+	    "saveImage:",
+	    "selectDevice:",
+	    "showScanPanel:"
+	);
+	Outlets = (
+	    deviceList,
+	    panel,
+	    imagePreview,
+	    outputPath,
+	    outputType,
+	    progress,
+	    scanButton
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "showScanPanel:",
+	    "openImage:",
+	    "orderFrontFontPanel:",
+	    "refreshDevices:",
+	    "revealImage:",
+	    "saveImage:",
+	    "scanImage:",
+	    "selectDevice:",
+	    "showPrefPanel:"
+	);
+	Super = NSObject;
+    };
+}

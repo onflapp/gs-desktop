@@ -1,0 +1,5 @@
+#!/bin/bash
+
+echo "S:looking for new devices"
+scanimage -f "D:%d%nT:%v %m%n" -L
+echo "E:done"
