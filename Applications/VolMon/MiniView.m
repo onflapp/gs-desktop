@@ -41,6 +41,17 @@
   return YES;
 }
 
+- (void) scrollWheel:(NSEvent *)event {
+  id del = [NSApp delegate];
+
+  if ([event buttonNumber] == 4) {
+    [del performSelector:@selector(increaseVolume:) withObject:self];
+  }
+  else if ([event buttonNumber] == 5) {
+    [del performSelector:@selector(decreaseVolume:) withObject:self];
+  }
+}
+
 - (void) mouseDown:(NSEvent*) theEvent {
 }
 

@@ -68,7 +68,7 @@
   return NO;
 }
 
-- (void)_updateControls
+- (void) _updateControls
 {
   if (soundOut) {
     [muteButton setEnabled:YES];
@@ -85,7 +85,7 @@
 }
 
 // --- Sound subsystem actions
-- (void)serverStateChanged:(NSNotification *)notif
+- (void) serverStateChanged:(NSNotification *)notif
 {
   if ([notif object] != soundServer) {
     NSLog(@"Received other SNDServer state change notification.");
@@ -118,7 +118,7 @@
 }
 
 // --- Device notifications
-- (void)deviceDidUpdate:(NSNotification *)aNotif
+- (void) deviceDidUpdate:(NSNotification *)aNotif
 {
   id device = [aNotif object]; // SNDOut or SNDIn
 
@@ -160,6 +160,24 @@
     }
   }
 }
+
+- (void) increaseVolume: (id)sender
+{
+  NSInteger delta = ([volumeSlider maxValue] / 20);
+  NSInteger val = (NSInteger)[volumeSlider doubleValue];
+  [volumeSlider setIntValue:val+delta];
+  [self changeVolume:volumeSlider];
+
+}
+
+- (void) decreaseVolume: (id)sender
+{
+  NSInteger delta = ([volumeSlider maxValue] / 20);
+  NSInteger val = (NSInteger)[volumeSlider doubleValue];
+  [volumeSlider setIntValue:val-delta];
+  [self changeVolume:volumeSlider];
+}
+
 - (void) showPrefPanel: (id)sender
 {
 }
