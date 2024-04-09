@@ -1,0 +1,23 @@
+PROF="$HOME/Library/Firefox"
+CLASS="Wrapper_Thunderbird"
+case "$1" in
+  donewmessage)
+    xdotool key "$GS_COMMAND_KEY+n" "0x$2"
+    #thunderbird --profile "$PROF" --class $CLASS -compose
+    ;;
+  doprefrences)
+    thunderbird --profile "$PROF" -options
+    ;;
+  dowindowminimize)
+    xdotool windowminimize "0x$2"
+    ;;
+  dowindowactivate)
+    xdotool windowactivate "0x$2"
+    ;;
+  dowindowclose)
+    xdotool windowclose "0x$2"
+    ;;
+  doselectall)
+    xdotool key "$GS_COMMAND_KEY+a" "0x$2"
+    ;;
+esac
