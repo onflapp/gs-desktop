@@ -67,7 +67,7 @@ apt-get install git sudo
 usermod -G sudo <normal user>
 ```
 
-login as *normal user* and continue:
+login as *normal user* and continue with:
 
 
 ```
@@ -90,3 +90,5 @@ sudo -E ./build_world.sh
 # install WDM as default login manager
 sudo ./config/install_wdm.sh
 ```
+
+If all goes well, you should be greeted by GSDE's login window.
