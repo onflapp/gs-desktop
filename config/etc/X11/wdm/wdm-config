@@ -43,4 +43,4 @@ DisplayManager*useSyslog:	true
 DisplayManager*syslogFacility:	LOG_AUTHPRIV
 DisplayManager*terminateServer: true
 
-DisplayManager*wdmWm:  default:startgsde:startgsde-safe
+DisplayManager*wdmWm:  startgsde:startgsde-safe:default

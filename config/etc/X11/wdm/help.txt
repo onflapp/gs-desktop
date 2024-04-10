@@ -2,5 +2,6 @@ Start WM options:
 
 * startgsde       - standard GSDE session
 * startgsde-safe  - will let you drop to a shell
+* default         - standard Xsession
 
 NOTE: to reboot or halt the system from this dialog you need to log in as root user.

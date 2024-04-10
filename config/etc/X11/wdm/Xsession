@@ -12,6 +12,10 @@ fi
 if [ -r $HOME/.wm_style ]; then
     WM_STYLE_CONTENTS=`cat $HOME/.wm_style`
     set $WM_STYLE_CONTENTS $@
+else
+    WM_STYLE_CONTENTS="startgsde"
+    echo "$WM_STYLE_CONTENTS" > $HOME/.wm_style
+    set $WM_STYLE_CONTENTS $@
 fi
 
 . /etc/X11/Xsession
