@@ -1,15 +1,18 @@
 
 ========================================================================
- Unless you see any errors, GNUstep Desktop is ready
+ Unless you see any errors, GNUstep Desktop is now ready
 ========================================================================
 
  check build_world.*.log files for any errors
 
  modern X11 login manager:
- - /usr/share/xsessions contains the session files
- - logout and login again
+  - /usr/share/xsessions contains new session files
+  - logout and login again
 
- Raspbian or Debian:
+ install WDM as your login manager in Raspbian or Debian:
+  - execute 'sudo ./config/install_wdm.sh'
+
+ custom setup:
  - add 'exec /System/bin/startgsde' to your ~/.xsessionrc
 
  anything else:

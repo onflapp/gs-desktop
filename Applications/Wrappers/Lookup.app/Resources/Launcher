@@ -7,6 +7,9 @@ if [ "$1" == "doshowpanel" ];then
   #echo "SEARCH_WORD='$SEL'"
   echo "WINDOW=visible"
 
+elif [ "$1" == "dowelcome" ];then
+  echo "WINDOW=visible"
+
 elif [ "$1" == "dosearch" ];then
   source /dev/stdin
 

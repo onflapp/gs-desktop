@@ -31,9 +31,10 @@ DisplayManager*wdmLocale: en_US
 
 DisplayManager*wdmLogin:        /usr/bin/wdmLogin
 DisplayManager*wdmBg:           solid:black
+DisplayManager*wdmHelpFile:     /etc/X11/wdm/help.txt
 DisplayManager*wdmLogo:         /System/share/WindowMaker/Icons/GNUstep.xpm
 DisplayManager*wdmReboot:       /sbin/reboot
-DisplayManager*wdmHalt:         /sbin/halt
+DisplayManager*wdmHalt:         /sbin/poweroff
 DisplayManager*wdmVerify:       false
 DisplayManager*wdmRoot:         true
 DisplayManager*wdmAnimations:   true

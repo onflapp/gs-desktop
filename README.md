@@ -11,7 +11,7 @@ It should work on any modern Debian or Fedora-based system (I personally use Ras
 
 ### 1. Install Dependencies
 
-The desktop relies on many other libraries and binaries to work as intended. This step is more important than you might realize at first. As many build systems use autoconfig to find dependencies, a missing dependency will not necessarily result in failed build but it might cause all kind of weird runtime problems or desktop now working as intended.
+The desktop relies on many other libraries and binaries to work as intended. This step is more important than you might realize at first. As many build systems use autoconfig to find dependencies, a missing dependency will not necessarily result in failed build but it might cause all kinds of weird runtime problems or desktop not working as intended.
 
 There is a script you can use to help you install all that is needed.
 
@@ -20,21 +20,14 @@ cd dependencies
 sudo ./install-dependencies-debian.sh
 ```
 
-My favorite way to get GSDE working is to install minimal Debian distribution (no X or any desktop environment) and then do something like this:
-
-```
-apt-get install git
-git clone https://github.com/onflapp/gs-desktop
-cd gs-desktop/dependencies
-sudo ./install-dependencies-debian.sh
-```
-
 ### 2. Fetch sources
 
-GSDE come from different places. Some are official github repos, others are my forks. Many apps have been patched and/or configured in a way to "play nice with others". Hopefully most of those changes will be merged back
-to the original source tree one day.
+GSDE come from different places. Some are official github repos, others are my forks. Many apps have been patched and/or configured in a way to "play nice with others". Hopefully most of those changes will be merged back to the original source tree one day.
 
 ```
+git clone https://github.com/onflapp/gs-desktop
+cd gs-desktop
+
 ./fetch_world.sh
 ```
 
@@ -52,4 +45,48 @@ The whole desktop is going to be installed in `/Application`, `/System` and `/Li
 
 If you use modern login manager, you will see two new xsessions (normal startup and safe mode) for you to choose to log into.
 
-Otherwise, use `/System/bin/startgsde` to start the desktop within your existing X session or add to your `~/.xsessionrc` or `~/.xinitrc`.
+To install XDM as your loging manager execute the following command:
+
+```
+sudo -E ./config/install_wdm.sh
+```
+
+Otherwise, use `/System/bin/startgsde` to start the desktop directly from console, within your existing X session or add it to your `~/.xsessionrc` or `~/.xinitrc`.
+
+---
+
+### Minimal/clean build on Debian
+
+My favorite way to get GSDE working is to install minimal Debian distribution (no X or any desktop environment) and then do something like this as root:
+
+```
+# install git and sudo
+apt-get install git sudo
+
+# make sure normal user can use sudo
+usermod -G sudo <normal user>
+```
+
+login as <normal user> and continue:
+
+
+```
+# clone core source code repo
+mkdir src
+cd src
+git clone https://github.com/onflapp/gs-desktop
+
+# install dependencies
+cd gs-desktop/dependencies
+sudo ./install-dependencies-debian.sh
+
+# clone all relevant source repos
+cd ..
+./fetch_world.sh
+
+# build and install entire desktop
+sudo -E ./build_world.sh
+
+# install WDM as default login manager
+sudo ./config/install_wdm.sh
+```

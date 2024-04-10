@@ -47,4 +47,5 @@ cd ./config
 ./make_hidden.sh
 
 cd "$D"
+clear
 cat ./WELCOME.txt

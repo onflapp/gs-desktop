@@ -3,8 +3,10 @@
     FirstResponder = {
 	Actions = (
 	    "doSearch:",
+	    "doShowPanel:",
+	    "doWelcome:",
 	    "handleActions:",
-	    "doShowPanel:"
+	    "newAction:"
 	);
 	Super = NSObject;
     };
@@ -12,7 +14,8 @@
 	Actions = (
 	    "handleActions:",
 	    "doSearch:",
-	    "doShowPanel:"
+	    "doShowPanel:",
+	    "doWelcome:"
 	);
 	Outlets = (
 	    "search_type",

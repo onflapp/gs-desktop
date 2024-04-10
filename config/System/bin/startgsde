@@ -270,11 +270,19 @@ function cleanup {
   exit
 }
 
-xset b 0 || exit 1
-
 if [ "$UID" -eq 0 ];then
   echo "GNUstep Desktop cannot run as root"
   exit 1
+fi
+
+if ! xset b 0 ;then
+  if [ -n "$DISPLAY" ];then
+    echo "unable to open $DISPLAY"
+    exit 1
+  else
+    echo "executing startx"
+    exec startx /System/bin/startgsde $*
+  fi
 fi
 
 echo "=================================================="
@@ -291,7 +299,7 @@ if [ "$1" == "--safe-mode-continue" ];then
   echo " [x] - to run in Xnest"
   echo ""
   echo "any other key to continue"
-  echo "ctrl-c to interrupt"
+  echo "ctrl-c to abort"
 
   read -s -n 1 DD
   clear
