@@ -67,26 +67,26 @@ apt-get install git sudo
 usermod -G sudo <normal user>
 ```
 
-login as <normal user> and continue:
+login as `normal user` and continue:
 
 
 ```
-# clone core source code repo
+### clone core source code repo
 mkdir src
 cd src
 git clone https://github.com/onflapp/gs-desktop
 
-# install dependencies
+### install dependencies
 cd gs-desktop/dependencies
 sudo ./install-dependencies-debian.sh
 
-# clone all relevant source repos
+### clone all relevant source repos
 cd ..
 ./fetch_world.sh
 
-# build and install entire desktop
+### build and install entire desktop
 sudo -E ./build_world.sh
 
-# install WDM as default login manager
+### install WDM as default login manager
 sudo ./config/install_wdm.sh
 ```
