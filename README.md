@@ -57,7 +57,7 @@ Otherwise, use `/System/bin/startgsde` to start the desktop directly from consol
 
 ### Minimal/clean build on Debian
 
-My favorite way to get GSDE working is to install minimal Debian distribution (no X or any desktop environment) and then do something like this as root:
+My favorite way to get GSDE working is to install minimal Debian distribution (no X or any desktop environment) and then do something like this as *root*:
 
 ```
 # install git and sudo
@@ -67,7 +67,7 @@ apt-get install git sudo
 usermod -G sudo <normal user>
 ```
 
-login as `normal user` and continue:
+login as *normal user* and continue:
 
 
 ```
@@ -76,16 +76,20 @@ mkdir src
 cd src
 git clone https://github.com/onflapp/gs-desktop
 
+
 ### install dependencies
 cd gs-desktop/dependencies
 sudo ./install-dependencies-debian.sh
+
 
 ### clone all relevant source repos
 cd ..
 ./fetch_world.sh
 
+
 ### build and install entire desktop
 sudo -E ./build_world.sh
+
 
 ### install WDM as default login manager
 sudo ./config/install_wdm.sh
