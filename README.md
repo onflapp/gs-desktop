@@ -9,6 +9,8 @@
 
 It should work on any modern Debian or Fedora-based system (I personally use Raspberry PI4 as my main development and user platform) and possibly any modern Linux distribution with a bit tweaking.
 
+## Installation
+
 ### 1. Install Dependencies
 
 The desktop relies on many other libraries and binaries to work as intended. This step is more important than you might realize at first. As many build systems use autoconfig to find dependencies, a missing dependency will not necessarily result in failed build but it might cause all kinds of weird runtime problems or desktop not working as intended.
@@ -41,7 +43,7 @@ sudo -E ./build_world.sh
 
 The whole desktop is going to be installed in `/Application`, `/System` and `/Library` directories. Although this doesn't follow GNUstep/Linux conventions, it simplifies system scripts etc. as everything is in predictable place.
 
-### Start GS Desktop
+### 4. Start GS Desktop
 
 If you use modern login manager, you will see two new xsessions (normal startup and safe mode) for you to choose to log into.
 
@@ -53,9 +55,7 @@ sudo -E ./config/install_wdm.sh
 
 Otherwise, use `/System/bin/startgsde` to start the desktop directly from console, within your existing X session or add it to your `~/.xsessionrc` or `~/.xinitrc`.
 
----
-
-### Minimal/clean build on Debian
+## Minimal/clean build on Debian
 
 My favorite way to get GSDE working is to install minimal Debian distribution (no X or any desktop environment) and then do something like this as *root*:
 
@@ -71,26 +71,22 @@ login as *normal user* and continue:
 
 
 ```
-### clone core source code repo
+# clone core source code repo
 mkdir src
 cd src
 git clone https://github.com/onflapp/gs-desktop
 
-
-### install dependencies
+# install dependencies
 cd gs-desktop/dependencies
 sudo ./install-dependencies-debian.sh
 
-
-### clone all relevant source repos
+# clone all relevant source repos
 cd ..
 ./fetch_world.sh
 
-
-### build and install entire desktop
+# build and install entire desktop
 sudo -E ./build_world.sh
 
-
-### install WDM as default login manager
+# install WDM as default login manager
 sudo ./config/install_wdm.sh
 ```
