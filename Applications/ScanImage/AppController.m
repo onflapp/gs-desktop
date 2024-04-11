@@ -107,7 +107,7 @@
 
   NSString* fl = [scanImage outputFilename];
   if ([st isEqualToString:NSFilenamesPboardType] && fl) {
-    return nil;
+    return self;
   }
   else {
     return nil;
@@ -116,7 +116,14 @@
 
 - (BOOL) writeSelectionToPasteboard:(NSPasteboard *)pb
                              types:(NSArray *)types {
-  return NO;
+  NSString* fl = [scanImage outputFilename];
+  if ([types containsObject:NSFilenamesPboardType] && fl) {
+    [pb declareTypes:[NSArray arrayWithObject:NSFilenamesPboardType] owner:nil];
+    return [pb setPropertyList:[NSArray arrayWithObject:fl] forType:NSFilenamesPboardType];
+  }
+  else {
+    return NO;
+  }
 }
 
 - (void) browser:(NSBrowser*) brow willDisplayCell:(NSBrowserCell*) cell atRow:(NSInteger)row column:(NSInteger)col {
