@@ -154,7 +154,7 @@
   SnapCornerDetect = 10;
   HMaximizeKey = None;
   SnapToTopMaximizesFullscreen = NO;
-  HighlightActiveApp = YES;
+  HighlightActiveApp = NO;
   CloseKey = None;
   WrapMenus = YES;
   Workspace10Key = None;
