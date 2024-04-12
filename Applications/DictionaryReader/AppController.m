@@ -480,6 +480,7 @@ NSDictionary* normalAttributes;
   [historyManager browser: self
 		  didBrowseTo: aWord];
   
+  [self updateStatus:@""];
   [self updateGUI];  
 }
 
@@ -522,15 +523,16 @@ NSDictionary* normalAttributes;
 
 -(void) applicationDidFinishLaunching: (NSNotification*) theNotification
 {
-    [self updateStatus:@""];
     [NSApp setServicesProvider: self];
     
-    if (firstStart) {
+    if (firstStart) 
+    {
       NSLog(@"starting for the first time, rescanning all standard dicts");
       [self updateStatus:@"rescanning dictionaries..."];
       [[Preferences shared] rescanDictionaries:nil];
       [self updateStatus:@""];
     }
+    [self updateStatus:@""];
 }
 
 /**
@@ -561,7 +563,9 @@ NSDictionary* normalAttributes;
     return;
   }
   
-  [self defineWord: aString];
+  [self performSelector: @selector(defineWord:) 
+             withObject: aString
+             afterDelay: 0.3];
 }
 
 @end // AppController

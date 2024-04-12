@@ -79,6 +79,9 @@
 
 -(NSString*)readLine
 {
+  NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.0];
+  [[NSRunLoop currentRunLoop] runUntilDate: limit];
+
   BOOL canProceed = YES;
   while([self canExtractNextLine] == NO && canProceed) {
     //NSLog(@"getting more, bufSize=%d bufPos=%d", strBufSize, strBufPos);
