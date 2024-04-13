@@ -213,45 +213,7 @@ NSDictionary* normalAttributes;
 -(id)init
 {
   if (self = [super init]) {
-    id dict;
-    
-    // create mutable dictionaries array
-    dictionaries = [[NSMutableArray alloc] initWithCapacity: 2];
-    [[Preferences shared] setDictionaries: dictionaries];
-    
-    NSString* dictStoreFile = [self dictionaryStoreFile];
-    
-    if ([[NSFileManager defaultManager] fileExistsAtPath: dictStoreFile]) {
-        NSArray* plist = [NSArray arrayWithContentsOfFile: [self dictionaryStoreFile]];
-        int i;
-        for (i=0; i<[plist count]; i++) {
-            DictionaryHandle* dict =
-                [DictionaryHandle dictionaryFromPropertyList: [plist objectAtIndex: i]];
-            [dict setDefinitionWriter: self];
-            [dictionaries addObject: dict];
-            NSLog(@" *** Added %@", dict);
-        }
-        NSLog(@" *** result: %@", dictionaries);
-    } else {
-#ifdef PREDEFINED_DICTIONARIES // predefined dictionaries
-        // create local dictionary object
-        dict = [[LocalDictionary alloc] initWithResourceName: @"jargon"];
-        [dict setDefinitionWriter: self];
-        [dictionaries addObject: dict];
-        [dict release];
-#ifdef REMOTE_DICTIONARIES // remote dictionaries
-        // create remote dictionary object
-        dict = [[DictConnection alloc] init];
-        [dict setDefinitionWriter: self];
-        [dictionaries addObject: dict];
-        [dict release];
-#endif // end remote dictionaries block
-#endif // end predefined dictionaries
-         
-        firstStart = YES;
-    }
-    
-    
+      
     // create history manager
     historyManager = [[HistoryManager alloc] init];
     [historyManager setDelegate: self];
@@ -314,20 +276,63 @@ NSDictionary* normalAttributes;
 }
 
 -(void) orderFrontPreferencesPanel: (id)sender {
+  if ( !dictionaries) {
+    [self loadDictionaries];
+  }
+
   [[Preferences shared] setDictionaries: dictionaries];
   [[Preferences shared] show];
 }
 
--(void)updateDictList {
-  NSInteger i = 0;
-  for (i=0; i<[dictionaries count]; i++) {
-    id dict = [dictionaries objectAtIndex: i];
+-(void)loadDictionaries {
+    id dict;
     
-    if ([dict isActive]) {
-    }
-  }
-}
+    [self updateStatus:@"loading dictionaries"];
 
+    if (dictionaries) {
+      [dictionaries release];
+    }
+
+    dictionaries = [[NSMutableArray alloc] initWithCapacity: 2];
+    [[Preferences shared] setDictionaries: dictionaries];
+    
+    NSString* dictStoreFile = [self dictionaryStoreFile];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath: dictStoreFile]) {
+        NSArray* plist = [NSArray arrayWithContentsOfFile: [self dictionaryStoreFile]];
+        int i;
+        for (i=0; i<[plist count]; i++) {
+            DictionaryHandle* dict =
+                [DictionaryHandle dictionaryFromPropertyList: [plist objectAtIndex: i]];
+            [dict setDefinitionWriter: self];
+            [dictionaries addObject: dict];
+            NSLog(@" *** Added %@", dict);
+        }
+        NSLog(@" *** result: %@", dictionaries);
+    } else {
+#ifdef PREDEFINED_DICTIONARIES // predefined dictionaries
+        // create local dictionary object
+        dict = [[LocalDictionary alloc] initWithResourceName: @"jargon"];
+        [dict setDefinitionWriter: self];
+        [dictionaries addObject: dict];
+        [dict release];
+#ifdef REMOTE_DICTIONARIES // remote dictionaries
+        // create remote dictionary object
+        dict = [[DictConnection alloc] init];
+        [dict setDefinitionWriter: self];
+        [dictionaries addObject: dict];
+        [dict release];
+#endif // end remote dictionaries block
+#endif // end predefined dictionaries
+         
+        NSLog(@"starting for the first time, rescanning all standard dicts");
+        [self updateStatus:@"rescanning dictionaries..."];
+        [[Preferences shared] rescanDictionaries:nil];
+    }
+
+    [self updateStatus:@""];
+}
+ 
 -(void)updateStatus:(NSString*) str {
   NSLog(@"status %@", str);
 
@@ -436,12 +441,18 @@ NSDictionary* normalAttributes;
   [dictionaryContentWindow orderFront: self];
   [NSApp activateIgnoringOtherApps:YES];
 
+  if ( !dictionaries) {
+    [self loadDictionaries];
+  }
+
   if ( ![[searchStringControl stringValue] isEqualToString: aWord] ) {
     // set string in search field
     [searchStringControl setStringValue: aWord];
   }
   
   [self updateStatus:@"searching..."];
+  [dictionaryContentWindow setTitle:
+         [NSString stringWithFormat:@"Dictionary: searching for %@", aWord]];
 
   // We need space for new content
   [self clearResults];
@@ -456,6 +467,7 @@ NSDictionary* normalAttributes;
         NS_DURING
           {
             [self updateStatus:[NSString stringWithFormat:@"searching %@...", [dict name]]];
+
 	    [dict open];
 	    [dict sendClientString: @"GNUstep DictionaryReader.app"];
 	    [dict definitionFor: aWord];
@@ -478,10 +490,13 @@ NSDictionary* normalAttributes;
   }
   
   [historyManager browser: self
-		  didBrowseTo: aWord];
+	      didBrowseTo: aWord];
   
   [self updateStatus:@""];
-  [self updateGUI];  
+  [dictionaryContentWindow setTitle:
+         [NSString stringWithFormat:@"Dictionary: %@", aWord]];
+
+  [self updateGUI];
 }
 
 
@@ -514,7 +529,10 @@ NSDictionary* normalAttributes;
       NSArray* a = [word componentsSeparatedByString:@":"];
       word = [a lastObject];
       if (word) {
-        [self performSelector:@selector(defineWord:) withObject:word afterDelay:0.1];
+        [self performSelector:@selector(defineWord:) 
+                   withObject:word 
+                   afterDelay:0.1];
+
         return YES;
       }
     }
@@ -525,13 +543,6 @@ NSDictionary* normalAttributes;
 {
     [NSApp setServicesProvider: self];
     
-    if (firstStart) 
-    {
-      NSLog(@"starting for the first time, rescanning all standard dicts");
-      [self updateStatus:@"rescanning dictionaries..."];
-      [[Preferences shared] rescanDictionaries:nil];
-      [self updateStatus:@""];
-    }
     [self updateStatus:@""];
 }
 
@@ -562,7 +573,10 @@ NSDictionary* normalAttributes;
     *error = @"No string value supplied on pasteboard";
     return;
   }
-  
+
+  [dictionaryContentWindow orderFront: self];
+  [NSApp activateIgnoringOtherApps:YES];
+
   [self performSelector: @selector(defineWord:) 
              withObject: aString
              afterDelay: 0.3];

@@ -35,8 +35,6 @@
   
   NSMutableArray* dictionaries;
   HistoryManager* historyManager;
-
-  BOOL firstStart;
 }
 
 -(id)init;
