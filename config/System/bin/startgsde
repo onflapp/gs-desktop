@@ -138,12 +138,12 @@ function stop_services {
 function init_config {
   show_status "gray10"
 
-  if [ ! -d "$HOME/Library" ];then
+  if [ ! -f "$HOME/Library/etc/GSDE.conf" ];then
     echo "init user defaults"
     mkdir "$HOME/Library" 2>/dev/null
     cp -R /etc/skel/Library/* "$HOME/Library"
   fi
-
+ 
   if [ ! -f "$HOME/Library/WindowMaker/Defaults/WindowMaker" ];then
     echo "init WindowMaker defaults"
     /System/bin/wmaker.inst --batch
