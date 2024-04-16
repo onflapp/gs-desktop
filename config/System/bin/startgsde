@@ -192,11 +192,7 @@ function init_config {
 }
 
 function start_debug {
-  if [ "$GS_DESKTOP_SAFEMODE" = "protected" ];then
-    WM_ARGS="--no-autolaunch --static --dont-restore"
-  else
-    WM_ARGS="--no-autolaunch --dont-restore"
-  fi
+  WM_ARGS="--no-autolaunch --static --dont-restore"
 
   init_config
   main_process
@@ -292,40 +288,18 @@ echo "=================================================="
 if [ "$1" == "--safe-mode-continue" ];then
   export GS_DESKTOP_SAFEMODE="safe"
   echo ""
-  echo "you are about to enter SAFE MODE"
+
+  echo "you are running in the safe mode"
+  echo "WARNING: you will not be able to modify the dock!"
   echo ""
-  echo " [l] - to exit to your login shell ($SHELL)"
-  echo " [s] - to exit to /bin/sh"
-  echo " [x] - to run in Xnest"
+  echo "use use the following commands to start:"
   echo ""
-  echo "any other key to continue"
-  echo "ctrl-c to abort"
+  echo " /System/bin/startgsde        - start the desktop"
+  echo " /System/bin/startgsde-xnest  - use separate Xserver (Xnest)"
+  echo " /System/bin/startgsde-wmaker - start the wm (very limited!)"
+  echo ""
 
-  read -s -n 1 DD
-  clear
-
-  if [ "$DD" == "x" ];then
-    exec /bin/bash --rcfile <(echo "/System/bin/startgsde-xnest")
-  fi
- 
-  if [ "$DD" == "l" ] || [ "$DD" == "s" ];then
-    clear
-    echo "running in the safe mode"
-    echo "WARNING: you will not be able to modify the dock!"
-    echo ""
-    echo "use use the following commands to start:"
-    echo ""
-    echo " /System/bin/startgsde       - start the desktop"
-    echo " /System/bin/startgsde-xnest - use separate Xserver (Xnest)"
-    echo ""
-
-    export GS_DESKTOP_SAFEMODE="protected"
-    if [ "$DD" == "l" ];then
-       exec $SHELL
-     else
-       exec "/bin/sh"
-     fi
-  fi
+  exec $SHELL
 fi
 
 if [ "$1" == "--safe-mode" ];then

@@ -132,7 +132,7 @@
 	    <key>AcceptTypes</key>
 	    <string>3</string>
 	    <key>Commandline</key>
-	    <string>cd %s &amp;&amp; exec $SHELL</string>
+	    <string>cd %d &amp;&amp; exec $SHELL</string>
 	    <key>ExecInShell</key>
 	    <string>1</string>
 	    <key>ExecType</key>

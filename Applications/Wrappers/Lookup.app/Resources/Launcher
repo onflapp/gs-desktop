@@ -1,5 +1,7 @@
 #!/bin/bash
 
+source ./Resources/libs.sh
+
 CONTROL_FILE="/tmp/$UID-launcher-control.pipe"
 
 if [ "$1" == "doshowpanel" ];then
@@ -12,6 +14,7 @@ elif [ "$1" == "dowelcome" ];then
 
 elif [ "$1" == "dosearch" ];then
   source /dev/stdin
+  SEARCH_WORD=`urlencode "$SEARCH_WORD"`
 
   echo "LOG: $SEARCH_TYPE"
   echo "LOG: $SEARCH_WORD"

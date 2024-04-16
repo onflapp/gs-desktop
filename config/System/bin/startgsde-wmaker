@@ -1,0 +1,128 @@
+#!/bin/bash
+
+function start_windowmanager {
+  (/System/bin/wmaker $WM_ARGS) &
+  WM_PID="$!"
+
+  echo "WM is running on $WM_PID"
+  echo "$WM_PID" > /tmp/$UID-wm.pid
+  export GS_DESKTOP_WM_PID="$WM_PID"
+
+  if [ -n "$START_PICOM" ] && [ -f "$HOME/Library/etc/picom.conf" ];then
+    echo "about to start picom"
+    picom -b --conf $HOME/Library/etc/picom.conf --write-pid-path /tmp/$UID-picom.pid
+  fi
+}
+
+function stop_windowmanager {
+  PID=`cat /tmp/$UID-wm.pid 2>/dev/null`
+  if [ -n "$PID" ];then
+    echo "stopping WM on $PID"
+    pkill -P "$PID" 2>/dev/null
+    kill "$PID"     2>/dev/null
+    rm /tmp/$UID-wm.pid
+  fi
+
+  PID=`cat /tmp/$UID-picom.pid 2>/dev/null`
+  if [ -n "$PID" ];then
+    echo "stopping picom on $PID"
+    kill "$PID" 2>/dev/null
+    rm /tmp/$UID-picom.pid
+  fi
+}
+
+function init_config {
+  if [ ! -d "$HOME/Library" ];then
+    echo "init user defaults"
+    mkdir "$HOME/Library" 2>/dev/null
+    cp -R /etc/skel/Library/* "$HOME/Library"
+  fi
+
+  if [ ! -f "$HOME/Library/WindowMaker/Defaults/WindowMaker" ];then
+    echo "init WindowMaker defaults"
+    /System/bin/wmaker.inst --batch
+    cp /System/etc/WindowMaker/WMRootMenu "$HOME/Library/WindowMaker/Defaults"
+  fi
+
+  /System/bin/mkfontconfig
+  if [ -f "$HOME/Library/etc/fonts.conf" ];then
+    export FONTCONFIG_FILE=$HOME/Library/etc/fonts.conf
+  fi
+ 
+  wdwrite WMWindowAttributes 'GSDE-Safe-Mode.XTerm' '{ DontSaveSession = Yes; NoAppIcon = Yes; StartMiniaturized = Yes; Omnipresent = Yes; }'
+  wdwrite WMWindowAttributes 'GWorkspace.GNUstep'   '{ DontSaveSession = Yes; NoAppIcon = Yes; }'
+  wdwrite WMWindowAttributes 'NotMon.GNUstep'       '{ SkipWindowList = Yes; SkipSwitchPanel = Yes; NoAppIcon = Yes; KeepOnTop = Yes; Omnipresent = Yes; }'
+}
+
+function start_debug {
+  WM_ARGS="--no-autolaunch --static --dont-restore"
+
+  init_config
+  main_process
+
+  wait $GW_PID
+  sleep 1
+  cleanup
+}
+
+function save_screen {
+  autorandr --force -s gsdesktop
+}
+
+function restore_screen {
+  autorandr -c
+}
+
+function main_process {
+  start_windowmanager
+}
+
+function cleanup {
+  echo "cleanup"
+  stop_windowmanager
+  exit
+}
+
+if [ "$UID" -eq 0 ];then
+  echo "GNUstep Desktop cannot run as root"
+  exit 1
+fi
+
+if ! xset b 0 ;then
+  if [ -n "$DISPLAY" ];then
+    echo "unable to open $DISPLAY"
+    exit 1
+  else
+    echo "executing startx"
+    exec startx /System/bin/startgsde $*
+  fi
+fi
+
+## clean up
+rm -R "/tmp/GNUstepSecure$UID" 2>/dev/null
+
+## set system env variables
+export WMAKER_USER_ROOT="$HOME/Library/WindowMaker"
+export PATH="/System/bin:/Library/bin:$HOME/Library/Scripts:/Library/Scripts:$PATH"
+export MANPATH=":/System/share/man:/Library/Documentation/man"
+export GS_DESKTOP_LOG="/tmp/$UID-gs-desktop.log"
+export GS_DESKTOP_ID="$$"
+export BROWSER="/Library/bin/nxbrowser"
+
+## unset envs in case we are running from a terminal window
+unset XTERM_VERSION
+unset XTERM_SHELL
+unset XTERM_LOCAL
+
+source /Developer/Makefiles/GNUstep.sh
+
+WM_ARGS=""
+trap cleanup SIGINT
+
+if [ "$GS_DESKTOP_SAFEMODE" = "xnest" ];then
+  echo "logging to $GS_DESKTOP_LOG"
+  start_debug > $GS_DESKTOP_LOG 2>&1
+else
+  START_PICOM="yes"
+  start_debug |& tee $GS_DESKTOP_LOG
+fi
