@@ -22,12 +22,14 @@
 "NSTypedFileContentsPboardType:bmp", 
 "NSFilenamesPboardType:bmp",
 "NSTypedFileContentsPboardType:ico", 
-"NSFilenamesPboardType:ico"); 
+"NSFilenamesPboardType:ico",
+"NSTypedFileContentsPboardType:webp", 
+"NSFilenamesPboardType:webp"); 
         NSUserData = NSTIFFPboardType; 
     }); 
     NSTypes = (
       {NSIcon = "FileType_000.tiff"; 
         NSName = "image files"; 
-        NSUnixExtensions = (xpm, xcf, pnm, bmp, ico); 
+        NSUnixExtensions = (xpm, xcf, pnm, bmp, ico, webp); 
       }); 
 }

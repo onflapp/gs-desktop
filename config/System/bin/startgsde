@@ -141,7 +141,7 @@ function init_config {
   if [ ! -f "$HOME/Library/etc/GSDE.conf" ];then
     echo "init user defaults"
     mkdir "$HOME/Library" 2>/dev/null
-    cp -R /etc/skel/Library/* "$HOME/Library"
+    cp -fR /etc/skel/Library/* "$HOME/Library"
   fi
  
   if [ ! -f "$HOME/Library/WindowMaker/Defaults/WindowMaker" ];then
