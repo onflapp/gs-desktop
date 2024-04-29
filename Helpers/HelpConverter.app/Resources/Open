@@ -3,10 +3,16 @@ case "$1" in
     T="/tmp/help-man-$$.xlp"
     perl "$PWD/Resources/man2help" "$1" > "$T"
     /Library/bin/gopen -a HelpViewer "$T"
+    exit
   ;;
   info:*)
     T="/tmp/help-info-$$.xlp"
     perl "$PWD/Resources/info2help" "$1" > "$T"
     /Library/bin/gopen -a HelpViewer "$T"
+    exit
   ;;
 esac
+
+if [ -f "$1" ];then
+  /Library/bin/gopen -a HelpViewer "$1"
+fi
