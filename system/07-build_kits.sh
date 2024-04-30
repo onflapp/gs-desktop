@@ -108,3 +108,15 @@ make -j2 || exit 1
 
 make install
 ldconfig
+
+echo "=================="
+echo " XCode Kit"
+echo "=================="
+
+cd "$D"
+cd ../../libs-xcode || exit 1
+
+make -j2 || exit 1
+
+make install
+ldconfig
