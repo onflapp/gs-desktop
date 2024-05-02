@@ -436,6 +436,22 @@
 	  chargePercent = currCap/lastCap*100;
 	  batteryState = BMBStateDischarging;
 	}
+      else if ([chargeStateStr isEqualToString:@"Not charging"])
+        {
+	  isCharging = NO;
+          if (lastCap > 0 && lastCap == currCap)
+            {
+	      chargePercent = 100;
+	      timeRemaining = 0;
+	      batteryState = BMBStateFull;
+            }
+          else
+            {
+	      chargePercent = 0;
+	      timeRemaining = 0;
+	      batteryState = BMBStateUnknown;
+            }
+        }
       else if ([chargeStateStr isEqualToString:@"Charged"] || [chargeStateStr isEqualToString:@"Full"])
 	{
 	  chargePercent = 100;

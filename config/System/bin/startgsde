@@ -86,6 +86,9 @@ function start_services {
   echo "$!" > /tmp/$UID-gpbs.pid
   sleep 0.1
 
+  # needed to start synchronizing the X11 CLIPBOARD
+  echo " " | /Library/bin/nxpasteboard --copy
+
   show_status "gray25"
   echo "about to start fswatcher Service"
   /Library/bin/fswatcher --daemon &
@@ -101,6 +104,7 @@ function start_services {
   show_status "gray35"
   echo "making services"
   /Library/bin/make_services
+
 }
 
 function stop_services {
