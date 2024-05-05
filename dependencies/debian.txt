@@ -8,6 +8,7 @@ pocketsphinx
 pocketsphinx-en-us
 libicns-dev
 libaspell-dev
+libinput-dev
 libao-dev
 libsndfile1-dev
 libflite1

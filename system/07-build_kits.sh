@@ -13,7 +13,7 @@ cd ../../libs-dbuskit || exit 1
 
 make distclean
 ./configure
-make -j2 || exit 1
+make -j$NPROC || exit 1
 
 make install
 ldconfig
@@ -25,7 +25,8 @@ echo "=================="
 cd "$D"
 cd ../../libs-steptalk || exit 1
 
-make -j2 || exit 1
+make clean
+make -j$NPROC || exit 1
 
 make install
 ldconfig
@@ -42,7 +43,8 @@ echo "=================="
 cd "$D"
 cd ../../libs-simplewebkit || exit 1
 
-make -j2 || exit 1
+make clean
+make -j$NPROC || exit 1
 
 make install
 ldconfig
@@ -56,7 +58,7 @@ cd ../Frameworks/PDFKit || exit 1
 
 make distclean
 ./configure || exit 1
-make -j2 || exit 1
+make -j$NPROC || exit 1
 
 make install
 ldconfig
@@ -69,7 +71,7 @@ cd "$D"
 cd ../Frameworks/netclasses || exit 1
 
 ./configure || exit 1
-make -j2 || exit 1
+make -j$NPROC || exit 1
 
 make install
 ldconfig
@@ -81,7 +83,8 @@ echo "=================="
 cd "$D"
 cd ../../gnumail/pantomime || exit 1
 
-make -j2 || exit 1
+make clean
+make -j$NPROC || exit 1
 
 make install
 ldconfig
@@ -93,7 +96,7 @@ echo "=================="
 cd ../../gs-terminal/TerminalKit || exit 1
 
 make clean
-make -j2 || exit 1
+make -j$NPROC || exit 1
 
 make install
 
@@ -104,7 +107,8 @@ echo "=================="
 cd "$D"
 cd ../Applications/Addresses/Frameworks || exit 1
 
-make -j2 || exit 1
+make clean
+make -j$NPROC || exit 1
 
 make install
 ldconfig
@@ -116,7 +120,8 @@ echo "=================="
 cd "$D"
 cd ../../libs-xcode || exit 1
 
-make -j2 || exit 1
+make clean
+make -j$NPROC || exit 1
 
 make install
 ldconfig

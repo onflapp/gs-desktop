@@ -32,7 +32,7 @@ cmake .. \
 	-DENABLE_TESTING=OFF \
 	-DCMAKE_VERBOSE_MAKEFILE=ON
 
-make -j2 || exit 1
+make -j$NPROC || exit 1
 
 make install
 ldconfig
