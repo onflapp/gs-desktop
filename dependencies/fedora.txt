@@ -1,4 +1,5 @@
 avahi-devel
+systemd-devel
 pocketsphinx-devel
 libicns-devel
 aspell-devel

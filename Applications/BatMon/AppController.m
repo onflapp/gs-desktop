@@ -26,6 +26,7 @@
 
 #include <math.h>
 #import "AppController.h"
+#import "STScriptingSupport.h"
 #import "NSColorExtensions.h"
 
 @implementation AppController
@@ -74,6 +75,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotif
 {
+  if([NSApp isScriptingSupported]) {
+    [NSApp initializeApplicationScripting];
+  }
+
   NSTimer *timer;
 
   [self updateInfo:nil];
