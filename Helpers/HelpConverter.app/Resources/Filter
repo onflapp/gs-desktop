@@ -1,3 +1,5 @@
+/Library/bin/nxnotify show-panel --title "Help Filter" --info "converting to help"
+
 case "$1" in
   *.gsdoc)
     perl "$PWD/Resources/gsdoc2help" "$1"
@@ -9,3 +11,5 @@ case "$1" in
     perl "$PWD/Resources/info2help" "$1"
    ;;
 esac
+
+/Library/bin/nxnotify hide-panel

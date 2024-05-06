@@ -37,8 +37,11 @@ libXmu-devel
 libXpm-devel
 gnutls-devel
 libicu-devel
+libinput-devel
 avahi-devel
+libwebp-devel
 libcurl-devel
+libXinerama-devel
 libvncserver-devel
 libjpeg-turbo-devel
 freerdp

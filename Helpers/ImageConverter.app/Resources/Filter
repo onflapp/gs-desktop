@@ -1,5 +1,9 @@
+/Library/bin/nxnotify show-panel --title "Filter Service" --info "converting image to tiff"
+
 case "$1" in
   *.xpm|*.xcf|*.pnm|*.bpm|*.ico|*.webp)
-    convert "$1" tiff:-
+    convert -compress lzw "$1" tiff:-
   ;;
 esac
+
+/Library/bin/nxnotify hide-panel
