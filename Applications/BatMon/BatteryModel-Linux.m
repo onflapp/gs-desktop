@@ -445,6 +445,12 @@
 	      timeRemaining = 0;
 	      batteryState = BMBStateFull;
             }
+          else if (currCap > 0) 
+            {
+	      chargePercent = currCap/lastCap*100;
+	      timeRemaining = 0;
+	      batteryState = BMBStateFull;
+            }
           else
             {
 	      chargePercent = 0;

@@ -41,6 +41,8 @@ Resources/battery-good.tiff \
 Resources/battery-low.tiff \
 Resources/plugin.tiff \
 Resources/plugout.tiff \
+Resources/ScriptingInfo.plist \
+Resources/ApplicationScripting.xlp \
 Resources/LICENSE \
 Resources/README 
 
@@ -52,7 +54,8 @@ BatMon_HEADER_FILES = \
 AppController.h \
 BatteryModel.h \
 BatteryView.h \
-NSColorExtensions.h
+NSColorExtensions.h \
+STScriptingSupport.h
 
 #
 # Objective-C Class files
@@ -65,7 +68,8 @@ BatteryModel-Linux.m \
 BatteryModel-NetBSD.m \
 BatteryModel-OpenBSD.m \
 BatteryView.m \
-NSColorExtensions.m
+NSColorExtensions.m \
+STScriptingSupport.m
 
 #
 # Other sources
