@@ -1,0 +1,21 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    AppController = {
+	Actions = (
+	    "changeConfig:"
+	);
+	Outlets = (
+	    panel,
+	    hold3enabled,
+	    hold3command
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "changeConfig:",
+	    "orderFrontFontPanel:"
+	);
+	Super = NSObject;
+    };
+}

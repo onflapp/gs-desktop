@@ -199,7 +199,6 @@ Application Controller
   [self _grabEvents];
 }
 
-
 - (void) reoderMessages {
   NSScreen* screen = [NSScreen mainScreen];
   NSRect sr = [screen visibleFrame];

@@ -80,6 +80,10 @@ function start_services {
   /System/Applications/NotMon.app/NotMon -autolaunch YES &
   echo "$!" > /tmp/$UID-notmon.pid
   
+  echo "about to start Gesture Helper"
+  /System/Applications/GestureHelper.app/GestureHelper -autolaunch YES &
+  echo "$!" > /tmp/$UID-gesthelp.pid
+ 
   show_status "gray20"
   echo "about to start Pasteboard Service"
   /Library/bin/gpbs --daemon &
@@ -107,36 +111,31 @@ function start_services {
 
 }
 
+function _kill_proc {
+  PID=`cat /tmp/$UID-$1.pid 2>/dev/null`
+  if [ -n "$PID" ];then
+    kill $PID 2> /dev/null && rm /tmp/$UID-$1.pid
+  fi
+}
+
 function stop_services {
   echo "about to stop ddbd Service"
-  PID=`cat /tmp/$UID-ddbd.pid 2>/dev/null`
-  if [ -n "$PID" ];then
-    kill $PID 2> /dev/null && rm /tmp/$UID-ddbd.pid
-  fi
+  _kill_proc ddbd
 
   echo "about to stop fswatcher Service"
-  PID=`cat /tmp/$UID-fswatcher.pid 2>/dev/null`
-  if [ -n "$PID" ];then
-    kill $PID 2> /dev/null && rm /tmp/$UID-fswatcher.pid
-  fi
+  _kill_proc fswatcher
 
   echo "about to stop Notification Monitor"
-  PID=`cat /tmp/$UID-notmon.pid 2>/dev/null`
-  if [ -n "$PID" ];then
-    kill $PID 2> /dev/null && rm /tmp/$UID-notmon.pid
-  fi
-
-  echo "about to stop Notification Center"
-  PID=`cat /tmp/$UID-gdnc.pid 2>/dev/null`
-  if [ -n "$PID" ];then
-    kill $PID 2> /dev/null && rm /tmp/$UID-gdnc.pid
-  fi
+  _kill_proc notmon
 
   echo "about to stop Pasteboard Service"
-  PID=`cat /tmp/$UID-gpbs.pid 2>/dev/null`
-  if [ -n "$PID" ];then
-    kill $PID 2> /dev/null && rm /tmp/$UID-gpbs.pid
-  fi
+  _kill_proc gpbs
+
+  echo "about to stop Gesture Helper"
+  _kill_proc gesthelp
+
+  echo "about to stop Notification Center"
+  _kill_proc gdnc
 }
 
 function init_config {
@@ -185,9 +184,10 @@ function init_config {
     export FONTCONFIG_FILE=$HOME/Library/etc/fonts.conf
   fi
  
-  wdwrite WMWindowAttributes 'GSDE-Safe-Mode.XTerm' '{ DontSaveSession = Yes; NoAppIcon = Yes; StartMiniaturized = Yes; Omnipresent = Yes; }'
-  wdwrite WMWindowAttributes 'GWorkspace.GNUstep'   '{ DontSaveSession = Yes; NoAppIcon = Yes; }'
-  wdwrite WMWindowAttributes 'NotMon.GNUstep'       '{ SkipWindowList = Yes; SkipSwitchPanel = Yes; NoAppIcon = Yes; KeepOnTop = Yes; Omnipresent = Yes; }'
+  wdwrite WMWindowAttributes 'GSDE-Safe-Mode.XTerm'  '{ DontSaveSession = Yes; NoAppIcon = Yes; StartMiniaturized = Yes; Omnipresent = Yes; }'
+  wdwrite WMWindowAttributes 'GWorkspace.GNUstep'    '{ DontSaveSession = Yes; NoAppIcon = Yes; }'
+  wdwrite WMWindowAttributes 'GestureHelper.GNUstep' '{ DontSaveSession = Yes; NoAppIcon = Yes; }'
+  wdwrite WMWindowAttributes 'NotMon.GNUstep'        '{ DontSaveSession = Yes; SkipWindowList = Yes; SkipSwitchPanel = Yes; NoAppIcon = Yes; KeepOnTop = Yes; Omnipresent = Yes; }'
  
   if [ -f "$HOME/.gsderc" ];then
     echo "sourcing $HOME/.gsderc"
