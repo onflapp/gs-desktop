@@ -16,6 +16,17 @@ else
   DEBUG_ARGS="--enable-debug-by-default"
 fi
 
+if command -V dpkg >/dev/null 2>&1 ;then
+  if [ `dpkg --print-architecture 2>/dev/null` = "armhf" ];then
+    echo ""
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    echo "this is ARM 32bit, forcing runtime-abi to 1.9"
+    echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+    echo ""
+    RUNTIME_ARGS="-with-runtime-abi=gnustep-1.9"
+  fi
+fi
+ 
 make clean
 ./configure \
 	    --prefix=/ \
@@ -24,7 +35,7 @@ make clean
             --with-library-combo=ng-gnu-gnu \
 	    --enable-native-objc-exceptions \
 	    --enable-objc-arc \
-	    $DEBUG_ARGS
+	    $DEBUG_ARGS $RUNTIME_ARGS
 
 make || exit 1
 make install
