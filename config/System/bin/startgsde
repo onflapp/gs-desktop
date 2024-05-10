@@ -58,6 +58,16 @@ function stop_windowmanager {
   fi
 }
 
+function start_helpers {
+  echo "about to start Notification Monitor"
+  /System/Applications/NotMon.app/NotMon -GSSuppressAppIcon YES -autolaunch YES &
+  echo "$!" > /tmp/$UID-notmon.pid
+  
+  echo "about to start Gesture Helper"
+  /System/Applications/GestureHelper.app/GestureHelper -GSSuppressAppIcon YES -autolaunch YES &
+  echo "$!" > /tmp/$UID-gesthelp.pid
+}
+
 function start_services {
   show_status "gray15"
  
@@ -76,14 +86,6 @@ function start_services {
   echo "$!" > /tmp/$UID-gdnc.pid
   sleep 1
 
-  echo "about to start Notification Monitor"
-  /System/Applications/NotMon.app/NotMon -autolaunch YES &
-  echo "$!" > /tmp/$UID-notmon.pid
-  
-  echo "about to start Gesture Helper"
-  /System/Applications/GestureHelper.app/GestureHelper -autolaunch YES &
-  echo "$!" > /tmp/$UID-gesthelp.pid
- 
   show_status "gray20"
   echo "about to start Pasteboard Service"
   /Library/bin/gpbs --daemon &
@@ -115,6 +117,7 @@ function _kill_proc {
   PID=`cat /tmp/$UID-$1.pid 2>/dev/null`
   if [ -n "$PID" ];then
     kill $PID 2> /dev/null && rm /tmp/$UID-$1.pid
+    sleep 0.1
   fi
 }
 
@@ -128,11 +131,11 @@ function stop_services {
   echo "about to stop Notification Monitor"
   _kill_proc notmon
 
-  echo "about to stop Pasteboard Service"
-  _kill_proc gpbs
-
   echo "about to stop Gesture Helper"
   _kill_proc gesthelp
+
+  echo "about to stop Pasteboard Service"
+  _kill_proc gpbs
 
   echo "about to stop Notification Center"
   _kill_proc gdnc
@@ -253,11 +256,13 @@ function start_normal {
 
 function main_process {
   start_services
-  sleep 0.5
+  sleep 0.3
   start_windowmanager
-  sleep 0.5
+  sleep 0.3
+  start_helpers
+  sleep 0.3
   start_workspace 
-  sleep 0.5
+  sleep 0.3
 }
 
 function cleanup {
