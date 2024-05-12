@@ -79,6 +79,25 @@ static NSWindow* _lastMainWindow;
   [window makeKeyAndOrderFront:self];
 }
 
+- (id)validRequestorForSendType:(NSString *)st
+                     returnType:(NSString *)rt {
+  if ([fileName length]) {
+    if ([st isEqual:NSFilenamesPboardType]) return self;
+  }
+  return nil;
+}
+
+- (BOOL)writeSelectionToPasteboard:(NSPasteboard *)pb
+                             types:(NSArray *)types {
+  if ([fileName length]) {
+    [pb declareTypes:[NSArray arrayWithObject:NSFilenamesPboardType] owner:nil];
+    [pb setPropertyList:[NSArray arrayWithObject:fileName] forType:NSFilenamesPboardType];
+    return YES;
+  } else {
+    return NO;
+  }
+}
+
 - (BOOL) readFromPasteboard:(NSPasteboard*) pboard {
   NSData* data = [pboard dataForType:NSTIFFPboardType];
   if (data) {
