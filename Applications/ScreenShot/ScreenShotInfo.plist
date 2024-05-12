@@ -14,6 +14,9 @@
     NSRole = Application;
     NSServices = (
 	{
+            NSKeyEquivalent = {
+                default = "";
+            };
 	    NSMenuItem = {
 		default = "ScreenShot/Selection";
 	    };
@@ -23,6 +26,20 @@
 		NSTIFFPboardType
 	    );
 	    NSUserData = selection;
+	},
+	{
+            NSKeyEquivalent = {
+                default = "";
+            };
+	    NSMenuItem = {
+		default = "ScreenShot/Window";
+	    };
+	    NSMessage = grabScreenShot;
+	    NSPortName = ScreenShot;
+	    NSReturnTypes = (
+		NSTIFFPboardType
+	    );
+	    NSUserData = window;
 	}
     );
 }

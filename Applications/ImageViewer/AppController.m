@@ -43,10 +43,6 @@
 - (void) awakeFromNib {
 }
 
-- (NSString*) test {
-  return self;
-}
-
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif
 {
   [NSApp registerServicesMenuSendTypes:[NSArray array] 
@@ -74,7 +70,6 @@
   return NO;
 }
 
-/*
 - (id) validRequestorForSendType:(NSString*) sendType
                       returnType:(NSString*) returnType {
   if ([returnType isEqualToString:NSTIFFPboardType]) {
@@ -90,7 +85,6 @@
   [doc showWindow];
   return [doc readFromPasteboard:pboard];
 }
-*/
 
 - (Document*) documentForFile:(NSString*) fileName {
   for (NSWindow* win in [NSApp windows]) {

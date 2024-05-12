@@ -43,11 +43,9 @@
     [NSApp initializeApplicationScripting];
   }
 
-  /*
   [NSApp setServicesProvider:self];
   [NSApp registerServicesMenuSendTypes:[NSArray array] 
                            returnTypes:[NSArray arrayWithObject:NSTIFFPboardType]];
-  */
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender {
@@ -67,7 +65,30 @@
                userData: (NSString *) userData
                   error: (NSString **) error
 {
-  *error = @"doesn't work yet";
+  status = 1;
+  NSInteger i = 0;
+  NSInteger t = 3;
+
+  if ([userData isEqualToString:@"window"]) t = 2;
+
+  [self execScrot:t];
+  while (status && i < 60) {
+    NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.5];
+    [[NSRunLoop currentRunLoop] runUntilDate: limit];
+    i++;
+  }
+
+  if (screenshotFile) {
+    NSImage *image = [[NSImage alloc] initWithContentsOfFile:screenshotFile];
+    if (image) {
+      [pboard declareTypes:[NSArray arrayWithObjects:NSTIFFPboardType, nil] owner:nil];
+      [pboard setData:[image TIFFRepresentation] forType:NSTIFFPboardType];
+      [image release];
+      return;
+    }
+  }
+
+  *error = @"operation has been interrupted";
 }
 
 - (void) execRecord:(NSInteger) type {
@@ -85,6 +106,8 @@
   NSInteger tm = (NSInteger)[limit timeIntervalSinceReferenceDate];
 
   NSMutableArray* args = [NSMutableArray array];
+  if (screenshotFile) [screenshotFile release];
+
   screenshotFile = [NSString stringWithFormat:@"/tmp/%ld-screencapture.mp4", tm];
   [screenshotFile retain];
 
@@ -168,27 +191,30 @@
   [iconView setNeedsDisplay:YES];
   [[NSNotificationCenter defaultCenter] removeObserver:self];
 
-  if ([[NSFileManager defaultManager] fileExistsAtPath:screenshotFile]) {
+  if (status) {
+    status = 0;
+  }
+  else if ([[NSFileManager defaultManager] fileExistsAtPath:screenshotFile]) {
     NSWorkspace* ws = [NSWorkspace sharedWorkspace];
     [ws openFile:screenshotFile];
   }
-
-  [screenshotFile release];
-  screenshotFile = nil;
 
   [task release];
   task = nil;
 }
 
 - (IBAction) takeScreenShot:(id) sender {
+  status = 0;
   [self execScrot:[sender tag]];
 }
 
 - (IBAction) recordScreen:(id) sender {
+  status = 0;
   [self execRecord:[sender tag]];
 }
 
 - (IBAction) stopRecording:(id) sender {
+  status = 0;
   [task interrupt];
 }
 

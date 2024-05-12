@@ -16,6 +16,7 @@
 @interface AppController : NSObject {
   NSString* screenshotFile;
   NSTask* task;
+  NSInteger status;
 
   IBOutlet NSButton* recordButton;
   IBOutlet NSView* iconView;
