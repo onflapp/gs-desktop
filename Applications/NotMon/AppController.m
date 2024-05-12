@@ -147,6 +147,14 @@ Application Controller
   [cpanel setLevel:NSDockWindowLevel];
   [cpanel makeKeyAndOrderFront:self];
 
+  //ugly hack to force terminal to resize (confused by missing titlebar?)
+  NSRect r = [cpanel frame];
+  r.size.height = r.size.height - 1;
+  [cpanel setFrame:r display:YES];
+
+  r.size.height = r.size.height + 1;
+  [cpanel setFrame:r display:YES];
+
   [consoleController execCommand:exec argument:arg];
 }
 
