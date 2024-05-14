@@ -24,6 +24,8 @@
   [cell setStringValue: val];
   [cell setFont: font];
   [cell setAlignment: alignment];
+  [cell setBackgroundColor: [NSColor textBackgroundColor]];
+  [cell setDrawsBackground: YES];
 
   if(details) [cell setDetails: details];
 
@@ -56,9 +58,9 @@
      !_editable)
     [cell setTextColor: [NSColor blueColor]];
   else if(_editable)
-    [cell setTextColor: [NSColor darkGrayColor]];
+    [cell setTextColor: [NSColor textColor]];
   else
-    [cell setTextColor: [NSColor blackColor]];
+    [cell setTextColor: [NSColor textColor]];
   return cell;
 }
 
@@ -308,7 +310,8 @@
 	      cell = [self addValueCellForValue: str
 			   inRect: &rowRect
 			   details: myDetails];
-	      if(showsDefault) [cell setTextColor: [NSColor lightGrayColor]];
+	      if(showsDefault) 
+                [cell setTextColor: [NSColor lightGrayColor]];
 	      [cells addObject: cell];
 	    }
 	  rowRect.origin.x += rowRect.size.width + 5;
@@ -389,6 +392,9 @@
 	}
       cell = [self addValueCellForValue: val
 		   inRect: &r];
+
+      if([val isEqualToString:[self emptyValue]])
+	[cell setTextColor: [NSColor lightGrayColor]];
       if(showsDefault)
 	[cell setTextColor: [NSColor lightGrayColor]];
       allSize.width += r.size.width;
@@ -470,7 +476,7 @@
 	      if([value isEqualToString: [self emptyValue]])
 		[valueCell setTextColor: [NSColor lightGrayColor]];
 	      else
-		[valueCell setTextColor: [NSColor darkGrayColor]];
+		[valueCell setTextColor: [NSColor textColor]];
 
 	      rowSize.width += r.size.width;
 	      rowSize.height = MAX(rowSize.height, r.size.height);

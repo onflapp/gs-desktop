@@ -235,7 +235,7 @@ static float _globalFontSize;
 {
   NSBundle *b; NSString *filename;
   
-  _maxLabelWidth = 110;
+  _maxLabelWidth = 130;
   _fontSize = 12;
   _font = [[NSFont systemFontOfSize: _fontSize] retain];
   _fontSetExternally = NO;
@@ -404,7 +404,7 @@ static float _globalFontSize;
     return [self updatePersonWithMultiValueFromCell: cell];
 
   value = [cell stringValue];
-  
+ 
   switch(type)
     {
     case ADDateProperty:
@@ -579,15 +579,13 @@ static float _globalFontSize;
 	  [cell setStringValue: emptyValue];
 	  [cell setTextColor: [NSColor lightGrayColor]];
 	}
-      else
-	{
-	  [self updatePersonWithValueFromCell: cell];
-	  [self layout];
-	}
+      
+      [self updatePersonWithValueFromCell: cell];
 	 
       [_textObject removeFromSuperview];
       _textObject = nil;
       _editingCellIndex = -1;
+      [self layout];
     }
 
   if(_textObject)

@@ -51,7 +51,10 @@
       return NO;
     }
 
-  newDict = [NSMutableDictionary dictionaryWithDictionary: _dict];
+  if (_dict)
+    newDict = [NSMutableDictionary dictionaryWithDictionary: _dict];
+  else
+    newDict = [NSMutableDictionary dictionary];
   
   if(!value || [value isEqual: @""])
     [newDict removeObjectForKey: property];

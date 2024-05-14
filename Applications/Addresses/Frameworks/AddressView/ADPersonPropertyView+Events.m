@@ -71,6 +71,9 @@
 	case ADRemoveAction:
 	  ident = [details objectForKey: @"Identifier"];
 	  label = [details objectForKey: @"Label"];
+
+          [self endEditing];
+
 	  if(!ident || !label)
 	    {
 	      NSLog(@"Ident %@ or label %@ are nil!\n", ident, label);
@@ -140,7 +143,7 @@
     }
 }
 
-- (void) mouseDragged: (NSEvent*) event
+- (void) _DISABLED_mouseDragged: (NSEvent*) event
 {
   NSPasteboard *pb;
   
@@ -251,7 +254,6 @@
   NSRect r;
   NSText *t;
   int i;
-
   [[details retain] autorelease];
   [self endEditing];
 
@@ -265,10 +267,8 @@
       
   t = [_window fieldEditor: YES forObject: c];
   _textObject = [c setUpFieldEditorAttributes: t];
-  [_textObject setBackgroundColor: [NSColor orangeColor]];
-  [_textObject setTextColor: [NSColor blackColor]];
-  [_textObject setDrawsBackground: YES];
   [_textObject setString: [c stringValue]];
+  [c setTextColor: [NSColor textColor]];
   
   if([[c stringValue] hasPrefix: @"["])
     {

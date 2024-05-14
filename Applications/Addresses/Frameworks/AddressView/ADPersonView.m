@@ -281,9 +281,6 @@ static NSString *__defaultCountryCode = nil;
 
   if(_editable)
     {
-      [_noteView setBackgroundColor:
-		   [NSColor colorWithDeviceRed: 1.0 green: 1.0
-			    blue: .9 alpha: 1.0]];
       [_noteView setEditable: YES];
     }
   else
@@ -414,9 +411,10 @@ static NSString *__defaultCountryCode = nil;
   [self lockFocus];
 
   if(![self isEditable])
-    [[NSColor whiteColor] set];
+    [[NSColor textBackgroundColor] set];
   else
-    [[NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 0.65 alpha: 1.0] set];
+    [[NSColor textBackgroundColor] set];
+
   NSRectFill(rect);
 
   if(!_person)
@@ -426,7 +424,7 @@ static NSString *__defaultCountryCode = nil;
       NSAttributedString *str = [[[NSAttributedString alloc]
 				   initWithString: _(@"No Person Selected")]
 				  autorelease];
-      [[NSColor blackColor] set];
+      [[NSColor disabledControlTextColor] set];
 
       s1 = [str size];
       s2 = [self frame].size;
@@ -478,7 +476,7 @@ static NSString *__defaultCountryCode = nil;
     }
 
   
-  [[NSColor blackColor] set];
+  [[NSColor disabledControlTextColor] set];
   p = [NSBezierPath bezierPath];
   [p moveToPoint: NSMakePoint(5, _headerLineY)];
   [p lineToPoint: NSMakePoint([self frame].size.width-5, _headerLineY)];
@@ -719,21 +717,34 @@ static NSString *__defaultCountryCode = nil;
 {
   if([property isEqualToString: ADEmailProperty])
     {
+      NSString *mailAction = [[NSUserDefaults standardUserDefaults] valueForKey:@"DefaultMailAction"];
+      if ([mailAction length] == 0)
+        mailAction = @"GNUMail/New Mail with recipient";
+
       NSPasteboard *pb = [NSPasteboard generalPasteboard];
       [pb declareTypes: [NSArray arrayWithObjects: NSStringPboardType, nil]
 	  owner: self];
       [pb setString: value forType: NSStringPboardType];
 
-      NSPerformService(@"GNUMail/New Mail with recipient", pb);
+      NSPerformService(mailAction, pb);
     }
   else if([property isEqualToString: ADHomePageProperty])
     {
-      NSPasteboard *pb = [NSPasteboard generalPasteboard];
-      [pb declareTypes: [NSArray arrayWithObjects: NSStringPboardType, nil]
-	  owner: self];
-      [pb setString: value forType: NSStringPboardType];
+      NSURL *url = [NSURL URLWithString: value];
+      NSString *urlAction = [[NSUserDefaults standardUserDefaults] valueForKey:@"DefaultURLAction"];
+      if (url && [urlAction length])
+        {
+          NSPasteboard *pb = [NSPasteboard generalPasteboard];
+          [pb declareTypes: [NSArray arrayWithObjects: NSStringPboardType, nil]
+	             owner: self];
+          [pb setString: value forType: NSStringPboardType];
 
-      NSPerformService(@"Open URL", pb);
+          NSPerformService(urlAction, pb);
+        }
+      else if (url)
+       {
+         [[NSWorkspace sharedWorkspace] openURL: url];
+       }
     }
 }
 
@@ -963,7 +974,7 @@ changedHeightFrom: (float) oldH
   _mouseDownOnSelf = YES;
 }
 
-- (void) mouseDragged: (NSEvent*) event
+- (void) _DISABLED_mouseDragged: (NSEvent*) event
 {
   NSPasteboard *pb;
   NSString *str;

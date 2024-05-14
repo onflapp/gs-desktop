@@ -97,6 +97,7 @@ ADConverterManager *_manager = nil;
       NSLog(@"Error while reading file %@", filename);
       return nil;
     }
+  /*
   string = [[NSString alloc] initWithData:data encoding:NSUnicodeStringEncoding];
   if (string)
     {
@@ -137,6 +138,13 @@ ADConverterManager *_manager = nil;
   if (string)
     {
       NSLog(@"File in NSISOLatin2StringEncoding");
+      goto encoding;
+    }
+*/
+  string = [[NSString alloc] initWithData:data encoding: NSUTF8StringEncoding];
+  if (string)
+    {
+      NSLog(@"File in NSUTF8StringEncoding");
       goto encoding;
     }
   string = [[NSString alloc] initWithData:data encoding: NSASCIIStringEncoding];

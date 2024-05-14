@@ -3,6 +3,7 @@
 #import "AddressView/ADPersonView.h"
 #import "Controller.h"
 #import "DragDropMatrix.h"
+#import "STScriptingSupport.h"
 
 @interface ADAddressBook (AddressManagerAdditions)
 - (ADPerson*) personWithFirstName: (NSString*) first
@@ -32,6 +33,10 @@
 @implementation Controller
 - (void) applicationDidFinishLaunching: (NSNotification*) note
 {
+  if([NSApp isScriptingSupported]) {
+    [NSApp initializeApplicationScripting];
+  }
+
   NSUserDefaults *def;
   NSString *uid;
   
@@ -40,11 +45,6 @@
 						 nil]
 	 returnTypes: nil];
   
-  servicesMenu = [[[NSApp mainMenu]
-		    itemWithTitle: @"Services"]
-		   submenu];
-  [NSApp setServicesMenu: servicesMenu];
-
   def = [NSUserDefaults standardUserDefaults];
   uid = [def stringForKey: @"SelectedGroup"];
   if(uid && ![uid isEqualToString: @"None"])
@@ -54,9 +54,14 @@
 
   uid = [def stringForKey: @"SelectedPerson"];
   if(uid && ![uid isEqualToString: @"None"])
-    [self selectPerson: (ADPerson*)[_book recordForUniqueId: uid]];
+    {
+      [groupsBrowser selectRow: 0 inColumn: 0];
+      [self selectPerson: (ADPerson*)[_book recordForUniqueId: uid]];
+    }
   else
-    [groupsBrowser selectRow: 0 inColumn: 1];
+    {
+      [groupsBrowser selectRow: 0 inColumn: 1];
+    }
 
   [[NSNotificationCenter defaultCenter]
     addObserver: self
@@ -102,8 +107,6 @@
   [groupsBrowser setAllowsMultipleSelection: YES];
   [groupsBrowser setMaxVisibleColumns: 2];
   [groupsBrowser setDelegate: self];
-  [groupsBrowser setTitle: _(@"Group") ofColumn: 0];
-  [groupsBrowser setTitle: _(@"Name") ofColumn: 1];
   [groupsBrowser setMatrixClass: [DragDropMatrix class]];
   [groupsBrowser setTarget: self];
   [groupsBrowser setAction: @selector(browserAction:)];
@@ -319,11 +322,7 @@
       return;
     }
 
-  // HACK to avoid NSBrowser to keep its old selection; we want only
-  // the new one.
-  [groupsBrowser setAllowsMultipleSelection: NO];
   [groupsBrowser selectRow: i inColumn: 1];
-  [groupsBrowser setAllowsMultipleSelection: YES];
 
   [personView setPerson: [_peopleCache objectAtIndex: i]];
   [clipView scrollToPoint: NSZeroPoint];
@@ -387,8 +386,10 @@
   p = [personView person];
   if(!p || ![personView isEditable]) return;
 
-  if(![p valueForProperty: ADLastNameProperty] ||
-     ![p valueForProperty: ADFirstNameProperty])
+  NSString *fn = [p valueForProperty: ADFirstNameProperty];
+  NSString *ln = [p valueForProperty: ADLastNameProperty];
+
+  if([fn length] == 0 && [ln length] == 0)
     {
       if(NSRunAlertPanel(_(@"Discard Person?"),
 			 _(@"The person you have edited has no first or last\n"
@@ -439,9 +440,13 @@
   p = [personView person];
   if(!p) return; // nothing to do
   if([personView isEditable])
-    [self finishEditingPerson];
+    {
+      [self finishEditingPerson];
+    }
   else
-    [self beginEditingPerson: p];
+    {
+      [self beginEditingPerson: p];
+    }
   [clipView scrollToPoint: NSZeroPoint];
 }
 
@@ -451,11 +456,19 @@
 
   p = [personView person];
   if(!p && [sender state] == NSOnState)
-    [self doCreatePerson: sender];
+    {
+      [self doCreatePerson: sender];
+    }
   else if([sender state] == NSOnState)
-    [self beginEditingPerson: p];
+    {
+      [self beginEditingPerson: p];
+    }
   else
-    [self finishEditingPerson];
+    {
+      [[personView window] makeFirstResponder: groupsBrowser];
+      [self finishEditingPerson];
+    }
+
   [clipView scrollToPoint: NSZeroPoint];
 }
 
@@ -693,6 +706,8 @@
 - (void) doShowMe: (id) sender
 {
   if(![_book me]) return;
+
+  [groupsBrowser selectRow: 0 inColumn: 0];
   [self selectPerson: [_book me]];
 }
 
@@ -842,7 +857,10 @@
 - (void) doSaveDatabase: (id) sender
 {
   if([personView isEditable])
-    [self finishEditingPerson];
+    {
+      [[personView window] makeFirstResponder: groupsBrowser];
+      [self finishEditingPerson];
+    }
   if([_book hasUnsavedChanges])
     {
       _selfChanging = YES;
@@ -982,6 +1000,19 @@ numberOfRowsInColumn: (NSInteger) column
     }
 
   return 0;
+}
+
+- (NSString*) browser: (NSBrowser*) sender 
+   titleOfColumn: column
+{
+  if (column == 1)
+    {
+      return _(@"Name");
+    }
+  else
+    {
+      return _(@"Group");
+    }
 }
 
 - (void) browser: (NSBrowser*) sender

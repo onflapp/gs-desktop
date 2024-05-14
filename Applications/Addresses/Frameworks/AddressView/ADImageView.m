@@ -55,7 +55,7 @@
     [__target performSelector: _selector withObject: self];
 }
 
-- (void) mouseDragged: (NSEvent*) event
+- (void) _DISABLED_mouseDragged: (NSEvent*) event
 {
   NSPasteboard *pb;
 

@@ -62,17 +62,15 @@
   
   // process \ escaped chars
   str = [NSMutableString stringWithString:self];
-  for (i = 0; i < [self length]; i++)
-    {
-      NSRange r;
-      NSString *s;
+  [str replaceOccurrencesOfString:@"\\\\" 
+                       withString:@"\\" 
+                          options:0 
+                            range:NSMakeRange(0, [str length])];
 
-      r = NSMakeRange(i, 1);
-      s = [self substringWithRange: r];
-      if([s isEqualToString: @"\\"])
-        [str deleteCharactersInRange:r];
-    }
-
+  [str replaceOccurrencesOfString:@"\\n" 
+                       withString:@"\n" 
+                          options:0 
+                            range:NSMakeRange(0, [str length])];
 
   str2 = [NSMutableString stringWithCapacity: [str length]];
   for(i=0; i<[str length]; i++)

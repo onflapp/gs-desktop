@@ -582,6 +582,7 @@ extern char** environ;
   e = [args objectEnumerator];
   while((str = [e nextObject]))
     {
+      NSLog(@"file: %@", str);
       id obj;
       id<ADInputConverting> conv =
 	[[ADConverterManager sharedManager] inputConverterWithFile: str];

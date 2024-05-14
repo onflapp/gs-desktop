@@ -78,7 +78,7 @@ make -j2 || exit 1
 make install 'APP_INSTALL_DIR=$(GNUSTEP_LOCAL_ADMIN_APPS)'
 
 echo "=================="
-echo " Console App"
+echo " Web Browser"
 echo "=================="
 
 cd "$D"

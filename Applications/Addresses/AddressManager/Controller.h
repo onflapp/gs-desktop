@@ -11,7 +11,6 @@
   
   id personView, scrollView, clipView;
   id groupsBrowser;
-  id servicesMenu;
   id editButton, editItem, shareItem;
   id mergePersonsItem;
   id duplicatePersonItem;
