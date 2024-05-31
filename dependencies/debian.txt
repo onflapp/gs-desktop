@@ -33,6 +33,7 @@ libtool
 xinit
 bindfs
 x11-xserver-utils
+libxtst-dev
 gnuplot-x11
 xdotool
 libffcall-dev

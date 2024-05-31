@@ -26,8 +26,10 @@
 #define _TOUCHCONTROLLER_H_
 
 #import <Foundation/Foundation.h>
+#include <X11/Xlib.h>
 
 @interface TouchController : NSObject {
+  Display *display;
   
   NSTask* task;
   NSTask* cmd;

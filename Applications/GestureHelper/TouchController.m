@@ -22,8 +22,8 @@
    Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 */
 
-#include <X11/Xlib.h>
 #include <X11/Xutil.h>
+#include <X11/extensions/XTest.h>
 #import "TouchController.h"
 
 @implementation TouchController
@@ -51,7 +51,17 @@
 }
 
 - (void) simulateClick:(NSInteger) button {
-  Display *display = XOpenDisplay(0);
+  if (!display) {
+    display = XOpenDisplay(0);
+  }
+
+  XTestFakeButtonEvent(display, button, True,  0);
+  XTestFakeButtonEvent(display, button, False, 0);
+
+  XFlush(display);
+}
+
+- (void) simulateClick2:(NSInteger) button {
   XEvent event;
   Window last_win = 0;
   
@@ -221,12 +231,12 @@
     NSString *bb = (scrollReversed?@"4":@"5");
 
     if ([line isEqualToString:@"SCROLL_UP"]) {
-      //[self simulateClick:Button4];
-      [self execCommand:@"xdotool" withArguments:[NSArray arrayWithObjects:@"click", aa, nil]];
+      [self simulateClick:Button4];
+      //[self execCommand:@"xdotool" withArguments:[NSArray arrayWithObjects:@"click", aa, nil]];
     }
     else if ([line isEqualToString:@"SCROLL_DOWN"]) {
-      //[self simulateClick:Button5];
-      [self execCommand:@"xdotool" withArguments:[NSArray arrayWithObjects:@"click", bb, nil]];
+      [self simulateClick:Button5];
+      //[self execCommand:@"xdotool" withArguments:[NSArray arrayWithObjects:@"click", bb, nil]];
     }
   }
   if (hold3cmd) {
