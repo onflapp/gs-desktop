@@ -38,6 +38,12 @@ elif [ "$1" == "dosearch" ];then
   esac
 fi
 
+function cleanup {
+  rm $CONTROL_FILE 2>/dev/null
+  exit 0
+}
+
+trap cleanup INT HUP EXIT
 rm $CONTROL_FILE 2>/dev/null
 mkfifo $CONTROL_FILE
 
