@@ -3,7 +3,8 @@
     AppController = {
 	Actions = (
 	    "showPrefPanel:",
-	    "changeVolume:"
+	    "changeVolume:",
+	    "toggleMic:"
 	);
 	Outlets = (
 	    controlView,
@@ -16,6 +17,7 @@
     FirstResponder = {
 	Actions = (
 	    "changeVolume:",
+	    "toggleMic:",
 	    "orderFrontFontPanel:",
 	    "showPrefPanel:"
 	);

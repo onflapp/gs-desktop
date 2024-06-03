@@ -72,15 +72,20 @@
 {
   if (soundOut) {
     [muteButton setEnabled:YES];
-    [micMuteButton setEnabled:YES];
     [volumeSlider setEnabled:YES];
     [muteButton setState:[soundOut isMute]];
     [volumeSlider setIntegerValue:[soundOut volume]];
   }
   else {
-    [micMuteButton setEnabled:NO];
     [muteButton setEnabled:NO];
     [volumeSlider setEnabled:NO];
+  }
+  if (soundIn) {
+    [micMuteButton setState:[soundIn isMute]];
+    [micMuteButton setEnabled:YES];
+  }
+  else {
+    [micMuteButton setEnabled:NO];
   }
 }
 
@@ -132,6 +137,17 @@
       [volumeSlider setIntegerValue:[soundOut volume]];
     }
   }
+  else if ([device isKindOfClass:[SNDIn class]]) {
+    SNDIn *input = (SNDIn *)device;
+    [micMuteButton setState:[input isMute]];
+    NSLog(@"mic");
+  }
+}
+
+- (void) toggleMic: (id)sender
+{
+  [soundIn setMute:[sender state]];
+  lastChange = [[NSDate date] timeIntervalSinceReferenceDate];
 }
 
 - (void) changeVolume: (id)sender
@@ -167,7 +183,6 @@
   NSInteger val = (NSInteger)[volumeSlider doubleValue];
   [volumeSlider setIntValue:val+delta];
   [self changeVolume:volumeSlider];
-
 }
 
 - (void) decreaseVolume: (id)sender
