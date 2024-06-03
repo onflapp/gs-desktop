@@ -111,6 +111,11 @@ static NSWindow* _lastMainWindow;
   }
 }
 
+- (void) performInspectorPanelAction:(id) sender {
+  NSRect r = [[InspectorPanel sharedInstance] selectedRectangle];
+  [imageView setSelectionRectangle:r];
+}
+
 - (NSRect) selection {
   return [imageView selectedRectangle];
 }
@@ -182,8 +187,8 @@ static NSWindow* _lastMainWindow;
   if (sz.height > 1000) sz.height = 1000;
   if (sz.height < 30) sz.height = 30;
   
-  sz.width += 25;
-  sz.height += 25;
+  sz.width += 19;
+  sz.height += 19;
   [window setContentSize:sz];
 }
 

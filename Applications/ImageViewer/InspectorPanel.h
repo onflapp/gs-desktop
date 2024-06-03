@@ -16,6 +16,7 @@
 + (id)sharedInstance;
 - (void)orderFrontInspectorPanel:(id)sender;
 
+- (NSRect) selectedRectangle;
 - (void)updateSelection:(NSRect)r;
 - (void)updateImageInfo:(NSImage*)img;
 

@@ -30,11 +30,17 @@
 @interface ImageView : NSImageView
 {
    NSRect dragRect;
+   NSRect selectionRect;
    CGFloat displayScale;
+   BOOL selectionMove;
+   NSPoint moveOffset;
+   CGFloat linePattern[2];
 }
 
 - (void) resetSelectionRectangle;
 - (NSRect) selectedRectangle;
+- (void) setSelectionRectangle:(NSRect) r;
+
 - (NSImage*) croppedImage:(NSRect) r2;
 - (IBAction) zoomIn:(id) sender;
 - (IBAction) zoomOut:(id) sender;

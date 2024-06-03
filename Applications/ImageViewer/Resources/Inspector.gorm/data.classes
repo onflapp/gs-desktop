@@ -3,14 +3,14 @@
     FirstResponder = {
 	Actions = (
 	    "findPrevious:",
+	    "performInspectorPanelAction:",
 	    "orderFrontFindPanel:"
 	);
 	Super = NSObject;
     };
     InspectorPanel = {
 	Actions = (
-	    "orderFrontInspecrorPanel:",
-	    "performInspectorPanelAction:"
+	    "orderFrontInspecrorPanel:"
 	);
 	Outlets = (
 	    panel,

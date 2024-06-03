@@ -12,7 +12,7 @@
 
 static id sharedInspectorPanel = nil;
 
-+ (id)sharedInstance {
++ (id) sharedInstance {
   if (! sharedInspectorPanel) {
     sharedInspectorPanel = [[self alloc] init];
     [NSBundle loadNibNamed:@"Inspector" owner:sharedInspectorPanel];
@@ -25,14 +25,24 @@ static id sharedInspectorPanel = nil;
     [super dealloc];
   }
 }
-- (void)updateSelection:(NSRect)r {
+
+- (NSRect) selectedRectangle {
+  NSInteger x = [sel_xField integerValue];
+  NSInteger y = [sel_yField integerValue];
+  NSInteger w = [sel_wField integerValue];
+  NSInteger h = [sel_hField integerValue];
+
+  return NSMakeRect(x, y, w, h);
+}
+
+- (void) updateSelection:(NSRect)r {
   [sel_xField setIntegerValue:(NSInteger)r.origin.x];
   [sel_yField setIntegerValue:(NSInteger)r.origin.y];
   [sel_wField setIntegerValue:(NSInteger)r.size.width];
   [sel_hField setIntegerValue:(NSInteger)r.size.height];
 }
 
-- (void)updateImageInfo:(NSImage*)img {
+- (void) updateImageInfo:(NSImage*)img {
   NSSize sz = [img size];
   [img_wField setIntegerValue:(NSInteger)sz.width];
   [img_hField setIntegerValue:(NSInteger)sz.height];
