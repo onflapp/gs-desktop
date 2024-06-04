@@ -4,6 +4,8 @@ if [ "$1" = "screen" ];then
   W=`xwininfo -root | awk '/Width:/{ print $2 }'`
   H=`xwininfo -root | awk '/Height:/{ print $2 }'`
   ffmpeg -framerate 10 -f x11grab -video_size "${W}x${H}" -i $DISPLAY $2
+elif [ "$1" = "camera" ];then
+  ffmpeg -f v4l2 -i /dev/video0 $2
 else
   A=`slop -n 1 -o -f "-video_size %wx%h -i $DISPLAY+%x,%y"`
   if [ -n "$A" ];then

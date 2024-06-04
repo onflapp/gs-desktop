@@ -60,6 +60,12 @@
 	    NSUnixExtensions = (
 		mp4
 	    );
+	},
+	{
+	    NSIcon = "file_video.tiff";
+	    NSUnixExtensions = (
+		mkv
+	    );
 	}
     );
 }

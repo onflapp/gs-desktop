@@ -121,6 +121,9 @@
   if (type == 1) {
     t = @"screen";
   }
+  else if (type == 2) {
+    t = @"camera";
+  }
   
   [args addObject:t];
   [args addObject:screenshotFile];

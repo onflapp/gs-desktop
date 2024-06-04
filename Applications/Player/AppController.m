@@ -28,7 +28,7 @@
 - (id) init
 {
   self = [super init];
-  videoExtensions = [[NSArray arrayWithObjects:@"mp4", @"m4v", @"ogv", nil] retain];
+  videoExtensions = [[NSArray arrayWithObjects:@"mp4", @"m4v", @"ogv", @"mkv", nil] retain];
   audioExtensions = [[NSArray arrayWithObjects:@"mp3", @"au", @"snd", @"pls", @"wav", nil] retain];
 
   return self;
