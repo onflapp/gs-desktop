@@ -17,7 +17,8 @@
 	"InspectorPanel.m",
 	"ImageView.m",
 	"AppController+scripting.m",
-	"Document+scripting.m"
+	"Document+scripting.m",
+	"FullScreenWindow.m"
     );
     COMPILEROPTIONS = "";
     CPPOPTIONS = "";
@@ -31,7 +32,8 @@
 	"Document.h",
 	"InspectorPanel.h",
 	"STScriptingSupport.h",
-	"ImageView.h"
+	"ImageView.h",
+	"FullScreenWindow.h"
     );
     IMAGES = (
 	"GenericImage.tiff",
@@ -54,7 +56,7 @@
 	"gnustep-base",
 	"gnustep-gui"
     );
-    LINKEROPTIONS = "";
+    LINKEROPTIONS = "-lX11";
     "LOCALIZED_RESOURCES" = (
     );
     MAININTERFACE = "ImageViewer.gorm";

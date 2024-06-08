@@ -28,6 +28,7 @@
 	    "cloneDocument:",
 	    "crop:",
 	    "cropAsNew:",
+	    "toggleFullScreen:",
 	    "orderFrontFontPanel:",
 	    "resizeToFit:",
 	    "showInspectorPanel:",

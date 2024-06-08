@@ -27,6 +27,11 @@
 #include "X11/Xutil.h"
 #include "X11/keysymdef.h"
 
+Display* currentXDisplay() {
+  GSDisplayServer *server = GSCurrentServer();
+  return (Display *)[server serverDevice];
+}
+
 @implementation XEmbeddedView
 
 - (id) initWithFrame:(NSRect)r {
@@ -203,7 +208,7 @@
   if (!isvisible) return;
 
   Window myxwindowid = (Window)[[self window]windowRef];
-  xdisplay = XOpenDisplay(NULL);
+  xdisplay = currentXDisplay();
   xwindowid = xwinid;
   int screen = DefaultScreen(xdisplay);
 
@@ -218,7 +223,7 @@
 
 - (void) createXWindow {
   Window myxwindowid = (Window)[[self window]windowRef];
-  xdisplay = XOpenDisplay(NULL);
+  xdisplay = currentXDisplay();
   int screen = DefaultScreen(xdisplay);
   xwindowid = XCreateSimpleWindow(xdisplay, myxwindowid,0,0,	
 		200, 300, 0, BlackPixel(xdisplay, screen), WhitePixel(xdisplay, screen));

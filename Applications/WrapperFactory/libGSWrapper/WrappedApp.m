@@ -23,6 +23,7 @@
 #import "NSApplication+AppName.h"
 #import "NSMenu+Suppress.h"
 #import "AppIconView.h"
+#include <GNUstepGUI/GSDisplayServer.h>
 
 Window *winlist (Display *disp, unsigned long *len) {
     Atom prop = XInternAtom(disp,"_NET_CLIENT_LIST",False), type;
@@ -145,7 +146,8 @@ char *wintitle (Display *disp, Window win) {
 - (void) updateWindowList
 {
   const char* wmclass = [wrappedAppClassName cString];
-  Display *dpy = XOpenDisplay(NULL);
+  GSDisplayServer *server = GSCurrentServer();
+  Display *dpy = (Display *)[server serverDevice];
   XClassHint whints;
   NSMenu *windowsMenu = [NSApp windowsMenu];
   NSMutableArray *toadd = [NSMutableArray array];

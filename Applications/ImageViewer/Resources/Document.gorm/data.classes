@@ -17,6 +17,13 @@
 	);
 	Super = NSObject;
     };
+    FullScreenWindow = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSWindow;
+    };
     ImageView = {
 	Actions = (
 	    "zoomOut:",

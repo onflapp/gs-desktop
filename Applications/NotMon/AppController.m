@@ -7,6 +7,7 @@ Application Controller
 */
 
 #import "AppController.h"
+#include <GNUstepGUI/GSDisplayServer.h>
 
 @implementation AppController
 
@@ -235,7 +236,9 @@ Application Controller
 
 - (void) _grabEvents {
   Window win = (Window)[panel windowRef];
-  Display* dpy = XOpenDisplay(NULL);
+  GSDisplayServer *server = GSCurrentServer();
+  Display *dpy = (Display *)[server serverDevice];
+
   XGrabPointer(dpy, win, False,
 		     PointerMotionMask | ButtonReleaseMask | ButtonPressMask,
 		     GrabModeAsync, GrabModeAsync, win, None, CurrentTime);
