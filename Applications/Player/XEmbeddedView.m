@@ -28,6 +28,11 @@
 #include "X11/Xatom.h"
 #include "X11/keysymdef.h"
 
+Display* currentXDisplay() {
+  GSDisplayServer *server = GSCurrentServer();
+  return (Display *)[server serverDevice];
+}
+
 unsigned long getXColorPixel(Display* display, char* color) {
   XColor hex;
   Colormap colormap = DefaultColormap(display, 0);
@@ -211,7 +216,7 @@ unsigned long getXColorPixel(Display* display, char* color) {
 
 - (void) createXWindowID {  
   Window myxwindowid = (Window)[[self window]windowRef];
-  xdisplay = XOpenDisplay(NULL);
+  xdisplay = currentXDisplay();
   int screen = DefaultScreen(xdisplay);
   xwindowid = XCreateSimpleWindow(xdisplay, myxwindowid,0,0,	
 		200, 300, 0, BlackPixel(xdisplay, screen), WhitePixel(xdisplay, screen));
@@ -334,6 +339,7 @@ unsigned long getXColorPixel(Display* display, char* color) {
   NSLog(@"we are done here");
 
   xwindowid = 0;
+  XCloseDisplay(d);
 }
 
 

@@ -55,7 +55,8 @@ AppController.h \
 Document.h \
 InspectorPanel.h \
 STScriptingSupport.h \
-ImageView.h
+ImageView.h \
+FullScreenWindow.h
 
 #
 # Objective-C Class files
@@ -66,7 +67,8 @@ Document.m \
 InspectorPanel.m \
 ImageView.m \
 AppController+scripting.m \
-Document+scripting.m
+Document+scripting.m \
+FullScreenWindow.m
 
 #
 # Other sources
