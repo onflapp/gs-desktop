@@ -1,0 +1,65 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "changeConfig:",
+	    "doubleClickMtrxClicked:",
+	    "enableSubpixelChanged:",
+	    "advancedConfig:",
+	    "setCursorTheme:",
+	    "setMenuButtonEnabled:",
+	    "setMenuButtonHand:",
+	    "setTreshold:",
+	    "setWheelScroll:",
+	    "subpixelModeChanged:"
+	);
+	Super = NSObject;
+    };
+    Mouse = {
+	Actions = (
+	    "doubleClickMtrxClicked:",
+	    "setWheelScroll:",
+	    "setTreshold:",
+	    "setMenuButtonEnabled:",
+	    "setMenuButtonHand:",
+	    "setCursorTheme:"
+	);
+	Outlets = (
+	    view,
+	    window,
+	    doubleClickMtrx,
+	    speedMtrx,
+	    wheelScrollField,
+	    tresholdSlider,
+	    tresholdField,
+	    handImageView,
+	    menuLeftBtn,
+	    menuRightBtn,
+	    menuMtrx,
+	    cursorsBtn,
+	    wheelControlScrollField
+	);
+	Super = NSObject;
+    };
+    NXTNumericField = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSTextField;
+    };
+    Touch = {
+	Actions = (
+	    "changeConfig:",
+	    "advancedConfig:"
+	);
+	Outlets = (
+	    view,
+	    window,
+	    image,
+	    scrollReversed,
+	    scrollEnabled
+	);
+	Super = NSObject;
+    };
+}

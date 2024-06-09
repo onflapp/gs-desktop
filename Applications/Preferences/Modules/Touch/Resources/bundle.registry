@@ -1,0 +1,6 @@
+{
+  type = Preferences;
+  mode = Touch;
+  class = Touch;
+  priority = 7;
+}

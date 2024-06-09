@@ -1,0 +1,47 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    DatePrefs = {
+	Actions = (
+	    "setButtAction:",
+	    "toggleTimeFormat:"
+	);
+	Outlets = (
+	    window,
+	    view,
+	    zoneField,
+	    codeField,
+	    commentsField,
+	    setButt,
+	    imageBox,
+	    timeFormat
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "closeMainWindow:",
+	    "changeStatus:",
+	    "nextButtAction:",
+	    "prevButtAction:",
+	    "runInfoPanel:",
+	    "selectService:",
+	    "setButtAction:",
+	    "showAllButtAction:",
+	    "toggleTimeFormat:"
+	);
+	Super = NSObject;
+    };
+    ServicesPrefs = {
+	Actions = (
+	    "selectService:",
+	    "changeStatus:"
+	);
+	Outlets = (
+	    window,
+	    view,
+	    browser,
+	    statusButton
+	);
+	Super = NSObject;
+    };
+}

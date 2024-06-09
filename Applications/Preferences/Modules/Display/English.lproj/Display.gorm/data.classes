@@ -1,0 +1,49 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    Display = {
+	Actions = (
+	    "monitorsListClicked:",
+	    "sliderMoved:",
+	    "resolutionClicked:",
+	    "rateClicked:",
+	    "backgroundChanged:",
+	    "managedBackgroundChanged:"
+	);
+	Outlets = (
+	    view,
+	    window,
+	    brightnessBox,
+	    brightnessField,
+	    brightnessSlider,
+	    colorBtn,
+	    gammaField,
+	    gammaSlider,
+	    monitorsList,
+	    monitorsScroll,
+	    rateBtn,
+	    resolutionBtn,
+	    reflectionBtn,
+	    rotationBtn,
+	    managedBackgroundBtn
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "backgroundChanged:",
+	    "monitorsListClicked:",
+	    "managedBackgroundChanged:",
+	    "rateClicked:",
+	    "resolutionClicked:",
+	    "sliderMoved:"
+	);
+	Super = NSObject;
+    };
+    NXTNumericField = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSTextField;
+    };
+}

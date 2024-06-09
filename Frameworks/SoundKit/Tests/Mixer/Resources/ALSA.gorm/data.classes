@@ -1,0 +1,27 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    ALSA = {
+	Actions = (
+	    "selectCard:",
+	    "selectViewMode:"
+	);
+	Outlets = (
+	    window,
+	    cardsList,
+	    elementsView,
+	    viewMode,
+	    noControlsField,
+	    noControlsBox,
+	    noControlsWindow
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "selectCard:",
+	    "orderFrontFontPanel:",
+	    "selectViewMode:"
+	);
+	Super = NSObject;
+    };
+}

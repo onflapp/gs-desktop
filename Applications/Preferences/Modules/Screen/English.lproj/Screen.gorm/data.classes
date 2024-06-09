@@ -1,0 +1,38 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "revertArrangement:",
+	    "applyArrangement:",
+	    "setDisplayState:",
+	    "setMainDisplay:"
+	);
+	Super = NSObject;
+    };
+    ScreenCanvas = {
+	Actions = (
+	);
+	Outlets = (
+	    owner
+	);
+	Super = NSBox;
+    };
+    ScreenPreferences = {
+	Actions = (
+	    "revertArrangement:",
+	    "setDisplayState:",
+	    "setMainDisplay:",
+	    "applyArrangement:"
+	);
+	Outlets = (
+	    view,
+	    window,
+	    canvas,
+	    applyBtn,
+	    setMainBtn,
+	    setStateBtn,
+	    revertBtn
+	);
+	Super = NSObject;
+    };
+}

@@ -1,0 +1,42 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    ALSAElement = {
+	Actions = (
+	    "setMute:",
+	    "setBalance:",
+	    "setVolume:",
+	    "setOption:"
+	);
+	Outlets = (
+	    playbackBox,
+	    pVolumeField,
+	    pVolumeSlider,
+	    pBalanceSlider,
+	    pMuteButton,
+	    playbackWindow,
+	    pVolumeRight,
+	    pVolumeLeft,
+	    cBalanceSlider,
+	    cMuteButton,
+	    cVolumeField,
+	    cVolumeLeft,
+	    cVolumeRight,
+	    cVolumeSlider,
+	    captureBox,
+	    captureWindow,
+	    optionBox,
+	    optionValues,
+	    optionWindow
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "setOption:",
+	    "setBalance:",
+	    "setMute:",
+	    "setVolume:"
+	);
+	Super = NSObject;
+    };
+}

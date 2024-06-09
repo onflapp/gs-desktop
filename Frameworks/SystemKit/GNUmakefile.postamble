@@ -1,0 +1,10 @@
+after-clean::
+
+after-distclean::
+
+after-install::
+	chown root:root $(GNUSTEP_SYSTEM_LIBRARY)/Frameworks/SystemKit.framework/Resources/backlight_helper
+	chmod 4755 $(GNUSTEP_SYSTEM_LIBRARY)/Frameworks/SystemKit.framework/Resources/backlight_helper
+
+	chown root:root $(GNUSTEP_SYSTEM_LIBRARY)/Frameworks/SystemKit.framework/Resources/gesture_helper
+	chmod 4755 $(GNUSTEP_SYSTEM_LIBRARY)/Frameworks/SystemKit.framework/Resources/gesture_helper

@@ -5,123 +5,35 @@
 
 D=`pwd`
 
-echo "=================="
-echo " DBus Kit"
-echo "=================="
+build_kit() {
+  cd "$D"
+  echo "=================="
+  echo " $1"
+  echo "=================="
 
-cd ../../libs-dbuskit || exit 1
+  cd "$2" || exit 1
 
-gmake distclean
-./configure
-gmake $MKARGS || exit 1
-gmake install || exit 1
+  gmake distclean
 
-ldconfig
+  if [ -x ./configure ];then
+    ./configure
+  fi
 
-echo "=================="
-echo " StepTalk Kit"
-echo "=================="
+  gmake $MKARGS || exit 1
+  gmake install || exit 1
 
-cd "$D"
-cd ../../libs-steptalk || exit 1
+  ldconfig
+}
 
-gmake clean
-gmake $MKARGS || exit 1
-gmake install || exit 1
-
-ldconfig
-
-cd ./Examples/Shell || exit 1
-
-gmake || exit 1
-gmake install
-
-echo "=================="
-echo " SimpleWeb Kit"
-echo "=================="
-
-cd "$D"
-cd ../../libs-simplewebkit || exit 1
-
-gmake clean
-gmake $MKARGS || exit 1
-gmake install
-
-ldconfig
-
-echo "=================="
-echo " PDF Kit"
-echo "=================="
-
-cd "$D"
-cd ../Frameworks/PDFKit || exit 1
-
-gmake distclean
-./configure || exit 1
-gmake $MKARGS || exit 1
-gmake install
-
-ldconfig
-
-echo "=================="
-echo " Netclasses"
-echo "=================="
-
-cd "$D"
-cd ../Frameworks/netclasses || exit 1
-
-./configure || exit 1
-gmake $MKARGS || exit 1
-gmake install
-
-ldconfig
-
-echo "=================="
-echo " Pantomine"
-echo "=================="
-
-cd "$D"
-cd ../../gnumail/pantomime || exit 1
-
-make clean
-make -j$NPROC || exit 1
-
-make install
-ldconfig
-
-echo "=================="
-echo " Terminal Kit"
-echo "=================="
-
-cd ../../gs-terminal/TerminalKit || exit 1
-
-make clean
-make -j$NPROC || exit 1
-
-make install
-
-echo "=================="
-echo " Addresses Kit"
-echo "=================="
-
-cd "$D"
-cd ../Applications/Addresses/Frameworks || exit 1
-
-make clean
-make -j$NPROC || exit 1
-
-make install
-ldconfig
-
-echo "=================="
-echo " XCode Kit"
-echo "=================="
-
-cd "$D"
-cd ../../libs-xcode || exit 1
-
-make clean
-make -j$NPROC || exit 1
-
-make install
-ldconfig
+build_kit "DBus Kit" "../../libs-dbuskit"
+build_kit "StepTalk Kit" "../../libs-steptalk"
+build_kit "SimpleWeb Kit" "../../libs-simplewebkit"
+build_kit "PDF Kit" "../Frameworks/PDFKit"
+build_kit "Netclasses" "../Frameworks/netclasses"
+build_kit "Pantomine" "../../gnumail/pantomime"
+build_kit "Terminal Kit" "../../gs-terminal/TerminalKit"
+build_kit "Addresses Kit" "../Applications/Addresses/Frameworks"
+build_kit "XCode Kit" "../../libs-xcode"
+build_kit "Desktop Kit" "../Frameworks/DesktopKit"
+build_kit "System Kit" "../Frameworks/SystemKit"
+build_kit "Sound Kit" "../Frameworks/SoundKit"

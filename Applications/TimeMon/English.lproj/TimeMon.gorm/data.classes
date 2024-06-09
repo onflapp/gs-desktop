@@ -1,0 +1,47 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "launchProcessManager:",
+	    "orderFrontPathSelectorPanel:",
+	    "setFactor:",
+	    "setLag:",
+	    "setPeriod:",
+	    "setProcess:",
+	    "togglePause:"
+	);
+	Super = NSObject;
+    };
+    NSPanel = {
+	Actions = (
+	    "makeKeyAndOrderFront:"
+	);
+	Super = NSWindow;
+    };
+    Percentages = {
+	Actions = (
+	    "togglePause:",
+	    "setPeriod:",
+	    "setLag:",
+	    "setFactor:",
+	    "launchProcessManager:",
+	    "orderFrontPathSelectorPanel:",
+	    "setProcess:"
+	);
+	Outlets = (
+	    periodText,
+	    lagText,
+	    factorText,
+	    pauseMenuCell,
+	    colorFields,
+	    readmeText,
+	    idleColor,
+	    iowaitColor,
+	    niceColor,
+	    systemColor,
+	    userColor,
+	    processText
+	);
+	Super = NSObject;
+    };
+}

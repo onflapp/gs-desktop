@@ -1,0 +1,93 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "add:",
+	    "capsLockBtnClicked:",
+	    "capsLockMtrxClicked:",
+	    "composeBtnClicked:",
+	    "deleteKeyMtrxClicked:",
+	    "layoutMove:",
+	    "layoutRemove:",
+	    "modelBrowserClicked:",
+	    "select:",
+	    "numLockMtrxClicked:",
+	    "numpadMtrxClicked:",
+	    "remove:",
+	    "repeatAction:",
+	    "sectionButtonClicked:",
+	    "setLayoutShortcut:",
+	    "showAddLayoutPanel:",
+	    "swapCAMtrxClicked:"
+	);
+	Super = NSObject;
+    };
+    Keyboard = {
+	Actions = (
+	    "sectionButtonClicked:",
+	    "repeatAction:",
+	    "showAddLayoutPanel:",
+	    "layoutRemove:",
+	    "layoutMove:",
+	    "setLayoutShortcut:",
+	    "deleteKeyMtrxClicked:",
+	    "numpadMtrxClicked:",
+	    "capsLockBtnClicked:",
+	    "composeBtnClicked:",
+	    "capsLockMtrxClicked:",
+	    "swapCAMtrxClicked:",
+	    "numLockMtrxClicked:",
+	    "modelBrowserClicked:"
+	);
+	Outlets = (
+	    window,
+	    view,
+	    initialRepeatMtrx,
+	    repeatRateMtrx,
+	    layoutsBox,
+	    sectionsBtn,
+	    repeatBox,
+	    sectionBox,
+	    shortcutsBox,
+	    layoutAddBtn,
+	    layoutDownBtn,
+	    layoutRemoveBtn,
+	    layoutShortcutTypeBtn,
+	    layoutUpBtn,
+	    layoutList,
+	    layoutShortcutBtn,
+	    repeatTestField,
+	    modifiersBox,
+	    keypadBox,
+	    swapBox,
+	    deleteKeyMtrx,
+	    numpadMtrx,
+	    capsLockBtn,
+	    composeKeyBtn,
+	    capsLockMtrx,
+	    swapCAMtrx,
+	    numLockStateMtrx,
+	    modelBrowser,
+	    modelDescription,
+	    modelBox,
+	    shortcuts
+	);
+	Super = NSObject;
+    };
+    Shortcuts = {
+	Actions = (
+	    "add:",
+	    "remove:",
+	    "select:"
+	);
+	Outlets = (
+	    browser,
+	    addButton,
+	    removeButton,
+	    applicationField,
+	    titleField,
+	    keyField
+	);
+	Super = NSObject;
+    };
+}

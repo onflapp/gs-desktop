@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 git pull
@@ -6,7 +6,7 @@ git pull
 export PATH=/System/bin:$PATH
 
 D=`pwd`
-cd ./system
+cd ./build
 ./fetch_all.sh
 
 cd "$D"

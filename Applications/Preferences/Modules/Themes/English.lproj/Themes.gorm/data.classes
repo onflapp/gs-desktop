@@ -1,0 +1,41 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "apply:",
+	    "changeOption:",
+	    "changeSelection:",
+	    "loadThemes:",
+	    "configWM:",
+	    "save:",
+	    "settingsAction:",
+	    "styleAction:",
+	    "themeChanged:"
+	);
+	Super = NSObject;
+    };
+    Themes = {
+	Actions = (
+	    "apply:",
+	    "save:",
+	    "changeSelection:",
+	    "loadThemes:",
+	    "open:",
+	    "changeOption:",
+	    "configWM:"
+	);
+	Outlets = (
+	    matrix,
+	    previewView,
+	    nameField,
+	    detailsView,
+	    versionField,
+	    licenseField,
+	    view,
+	    window,
+	    pathField,
+	    scrollByPage
+	);
+	Super = NSObject;
+    };
+}

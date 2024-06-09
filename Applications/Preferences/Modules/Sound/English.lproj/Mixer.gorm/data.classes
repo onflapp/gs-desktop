@@ -1,0 +1,61 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    AppController = {
+	Actions = (
+	    "showPrefPanel:"
+	);
+	Outlets = (
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "appMuteClick:",
+	    "browserClick:",
+	    "setAppVolume:",
+	    "orderFrontFontPanel:",
+	    "setDeviceBalance:",
+	    "setDeviceMute:",
+	    "setDevicePort:",
+	    "setDeviceProfile:",
+	    "setDeviceVolume:",
+	    "setMode:",
+	    "showPrefPanel:"
+	);
+	Super = NSObject;
+    };
+    Mixer = {
+	Actions = (
+	    "browserClick:",
+	    "setDevicePort:",
+	    "appMuteClick:",
+	    "setDeviceBalance:",
+	    "setDeviceMute:",
+	    "setDeviceVolume:",
+	    "setDeviceProfile:",
+	    "setMode:",
+	    "setAppVolume:"
+	);
+	Outlets = (
+	    window,
+	    appBrowser,
+	    appMuteBtn,
+	    modeButton,
+	    deviceBalance,
+	    deviceMuteBtn,
+	    devicePortBtn,
+	    deviceProfileBtn,
+	    deviceVolumeSlider,
+	    deviceBox,
+	    appVolumeSlider,
+	    cardDescription,
+	    appVolumeMuteImg,
+	    deviceBalanceLeftImg,
+	    deviceBalanceRightImg,
+	    deviceVolumeLoudImg,
+	    deviceVolumeMuteImg,
+	    appVolumeLoudImg
+	);
+	Super = NSObject;
+    };
+}

@@ -1,0 +1,42 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "_performFind:",
+	    "_showIndex:",
+	    "_goHistoryBack:"
+	);
+	Super = NSObject;
+    };
+    NXTHelpPanel = {
+	Actions = (
+	    "_performFind:",
+	    "_showIndex:",
+	    "_goHistoryBack:"
+	);
+	Outlets = (
+	    findField,
+	    splitView,
+	    backtrackBtn,
+	    indexBtn,
+	    findBtn,
+	    statusField
+	);
+	Super = NSPanel;
+    };
+    NXTPanelLoader = {
+	Actions = (
+	);
+	Outlets = (
+	    panel
+	);
+	Super = NSObject;
+    };
+    NXTSplitView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSSplitView;
+    };
+}

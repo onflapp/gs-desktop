@@ -1,0 +1,28 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    AddLayoutPanel = {
+	Actions = (
+	    "addLayout:"
+	);
+	Outlets = (
+	    browser,
+	    panel,
+	    addBtn,
+	    infoField
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "addLayout:"
+	);
+	Super = NSObject;
+    };
+    NewClass = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = AddLayoutPanel;
+    };
+}

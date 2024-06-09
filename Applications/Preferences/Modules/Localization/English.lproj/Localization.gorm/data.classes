@@ -1,0 +1,38 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "enableSubpixelChanged:",
+	    "measurementUnitChanged:",
+	    "subpixelModeChanged:"
+	);
+	Super = NSObject;
+    };
+    LanguageList = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSTableView;
+    };
+    Localization = {
+	Actions = (
+	    "measurementUnitChanged:"
+	);
+	Outlets = (
+	    encodingBtn,
+	    papersizeBtn,
+	    unitsBtn,
+	    view,
+	    languageScrollView,
+	    window,
+	    dateExample,
+	    numbersExample,
+	    shortDateExample,
+	    shortTimeDateExample,
+	    timeDateExample,
+	    timeExample
+	);
+	Super = NSObject;
+    };
+}

@@ -1,0 +1,38 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    AppController = {
+	Actions = (
+	    "showTextFieldsDemo:"
+	);
+	Outlets = (
+	    integerTextField,
+	    floatTextField,
+	    textFieldsWindow
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "showTextFieldsDemo:"
+	);
+	Super = NSObject;
+    };
+    NXTNumericField = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSTextField;
+    };
+    NumericFieldTest = {
+	Actions = (
+	);
+	Outlets = (
+	    window,
+	    integerTextField,
+	    floatTextField,
+	    testDescription
+	);
+	Super = NSObject;
+    };
+}

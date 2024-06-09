@@ -1,0 +1,51 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    AppController = {
+	Actions = (
+	    "showTextFieldsDemo:",
+	    "showClockViewDemo:",
+	    "showSinglelineAlert:",
+	    "showMultilineAlert:",
+	    "showCursorsTest:",
+	    "show3LineAlert:",
+	    "showIconViewTest:",
+	    "showTextTest:",
+	    "showDrawingTest:",
+	    "openSavePanel:",
+	    "openOpenPanel:",
+	    "showListViewTest:"
+	);
+	Outlets = (
+	    integerTextField,
+	    floatTextField,
+	    textFieldsWindow
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "showHelpTemplatePanel:",
+	    "openOpenPanel:",
+	    "openSavePanel:",
+	    "show3LineAlert:",
+	    "showClockViewDemo:",
+	    "showCursorsTest:",
+	    "showDrawingTest:",
+	    "showHelpPanel:",
+	    "showIconViewTest:",
+	    "showListViewTest:",
+	    "showMultilineAlert:",
+	    "showSinglelineAlert:",
+	    "showTextFieldsDemo:",
+	    "showTextTest:"
+	);
+	Super = NSObject;
+    };
+    NSApplication = {
+	Actions = (
+	    "showHelpTemplatePanel:",
+	    "showHelpPanel:"
+	);
+	Super = NSResponder;
+    };
+}

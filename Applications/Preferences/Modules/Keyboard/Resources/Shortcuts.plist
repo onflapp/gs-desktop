@@ -1,0 +1,169 @@
+{
+  /* 
+     Control == Control
+     Shift   == Shift
+     Meta    == Alt/Command
+     Mod1    == Alt/Command
+     Mod2    == ?
+     Mod3    == ?
+     Mod4    == Super/Alternate
+     Mod5    == ?
+  */
+  WindowMaker = {
+    General = {
+   /* ModifierKeyLabels = ("Shift+", "Control+", "Alt+",  "?????", "?????", "Super+", "?????"); */
+      ModifierKeyLabels = ("Shift+", "Control+", "Mod1+", "Mod2+", "Mod3+", "Mod4+",  "Mod5+");
+      ModifierKey	= Mod4;			/* Used for window moving Mod4+Click+Drag */
+      RunKey 		= "Mod4+R";		/* Order front "Run" panel */
+      WindowRelaunchKey = "Mod4+Shift+R";	/* RMB click on titlebar -> Launch */
+      ScreenSwitchKey   = None;			/* ? */
+      SelectKey 	= None;			/* draws white border around window */
+      WindowListKey 	= None;			/* RMB click on desktop */
+      WindowMenuKey 	= None;			/* RMB click on titlebar */
+    }
+    
+    WindowResizing = {
+      MoveResizeKey =	None;
+      MaximusKey =	None;
+      
+      ShadeKey 	=	"Mod4+KP_Subtract";
+      MaximizeKey = 	"Mod4+KP_Add";
+      
+      VMaximizeKey = 	"Mod4+Up"; 	/* Maximize vertically */
+      HMaximizeKey = 	"Mod4+Right";	/* Maximize horizontally */
+      
+      LHMaximizeKey = 	"Mod4+KP_4";	/* Maximize left half */
+      RHMaximizeKey = 	"Mod4+KP_6"	/* Maximize right half */
+      THMaximizeKey = 	"Mod4+KP_8";	/* Maximize top half */
+      BHMaximizeKey = 	"Mod4+KP_2";	/* Maximize bottom half */
+      
+      LTCMaximizeKey = 	"Mod4+KP_7";	/* Maximize left top corner */
+      RTCMaximizeKey = 	"Mod4+KP_9";	/* Maximize right top corner */
+      LBCMaximizeKey = 	"Mod4+KP_1";	/* Maximize left bottom  corner */
+      RBCMaximizeKey = 	"Mod4+KP_3";	/* Maximize right bottom corner */
+    }
+
+    WindowOrdering = {
+      CloseKey		= "Mod1+w";		/* Cmd+w */
+      HideKey 		= "Mod1+h";		/* Cmd+h */
+      HideOthersKey 	= "Mod1+H";		/* Cmd+H */
+      MiniaturizeKey 	= "Mod1+m";		/* Cmd+m */
+      MinimizeAllKey 	= "Mod1+M";		/* Cmd+M */
+      FocusNextKey 	= "Mod1+Tab";		/* Cmd+Tab */
+      FocusPrevKey 	= "Mod1+Shift+Tab";
+      GroupNextKey 	= "Mod1+grave";
+      GroupPrevKey 	= "Mod1+Shift+grave";
+      RaiseKey 		= None;
+      LowerKey 		= None;
+      RaiseLowerKey 	= None;
+      OmnipresentKey 	= None;
+    }
+
+    Dock = {
+      DockRaiseLowerKey   = None;
+      DockHideShowKey     = "Mod4+Shift+D";
+      IconYardHideShowKey = "Mod4+Shift+Y";
+    }
+
+    Workspaces = {
+      PrevWorkspaceKey = "Control+Left";
+      NextWorkspaceKey = "Control+Right";
+      PrevWorkspaceLayerKey = None;
+      LastWorkspaceKey = None;
+      MoveToLastWorkspaceKey = None;
+      MoveToNextWorkspaceKey = None;
+      MoveToNextWorkspaceLayerKey = None;
+      MoveToPrevWorkspaceKey = None;
+      MoveToPrevWorkspaceLayerKey = None;
+      MoveToWorkspace10Key = None;
+      MoveToWorkspace1Key = None;
+      MoveToWorkspace2Key = None;
+      MoveToWorkspace3Key = None;
+      MoveToWorkspace4Key = None;
+      MoveToWorkspace5Key = None;
+      MoveToWorkspace6Key = None;
+      MoveToWorkspace7Key = None;
+      MoveToWorkspace8Key = None;
+      MoveToWorkspace9Key = None;
+      NextWorkspaceLayerKey = None;
+      Workspace10Key = None;
+      Workspace1Key = None;
+      Workspace2Key = None;
+      Workspace3Key = None;
+      Workspace4Key = None;
+      Workspace5Key = None;
+      Workspace6Key = None;
+      Workspace7Key = None;
+      Workspace8Key = None;
+      Workspace9Key = None;
+      WorkspaceMapKey = None;
+    }
+    
+    Unusable = {
+      /* ClipRaiseLowerKey = None; */
+      /* ViKeyMenus = NO; ? */
+      /* WindowShortcut10Key = None; */
+      /* WindowShortcut1Key = None; */
+      /* WindowShortcut2Key = None; */
+      /* WindowShortcut3Key = None; */
+      /* WindowShortcut4Key = None; */
+      /* WindowShortcut5Key = None; */
+      /* WindowShortcut6Key = None; */
+      /* WindowShortcut7Key = None; */
+      /* WindowShortcut8Key = None; */
+      /* WindowShortcut9Key = None; */
+    }
+  }
+  GNUstep = {
+    /* ===== Reserved keyboard shortcuts ===== */
+    /* Edit menu */
+    "Cut"			= "Command + x";	-		"Mod1 + x"
+    "Copy"			= "Command + c";	-		"Mod1 + c"
+    "Paste"			= "Command + v";	-		"Mod1 + v"
+    "Select All"		= "Command + a";	-		"Mod1 + a"
+    "Undo"			= "Command + z";	-		"Mod1 + z"
+    /* */
+    "Close Window"		= "Command + w";	CloseKey	"Mod1 + w"
+    "Miniaturize Window"	= "Command + m";	MiniaturizeKey	"Mod1 + m"
+    "Hide"			= "Command + h";	HideKey		"Mod1 + h"
+    "Quit"			= "Command + q";	-		"Mod1 + q"
+    "Help"			= "Command + ?";	-		"Mod1 + ?"
+    "Print"			= "Command + p";	-		"Mod1 + p"
+    "Open"			= "Command + o";	-		"Mod1 + o"
+    "New"			= "Command + n";	-		"Mod1 + n"
+    "Save"			= "Command + s";	-		"Mod1 + s"
+    
+    /* ===== Required (if you use some functionality) ===== */
+    /* If you use Find */
+    "Find panel..."		= "Command + f";	-		"Mod1 + f"
+    "Find Next"			= "Command + g";	-		"Mod1 + g"
+    "Find Previous"		= "Command + d";	-		"Mod1 + d"
+    "Enter Selection"		= "Command + e";	-		"Mod1 + e"
+    "Jump To Selection"		= "Command + j";	-		"Mod1 + j"
+    /* If you use Fonts */
+    "Font Panel..."		= "Command + t";	-		"Mod1 + t"
+    "Bold"			= "Command + b";	-		"Mod1 + b"
+    "Italic"			= "Command + i";	-		"Mod1 + i"
+    "Colors..."			= "Command + C";	-		"Mod1 + C"
+    /* Other */
+    "Check Spelling"		= "Command + ;";	-		"Mod1 + ;"
+
+    /* ===== Recommended (it's a good style) ===== */
+    "Show Ruler"		= "Command + r";	-		"Mod1 + r"
+    "Copy Ruler"		= "Command + 1";	-		"Mod1 + 1"
+    "Pase Ruler"		= "Command + 2";	-		"Mod1 + 2"
+    "Copy Font"			= "Command + 3";	-		"Mod1 + 3"
+    "Paste Font"		= "Command + 4";	-		"Mod1 + 4"
+    "Page Layout"		= "Command + P";	-		"Mod1 + P"
+    "Save As"			= "Command + S";	-		"Mod1 + S"
+    "Paste and Link"		= "Command + V";	-		"Mod1 + V"
+
+    /* TODO: Other useful (OpenStep UIG, section 3.20) */
+    "Top of Page/Page Up"	= "Control + Up";
+    "Bottom of Page/Page Down"	= "Control + Down";
+    "Start of Word"		= "Shift + Left";	"Command + Left";
+    "End of Word"		= "Shift + Right";	"Command + Right";
+    "Start of Word Line Above"	= "Shift + Up";		"Command + Up";
+    "End of Word at Line Below"	= "Shift + Down";	"Command + Down";
+  }
+}

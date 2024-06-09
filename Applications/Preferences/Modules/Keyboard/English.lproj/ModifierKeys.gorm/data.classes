@@ -1,0 +1,24 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    ModifierKeys = {
+	Actions = (
+	    "popupsAction:"
+	);
+	Outlets = (
+	    secondControlPopUp,
+	    secondCommandPopUp,
+	    secondAlternatePopUp,
+	    firstControlPopUp,
+	    firstCommandPopUp,
+	    firstAlternatePopUp,
+	    firstAlternateLabel,
+	    firstCommandLabel,
+	    firstControlLabel,
+	    secondControlLabel,
+	    secondAlternateLabel,
+	    secondCommandLabel,
+	    window
+	);
+	Super = NSObject;
+    };
+}

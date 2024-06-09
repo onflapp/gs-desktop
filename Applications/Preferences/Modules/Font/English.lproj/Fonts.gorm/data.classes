@@ -1,0 +1,23 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    Font = {
+	Actions = (
+	    "fontCategoryChanged:",
+	    "setFont:",
+	    "enableAntiAliasingChanged:"
+	);
+	Outlets = (
+	    window,
+	    view,
+	    fontNameTextField,
+	    enableAntiAliasingButton,
+	    fontExampleScrollView,
+	    enableSubpixelButton,
+	    subpixelModeButton,
+	    fontCategoryPopUp,
+	    fontExampleTextView,
+	    fontSetButton
+	);
+	Super = NSObject;
+    };
+}
