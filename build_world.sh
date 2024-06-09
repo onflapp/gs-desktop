@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
-if [ "$UID" -ne 0 ];then
+if [ `id -u` -ne 0 ];then
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   echo " please run this script as root"
   echo " sudo -E $0"
@@ -9,9 +9,9 @@ if [ "$UID" -ne 0 ];then
   exit 1
 fi
 
-if ! [ -d "../libobjc2" ];then
+if ! [ -d "../gnustep-make" ];then
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-  echo " sustem sources not found"
+  echo " system sources not found"
   echo " run './fetch_world.sh' first"
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   exit 1
@@ -20,8 +20,8 @@ fi
 export PATH=/System/bin:/Library/bin:$PATH
 
 D=`pwd`
-cd ./system
-./build_all.sh |& tee $D/build_world.system.log
+cd ./build
+./build_all.sh 2>&1 | tee $D/build_world.system.log
 
 if ! [ -f "/System/Applications/GWorkspace.app/GWorkspace" ];then
   echo "error building the system apps"
@@ -30,7 +30,7 @@ fi
 
 cd "$D"
 cd ./Applications
-./build_all.sh |& tee $D/build_world.apps.log
+./build_all.sh 2>&1 | tee $D/build_world.apps.log
 
 if ! [ -f "/Applications/GNUMail.app/GNUMail" ];then
   echo "error building the user apps"
@@ -38,7 +38,7 @@ if ! [ -f "/Applications/GNUMail.app/GNUMail" ];then
 fi
 
 cd "$D"
-./document_world.sh |& tee $D/build_world.docs.log
+./document_world.sh 2>&1 | tee $D/build_world.docs.log
 
 cd "$D"
 cd ./config

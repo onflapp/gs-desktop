@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
 cp ../config/etc/ld.so.conf.d/gs-desktop.conf /etc/ld.so.conf.d

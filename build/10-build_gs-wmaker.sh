@@ -1,9 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
+. ../BUILD_SETTINGS.conf
 . /Developer/Makefiles/GNUstep.sh
-. ../BUILD_SETTINGS.sh
-
-export PATH=/System/bin:$PATH
 
 unset LD
 unset LDFLAGS
@@ -21,5 +19,5 @@ fi
 ./autogen.sh
 ./configure --prefix=/System $DEBUG_ARGS --enable-randr --enable-dbus || exit 1
 
-make -j$NPROC || exit 1
-make install
+gmake $MKARGS || exit 1
+gmake install || exit 1

@@ -1,21 +1,19 @@
-#!/bin/bash
+#!/bin/sh
 D=`pwd`
 
+. ../BUILD_SETTINGS.conf
 . /Developer/Makefiles/GNUstep.sh
-
-export PATH=/System/bin:$PATH
 
 cd ../../nextspace/Applications/Preferences || exit 1
 
-make clean
-make -j2 || exit 1
+gmake clean
 
-make install
+gmake $MKARGS || exit 1
+gmake install || exit 1
 
 cd "$D"
 cd ../../nextspace/Applications/TimeMon || exit 1
 
-make clean
-make -j2 || exit 1
-
-make install 'APP_INSTALL_DIR=$(GNUSTEP_LOCAL_ADMIN_APPS)'
+gmake clean
+gmake $MKARGS || exit 1
+gmake install 'APP_INSTALL_DIR=$(GNUSTEP_LOCAL_ADMIN_APPS)' || exit 1

@@ -1,10 +1,15 @@
-#!/bin/bash
+#!/bin/sh
 
-. ../BUILD_SETTINGS.sh
+. ../BUILD_SETTINGS.conf
 
 echo "=================="
 echo " libobjc2"
 echo "=================="
+
+if [ "x$RUNTIME" = "xgnu" ];then
+	echo "skip, using GNU runtime"
+	exit 0
+fi
 
 cd ../../libobjc2 || exit 1
 
@@ -38,7 +43,7 @@ cmake .. \
 	-DTESTS=OFF \
 	|| exit 1
 
-make -j$NPROC || exit 1
+gmake $MKARGS || exit 1
+gmake install || exit 1
 
-make install
 ldconfig

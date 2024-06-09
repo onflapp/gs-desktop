@@ -1,10 +1,15 @@
-#!/bin/bash
+#!/bin/sh
 
-. ../BUILD_SETTINGS.sh
+. ../BUILD_SETTINGS.conf
 
 echo "=================="
 echo " libdispatch"
 echo "=================="
+
+if [ "x$RUNTIME" = "xgnu" ];then
+	echo "skip, using GNU runtime"
+	exit 0
+fi
 
 cd ../../libdispatch || exit 1
 rm -Rf _build 2>/dev/null
@@ -32,7 +37,7 @@ cmake .. \
 	-DENABLE_TESTING=OFF \
 	-DCMAKE_VERBOSE_MAKEFILE=ON
 
-make -j$NPROC || exit 1
+gmake $MKARGS || exit 1
+gmake install || exit 1
 
-make install
 ldconfig

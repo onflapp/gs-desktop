@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 
+. ../BUILD_SETTINGS.conf
 . /Developer/Makefiles/GNUstep.sh
-D=`pwd`
 
-export PATH=/System/bin:$PATH
+D=`pwd`
 
 echo "=================="
 echo " DBus Kit"
@@ -11,11 +11,11 @@ echo "=================="
 
 cd ../../libs-dbuskit || exit 1
 
-make distclean
+gmake distclean
 ./configure
-make -j$NPROC || exit 1
+gmake $MKARGS || exit 1
+gmake install || exit 1
 
-make install
 ldconfig
 
 echo "=================="
@@ -25,16 +25,16 @@ echo "=================="
 cd "$D"
 cd ../../libs-steptalk || exit 1
 
-make clean
-make -j$NPROC || exit 1
+gmake clean
+gmake $MKARGS || exit 1
+gmake install || exit 1
 
-make install
 ldconfig
 
 cd ./Examples/Shell || exit 1
 
-make || exit 1
-make install
+gmake || exit 1
+gmake install
 
 echo "=================="
 echo " SimpleWeb Kit"
@@ -43,10 +43,10 @@ echo "=================="
 cd "$D"
 cd ../../libs-simplewebkit || exit 1
 
-make clean
-make -j$NPROC || exit 1
+gmake clean
+gmake $MKARGS || exit 1
+gmake install
 
-make install
 ldconfig
 
 echo "=================="
@@ -56,11 +56,11 @@ echo "=================="
 cd "$D"
 cd ../Frameworks/PDFKit || exit 1
 
-make distclean
+gmake distclean
 ./configure || exit 1
-make -j$NPROC || exit 1
+gmake $MKARGS || exit 1
+gmake install
 
-make install
 ldconfig
 
 echo "=================="
@@ -71,9 +71,9 @@ cd "$D"
 cd ../Frameworks/netclasses || exit 1
 
 ./configure || exit 1
-make -j$NPROC || exit 1
+gmake $MKARGS || exit 1
+gmake install
 
-make install
 ldconfig
 
 echo "=================="

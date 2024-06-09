@@ -1,8 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
+. ../BUILD_SETTINGS.conf
 . /Developer/Makefiles/GNUstep.sh
-
-export PATH=/System/bin:$PATH
 
 echo "=================="
 echo " GNUstep GUI"
@@ -10,8 +9,8 @@ echo "=================="
 
 cd ../../gnustep-gui || exit 1
 
-make clean
+gmake clean
 ./configure --disable-icu-config || exit 1
 
-make -j$NPROC || exit 1
-make install
+gmake $MKARGS || exit 1
+gmake install || exit 1

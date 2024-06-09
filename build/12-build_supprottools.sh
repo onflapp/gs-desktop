@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 cp -R --preserve=mode ../Helpers/*.app /System/Applications
 

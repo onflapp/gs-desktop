@@ -1,18 +1,17 @@
-#!/bin/bash
+#!/bin/sh
 D=`pwd`
 
+. ../BUILD_SETTINGS.conf
 . /Developer/Makefiles/GNUstep.sh
 
-export PATH=/System/bin:$PATH
-
-function build_app {
+build_app() {
   cd "$D"
   cd ./$1 || exit 1
 
-  make clean
-  make -j2 || exit 1
+  gmake clean
 
-  make install $2
+  gmake $MKARGS || exit 1
+  gmake install $2
 }
 
 build_app "Tools"
@@ -50,9 +49,9 @@ build_app "GestureHelper"   'APP_INSTALL_DIR=$(GNUSTEP_SYSTEM_APPS)'
 cd "$D"
 cd ../Applications/Addresses/Goodies/VCFViewer || exit 1
 
-make -j2 || exit 1
+gmake $MKARGS || exit 1
+gmake install
 
-make install
 ldconfig
 
 . /Library/Preferences/GNUstep.conf

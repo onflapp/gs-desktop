@@ -1,8 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 
+. ../BUILD_SETTINGS.conf
 . /Developer/Makefiles/GNUstep.sh
-
-export PATH=/System/bin:$PATH
 
 echo "=================="
 echo " GNUstep Backend"
@@ -10,14 +9,14 @@ echo "=================="
 
 cd ../../gnustep-back || exit 1
 
-make clean
+gmake clean
 ./configure --enable-graphics=art --with-name=art
-make -j$NPROC || exit 1
+gmake $MKARGS || exit 1
 
-sudo -E make fonts=no install
+gmake fonts=no install || exit 1
 
-make clean
+gmake clean
 ./configure --enable-graphics=cairo --with-name=cairo
-make -j$NPROC || exit 1
+gmake $MKARGS || exit 1
 
-make fonts=no install
+gmake fonts=no install || exit 1
