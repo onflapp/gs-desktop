@@ -187,7 +187,6 @@
   [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(checkTaskStatus:) name:NSTaskDidTerminateNotification object:task];
   
   [task launch];
-===
 }
 
 - (void) checkTaskStatus:(id) not {

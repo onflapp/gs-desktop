@@ -410,7 +410,6 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   //Zinfo = malloc(sizeof(const pa_card_info));
   //Z[value getValue:(void *)info];
   info = [value pointerValue];
-  NSLog(@"xxxx");
 
   for (card in cardList) {
     if (card.index == info->index) {

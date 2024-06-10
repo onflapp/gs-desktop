@@ -57,6 +57,12 @@ static NSMutableArray* __my_process_args;
 @end
 
 int main(int argc, const char *argv[]) {
+    CREATE_AUTORELEASE_POOL(pool);
+    int rv = 0;
+
+#ifdef GS_PASS_ARGUMENTS
+    [NSProcessInfo initializeWithArguments:argv count:argc environment:env_c];
+#endif
     NSFileManager* fm = [NSFileManager defaultManager];
     NSString* cd      = [fm currentDirectoryPath];
     __my_process_name = [[[cd lastPathComponent] stringByDeletingPathExtension] retain];
@@ -76,11 +82,14 @@ int main(int argc, const char *argv[]) {
     if (app) {
         NSLog(@"running already %@", app);
         [app activateIgnoringOtherApps:YES];
-        return 0;
     }
     else {
         app = [NSApplication sharedApplication];
         [NSApp setDelegate: [[WrapperDelegate alloc] init]];
-        return NSApplicationMain(argc, argv);
+
+        NSApplicationMain(argc, argv);
     }
+
+    RELEASE(pool);
+    return rv;
 }
