@@ -173,7 +173,8 @@ static CGFloat SKTGraphicHandleHalfWidth = 6.0f / 2.0f;
     NSUInteger graphicCount = [graphics count];
     if (graphicCount>0) {
 	bounds = [[graphics objectAtIndex:0] bounds];
-	for (NSUInteger index = 1; index<graphicCount; index++) {
+        NSUInteger index;
+	for (index = 1; index<graphicCount; index++) {
             bounds = NSUnionRect(bounds, [[graphics objectAtIndex:index] bounds]);
 	}
     }
@@ -189,7 +190,8 @@ static CGFloat SKTGraphicHandleHalfWidth = 6.0f / 2.0f;
     NSUInteger graphicCount = [graphics count];
     if (graphicCount>0) {
 	drawingBounds = [[graphics objectAtIndex:0] drawingBounds];
-	for (NSUInteger index = 1; index<graphicCount; index++) {
+        NSUInteger index;
+	for (index = 1; index<graphicCount; index++) {
             drawingBounds = NSUnionRect(drawingBounds, [[graphics objectAtIndex:index] drawingBounds]);
 	}
     }
@@ -202,7 +204,8 @@ static CGFloat SKTGraphicHandleHalfWidth = 6.0f / 2.0f;
 
     // Pretty simple.
     NSUInteger graphicCount = [graphics count];
-    for (NSUInteger index = 0; index<graphicCount; index++) {
+    NSUInteger index;
+    for (index = 0; index<graphicCount; index++) {
 	SKTGraphic *graphic = [graphics objectAtIndex:index];
 	[graphic setBounds:NSOffsetRect([graphic bounds], deltaX, deltaY)];
     }
@@ -242,7 +245,8 @@ static CGFloat SKTGraphicHandleHalfWidth = 6.0f / 2.0f;
     // Convert the array of graphic property dictionaries into an array of graphics. Again, don't assume that property list objects are the right type.
     NSUInteger graphicCount = [propertiesArray count];
     NSMutableArray *graphics = [[NSMutableArray alloc] initWithCapacity:graphicCount];
-    for (NSUInteger index = 0; index<graphicCount; index++) {
+    NSUInteger index;
+    for (index = 0; index<graphicCount; index++) {
 	NSDictionary *properties = [propertiesArray objectAtIndex:index];
 	if ([properties isKindOfClass:[NSDictionary class]]) {
 
@@ -283,7 +287,8 @@ static CGFloat SKTGraphicHandleHalfWidth = 6.0f / 2.0f;
     // Convert the array of graphics dictionaries into an array of graphic property dictionaries.
     NSUInteger graphicCount = [graphics count];
     NSMutableArray *propertiesArray = [[NSMutableArray alloc] initWithCapacity:graphicCount];
-    for (NSUInteger index = 0; index<graphicCount; index++) {
+    NSUInteger index;
+    for (index = 0; index<graphicCount; index++) {
 	SKTGraphic *graphic = [graphics objectAtIndex:index];
 
 	// Get the properties of the graphic, add the class name that can be used by +graphicsWithProperties: to it, and add the properties to the array we're building.

@@ -44,7 +44,15 @@ typedef NS_ENUM(NSUInteger, SNDStreamType) {
 {
   pa_stream *_pa_stream;
   id        _delegate;
+
+  SNDServer *server;
+  PAClient  *client;
+  SNDDevice *device;
+  NSString  *name;
+  BOOL      isActive;
+  BOOL      isPlayback;
 }
+
 @property (retain) SNDServer *server;
 @property (assign) PAClient  *client;
 @property (retain) SNDDevice *device;

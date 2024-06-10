@@ -366,7 +366,8 @@ NSString *SKTTextContentsKey = @"contents";
     if (!_boundsBeingChangedToMatchContents) {
 	NSArray *layoutManagers = [[self contents] layoutManagers];
 	NSUInteger layoutManagerCount = [layoutManagers count];
-	for (NSUInteger index = 0; index<layoutManagerCount; index++) {
+        NSUInteger index;
+	for (index = 0; index<layoutManagerCount; index++) {
 	    NSLayoutManager *layoutManager = [layoutManagers objectAtIndex:index];
 
 	    // We didn't set up any multiple-text-view layout managers in -newEditingViewWithSuperviewBounds:, so we're not expecting to have to deal with any here.

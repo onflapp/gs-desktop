@@ -274,25 +274,24 @@
   CPUTime cp_time;
   SEL stepSel = @selector(step);
   NSMethodSignature *sig = [self methodSignatureForSelector:stepSel];
-  NSDictionary *defs;
+  NSMutableDictionary *defs = [NSMutableDictionary dictionary];
 
-  defs = @{@"UpdatePeriod":@"0.5",
-           @"LagFactor":@"4",
-           @"LayerFactor":@"16",
-           @"HideOnAutolaunch":@"YES",
-           // For color systems.
-           @"IdleColor":@"1.000 1.000 1.000 1.000",     // White
-           @"NiceColor":@"0.333 0.667 0.867 1.000",     // A light blue-green
-           @"UserColor":@"0.200 0.467 0.800 1.000",     // A darker blue-green
-           @"SystemColor":@"0.000 0.000 1.000 1.000",   // Blue
-           @"IOWaitColor":@"1.000 0.800 0.900 1.000",   // Light purple
-           @"BorderColor":@"0.000 0.000 0.000 1.000",   // Default border color
-           // For monochrome systems.
-           @"IdleGray":@"1.000",                        // White
-           @"NiceGray":@"0.667",                        // Light gray
-           @"UserGray":@"0.333",                        // Dark gray
-           @"SystemGray":@"0.000",                      // Black
-  };
+  [defs setValue:@"0.5" forKey:@"UpdatePeriod"];
+  [defs setValue:@"4" forKey:@"LagFactor"];
+  [defs setValue:@"16" forKey:@"LayerFactor"];
+  [defs setValue:@"YES" forKey:@"HideOnAutolaunch"];
+  // For color systems.
+  [defs setValue:@"1.000 1.000 1.000 1.000" forKey:@"IdleColor"];// White
+  [defs setValue:@"0.333 0.667 0.867 1.000" forKey:@"NiceColor"]; // A light blue-green
+  [defs setValue:@"0.200 0.467 0.800 1.000" forKey:@"UserColor"]; // A darker blue-green
+  [defs setValue:@"0.000 0.000 1.000 1.000" forKey:@"SystemColor"]; // Blue
+  [defs setValue:@"1.000 0.800 0.900 1.000" forKey:@"IOWaitColor"]; // Light purple
+  [defs setValue:@"0.000 0.000 0.000 1.000" forKey:@"BorderColor"];// Default border color
+  // For monochrome systems.
+  [defs setValue:@"1.000" forKey:@"IdleGray"]; // White
+  [defs setValue:@"0.667" forKey:@"NiceGray"]; // Light gray
+  [defs setValue:@"0.333" forKey:@"UserGray"]; // Dark gray
+  [defs setValue:@"0.000" forKey:@"SystemGray"]; // Black
 
   [defaults registerDefaults:defs];
   [defaults synchronize];

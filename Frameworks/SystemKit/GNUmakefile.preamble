@@ -35,16 +35,9 @@ ifeq ($(findstring gnu, $(GNUSTEP_TARGET_OS)), gnu)
 endif
 
 ### Additional flags to pass to the linker
-ADDITIONAL_LDFLAGS += -lXrandr -lxkbfile -lXcursor -lxcb-randr -lxcb-util -lxcb
+LIBRARIES_DEPEND_UPON += -lXrandr -lxkbfile -lXcursor -lxcb-randr -lxcb-util -lxcb
+LIBRARIES_DEPEND_UPON += `pkg-config --libs udisks2 dbus-1 upower-glib`
+
 ifeq ($(findstring freebsd, $(GNUSTEP_TARGET_OS)), freebsd)
   ADDITIONAL_LDFLAGS += `pkg-config --libs hal`
 endif
-
-ifeq ($(findstring gnu, $(GNUSTEP_TARGET_OS)), gnu)
-  ADDITIONAL_LDFLAGS += `pkg-config --libs udisks2 dbus-1 upower-glib`
-  ADDITIONAL_LDFLAGS += -ldispatch
-endif
-
-### Additional library directories the linker should search
-ADDITIONAL_LIB_DIRS += 
-ADDITIONAL_GUI_LIBS += 

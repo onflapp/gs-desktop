@@ -56,11 +56,22 @@ typedef struct _NXGammaValue NXGammaValue;
   BOOL			isMain;
   NSInteger hasDisplayBrightness;
   // BOOL			isActive;
+  
+  NSString *outputName;  // LVDS, VGA, DVI, HDMI
+  NSSize physicalSize;  // in milimetres
+  BOOL isBuiltin;  // determined by outputName
+                   //
+  NSDictionary *activeResolution;  // {Size=; Rate=}
+  CGFloat activeRate;  // Refresh rate for resolution
+  NSPoint activePosition;
+
+  NSRect frame;  // logical rect of monitor
+  NSRect hiddenFrame;  // logical rect for inactive monitor
 }
 
-@property (readonly) NSString *outputName;  // LVDS, VGA, DVI, HDMI
-@property (readonly) NSSize physicalSize;  // in milimetres
-@property (readonly) BOOL isBuiltin;  // determined by outputName
+@property (retain) NSString *outputName;  // LVDS, VGA, DVI, HDMI
+@property (assign) NSSize physicalSize;  // in milimetres
+@property (assign) BOOL isBuiltin;  // determined by outputName
 
 + (NSDictionary *)zeroResolution;
 
@@ -84,9 +95,9 @@ typedef struct _NXGammaValue NXGammaValue;
 
 //--- Active (visible to user) resolution of display
 // These values may only be changed with -setResolution:position: method.
-@property (readonly) NSDictionary *activeResolution;  // {Size=; Rate=}
-@property (readonly) CGFloat activeRate;  // Refresh rate for resolution
-@property (readonly) NSPoint activePosition;
+@property (retain) NSDictionary *activeResolution;  // {Size=; Rate=}
+@property (assign) CGFloat activeRate;  // Refresh rate for resolution
+@property (assign) NSPoint activePosition;
 
 //--- Setter
 - (void)setResolution:(NSDictionary *)resolution

@@ -24,24 +24,38 @@
 
 @interface PASourceOutput : NSObject
 {
-  pa_channel_map *channel_map;
+  pa_channel_map *_channel_map;
+
+  pa_context *context;
+  NSUInteger index;
+  NSString   *name;
+  NSUInteger clientIndex;
+  NSUInteger sourceIndex;
+
+  BOOL       hasVolume;
+  BOOL       isVolumeWritable;
+
+  NSUInteger channelCount;
+  CGFloat    balance;
+  NSArray    *channelVolumes;
+  BOOL       corked;
+  BOOL       mute;
 }
 
-@property (assign) pa_context   *context;
+@property (assign) pa_context *context;
+@property (assign) NSUInteger index;
+@property (retain) NSString   *name;
+@property (assign) NSUInteger clientIndex;
+@property (assign) NSUInteger sourceIndex;
 
-@property (readonly) NSString   *name;
-@property (readonly) NSUInteger index;
-@property (readonly) NSUInteger clientIndex;
-@property (readonly) NSUInteger sourceIndex;
+@property (assign) BOOL       hasVolume;
+@property (assign) BOOL       isVolumeWritable;
 
-@property (readonly) BOOL       hasVolume;
-@property (readonly) BOOL       isVolumeWritable;
-
-@property (readonly) NSUInteger channelCount;
-@property (readonly) CGFloat    balance;
-@property (readonly) NSArray    *channelVolumes;
-@property (readonly) BOOL       corked;
-@property (readonly) BOOL       mute;
+@property (assign) NSUInteger channelCount;
+@property (assign) CGFloat    balance;
+@property (retain) NSArray    *channelVolumes;
+@property (assign) BOOL       corked;
+@property (assign) BOOL       mute;
 
 - (id)updateWithValue:(NSValue *)val;
 

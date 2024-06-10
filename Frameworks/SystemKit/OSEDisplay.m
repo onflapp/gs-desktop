@@ -82,8 +82,16 @@
 
 @implementation OSEDisplay
 
-// @synthesize outputName;
-// @synthesize physicalSize;
+@synthesize outputName;
+@synthesize physicalSize;
+@synthesize isBuiltin;
+
+@synthesize activeResolution;
+@synthesize activeRate;
+@synthesize activePosition;
+
+@synthesize frame;
+@synthesize hiddenFrame;
 
 + (NSDictionary *)zeroResolution
 {
@@ -104,7 +112,8 @@
   XRRScreenResources *scr_resources = [screen randrScreenResources];
   XRRModeInfo rrMode;
 
-  for (int i=0; i<scr_resources->nmode; i++)
+  int i;
+  for (i=0; i<scr_resources->nmode; i++)
     {
       rrMode = scr_resources->modes[i];
       if (rrMode.id == mode)
@@ -126,7 +135,8 @@
 
   resDims = NSSizeFromString([resolution objectForKey:OSEDisplaySizeKey]);
 
-  for (int i=0; i<output_info->nmode; i++)
+  int i;
+  for (i=0; i<output_info->nmode; i++)
     {
       mode_info = [self _modeInfoForMode:output_info->modes[i]];
       if (mode_info.width == (unsigned int)resDims.width &&
@@ -155,7 +165,7 @@
       resSize = NSSizeFromString([res objectForKey:OSEDisplaySizeKey]);
       if (resSize.width == mode_info.width &&
           resSize.height == mode_info.height &&
-          [[res objectForKey:OSEDisplayRateKey] floatValue] == _activeRate)
+          [[res objectForKey:OSEDisplayRateKey] floatValue] == self.activeRate)
         {
 	  resolution = [res retain];
           break;
@@ -175,13 +185,13 @@
 // If returns YES monitor will be deactivated on LID close.
 - (BOOL)_isBuiltin
 {
-  if (!_outputName)
+  if (!self.outputName)
     return NO;
   
-  if (([_outputName rangeOfString:@"LVDS"].location != NSNotFound))
+  if (([self.outputName rangeOfString:@"LVDS"].location != NSNotFound))
     return YES;
   
-  if (([_outputName rangeOfString:@"eDP"].location != NSNotFound))
+  if (([self.outputName rangeOfString:@"eDP"].location != NSNotFound))
     return YES;
 
   return NO;
@@ -217,15 +227,16 @@
   output_info = XRRGetOutputInfo(xDisplay, screen_resources, output);
 
   // Output (connection port)
-  _outputName = [[NSString alloc] initWithCString:output_info->name];
-  _isBuiltin = [self _isBuiltin];
-  _physicalSize = NSMakeSize((CGFloat)output_info->mm_width,
+  self.outputName = [[NSString alloc] initWithCString:output_info->name];
+  self.isBuiltin = [self _isBuiltin];
+  self.physicalSize = NSMakeSize((CGFloat)output_info->mm_width,
                             (CGFloat)output_info->mm_height);
   connectionState = output_info->connection;
 
   // Get all resolutions for display
   allResolutions = [[NSMutableArray alloc] init];
-  for (int i=0; i<output_info->nmode; i++)
+  int i;
+  for (i=0; i<output_info->nmode; i++)
     {
       mode_info = [self _modeInfoForMode:output_info->modes[i]];
       rSize = NSMakeSize((CGFloat)mode_info.width, (CGFloat)mode_info.height);
@@ -250,15 +261,15 @@
           // 2. Logical size of display: crtc_info->width x crtc_info->height
           // Now I'm sticking to mode_info because I can't imagine real life
           // use case when logical size need to be bigger than resolution.
-          _frame = NSMakeRect((CGFloat)crtc_info->x,
+          self.frame = NSMakeRect((CGFloat)crtc_info->x,
                               (CGFloat)crtc_info->y,
                               mode_info.width,
                               mode_info.height);
-          _activeRate = (CGFloat)mode_info.dotClock/mode_info.hTotal/mode_info.vTotal;
-          _activeResolution = [self resolutionWithWidth:mode_info.width
+          self.activeRate = (CGFloat)mode_info.dotClock/mode_info.hTotal/mode_info.vTotal;
+          self.activeResolution = [self resolutionWithWidth:mode_info.width
                                                  height:mode_info.height
-                                                   rate:_activeRate];
-          _activePosition = _frame.origin;
+                                                   rate:self.activeRate];
+          self.activePosition = self.frame.origin;
           // isActive = YES;
           
           XRRFreeCrtcInfo(crtc_info);
@@ -269,11 +280,13 @@
     }
   else if ([allResolutions count] > 0) 
     {
-      ASSIGN (_activeResolution, [OSEDisplay zeroResolution]);
-      _activePosition = NSMakePoint(0,0);
-      _hiddenFrame.origin = _activePosition;
-      _hiddenFrame.size = NSSizeFromString([[self bestResolution]
+      self.activeResolution = [OSEDisplay zeroResolution];
+      self.activePosition = NSMakePoint(0,0);
+      NSRect r;
+      r.origin = self.activePosition;
+      r.size = NSSizeFromString([[self bestResolution]
                                                objectForKey:OSEDisplaySizeKey]);
+      self.hiddenFrame = r;
     }
   
   XRRFreeOutputInfo(output_info);
@@ -290,14 +303,14 @@
 
 - (void)dealloc
 {
-  NSDebugLLog(@"dealloc", @"OSEDisplay %@: -dealloc", _outputName);
+  NSDebugLLog(@"dealloc", @"OSEDisplay %@: -dealloc", self.outputName);
 
   // NSLog(@"OSEDisplay %@: resolution count: %lu; reaint count: %lu",
   //       outputName, [allResolutions count], [allResolutions retainCount]);
   // [allResolutions release];
   
   [properties release];
-  [_outputName release];
+  self.outputName = nil;
 
   [super dealloc];
 }
@@ -306,10 +319,10 @@
 {
   // NSLog(@"OSEDisplay DPI: %.0f points, %.0f mm",
   //       frame.size.height, _physicalSize.height);
-  if ((_frame.size.height <= 0) || (_physicalSize.height <= 0))
+  if ((self.frame.size.height <= 0) || (self.physicalSize.height <= 0))
     return .0;
     
-  return (25.4 * _frame.size.height) / _physicalSize.height;
+  return (25.4 * self.frame.size.height) / self.physicalSize.height;
 }
 
 //------------------------------------------------------------------------------
@@ -472,13 +485,13 @@
     }
 
   // Update _frame, so _activeResolution{Size} == _frame.size
-  _frame = NSMakeRect(position.x, position.y,
+  self.frame = NSMakeRect(position.x, position.y,
                       resolutionSize.width, resolutionSize.height);
 
   // Save values which represent current monitor state
-  ASSIGN(_activeResolution, resolution);
-  _activeRate = [[resolution objectForKey:OSEDisplayRateKey] floatValue];
-  _activePosition = position;
+  self.activeResolution = resolution;
+  self.activeRate = [[resolution objectForKey:OSEDisplayRateKey] floatValue];
+  self.activePosition = position;
   
   XRRFreeCrtcInfo(crtc_info);
   XRRFreeOutputInfo(output_info);
@@ -494,7 +507,7 @@
 
 - (BOOL)isActive
 {
-  return (NSIsEmptyRect(_frame)) ? NO : YES;
+  return (NSIsEmptyRect(self.frame)) ? NO : YES;
 }
 
 // Changes '_activeResolution' ivar without setting resolution to monitor.
@@ -505,30 +518,31 @@
   
   if (active == YES) // activation
     {
-      if (NSIsEmptyRect(_hiddenFrame) == NO)
+      if (NSIsEmptyRect(self.hiddenFrame) == NO)
         {
-          _frame = _hiddenFrame;
-          _hiddenFrame = NSZeroRect;
+          self.frame = self.hiddenFrame;
+          self.hiddenFrame = NSZeroRect;
         }
       else
         {
-          _frame.size =
-            NSSizeFromString([[self bestResolution]
+          NSRect r = self.frame;
+          r.size = NSSizeFromString([[self bestResolution]
                                objectForKey:OSEDisplaySizeKey]);
+          self.frame = r;
         }
-      resolution = [self resolutionWithWidth:_frame.size.width
-                                      height:_frame.size.height
+      resolution = [self resolutionWithWidth:self.frame.size.width
+                                      height:self.frame.size.height
                                         rate:0.0];
     }
   else // deactivation
     {
-      _hiddenFrame = _frame;
-      _frame = NSZeroRect;
+      self.hiddenFrame = self.frame;
+      self.frame = NSZeroRect;
       resolution = [OSEDisplay zeroResolution];
     }
 
   // Synchronize _frame and _activeResolution
-  ASSIGN(_activeResolution, resolution);
+  self.activeResolution = resolution;
 }
 
 - (BOOL)isMain
@@ -547,7 +561,7 @@
 {
   if ([self isActive] && yn == YES)
     {
-      NSDebugLLog(@"Screen", @"%@: become main display.", _outputName);
+      NSDebugLLog(@"Screen", @"%@: become main display.", self.outputName);
       XRRSetOutputPrimary(xDisplay,
                           RootWindow(xDisplay, DefaultScreen(xDisplay)),
                           output_id);
@@ -938,7 +952,8 @@ find_last_non_clamped(CARD16 array[], int size)
 
   XGrabServer(xDisplay);
   
-  for (float i=10; i >= 0; i--)
+  float i;
+  for (i=10; i >= 0; i--)
     {
       [self setGammaBrightness:brightness * (i/10)];
       usleep(30000);
@@ -968,7 +983,8 @@ find_last_non_clamped(CARD16 array[], int size)
   NSUInteger steps = ceil(msecs / 30000);
   // NSUInteger msecs_step = msecs / steps;
 
-  for (float i=0; i <= steps; i++)
+  float i;
+  for (i=0; i <= steps; i++)
     {
       [self setGammaBrightness:brightness * (i/steps)];
       usleep(30000);
@@ -1097,7 +1113,8 @@ id property_value(Display *dpy,
   output_props = XRRListOutputProperties(xDisplay, output_id, &nprops);
   
   // fprintf(stderr, "properties(%i):\n", nprops);
-  for (int k=0; k<nprops; k++)
+  int k;
+  for (k=0; k<nprops; k++)
     {
       XRRGetOutputProperty(xDisplay, output_id,
 			   output_props[k], // Atom
@@ -1129,7 +1146,8 @@ id property_value(Display *dpy,
             int bytes_per_item = actual_format / 8;
             
             value = [[NSMutableArray alloc] init];
-            for (int i=0; i<(int)nitems; i++)
+            int i;
+            for (i=0; i<(int)nitems; i++)
               {
                 [value addObject:property_value(xDisplay,
                                                 actual_format,
@@ -1148,7 +1166,8 @@ id property_value(Display *dpy,
               NSRange range;
               NSNumber *start, *end;
               
-              for (int j = 0; j < prop_info->num_values / 2; j++)
+              int j;
+              for (j = 0; j < prop_info->num_values / 2; j++)
                 {
                   start =
                     property_value(xDisplay, 32, actual_type,
@@ -1169,7 +1188,8 @@ id property_value(Display *dpy,
               id vv;
               variants = [[NSMutableArray alloc] init];
               
-              for (int j = 0; j < prop_info->num_values; j++)
+              int j;
+              for (j = 0; j < prop_info->num_values; j++)
                 {
                   vv = property_value(xDisplay, 32, actual_type,
                                       (unsigned char *) &(prop_info->values[j]));
@@ -1200,7 +1220,7 @@ id property_value(Display *dpy,
 
   if ([displayID length] < 1)
     {
-      displayID = _outputName;
+      displayID = self.outputName;
     }
   
   return displayID;

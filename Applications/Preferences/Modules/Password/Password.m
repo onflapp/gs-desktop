@@ -41,7 +41,7 @@ static Password         *sharedPassword = nil;
 static pam_handle_t     *PAM_handle = NULL;
 static char             *PAMInput = NULL;
 static BOOL             PAMInputReady = NO;
-static dispatch_queue_t pam_q;
+//static dispatch_queue_t pam_q;
 
 int PAMConversation(int num_msg, 
                     const struct pam_message **msg,
@@ -297,7 +297,7 @@ int PAMConversation(int num_msg,
   return (ret == PAM_SUCCESS) ? YES : NO;
 }
 
-- (IBAction)changePassword:(id)sender
+- (void)changePassword:(id)sender
 {
   if (state == PAMStart) {
     if (fieldTimer != nil && [fieldTimer isValid] != NO) {
@@ -311,8 +311,8 @@ int PAMConversation(int num_msg,
     [okButton setTitle:@"Ok"];
     [cancelButton setEnabled:YES];
  
-    pam_q = dispatch_queue_create("ns.preferences.pam", NULL);  
-    dispatch_async(pam_q, ^{[self changePasswordWithPAM];});
+    //pam_q = dispatch_queue_create("ns.preferences.pam", NULL);  
+    //dispatch_async(pam_q, ^{[self changePasswordWithPAM];});
   }
   else {
     PAMInput = strdup([[secureField stringValue] cString]);
@@ -334,7 +334,7 @@ int PAMConversation(int num_msg,
   }
 }
 
-- (IBAction)cancel:(id)sender
+- (void)cancel:(id)sender
 {
   NSLog(@"Cancel");
 

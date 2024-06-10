@@ -42,10 +42,6 @@
 
 @implementation ScreenPreferences
 
-@synthesize dockImage;
-@synthesize appIconYardImage;
-@synthesize iconYardImage;
-
 - (id)init
 {
   NSString *imagePath;
@@ -119,6 +115,21 @@
            name:@"DisplayBoxPositionDidChange"
          object:nil];
 }
+
+- (NSImage *)dockImage
+  {
+    return dockImage;
+  }
+
+- (NSImage *)appIconYardImage
+  {
+    return appIconYardImage;
+  }
+
+- (NSImage *)iconYardImage
+  {
+    return iconYardImage;
+  }
 
 - (NSView *)view
 {

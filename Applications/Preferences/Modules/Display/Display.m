@@ -162,7 +162,8 @@
   NSSize       size;
 
   [rateBtn removeAllItems];
-  for (NSInteger i = 0; i < [m count]; i++)
+  NSInteger i;
+  for (i = 0; i < [m count]; i++)
     {
       res = [m objectAtIndex:i];
       size = NSSizeFromString([res objectForKey:@"Size"]);
@@ -195,7 +196,8 @@
 {
   NSArray *cells = [[monitorsList matrixInColumn:0] cells];
 
-  for (int i = 0; i < [cells count]; i++)
+  int i;
+  for (i = 0; i < [cells count]; i++)
     {
       if ([[cells objectAtIndex:i] isEnabled] == YES)
         {
@@ -339,17 +341,17 @@
     // NSLog(@"Gamma slider moved");
     [gammaField setStringValue:[NSString stringWithFormat:@"%.2f", value]];
       
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
-                   ^{
+    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
+    //               ^{
                      [selectedDisplay setGamma:value];
-                   });
+    //               });
   }
   else if (sender == brightnessSlider) {
     // NSLog(@"Brightness slider moved");
     // if (value > 1.0) value = 1.0;
-    [brightnessField setIntValue:[sender intValue]];
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
-                   ^{
+    //[brightnessField setIntValue:[sender intValue]];
+    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
+    //               ^{
                      if ([selectedDisplay isDisplayBrightnessSupported]) 
                        {
                          [selectedDisplay setDisplayBrightness:value];
@@ -358,7 +360,7 @@
                        {
                          [selectedDisplay setGammaBrightness:value/100];
                        }
-                   });
+     //              });
   }
   else {
     NSLog(@"Unknown slider moved");
@@ -385,10 +387,11 @@
     NXTDefaults   *defs = [NXTDefaults globalUserDefaults];
     NSDictionary *dBack;
 
-    dBack = @{@"Red":   [NSNumber numberWithFloat:[color redComponent]],
-              @"Green": [NSNumber numberWithFloat:[color greenComponent]],
-              @"Blue":  [NSNumber numberWithFloat:[color blueComponent]],
-              @"Alpha": [NSNumber numberWithFloat:1.0]};
+    dBack = [NSDictionary dictionaryWithObjectsAndKeys:
+              [NSNumber numberWithFloat:[color redComponent]],@"Red",
+              [NSNumber numberWithFloat:[color greenComponent]],@"Green",
+              [NSNumber numberWithFloat:[color blueComponent]],@"Blue",
+              [NSNumber numberWithFloat:1.0],@"Alpha",nil];
     [defs setObject:dBack forKey:OSEDesktopBackgroundColor];
   }
 }

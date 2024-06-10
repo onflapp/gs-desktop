@@ -24,32 +24,54 @@
 
 @interface PASink : NSObject
 {
+  pa_channel_map *_channel_map;
+
+  NSUInteger cardIndex;
+  NSUInteger index;
+  pa_context *context;
+  NSString   *name;
+  NSString   *description;
+  NSArray    *ports;
+
+  NSInteger  flags;
+  NSInteger  state;
+  NSUInteger sampleRate;
+  NSUInteger sampleChannelCount;
+  NSInteger  sampleFormat;
+  NSArray    *formats;
+
+  // KVO-compliant
+  NSString   *activePort;
+  NSUInteger channelCount;
+  NSUInteger volumeSteps;
+  NSUInteger baseVolume;
+  CGFloat    balance;
+  NSArray    *channelVolumes;
+  BOOL       mute;
 }
 
-@property (assign)   pa_context     *context;
-@property (readonly) pa_channel_map *channel_map;
+@property (assign) NSUInteger cardIndex;
+@property (assign) NSUInteger index;
+@property (assign) pa_context *context;
+@property (retain) NSString   *name;
+@property (retain) NSString   *description;
+@property (retain) NSArray    *ports;
 
-@property (readonly) NSUInteger index;
-@property (readonly) NSString   *name;
-@property (readonly) NSString   *description;
-@property (readonly) NSUInteger cardIndex;
-@property (readonly) NSArray    *ports;
-
-@property (readonly) NSInteger  flags;
-@property (readonly) NSInteger  state;
-@property (readonly) NSUInteger sampleRate;
-@property (readonly) NSUInteger sampleChannelCount;
-@property (readonly) NSInteger  sampleFormat;
-@property (readonly) NSArray    *formats;
+@property (assign) NSInteger  flags;
+@property (assign) NSInteger  state;
+@property (assign) NSUInteger sampleRate;
+@property (assign) NSUInteger sampleChannelCount;
+@property (assign) NSInteger  sampleFormat;
+@property (retain) NSArray    *formats;
 
 // KVO-compliant
-@property (readonly) NSString   *activePort;
-@property (readonly) NSUInteger channelCount;
-@property (readonly) NSUInteger volumeSteps;
-@property (readonly) NSUInteger baseVolume;
-@property (readonly) CGFloat    balance;
-@property (readonly) NSArray    *channelVolumes;
-@property (readonly) BOOL       mute;
+@property (retain) NSString   *activePort;
+@property (assign) NSUInteger channelCount;
+@property (assign) NSUInteger volumeSteps;
+@property (assign) NSUInteger baseVolume;
+@property (assign) CGFloat    balance;
+@property (retain) NSArray    *channelVolumes;
+@property (assign) BOOL       mute;
 
 - (id)updateWithValue:(NSValue *)value;
 
@@ -59,4 +81,5 @@
 - (void)applyVolume:(NSUInteger)v;
 - (void)applyBalance:(CGFloat)balance;
 
+- (pa_channel_map *)channel_map;
 @end

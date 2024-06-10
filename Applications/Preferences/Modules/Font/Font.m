@@ -301,11 +301,12 @@ NSString *WWMDefaultsPath(void)
   imagePath = [bundle pathForResource:@"FontPreferences" ofType:@"tiff"];
   image = [[NSImage alloc] initWithContentsOfFile:imagePath];
 
-  fontCategories = @{@"Application Font":@"NSUserFont",
-                     @"Fixed Pitch Font":@"NSUserFixedPitchFont",
-                     @"System Font":@"NSFont",
-                     @"Bold System Font":@"NSBoldFont",
-                     @"Tool Tips Font":@"NSToolTipsFont"};
+  fontCategories = [NSDictionary dictionaryWithObjectsAndKeys:
+                     @"NSUserFont", @"Application Font",
+                     @"NSUserFixedPitchFont", @"Fixed Pitch Font",
+                     @"NSFont", @"System Font",
+                     @"NSBoldFont", @"Bold System Font",
+                     @"NSToolTipsFont", @"Tool Tips Font", nil];
   [fontCategories retain];
  
   return self;

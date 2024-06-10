@@ -47,6 +47,7 @@
 - (void) deactivateXWindow:(NSNotification*) note;
 
 - (Window) embededXWindowID;
+- (NSRect) convertToNativeWindowRect;
 
 @end
 

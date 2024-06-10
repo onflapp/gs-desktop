@@ -27,7 +27,8 @@ static const NSInteger SKTZoomingScrollViewPopUpButtonItemCount = sizeof(SKTZoom
         [_factorPopUpButton setFont:[NSFont systemFontOfSize:[NSFont smallSystemFontSize]]];
 
         // Populate it and size it to fit the just-added menu item cells.
-        for (NSInteger index = 0; index<SKTZoomingScrollViewPopUpButtonItemCount; index++) {
+        NSInteger index;
+        for (index = 0; index<SKTZoomingScrollViewPopUpButtonItemCount; index++) {
             [_factorPopUpButton addItemWithTitle:NSLocalizedStringFromTable(SKTZoomingScrollViewLabels[index], @"SKTZoomingScrollView", nil)];
             id item = [_factorPopUpButton itemAtIndex:index];
             [item setRepresentedObject:[NSNumber numberWithDouble:SKTZoomingScrollViewFactors[index]]];

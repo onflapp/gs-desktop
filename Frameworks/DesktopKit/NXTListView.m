@@ -26,24 +26,31 @@
 // Cell
 // -----------------------------------------------------------------------------
 @interface NXTListCell : NSTextFieldCell
+{
+  BOOL    selected;
+  NSColor *selectionColor;
+}
 @property (assign) BOOL    selected;
 @property (assign) NSColor *selectionColor;
 @end
 @implementation NXTListCell
+
+@synthesize selected;
+@synthesize selectionColor;
 - (void)drawInteriorWithFrame:(NSRect)cellFrame
                        inView:(NSView *)controlView
 {
-  if (_selected == NO) {
+  if (self.selected == NO) {
     [[self backgroundColor] set];
   }
   else {
-    [_selectionColor set];
+    [self.selectionColor set];
   }
   NSRectFill(cellFrame);
   
   [super drawInteriorWithFrame:cellFrame inView:controlView];
   
-  if (_selected != NO) {
+  if (self.selected != NO) {
     [[NSColor darkGrayColor] set];
     PSnewpath();
     PSmoveto(cellFrame.origin.x, cellFrame.origin.y);
@@ -56,6 +63,10 @@
 @end
 
 @interface NXTListMatrix : NSMatrix
+{
+  NSScrollView *scrollView;
+  NSColor      *selectionColor;
+}
 @property (assign) NSScrollView *scrollView;
 @property (assign) NSColor      *selectionColor;
 - (void)loadTitles:(NSArray *)titles
@@ -66,6 +77,9 @@
 // Matrix : NSMatrix
 // -----------------------------------------------------------------------------
 @implementation NXTListMatrix
+
+@synthesize scrollView;
+@synthesize selectionColor;
 
 - (void)dealloc
 {
@@ -81,7 +95,7 @@
   [self setAutoscroll:YES];
   [self setDrawsBackground:YES];
   [self setBackgroundColor:[NSColor controlBackgroundColor]];
-  _selectionColor = [[NSColor whiteColor] retain];
+  self.selectionColor = [[NSColor whiteColor] retain];
     
   return self;
 }
@@ -92,17 +106,18 @@
   // NSCell *cell; 
   NXTListCell *cell;
  
-  for (int i = 0; i < [titles count]; i++) {
+  int i;
+  for (i = 0; i < [titles count]; i++) {
     [self addRow];
     cell = (NXTListCell *)[self makeCellAtRow:i column:0];
-    [cell setObjectValue:titles[i]];
-    [cell setRepresentedObject:objects[i]];
+    [cell setObjectValue:[titles objectAtIndex:i]];
+    [cell setRepresentedObject:[objects objectAtIndex:i]];
     [cell setEditable:NO];
     [cell setSelectable:NO];
     [cell setRefusesFirstResponder:YES];
     [cell setDrawsBackground:YES];
     [cell setBackgroundColor:[self backgroundColor]];
-    [cell setSelectionColor:_selectionColor];
+    [cell setSelectionColor:self.selectionColor];
   }
 }
 
@@ -128,7 +143,7 @@
   NSUInteger  eventMask = (NSLeftMouseDownMask | NSLeftMouseUpMask
                            | NSPeriodicMask | NSOtherMouseUpMask
                            | NSRightMouseUpMask);
-  NSRect      listRect = [_scrollView documentVisibleRect];
+  NSRect      listRect = [self.scrollView documentVisibleRect];
   CGFloat     listHeight = listRect.size.height;
   CGFloat     listWidth = listRect.size.width;
   NSInteger   y;

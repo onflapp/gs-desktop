@@ -34,9 +34,11 @@ typedef enum SNDDeviceState {
 
 @interface SNDDevice : NSObject // <SNDParameters>
 {
+  PACard    *card;
+  SNDServer *server;
 }
-@property (retain)   PACard    *card;
-@property (readonly) SNDServer *server;
+@property (retain) PACard    *card;
+@property (retain) SNDServer *server;
 
 - (id)init;
 - (id)initWithServer:(SNDServer *)server;

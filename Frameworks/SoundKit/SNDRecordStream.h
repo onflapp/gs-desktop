@@ -25,6 +25,7 @@
 
 @interface SNDRecordStream : SNDStream
 {
+  PASourceOutput *sourceOutput;
 }
 @property (assign) PASourceOutput *sourceOutput;
 

@@ -25,6 +25,7 @@
 
 @interface SNDOut : SNDDevice
 {
+  PASink *sink;
 }
 @property (retain) PASink *sink;
 

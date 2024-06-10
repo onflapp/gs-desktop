@@ -64,7 +64,8 @@ int main(int argc, const char *argv[]) {
     __my_process_args = [[NSMutableArray alloc] init];
 
     [__my_process_args addObject:__my_process_cmd];
-    for (int c = 1; c < argc; c++) {
+    int c;
+    for (c = 1; c < argc; c++) {
         NSString* a = [NSString stringWithUTF8String:argv[c]];
         [__my_process_args addObject:a];
     }

@@ -26,15 +26,22 @@
 @interface PAStream : NSObject
 {
   pa_ext_stream_restore_info *info_copy;
+  pa_context *context;
+  NSString   *name;
+  NSString   *deviceName;
+
+  NSUInteger volume;
+  CGFloat    balance;
+  BOOL       mute;
 }
-@property (assign) pa_context   *context;
 
-@property (readonly) NSString   *name;
-@property (readonly) NSString   *deviceName;
+@property (assign) pa_context *context;
+@property (retain) NSString   *name;
+@property (retain) NSString   *deviceName;
 
-@property (readonly) NSUInteger volume;
-@property (readonly) CGFloat    balance;
-@property (readonly) BOOL       mute;
+@property (assign) NSUInteger volume;
+@property (assign) CGFloat    balance;
+@property (assign) BOOL       mute;
 
 - (id)updateWithValue:(NSValue *)value;
 

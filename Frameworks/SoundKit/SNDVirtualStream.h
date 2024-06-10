@@ -25,9 +25,11 @@
 
 @interface SNDVirtualStream : SNDStream
 {
+  PAStream *stream;
+  NSString *appName;
 }
-@property (readonly) PAStream *stream;
-@property (readonly) NSString *appName;
+@property (retain) PAStream *stream;
+@property (retain) NSString *appName;
 
 - (id)initWithStream:(PAStream *)stream;
 

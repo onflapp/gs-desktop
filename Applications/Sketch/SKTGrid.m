@@ -251,12 +251,13 @@ static NSTimeInterval SKTGridTemporaryShowingTime = 1.0;
 	// Figure out a big bezier path that corresponds to the entire grid. It will consist of the vertical lines and then the horizontal lines.
 	NSBezierPath *gridPath = [NSBezierPath bezierPath];
 	NSInteger lastVerticalLineNumber = floor(NSMaxX(rect) / _spacing);
-	for (NSInteger lineNumber = ceil(NSMinX(rect) / _spacing); lineNumber<=lastVerticalLineNumber; lineNumber++) {
+        NSInteger lineNumber;
+	for (lineNumber = ceil(NSMinX(rect) / _spacing); lineNumber<=lastVerticalLineNumber; lineNumber++) {
 	    [gridPath moveToPoint:NSMakePoint((lineNumber * _spacing), NSMinY(rect))];
 	    [gridPath lineToPoint:NSMakePoint((lineNumber * _spacing), NSMaxY(rect))];
 	}
 	NSInteger lastHorizontalLineNumber = floor(NSMaxY(rect) / _spacing);
-	for (NSInteger lineNumber = ceil(NSMinY(rect) / _spacing); lineNumber<=lastHorizontalLineNumber; lineNumber++) {
+	for (lineNumber = ceil(NSMinY(rect) / _spacing); lineNumber<=lastHorizontalLineNumber; lineNumber++) {
 	    [gridPath moveToPoint:NSMakePoint(NSMinX(rect), (lineNumber * _spacing))];
 	    [gridPath lineToPoint:NSMakePoint(NSMaxX(rect), (lineNumber * _spacing))];
 	}

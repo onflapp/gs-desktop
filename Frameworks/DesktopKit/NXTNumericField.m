@@ -43,7 +43,8 @@
 {
   NSCharacterSet *digitsCharset = [NSCharacterSet decimalDigitCharacterSet];
   
-  for (int i = 0; i < [text length]; ++i) {
+  int i;
+  for (i = 0; i < [text length]; ++i) {
     if (([digitsCharset characterIsMember:[text characterAtIndex:i]] == NO)
         && ([text characterAtIndex:i] != '-')
         && ([text characterAtIndex:i] != '.')) {
@@ -174,7 +175,8 @@
   }
   
   if ([self _isValidString:replacementString] == YES) {
-    for (int i = 0; i < [replacementString length]; ++i) {
+    int i;
+    for (i = 0; i < [replacementString length]; ++i) {
       if ([replacementString characterAtIndex:i] == '-') {
         if (i != 0 || affectedCharRange.location != 0
             || [[self stringValue] rangeOfString:@"-"].location != NSNotFound) {

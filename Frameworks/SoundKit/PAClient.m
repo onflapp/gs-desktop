@@ -32,12 +32,15 @@
 
 @implementation PAClient
 
+@synthesize name;
+@synthesize index;
+@synthesize appName;
+
 - (void)dealloc
 {
-  if (_name)
-    [_name release];
-  if (_appName)
-    [_appName release];
+  self.name = nil;
+  self.appName = nil;
+
   [super dealloc];
 }
 
@@ -50,16 +53,12 @@
   info = malloc(sizeof(const pa_client_info));
   [value getValue:(void *)info];
 
-  if (_name)
-    [_name release];
-  _name = [[NSString alloc] initWithCString:info->name];
-  _index = info->index;
+  self.name = [[NSString alloc] initWithCString:info->name];
+  self.index = info->index;
 
-  if (_appName)
-    [_appName release];
   app_name = pa_proplist_gets(info->proplist, "application.name");
   app_binary = pa_proplist_gets(info->proplist, "application.process.binary");
-  _appName = [[NSString alloc] initWithFormat:@"%s : %s", app_binary, app_name];
+  self.appName = [[NSString alloc] initWithFormat:@"%s : %s", app_binary, app_name];
 
   return self;
 }

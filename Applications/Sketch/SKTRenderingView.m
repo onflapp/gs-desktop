@@ -142,7 +142,8 @@
     // Draw every graphic that intersects the rectangle to be drawn. In Sketch the frontmost graphics have the lowest indexes.
     NSGraphicsContext *currentContext = [NSGraphicsContext currentContext];
     NSInteger graphicCount = [_graphics count];
-    for (NSInteger index = graphicCount - 1; index>=0; index--) {
+    NSInteger index;
+    for (index = graphicCount - 1; index>=0; index--) {
         SKTGraphic *graphic = [_graphics objectAtIndex:index];
         NSRect graphicDrawingBounds = [graphic drawingBounds];
         if (NSIntersectsRect(rect, graphicDrawingBounds)) {

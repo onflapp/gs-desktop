@@ -25,6 +25,7 @@
 
 @interface SNDIn : SNDDevice
 {
+  PASource *source;
 }
 @property (retain) PASource *source;
 

@@ -273,7 +273,8 @@
     if ( mainAction ) {
         [[mainAction task] interrupt];
 
-        for ( NSInteger x = 0; x < 1000; x++) {
+        NSInteger x;
+        for (x = 0; x < 1000; x++) {
           if (! [[mainAction task] isRunning] ) break;
           NSLog(@"waiting for mainAction to terminate...");
           NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
@@ -323,7 +324,8 @@
         NSInteger found = 0;
 
         if ( ![files count] ) {
-            for (int i = 0; i < [[pboard types] count]; i++) {
+            int i;
+            for (i = 0; i < [[pboard types] count]; i++) {
                 NSString* it = [[pboard types] objectAtIndex: i];
                 if ([it hasPrefix:@"NSTypedFileContentsPboardType:"]) {
                     ext = [it substringFromIndex:30];

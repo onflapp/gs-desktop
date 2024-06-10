@@ -62,14 +62,21 @@ static void _stream_resumed(pa_stream *stream, int success, void *sndStream)
 
 @implementation SNDStream
 
+@synthesize server;
+@synthesize client;
+@synthesize device;
+@synthesize name;
+@synthesize isActive;
+@synthesize isPlayback;
+
 - (void)dealloc
 {
   NSDebugLLog(@"Memory", @"[SNDStream] dealloc");
   if (_pa_stream != NULL)
     pa_stream_unref(_pa_stream);
 
-  [_server release];
-  [_device release];
+  self.server = nil;
+  self.device = nil;
     
   [super dealloc];
 }
@@ -99,7 +106,7 @@ static void _stream_resumed(pa_stream *stream, int success, void *sndStream)
 
   if (device == nil) {
     self.server = [SNDServer sharedServer];
-    self.device = (SNDDevice *)[_server defaultOutput];
+    self.device = (SNDDevice *)[self.server defaultOutput];
   }
   else {
     self.device = device;
@@ -146,9 +153,9 @@ static void _stream_resumed(pa_stream *stream, int success, void *sndStream)
     }  
     pa_proplist_sets(proplist, PA_PROP_MEDIA_ROLE, stream_media_role);
   }
-  _name = [[NSProcessInfo processInfo] processName];
+  self.name = [[NSProcessInfo processInfo] processName];
   
-  _pa_stream = pa_stream_new_with_proplist(_server.pa_ctx, [_name cString],
+  _pa_stream = pa_stream_new_with_proplist([self.server pa_ctx], [self.name cString],
                                            &sample_spec, NULL, proplist);
   pa_xfree(proplist);
   

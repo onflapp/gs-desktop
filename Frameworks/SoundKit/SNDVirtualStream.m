@@ -29,6 +29,9 @@
 
 @implementation SNDVirtualStream
 
+@synthesize stream;
+@synthesize appName;
+
 - (void)dealloc
 {
   NSDebugLLog(@"Memory", @"[SNDVirtualStream] dealloc");
@@ -40,20 +43,20 @@
   if ((self = [super init]) == nil)
     return nil;
 
-  _stream = stream;
+  self.stream = stream;
   
-  if (_stream == nil) {
+  if (self.stream == nil) {
     super.name = @"Dummy Virtual Stream";
   }
-  else if ([[_stream typeName] isEqualToString:@"sink-input-by-media-role"] != NO) {
-    if ([[_stream clientName] isEqualToString:@"event"] != NO) {
+  else if ([[self.stream typeName] isEqualToString:@"sink-input-by-media-role"] != NO) {
+    if ([[self.stream clientName] isEqualToString:@"event"] != NO) {
       super.name = @"System Sounds";
       super.isActive = YES;
       super.isPlayback = YES;
     }
   }
   else {
-    super.name = _stream.clientName;
+    super.name = self.stream.clientName;
   }
 
   // fprintf(stderr, "[SoundKit] SoundStream: %s \t\tDevice: %s\n",
@@ -69,27 +72,27 @@
 
 - (NSUInteger)volume
 {
-  return [_stream volume];
+  return [self.stream volume];
 }
 - (void)setVolume:(NSUInteger)volume
 {
-  [_stream applyVolume:volume];
+  [self.stream applyVolume:volume];
 }
 - (CGFloat)balance
 {
-  return _stream.balance;
+  return self.stream.balance;
 }
 - (void)setBalance:(CGFloat)balance
 {
-  [_stream applyBalance:balance];
+  [self.stream applyBalance:balance];
 }
 - (void)setMute:(BOOL)isMute
 {
-  [_stream applyMute:isMute];
+  [self.stream applyMute:isMute];
 }
 - (BOOL)isMute
 {
-  return (BOOL)_stream.mute;
+  return (BOOL)self.stream.mute;
 }
 
 - (NSString *)activePort

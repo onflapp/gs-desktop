@@ -23,7 +23,7 @@
 
 @interface NXTPanelLoader : NSObject
 {
-  id IBOutlet panel;
+  id panel;
 }
 - (id)loadPanelNamed:(NSString *)nibName;
 @end

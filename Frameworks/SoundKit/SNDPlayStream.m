@@ -38,6 +38,8 @@ void _stream_overflow(pa_stream *stream, void *sndStream)
 
 @implementation SNDPlayStream
 
+@synthesize sinkInput;
+
 - (void)dealloc
 {
   NSDebugLLog(@"Memory", @"[SNDPlayStream] dealloc");
@@ -75,7 +77,7 @@ void _stream_overflow(pa_stream *stream, void *sndStream)
 
 - (BOOL)isPaused
 {
-  return _sinkInput.corked;
+  return self.sinkInput.corked;
 }
 
 - (void)playBuffer:(void *)data
@@ -87,33 +89,33 @@ void _stream_overflow(pa_stream *stream, void *sndStream)
 
 - (NSUInteger)volume
 {
-  return [_sinkInput volume];
+  return [self.sinkInput volume];
 }
 - (void)setVolume:(NSUInteger)volume
 {
-  [_sinkInput applyVolume:volume];
+  [self.sinkInput applyVolume:volume];
 }
 - (CGFloat)balance
 {
-  return _sinkInput.balance;
+  return self.sinkInput.balance;
 }
 - (void)setBalance:(CGFloat)balance
 {
-  [_sinkInput applyBalance:balance];
+  [self.sinkInput applyBalance:balance];
 }
 - (void)setMute:(BOOL)isMute
 {
-  [_sinkInput applyMute:isMute];
+  [self.sinkInput applyMute:isMute];
 }
 - (BOOL)isMute
 {
-  return (BOOL)_sinkInput.mute;
+  return (BOOL)self.sinkInput.mute;
 }
 
 - (NSString *)activePort
 {
   SNDServer *server = [SNDServer sharedServer];
-  PASink    *sink = [server sinkWithIndex:_sinkInput.sinkIndex];
+  PASink    *sink = [server sinkWithIndex:self.sinkInput.sinkIndex];
 
   if (sink == nil) {
     sink = [server defaultOutput].sink;
@@ -124,7 +126,7 @@ void _stream_overflow(pa_stream *stream, void *sndStream)
 - (void)setActivePort:(NSString *)portName
 {
   SNDServer *server = [SNDServer sharedServer];
-  PASink    *sink = [server sinkWithIndex:_sinkInput.sinkIndex];
+  PASink    *sink = [server sinkWithIndex:self.sinkInput.sinkIndex];
 
   if (sink == nil) {
     sink = [server defaultOutput].sink;

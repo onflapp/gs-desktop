@@ -318,7 +318,7 @@ static NXTDefaults *defaults = nil;
   BOOL			SUCCESS = NO;
 
   optComponents = [option componentsSeparatedByString:@":"];
-  savedOption = [self _optionWithType:optComponents[0]];
+  savedOption = [self _optionWithType:[optComponents objectAtIndex:0]];
   
   if ([[optComponents lastObject] isEqualToString:@""] == NO)
     {
@@ -805,11 +805,11 @@ static NXTDefaults *defaults = nil;
   NSLog(@"Current keyboard model is: %@", currentModel);
 
   for (NSString *vendor in modelsList) {
-    for (NSString *model in modelsList[vendor]) {
-      modelType = [modelsList[vendor][model] allKeys][0];
+    for (NSString *model in [modelsList valueForKey:vendor]) {
+      modelType = [[[[modelsList valueForKey:vendor ]valueForKey:model] allKeys] objectAtIndex:0];
       if ([modelType isEqualToString:currentModel]) {
         theModel = [NSString stringWithString:model];
-        [modelDescription setStringValue:modelsList[vendor][model][modelType]];
+        [modelDescription setStringValue:[[[modelsList valueForKey:vendor] valueForKey:model] valueForKey:modelType]];
         break;
       }
     }
@@ -879,14 +879,14 @@ static NXTDefaults *defaults = nil;
   modelsList = [self _modelsList];
   
   pathArray = [[sender path] pathComponents];
-  vendor = modelsList[pathArray[1]];
-  model = vendor[pathArray[2]];
-  modelKey = [model allKeys][0];
+  vendor = [modelsList valueForKey:[pathArray objectAtIndex:1]];
+  model = [vendor valueForKey:[pathArray objectAtIndex:2]];
+  modelKey = [[model allKeys] objectAtIndex:0];
   // NSLog(@"Model Browser clicked! %@ - %@ - %@ (%@)",
   //       pathArray[1], pathArray[2], modelKey, model[modelKey]);
   if (modelKey) {
     // Display description
-    [modelDescription setStringValue:model[modelKey]];
+    [modelDescription setStringValue:[model valueForKey:modelKey]];
     // Save setting to NXGlobalDomain
     [keyboard setModel:modelKey];
     [[NXTDefaults globalUserDefaults] setObject:modelKey

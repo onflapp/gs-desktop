@@ -24,36 +24,60 @@
 
 @interface PASource : NSObject
 {
-}
+  pa_channel_map *_channel_map;
 
-@property (assign)   pa_context     *context;
-@property (readonly) pa_channel_map *channel_map;
+  NSUInteger cardIndex;
+  pa_context *context;
+  NSUInteger index;
+  NSString   *description;
+  NSString   *name;
+  NSArray    *ports;
+  BOOL       isMonitor;
 
-@property (readonly) NSUInteger index;
-@property (readonly) NSString   *description;
-@property (readonly) NSString   *name;
-@property (readonly) NSUInteger cardIndex;
-@property (readonly) NSArray    *ports;
-@property (readonly) BOOL       isMonitor;
-
-@property (readonly) NSInteger  flags;
-@property (readonly) NSInteger  state;
-@property (readonly) NSUInteger sampleRate;
-@property (readonly) NSUInteger sampleChannelCount;
-@property (readonly) NSInteger  sampleFormat;
-@property (readonly) NSArray    *formats;
+  NSInteger  flags;
+  NSInteger  state;
+  NSUInteger sampleRate;
+  NSUInteger sampleChannelCount;
+  NSInteger  sampleFormat;
+  NSArray    *formats;
 
 // KVO-compliant
-@property (readonly) NSString   *activePort;
-@property (readonly) NSUInteger channelCount;
-@property (readonly) NSUInteger volumeSteps;
-@property (readonly) NSUInteger baseVolume;
-@property (readonly) CGFloat    balance;
-@property (readonly) NSArray    *channelVolumes;
-@property (readonly) BOOL       mute;
+  NSString   *activePort;
+  NSUInteger channelCount;
+  NSUInteger volumeSteps;
+  NSUInteger baseVolume;
+  CGFloat    balance;
+  NSArray    *channelVolumes;
+  BOOL       mute;
+}
+
+@property (assign) NSUInteger cardIndex;
+@property (assign) pa_context *context;
+@property (assign) NSUInteger index;
+@property (retain) NSString   *description;
+@property (retain) NSString   *name;
+@property (retain) NSArray    *ports;
+@property (assign) BOOL       isMonitor;
+
+@property (assign) NSInteger  flags;
+@property (assign) NSInteger  state;
+@property (assign) NSUInteger sampleRate;
+@property (assign) NSUInteger sampleChannelCount;
+@property (assign) NSInteger  sampleFormat;
+@property (retain) NSArray    *formats;
+
+// KVO-compliant
+@property (retain) NSString   *activePort;
+@property (assign) NSUInteger channelCount;
+@property (assign) NSUInteger volumeSteps;
+@property (assign) NSUInteger baseVolume;
+@property (assign) CGFloat    balance;
+@property (retain) NSArray    *channelVolumes;
+@property (assign) BOOL       mute;
 
 - (id)updateWithValue:(NSValue *)value;
 
+- (pa_channel_map *)channel_map;
 - (void)applyActivePort:(NSString *)portName;
 - (void)applyMute:(BOOL)isMute;
 - (NSUInteger)volume;

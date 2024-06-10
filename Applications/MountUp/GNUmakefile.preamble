@@ -12,14 +12,16 @@ ADDITIONAL_OBJCFLAGS +=
 ADDITIONAL_CFLAGS += 
 
 # Additional flags to pass to the linker
-ADDITIONAL_LDFLAGS += -lDBusKit -lSystemKit -lDesktopKit 
+ADDITIONAL_LDFLAGS +=
 
 # Additional include directories the compiler should search
-ADDITIONAL_INCLUDE_DIRS += -I. `pkg-config --cflags udisks2` `pkg-config --cflags dbus-1` 
+ADDITIONAL_INCLUDE_DIRS += -I. `pkg-config --cflags udisks2`
+#ADDITIONAL_INCLUDE_DIRS += -I. `pkg-config --cflags dbus-1` 
 
 # Additional library directories the linker should search
 ADDITIONAL_LIB_DIRS += -L/Library/Frameworks 
 
 # Additional GUI libraries to link
-ADDITIONAL_GUI_LIBS += 
+ADDITIONAL_GUI_LIBS += -lSystemKit -lDesktopKit 
+#ADDITIONAL_GUI_LIBS += -lDBusKit
 

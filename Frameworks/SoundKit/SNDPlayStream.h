@@ -27,6 +27,8 @@
 {
   SEL _writeAction;
   SEL _emptyAction;
+
+  PASinkInput *sinkInput;
 }
 @property (assign) PASinkInput *sinkInput;
 

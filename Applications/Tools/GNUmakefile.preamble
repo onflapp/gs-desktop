@@ -46,7 +46,8 @@ ADDITIONAL_OBJCFLAGS += -DWITH_UDISKS
 ADDITIONAL_INCLUDE_DIRS += `pkg-config --cflags udisks2` `pkg-config --cflags dbus-1`
 
 # Additional LDFLAGS to pass to the linker
-ADDITIONAL_LDFLAGS += -lgnustep-gui -lSoundKit -lSystemKit -lDesktopKit
+#ADDITIONAL_LDFLAGS += -lgnustep-gui -lSoundKit -lSystemKit -lDesktopKit
+ADDITIONAL_TOOL_LIBS += -lgnustep-gui -lSoundKit -lSystemKit -lDesktopKit
 
 # Additional library directories the linker should search
 #ADDITIONAL_LIB_DIRS +=

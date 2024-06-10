@@ -171,7 +171,7 @@ static NSLock *browserLock = nil;
     NSString *active = [device activeProfile];
 
     for (NSDictionary *profile in list) {
-      NSString *desc = profile[@"Description"];
+      NSString *desc = [profile valueForKey:@"Description"];
       [deviceProfileBtn addItemWithTitle:desc];
     }
     
@@ -467,7 +467,8 @@ static NSLock *browserLock = nil;
   rowCount = [matrix numberOfRows];
   
   // Remove disappeared streams
-  for (int i = 0; i < rowCount; i++) {
+  int i;
+  for (i = 0; i < rowCount; i++) {
     for (SNDStream *st in streams) {
       if ([[[matrix cellAtRow:i column:0] title] isEqualToString:st.name]) {
         NSLog(@"Remove stream `%@`", st.name);

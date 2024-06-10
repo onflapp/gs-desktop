@@ -48,10 +48,11 @@
   if (clockView)
     return;
 
-  cvDisplayRects = @{@"DayOfWeek":NSStringFromRect(NSMakeRect(14, 33, 33, 6)),
-                     @"Day":NSStringFromRect(NSMakeRect(14, 15, 33, 17)),
-                     @"Month":NSStringFromRect(NSMakeRect(14,  9, 31, 6)),
-                     @"Time":NSStringFromRect(NSMakeRect( 5, 46, 53, 11))};
+  cvDisplayRects = [NSDictionary dictionaryWithObjectsAndKeys:
+                     NSStringFromRect(NSMakeRect(14, 33, 33, 6)), @"DayOfWeek",
+                     NSStringFromRect(NSMakeRect(14, 15, 33, 17)), @"Day",
+                     NSStringFromRect(NSMakeRect(14,  9, 31, 6)), @"Month",
+                     NSStringFromRect(NSMakeRect( 5, 46, 53, 11)), @"Time", nil];
 
   clockView = [[NXTClockView alloc]
                 initWithFrame:NSMakeRect(0, 0, 64, 64)

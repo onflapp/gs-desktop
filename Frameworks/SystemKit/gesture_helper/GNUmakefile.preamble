@@ -46,7 +46,9 @@ ADDITIONAL_OBJCFLAGS += `pkg-config --atleast-version=1.19 libinput && echo "-DH
 #ADDITIONAL_INCLUDE_DIRS +=
 
 # Additional LDFLAGS to pass to the linker
-ADDITIONAL_LDFLAGS += -lgnustep-gui -linput -ludev
+#ADDITIONAL_LDFLAGS +=
+
+ADDITIONAL_TOOL_LIBS += -linput -ludev
 
 # Additional library directories the linker should search
 #ADDITIONAL_LIB_DIRS +=

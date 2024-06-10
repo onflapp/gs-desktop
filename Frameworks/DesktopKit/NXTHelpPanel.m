@@ -95,7 +95,8 @@ static NSUInteger   selectedItemIndex;
   // Set pointing hand cursor to links
   // TODO: It's assumed that links cell size is 11x11. Check if glyph really
   // represents NeXTHelpLink RTF keyword (not just image).
-  for (NSUInteger index = 0; index < gRange.length; index++) {
+  NSUInteger index;
+  for (index = 0; index < gRange.length; index++) {
     aSize = [_layoutManager attachmentSizeForGlyphAtIndex:index];
     if (aSize.width == 12 && aSize.height == 12) {
       gRect = [_layoutManager boundingRectForGlyphRange:NSMakeRange(index,1)
@@ -159,7 +160,8 @@ static NSUInteger   selectedItemIndex;
                  documentAttributes:NULL];
   text = [attrString string];
     
-  for (int i = 0; i < [text length]; i++) {
+  int i;
+  for (i = 0; i < [text length]; i++) {
     attrs = [attrString attributesAtIndex:i effectiveRange:&range];
     if ((attachment = [attrs objectForKey:@"NSAttachment"]) != nil) {
       range = [text lineRangeForRange:range];
@@ -321,7 +323,8 @@ static NSUInteger   selectedItemIndex;
   artText = [attrString string];
   artLength = [artText length];
   
-  for (int i = 0; i < artLength; i++) {
+  int i;
+  for (i = 0; i < artLength; i++) {
     lineRange = [artText lineRangeForRange:NSMakeRange(i,1)];
     attrs = [attrString attributesAtIndex:i effectiveRange:&range];
     attachment = [attrs objectForKey:@"NSAttachment"];
@@ -350,12 +353,14 @@ static NSUInteger   selectedItemIndex;
   if ([reader readRTFDFromFile:path] != NO) {
     text = [reader string];
   }
+  /*XXX
   if (text && [text length]) {
     range = [text findString:[findField stringValue]
                selectedRange:selectedRange
                      options:options
                         wrap:NO];
   }
+  */
   [reader release];
 
   return range;
@@ -418,8 +423,6 @@ static NSUInteger   selectedItemIndex;
 
 - (void)_performFind:(id)sender
 {
-  dispatch_queue_t find_q;
-  
   if ([[findField stringValue] length] == 0) {
     return;
   }
@@ -432,8 +435,8 @@ static NSUInteger   selectedItemIndex;
   [self _enableButtons:NO];
   [statusField setStringValue:@"Searching..."];
   
-  find_q = dispatch_queue_create("ns.desktopkit.helppanel", NULL);
-  dispatch_async(find_q, ^{
+  //find_q = dispatch_queue_create("ns.desktopkit.helppanel", NULL);
+  //dispatch_async(find_q, ^{
       NSString     *text = [[articleView textStorage] string];
       NSRange      range;
       unsigned int options = NSCaseInsensitiveSearch;
@@ -449,10 +452,12 @@ static NSUInteger   selectedItemIndex;
         else {
           selectedRange.location = 0;
         }
-        range = [text findString:[findField stringValue]
+        /*XXX
+        range = (NSRange)[text findString:[findField stringValue]
                    selectedRange:selectedRange
                          options:options
                             wrap:NO];
+        */
         if (range.length) {
           selectedRange.location = range.location;
           selectedRange.length = range.length;
@@ -467,7 +472,8 @@ static NSUInteger   selectedItemIndex;
       if (!lastFindWasSuccessful) {
         NSUInteger index = [tocList indexOfItem:[tocList selectedItem]] + 1;
         NSString   *artPath, *attachment;
-        for (NSUInteger i = index; i < [tocAttachments count]; i++) {
+        NSUInteger i;
+        for (i = index; i < [tocAttachments count]; i++) {
           attachment = [tocAttachments objectAtIndex:i];
           if (attachment &&
               [attachment isEqualToString:@""] == NO &&
@@ -493,7 +499,7 @@ static NSUInteger   selectedItemIndex;
       [self performSelectorOnMainThread:@selector(_enableFindField)
                              withObject:nil
                           waitUntilDone:YES];
-    });
+    //});
 }
 
 // --- Index
@@ -516,7 +522,8 @@ static NSUInteger   selectedItemIndex;
   // NSLog(@"Index loading done. Length == %lu", [text length]);
 
   NSLog(@"Index.rtfd: loading items into list view: START");
-  for (int i = 0; i < [text length]; i++) {
+  int i;
+  for (i = 0; i < [text length]; i++) {
     lineRange = [text lineRangeForRange:NSMakeRange(i,1)];
     attrs = [attrString attributesAtIndex:i effectiveRange:&range];
     if ((attachment = [attrs objectForKey:@"NSAttachment"]) != nil) {
@@ -815,7 +822,7 @@ static NSUInteger   selectedItemIndex;
     pathComps = [[attachment fileName] pathComponents];
     
     // Convert to path relative to _helpDirectory
-    if ([pathComps[0] isEqualToString:@".."]) {
+    if ([[pathComps objectAtIndex:0] isEqualToString:@".."]) {
       // points to _helpDirectory (e.g `../Basics/Intro.rtfd`)
       for (NSString *comp in pathComps) {
         if ([comp isEqualToString:@".."]) {
@@ -834,7 +841,8 @@ static NSUInteger   selectedItemIndex;
     // Find and select TOC item with `repObject`
     NSString *object;
     BOOL      isFound = NO;
-    for (int i = 0; i < [tocAttachments count]; i++) {
+    int       i;
+    for (i = 0; i < [tocAttachments count]; i++) {
       object = [tocAttachments objectAtIndex:i];
       if ([object isEqualToString:repObject]) {
         [tocList selectItemAtIndex:i];

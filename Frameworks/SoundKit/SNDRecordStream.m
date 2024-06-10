@@ -29,6 +29,8 @@ extern void _stream_buffer_empty(pa_stream *stream, int success, void *sndStream
 
 @implementation SNDRecordStream
 
+@synthesize sourceOutput;
+
 - (void)dealloc
 {
   NSDebugLLog(@"Memory", @"[SNDRecordStream] dealloc");
@@ -62,32 +64,32 @@ extern void _stream_buffer_empty(pa_stream *stream, int success, void *sndStream
 
 - (NSUInteger)volume
 {
-  return [_sourceOutput volume];
+  return [self.sourceOutput volume];
 }
 - (void)setVolume:(NSUInteger)volume
 {
-  [_sourceOutput applyVolume:volume];
+  [self.sourceOutput applyVolume:volume];
 }
 - (CGFloat)balance
 {
-  return _sourceOutput.balance;
+  return self.sourceOutput.balance;
 }
 - (void)setBalance:(CGFloat)balance
 {
-  [_sourceOutput applyBalance:balance];
+  [self.sourceOutput applyBalance:balance];
 }
 - (void)setMute:(BOOL)isMute
 {
-  [_sourceOutput applyMute:isMute];
+  [self.sourceOutput applyMute:isMute];
 }
 - (BOOL)isMute
 {
-  return (BOOL)_sourceOutput.mute;
+  return (BOOL)self.sourceOutput.mute;
 }
 
 - (NSString *)activePort
 {
-  PASource *source = [super.server sourceWithIndex:_sourceOutput.sourceIndex];
+  PASource *source = [super.server sourceWithIndex:self.sourceOutput.sourceIndex];
 
   if (source == nil) {
     source = [super.server defaultInput].source;
@@ -97,7 +99,7 @@ extern void _stream_buffer_empty(pa_stream *stream, int success, void *sndStream
 }
 - (void)setActivePort:(NSString *)portName
 {
-  PASource *source = [super.server sourceWithIndex:_sourceOutput.sourceIndex];
+  PASource *source = [super.server sourceWithIndex:self.sourceOutput.sourceIndex];
 
   if (source == nil) {
     source = [super.server defaultInput].source;

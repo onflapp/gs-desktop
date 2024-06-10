@@ -24,18 +24,28 @@
 
 @interface PACard : NSObject
 {
+  pa_context   *context;
+
+  NSUInteger index;
+  NSString   *name;
+  NSString   *description;
+
+  NSArray    *outPorts;
+  NSArray    *inPorts;
+  NSArray    *profiles;
+  NSString   *activeProfile;
 }
 
 @property (assign) pa_context   *context;
 
-@property (readonly) NSUInteger index;
-@property (readonly) NSString   *name;
-@property (readonly) NSString   *description;
+@property (assign) NSUInteger index;
+@property (retain) NSString   *name;
+@property (retain) NSString   *description;
 
-@property (readonly) NSArray    *outPorts;
-@property (readonly) NSArray    *inPorts;
-@property (readonly) NSArray    *profiles;
-@property (readonly) NSString   *activeProfile;
+@property (retain) NSArray    *outPorts;
+@property (retain) NSArray    *inPorts;
+@property (retain) NSArray    *profiles;
+@property (retain) NSString   *activeProfile;
 
 - (id)updateWithValue:(NSValue *)value;
 - (void)applyActiveProfile:(NSString *)profileName;

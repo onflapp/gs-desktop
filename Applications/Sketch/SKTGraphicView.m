@@ -274,7 +274,8 @@ A person who assumes that a -set... method always succeeds, and always sets the 
 
 	    // Redraw just the parts of the view that they used to occupy.
 	    NSUInteger graphicCount = [oldGraphics count];
-	    for (NSUInteger index = 0; index<graphicCount; index++) {
+            NSUInteger index;
+	    for (index = 0; index<graphicCount; index++) {
 		[self setNeedsDisplayInRect:[[oldGraphics objectAtIndex:index] drawingBounds]];
 	    }
 
@@ -294,7 +295,8 @@ A person who assumes that a -set... method always succeeds, and always sets the 
 
 	    // Redraw just the parts of the view that they now occupy.
 	    NSUInteger graphicCount = [newGraphics count];
-	    for (NSUInteger index = 0; index<graphicCount; index++) {
+            NSUInteger index;
+	    for (index = 0; index<graphicCount; index++) {
 		[self setNeedsDisplayInRect:[[newGraphics objectAtIndex:index] drawingBounds]];
 	    }
 	}
@@ -324,13 +326,15 @@ A person who assumes that a -set... method always succeeds, and always sets the 
 	NSIndexSet *oldSelectionIndexes = [change objectForKey:NSKeyValueChangeOldKey];
 	NSIndexSet *newSelectionIndexes = [change objectForKey:NSKeyValueChangeNewKey];
 	if (![oldSelectionIndexes isEqual:[NSNull null]] && ![newSelectionIndexes isEqual:[NSNull null]]) {
-	    for (NSUInteger oldSelectionIndex = [oldSelectionIndexes firstIndex]; oldSelectionIndex!=NSNotFound; oldSelectionIndex = [oldSelectionIndexes indexGreaterThanIndex:oldSelectionIndex]) {
+            NSUInteger oldSelectionIndex;
+	    for (oldSelectionIndex = [oldSelectionIndexes firstIndex]; oldSelectionIndex!=NSNotFound; oldSelectionIndex = [oldSelectionIndexes indexGreaterThanIndex:oldSelectionIndex]) {
 		if (![newSelectionIndexes containsIndex:oldSelectionIndex]) {
 		    SKTGraphic *deselectedGraphic = [[self graphics] objectAtIndex:oldSelectionIndex];
 		    [self setNeedsDisplayInRect:[deselectedGraphic drawingBounds]];
 		}
 	    }
-	    for (NSUInteger newSelectionIndex = [newSelectionIndexes firstIndex]; newSelectionIndex!=NSNotFound; newSelectionIndex = [newSelectionIndexes indexGreaterThanIndex:newSelectionIndex]) {
+            NSUInteger newSelectionIndex;
+	    for (newSelectionIndex = [newSelectionIndexes firstIndex]; newSelectionIndex!=NSNotFound; newSelectionIndex = [newSelectionIndexes indexGreaterThanIndex:newSelectionIndex]) {
 		if (![oldSelectionIndexes containsIndex:newSelectionIndex]) {
 		    SKTGraphic *selectedGraphic = [[self graphics] objectAtIndex:newSelectionIndex];
 		    [self setNeedsDisplayInRect:[selectedGraphic drawingBounds]];
@@ -376,7 +380,8 @@ A person who assumes that a -set... method always succeeds, and always sets the 
     NSArray *graphics = [self graphics];
     NSIndexSet *selectionIndexes = [self selectionIndexes];
     NSInteger graphicCount = [graphics count];
-    for (NSInteger index = graphicCount - 1; index>=0; index--) {
+    NSInteger index;
+    for (index = graphicCount - 1; index>=0; index--) {
         SKTGraphic *graphic = [graphics objectAtIndex:index];
         NSRect graphicDrawingBounds = [graphic drawingBounds];
         if (NSIntersectsRect(rect, graphicDrawingBounds)) {
@@ -558,7 +563,8 @@ A person who assumes that a -set... method always succeeds, and always sets the 
     NSArray *graphics = [self graphics];
     NSIndexSet *selectionIndexes = [self selectionIndexes];
     NSUInteger graphicCount = [graphics count];
-    for (NSUInteger index = 0; index<graphicCount; index++) {
+    NSUInteger index;
+    for (index = 0; index<graphicCount; index++) {
 	SKTGraphic *graphic = [graphics objectAtIndex:index];
 
 	// Do a quick check to weed out graphics that aren't even in the neighborhood.
@@ -701,7 +707,8 @@ A person who assumes that a -set... method always succeeds, and always sets the 
     NSMutableIndexSet *indexSetToReturn = [NSMutableIndexSet indexSet];
     NSArray *graphics = [self graphics];
     NSUInteger graphicCount = [graphics count];
-    for (NSUInteger index = 0; index<graphicCount; index++) {
+    NSUInteger index;
+    for (index = 0; index<graphicCount; index++) {
 	SKTGraphic *graphic = [graphics objectAtIndex:index];
         if (NSIntersectsRect(rect, [graphic drawingBounds])) {
             [indexSetToReturn addIndex:index];
@@ -773,7 +780,8 @@ A person who assumes that a -set... method always succeeds, and always sets the 
 	    // Either select or deselect all of the graphics that intersect the selection rectangle.
 	    NSIndexSet *indexesOfGraphicsInRubberBand = [self indexesOfGraphicsIntersectingRect:_marqueeSelectionBounds];
 	    NSMutableIndexSet *newSelectionIndexes = [oldSelectionIndexes mutableCopy];
-	    for (NSUInteger index = [indexesOfGraphicsInRubberBand firstIndex]; index!=NSNotFound; index = [indexesOfGraphicsInRubberBand indexGreaterThanIndex:index]) {
+            NSUInteger index;
+	    for (index = [indexesOfGraphicsInRubberBand firstIndex]; index!=NSNotFound; index = [indexesOfGraphicsInRubberBand indexGreaterThanIndex:index]) {
 		if ([newSelectionIndexes containsIndex:index]) {
 		    [newSelectionIndexes removeIndex:index];
 		} else {

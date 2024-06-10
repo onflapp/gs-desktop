@@ -603,7 +603,8 @@ static NXTSavePanel *_savePanel = nil;
   range.location = 0;
   range.length = [enteredString length];
   numberOfCells = [cells count];
-  for (int i = 0; i < numberOfCells; i++) {
+  int i;
+  for (i = 0; i < numberOfCells; i++) {
     selectedString = [[matrix cellAtRow:i column:0] stringValue];
     // NSLog(@"\tSelected %d: `%@`", i, selectedString);
     if ([selectedString length] < range.length) {

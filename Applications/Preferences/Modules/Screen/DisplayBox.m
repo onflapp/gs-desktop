@@ -26,6 +26,7 @@
 
 @synthesize displayFrame;
 @synthesize displayName;
+@synthesize display;
 
 - initWithFrame:(NSRect)frameRect
         display:(OSEDisplay *)aDisplay
@@ -40,7 +41,7 @@
 
   owner = prefs;
   
-  _display = aDisplay;
+  self.display = aDisplay;
 
   nameRect = frameRect;
   nameRect.size.height = 15;
@@ -145,7 +146,7 @@
   
   [super drawRect:rect];
 
-  [nameField setStringValue:displayName];
+  [nameField setStringValue:self.displayName];
   
   [bgColor set];
   NSRectFill([[self contentView] frame]);
@@ -174,27 +175,27 @@
   if (!isActiveDisplay) return;
   
   // Draw dock and icon yard
-  NSSize  iSize = [owner.dockImage size];
+  NSSize  iSize = [[owner dockImage] size];
   NSPoint iPoint = NSMakePoint(boxFrame.size.width-iSize.width-3,
                                boxFrame.size.height-iSize.height-3);
   if (isMainDisplay)
     {
-      [owner.dockImage compositeToPoint:iPoint
+      [[owner dockImage] compositeToPoint:iPoint
                               operation:NSCompositeSourceOver];
       
-      iSize = [owner.appIconYardImage size];
+      iSize = [[owner appIconYardImage] size];
       iPoint = NSMakePoint(3,3);
-      [owner.appIconYardImage compositeToPoint:iPoint
+      [[owner appIconYardImage] compositeToPoint:iPoint
                                      operation:NSCompositeSourceOver];
     }
   else
     {
       iPoint = NSMakePoint(3,3);
       iSize = [[owner iconYardImage] size];
-      [owner.iconYardImage compositeToPoint:iPoint
+      [[owner iconYardImage] compositeToPoint:iPoint
                                   operation:NSCompositeSourceOver];
       iPoint.x += iSize.width;
-      [owner.iconYardImage compositeToPoint:iPoint
+      [[owner iconYardImage] compositeToPoint:iPoint
                                   operation:NSCompositeSourceOver];
     }
 }

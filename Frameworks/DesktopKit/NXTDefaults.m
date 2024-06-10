@@ -99,8 +99,9 @@ static NSLock     *syncLock;
   defsDir = [filePath stringByDeletingLastPathComponent];
   if (![fileManager fileExistsAtPath:defsDir]) {
     if (isSystem != NO) {
-      attrs = @{NSFileGroupOwnerAccountName:@"wheel",
-                NSFilePosixPermissions:[NSNumber numberWithShort:0775]};
+      attrs = [NSDictionary dictionaryWithObjectsAndKeys:
+        @"wheel", NSFileGroupOwnerAccountName,
+        [NSNumber numberWithShort:0775], NSFilePosixPermissions, nil];
     }
     [fileManager createDirectoryAtPath:defsDir
            withIntermediateDirectories:YES
@@ -220,8 +221,9 @@ static NSLock     *syncLock;
 
   if ([fileManager fileExistsAtPath:filePath] == NO) {
     if (isSystem != NO) {
-      attrs = @{NSFileGroupOwnerAccountName:@"wheel",
-                NSFilePosixPermissions:[NSNumber numberWithShort:0664]};
+      attrs = [NSDictionary dictionaryWithObjectsAndKeys:
+        @"wheel", NSFileGroupOwnerAccountName,
+        [NSNumber numberWithShort:0664], NSFilePosixPermissions, nil];
     }
     [fileManager createFileAtPath:filePath
                          contents:nil

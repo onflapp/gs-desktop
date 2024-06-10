@@ -18,7 +18,7 @@
 // Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA 02111 USA.
 //
                                       
-#import <dispatch/dispatch.h>
+//#import <dispatch/dispatch.h>
 
 #import "PACard.h"
 #import "PASink.h"
@@ -38,7 +38,7 @@
 
 #import "SNDServerCallbacks.h"
 
-static dispatch_queue_t _pa_q = NULL;
+//static dispatch_queue_t _pa_q = NULL;
 static SNDServer        *_server = nil;
 static BOOL             mainLoopRunning = NO;
 
@@ -48,6 +48,16 @@ NSString *SNDDeviceDidChangeNotification = @"SNDDeviceDidChangeNotification";
 NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
 
 @implementation SNDServer
+
+@synthesize status;
+@synthesize statusDescription;
+
+@synthesize userName;  // User name of the daemon process
+@synthesize hostName;  // Host name the daemon is running on
+@synthesize name;      // Server package name (usually "pulseaudio")
+@synthesize version;   // Version string of the daemon
+@synthesize defaultSinkName;
+@synthesize defaultSourceName;
 
 // + (void)initialize
 // {
@@ -78,12 +88,12 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   [sourceOutputList release];
   [savedStreamList release];
   
-  [_userName release];
-  [_hostName release];
-  [_name release];
-  [_version release];
-  [_defaultSinkName release];
-  [_defaultSourceName release];
+  self.userName = nil;
+  self.hostName = nil;
+  self.name = nil;
+  self.version = nil;
+  self.defaultSinkName = nil;
+  self.defaultSourceName = nil;
   
   [super dealloc];
 }
@@ -95,13 +105,13 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
 {
   [super init];
 
-  _status = SNDServerNoConnnectionState;
+  self.status = SNDServerNoConnnectionState;
 
   if (hostName != nil) {
-    _hostName = [hostName copy];
+    self.hostName = [hostName copy];
   }
   else {
-    _hostName = [[NSString alloc] initWithString:@"localhost"];
+    self.hostName = [[NSString alloc] initWithString:@"localhost"];
   }
 
   cardList = [NSMutableArray new];
@@ -149,19 +159,31 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
     pa_proplist_free(proplist);
   }
   
-  if (_hostName && [_hostName isEqualToString:@"localhost"] == NO) {
-    host_name = [_hostName cString];
+  if (self.hostName && [self.hostName isEqualToString:@"localhost"] == NO) {
+    host_name = [self.hostName cString];
   }
   pa_context_connect(_pa_ctx, host_name, 0, NULL);
   
+  /*
   _pa_q = dispatch_queue_create("org.nextspace.soundkit", NULL);
   dispatch_async(_pa_q, ^{
       NSDebugLLog(@"SoundKit", @"[SNDServer] >>> PulseAudio mainloop started.");
       while (pa_mainloop_iterate(_pa_loop, 1, NULL) >= 0) { ; }
       NSDebugLLog(@"SoundKit", @"[SNDServer] <<< PulseAudio mainloop exited.");
-    });
+  });
+  */
+  //[self performSelectorInBackground:@selector(pa_main_loop:) withObject:self];
+
   mainLoopRunning = YES;
 }
+
+- (void)pa_main_loop:(SNDServer*)sender
+{
+  NSDebugLLog(@"SoundKit", @"[SNDServer] >>> PulseAudio mainloop started.");
+  while (pa_mainloop_iterate(sender->_pa_loop, 1, NULL) >= 0) { ; }
+  NSDebugLLog(@"SoundKit", @"[SNDServer] <<< PulseAudio mainloop exited.");
+}
+
 - (void)disconnect
 {
   int retval = 0;
@@ -179,13 +201,20 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
     pa_mainloop_quit(_pa_loop, retval);
     pa_mainloop_free(_pa_loop);
   }
+  /*
   if (_pa_q) {
     NSDebugLLog(@"SoundKit", @"[SNDServer] disconnect: release GCD queue...");
     dispatch_release(_pa_q);
     _pa_q = NULL;
   }
+  */
   mainLoopRunning = NO;
   NSDebugLLog(@"SoundKit", @"[SNDServer] === disconnect === END");
+}
+
+- (pa_context *) pa_ctx
+{
+  return _pa_ctx;
 }
 
 - (SNDDevice *)defaultCard
@@ -229,11 +258,11 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
 }
 - (SNDOut *)defaultOutput
 {
-  if (_defaultSinkName == nil || [_defaultSinkName length] == 0) {
+  if (self.defaultSinkName == nil || [self.defaultSinkName length] == 0) {
     return [[self outputList] objectAtIndex:0];
   }
   
-  return [self outputWithSink:[self sinkWithName:_defaultSinkName]];
+  return [self outputWithSink:[self sinkWithName:self.defaultSinkName]];
 }
 - (NSArray *)outputList
 {
@@ -257,7 +286,7 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
 }
 - (SNDIn *)defaultInput
 {
-  return [self inputWithSource:[self sourceWithName:_defaultSourceName]];
+  return [self inputWithSource:[self sourceWithName:self.defaultSourceName]];
 }
 - (NSArray *)inputList
 {
@@ -340,14 +369,11 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
 // Server
 - (void)updateConnectionState:(NSNumber *)state
 {
-  _status = [state intValue];
-  if (_statusDescription != nil) {
-    [_statusDescription release];
-  }
-  _statusDescription = [[NSString alloc]
+  self.status = [state intValue];
+  self.statusDescription = [[NSString alloc]
                            initWithCString:pa_strerror(pa_context_errno(_pa_ctx))];
   NSDebugLLog(@"SoundKit", @"[SNDServer] connection state was updated - %li.",
-              _status);
+              self.status);
   [[NSNotificationCenter defaultCenter]
       postNotificationName:SNDServerStateDidChangeNotification
                     object:self];
@@ -359,14 +385,14 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   info = malloc(sizeof(const pa_server_info));
   [value getValue:(void *)info];
 
-  _userName = [[NSString alloc] initWithCString:info->user_name];
+  self.userName = [[NSString alloc] initWithCString:info->user_name];
   // if (_hostName == nil) {
   //   _hostName = [[NSString alloc] initWithCString:info->host_name];
   // }
-  _name = [[NSString alloc] initWithCString:info->server_name];
-  _version = [[NSString alloc] initWithCString:info->server_version];
-  _defaultSinkName = [[NSString alloc] initWithCString:info->default_sink_name];
-  _defaultSourceName = [[NSString alloc] initWithCString:info->default_source_name];
+  self.name = [[NSString alloc] initWithCString:info->server_name];
+  self.version = [[NSString alloc] initWithCString:info->server_version];
+  self.defaultSinkName = [[NSString alloc] initWithCString:info->default_sink_name];
+  self.defaultSourceName = [[NSString alloc] initWithCString:info->default_source_name];
 
   free((void *)info);
 }

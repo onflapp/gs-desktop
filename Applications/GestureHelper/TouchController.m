@@ -208,8 +208,9 @@
   char* bytes = [data bytes];
   NSInteger sz = [data length];
   NSInteger c = 0;
+  NSInteger i;
 
-  for (NSInteger i = 0; i < sz; i++) {
+  for (i = 0; i < sz; i++) {
     if (*(bytes+i) == '\n') {
       [buff appendBytes:bytes+c length:i-c];
       NSString* line = [[NSString alloc] initWithData:buff encoding:[NSString defaultCStringEncoding]];

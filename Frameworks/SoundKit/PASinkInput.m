@@ -62,22 +62,30 @@
 //   pa_format_info *format;
 // } pa_sink_input_info;
 
-@interface PASinkInput ()
-@property (assign) NSUInteger channelCount;
-@property (assign) CGFloat    balance;
-@property (assign) NSArray    *channelVolumes;
-@end
-
 @implementation PASinkInput
+
+@synthesize context;
+@synthesize index;
+@synthesize name;
+@synthesize clientIndex;
+@synthesize sinkIndex;
+@synthesize mediaRole;
+
+@synthesize hasVolume;
+@synthesize isVolumeWritable;
+
+@synthesize channelCount;
+@synthesize balance;
+@synthesize channelVolumes;
+@synthesize corked;
+
+@synthesize mute;
 
 - (void)dealloc
 {
-  if (_name) {
-    [_name release];
-  }
-  if (_channelVolumes) {
-    [_channelVolumes release];
-  }
+  self.name = nil;
+  self.channelVolumes = nil;
+
   [super dealloc];
 }
 
@@ -88,62 +96,57 @@
   BOOL           isVolumeChanged = NO;
   CGFloat        balance;
 
-  _hasVolume = info->has_volume;
-  _isVolumeWritable = info->volume_writable;
+  self.hasVolume = info->has_volume;
+  self.isVolumeWritable = info->volume_writable;
 
-  if (_channelVolumes == nil) {
+  if (self.channelVolumes == nil) {
     isVolumeChanged = YES;
   }
   
   balance = pa_cvolume_get_balance(&info->volume, &info->channel_map);
-  if (_balance != balance) {
+  if (self.balance != balance) {
     self.balance = balance;
   }
   
   vol = [NSMutableArray new];
-  for (int i = 0; i < info->volume.channels; i++) {
+  int i;
+  for (i = 0; i < info->volume.channels; i++) {
     v = [NSNumber numberWithUnsignedInteger:info->volume.values[i]];
     [vol addObject:v];
-    if (isVolumeChanged == NO && [_channelVolumes[i] isEqualToNumber:v] == NO) {
+    if (isVolumeChanged == NO && [[self.channelVolumes objectAtIndex:i] isEqualToNumber:v] == NO) {
       isVolumeChanged = YES;
     }
   }
   if (isVolumeChanged != NO) {
-    if (_channelVolumes) {
-      [_channelVolumes release];
-    }
     self.channelVolumes = [[NSArray alloc] initWithArray:vol];
   }
   [vol release];
 }
 - (void)_updateChannels:(const pa_sink_input_info *)info
 {
-  _channelCount = info->volume.channels;
+  self.channelCount = info->volume.channels;
   
   // Channel map
-  if (channel_map) {
-    free(channel_map);
+  if (_channel_map) {
+    free(_channel_map);
   }
-  channel_map = malloc(sizeof(pa_channel_map));
-  pa_channel_map_init(channel_map);
-  channel_map->channels = info->channel_map.channels;
-  for (int i = 0; i < channel_map->channels; i++) {
-    channel_map->map[i] = info->channel_map.map[i];
+  _channel_map = malloc(sizeof(pa_channel_map));
+  pa_channel_map_init(_channel_map);
+  _channel_map->channels = info->channel_map.channels;
+  int i;
+  for (i = 0; i < _channel_map->channels; i++) {
+    _channel_map->map[i] = info->channel_map.map[i];
   }
 }
 - (void)_updateMediaRole:(pa_sink_input_info *)info
 {
   const char *media_role = pa_proplist_gets(info->proplist, PA_PROP_MEDIA_ROLE);
 
-  if (_mediaRole) {
-    [_mediaRole release];
-  }
-  
   if (media_role != NULL) {
-    _mediaRole = [[NSString alloc] initWithCString:media_role];
+    self.mediaRole = [[NSString alloc] initWithCString:media_role];
   }
   else {
-    _mediaRole = nil;
+    self.mediaRole = nil;
   }
 }
 
@@ -157,16 +160,14 @@
   info = malloc(sizeof(const pa_sink_input_info));
   [val getValue:info];
 
-  if (_name)
-    [_name release];
-  _name = [[NSString alloc] initWithCString:info->name];
+  self.name = [[NSString alloc] initWithCString:info->name];
 
-  _index = info->index;
-  _clientIndex = info->client;
-  _sinkIndex = info->sink;
+  self.index = info->index;
+  self.clientIndex = info->client;
+  self.sinkIndex = info->sink;
   
-  _mute = info->mute;
-  _corked = info->corked;
+  self.mute = info->mute;
+  self.corked = info->corked;
 
   [self _updateVolume:info];
   [self _updateChannels:info];
@@ -182,9 +183,9 @@
 {
   NSUInteger v, i;
 
-  for (i = 0, v = 0; i < _channelCount; i++) {
-    if ([_channelVolumes[i] unsignedIntegerValue] > v)
-      v = [_channelVolumes[i] unsignedIntegerValue];
+  for (i = 0, v = 0; i < self.channelCount; i++) {
+    if ([[self.channelVolumes objectAtIndex:i] unsignedIntegerValue] > v)
+      v = [[self.channelVolumes objectAtIndex:i] unsignedIntegerValue];
   }
   
   return v;
@@ -196,9 +197,9 @@
 
   new_volume = malloc(sizeof(pa_cvolume));
   pa_cvolume_init(new_volume);
-  pa_cvolume_set(new_volume, _channelCount, v);
+  pa_cvolume_set(new_volume, self.channelCount, v);
   
-  o = pa_context_set_sink_input_volume(_context, _index, new_volume, NULL, self);
+  o = pa_context_set_sink_input_volume(self.context, self.index, new_volume, NULL, self);
   if (o) {
     pa_operation_unref(o);
   }
@@ -212,10 +213,10 @@
 
   volume = malloc(sizeof(pa_cvolume));
   pa_cvolume_init(volume);
-  pa_cvolume_set(volume, _channelCount, self.volume);
+  pa_cvolume_set(volume, self.channelCount, self.volume);
   
-  pa_cvolume_set_balance(volume, channel_map, balance);
-  o = pa_context_set_sink_input_volume(_context, _index, volume, NULL, self);
+  pa_cvolume_set_balance(volume, _channel_map, balance);
+  o = pa_context_set_sink_input_volume(self.context, self.index, volume, NULL, self);
   if (o) {
     pa_operation_unref(o);
   }
@@ -226,7 +227,7 @@
 {
   pa_operation *o;
   
-  o = pa_context_set_sink_input_mute(_context, _index, isMute, NULL, NULL);
+  o = pa_context_set_sink_input_mute(self.context, self.index, isMute, NULL, NULL);
   if (o) {
     pa_operation_unref(o);
   }

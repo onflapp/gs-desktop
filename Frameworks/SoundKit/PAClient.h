@@ -23,11 +23,14 @@
 
 @interface PAClient : NSObject
 {
+  NSString   *name;
+  NSUInteger index;
+  NSString   *appName;
 }
 
-@property (readonly) NSString   *name;
-@property (readonly) NSUInteger index;
-@property (readonly) NSString   *appName;
+@property (retain) NSString   *name;
+@property (assign) NSUInteger index;
+@property (retain) NSString   *appName;
 
 - (id)updateWithValue:(NSValue *)value;
 

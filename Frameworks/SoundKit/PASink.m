@@ -21,36 +21,38 @@
 
 #import "PASink.h"
 
-@interface PASink ()
-@property (assign) NSString   *activePort;
-@property (assign) NSUInteger channelCount;
-@property (assign) NSUInteger volumeSteps;
-@property (assign) NSUInteger baseVolume;
-@property (assign) CGFloat    balance;
-@property (assign) NSArray    *channelVolumes;
-
-@property (assign,nonatomic) BOOL mute;
-@end
-
 @implementation PASink
+
+@synthesize cardIndex;
+@synthesize index;
+@synthesize context;
+@synthesize name;
+@synthesize description;
+@synthesize ports;
+
+@synthesize flags;
+@synthesize state;
+@synthesize sampleRate;
+@synthesize sampleChannelCount;
+@synthesize sampleFormat;
+@synthesize formats;
+
+// KVO-compliant
+@synthesize activePort;
+@synthesize channelCount;
+@synthesize volumeSteps;
+@synthesize baseVolume;
+@synthesize balance;
+@synthesize channelVolumes;
+@synthesize mute;
 
 - (void)dealloc
 {
-  if (_description) {
-    [_description release];
-  }
-  if (_name) {
-    [_name release];
-  }
-  if (_activePort) {
-    [_activePort release];
-  }
-  if (_ports){
-    [_ports release];
-  }
-  if (_channelVolumes){
-    [_channelVolumes release];
-  }
+  self.description = nil;
+  self.name = nil;
+  self.activePort = nil;
+  self.ports = nil;
+  self.channelVolumes = nil;
   
   free(_channel_map);
   
@@ -64,6 +66,11 @@
   return self;
 }
 
+- (pa_channel_map *)channel_map
+{
+  return _channel_map;
+}
+
 // --- Initialize and update
 - (void)_updatePorts:(const pa_sink_info *)info
 {
@@ -73,24 +80,19 @@
 
   if (info->n_ports > 0) {
     ports = [NSMutableArray new];
-    for (unsigned i = 0; i < info->n_ports; i++) {
-      d = @{@"Name":[NSString stringWithCString:info->ports[i]->name],
-            @"Description":[NSString stringWithCString:info->ports[i]->description]};
+    unsigned i;
+    for (i = 0; i < info->n_ports; i++) {
+      d = [NSDictionary dictionaryWithObjectsAndKeys:
+            [NSString stringWithCString:info->ports[i]->name], @"Name",
+            [NSString stringWithCString:info->ports[i]->description], @"Description", nil];
       [ports addObject:d];
     }
-    if (_ports) {
-      [_ports release];
-    }
-    _ports = [[NSArray alloc] initWithArray:ports];
-    [ports release];
+    self.ports = [[NSArray alloc] initWithArray:ports];
   }
 
   if (info->active_port) {
     newActivePort = [[NSString alloc] initWithCString:info->active_port->description];
-    if (_activePort == nil || [_activePort isEqualToString:newActivePort] == NO) {
-      if (_activePort) {
-        [_activePort release];
-      }
+    if (self.activePort == nil || [self.activePort isEqualToString:newActivePort] == NO) {
       if (info->active_port != NULL) {
         self.activePort = newActivePort;
       }
@@ -108,42 +110,40 @@
   BOOL           isVolumeChanged = NO;
   CGFloat        balance;
 
-  if (_channelVolumes == nil) {
+  if (self.channelVolumes == nil) {
     isVolumeChanged = YES;
   }
   
   balance = pa_cvolume_get_balance(&info->volume, &info->channel_map);
-  if (_balance != balance) {
+  if (self.balance != balance) {
     self.balance = balance;
   }
   
   vol = [NSMutableArray new];
-  for (int i = 0; i < info->volume.channels; i++) {
+  int i;
+  for (i = 0; i < info->volume.channels; i++) {
     v = [NSNumber numberWithUnsignedInteger:info->volume.values[i]];
     [vol addObject:v];
-    if (isVolumeChanged == NO && [_channelVolumes[i] isEqualToNumber:v] == NO) {
+    if (isVolumeChanged == NO && [[self.channelVolumes objectAtIndex:i] isEqualToNumber:v] == NO) {
       isVolumeChanged = YES;
     }
   }
   if (isVolumeChanged != NO) {
-    if (_channelVolumes) {
-      [_channelVolumes release];
-    }
     self.channelVolumes = [[NSArray alloc] initWithArray:vol]; // KVO compliance
   }
   [vol release];
 
   //
-  _volumeSteps = info->n_volume_steps;
+  self.volumeSteps = info->n_volume_steps;
   
-  if (_baseVolume != (NSUInteger)info->base_volume) {
+  if (self.baseVolume != (NSUInteger)info->base_volume) {
     self.baseVolume = (NSUInteger)info->base_volume;
   }  
 }
 
 - (void)_updateChannels:(const pa_sink_info *)info
 {
-  _channelCount = info->volume.channels;
+  self.channelCount = info->volume.channels;
   
   // Channel map
   if (_channel_map) {
@@ -152,7 +152,8 @@
   _channel_map = malloc(sizeof(pa_channel_map));
   pa_channel_map_init(_channel_map);
   _channel_map->channels = info->channel_map.channels;
-  for (int i = 0; i < _channel_map->channels; i++) {
+  int i;
+  for (i = 0; i < _channel_map->channels; i++) {
     _channel_map->map[i] = info->channel_map.map[i];
   }
 }
@@ -163,14 +164,11 @@
   
   if (info->n_formats > 0) {
     formats = [NSMutableArray new];
-    for (unsigned i = 0; i < info->n_formats; i++) {
+    unsigned i;
+    for (i = 0; i < info->n_formats; i++) {
       [formats addObject:[NSNumber numberWithInt:info->formats[i]->encoding]];
     }
-    if (_formats) {
-      [_formats release];
-    }
-    _formats = [[NSArray alloc] initWithArray:formats];
-    [formats release];
+    self.formats = [[NSArray alloc] initWithArray:formats];
   }
 }
 
@@ -184,16 +182,16 @@
   [val getValue:(void *)info];
 
   // Indexes
-  _index = info->index;
-  _cardIndex = info->card;
+  self.index = info->index;
+  self.cardIndex = info->card;
 
   // Name and description
-  if (_description == nil) {
-    _description = [[NSString alloc] initWithCString:info->description];
+  if (self.description == nil) {
+    self.description = [[NSString alloc] initWithCString:info->description];
   }
   
-  if (_name == nil) {
-    _name = [[NSString alloc] initWithCString:info->name];
+  if (self.name == nil) {
+    self.name = [[NSString alloc] initWithCString:info->name];
   }
 
   // Ports
@@ -202,7 +200,7 @@
   // Volume
   [self _updateVolume:info];
 
-  if (_mute != (BOOL)info->mute) {
+  if (self.mute != (BOOL)info->mute) {
     self.mute = (BOOL)info->mute;
   }
 
@@ -211,13 +209,13 @@
   }
 
   // Flags
-  _flags = info->flags;
+  self.flags = info->flags;
   // State
-  _state = info->state;
+  self.state = info->state;
   // Sample spec
-  _sampleRate = info->sample_spec.rate;
-  _sampleChannelCount = info->sample_spec.channels;
-  _sampleFormat = info->sample_spec.format;
+  self.sampleRate = info->sample_spec.rate;
+  self.sampleChannelCount = info->sample_spec.channels;
+  self.sampleFormat = info->sample_spec.format;
   // Supported formats
   // [self _updateFormats:info];
 
@@ -232,13 +230,13 @@
   const char   *port;
   pa_operation *o;
 
-  for (NSDictionary *p in _ports) {
+  for (NSDictionary *p in self.ports) {
     if ([[p objectForKey:@"Description"] isEqualToString:portName]) {
       port = [[p objectForKey:@"Name"] cString];
       break;
     }
   }
-  o = pa_context_set_sink_port_by_index(_context, _index, port, NULL, self);
+  o = pa_context_set_sink_port_by_index(self.context, self.index, port, NULL, self);
   if (o) {
     pa_operation_unref(o);
   }
@@ -248,7 +246,7 @@
 {
   pa_operation *o;
   
-  o = pa_context_set_sink_mute_by_index(_context, _index, (int)isMute, NULL, self);
+  o = pa_context_set_sink_mute_by_index(self.context, self.index, (int)isMute, NULL, self);
   if (o) {
     pa_operation_unref(o);
   }
@@ -258,9 +256,9 @@
 {
   NSUInteger v, i;
 
-  for (i = 0, v = 0; i < _channelCount; i++) {
-    if ([_channelVolumes[i] unsignedIntegerValue] > v)
-      v = [_channelVolumes[i] unsignedIntegerValue];
+  for (i = 0, v = 0; i < self.channelCount; i++) {
+    if ([[self.channelVolumes objectAtIndex:i] unsignedIntegerValue] > v)
+      v = [[self.channelVolumes objectAtIndex:i] unsignedIntegerValue];
   }
   
   return v;
@@ -273,9 +271,9 @@
 
   new_volume = malloc(sizeof(pa_cvolume));
   pa_cvolume_init(new_volume);
-  pa_cvolume_set(new_volume, _channelCount, v);
+  pa_cvolume_set(new_volume, self.channelCount, v);
   
-  o = pa_context_set_sink_volume_by_index(_context, _index, new_volume, NULL, self);
+  o = pa_context_set_sink_volume_by_index(self.context, self.index, new_volume, NULL, self);
   if (o) {
     pa_operation_unref(o);
   }
@@ -290,10 +288,10 @@
 
   volume = malloc(sizeof(pa_cvolume));
   pa_cvolume_init(volume);
-  pa_cvolume_set(volume, _channelCount, self.volume);
+  pa_cvolume_set(volume, self.channelCount, self.volume);
   
   pa_cvolume_set_balance(volume, _channel_map, balance);
-  o = pa_context_set_sink_volume_by_index(_context, _index, volume, NULL, self);
+  o = pa_context_set_sink_volume_by_index(self.context, self.index, volume, NULL, self);
   if (o) {
     pa_operation_unref(o);
   }

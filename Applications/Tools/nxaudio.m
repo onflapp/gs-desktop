@@ -45,7 +45,8 @@
     [soundServer connect];
   }
 
-  for (NSInteger i = 100; i > 0; i--) {
+  NSInteger i;
+  for (i = 100; i > 0; i--) {
     NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.1];
     [[NSRunLoop currentRunLoop] runUntilDate: limit];
 

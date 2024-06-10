@@ -25,20 +25,22 @@
 
 @implementation SNDIn
 
+@synthesize source;
+
 - (void)dealloc
 {
   NSDebugLLog(@"Memory", @"[SNDIn] dealloc");
-  [_source release];
+  self.source  = nil;
   [super dealloc];
 }
 
 - (NSString *)name
 {
-  return _source.description;
+  return self.source.description;
 }
 - (NSString *)description
 {
-  return [NSString stringWithFormat:@"PulseAudio Source `%@`", _source.description];
+  return [NSString stringWithFormat:@"PulseAudio Source `%@`", self.source.description];
 }
 
 // For debugging
@@ -49,28 +51,29 @@
   [super printDescription];
   
   fprintf(stderr, "+++ SNDIn: %s +++\n", [[self description] cString]);
-  fprintf(stderr, "\t             Source : %s (%lu)\n",  [_source.name cString],
-          [_source retainCount]);
-  fprintf(stderr, "\t Source Description : %s\n",  [_source.description cString]);
-  fprintf(stderr, "\t        Active Port : %s\n",  [_source.activePort cString]);
-  fprintf(stderr, "\t         Card Index : %lu\n", _source.cardIndex);
+  fprintf(stderr, "\t             Source : %s (%lu)\n",  [self.source.name cString],
+          [self.source retainCount]);
+  fprintf(stderr, "\t Source Description : %s\n",  [self.source.description cString]);
+  fprintf(stderr, "\t        Active Port : %s\n",  [self.source.activePort cString]);
+  fprintf(stderr, "\t         Card Index : %lu\n", self.source.cardIndex);
   fprintf(stderr, "\t       Card Profile : %s\n",  [super.card.activeProfile cString]);
-  fprintf(stderr, "\t      Channel Count : %lu\n", _source.channelCount);
+  fprintf(stderr, "\t      Channel Count : %lu\n", self.source.channelCount);
   
-  fprintf(stderr, "\t             Volume : %lu\n", _source.volume);
-  for (NSUInteger i = 0; i < _source.channelCount; i++) {
+  fprintf(stderr, "\t             Volume : %lu\n", self.source.volume);
+  NSUInteger i;
+  for (i = 0; i < self.source.channelCount; i++) {
     fprintf(stderr, "\t           Volume %lu : %lu\n", i,
-            [_source.channelVolumes[i] unsignedIntegerValue]);
+      [[self.source.channelVolumes objectAtIndex:i] unsignedIntegerValue]);
   }
   
-  fprintf(stderr, "\t              Muted : %s\n", _source.mute ? "Yes" : "No");
+  fprintf(stderr, "\t              Muted : %s\n", self.source.mute ? "Yes" : "No");
   fprintf(stderr, "\t       Retain Count : %lu\n", [self retainCount]);
 
   fprintf(stderr, "\t    Available Ports : \n");
   for (NSDictionary *port in [self availablePorts]) {
     NSString *portDesc, *portString;
     portDesc = [port objectForKey:@"Description"];
-    if ([portDesc isEqualToString:_source.activePort])
+    if ([portDesc isEqualToString:self.source.activePort])
       portString = [NSString stringWithFormat:@"%s%@%s", "\e[1m- ", portDesc, "\e[0m"];
     else
       portString = [NSString stringWithFormat:@"%s%@%s", "- ", portDesc, ""];
@@ -81,111 +84,112 @@
 /*--- Source proxy ---*/
 - (NSArray *)availablePorts
 {
-  if (_source == nil) {
+  if (self.source == nil) {
     NSLog(@"SNDIn: avaliablePorts was called without Source was being set.");
     return nil;
   }
-  return _source.ports;
+  return self.source.ports;
 }
 - (NSString *)activePort
 {
-  return _source.activePort;
+  return self.source.activePort;
 }
 - (void)setActivePort:(NSString *)portName
 {
-  [_source applyActivePort:portName];
+  [self.source applyActivePort:portName];
 }
 
 - (NSUInteger)volumeSteps
 {
-  return _source.volumeSteps;
+  return self.source.volumeSteps;
 }
 - (NSUInteger)volume
 {
-  return [_source volume];
+  return [self.source volume];
 }
 - (void)setVolume:(NSUInteger)volume
 {
-  [_source applyVolume:volume];
+  [self.source applyVolume:volume];
 }
 - (CGFloat)balance
 {
-  return _source.balance;
+  return self.source.balance;
 }
 - (void)setBalance:(CGFloat)balance
 {
-  [_source applyBalance:balance];
+  [self.source applyBalance:balance];
 }
 
 - (void)setMute:(BOOL)isMute
 {
-  [_source applyMute:isMute];
+  [self.source applyMute:isMute];
 }
 - (BOOL)isMute
 {
-  return (BOOL)_source.mute;
+  return (BOOL)self.source.mute;
 }
 
 // Flags
 - (BOOL)hasHardwareVolumeControl
 {
-  return (_source.flags & PA_SOURCE_HW_VOLUME_CTRL) ? YES : NO;
+  return (self.source.flags & PA_SOURCE_HW_VOLUME_CTRL) ? YES : NO;
 }
 - (BOOL)hasHardwareMuteControl
 {
-  return (_source.flags & PA_SOURCE_HW_MUTE_CTRL) ? YES : NO;
+  return (self.source.flags & PA_SOURCE_HW_MUTE_CTRL) ? YES : NO;
 }
 - (BOOL)hasFlatVolume
 {
-  return (_source.flags & PA_SOURCE_FLAT_VOLUME) ? YES : NO;
+  return (self.source.flags & PA_SOURCE_FLAT_VOLUME) ? YES : NO;
 }
 - (BOOL)canQueryLatency
 {
-  return (_source.flags & PA_SOURCE_LATENCY) ? YES : NO;
+  return (self.source.flags & PA_SOURCE_LATENCY) ? YES : NO;
 }
 - (BOOL)canChangeLatency
 {
-  return (_source.flags & PA_SOURCE_DYNAMIC_LATENCY) ? YES : NO;
+  return (self.source.flags & PA_SOURCE_DYNAMIC_LATENCY) ? YES : NO;
 }
 - (BOOL)isHardware
 {
-  return (_source.flags & PA_SOURCE_HARDWARE) ? YES : NO;
+  return (self.source.flags & PA_SOURCE_HARDWARE) ? YES : NO;
 }
 - (BOOL)isNetwork
 {
-  return (_source.flags & PA_SOURCE_NETWORK) ? YES : NO;
+  return (self.source.flags & PA_SOURCE_NETWORK) ? YES : NO;
 }
 // State
 - (SNDDeviceState)deviceState
 {
-  return _source.state;
+  return self.source.state;
 }
 // Sample
 - (NSUInteger)sampleRate
 {
-  return _source.sampleRate;
+  return self.source.sampleRate;
 }
 - (NSUInteger)sampleChannelCount
 {
-  return _source.sampleChannelCount;
+  return self.source.sampleChannelCount;
 }
 - (NSInteger)sampleFormat
 {
-  return _source.sampleFormat;
+  return self.source.sampleFormat;
 }
 // Formats
 - (NSArray *)formats
 {
-  return _source.formats;
+  return self.source.formats;
 }
 // Channel map
 - (NSArray *)channelNames
 {
   NSMutableArray *cn = [NSMutableArray new];
-  pa_channel_map *channel_map = _source.channel_map;
+  pa_channel_map *channel_map = [self.source channel_map];
 
   if (channel_map->channels > 0) {
-    for (unsigned i = 0; i < channel_map->channels; i++) {
+    unsigned i;
+    for (i = 0; i < channel_map->channels; i++) {
       [cn addObject:[super channelPositionToName:channel_map->map[i]]];
     }
   }

@@ -160,7 +160,8 @@ char *wintitle (Display *disp, Window win) {
  
   list = (Window*)winlist(dpy, &len);
  
-  for (int i = 0; i < (int)len ; i++) {
+  int i;
+  for (i = 0; i < (int)len ; i++) {
     Window win = list[i];
     rv = XGetClassHint(dpy, win, &whints);
     if (!rv) continue;

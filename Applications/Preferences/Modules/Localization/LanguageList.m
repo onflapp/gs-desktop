@@ -116,7 +116,8 @@
   NSDictionary  *languageDesc;
   NSFileManager *fm = [NSFileManager defaultManager];
   
-  for (int i=0; i < [array count]; i++)
+  int i;
+  for (i=0; i < [array count]; i++)
     {
       languageName = [array objectAtIndex:i];
       languagePath = [baseBundle pathForResource:languageName

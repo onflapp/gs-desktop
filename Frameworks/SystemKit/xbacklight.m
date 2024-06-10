@@ -233,7 +233,8 @@ xbacklight (char* dpy_name, char* name, double value)
 	}
 
 	outputs = xcb_randr_get_screen_resources_current_outputs (resources_reply);
-	for (int o = 0; o < resources_reply->num_outputs; o++)
+        int o;
+	for (o = 0; o < resources_reply->num_outputs; o++)
 	{
 	    xcb_randr_output_t output = outputs[o];
 	    double    	cur, new, step;

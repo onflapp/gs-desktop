@@ -36,11 +36,15 @@
   BOOL isMainDisplay;
   BOOL isActiveDisplay;
   BOOL isSelected;
+
+  NSRect displayFrame;
+  NSString *displayName;
+  OSEDisplay *display;
 }
 
 @property NSRect displayFrame;
-@property (assign) NSString *displayName;
-@property (readonly) OSEDisplay *display;
+@property (retain) NSString *displayName;
+@property (retain) OSEDisplay *display;
 
 - initWithFrame:(NSRect)frameRect
         display:(OSEDisplay *)aDisplay

@@ -48,7 +48,8 @@ static const id titles[] = {
 {
   NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-  for(int i = 0; i < 5; i++) {
+  int i;
+  for(i = 0; i < 5; i++) {
     NSTextFieldCell *tCell = [self cellAtRow:0 column:i];
     
     [tCell setBezeled:YES];

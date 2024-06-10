@@ -4,6 +4,8 @@
 
 @interface PAClient : NSObject
 {
+  NSString  *name;
+  NSUInteger index;
 }
 
 @property (readonly) NSString  *name;

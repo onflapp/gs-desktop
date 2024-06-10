@@ -205,7 +205,8 @@
   [[panel contentView] addSubview:messageView];
   [messageView release];
   
-  selectedAttrs = @{NSBackgroundColorAttributeName:[NSColor controlLightHighlightColor]};
+  selectedAttrs = [NSDictionary dictionaryWithObjectsAndKeys:
+    [NSColor controlLightHighlightColor], NSBackgroundColorAttributeName, nil];
   // fieldEditor = [panel fieldEditor:YES forObject:messageView];
   // [(NSTextView *)fieldEditor setSelectedTextAttributes:selectedAttrs];
   [messageView setSelectedTextAttributes:selectedAttrs];
@@ -237,7 +238,8 @@
                            withinSelectedCharacterRange:textRange
                                         inTextContainer:[view textContainer]
                                               rectCount:&rectCount];
-  for (int i = 0; i < rectCount; i++) {
+  int i;
+  for (i = 0; i < rectCount; i++) {
     textRect.size.height += rectArray[i].size.height;
   }
   return textRect;
@@ -254,7 +256,8 @@
   NSButton *button;
 
   // Determine button with widest text
-  for (int i = 0; i < [buttons count]; i++) {
+  int i;
+  for (i = 0; i < [buttons count]; i++) {
     button = [buttons objectAtIndex:i];
       
     cSize = [[button cell] cellSize];
@@ -271,7 +274,7 @@
   }
 
   // Resize and reposition buttons
-  for (int i = 0; i < [buttons count]; i++) {
+  for (i = 0; i < [buttons count]; i++) {
     button = [buttons objectAtIndex:i];
       
     aFrame = [button frame];

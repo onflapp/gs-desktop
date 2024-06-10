@@ -48,11 +48,15 @@
   NSMutableArray *displayBoxList;
   DisplayBox     *selectedBox;
   CGFloat scaleFactor;
+
+  NSImage *dockImage;
+  NSImage *appIconYardImage;
+  NSImage *iconYardImage;
 }
 
-@property (readonly) NSImage *dockImage;
-@property (readonly) NSImage *appIconYardImage;
-@property (readonly) NSImage *iconYardImage;
+- (NSImage *)dockImage;
+- (NSImage *)appIconYardImage;
+- (NSImage *)iconYardImage;
 
 - (void)updateDisplayBoxList;
 

@@ -92,7 +92,8 @@ static NSWindow* _lastMainWindow;
   NSImage* miniPage = [[[NSImage alloc] initWithContentsOfFile:imagePath] autorelease];
 
   NSInteger npages = [self pageCount];
-  for (NSInteger i = 0; i < npages; i++) {
+  NSInteger i;
+  for (i = 0; i < npages; i++) {
     [matrix addColumn];
     cell = [matrix cellAtRow:0 column:i];
     if (i < 100) {

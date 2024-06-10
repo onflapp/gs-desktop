@@ -327,7 +327,8 @@ humanReadableNumber(double value,
 
   nodename = [NSString stringWithUTF8String:buf.nodename];
   comps = [nodename componentsSeparatedByString:@"."];
-  for (NSUInteger i = 1; i < [comps count]; i++) {
+  NSUInteger i;
+  for (i = 1; i < [comps count]; i++) {
     [domainComps addObject:[comps objectAtIndex:i]];
   }
   domain = [domainComps componentsJoinedByString:@"."];

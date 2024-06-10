@@ -56,6 +56,7 @@ extern NSString *SNDDeviceDidRemoveNotification;
   pa_mainloop		*_pa_loop;
   pa_mainloop_api	*_pa_api;
   pa_operation		*_pa_op;
+  pa_context      *_pa_ctx;
 
   // SNDDevice
   NSMutableArray        *cardList;
@@ -68,18 +69,27 @@ extern NSString *SNDDeviceDidRemoveNotification;
   NSMutableArray        *sinkInputList;
   NSMutableArray        *sourceOutputList;
   NSMutableArray        *savedStreamList; // sink-input* or source-output*
+
+  SNDConnectionState status;
+  NSString           *statusDescription;
+
+  NSString *userName;  // User name of the daemon process
+  NSString *hostName;  // Host name the daemon is running on
+  NSString *name;      // Server package name (usually "pulseaudio")
+  NSString *version;   // Version string of the daemon
+  NSString *defaultSinkName;
+  NSString *defaultSourceName;
 }
 
-@property (readonly) pa_context         *pa_ctx;
-@property (readonly) SNDConnectionState status;
-@property (readonly) NSString           *statusDescription;
+@property (assign) SNDConnectionState status;
+@property (retain) NSString           *statusDescription;
 
-@property (readonly) NSString *userName;  // User name of the daemon process
-@property (readonly) NSString *hostName;  // Host name the daemon is running on
-@property (readonly) NSString *name;      // Server package name (usually "pulseaudio")
-@property (readonly) NSString *version;   // Version string of the daemon
-@property (readonly) NSString *defaultSinkName;
-@property (readonly) NSString *defaultSourceName;
+@property (retain) NSString *userName;  // User name of the daemon process
+@property (retain) NSString *hostName;  // Host name the daemon is running on
+@property (retain) NSString *name;      // Server package name (usually "pulseaudio")
+@property (retain) NSString *version;   // Version string of the daemon
+@property (retain) NSString *defaultSinkName;
+@property (retain) NSString *defaultSourceName;
 
 + (id)sharedServer;
 
@@ -87,6 +97,7 @@ extern NSString *SNDDeviceDidRemoveNotification;
 - (void)connect;
 - (void)disconnect;
 
+- (pa_context *) pa_ctx;
 - (SNDDevice *)defaultCard;
 - (NSArray *)cardList;
 

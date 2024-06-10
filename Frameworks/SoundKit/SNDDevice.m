@@ -25,10 +25,13 @@
 
 @implementation SNDDevice
 
+@synthesize card;
+@synthesize server;
+
 - (void)dealloc
 {
   NSDebugLLog(@"Memory", @"[SNDDevice] dealloc");
-  [_card release];
+  self.card = nil;
   [super dealloc];
 }
 
@@ -42,7 +45,7 @@
   if ((self = [super init]) == nil)
     return nil;
   
-  _server = server;
+  self.server = server;
   
   return self;
 }
@@ -50,19 +53,19 @@
 // --- Accesorries --- //
 - (NSString *)host
 {
-  return _server.hostName;
+  return self.server.hostName;
 }
 - (NSString *)name
 {
-  return _card.description;
+  return self.card.description;
 }
 - (NSString *)cardDescription
 {
-  return _card.description;
+  return self.card.description;
 }
 - (NSString *)description
 {
-  return _card.description;
+  return self.card.description;
 }
 - (void)printDescription
 {
@@ -70,15 +73,15 @@
   if ([self class] == [SNDDevice class] ) {
     fprintf(stderr, "+++ SNDDevice: %s +++\n", [[self description] cString]);
   }
-  fprintf(stderr, "\t           Index : %lu\n", _card.index);
-  fprintf(stderr, "\t            Name : %s\n", [_card.name cString]);
+  fprintf(stderr, "\t           Index : %lu\n", self.card.index);
+  fprintf(stderr, "\t            Name : %s\n", [self.card.name cString]);
   fprintf(stderr, "\t    Retain Count : %lu\n", [self retainCount]);
 
   fprintf(stderr, "\t        Profiles : \n");
-  for (NSDictionary *prof in _card.profiles) {
+  for (NSDictionary *prof in self.card.profiles) {
     NSString *profDesc, *profString;
-    profDesc = prof[@"Description"];
-    if ([profDesc isEqualToString:_card.activeProfile])
+    profDesc = [prof valueForKey:@"Description"];
+    if ([profDesc isEqualToString:self.card.activeProfile])
       profString = [NSString stringWithFormat:@"%s%@%s", "\e[1m- ", profDesc, "\e[0m"];
     else
       profString = [NSString stringWithFormat:@"%s%@%s", "- ", profDesc, ""];
@@ -89,29 +92,29 @@
 // --- Card proxy --- //
 - (NSArray *)availableProfiles
 {
-  if (_card == nil) {
+  if (self.card == nil) {
     NSLog(@"SoundDevice: avaliableProfiles was called without Card was being set.");
     return nil;
   }
-  return _card.profiles;
+  return self.card.profiles;
 }
 - (NSString *)activeProfile
 {
-  return _card.activeProfile;
+  return self.card.activeProfile;
 }
 - (void)setActiveProfile:(NSString *)profileName
 {
-  if (_card == nil) {
+  if (self.card == nil) {
     NSLog(@"SoundDevice: setActiveProfile was called without Card was being set.");
     return;
   }
-  [_card applyActiveProfile:profileName];
+  [self.card applyActiveProfile:profileName];
 }
 
 // --- Subclass responsiblity
 - (NSArray *)availablePorts
 {
-  return [_card.outPorts arrayByAddingObjectsFromArray:_card.inPorts];
+  return [self.card.outPorts arrayByAddingObjectsFromArray:self.card.inPorts];
 }
 - (NSString *)activePort
 {

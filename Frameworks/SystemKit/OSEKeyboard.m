@@ -145,7 +145,8 @@ NSString *OSEKeyboardNumLockState = @"KeyboardNumLockState";
                          mutableCopy];
       key = [lineComponents objectAtIndex:0];
 
-      for (NSUInteger i = 1; i < [lineComponents count]; i++) {
+      NSUInteger i;
+      for (i = 1; i < [lineComponents count]; i++) {
         if (add == NO &&
             ![[lineComponents objectAtIndex:i] isEqualToString:@""]) {
           add = YES;
@@ -315,7 +316,8 @@ NSString *OSEKeyboardNumLockState = @"KeyboardNumLockState";
     return;
   }
     
-  for (int i = 0; i < XkbNumVirtualMods; i++) {
+  int i;
+  for (i = 0; i < XkbNumVirtualMods; i++) {
     modifier_atom = XGetAtomName(xkb->dpy, xkb->names->vmods[i]);
     if (modifier_atom != NULL && strcmp("NumLock", modifier_atom) == 0) {
       XkbVirtualModsToReal(xkb, 1 << i, &mask);
@@ -451,7 +453,8 @@ NSString *OSEKeyboardNumLockState = @"KeyboardNumLockState";
 
   optArray = [[optString componentsSeparatedByString:@","] mutableCopy];
 
-  for (unsigned int i = 0; i < [optArray count]; i++) {
+  unsigned int i;
+  for (i = 0; i < [optArray count]; i++) {
     if ([[optArray objectAtIndex:i] isEqualToString:@""]) {
       [optArray removeObjectAtIndex:i];
     }
@@ -472,7 +475,8 @@ NSString *OSEKeyboardNumLockState = @"KeyboardNumLockState";
     NSInteger lc = [layouts count];
     NSInteger vc = [variants count];
           
-    for (int i = 0; i < (lc - vc); i++){
+    int i;
+    for (i = 0; i < (lc - vc); i++){
       [variants addObject:@""];
     }
     [variants addObject:vCode];

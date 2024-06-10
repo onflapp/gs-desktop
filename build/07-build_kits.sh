@@ -25,7 +25,6 @@ build_kit() {
   ldconfig
 }
 
-build_kit "DBus Kit" "../../libs-dbuskit"
 build_kit "StepTalk Kit" "../../libs-steptalk"
 build_kit "SimpleWeb Kit" "../../libs-simplewebkit"
 build_kit "PDF Kit" "../Frameworks/PDFKit"
@@ -37,3 +36,4 @@ build_kit "XCode Kit" "../../libs-xcode"
 build_kit "Desktop Kit" "../Frameworks/DesktopKit"
 build_kit "System Kit" "../Frameworks/SystemKit"
 build_kit "Sound Kit" "../Frameworks/SoundKit"
+#build_kit "DBus Kit" "../../libs-dbuskit"

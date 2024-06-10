@@ -400,7 +400,8 @@ static OSEScreen *systemScreen = nil;
   }
 
   // Update displays info
-  for (int i=0; i < screen_resources->noutput; i++) {
+  int i;
+  for (i=0; i < screen_resources->noutput; i++) {
     display = [[OSEDisplay alloc]
                   initWithOutputInfo:screen_resources->outputs[i]
                      screenResources:screen_resources
@@ -432,7 +433,8 @@ static OSEScreen *systemScreen = nil;
   RRCrtc      crtc;
   XRRCrtcInfo *info;
 
-  for (int i=0; i<screen_resources->ncrtc; i++) {
+  int i;
+  for (i=0; i<screen_resources->ncrtc; i++) {
     crtc = screen_resources->crtcs[i];
     info = XRRGetCrtcInfo(xDisplay, screen_resources, crtc);
     // fprintf(stderr, "CRTC '%lu' has %i outputs.\n", crtc, info->noutput);
@@ -478,9 +480,9 @@ static OSEScreen *systemScreen = nil;
   dBack = [[NXTDefaults globalUserDefaults]
                                objectForKey:OSEDesktopBackgroundColor];
   if (dBack) {
-    *redComponent = [dBack[@"Red"] floatValue];
-    *greenComponent = [dBack[@"Green"] floatValue];
-    *blueComponent = [dBack[@"Blue"] floatValue];
+    *redComponent = [[dBack valueForKey:@"Red"] floatValue];
+    *greenComponent = [[dBack valueForKey:@"Green"] floatValue];
+    *blueComponent = [[dBack valueForKey:@"Blue"] floatValue];
     success = YES;
   }
   else {

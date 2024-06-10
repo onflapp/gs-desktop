@@ -28,6 +28,24 @@
 
 static NXTBundle *shared = nil;
 
+NSInteger sortByPriority(id path1, id path2, void *context)
+{
+  NSString *ps1, *ps2;
+  NSNumber *p1, *p2;
+  id bundleRegistry = context;
+
+  ps1 = [[bundleRegistry objectForKey:path1] objectForKey:@"priority"];
+  if (!ps1) ps1 = @"1000";
+  p1 = [NSNumber numberWithInt:[ps1 intValue]];
+    
+  ps2 = [[bundleRegistry objectForKey:path2] objectForKey:@"priority"];
+  if (!ps2) ps2 = @"1000";
+  p2 = [NSNumber numberWithInt:[ps2 intValue]];
+
+   return [p1 compare:p2];
+}
+
+
 + (id)shared
 {
   if (shared == nil)
@@ -153,23 +171,7 @@ static NXTBundle *shared = nil;
 {
   NSArray *paths = [bundleRegistry allKeys];
 
-  id sortByPriority = ^(NSString *path1, NSString *path2)
-    {
-      NSString *ps1, *ps2;
-      NSNumber *p1, *p2;
-
-      ps1 = [[bundleRegistry objectForKey:path1] objectForKey:@"priority"];
-      if (!ps1) ps1 = @"1000";
-      p1 = [NSNumber numberWithInt:[ps1 intValue]];
-      
-      ps2 = [[bundleRegistry objectForKey:path2] objectForKey:@"priority"];
-      if (!ps2) ps2 = @"1000";
-      p2 = [NSNumber numberWithInt:[ps2 intValue]];
-
-      return [p1 compare:p2];
-    };
-
-  return [paths sortedArrayUsingComparator:sortByPriority];  
+  return [paths sortedArrayUsingFunction:sortByPriority context:bundleRegistry];  
 }
 
 - (NSArray *)loadRegisteredBundles:(NSDictionary *)bundleRegistry
