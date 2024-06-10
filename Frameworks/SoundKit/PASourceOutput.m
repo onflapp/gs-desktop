@@ -128,8 +128,9 @@
 {
   pa_source_output_info *info = NULL;
   
-  info = malloc(sizeof(const pa_source_output_info));
-  [val getValue:info];
+  //Zinfo = malloc(sizeof(const pa_source_output_info));
+  //Z[val getValue:info];
+  info = [val pointerValue];
 
   self.name = [[NSString alloc] initWithCString:info->name];
 
@@ -143,7 +144,7 @@
   [self _updateVolume:info];
   [self _updateChannels:info];
   
-  free((void *)info);
+  //Zfree((void *)info);
 
   return self;
 }

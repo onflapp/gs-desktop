@@ -157,8 +157,9 @@
   NSMutableArray *vol;
   NSNumber *v;
   
-  info = malloc(sizeof(const pa_sink_input_info));
-  [val getValue:info];
+  //Zinfo = malloc(sizeof(const pa_sink_input_info));
+  //Z[val getValue:info];
+  info = [val pointerValue];
 
   self.name = [[NSString alloc] initWithCString:info->name];
 
@@ -174,7 +175,7 @@
   [self _updateMediaRole:info];
 
  
-  free((void *)info);
+  //Zfree((void *)info);
 
   return self;
 }

@@ -98,8 +98,9 @@
 {
   const pa_ext_stream_restore_info *info;
   
-  info = malloc(sizeof(const pa_ext_stream_restore_info));
-  [value getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_ext_stream_restore_info));
+  //Z[value getValue:(void *)info];
+  info = [value pointerValue];
 
   if (info_copy == NULL) {
     info_copy = malloc(sizeof(struct pa_ext_stream_restore_info));
@@ -115,7 +116,7 @@
   // self.volume = [self _volumeForInfo:info_copy];
   /***/
 
-  free((void *)info);
+  //Zfree((void *)info);
 
   return self;
 }

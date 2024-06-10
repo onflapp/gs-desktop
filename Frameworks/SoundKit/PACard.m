@@ -48,14 +48,14 @@
 - (void)_updatePorts:(const pa_card_info *)info
 {
   NSMutableArray *ports;
-  NSMutableArray *outPorts;
-  NSMutableArray *inPorts;
+  NSMutableArray *outPorts_;
+  NSMutableArray *inPorts_;
   NSDictionary   *d;
   NSString       *newActivePort;
 
   if (info->n_ports > 0) {
-    outPorts = [NSMutableArray new];
-    inPorts = [NSMutableArray new];
+    outPorts_ = [NSMutableArray new];
+    inPorts_ = [NSMutableArray new];
     
     unsigned i;
     for (i = 0; i < info->n_ports; i++) {
@@ -63,31 +63,29 @@
             [NSString stringWithCString:info->ports[i]->name],@"Name",
             [NSString stringWithCString:info->ports[i]->description],@"Description", nil];
       if (info->ports[i]->direction == PA_DIRECTION_OUTPUT) {
-        [outPorts addObject:d];
+        [outPorts_ addObject:d];
       }
       else if (info->ports[i]->direction == PA_DIRECTION_INPUT) {
-        [inPorts addObject:d];
+        [inPorts_ addObject:d];
       }
       else {
-        [outPorts addObject:d];
-        [inPorts addObject:d];
+        [outPorts_ addObject:d];
+        [inPorts_ addObject:d];
       }
     }
 
-    if ([outPorts count] > 0) {
-      if (outPorts) {
-        [outPorts release];
-      }
-      outPorts = [[NSArray alloc] initWithArray:outPorts];
-      [outPorts release];
+    if ([outPorts_ count] > 0) {
+      self.outPorts = outPorts_;
+    }
+    else {
+      self.outPorts = [NSArray array];
     }
     
     if ([inPorts count] > 0) {
-      if (inPorts) {
-        [inPorts release];
-      }
-      inPorts = [[NSArray alloc] initWithArray:inPorts];
-      [inPorts release];
+      self.inPorts = inPorts_;
+    }
+    else {
+      self.inPorts = [NSArray array];
     }
   }
 }
@@ -131,8 +129,9 @@
   const char         *desc;
   
   // Convert PA structure into NSDictionary
-  info = malloc(sizeof(const pa_card_info));
-  [val getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_card_info));
+  //Z[val getValue:(void *)info];
+  info = [val pointerValue];
 
   self.index = info->index;
   self.name = [[NSString alloc] initWithCString:info->name];
@@ -145,7 +144,7 @@
   [self _updateProfiles:info];
   [self _updatePorts:info];
 
-  free ((void *)info);
+  //Zfree ((void *)info);
 
   return self;
 }

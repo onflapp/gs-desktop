@@ -101,14 +101,14 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
 {
   return [self initOnHost:nil];
 }
-- (id)initOnHost:(NSString *)hostName
+- (id)initOnHost:(NSString *)_hostName
 {
   [super init];
 
   self.status = SNDServerNoConnnectionState;
 
-  if (hostName != nil) {
-    self.hostName = [hostName copy];
+  if (_hostName != nil) {
+    self.hostName = [_hostName copy];
   }
   else {
     self.hostName = [[NSString alloc] initWithString:@"localhost"];
@@ -149,7 +149,7 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   
     proplist = pa_proplist_new();
     pa_proplist_sets(proplist, PA_PROP_APPLICATION_NAME, app_name);
-    pa_proplist_sets(proplist, PA_PROP_APPLICATION_ID, "org.nextspace.soundkit");
+    pa_proplist_sets(proplist, PA_PROP_APPLICATION_ID, "org.gsde.soundkit");
     pa_proplist_sets(proplist, PA_PROP_APPLICATION_ICON_NAME, "audio-card");
     pa_proplist_sets(proplist, PA_PROP_APPLICATION_VERSION, "0.1");
 
@@ -172,16 +172,17 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
       NSDebugLLog(@"SoundKit", @"[SNDServer] <<< PulseAudio mainloop exited.");
   });
   */
-  //[self performSelectorInBackground:@selector(pa_main_loop:) withObject:self];
-
+  [self performSelectorInBackground:@selector(pa_main_loop) withObject:nil];
   mainLoopRunning = YES;
 }
 
-- (void)pa_main_loop:(SNDServer*)sender
+- (void)pa_main_loop
 {
+  NSAutoreleasePool* pool = [[NSAutoreleasePool alloc] init];
   NSDebugLLog(@"SoundKit", @"[SNDServer] >>> PulseAudio mainloop started.");
-  while (pa_mainloop_iterate(sender->_pa_loop, 1, NULL) >= 0) { ; }
+  while (pa_mainloop_iterate(_pa_loop, 1, NULL) >= 0) { ; }
   NSDebugLLog(@"SoundKit", @"[SNDServer] <<< PulseAudio mainloop exited.");
+  [pool release];
 }
 
 - (void)disconnect
@@ -311,7 +312,7 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
 - (NSArray *)streamList
 {
   NSMutableArray   *list = [NSMutableArray new];
-  SNDVirtualStream *virtualStream;
+  SNDVirtualStream *virtualStream_;
   SNDPlayStream    *playStream;
   SNDRecordStream  *recordStream;
   PASource         *source;
@@ -319,9 +320,9 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
 
   // Pure virtual streams
   for (PAStream *stream in savedStreamList) {
-    virtualStream = [[SNDVirtualStream alloc] initWithStream:stream];
-    [list addObject:virtualStream];
-    [virtualStream release];
+    virtualStream_ = [[SNDVirtualStream alloc] initWithStream:stream];
+    [list addObject:virtualStream_];
+    [virtualStream_ release];
   }
   // Streams with SinkInput and Client
   for (PASinkInput *sinkInput in sinkInputList) {
@@ -382,8 +383,9 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
 {
   const pa_server_info *info;
 
-  info = malloc(sizeof(const pa_server_info));
-  [value getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_server_info));
+  //Z[value getValue:(void *)info];
+  info = [value pointerValue];
 
   self.userName = [[NSString alloc] initWithCString:info->user_name];
   // if (_hostName == nil) {
@@ -394,7 +396,7 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   self.defaultSinkName = [[NSString alloc] initWithCString:info->default_sink_name];
   self.defaultSourceName = [[NSString alloc] initWithCString:info->default_source_name];
 
-  free((void *)info);
+  //Zfree((void *)info);
 }
 
 // Card
@@ -405,8 +407,10 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   PACard             *card;
 
   // Convert PA structure into NSDictionary
-  info = malloc(sizeof(const pa_card_info));
-  [value getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_card_info));
+  //Z[value getValue:(void *)info];
+  info = [value pointerValue];
+  NSLog(@"xxxx");
 
   for (card in cardList) {
     if (card.index == info->index) {
@@ -427,7 +431,7 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
     [card release];
   }
   
-  free((void *)info);
+  //Zfree((void *)info);
 }
 - (PACard *)cardWithIndex:(NSUInteger)index
 {
@@ -456,8 +460,9 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   NSNotification     *aNotif;
 
   // Convert PA structure into NSDictionary
-  info = malloc(sizeof(const pa_sink_info));
-  [value getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_sink_info));
+  //Z[value getValue:(void *)info];
+  info = [value pointerValue];
 
   for (sink in sinkList) {
     if (sink.index == info->index) {
@@ -483,7 +488,7 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   }
   [[NSNotificationCenter defaultCenter] postNotification:aNotif];
   
-  free((void *)info);  
+  //Zfree((void *)info);  
 }
 - (PASink *)sinkWithIndex:(NSUInteger)index
 {
@@ -494,10 +499,10 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   }
   return nil;
 }
-- (PASink *)sinkWithName:(NSString *)name
+- (PASink *)sinkWithName:(NSString *)name_
 {
   for (PASink *sink in sinkList) {
-    if ([name isEqualToString:sink.name]) {
+    if ([name_ isEqualToString:sink.name]) {
       return sink;
     }
   }
@@ -521,8 +526,9 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   NSNotification       *aNotif;
 
   // Convert PA structure into NSDictionary
-  info = malloc(sizeof(const pa_source_info));
-  [value getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_source_info));
+  //Z[value getValue:(void *)info];
+  info = [value pointerValue];
 
   for (source in sourceList) {
     if (source.index == info->index) {
@@ -548,7 +554,7 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   
   [[NSNotificationCenter defaultCenter] postNotification:aNotif];
   
-  free((void *)info);  
+  //Zfree((void *)info);  
 }
 - (PASource *)sourceWithIndex:(NSUInteger)index
 {
@@ -559,10 +565,10 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   }
   return nil;
 }
-- (PASource *)sourceWithName:(NSString *)name
+- (PASource *)sourceWithName:(NSString *)name_
 {
   for (PASource *source in sourceList) {
-    if ([name isEqualToString:source.name]) {
+    if ([name_ isEqualToString:source.name]) {
       return source;
     }
   }
@@ -586,8 +592,9 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   NSNotification           *aNotif;
 
   // Convert PA structure into NSDictionary
-  info = malloc(sizeof(const pa_sink_input_info));
-  [value getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_sink_input_info));
+  //Z[value getValue:(void *)info];
+  info = [value pointerValue];
 
   for (sinkInput in sinkInputList) {
     if (sinkInput.index == info->index) {
@@ -612,7 +619,7 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   }
   [[NSNotificationCenter defaultCenter] postNotification:aNotif];
   
-  free((void *)info);
+  //Zfree((void *)info);
 }
 - (PASinkInput *)sinkInputWithClientIndex:(NSUInteger)index
 {
@@ -653,8 +660,9 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   NSNotification              *aNotif;
 
   // Convert PA structure into NSDictionary
-  info = malloc(sizeof(const pa_source_output_info));
-  [value getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_source_output_info));
+  //Z[value getValue:(void *)info];
+  info = [value pointerValue];
 
   for (sourceOutput in sourceOutputList) {
     if (sourceOutput.index == info->index) {
@@ -679,7 +687,7 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   }
   [[NSNotificationCenter defaultCenter] postNotification:aNotif];
  
-  free((void *)info);
+  //Zfree((void *)info);
 }
 - (PASourceOutput *)sourceOutputWithClientIndex:(NSUInteger)index
 {
@@ -718,8 +726,9 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   BOOL                 isUpdated = NO;
 
   // Convert PA structure into NSDictionary
-  info = malloc(sizeof(const pa_client_info));
-  [value getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_client_info));
+  //Z[value getValue:(void *)info];
+  info = [value pointerValue];
 
   for (PAClient *c in clientList) {
     if ([c index] == info->index) {
@@ -740,7 +749,7 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
     [client release];
   }
   
-  free((void *)info);
+  //Zfree((void *)info);
 }
 - (PAClient *)clientWithIndex:(NSUInteger)index
 {
@@ -751,10 +760,10 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   }
   return nil;
 }
-- (PAClient *)clientWithName:(NSString *)name
+- (PAClient *)clientWithName:(NSString *)name_
 {
   for (PAClient *client in clientList) {
-    if ([name isEqualToString:client.name]) {
+    if ([name_ isEqualToString:client.name]) {
       return client;
     }
   }
@@ -777,8 +786,9 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   NSString                         *streamName;
 
   // Convert PA structure into NSDictionary
-  info = malloc(sizeof(const pa_ext_stream_restore_info));
-  [value getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_ext_stream_restore_info));
+  //Z[value getValue:(void *)info];
+  info = [value pointerValue];
   
   streamName = [NSString stringWithCString:info->name];
   for (PAStream *s in savedStreamList) {
@@ -799,7 +809,7 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
     [s release];
   }
   
-  free((void *)info);
+  //Zfree((void *)info);
 }
 
 @end

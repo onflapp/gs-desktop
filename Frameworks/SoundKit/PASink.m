@@ -178,19 +178,20 @@
   NSMutableArray     *ports, *vol, *formats;
   
   // Convert PA structure into NSDictionary
-  info = malloc(sizeof(const pa_sink_info));
-  [val getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_sink_info));
+  //Z[val getValue:(void *)info];
+  info = [val pointerValue];
 
   // Indexes
   self.index = info->index;
   self.cardIndex = info->card;
 
   // Name and description
-  if (self.description == nil) {
+  if (self.description == nil && info->description) {
     self.description = [[NSString alloc] initWithCString:info->description];
   }
   
-  if (self.name == nil) {
+  if (self.name == nil && info->name) {
     self.name = [[NSString alloc] initWithCString:info->name];
   }
 
@@ -219,7 +220,7 @@
   // Supported formats
   // [self _updateFormats:info];
 
-  free ((void *)info);
+  //Zfree ((void *)info);
 
   return self;
 }

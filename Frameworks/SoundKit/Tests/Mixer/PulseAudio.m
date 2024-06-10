@@ -71,10 +71,12 @@ void card_cb(pa_context *ctx, const pa_card_info *info, int eol, void *userdata)
   else {
     NSValue *value;
     fprintf(stderr, "[Mixer] Card: %s\n", info->name);
-    value = [NSValue value:info withObjCType:@encode(const pa_card_info)];
-    [pulseAudio performSelectorOnMainThread:@selector(updateCard:)
-                                 withObject:value
-                              waitUntilDone:YES];
+    //Zvalue = [NSValue value:info withObjCType:@encode(const pa_card_info)];
+    //Z[pulseAudio performSelectorOnMainThread:@selector(updateCard:)
+    //Z                             withObject:value
+    //Z                          waitUntilDone:YES];
+    value = [NSValue valueWithPointer:info];
+    [pulseAudio updateCard:value];
   }
 }
 
@@ -98,10 +100,12 @@ void sink_cb(pa_context *ctx, const pa_sink_info *info, int eol, void *userdata)
 
   fprintf(stderr, "[Mixer] Sink: %s (%s)\n", info->name, info->description);
   
-  value = [NSValue value:info withObjCType:@encode(const pa_sink_info)];
-  [pulseAudio performSelectorOnMainThread:@selector(updateSink:)
-                               withObject:value
-                            waitUntilDone:YES];
+  //Zvalue = [NSValue value:info withObjCType:@encode(const pa_sink_info)];
+  //Z[pulseAudio performSelectorOnMainThread:@selector(updateSink:)
+  //Z                             withObject:value
+  //Z                          waitUntilDone:YES];
+  value = [NSValue valueWithPointer:info];
+  [pulseAudio updateSink:value];
 }
 void sink_input_cb(pa_context *ctx, const pa_sink_input_info *info,
                    int eol, void *userdata)
@@ -126,10 +130,12 @@ void sink_input_cb(pa_context *ctx, const pa_sink_input_info *info,
           info->name, info->has_volume, info->client, info->sink,
           info->mute, info->corked);
   
-  value = [NSValue value:info withObjCType:@encode(const pa_sink_input_info)];
-  [pulseAudio performSelectorOnMainThread:@selector(updateSinkInput:)
-                               withObject:value
-                            waitUntilDone:YES];
+  //Zvalue = [NSValue value:info withObjCType:@encode(const pa_sink_input_info)];
+  //Z[pulseAudio performSelectorOnMainThread:@selector(updateSinkInput:)
+  //Z                             withObject:value
+  //Z                          waitUntilDone:YES];
+  value = [NSValue valueWithPointer:info];
+  [pulseAudio updateSinkInput:value];
 }
 
 // --- Source ---
@@ -151,11 +157,12 @@ void source_cb(pa_context *ctx, const pa_source_info *info,
 
   fprintf(stderr, "[Mixer] Source: %s (%s)\n", info->name, info->description);
   
-  NSValue *value = [NSValue value:info
-                     withObjCType:@encode(const pa_source_info)];
-  [pulseAudio performSelectorOnMainThread:@selector(updateSource:)
-                               withObject:value
-                            waitUntilDone:YES];
+  //ZNSValue *value = [NSValue value:info withObjCType:@encode(const pa_source_info)];
+  //Z[pulseAudio performSelectorOnMainThread:@selector(updateSource:)
+  //Z                             withObject:value
+  //Z                          waitUntilDone:YES];
+  NSValue *value = [NSValue valueWithPointer:info];
+  [pulseAudio updateSource:value];
 }
 
 void source_output_cb(pa_context *ctx, const pa_source_output_info *info,
@@ -176,11 +183,12 @@ void source_output_cb(pa_context *ctx, const pa_source_output_info *info,
   
   fprintf(stderr, "[Mixer] Source Output: %s\n", info->name);
   
-  NSValue *value = [NSValue value:info
-                     withObjCType:@encode(const pa_source_output_info)];
-  [pulseAudio performSelectorOnMainThread:@selector(updateSourceOutput:)
-                               withObject:value
-                            waitUntilDone:YES];
+  //ZNSValue *value = [NSValue value:info withObjCType:@encode(const pa_source_output_info)];
+  //Z[pulseAudio performSelectorOnMainThread:@selector(updateSourceOutput:)
+  //Z                             withObject:value
+  //Z                          waitUntilDone:YES];
+  NSValue *value = [NSValue valueWithPointer:info];
+  [pulseAudio updateSourceOutput:value];
 }
 
 // --- Client/server ---
@@ -204,10 +212,12 @@ void client_cb(pa_context *ctx, const pa_client_info *info,
   
   fprintf(stderr, "[Mixer] Client: %s (index:%i)\n", info->name, info->index);
   
-  value = [NSValue value:info withObjCType:@encode(const pa_client_info)];
-  [pulseAudio performSelectorOnMainThread:@selector(updateClient:)
-                               withObject:value
-                            waitUntilDone:YES];
+  //Zvalue = [NSValue value:info withObjCType:@encode(const pa_client_info)];
+  //Z[pulseAudio performSelectorOnMainThread:@selector(updateClient:)
+  //Z                             withObject:value
+  //Z                          waitUntilDone:YES];
+  value = [NSValue valueWithPointer:info];
+  [pulseAudio updateClient:value];
 }
 
 void server_info_cb(pa_context *ctx, const pa_server_info *info, void *userdata)
@@ -220,10 +230,12 @@ void server_info_cb(pa_context *ctx, const pa_server_info *info, void *userdata)
   }
   dec_outstanding();
   
-  value = [NSValue value:info withObjCType:@encode(const pa_server_info)];
-  [pulseAudio performSelectorOnMainThread:@selector(updateServer:)
-                               withObject:value
-                            waitUntilDone:YES];
+  //Zvalue = [NSValue value:info withObjCType:@encode(const pa_server_info)];
+  //Z[pulseAudio performSelectorOnMainThread:@selector(updateServer:)
+  //Z                             withObject:value
+  //Z                          waitUntilDone:YES];
+  value = [NSValue valueWithPointer:info];
+  [pulseAudio updateServer:value];
 }
 
 // --- Stream ---
@@ -250,12 +262,13 @@ void ext_stream_restore_read_cb(pa_context *ctx,
 
   fprintf(stderr, "[Mixer] Stream: %s\n", info->name);
 
-  value = [NSValue value:info
-            withObjCType:@encode(const pa_ext_stream_restore_info)];
+  //Zvalue = [NSValue value:info withObjCType:@encode(const pa_ext_stream_restore_info)];
   
-  [pulseAudio performSelectorOnMainThread:@selector(updateStream:)
-                               withObject:value
-                            waitUntilDone:YES];
+  //Z[pulseAudio performSelectorOnMainThread:@selector(updateStream:)
+  //Z                             withObject:value
+  //Z                          waitUntilDone:YES];
+  value = [NSValue valueWithPointer:info];
+  [pulseAudio updateStream:value];
 }
 
 void ext_stream_restore_subscribe_cb(pa_context *ctx, void *userdata)
@@ -703,8 +716,9 @@ void context_state_cb(pa_context *ctx, void *userdata)
   BOOL                 isUpdated = NO;
 
   // Convert PA structure into NSDictionary
-  info = malloc(sizeof(const pa_client_info));
-  [value getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_client_info));
+  //Z[value getValue:(void *)info];
+  info = [value pointerValue];
 
   for (PAClient *c in clientList) {
     if ([c index] == info->index) {
@@ -723,7 +737,7 @@ void context_state_cb(pa_context *ctx, void *userdata)
     [self reloadBrowser:streamsBrowser];
   }
   
-  free((void *)info);
+  //Zfree((void *)info);
 }
 - (void)removeClientWithIndex:(NSNumber *)index
 {
@@ -750,8 +764,9 @@ void context_state_cb(pa_context *ctx, void *userdata)
   NSString                         *streamName;
 
   // Convert PA structure into NSDictionary
-  info = malloc(sizeof(const pa_ext_stream_restore_info));
-  [value getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_ext_stream_restore_info));
+  //Z[value getValue:(void *)info];
+  info = [value pointerValue];
   
   streamName = [NSString stringWithCString:info->name];
   for (PAStream *s in streamList) {
@@ -771,7 +786,7 @@ void context_state_cb(pa_context *ctx, void *userdata)
   }
   [self browserClick:appBrowser];
   
-  free((void *)info);
+  //Zfree((void *)info);
 }
 
 // sink_cb(...)

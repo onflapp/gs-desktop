@@ -69,8 +69,9 @@ typedef struct pa_sink_input_info {
   NSMutableArray *vol;
   NSNumber *v;
   
-  info = malloc(sizeof(const pa_sink_input_info));
-  [val getValue:info];
+  //Zinfo = malloc(sizeof(const pa_sink_input_info));
+  //Z[val getValue:info];
+  info = [val pointerValue];
 
   if (_name)
     [_name release];
@@ -96,7 +97,7 @@ typedef struct pa_sink_input_info {
     [vol release];
   }
   
-  free((void *)info);
+  //Zfree((void *)info);
 
   return self;
 }

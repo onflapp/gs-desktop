@@ -50,8 +50,9 @@
   const char *app_binary;
   const char *app_name;
   
-  info = malloc(sizeof(const pa_client_info));
-  [value getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_client_info));
+  //Z[value getValue:(void *)info];
+  info = [value pointerValue];
 
   self.name = [[NSString alloc] initWithCString:info->name];
   self.index = info->index;

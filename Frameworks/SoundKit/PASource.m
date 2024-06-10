@@ -23,6 +23,30 @@
 
 @implementation PASource
 
+@synthesize cardIndex;
+@synthesize context;
+@synthesize index;
+@synthesize description;
+@synthesize name;
+@synthesize ports;
+@synthesize isMonitor;
+
+@synthesize flags;
+@synthesize state;
+@synthesize sampleRate;
+@synthesize sampleChannelCount;
+@synthesize sampleFormat;
+@synthesize formats;
+
+// KVO-compliant
+@synthesize activePort;
+@synthesize channelCount;
+@synthesize volumeSteps;
+@synthesize baseVolume;
+@synthesize balance;
+@synthesize channelVolumes;
+@synthesize mute;
+
 - (void)dealloc
 {
   self.description = nil;
@@ -155,8 +179,9 @@
   NSMutableArray       *ports, *vol;
   
   // Convert PA structure into NSDictionary
-  info = malloc(sizeof(const pa_source_info));
-  [val getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_source_info));
+  //Z[val getValue:(void *)info];
+  info = [val pointerValue];
 
   // Indexes
   self.index = info->index;
@@ -198,7 +223,7 @@
   // Supported formats
   // [self _updateFormats:info];
 
-  free ((void *)info);
+  //Zfree ((void *)info);
 
   return self;
 }

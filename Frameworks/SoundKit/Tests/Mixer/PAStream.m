@@ -26,8 +26,9 @@ typedef struct pa_ext_stream_restore_info {
   NSMutableArray *vol;
   NSNumber *v;
   
-  info = malloc(sizeof(const pa_ext_stream_restore_info));
-  [value getValue:(void *)info];
+  //Zinfo = malloc(sizeof(const pa_ext_stream_restore_info));
+  //Z[value getValue:(void *)info];
+  info = [value pointerValue];
 
   if (_name)
     [_name release];
@@ -53,7 +54,7 @@ typedef struct pa_ext_stream_restore_info {
   [vol release];
   _mute = info->mute ? YES : NO;
 
-  free((void *)info);
+  //Zfree((void *)info);
 
   return self;
 }
