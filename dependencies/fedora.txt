@@ -1,3 +1,6 @@
+gcc
+gcc-objc
+gcc-objc++
 avahi-devel
 systemd-devel
 pocketsphinx-devel
@@ -6,7 +9,6 @@ aspell-devel
 libao-devel
 libsndfile-devel
 flite-devel
-clang-devel
 cups-devel
 mesa-libGL-devel
 picom

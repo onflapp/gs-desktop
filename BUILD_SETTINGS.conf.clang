@@ -1,0 +1,9 @@
+### clang compiler and objc2 runtime
+export RUNTIME="ng"
+export CC=clang
+export CXX=clang++
+export LD="/usr/bin/ld.gold"
+export LDFLAGS="-fuse-ld=$LD"
+export OBJCFLAGS="-g -O0 -fblocks -Wno-error=implicit-function-declaration"
+export MKARGS="-j`nproc`"
+export PATH="/System/bin:$PATH"

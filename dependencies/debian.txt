@@ -1,3 +1,6 @@
+gcc
+gobjc++
+gobjc
 systemd-coredump
 libavahi-client-dev
 libavahi-core-dev
@@ -24,9 +27,6 @@ info
 emacs
 fzf
 gdb
-clang
-lldb
-lld
 cmake
 autoconf
 libtool
