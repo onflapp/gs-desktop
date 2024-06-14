@@ -1,4 +1,4 @@
-#!/bin/perl
+#!/usr/bin/env perl
 
 $HOME=$ENV{'HOME'};
 $SYSCFG="/System/etc/fonts.conf.temp";

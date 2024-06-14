@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function cleanup { 
   kill "$PID" 2>/dev/null

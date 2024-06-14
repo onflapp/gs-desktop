@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int la_init(unsigned long long *times)
 {
@@ -43,7 +44,7 @@ int la_read(unsigned long long *times)
 {
   const char
     *name = "kern.cp_time";
-  int
+  long 
     cpu_states[CPUSTATES];
   size_t
     nlen = sizeof cpu_states,

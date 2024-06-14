@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function start_windowmanager {
   (/System/bin/wmaker $WM_ARGS) &

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 W=`xwininfo -root | awk '/Width:/{ print $2 }'`
 H=`xwininfo -root | awk '/Height:/{ print $2 }'`

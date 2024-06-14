@@ -10,6 +10,10 @@ if [ "x$RUNTIME" = "xgnu" ];then
 	echo "skip, using GNU runtime"
 	exit 0
 fi
+if [ "x$RUNTIME" = "xext" ];then
+	echo "skip, using external runtime"
+	exit 0
+fi
 
 cd ../../libobjc2 || exit 1
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 SHOW="Applications Developer System Library home media"
 

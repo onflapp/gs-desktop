@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function show_status {
   xsetroot -solid "$1" || exit 1
@@ -70,21 +70,19 @@ function start_helpers {
 
 function start_services {
   show_status "gray15"
- 
-  /Library/bin/gdomap -N | grep ^failed 2>/dev/null
-  if [ $? -eq 1 ];then
-    echo "gdopmap is running, set NSPortIsMessagePort NO"
-    /Library/bin/defaults write NSGlobalDomain NSPortIsMessagePort NO
-  else
-    echo "not running!"
-    echo "you might want to consider installing gdomap as system service"
-    /Library/bin/defaults write NSGlobalDomain NSPortIsMessagePort YES
-  fi
+
+  echo "about to start gdomap"
+  /Library/bin/defaults write NSGlobalDomain NSPortIsMessagePort NO
+  /Library/bin/defaults write NSGlobalDomain NSHostNameIsLocalhost YES
+
+  /Library/bin/gdomap -f &
+  echo "$!" > /tmp/$UID-gdomap.pid
+  sleep 0.5
 
   echo "about to start Notification Center"
   /Library/bin/gdnc --daemon &
   echo "$!" > /tmp/$UID-gdnc.pid
-  sleep 1
+  sleep 0.5
 
   show_status "gray20"
   echo "about to start Pasteboard Service"
@@ -139,6 +137,9 @@ function stop_services {
 
   echo "about to stop Notification Center"
   _kill_proc gdnc
+
+  echo "about to stop gdomap"
+  _kill_proc gdomap
 }
 
 function init_config {

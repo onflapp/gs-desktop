@@ -1,6 +1,6 @@
 # -*- mode: makefile-gmake -*-
 
-ADDITIONAL_INCLUDE_DIRS += -I../SystemKit/derived_src
+ADDITIONAL_INCLUDE_DIRS += -I/Developer/Headers -I../SystemKit/derived_src
 
 ADDITIONAL_OBJCFLAGS += -Wno-import -Wno-unused -pipe -Wno-format-security
 

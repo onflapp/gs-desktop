@@ -114,10 +114,6 @@ int PAMConversation(int num_msg,
                          withObject:[NSString stringWithCString:msg[count]->msg]
                       waitUntilDone:YES];
       break;
-    case PAM_BINARY_PROMPT:
-      // ???
-      NSLog(@"PAM binary: %s",msg[count]->msg);
-      break;
     default:
       NSLog(@"PAM: erroneous conversation (%d)", msg[count]->msg_style);
       result = PAM_CONV_ERR;

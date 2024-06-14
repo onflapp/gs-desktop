@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 echo "=================="
 echo " system config"
@@ -25,20 +25,7 @@ cp ./System/share/WindowMaker/Icons/* /System/share/WindowMaker/Icons
 ln -s /System/bin/startgsde-safe /usr/bin/startgsde-safe
 ln -s /System/bin/startgsde /usr/bin/startgsde
 
+chmod 4755 /Library/bin/gdomap
+
 ./make_hidden.sh
-echo "done"
-
-echo "=================="
-echo " gdomap service"
-echo "=================="
-
-systemctl daemon-reload
-systemctl stop gdomap.service
-
-cp ./etc/systemd/system/gdomap.service /etc/systemd/system
-
-systemctl enable gdomap.service
-systemctl start gdomap.service
-systemctl --no-pager  status gdomap.service || exit 1
-
 echo "done"

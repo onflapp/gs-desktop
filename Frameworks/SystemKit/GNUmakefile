@@ -17,14 +17,11 @@ $(FRAMEWORK_NAME)_OBJC_FILES = $(wildcard *.m)
 
 # OS specific code
 # FreeBSD
-ifeq ($(findstring freebsd, $(GNUSTEP_TARGET_OS)), freebsd)
-  $(FRAMEWORK_NAME)_OBJC_FILES += $(wildcard FreeBSD/*.m)
-endif
+#ifeq ($(findstring freebsd, $(GNUSTEP_TARGET_OS)), freebsd)
+ # $(FRAMEWORK_NAME)_OBJC_FILES += $(wildcard FreeBSD/*.m)
+#endif
 
-# Linux
-ifeq ($(findstring gnu, $(GNUSTEP_TARGET_OS)), gnu)
-  $(FRAMEWORK_NAME)_OBJC_FILES += $(wildcard Linux/*.m)
-endif
+$(FRAMEWORK_NAME)_OBJC_FILES += $(wildcard Linux/*.m)
 
 $(FRAMEWORK_NAME)_HEADER_FILES = \
 	SystemKit.h\
@@ -49,7 +46,7 @@ $(FRAMEWORK_NAME)_HEADER_FILES = \
 
 $(FRAMEWORK_NAME)_RESOURCE_FILES = \
 	backlight_helper/obj/backlight_helper \
-  gesture_helper/obj/gesture_helper
+	gesture_helper/obj/gesture_helper
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/framework.make

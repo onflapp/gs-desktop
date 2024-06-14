@@ -21,4 +21,4 @@ ADDITIONAL_INCLUDE_DIRS +=
 ADDITIONAL_LIB_DIRS += 
 
 # Additional GUI libraries to link
-ADDITIONAL_GUI_LIBS += -lTerminalKit -lutil 
+ADDITIONAL_GUI_LIBS += -lTerminalKit -lutil -liconv

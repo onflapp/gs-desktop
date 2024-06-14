@@ -1,12 +1,16 @@
 #!/bin/sh
 
 . ../BUILD_SETTINGS.conf
-
+exit 0
 echo "=================="
 echo " libdispatch"
 echo "=================="
 
 if [ "x$RUNTIME" = "xgnu" ];then
+	echo "skip, using GNU runtime"
+	exit 0
+fi
+if [ "x$RUNTIME" = "xext" ];then
 	echo "skip, using GNU runtime"
 	exit 0
 fi

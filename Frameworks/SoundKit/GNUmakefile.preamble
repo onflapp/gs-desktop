@@ -20,7 +20,7 @@ ADDITIONAL_INCLUDE_DIRS += -I./derived_src
 #   ADDITIONAL_INCLUDE_DIRS += `pkg-config --cflags hal`
 # endif
 
-ADDITIONAL_INCLUDE_DIRS += `pkg-config --cflags libpulse`
+ADDITIONAL_INCLUDE_DIRS += -I/Developer/Headers `pkg-config --cflags libpulse`
 
 ### Additional flags to pass to the linker
 # ifeq ($(findstring freebsd, $(GNUSTEP_TARGET_OS)), freebsd)

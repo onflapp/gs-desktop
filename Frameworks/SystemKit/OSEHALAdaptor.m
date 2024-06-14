@@ -23,7 +23,6 @@
 
 #import <AppKit/NSImage.h>
 #import <unistd.h>
-#import <DesktopKit/NXFileManager.h>
 
 #import "OSEDeviceManager.h"
 #import "NXHALAdaptor.h"

@@ -30,6 +30,8 @@ else
     else
       RUNTIME_ARGS="--with-library-combo=ng-gnu-gnu"
     fi
+  else
+    RUNTIME_ARGS="--with-library-combo=ng-gnu-gnu"
   fi
 fi
 

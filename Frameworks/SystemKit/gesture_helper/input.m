@@ -1,4 +1,5 @@
 #include <poll.h>
+#include <unistd.h>
 #include "input.h"
 
 static int open_restricted(const char* path, int flags, void* user_data) {

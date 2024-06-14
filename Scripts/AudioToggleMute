@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 exec 100> /tmp/gsde-audio-$GS_DESKTOP_ID.lock
 flock -n 100 || exit 1

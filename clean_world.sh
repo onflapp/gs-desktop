@@ -1,13 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
 rm build_world*.log
 
-systemctl stop gdomap.service
-systemctl disable gdomap.service
-rm /etc/systemd/system/gdomap.service
-
 rm -fR /etc/skel/Library
-
 rm -fR /System
 rm -fR /Applications
 rm -fR /Library

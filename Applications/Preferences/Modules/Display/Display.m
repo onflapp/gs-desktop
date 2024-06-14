@@ -36,8 +36,6 @@
 #import <SystemKit/OSEScreen.h>
 #import <SystemKit/OSEDisplay.h>
 
-#import <dispatch/dispatch.h>
-
 #import "AppController.h"
 #import "Display.h"
 

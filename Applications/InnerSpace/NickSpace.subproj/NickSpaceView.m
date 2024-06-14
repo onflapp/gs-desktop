@@ -1,6 +1,5 @@
 #import "NickSpaceView.h"
 #import <AppKit/AppKit.h>
-#import <values.h>
 #import <time.h>
 #import <limits.h>
 
