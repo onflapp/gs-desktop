@@ -14,6 +14,7 @@ build_kit() {
   cd "$2" || exit 1
 
   gmake distclean
+  gmake clean
 
   if [ -x ./configure ];then
     ./configure
@@ -36,4 +37,3 @@ build_kit "System Kit" "../Frameworks/SystemKit"
 build_kit "Sound Kit" "../Frameworks/SoundKit"
 build_kit "Desktop Kit" "../Frameworks/DesktopKit"
 build_kit "XCode Kit" "../../libs-xcode"
-#build_kit "DBus Kit" "../../libs-dbuskit"
