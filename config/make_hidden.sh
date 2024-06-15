@@ -8,7 +8,7 @@ echo "" > .hidden || exit 1
 for DD in * ;do
   found=""
   for XX in $SHOW ;do
-    if [ "$XX" == "$DD" ];then
+    if [ "$XX" = "$DD" ];then
       found="Y"
     fi
   done
