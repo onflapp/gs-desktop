@@ -72,6 +72,7 @@ xorg-x11-server-Xnest
 libXft-devel
 libart-devel
 libXcursor-devel
+libXtst-devel
 freetype-devel
 libxcb-devel
 libical-devel
