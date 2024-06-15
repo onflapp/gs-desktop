@@ -21,7 +21,7 @@ export PATH=/System/bin:/Library/bin:$PATH
 
 D=`pwd`
 cd ./build
-./build_all.sh 2>&1 | tee $D/build_world.system.log
+./build_all.sh 2>&1 | tee $D/build_world-system.log
 
 if ! [ -f "/System/Applications/GWorkspace.app/GWorkspace" ];then
   echo "error building the system apps"
@@ -30,7 +30,7 @@ fi
 
 cd "$D"
 cd ./Applications
-./build_all.sh 2>&1 | tee $D/build_world.apps.log
+./build_all.sh 2>&1 | tee $D/build_world-apps.log
 
 if ! [ -f "/Applications/GNUMail.app/GNUMail" ];then
   echo "error building the user apps"
