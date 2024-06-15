@@ -9,7 +9,8 @@
 	    "showMountPanel:",
 	    "ejectLastMounted:",
 	    "toggleShowAll:",
-	    "openDirectory:"
+	    "openDirectory:",
+	    "refresh:"
 	);
 	Outlets = (
 	    controlView,
@@ -29,6 +30,7 @@
 	Actions = (
 	    "ejectLastMounted:",
 	    "mountOrEject:",
+	    "refresh:",
 	    "openDirectory:",
 	    "orderFrontFontPanel:",
 	    "showMountPanel:",

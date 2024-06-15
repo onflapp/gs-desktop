@@ -246,11 +246,11 @@ BOOL hasFSTab(NSDictionary* props) {
 - (NSInteger) browser:(NSBrowser*) browser numberOfRowsInColumn:(NSInteger) col {
   return [volumes count];
 }
-
+/*
 - (BOOL)browser:(NSBrowser *)sender selectRow:(NSInteger)row inColumn:(NSInteger)col {
   return YES;
 }
-
+*/
 - (void) browser:(NSBrowser*) browser willDisplayCell:(NSBrowserCell*) cell atRow:(NSInteger)row column:(NSInteger)col {
   [cell setLeaf:YES];
 
@@ -325,6 +325,7 @@ BOOL hasFSTab(NSDictionary* props) {
 - (void) refreshDrives {
   [volumes removeAllObjects];
   BOOL all = (BOOL)[toggleButton state];
+  NSInteger sel =[volumesBrowser selectedRowInColumn:0];
 
   id d;
   NSEnumerator* e = [[disks availableDrives] objectEnumerator];
@@ -344,6 +345,9 @@ BOOL hasFSTab(NSDictionary* props) {
       if (all) {
         [volumes addObject:vol];
       }
+      else if (ft == NXTFSTypeISO || ft == NXTFSTypeUDF) {
+        [volumes addObject:vol];
+      }
       else if (fs && !ss && ft != -1 && !tb) {
         [volumes addObject:vol];
       }
@@ -356,7 +360,14 @@ BOOL hasFSTab(NSDictionary* props) {
   }
 
   [volumesBrowser reloadColumn:0];
+  if (sel != -1 && sel < [volumes count]) {
+    [volumesBrowser selectRow:sel inColumn:0];
+  }
   [self refreshInfo];
+}
+
+- (void) refresh:(id)sender {
+  [self refreshDrives];
 }
 
 - (void) open:(id)sender {
@@ -433,7 +444,7 @@ BOOL hasFSTab(NSDictionary* props) {
     }
   }
 
-  [self refreshDrives];
+  [self performSelector:@selector(refreshDrives) withObject:nil afterDelay:1.0];
 }
 
 - (void) toggleShowAll: (id)sender {
