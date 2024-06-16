@@ -46,7 +46,8 @@
 
   networkManager = ((AppController *)[NSApp delegate]).networkManager;
   
-  connection = @{@"id":[connectionName stringValue]};
+  connection = [NSDictionary dictionaryWithObjectsAndKeys:
+                              [connectionName stringValue], @"id", nil];
   [settings setObject:connection forKey:@"connection"];
   device = [[deviceList selectedItem] representedObject];
 

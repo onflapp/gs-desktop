@@ -27,11 +27,9 @@ Network_RESOURCE_FILES = \
 Network_LANGUAGES = English
 Network_LOCALIZED_RESOURCE_FILES = \
 	Network.gorm \
-	EthernetView.gorm \
-	WifiView.gorm \
 	NMSetupPanel.gorm \
-	NetworkInfo.gorm \
-	AddConnection.gorm
+	NetworkView.gorm \
+	NetworkInfo.gorm
 
 #
 # Header files
@@ -40,8 +38,7 @@ Network_HEADER_FILES = \
 	AppController.h \
 	MiniView.h \
 	NMSetup.h \
-	WifiController.h \
-	EthernetController.h \
+	NetworkController.h \
 	NetworkInfo.h \
 	STScriptingSupport.h
 
@@ -53,8 +50,7 @@ Network_OBJC_FILES = \
 	MiniView.m \
 	ConnectionManager.m \
 	NMSetup.m \
-	WifiController.m \
-	EthernetController.m \
+	NetworkController.m \
 	NetworkInfo.m \
 	STScriptingSupport.m
 

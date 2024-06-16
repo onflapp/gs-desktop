@@ -79,7 +79,7 @@ void showNetInformation(id<NetworkManager> nm)
             [dev.IpInterface cString]);
     connections = dev.AvailableConnections;
     if ([connections count] > 0) {
-      connSets = connections[0];
+      connSets = [connections objectAtIndex:0];
       fprintf(stderr, "%s", [connSets.Filename cString]);
     }
     else {

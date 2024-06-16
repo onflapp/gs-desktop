@@ -42,8 +42,10 @@
 
   NMSetup       *nmSetupPanel;
   NetworkInfo   *networkInfo;
+
+  DKProxy       *networkManager;
 }
 
-@property (readonly) DKProxy<NetworkManager> *networkManager;
+@property (retain) DKProxy<NetworkManager> *networkManager;
 
 @end

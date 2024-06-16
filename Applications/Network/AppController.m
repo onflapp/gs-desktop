@@ -6,8 +6,7 @@
 #import <DBusKit/DBusKit.h>
 #import <DesktopKit/NXTAlert.h>
 
-#import "EthernetController.h"
-#import "WifiController.h"
+#import "NetworkController.h"
 #import "AppController.h"
 
 #define CONNECTION_NAME @"org.freedesktop.NetworkManager"
@@ -143,6 +142,8 @@
 
 @implementation AppController
 
+@synthesize networkManager;
+
 + (void) initialize
 {
   NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
@@ -203,11 +204,10 @@
 
   if (connection) {
     [DKPort enableWorkerThread];
-    _networkManager = (DKProxy<NetworkManager> *)[connection proxyAtPath:OBJECT_PATH];
-    NSLog(@"awakeFromNib: NetworkManager: %@", _networkManager.Version);
+    self.networkManager = (DKProxy<NetworkManager> *)[connection proxyAtPath:OBJECT_PATH];
+    NSLog(@"awakeFromNib: NetworkManager: %@", self.networkManager.Version);
 
     [connection retain];
-    [_networkManager retain];
     [window setTitle:@"Network Connections"];
     [connectionList loadColumnZero];
     [connectionList selectRow:0 inColumn:0];
@@ -233,10 +233,10 @@
 - (void)applicationWillTerminate:(NSNotification *)notification
 {
   NSLog(@"AppController: applicationWillTerminate");
-  [[EthernetController controller] release];
+  [[NetworkController controller] release];
   [connection invalidate];
   [sendPort release];
-  [_networkManager release];
+  self.networkManager = nil;
   [connMan release];
 }
 
@@ -292,7 +292,7 @@
   NSBrowserCell *cell;
   NSInteger     row = 0;
   NSString      *title;
-  NSArray       *allDevices = [_networkManager GetAllDevices];
+  NSArray       *allDevices = [self.networkManager GetAllDevices];
     
   for (DKProxy<NMDevice> *device in allDevices) {
     if ([device.DeviceType intValue] == 14)
@@ -320,7 +320,7 @@
 
 - (void) updateSignalInfo
 {
-  NSArray       *allDevices = [_networkManager GetAllDevices];
+  NSArray       *allDevices = [self.networkManager GetAllDevices];
 
   wifiActive = NO;
   [labelInfo setStringValue:@"..."];
@@ -431,16 +431,16 @@
   case 1: // Ethernet
     [connectionToggle setEnabled:YES];
     if ([self _isActiveConnection:[cell title] forDevice:device] != NO) {
-      [self _setConnectionView:[EthernetController view]];
+      [self _setConnectionView:[NetworkController view]];
       NSLog(@"%@ is active connection.", [cell title]);
-      [[EthernetController controller]
+      [[NetworkController controller]
         updateForConnection:device.ActiveConnection];
       [self _updateStatusInfoForDevice:device];
       [connectionView setHidden:NO];
     }
     else {
       conn = [self _connectionWithName:[cell title] forDevice:device];
-      [[EthernetController controller] updateForConnection:conn];
+      [[NetworkController controller] updateForConnection:conn];
       // [connectionView setHidden:YES];
       [self _clearFields];
       [statusInfo setStringValue:@"Not Connected"];
@@ -449,16 +449,16 @@
   case 2: // Wi-Fi
     [connectionToggle setEnabled:YES];
     if ([self _isActiveConnection:[cell title] forDevice:device] != NO) {
-      [self _setConnectionView:[WifiController view]];
+      [self _setConnectionView:[NetworkController view]];
       NSLog(@"%@ is active connection.", [cell title]);
-      [[WifiController controller]
+      [[NetworkController controller]
         updateForConnection:device.ActiveConnection];
       [self _updateStatusInfoForDevice:device];
       [connectionView setHidden:NO];
     }
     else {
       conn = [self _connectionWithName:[cell title] forDevice:device];
-      [[WifiController controller] updateForConnection:conn];
+      [[NetworkController controller] updateForConnection:conn];
       // [connectionView setHidden:YES];
       [self _clearFields];
       [statusInfo setStringValue:@"Not Connected"];
@@ -578,14 +578,14 @@
   [self _lockControls];
 
   DKProxy<NMDevice> *device = [[connectionList selectedCell] representedObject];
-  [_networkManager DeactivateConnection:device.ActiveConnection];
+  [self.networkManager DeactivateConnection:device.ActiveConnection];
 }
 
 - (void)deactivateWifi
 {  
   [self _lockControls];
 
-  NSArray       *allDevices = [_networkManager GetAllDevices];
+  NSArray       *allDevices = [self.networkManager GetAllDevices];
   DKProxy<NMDevice> *device = nil;
 
   for (DKProxy<NMDevice> *dev in allDevices) {
@@ -599,7 +599,7 @@
   }
 
   if (device) {
-    [_networkManager DeactivateConnection:device.ActiveConnection];
+    [self.networkManager DeactivateConnection:device.ActiveConnection];
   }
   else {
     [self _unlockControls];
@@ -620,16 +620,16 @@
   
   // NSLog(@"Activate connection: %@ - %@", conn,
   //       [[[conn GetSettings] objectForKey:@"connection"] objectForKey:@"id"]);
-  [_networkManager ActivateConnection:conn
-                                     :device
-                                     :device];
+  [self.networkManager ActivateConnection:conn
+                                         :device
+                                         :device];
 }
 
 - (void)activateWifi
 {
   [self _lockControls];
 
-  NSArray       *allDevices = [_networkManager GetAllDevices];
+  NSArray       *allDevices = [self.networkManager GetAllDevices];
   DKProxy<NMDevice>             *device = nil;
   DKProxy<NMConnectionSettings> *conn = nil;
 
@@ -647,7 +647,7 @@
 
   if (device && conn) {
     NSLog(@"activate");
-    [_networkManager ActivateConnection:conn
+    [self.networkManager ActivateConnection:conn
                                        :device
                                        :device];
   }

@@ -10,11 +10,11 @@ ADDITIONAL_OBJCFLAGS += -Wall -Wno-deprecated-declarations
 ADDITIONAL_CFLAGS += 
 
 # Additional flags to pass to the linker
-ADDITIONAL_LDFLAGS += -lTerminalKit -lDBusKit `pkg-config dbus-1 --libs` -lDesktopKit -lSystemKit -lutil
+ADDITIONAL_LDFLAGS +=
 
 # Additional include directories the compiler should search
 ADDITIONAL_INCLUDE_DIRS += 
 
 # Additional library directories the linker should search
 ADDITIONAL_LIB_DIRS += 
-
+ADDITIONAL_GUI_LIBS += -lTerminalKit -lDBusKit `pkg-config dbus-1 --libs` -lDesktopKit -lSystemKit -lutil

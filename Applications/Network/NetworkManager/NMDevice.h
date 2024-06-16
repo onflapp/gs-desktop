@@ -54,10 +54,10 @@
 // org.freedesktop.NetworkManager.Device
 @protocol NMDevice <NMDeviceGeneric, NMDeviceWired, NMDeviceWireless, NMDeviceStatistics>
 
-@property (readonly) NSArray<DKProxy<NMConnectionSettings> *> *AvailableConnections;
-@property (readonly) DKProxy<NMActiveConnection>              *ActiveConnection;
-@property (readonly) DKProxy<NMIP4Config>                     *Ip4Config;
-@property (readonly) DKProxy<NMDHCP4Config>                   *Dhcp4Config;
+@property (readonly) NSArray                                  *AvailableConnections;
+@property (readonly) DKProxy                                  *ActiveConnection;
+@property (readonly) DKProxy                                  *Ip4Config;
+@property (readonly) DKProxy                                  *Dhcp4Config;
 @property (readonly) DKProxy                                  *Ip6Config;
 @property (readonly) DKProxy                                  *Dhcp6Config;
 

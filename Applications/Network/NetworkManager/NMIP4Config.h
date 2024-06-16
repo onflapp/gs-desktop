@@ -1,8 +1,10 @@
 /* -*- mode: objc -*- */
-// dbus-send --system  --type=method_call --print-reply \
-//           --dest=org.freedesktop.NetworkManager \
-//           /org/freedesktop/NetworkManager/IP4Config/3 \
-//           org.freedesktop.DBus.Introspectable.Introspect 
+/*
+  dbus-send --system  --type=method_call --print-reply \
+           --dest=org.freedesktop.NetworkManager \
+           /org/freedesktop/NetworkManager/IP4Config/3 \
+           org.freedesktop.DBus.Introspectable.Introspect 
+*/
 
 #import <Foundation/Foundation.h>
 
