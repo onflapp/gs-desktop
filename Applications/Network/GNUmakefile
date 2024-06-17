@@ -20,6 +20,8 @@ Network_RESOURCE_FILES = \
 	Resources/asianet.tiff \
 	Resources/nmsetup.sh \
 	Resources/networkinfo \
+	Resources/coninfo \
+	Resources/devinfo \
 	Resources/ApplicationScripting.xlp \
 	Resources/ScriptingInfo.plist
 
@@ -48,7 +50,6 @@ Network_HEADER_FILES = \
 Network_OBJC_FILES = \
 	AppController.m \
 	MiniView.m \
-	ConnectionManager.m \
 	NMSetup.m \
 	NetworkController.m \
 	NetworkInfo.m \

@@ -237,7 +237,6 @@
   [connection invalidate];
   [sendPort release];
   self.networkManager = nil;
-  [connMan release];
 }
 
 //
@@ -296,25 +295,35 @@
     
   for (DKProxy<NMDevice> *device in allDevices) {
     if ([device.DeviceType intValue] == 14)
-      continue;
-    // Use list of available connections because device may not have
-    // active connection (connection was deactivated and no way to know
-    // its state).
-    for (DKProxy<NMConnectionSettings> *conn in device.AvailableConnections) {
-      if ([conn respondsToSelector:@selector(GetSettings)] == NO)
-        continue;
-      title = [[[conn GetSettings] objectForKey:@"connection"]
-                    objectForKey:@"id"];
-      if (title && [title isEqualToString:@""] == NO) {
-        [matrix addRow];
-        row = [matrix numberOfRows] - 1;
-        cell = [matrix cellAtRow:row column:column];
-        [cell setLeaf:YES];
-        [cell setRefusesFirstResponder:YES];
-        [cell setTitle:title];
-        [cell setRepresentedObject:device];
-      }
-    }  
+      continue; //loopback
+
+    if ([device.Managed intValue]) {
+      for (DKProxy<NMConnectionSettings> *conn in device.AvailableConnections) {
+        if ([conn respondsToSelector:@selector(GetSettings)] == NO)
+          continue;
+        title = [[[conn GetSettings] objectForKey:@"connection"]
+                      objectForKey:@"id"];
+        if (title && [title isEqualToString:@""] == NO) {
+          [matrix addRow];
+          row = [matrix numberOfRows] - 1;
+          cell = [matrix cellAtRow:row column:column];
+          [cell setLeaf:YES];
+          [cell setRefusesFirstResponder:YES];
+          [cell setTitle:title];
+          [cell setRepresentedObject:device];
+        }
+      }  
+    }
+    else {
+      title = [NSString stringWithFormat:@"%@ (unmanaged)", device.Interface];
+      [matrix addRow];
+      row = [matrix numberOfRows] - 1;
+      cell = [matrix cellAtRow:row column:column];
+      [cell setLeaf:YES];
+      [cell setRefusesFirstResponder:YES];
+      [cell setTitle:title];
+      [cell setRepresentedObject:device];
+    }
   }
 }
 
@@ -396,11 +405,14 @@
     [contentBox addSubview:view];
   }
   connectionView = view;
+  NSRect r = [contentBox frame];
+  [connectionView setFrameSize:r.size];
 }
 
 - (void)_updateStatusInfoForDevice:(DKProxy<NMDevice> *)device
 {
   NSString *status, *statusDesc;
+  BOOL managed = (BOOL)[device.Managed intValue];
   
   status = ([device.State intValue] < 100) ? @"Not Connected": @"Connected";
   statusDesc = [self _descriptionOfDeviceState:device.State];
@@ -427,61 +439,71 @@
     [[window contentView] addSubview:statusBox];
   }
   
-  switch([device.DeviceType intValue]) {
-  case 1: // Ethernet
-    [connectionToggle setEnabled:YES];
-    if ([self _isActiveConnection:[cell title] forDevice:device] != NO) {
-      [self _setConnectionView:[NetworkController view]];
-      NSLog(@"%@ is active connection.", [cell title]);
-      [[NetworkController controller]
-        updateForConnection:device.ActiveConnection];
-      [self _updateStatusInfoForDevice:device];
-      [connectionView setHidden:NO];
-    }
-    else {
-      conn = [self _connectionWithName:[cell title] forDevice:device];
-      [[NetworkController controller] updateForConnection:conn];
-      // [connectionView setHidden:YES];
-      [self _clearFields];
-      [statusInfo setStringValue:@"Not Connected"];
-    }
-    break;
-  case 2: // Wi-Fi
-    [connectionToggle setEnabled:YES];
-    if ([self _isActiveConnection:[cell title] forDevice:device] != NO) {
-      [self _setConnectionView:[NetworkController view]];
-      NSLog(@"%@ is active connection.", [cell title]);
-      [[NetworkController controller]
-        updateForConnection:device.ActiveConnection];
-      [self _updateStatusInfoForDevice:device];
-      [connectionView setHidden:NO];
-    }
-    else {
-      conn = [self _connectionWithName:[cell title] forDevice:device];
-      [[NetworkController controller] updateForConnection:conn];
-      // [connectionView setHidden:YES];
-      [self _clearFields];
-      [statusInfo setStringValue:@"Not Connected"];
-    }
-    break;
-  case 5: // Bluetooth
-    break;
-  case 14: // Generic
-  default:
-    [connectionToggle setEnabled:NO];
-    [connectionView setHidden:YES];
-    break;
-  }
+  if ([device.Managed intValue]) {
+    switch([device.DeviceType intValue]) {
+    case 1: // Ethernet
+      [connectionToggle setEnabled:YES];
+      if ([self _isActiveConnection:[cell title] forDevice:device] != NO) {
+        [self _setConnectionView:[NetworkController view]];
+        NSLog(@"%@ is active connection.", [cell title]);
+        [[NetworkController controller]
+            updateForConnection:device.ActiveConnection];
 
-  popupItem = [connectionAction
-                itemAtIndex:[connectionAction indexOfItemWithTag:3]];
-  if ([self _isActiveConnection:[cell title] forDevice:device]) {
-    [popupItem setTitle:@"Deactivate..."];
-    [connectionToggle setTitle:@"Disable"];
+        [self _updateStatusInfoForDevice:device];
+        [connectionView setHidden:NO];
+      }
+      else {
+        conn = [self _connectionWithName:[cell title] forDevice:device];
+        [[NetworkController controller] updateForConnection:conn];
+        // [connectionView setHidden:YES];
+        [self _clearFields];
+        [statusInfo setStringValue:@"Not Connected"];
+      }
+      break;
+    case 2: // Wi-Fi
+      [connectionToggle setEnabled:YES];
+      if ([self _isActiveConnection:[cell title] forDevice:device] != NO) {
+        [self _setConnectionView:[NetworkController view]];
+        NSLog(@"%@ is active connection.", [cell title]);
+        [[NetworkController controller]
+          updateForConnection:device.ActiveConnection];
+        [self _updateStatusInfoForDevice:device];
+        [connectionView setHidden:NO];
+      }
+      else {
+        conn = [self _connectionWithName:[cell title] forDevice:device];
+        [[NetworkController controller] updateForConnection:conn];
+        // [connectionView setHidden:YES];
+        [self _clearFields];
+        [statusInfo setStringValue:@"Not Connected"];
+      }
+      break;
+    case 5: // Bluetooth
+      break;
+    case 14: // Generic
+    default:
+      [connectionToggle setEnabled:NO];
+      [connectionView setHidden:YES];
+      break;
+    }
+
+    popupItem = [connectionAction
+                  itemAtIndex:[connectionAction indexOfItemWithTag:3]];
+    if ([self _isActiveConnection:[cell title] forDevice:device]) {
+      [popupItem setTitle:@"Deactivate..."];
+      [connectionToggle setTitle:@"Disable"];
+    }
+    else {
+      [popupItem setTitle:@"Activate..."];
+      [connectionToggle setTitle:@"Enable"];
+    }
   }
   else {
-    [popupItem setTitle:@"Activate..."];
-    [connectionToggle setTitle:@"Enable"];
+    [self _setConnectionView:[NetworkController view]];
+    [[NetworkController controller] updateForDevice:device];
+    [self _clearFields];
+    [statusInfo setStringValue:@"Not Managed"];
+    [connectionToggle setEnabled:NO];
   }
 }
 
@@ -546,33 +568,6 @@
   [window makeKeyAndOrderFront:sender];
 }
 
-- (void)addConnection
-{
-  if (connMan == nil) {
-    connMan = [ConnectionManager new];
-  }
-  [connMan showAddConnectionPanel];
-  [connectionList reloadColumn:0];
-}
-- (void)removeConnection
-{
-  NSInteger                     result;
-  DKProxy<NMDevice>             *device;
-  DKProxy<NMConnectionSettings> *conn;
-
-  result = NXTRunAlertPanel(@"Remove",
-                            @"Do you want to remove connection `%@`?",
-                            @"Remove", @"Leave", nil,
-                            [[connectionList selectedCell] title]);
-  if (result == NSAlertDefaultReturn) {
-    device = [[connectionList selectedCell] representedObject];
-    conn = [self _connectionWithName:[[connectionList selectedCell] title]
-                           forDevice:device];
-    [conn Delete];
-    [connectionList reloadColumn:0];
-  }
-
-}
 - (void)deactivateConnection
 {
   [self _lockControls];
@@ -661,7 +656,7 @@
 /* Signals/Notifications */
 - (void)deviceStateDidChange:(NSNotification *)aNotif
 {
-  NSLog(@"Device sate was changed: \n%@\nuserInfo: %@",
+  NSLog(@"Device state was changed: \n%@\nuserInfo: %@",
         [aNotif object], [aNotif userInfo]);
   // if ([[connectionList selectedCell] representedObject] == [aNotif object]) {
   //   NSLog(@"Update selected connection info");

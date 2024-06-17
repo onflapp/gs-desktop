@@ -7,6 +7,7 @@
 @interface NetworkController : NSObject
 {
   id networkView;
+  NSTextView* textView;
 }
 
 + (instancetype)controller;

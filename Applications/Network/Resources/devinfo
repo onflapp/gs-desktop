@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "dev: $1"
+
+nmcli device show "$1"

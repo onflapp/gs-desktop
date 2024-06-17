@@ -40,7 +40,8 @@
 	Actions = (
 	);
 	Outlets = (
-	    networkView
+	    networkView,
+	    textView
 	);
 	Super = NSObject;
     };

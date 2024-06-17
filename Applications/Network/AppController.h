@@ -6,7 +6,6 @@
 #import "NetworkManager/NetworkManager.h"
 #import "NetworkManager/NMAccessPoint.h"
 #import "NetworkManager/NMConnectionSettings.h"
-#import "ConnectionManager.h"
 #import "NMSetup.h"
 #import "NetworkInfo.h"
 #import "MiniView.h"
@@ -16,8 +15,6 @@
   DKPort       *sendPort;
   NSConnection *connection;
   NSTimer      *timer;
-
-  ConnectionManager *connMan;
 
   // Data
   NSMutableArray *connections;
