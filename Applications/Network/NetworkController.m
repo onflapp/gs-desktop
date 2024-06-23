@@ -61,7 +61,8 @@ static NetworkController *_controller = nil;
 
 - (void)updateForConnection:(DKProxy<NMConnectionSettings> *)conn
 {
-  NSDictionary *settings;
+  NSString* con = [[[conn GetSettings] valueForKey:@"connection"] valueForKey:@"uuid"];
+  [self runInfo:@"coninfo" forDevice:con];
 }
 
 - (void) runInfo:(NSString*) cmd forDevice:(NSString*) dev {

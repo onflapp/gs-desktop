@@ -1,13 +1,3 @@
 #!/bin/sh
 
-echo "=== address ==="
-ip -br a
-
-
-echo ""
-echo "=== route ==="
-ip -br r
-
-echo ""
-echo "=== managed devices ==="
-nmcli d
+nmcli connection show $1

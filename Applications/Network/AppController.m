@@ -227,6 +227,10 @@
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
+  if (timer) {
+    [timer invalidate];
+    RELEASE(timer);
+  }
   return YES;
 }
 
@@ -446,8 +450,9 @@
       if ([self _isActiveConnection:[cell title] forDevice:device] != NO) {
         [self _setConnectionView:[NetworkController view]];
         NSLog(@"%@ is active connection.", [cell title]);
+        DKProxy<NMActiveConnection> *ac = device.ActiveConnection;
         [[NetworkController controller]
-            updateForConnection:device.ActiveConnection];
+          updateForConnection:ac.Connection];
 
         [self _updateStatusInfoForDevice:device];
         [connectionView setHidden:NO];
@@ -465,8 +470,9 @@
       if ([self _isActiveConnection:[cell title] forDevice:device] != NO) {
         [self _setConnectionView:[NetworkController view]];
         NSLog(@"%@ is active connection.", [cell title]);
+        DKProxy<NMActiveConnection> *ac = device.ActiveConnection;
         [[NetworkController controller]
-          updateForConnection:device.ActiveConnection];
+          updateForConnection:ac.Connection];
         [self _updateStatusInfoForDevice:device];
         [connectionView setHidden:NO];
       }
@@ -665,13 +671,16 @@
   if (timer &&
       [timer isKindOfClass:[NSTimer class]] &&
       [timer isValid]) {
+
     [timer invalidate];
+    RELEASE(timer);
   }
   timer = [NSTimer scheduledTimerWithTimeInterval:.5
                                   target:self
                                 selector:@selector(updateConnectionInfo:)
                                 userInfo:nil
                                  repeats:NO];
+  RETAIN(timer);
 }
 
 - (void)updateConnectionInfo:(NSTimer *)ti
@@ -679,7 +688,9 @@
   [self _unlockControls];
   [self updateSignalInfo];
   [self connectionListClick:connectionList];
+
   [timer invalidate];
+  RELEASE(timer);
   timer = nil;
 }
 
