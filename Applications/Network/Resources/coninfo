@@ -1,13 +1,19 @@
-#!/bin/sh
+#!/usr/bin/env perl
 
-echo "=== address ==="
-ip -br a
+$DEV=$ARGV[0];
 
+open(IN, "nmcli connection show $DEV|");
+while(<IN>) {
+  chomp();
+  $line = $_;
+  if (m/^(\w.*?):\s+(.*?)$/) {
+    $name = $1;
+    $val = $2;
+    next if ($val eq "--");
+    next if ($val eq "<hidden>");
+    next if ($name =~ /^GENERAL\./);
 
-echo ""
-echo "=== route ==="
-ip -br r
-
-echo ""
-echo "=== managed devices ==="
-nmcli d
+    print("$line\n");
+  }
+}
+close(IN);

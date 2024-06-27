@@ -22,3 +22,4 @@ Frameworks/PDFKit/xpdf/xpdf-3.04/fofi/Makefile
 Frameworks/PDFKit/xpdf/xpdf-3.04/goo/Makefile
 Frameworks/PDFKit/xpdf/xpdf-3.04/splash/Makefile
 Frameworks/PDFKit/xpdf/xpdf-3.04/xpdf/Makefile
+!Helpers/*.app

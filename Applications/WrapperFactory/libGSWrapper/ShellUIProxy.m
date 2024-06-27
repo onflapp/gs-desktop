@@ -234,4 +234,8 @@
   [delegate execTaskWithArguments:args data:data delegate:self];
 }
 
+- (void) stopActions {
+  [delegate stopTask];
+}
+
 @end

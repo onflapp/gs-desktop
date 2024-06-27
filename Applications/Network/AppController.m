@@ -13,6 +13,19 @@
 #define OBJECT_PATH     @"/org/freedesktop/NetworkManager"
 #define DKNC [DKNotificationCenter systemBusCenter]
 
+void removeMenuItems(NSMenu* menu)
+{
+  NSMutableArray* toremove = [NSMutableArray array];
+  for (NSMenuItem* it in [menu itemArray]) {
+    if ([it tag] == WIFI_ITEM_TAG) {
+      [toremove addObject:it];
+    }
+  }
+  for (NSMenuItem* it in toremove) {
+    [menu removeItem:it];
+  }
+}
+
 @implementation AppController (NetworkManager)
 
 - (NSString *)_nameOfDeviceType:(NSNumber *)type
@@ -227,6 +240,10 @@
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
 {
+  if (timer) {
+    [timer invalidate];
+    RELEASE(timer);
+  }
   return YES;
 }
 
@@ -267,6 +284,7 @@
   [statusBox removeFromSuperview];
   [window center];
   [window setTitle:@"Connecting to NetworkManager..."];
+  [window setFrameAutosaveName:@"connection_window"];
   [connectionAction setRefusesFirstResponder:YES];
   [self _clearFields];
 }
@@ -294,8 +312,10 @@
   NSArray       *allDevices = [self.networkManager GetAllDevices];
     
   for (DKProxy<NMDevice> *device in allDevices) {
+    /*
     if ([device.DeviceType intValue] == 14)
       continue; //loopback
+    */
 
     if ([device.Managed intValue]) {
       for (DKProxy<NMConnectionSettings> *conn in device.AvailableConnections) {
@@ -327,6 +347,45 @@
   }
 }
 
+- (void) requestScan:(id)sender
+{
+  NSArray       *allDevices = [self.networkManager GetAllDevices];
+  NSMenu        *menu = [sender menu];
+
+  removeMenuItems(menu);
+
+  for (DKProxy<NMDevice> *device in allDevices) {
+    if ([device respondsToSelector:@selector(GetAllAccessPoints)]) {
+      [device RequestScan:nil];
+      NSArray *list = [device GetAccessPoints];
+      if (list) {
+        for (DKProxy<NMAccessPoint> *ap in list) {
+          if ([ap respondsToSelector:@selector(Ssid)]) {
+            NSMutableString* sid = [NSMutableString string];
+            for (id c in ap.Ssid) {
+              [sid appendFormat:@"%c", [c charValue]];
+            }
+            NSLog(@"(%@)", sid);
+            NSLog(@" - Strength: %d%% Bitrate: %d Mb/s Frequency: %.2f Hz\n",
+                [ap.Strength intValue], [ap.MaxBitrate intValue]/1000,
+                [ap.Frequency floatValue]/1000.0);
+
+            NSString* title = [NSString stringWithFormat:@"%@ - %d%%", 
+                                sid, [ap.Strength intValue]];
+
+            NSMenuItem *item = [menu addItemWithTitle:title
+                                               action:@selector(runMenuItem:) 
+                                        keyEquivalent:@""];
+            [item setTarget:self];
+            //[item setRepresentedObject:it];
+            [item setTag:WIFI_ITEM_TAG];
+          }
+        }
+      }
+    }
+  }
+}
+
 - (void) updateSignalInfo
 {
   NSArray       *allDevices = [self.networkManager GetAllDevices];
@@ -342,8 +401,8 @@
         for (id c in ap.Ssid) {
           [sid appendFormat:@"%c", [c charValue]];
         }
-        fprintf(stderr, "(%s)", [ap.HwAddress cString]);
-        fprintf(stderr, " - Strength: %d%% Bitrate: %d Mb/s Frequency: %.2f Hz\n",
+        NSLog(@"(%s)", [ap.HwAddress cString]);
+        NSLog(@" - Strength: %d%% Bitrate: %d Mb/s Frequency: %.2f Hz\n",
                 [ap.Strength intValue], [ap.MaxBitrate intValue]/1000,
                 [ap.Frequency floatValue]/1000.0);
         
@@ -353,22 +412,6 @@
 
         break;
       }
-
-      /*
-      for (DKPort<NMAccessPoint> *ap in device.GetAccessPoints) {
-        NSMutableString* sid = [NSMutableString string];
-        for (id c in ap.Ssid) {
-          [sid appendFormat:@"%c", [c charValue]];
-        }
-        fprintf(stderr, "(%s)", [ap.HwAddress cString]);
-        fprintf(stderr, " - Strength: %d%% Bitrate: %d Mb/s Frequency: %.2f Hz\n",
-                [ap.Strength intValue], [ap.MaxBitrate intValue]/1000,
-                [ap.Frequency floatValue]/1000.0);
-        
-        [labelInfo setStringValue:sid];
-        [signalInfo setDoubleValue:(double)[ap.Strength intValue]];
-      }
-      */
     }
   }
 
@@ -406,7 +449,9 @@
   }
   connectionView = view;
   NSRect r = [contentBox frame];
-  [connectionView setFrameSize:r.size];
+  r.origin.x = 0;
+  r.origin.y = 0;
+  [connectionView setFrame:r];
 }
 
 - (void)_updateStatusInfoForDevice:(DKProxy<NMDevice> *)device
@@ -438,16 +483,18 @@
   if ([statusBox superview] == nil) {
     [[window contentView] addSubview:statusBox];
   }
-  
+ 
   if ([device.Managed intValue]) {
     switch([device.DeviceType intValue]) {
     case 1: // Ethernet
       [connectionToggle setEnabled:YES];
-      if ([self _isActiveConnection:[cell title] forDevice:device] != NO) {
-        [self _setConnectionView:[NetworkController view]];
+      [self _setConnectionView:[NetworkController view]];
+
+      if ((BOOL)[self _isActiveConnection:[cell title] forDevice:device] != NO) {
         NSLog(@"%@ is active connection.", [cell title]);
+        DKProxy<NMActiveConnection> *ac = device.ActiveConnection;
         [[NetworkController controller]
-            updateForConnection:device.ActiveConnection];
+          updateForConnection:ac.Connection];
 
         [self _updateStatusInfoForDevice:device];
         [connectionView setHidden:NO];
@@ -462,11 +509,13 @@
       break;
     case 2: // Wi-Fi
       [connectionToggle setEnabled:YES];
-      if ([self _isActiveConnection:[cell title] forDevice:device] != NO) {
-        [self _setConnectionView:[NetworkController view]];
+      [self _setConnectionView:[NetworkController view]];
+
+      if ((BOOL)[self _isActiveConnection:[cell title] forDevice:device] != NO) {
         NSLog(@"%@ is active connection.", [cell title]);
+        DKProxy<NMActiveConnection> *ac = device.ActiveConnection;
         [[NetworkController controller]
-          updateForConnection:device.ActiveConnection];
+          updateForConnection:ac.Connection];
         [self _updateStatusInfoForDevice:device];
         [connectionView setHidden:NO];
       }
@@ -491,11 +540,11 @@
                   itemAtIndex:[connectionAction indexOfItemWithTag:3]];
     if ([self _isActiveConnection:[cell title] forDevice:device]) {
       [popupItem setTitle:@"Deactivate..."];
-      [connectionToggle setTitle:@"Disable"];
+      [connectionToggle setTitle:@"Disconnect"];
     }
     else {
       [popupItem setTitle:@"Activate..."];
-      [connectionToggle setTitle:@"Enable"];
+      [connectionToggle setTitle:@"Connect"];
     }
   }
   else {
@@ -509,7 +558,7 @@
 
 - (void)connectionToggleClick:(id)sender
 {
-  if ([[sender title] isEqualToString:@"Disable"]) {
+  if ([[sender title] isEqualToString:@"Disconnect"]) {
     [self deactivateConnection];
   }
   else {
@@ -665,13 +714,16 @@
   if (timer &&
       [timer isKindOfClass:[NSTimer class]] &&
       [timer isValid]) {
+
     [timer invalidate];
+    RELEASE(timer);
   }
   timer = [NSTimer scheduledTimerWithTimeInterval:.5
                                   target:self
                                 selector:@selector(updateConnectionInfo:)
                                 userInfo:nil
                                  repeats:NO];
+  RETAIN(timer);
 }
 
 - (void)updateConnectionInfo:(NSTimer *)ti
@@ -679,7 +731,9 @@
   [self _unlockControls];
   [self updateSignalInfo];
   [self connectionListClick:connectionList];
+
   [timer invalidate];
+  RELEASE(timer);
   timer = nil;
 }
 
