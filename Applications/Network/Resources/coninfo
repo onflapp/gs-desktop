@@ -1,3 +1,19 @@
-#!/bin/sh
+#!/usr/bin/env perl
 
-nmcli connection show $1
+$DEV=$ARGV[0];
+
+open(IN, "nmcli connection show $DEV|");
+while(<IN>) {
+  chomp();
+  $line = $_;
+  if (m/^(\w.*?):\s+(.*?)$/) {
+    $name = $1;
+    $val = $2;
+    next if ($val eq "--");
+    next if ($val eq "<hidden>");
+    next if ($name =~ /^GENERAL\./);
+
+    print("$line\n");
+  }
+}
+close(IN);

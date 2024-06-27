@@ -1,5 +1,18 @@
-#!/bin/sh
+#!/usr/bin/env perl
 
-echo "dev: $1"
+$DEV=$ARGV[0];
 
-nmcli device show "$1"
+open(IN, "nmcli device show $DEV|");
+while(<IN>) {
+  chomp();
+  $line = $_;
+  if (m/^(\w.*?):\s+(.*?)$/) {
+    $name = $1;
+    $val = $2;
+    next if ($val eq "--");
+    next if ($val eq "<hidden>");
+
+    print("$line\n");
+  }
+}
+close(IN);

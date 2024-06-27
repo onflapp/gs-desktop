@@ -56,12 +56,14 @@ static NetworkController *_controller = nil;
 - (void)updateForDevice:(DKProxy<NMDevice> *)device
 {
   NSString* dev = device.Interface;
+  NSLog(@"updating device %@", dev);
   [self runInfo:@"devinfo" forDevice:dev];
 }
 
 - (void)updateForConnection:(DKProxy<NMConnectionSettings> *)conn
 {
   NSString* con = [[[conn GetSettings] valueForKey:@"connection"] valueForKey:@"uuid"];
+  NSLog(@"updating connection %@", con);
   [self runInfo:@"coninfo" forDevice:con];
 }
 

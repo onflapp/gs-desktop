@@ -93,7 +93,14 @@
     args = [NSArray arrayWithObjects:@"stop", unit, nil];
     title = @"SUDO service stop";
   }
-
+  else if ([sender tag] == 21) {
+    args = [NSArray arrayWithObjects:@"enable", unit, nil];
+    title = @"SUDO service enable";
+  }
+  else if ([sender tag] == 20) {
+    args = [NSArray arrayWithObjects:@"disable", unit, nil];
+    title = @"SUDO service disable";
+  }
 
   if (cmd) {
     NSWindow* win = [[NSApp delegate] executeConsoleCommand:cmd 

@@ -20,6 +20,16 @@ case "$1" in
     sleep 1
     systemctl status $2
     ;;
+  enable)
+    exec_sudo "systemctl enable $2"
+    sleep 1
+    systemctl status $2
+    ;;
+  disable)
+    exec_sudo "systemctl disable $2"
+    sleep 1
+    systemctl status $2
+    ;;
   shutdown)
     echo "your system is going to power off"
     sleep 3

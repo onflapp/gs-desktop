@@ -10,6 +10,8 @@
 #import "NetworkInfo.h"
 #import "MiniView.h"
 
+#define WIFI_ITEM_TAG 123
+
 @interface AppController : NSObject
 {
   DKPort       *sendPort;
@@ -42,6 +44,12 @@
 
   DKProxy       *networkManager;
 }
+
+- (void)deactivateConnection;
+- (void)activateConnection;
+
+- (void)connectionListClick:(id)sender;
+- (void)updateConnectionInfo:(NSTimer *)ti;
 
 @property (retain) DKProxy<NetworkManager> *networkManager;
 
