@@ -281,6 +281,9 @@
           [[NSRunLoop currentRunLoop] runUntilDate: limit];
         }
     }
+    if ( shellDelegate ) {
+      [shellDelegate stopActions];
+    }
     return YES;
 }
 

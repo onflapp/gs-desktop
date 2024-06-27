@@ -34,6 +34,7 @@
 - (void) updateValue:(NSString*) val forControl:(NSString*) name;
 - (void) handleActions:(id) del;
 - (void) handleActions:(id) del withArguments:(NSArray*) args;
+- (void) stopActions;
 
 - (NSView*) iconView;
 - (NSWindow*) window;

@@ -9,8 +9,10 @@ echo "=================="
 
 cd ../../gnustep-base || exit 1
 
-export ICU_CFLAGS="`icu-config --cppflags`"
-export ICU_LIBS="`icu-config --ldflags`"
+if command -V icu-config >/dev/null 2>&1 ;then
+  export ICU_CFLAGS="`icu-config --cppflags`"
+  export ICU_LIBS="`icu-config --ldflags`"
+fi
 
 gmake clean
 ./configure || exit 1

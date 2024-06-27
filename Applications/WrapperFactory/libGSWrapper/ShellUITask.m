@@ -34,7 +34,7 @@
 }
 
 - (void) dealloc {
-  [self stopTask];
+  [task terminate];
   [delegate release];
   [buff release];
   [env release];
@@ -46,8 +46,8 @@
 
 - (NSDictionary*)makeEnvironment
 {
-    NSDictionary* env = [[NSProcessInfo processInfo] environment];
-    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary: env];
+    NSDictionary* nenv = [[NSProcessInfo processInfo] environment];
+    NSMutableDictionary* dict = [NSMutableDictionary dictionaryWithDictionary: nenv];
     NSString* cmdkey = [[NSUserDefaults standardUserDefaults] valueForKey:@"GSFirstCommandKey"];
 
     if ([cmdkey hasPrefix:@"Super_"])        [dict setValue:@"SUPER" forKey:@"GS_COMMAND_KEY"];
