@@ -97,6 +97,7 @@
   [reflectionBtn setEnabled:NO];
 
   // Desktop background
+  /*
   BOOL managedExternally = [[defs objectForKey:@"DoNotManageDesktopBackground"] boolValue];
   [managedBackgroundBtn setState:managedExternally];
   [colorBtn setEnabled:!managedExternally];
@@ -115,6 +116,7 @@
                                        blue:blue];
       }
     }
+  */
 
   [[NSNotificationCenter defaultCenter]
     addObserver:self

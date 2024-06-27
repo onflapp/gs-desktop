@@ -13,6 +13,7 @@
 }
 
 - (void) processXWindowsEvents:(id) sender {
+  CREATE_AUTORELEASE_POOL(pool);
   Display *d;
   XEvent e;
   Window r;
@@ -46,6 +47,7 @@
     }
   }
   [self release];
+  RELEASE(pool);
 }
 
 @end

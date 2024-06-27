@@ -86,14 +86,14 @@
     NXTDefaults *defs = [NXTDefaults globalUserDefaults];
     BOOL managedExternally = [[defs objectForKey:@"DoNotManageDesktopBackground"] boolValue];
 
-    if (!managedExternally) {
+    /*
       NSLog(@"Configuring Desktop background...");
       OSEScreen *screen = [OSEScreen sharedScreen];
       CGFloat red, green, blue;
       if ([screen savedBackgroundColorRed:&red green:&green blue:&blue] == YES) {
         [screen setBackgroundColorRed:red green:green blue:blue];
       }
-    }
+    */
   }
 
   // we used this to watch for display bein turned on and off
@@ -115,13 +115,6 @@
   NSLog(@"Configuring Keyboard...");
   [OSEKeyboard configureWithDefaults:defs];
 
-  NSLog(@"Load user's Xmodmap");
-  NSString* xmodmapfile = [@"~/.Xmodmap" stringByExpandingTildeInPath];
-  if ([[NSFileManager defaultManager] fileExistsAtPath:xmodmapfile]) {
-    NSLog(@"Configuring Keyboard from %@", xmodmapfile);
-    [NSTask launchedTaskWithLaunchPath:@"/usr/bin/xmodmap" arguments:[NSArray arrayWithObject: xmodmapfile]];
-  }
-
   NSLog(@"Configuring Mouse...");
   OSEMouse *mouse = [OSEMouse new];
   [mouse setAcceleration:[defs integerForKey:OSEMouseAcceleration]
@@ -136,6 +129,9 @@
     }
   }
 
+  NSString* initrc = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"initrc"];
+  NSLog(@"Exec initrc %@", initrc);
+  [NSTask launchedTaskWithLaunchPath:initrc arguments:[NSArray array]];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender
