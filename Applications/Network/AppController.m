@@ -312,10 +312,8 @@ void removeMenuItems(NSMenu* menu)
   NSArray       *allDevices = [self.networkManager GetAllDevices];
     
   for (DKProxy<NMDevice> *device in allDevices) {
-    /*
     if ([device.DeviceType intValue] == 14)
       continue; //loopback
-    */
 
     if ([device.Managed intValue]) {
       for (DKProxy<NMConnectionSettings> *conn in device.AvailableConnections) {
@@ -452,6 +450,7 @@ void removeMenuItems(NSMenu* menu)
   r.origin.x = 0;
   r.origin.y = 0;
   [connectionView setFrame:r];
+  [connectionView setHidden:NO];
 }
 
 - (void)_updateStatusInfoForDevice:(DKProxy<NMDevice> *)device
@@ -488,42 +487,40 @@ void removeMenuItems(NSMenu* menu)
     switch([device.DeviceType intValue]) {
     case 1: // Ethernet
       [connectionToggle setEnabled:YES];
-      [self _setConnectionView:[NetworkController view]];
-
       if ((BOOL)[self _isActiveConnection:[cell title] forDevice:device] != NO) {
         NSLog(@"%@ is active connection.", [cell title]);
         DKProxy<NMActiveConnection> *ac = device.ActiveConnection;
         [[NetworkController controller]
           updateForConnection:ac.Connection];
 
+
+        [self _setConnectionView:[NetworkController view]];
         [self _updateStatusInfoForDevice:device];
-        [connectionView setHidden:NO];
       }
       else {
         conn = [self _connectionWithName:[cell title] forDevice:device];
         [[NetworkController controller] updateForConnection:conn];
-        // [connectionView setHidden:YES];
         [self _clearFields];
+        [connectionView setHidden:YES];
         [statusInfo setStringValue:@"Not Connected"];
       }
       break;
     case 2: // Wi-Fi
       [connectionToggle setEnabled:YES];
-      [self _setConnectionView:[NetworkController view]];
-
       if ((BOOL)[self _isActiveConnection:[cell title] forDevice:device] != NO) {
         NSLog(@"%@ is active connection.", [cell title]);
         DKProxy<NMActiveConnection> *ac = device.ActiveConnection;
         [[NetworkController controller]
           updateForConnection:ac.Connection];
+
+        [self _setConnectionView:[NetworkController view]];
         [self _updateStatusInfoForDevice:device];
-        [connectionView setHidden:NO];
       }
       else {
         conn = [self _connectionWithName:[cell title] forDevice:device];
         [[NetworkController controller] updateForConnection:conn];
-        // [connectionView setHidden:YES];
         [self _clearFields];
+        [connectionView setHidden:YES];
         [statusInfo setStringValue:@"Not Connected"];
       }
       break;
@@ -531,6 +528,7 @@ void removeMenuItems(NSMenu* menu)
       break;
     case 14: // Generic
     default:
+      [statusInfo setStringValue:@"Unknown"];
       [connectionToggle setEnabled:NO];
       [connectionView setHidden:YES];
       break;
@@ -548,11 +546,11 @@ void removeMenuItems(NSMenu* menu)
     }
   }
   else {
+    [connectionToggle setEnabled:NO];
     [self _setConnectionView:[NetworkController view]];
     [[NetworkController controller] updateForDevice:device];
     [self _clearFields];
     [statusInfo setStringValue:@"Not Managed"];
-    [connectionToggle setEnabled:NO];
   }
 }
 
@@ -619,6 +617,7 @@ void removeMenuItems(NSMenu* menu)
 
 - (void)deactivateConnection
 {
+  [statusInfo setStringValue:@"Disconnecting..."];
   [self _lockControls];
 
   DKProxy<NMDevice> *device = [[connectionList selectedCell] representedObject];
@@ -653,6 +652,7 @@ void removeMenuItems(NSMenu* menu)
 
 - (void)activateConnection
 {
+  [statusInfo setStringValue:@"Connecting..."];
   [self _lockControls];
 
   DKProxy<NMDevice>             *device;
