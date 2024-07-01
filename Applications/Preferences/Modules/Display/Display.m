@@ -381,6 +381,7 @@
   NSColor *rgbColor = [color colorUsingColorSpaceName:NSDeviceRGBColorSpace];
     
   // NSLog(@"Display: backgroundChanged: %@", [sender className]);
+  /*
   if ([systemScreen setBackgroundColorRed:[rgbColor redComponent]
                                     green:[rgbColor greenComponent]
                                      blue:[rgbColor blueComponent]] == YES) {
@@ -394,6 +395,7 @@
               [NSNumber numberWithFloat:1.0],@"Alpha",nil];
     [defs setObject:dBack forKey:OSEDesktopBackgroundColor];
   }
+  */
 }
 
 //

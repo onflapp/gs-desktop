@@ -34,11 +34,6 @@ function start_windowmanager {
   echo "WM is running on $WM_PID"
   echo "$WM_PID" > /tmp/$UID-wm.pid
   export GS_DESKTOP_WM_PID="$WM_PID"
-
-  if [ -n "$START_PICOM" ] && [ -f "$HOME/Library/etc/picom.conf" ];then
-    echo "about to start picom"
-    picom -b --conf $HOME/Library/etc/picom.conf --write-pid-path /tmp/$UID-picom.pid
-  fi
 }
 
 function stop_windowmanager {
@@ -48,13 +43,6 @@ function stop_windowmanager {
     pkill -P "$PID" 2>/dev/null
     kill "$PID"     2>/dev/null
     rm /tmp/$UID-wm.pid
-  fi
-
-  PID=`cat /tmp/$UID-picom.pid 2>/dev/null`
-  if [ -n "$PID" ];then
-    echo "stopping picom on $PID"
-    kill "$PID" 2>/dev/null
-    rm /tmp/$UID-picom.pid
   fi
 }
 
@@ -345,10 +333,8 @@ if [ -n "$GS_DESKTOP_SAFEMODE" ];then
     echo "logging to $GS_DESKTOP_LOG"
     start_debug > $GS_DESKTOP_LOG 2>&1
   else
-    START_PICOM="yes"
     start_debug |& tee $GS_DESKTOP_LOG
   fi
 else
-  START_PICOM="yes"
   start_normal > $GS_DESKTOP_LOG 2>&1
 fi
