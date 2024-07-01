@@ -75,3 +75,11 @@ if [ -d apps-easydiff ];then
 else
   git clone https://github.com/gnustep/apps-easydiff.git
 fi
+
+cd "$D"
+if [ -d apps-thematic ];then
+  cd ./apps-thematic
+  git pull
+else
+  git clone https://github.com/onflapp/apps-thematic.git
+fi

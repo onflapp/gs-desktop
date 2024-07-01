@@ -2,6 +2,8 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>GSBackend</key>
+  <string>art</string>
     <key>CursorBlinking</key>
     <string>NO</string>
     <key>CursorColor</key>
@@ -34,15 +36,15 @@
     <key>TerminalFontUseBold</key>
     <string>NO</string>
     <key>TerminalServices</key>
-    <dict>
+		<dict>
 	<key>Arithmetic Calculation</key>
 	<dict>
 	    <key>AcceptTypes</key>
 	    <string>1</string>
 	    <key>Commandline</key>
-	    <string>echo %s | bc</string>
+	    <string>echo &quot;%s&quot; | bc</string>
 	    <key>ExecInShell</key>
-	    <string>0</string>
+	    <string>1</string>
 	    <key>ExecType</key>
 	    <string>0</string>
 	    <key>Input</key>
@@ -54,6 +56,8 @@
 	</dict>
 	<key>Count lines</key>
 	<dict>
+	    <key>AcceptTypes</key>
+	    <string>1</string>
 	    <key>Commandline</key>
 	    <string>wc -l</string>
 	    <key>ExecInShell</key>
@@ -69,6 +73,8 @@
 	</dict>
 	<key>Count words</key>
 	<dict>
+	    <key>AcceptTypes</key>
+	    <string>1</string>
 	    <key>Commandline</key>
 	    <string>wc</string>
 	    <key>ExecInShell</key>
@@ -88,14 +94,18 @@
 	    <string>1</string>
 	    <key>Commandline</key>
 	    <string>dict %s</string>
+	    <key>ExecInShell</key>
+	    <string>1</string>
 	    <key>ExecType</key>
 	    <string>1</string>
 	    <key>Input</key>
 	    <string>2</string>
 	    <key>Key</key>
 	    <string>=</string>
-	    <key>WindowType</key>
+	    <key>ReturnData</key>
 	    <string>0</string>
+	    <key>WindowType</key>
+	    <string>1</string>
 	</dict>
 	<key>Fetch URL</key>
 	<dict>
@@ -103,6 +113,8 @@
 	    <string>1</string>
 	    <key>Commandline</key>
 	    <string>cd ~; wget %s</string>
+	    <key>ExecInShell</key>
+	    <string>1</string>
 	    <key>ExecType</key>
 	    <string>1</string>
 	    <key>Input</key>
@@ -110,10 +122,12 @@
 	    <key>Key</key>
 	    <string></string>
 	    <key>WindowType</key>
-	    <string>0</string>
+	    <string>1</string>
 	</dict>
 	<key>Four-space hard tabs</key>
 	<dict>
+	    <key>AcceptTypes</key>
+	    <string>1</string>
 	    <key>Commandline</key>
 	    <string>expand | unexpand -t4</string>
 	    <key>ExecInShell</key>
@@ -143,11 +157,13 @@
 	    <string></string>
 	    <key>ReturnData</key>
 	    <string>0</string>
-                  <key>WindowType</key>
-                  <string>1</string>
+	    <key>WindowType</key>
+	    <string>1</string>
 	</dict>
 	<key>Sort lines</key>
 	<dict>
+	    <key>AcceptTypes</key>
+	    <string>1</string>
 	    <key>Commandline</key>
 	    <string>sort</string>
 	    <key>ExecInShell</key>
@@ -163,6 +179,8 @@
 	</dict>
 	<key>Time</key>
 	<dict>
+	    <key>AcceptTypes</key>
+	    <string>1</string>
 	    <key>Commandline</key>
 	    <string>date</string>
 	    <key>ExecInShell</key>
@@ -170,7 +188,7 @@
 	    <key>ExecType</key>
 	    <string>0</string>
 	    <key>Input</key>
-	    <string>0</string>
+	    <string>2</string>
 	    <key>Key</key>
 	    <string></string>
 	    <key>ReturnData</key>
@@ -178,6 +196,8 @@
 	</dict>
 	<key>Wrap and reply</key>
 	<dict>
+	    <key>AcceptTypes</key>
+	    <string>1</string>
 	    <key>Commandline</key>
 	    <string>fmt -w 70 | sed -e &quot;s/^/&gt; /&quot;</string>
 	    <key>ExecInShell</key>
@@ -193,6 +213,8 @@
 	</dict>
 	<key>Wrap to 72 Columns</key>
 	<dict>
+	    <key>AcceptTypes</key>
+	    <string>1</string>
 	    <key>Commandline</key>
 	    <string>fmt -w 72</string>
 	    <key>ExecInShell</key>
@@ -215,13 +237,15 @@
 	    <key>ExecInShell</key>
 	    <string>0</string>
 	    <key>ExecType</key>
-	    <string>0</string>
+	    <string>1</string>
 	    <key>Input</key>
 	    <string>2</string>
 	    <key>Key</key>
 	    <string></string>
 	    <key>ReturnData</key>
 	    <string>0</string>
+	    <key>WindowType</key>
+	    <string>1</string>
 	</dict>
 	<key>bzip2</key>
 	<dict>
@@ -232,13 +256,15 @@
 	    <key>ExecInShell</key>
 	    <string>0</string>
 	    <key>ExecType</key>
-	    <string>0</string>
+	    <string>1</string>
 	    <key>Input</key>
 	    <string>2</string>
 	    <key>Key</key>
 	    <string></string>
 	    <key>ReturnData</key>
-	    <string>0</string>
+	    <string>1</string>
+	    <key>WindowType</key>
+	    <string>1</string>
 	</dict>
 	<key>gunzip</key>
 	<dict>
@@ -249,13 +275,15 @@
 	    <key>ExecInShell</key>
 	    <string>0</string>
 	    <key>ExecType</key>
-	    <string>0</string>
+	    <string>1</string>
 	    <key>Input</key>
 	    <string>2</string>
 	    <key>Key</key>
 	    <string></string>
 	    <key>ReturnData</key>
 	    <string>0</string>
+	    <key>WindowType</key>
+	    <string>1</string>
 	</dict>
 	<key>gzip</key>
 	<dict>
@@ -266,16 +294,18 @@
 	    <key>ExecInShell</key>
 	    <string>0</string>
 	    <key>ExecType</key>
-	    <string>0</string>
+	    <string>1</string>
 	    <key>Input</key>
 	    <string>2</string>
 	    <key>Key</key>
 	    <string></string>
 	    <key>ReturnData</key>
 	    <string>0</string>
+	    <key>WindowType</key>
+	    <string>1</string>
 	</dict>
     </dict>
-    <key>TextBlinkColor</key>
+        <key>TextBlinkColor</key>
     <dict>
 	<key>Alpha</key>
 	<real>1</real>

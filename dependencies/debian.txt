@@ -26,6 +26,7 @@ picom
 info
 emacs
 fzf
+bc
 gdb
 cmake
 autoconf

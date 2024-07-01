@@ -58,21 +58,6 @@
 	},
 	{
 	    NSMenuItem = {
-		default = "Terminal/bunzip2";
-	    };
-	    NSMessage = terminalService;
-	    NSPortName = Terminal;
-	    NSSendTypes = (
-		NSFilenamesPboardType
-	    );
-	    NSUserData = bunzip2;
-	},
-	{
-
-	    NSKeyEquivalent = {
-		default = "T";
-	    };
-	    NSMenuItem = {
 		default = "Terminal/Open shell here";
 	    };
 	    NSMessage = terminalService;
@@ -82,6 +67,17 @@
 		NSFilenamesPboardType
 	    );
 	    NSUserData = "Open shell here";
+	},
+	{
+	    NSMenuItem = {
+		default = "Terminal/bunzip2";
+	    };
+	    NSMessage = terminalService;
+	    NSPortName = Terminal;
+	    NSSendTypes = (
+		NSFilenamesPboardType
+	    );
+	    NSUserData = bunzip2;
 	},
 	{
 	    NSMenuItem = {
@@ -160,14 +156,14 @@
 	},
 	{
 	    NSMenuItem = {
-		default = "Terminal/Time";
+		default = "Terminal/bzip2";
 	    };
 	    NSMessage = terminalService;
 	    NSPortName = Terminal;
-	    NSReturnTypes = (
-		NSStringPboardType
+	    NSSendTypes = (
+		NSFilenamesPboardType
 	    );
-	    NSUserData = Time;
+	    NSUserData = bzip2;
 	},
 	{
 	    NSKeyEquivalent = {
@@ -185,14 +181,14 @@
 	},
 	{
 	    NSMenuItem = {
-		default = "Terminal/bzip2";
+		default = "Terminal/Time";
 	    };
 	    NSMessage = terminalService;
 	    NSPortName = Terminal;
-	    NSSendTypes = (
-		NSFilenamesPboardType
+	    NSReturnTypes = (
+		NSStringPboardType
 	    );
-	    NSUserData = bzip2;
+	    NSUserData = Time;
 	}
     );
 }
