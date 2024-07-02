@@ -301,7 +301,7 @@ if [ "$1" == "--safe-mode-continue" ];then
 fi
 
 if [ "$1" == "--safe-mode" ];then
-  exec xterm -bg black -fg gray -bd green -geometry 160x18+0-0 -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
+  exec xterm -bg black -fg gray -bd green -geometry 160x24+0+0 -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
 fi
 
 show_status "black"

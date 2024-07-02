@@ -70,7 +70,7 @@ libxkbfile-devel
 xcb-util-devel
 xorg-x11-server-Xnest
 libXft-devel
-libart-devel
+libart_lgpl-devel
 libXcursor-devel
 libXtst-devel
 freetype-devel
