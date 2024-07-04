@@ -22,17 +22,27 @@
 
 #import "MessageController.h"
 
+@implementation MessageWindow
+@end
+
 @implementation MessageController
 
 - (id) init {
   self = [super init];
   [NSBundle loadNibNamed:@"Message" owner:self];
+  [openAction setHidden:YES];
 
   return self;
 }
 
 - (void) dealloc {
+  RELEASE(command);
   [super dealloc];
+}
+
+- (void) setActionCommand:(NSString*) cmd {
+  ASSIGN(command, cmd);
+  [openAction setHidden:NO];
 }
 
 - (NSPanel*) panel {
@@ -53,7 +63,18 @@
 }
 
 - (IBAction) actionButton:(id)sender {
-  [panel close];
+  if (sender == openAction) {
+    if (command) {
+      NSTask* task = [[[NSTask alloc] init] autorelease];
+      [task setLaunchPath:@"/bin/sh"];
+      [task setArguments:[NSArray arrayWithObjects:@"-c", command, nil]];
+      [task launch];
+    }
+    [panel close];
+  }
+  else {
+    [panel close];
+  }
 }
 
 @end

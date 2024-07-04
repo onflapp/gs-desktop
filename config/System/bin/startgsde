@@ -180,6 +180,7 @@ function init_config {
   wdwrite WMWindowAttributes 'GWorkspace.GNUstep'    '{ DontSaveSession = Yes; NoAppIcon = Yes; }'
   wdwrite WMWindowAttributes 'GestureHelper.GNUstep' '{ DontSaveSession = Yes; NoAppIcon = Yes; }'
   wdwrite WMWindowAttributes 'NotMon.GNUstep'        '{ DontSaveSession = Yes; SkipWindowList = Yes; SkipSwitchPanel = Yes; NoAppIcon = Yes; KeepOnTop = Yes; Omnipresent = Yes; }'
+  wdwrite WMWindowAttributes 'NotMon.MessageWindow'  '{ Unfocusable = Yes; }'
  
   if [ -f "$HOME/.gsderc" ];then
     echo "sourcing $HOME/.gsderc"

@@ -25,15 +25,23 @@
 
 #import <AppKit/AppKit.h>
 
+@interface MessageWindow : NSPanel
+@end
+
 @interface MessageController : NSObject
 {
   IBOutlet NSPanel* panel;
   IBOutlet NSTextField* panelInfo;
   IBOutlet NSTextField* panelTitle;
-  IBOutlet NSButton* panelAction;
+  IBOutlet NSButton* closeAction;
+  IBOutlet NSButton* openAction;
+
+  NSString* command;
 }
 
 - (IBAction) actionButton:(id)sender;
+
+- (void) setActionCommand:(NSString*) command;
 
 - (NSPanel*) panel;
 - (NSTextField*) panelTitle;

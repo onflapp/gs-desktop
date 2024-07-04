@@ -41,10 +41,15 @@
 - (BOOL) application: (NSApplication *)application
 	    openFile: (NSString *)fileName;
 
-- (void) showPanelWithTitle:(NSString*) title 
+- (void) showPanelWithTitle:(NSString*) title
                        info:(NSString*) info;
-- (void) showModalPanelWithTitle:(NSString*) title 
+- (void) showModalPanelWithTitle:(NSString*) title
                             info:(NSString*) info;
+- (void) showMessageWithTitle:(NSString*) title
+                         info:(NSString*) info;
+- (void) showMessageWithTitle:(NSString*) title
+                         info:(NSString*) info
+                       action:(NSString*) action;
 - (void) hidePanelAfter:(NSTimeInterval) time;
 
 - (void) showPrefPanel:(id)sender;

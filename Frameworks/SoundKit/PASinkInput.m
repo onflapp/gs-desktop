@@ -206,6 +206,10 @@
   }
   
   free(new_volume);
+
+  //process events right after
+  [[NSRunLoop currentRunLoop] runUntilDate:
+    [NSDate dateWithTimeIntervalSinceNow:0.0]];
 }
 - (void)applyBalance:(CGFloat)balance
 {
@@ -223,6 +227,10 @@
   }
   
   free(volume);
+
+  //process events right after
+  [[NSRunLoop currentRunLoop] runUntilDate:
+    [NSDate dateWithTimeIntervalSinceNow:0.0]];
 }
 - (void)applyMute:(BOOL)isMute
 {

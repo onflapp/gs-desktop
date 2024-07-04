@@ -110,7 +110,16 @@ int main(int argc, char** argv, char** env)
         [app showModalPanelWithTitle:title info:info];
       }
       else if (type == 2) {
-        [app showMessageWithTitle:title info:info];
+        if (cmd) {
+          NSMutableString* str = [NSMutableString string];
+          if (cmd) [str appendString:cmd];
+          if (arg) [str appendFormat:@" %@", arg];
+
+          [app showMessageWithTitle:title info:info action:str];
+        }
+        else {
+          [app showMessageWithTitle:title info:info];
+        }
       }
       else if (type == 3) {
         [app showConsoleWithCommand:cmd argument:arg];

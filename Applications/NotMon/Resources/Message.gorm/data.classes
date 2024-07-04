@@ -12,10 +12,18 @@
 	);
 	Outlets = (
 	    panel,
-	    panelAction,
 	    panelInfo,
-	    panelTitle
+	    panelTitle,
+	    closeAction,
+	    openAction
 	);
 	Super = NSObject;
+    };
+    MessageWindow = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSPanel;
     };
 }

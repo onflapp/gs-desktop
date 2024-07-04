@@ -3,13 +3,17 @@
 #import <Foundation/Foundation.h>
 
 int main(int argc, char* argv[]) {
-    if (!initialize_context()) {
-        NSLog(@"unable to initialize context");
-        return 1;
-    }
+  NSAutoreleasePool *pool = [NSAutoreleasePool new];
 
-    setbuf(stdout, NULL);
-    start_loop();
+  if (!initialize_context()) {
+    NSLog(@"unable to initialize context");
+    [pool release];
+    return 1;
+  }
 
-    return 0;
+  setbuf(stdout, NULL);
+  start_loop();
+
+  [pool release];
+  return 0;
 }

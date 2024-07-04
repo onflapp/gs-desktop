@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/Library/bin/nxworkspace --open "$1"

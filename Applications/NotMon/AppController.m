@@ -58,6 +58,10 @@ Application Controller
   return dict;
 }
 
+- (void) applicationDidBecomeActive: (NSNotification *)aNotif
+{
+}
+
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif
 {
   launched = YES;
@@ -162,16 +166,28 @@ Application Controller
 - (void) showMessageWithTitle:(NSString*) title
                          info:(NSString*) info
 {
+  [self showMessageWithTitle:title info:info action:nil];
+}
+
+- (void) showMessageWithTitle:(NSString*) title
+                         info:(NSString*) info
+                       action:(NSString*) action
+{
   MessageController* ctrl = [[MessageController alloc] init];
   NSPanel* mpanel = [ctrl panel];
 
   [mpanel setLevel:NSDockWindowLevel];
+  [mpanel setBecomesKeyOnlyIfNeeded:YES];
 
   [[ctrl panelTitle] setStringValue:title?title:@""];
   [[ctrl panelInfo] setStringValue:info?info:@""];
 
+  if (action) {
+    [ctrl setActionCommand:action];
+  }
+
   [messages addObject:ctrl];
-  [self reoderMessages];
+  [self reoderMessages:nil];
 }
 
 - (void) showPanelWithTitle:(NSString*) title 
@@ -208,7 +224,7 @@ Application Controller
   [self _grabEvents];
 }
 
-- (void) reoderMessages {
+- (void) reoderMessages:(id)val {
   NSScreen* screen = [NSScreen mainScreen];
   NSRect sr = [screen visibleFrame];
   CGFloat margin = 8;
@@ -219,19 +235,31 @@ Application Controller
     NSPanel* mpanel = [ctrl panel];
     NSRect pr = [mpanel frame];
 
+    [mpanel orderFront:self];
+
     height = pr.size.height;
     pr.origin.x = sr.size.width - 64 - margin - pr.size.width;
-    pr.origin.y = sr.size.height - ((height + 2) * c);
-    
-    [mpanel setFrame:pr display:NO];
-    [mpanel orderFront:self];
+    pr.origin.y = sr.size.height - (height * c);
+
+    if ([val integerValue] == 1) {
+      pr.size.width = pr.size.width + 1;
+    }
+
+    [mpanel setFrame:pr display:YES];
+
     c++;
+  }
+
+  if (val == nil) {
+    [self performSelector:@selector(reoderMessages:) 
+               withObject:[NSNumber numberWithInteger:1]
+               afterDelay:0.0];
   }
 }
 
 - (void) removeMessageController:(id) mctrl {
   [messages removeObject:mctrl];
-  [self reoderMessages];
+  [self reoderMessages:nil];
 }
 
 - (void) _grabEvents {

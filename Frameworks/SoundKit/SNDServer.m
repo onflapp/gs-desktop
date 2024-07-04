@@ -164,14 +164,6 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   }
   pa_context_connect(_pa_ctx, host_name, 0, NULL);
   
-  /*
-  _pa_q = dispatch_queue_create("org.nextspace.soundkit", NULL);
-  dispatch_async(_pa_q, ^{
-      NSDebugLLog(@"SoundKit", @"[SNDServer] >>> PulseAudio mainloop started.");
-      while (pa_mainloop_iterate(_pa_loop, 1, NULL) >= 0) { ; }
-      NSDebugLLog(@"SoundKit", @"[SNDServer] <<< PulseAudio mainloop exited.");
-  });
-  */
   [self performSelectorInBackground:@selector(pa_main_loop) withObject:nil];
   mainLoopRunning = YES;
 }
