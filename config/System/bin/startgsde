@@ -7,6 +7,7 @@ function show_status {
 function start_workspace {
   (/System/Applications/GWorkspace.app/GWorkspace) &
   GW_PID="$!"
+  sleep 1.0
 
   echo "Workspace is running on $GW_PID"
   echo "$GW_PID" > /tmp/$UID-gw.pid
@@ -30,13 +31,26 @@ function start_windowmanager {
 
   (/System/bin/wmaker $WM_ARGS) &
   WM_PID="$!"
+  sleep 1
 
   echo "WM is running on $WM_PID"
   echo "$WM_PID" > /tmp/$UID-wm.pid
   export GS_DESKTOP_WM_PID="$WM_PID"
+
+  if [ -f "$HOME/Library/etc/picom.conf" ];then
+    echo "about to start picom"
+    sleep 1
+    picom -b --conf $HOME/Library/etc/picom.conf --write-pid-path /tmp/$UID-picom.pid
+  fi
 }
 
 function stop_windowmanager {
+  PID=`cat /tmp/$UID-picom.pid 2>/dev/null`
+  if [ -n "$PID" ];then
+    kill "$PID" 2>/dev/null
+    rm /tmp/$UID-picom.pid
+  fi
+
   PID=`cat /tmp/$UID-wm.pid 2>/dev/null`
   if [ -n "$PID" ];then
     echo "stopping WM on $PID"
@@ -50,10 +64,14 @@ function start_helpers {
   echo "about to start Notification Monitor"
   /System/Applications/NotMon.app/NotMon -GSSuppressAppIcon YES -autolaunch YES &
   echo "$!" > /tmp/$UID-notmon.pid
+
+  wait_for_gnustep
   
   echo "about to start Gesture Helper"
   /System/Applications/GestureHelper.app/GestureHelper -GSSuppressAppIcon YES -autolaunch YES &
   echo "$!" > /tmp/$UID-gesthelp.pid
+
+  /Library/bin/nxnotify show-modal-panel --title "GSDE" --info "Launching applications..."
 }
 
 function start_services {
@@ -65,18 +83,18 @@ function start_services {
 
   /Library/bin/gdomap -f &
   echo "$!" > /tmp/$UID-gdomap.pid
-  sleep 0.5
+  sleep 0.3
 
   echo "about to start Notification Center"
   /Library/bin/gdnc --daemon &
   echo "$!" > /tmp/$UID-gdnc.pid
-  sleep 0.5
+  sleep 0.3
 
   show_status "gray20"
   echo "about to start Pasteboard Service"
   /Library/bin/gpbs --daemon &
   echo "$!" > /tmp/$UID-gpbs.pid
-  sleep 0.1
+  sleep 0.3
 
   # needed to start synchronizing the X11 CLIPBOARD
   echo " " | /Library/bin/nxpasteboard --copy
@@ -85,18 +103,17 @@ function start_services {
   echo "about to start fswatcher Service"
   /Library/bin/fswatcher --daemon &
   echo "$!" > /tmp/$UID-fswatcher.pid
-  sleep 0.1
+  sleep 0.2
 
   show_status "gray30"
   echo "about to start ddbd Service"
   /Library/bin/ddbd --daemon &
   echo "$!" > /tmp/$UID-ddbd.pid
-  sleep 0.1
+  sleep 0.2
 
   show_status "gray35"
   echo "making services"
   /Library/bin/make_services
-
 }
 
 function _kill_proc {
@@ -203,22 +220,29 @@ function start_debug {
 function wait_for_workspace {
   local c=0
   while [ $c -lt 20 ];do
-    sleep 0.5
-    (xwininfo -root -tree | grep -e 'File.Viewer.*GWorkspace.*') && return
+    (xwininfo -root -tree | grep -e 'File.Viewer.*GWorkspace.*') && break
     c=$((c + 1))
+    sleep 0.2
   done
+  sleep 0.5
+}
+
+function wait_for_gnustep {
+  local c=0
+  while [ $c -lt 20 ];do
+    (xprop -root _GNUSTEP_FRAME_OFFSETS | grep 'CARDINAL') && break
+    c=$((c + 1))
+    sleep 0.2
+  done
+  sleep 0.2
 }
 
 function startup_scripts {
-  /Library/bin/nxnotify show-modal-panel --title "GSDE" --info "Launching applications..."
-
   wait_for_workspace
-  sleep 1
+
   /Library/Scripts/AutoLaunchApps
 
   /Library/bin/nxnotify hide-panel
-
-  xrefresh
 }
 
 function save_screen {
@@ -246,13 +270,9 @@ function start_normal {
 
 function main_process {
   start_services
-  sleep 0.3
   start_windowmanager
-  sleep 0.3
   start_helpers
-  sleep 0.3
   start_workspace 
-  sleep 0.3
 }
 
 function cleanup {

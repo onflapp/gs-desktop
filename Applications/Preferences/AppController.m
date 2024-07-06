@@ -71,6 +71,13 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotif
 {
+  OSEScreen* systemScreen = [OSEScreen new];
+  [[NSNotificationCenter defaultCenter]
+    addObserver:self
+       selector:@selector(screenDidUpdate:)
+           name:OSEScreenDidUpdateNotification
+         object:systemScreen];
+
   // Here will be applied various preferences to desktop/system:
   // keyboard, mouse, sound, power management.
   // Display preferences are applied in Workspace Manager because displays must
@@ -108,6 +115,12 @@
   [self performSelector:@selector(configureMouseAndKeyboard) withObject:nil afterDelay:2.0];
 }
 
+// Notifications
+- (void)screenDidUpdate:(NSNotification *)aNotif
+{
+  [self performSelector:@selector(refreshScreen) withObject:nil afterDelay:1.0];
+}
+
 - (void) configureMouseAndKeyboard
 {
   NXTDefaults *defs = [NXTDefaults globalUserDefaults];
@@ -130,8 +143,15 @@
   }
 
   NSString* initrc = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"initrc"];
-  NSLog(@"Exec initrc %@", initrc);
-  [NSTask launchedTaskWithLaunchPath:initrc arguments:[NSArray array]];
+  NSLog(@"Exec initrc %@ wakeup", initrc);
+  [NSTask launchedTaskWithLaunchPath:initrc arguments:[NSArray arrayWithObject:@"keyboard"]];
+}
+
+- (void) refreshScreen
+{
+  NSString* initrc = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"initrc"];
+  NSLog(@"Exec initrc %@ screenchange", initrc);
+  [NSTask launchedTaskWithLaunchPath:initrc arguments:[NSArray arrayWithObject:@"screen"]];
 }
 
 - (NSApplicationTerminateReply)applicationShouldTerminate:(NSApplication *)sender

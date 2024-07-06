@@ -1,5 +1,14 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-if [ -f ~/.Xmodmap ];then
-  xmodmap ~/.Xmodmap
+if [ "$1" == "keyboard" ];then
+  if [ -f ~/.Xmodmap ];then
+    xmodmap ~/.Xmodmap
+  fi
+fi
+
+if [ "$1" == "screen" ];then
+  PID=`cat /tmp/$UID-picom.pid 2>/dev/null`
+  if [ -n "$PID" ];then
+    kill -USR1 "$PID" 2>/dev/null
+  fi
 fi
