@@ -42,7 +42,7 @@
   NMSetup       *nmSetupPanel;
   NetworkInfo   *networkInfo;
 
-  DKProxy       *networkManager;
+  DKProxy<NetworkManager>       *networkManager;
 }
 
 - (void)deactivateConnection;
