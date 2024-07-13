@@ -31,7 +31,7 @@ function start_windowmanager {
 
   (/System/bin/wmaker $WM_ARGS) &
   WM_PID="$!"
-  sleep 1
+  sleep 0.5
 
   echo "WM is running on $WM_PID"
   echo "$WM_PID" > /tmp/$UID-wm.pid
@@ -39,7 +39,6 @@ function start_windowmanager {
 
   if [ -f "$HOME/Library/etc/picom.conf" ];then
     echo "about to start picom"
-    sleep 1
     picom -b --conf $HOME/Library/etc/picom.conf --write-pid-path /tmp/$UID-picom.pid
   fi
 }
@@ -65,7 +64,7 @@ function start_helpers {
   /System/Applications/NotMon.app/NotMon -GSSuppressAppIcon YES -autolaunch YES &
   echo "$!" > /tmp/$UID-notmon.pid
 
-  wait_for_gnustep
+  sleep 0.2
   
   echo "about to start Gesture Helper"
   /System/Applications/GestureHelper.app/GestureHelper -GSSuppressAppIcon YES -autolaunch YES &
@@ -83,18 +82,18 @@ function start_services {
 
   /Library/bin/gdomap -f &
   echo "$!" > /tmp/$UID-gdomap.pid
-  sleep 0.3
+  sleep 0.2
 
   echo "about to start Notification Center"
   /Library/bin/gdnc --daemon &
   echo "$!" > /tmp/$UID-gdnc.pid
-  sleep 0.3
+  sleep 0.2
 
   show_status "gray20"
   echo "about to start Pasteboard Service"
   /Library/bin/gpbs --daemon &
   echo "$!" > /tmp/$UID-gpbs.pid
-  sleep 0.3
+  sleep 0.2
 
   # needed to start synchronizing the X11 CLIPBOARD
   echo " " | /Library/bin/nxpasteboard --copy
@@ -227,16 +226,6 @@ function wait_for_workspace {
   sleep 0.5
 }
 
-function wait_for_gnustep {
-  local c=0
-  while [ $c -lt 20 ];do
-    (xprop -root _GNUSTEP_FRAME_OFFSETS | grep 'CARDINAL') && break
-    c=$((c + 1))
-    sleep 0.2
-  done
-  sleep 0.2
-}
-
 function startup_scripts {
   wait_for_workspace
 
@@ -322,7 +311,7 @@ if [ "$1" == "--safe-mode-continue" ];then
 fi
 
 if [ "$1" == "--safe-mode" ];then
-  exec xterm -bg black -fg gray -bd green -geometry 160x24+0+0 -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
+  exec xterm -xrm '*.allowWindowOps:true' -bg black -fg gray -bd green -geometry 160x24+0+0 -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
 fi
 
 show_status "black"

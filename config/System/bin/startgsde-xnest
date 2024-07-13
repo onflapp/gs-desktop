@@ -8,7 +8,7 @@ if [ -z "$W" ] || [ -z "$H" ];then
   exit 1
 fi
 
-TH="245"
+TH="320"
 TW="$W"
 
 XW="$W"
@@ -18,6 +18,10 @@ XY="0"
 
 Xnest -geometry "${XW}x${XH}+${XX}+${XY}" :1 2>/dev/null  &
 XPID=$!
+
+# move the xtern out of the way
+XH=$((XH + 2))
+echo -e "\e[3;0;${XH}t\ePtmux;\e\e[3;0;${XH}t\e\\"
 
 sleep 1
 
