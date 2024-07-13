@@ -41,11 +41,16 @@
   BOOL scrollReversed;
 
   NSString *hold3cmd;
+  NSString *left3cmd;
+  NSString *right3cmd;
+  NSString *top3cmd;
+  NSString *bottom3cmd;
 }
 - (id) init;
 - (NSInteger) status;
 
 - (void) reconfigure;
+- (void) configsynclient;
 - (void) stopTask;
 - (void) execTask;
 

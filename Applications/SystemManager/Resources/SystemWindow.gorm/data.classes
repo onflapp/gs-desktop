@@ -3,8 +3,10 @@
     FirstResponder = {
 	Actions = (
 	    "execute:",
+	    "toggleStatus:",
 	    "refresh:",
-	    "select:"
+	    "select:",
+	    "toggleSwitch:"
 	);
 	Super = NSObject;
     };
@@ -12,13 +14,26 @@
 	Actions = (
 	    "refresh:",
 	    "select:",
-	    "execute:"
+	    "execute:",
+	    "toggleSwitch:",
+	    "toggleStatus:"
 	);
 	Outlets = (
 	    window,
 	    processInfo,
 	    processList,
-	    filterText
+	    filterText,
+	    devicesSwitch,
+	    mountsSwitch,
+	    servicesSwitch,
+	    pathsSwitch,
+	    slicesSwitch,
+	    socketsSwitch,
+	    targetsSwitch,
+	    timersSwitch,
+	    scopesSwitch,
+	    swapsSwitch,
+	    statusPopUp
 	);
 	Super = NSObject;
     };

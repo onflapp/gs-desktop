@@ -29,6 +29,8 @@
   id image;
 
   NSButton *scrollEnabled;
+  NSButton *scrollHorizontalEnabled;
+  NSButton *scrollVerticalEnabled;
   NSButton *scrollReversed;
 }
 

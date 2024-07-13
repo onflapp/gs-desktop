@@ -17,6 +17,9 @@ static double scroll_delta;
 static int scroll_dir;
 static int scroll_count;
 static int hold_fingers;
+static int swipe_fingers;
+static int swipe_x;
+static int swipe_y;
 
 BOOL initialize_context();
 void close_context();

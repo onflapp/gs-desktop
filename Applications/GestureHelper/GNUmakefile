@@ -33,7 +33,7 @@ GestureHelper_APPLICATION_ICON =
 #
 GestureHelper_RESOURCE_FILES = \
 Resources/GestureHelper.gorm \
-
+Resources/commands/touch_control
 
 #
 # Header files

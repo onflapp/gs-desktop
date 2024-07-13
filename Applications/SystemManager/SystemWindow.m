@@ -34,9 +34,11 @@
   processItems = [[NSMutableArray alloc] init];
   processDetails = [[NSMutableString alloc] init];
 
-
+  //[processInfo setBackgroundColor:[NSColor blackColor]];
   [processInfo setVerticallyResizable: YES];
   [processInfo setHorizontallyResizable: YES];
+
+  [servicesSwitch setState:1];
 
   [[processInfo textContainer] setContainerSize: NSMakeSize(FLT_MAX, FLT_MAX)];
   [[processInfo textContainer] setWidthTracksTextView: NO];
@@ -59,6 +61,32 @@
   RELEASE(processItems);
 
   [super dealloc];
+}
+
+- (NSString*) __makeTypesFilter {
+  NSMutableArray* types = [NSMutableArray array];
+  if ([devicesSwitch state]) [types addObject:@"device"];
+  if ([mountsSwitch state])  [types addObject:@"mount"];
+  if ([pathsSwitch state])   [types addObject:@"path"];
+  if ([socketsSwitch state]) [types addObject:@"socket"];
+  if ([scopesSwitch state])  [types addObject:@"scope"];
+  if ([slicesSwitch state])  [types addObject:@"slice"];
+  if ([swapsSwitch state])   [types addObject:@"swap"];
+  if ([timersSwitch state])  [types addObject:@"timer"];
+  if ([targetsSwitch state]) [types addObject:@"target"];
+  if ([servicesSwitch state])[types addObject:@"service"];
+
+  if ([types count] == 0) [types addObject:@"all"];
+
+  return [types componentsJoinedByString:@","];
+}
+
+- (NSString*) __makeStatusFilter {
+  NSMutableArray* types = [NSMutableArray array];
+  if ([[statusPopUp selectedItem] tag] == 0) [types addObject:@"all"];
+  if ([[statusPopUp selectedItem] tag] == 1) [types addObject:@"running"];
+  if ([[statusPopUp selectedItem] tag] == 2) [types addObject:@"failed"];
+  return [types componentsJoinedByString:@","];
 }
 
 - (void) showWindow {
@@ -112,6 +140,14 @@
   }
 }
 
+- (IBAction) toggleSwitch:(id)sender {
+  [self refresh:sender];
+}
+
+- (IBAction) toggleStatus:(id)sender {
+  [self refresh:sender];
+}
+
 - (IBAction) refresh:(id)sender {
   status = 1;
   [processItems removeAllObjects];
@@ -119,9 +155,12 @@
 
   NSString* cmd = [self commandForName:@"system_process"];
   NSString* f = [filterText stringValue];
+  NSString* t = [self __makeTypesFilter];
+  NSString* s = [self __makeStatusFilter];
+
   if (!f) f = @"";
 
-  [self execTask:cmd withArguments:[NSArray arrayWithObjects:@"list", f, nil]];
+  [self execTask:cmd withArguments:[NSArray arrayWithObjects:@"list", t, s, f, nil]];
 }
 
 - (IBAction) select:(id) sender {
@@ -140,7 +179,9 @@
 
 - (void) setDetailMessage:(NSString*) str {
   NSFont* font = [NSFont userFixedPitchFontOfSize:[NSFont systemFontSize]];
-  NSDictionary* attrs = [NSDictionary dictionaryWithObject:font forKey:NSFontAttributeName];
+  NSDictionary* attrs = [NSDictionary dictionaryWithObjectsAndKeys:
+    /*[NSColor grayColor], NSForegroundColorAttributeName,*/
+    font, NSFontAttributeName, nil];
 
   NSAttributedString* message = [[NSAttributedString alloc] initWithString:str
                                                                 attributes:attrs];

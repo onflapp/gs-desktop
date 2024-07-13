@@ -19,6 +19,18 @@
 
   NSButton* hold3enabled;
   NSTextField* hold3command;
+
+  NSButton* left3enabled;
+  NSTextField* left3command;
+
+  NSButton* right3enabled;
+  NSTextField* right3command;
+
+  NSButton* top3enabled;
+  NSTextField* top3command;
+
+  NSButton* bottom3enabled;
+  NSTextField* bottom3command;
 }
 
 + (void) initialize;
@@ -27,6 +39,9 @@
 - (void) dealloc;
 
 - (void) awakeFromNib;
+
+- (void) syncPreferences:(id)sender;
+- (void) showPreferences:(id)sender;
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif;
 - (BOOL) applicationShouldTerminate: (id)sender;

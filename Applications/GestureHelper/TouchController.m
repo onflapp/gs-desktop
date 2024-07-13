@@ -24,6 +24,7 @@
 
 #include <X11/Xutil.h>
 #include <X11/extensions/XTest.h>
+#include <unistd.h>
 #import "TouchController.h"
 
 @implementation TouchController
@@ -162,11 +163,39 @@
   [task launch];
 }
 
+- (void) configsynclient {
+  NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+  NSString* exec = [[[NSBundle mainBundle] resourcePath]
+    stringByAppendingPathComponent:@"touch_control"];
+
+  BOOL sen = [[defaults valueForKey:@"ScrollEnabled"] boolValue];
+  BOOL ver = [[defaults valueForKey:@"ScrollVerticalEnabled"] boolValue];
+  BOOL hor = [[defaults valueForKey:@"ScrollHorizontalEnabled"] boolValue];
+
+  NSMutableArray* args = [NSMutableArray array];
+  
+  if (ver) [args addObject:@"VertEdgeScroll=1"];
+  else     [args addObject:@"VertEdgeScroll=0"];
+
+  if (hor) [args addObject:@"HorizEdgeScroll=1"];
+  else     [args addObject:@"HorizEdgeScroll=0"];
+  
+  NSLog(@"start %@ [%@]", exec, args);
+  
+  task = [[NSTask alloc] init];
+
+  [task setLaunchPath:exec];
+  [task setArguments:args];
+  [task launch];
+}
+
 - (void) reconfigure {
   NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
 
   scrollEnabled = [[defaults valueForKey:@"ScrollEnabled"] boolValue];
   scrollReversed = [[defaults valueForKey:@"ScrollReversed"] boolValue];
+
+  NSLog(@">> enabled:%d reversed:%d", scrollEnabled, scrollReversed);
 
   BOOL v = [[defaults valueForKey:@"Hold3Enabled"] boolValue];
   NSString *c = [defaults valueForKey:@"Hold3Command"];
@@ -174,6 +203,34 @@
   [hold3cmd release];
   hold3cmd = nil;
   if (v && [c length]) hold3cmd = [c retain];
+
+  v = [[defaults valueForKey:@"Left3Enabled"] boolValue];
+  c = [defaults valueForKey:@"Left3Command"];
+
+  [left3cmd release];
+  left3cmd = nil;
+  if (v && [c length]) left3cmd = [c retain];
+
+  v = [[defaults valueForKey:@"Right3Enabled"] boolValue];
+  c = [defaults valueForKey:@"RightCommand"];
+
+  [right3cmd release];
+  right3cmd = nil;
+  if (v && [c length]) right3cmd = [c retain];
+
+  v = [[defaults valueForKey:@"Top3Enabled"] boolValue];
+  c = [defaults valueForKey:@"TopCommand"];
+
+  [top3cmd release];
+  top3cmd = nil;
+  if (v && [c length]) top3cmd = [c retain];
+
+  v = [[defaults valueForKey:@"Bottom3Enabled"] boolValue];
+  c = [defaults valueForKey:@"BottomCommand"];
+
+  [bottom3cmd release];
+  bottom3cmd = nil;
+  if (v && [c length]) bottom3cmd = [c retain];
 }
 
 - (void) taskDidTerminate:(NSNotification*) not {
@@ -228,21 +285,39 @@
 
 - (void) processLine:(NSString*) line {
   if (scrollEnabled) {
-    NSString *aa = (scrollReversed?@"5":@"4");
-    NSString *bb = (scrollReversed?@"4":@"5");
+    NSInteger aa = (scrollReversed?Button5:Button4);
+    NSInteger bb = (scrollReversed?Button4:Button5);
 
     if ([line isEqualToString:@"SCROLL_UP"]) {
-      [self simulateClick:Button4];
-      //[self execCommand:@"xdotool" withArguments:[NSArray arrayWithObjects:@"click", aa, nil]];
+      [self simulateClick:aa];
     }
     else if ([line isEqualToString:@"SCROLL_DOWN"]) {
-      [self simulateClick:Button5];
-      //[self execCommand:@"xdotool" withArguments:[NSArray arrayWithObjects:@"click", bb, nil]];
+      [self simulateClick:bb];
     }
   }
   if (hold3cmd) {
     if ([line isEqualToString:@"HOLD3"]) {
       [self execCommand:@"sh" withArguments:[NSArray arrayWithObjects:@"-c", hold3cmd, nil]];
+    }
+  }
+  if (left3cmd) {
+    if ([line isEqualToString:@"LEFT3"]) {
+      [self execCommand:@"sh" withArguments:[NSArray arrayWithObjects:@"-c", left3cmd, nil]];
+    }
+  }
+  if (right3cmd) {
+    if ([line isEqualToString:@"RIGHT3"]) {
+      [self execCommand:@"sh" withArguments:[NSArray arrayWithObjects:@"-c", right3cmd, nil]];
+    }
+  }
+  if (bottom3cmd) {
+    if ([line isEqualToString:@"BOTTOM3"]) {
+      [self execCommand:@"sh" withArguments:[NSArray arrayWithObjects:@"-c", bottom3cmd, nil]];
+    }
+  }
+  if (top3cmd) {
+    if ([line isEqualToString:@"TOP3"]) {
+      [self execCommand:@"sh" withArguments:[NSArray arrayWithObjects:@"-c", top3cmd, nil]];
     }
   }
 }

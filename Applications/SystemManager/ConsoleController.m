@@ -88,7 +88,7 @@
 }
 
 - (void) viewBecameIdle:(NSNotification*) n {
-  //[panel performClose:self];
+  [panel performClose:self];
 }
 
 - (void) windowDidResignKey:(NSNotification *)notification {

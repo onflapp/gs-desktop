@@ -61,6 +61,16 @@ BOOL device_exists() {
     return device_found;
 }
 
+void handle_swipe(struct libinput_event_gesture* gev) {
+    char *type;
+    if (abs(swipe_x) > abs(swipe_y)) {
+        type = swipe_x < 0 ? "LEFT" : "RIGHT";
+    } 
+    else {
+        type = swipe_y < 0 ? "TOP" : "BOTTOM";
+    }
+    printf("%s%d\n", type, swipe_fingers);
+}
 
 void handle_hold(struct libinput_event_gesture* gev, int state) {
     int count = libinput_event_gesture_get_finger_count(gev);
@@ -107,8 +117,9 @@ void handle_scroll(struct libinput_event_pointer* ev) {
         timersub(&t, &last_time, &d);
         int x = d.tv_usec / 10000;
         //NSLog(@">> %d.%d %d", d.tv_sec, x, scroll_count);
+        //NSLog(@">> %f", scroll_delta);
 
-        if (scroll_delta > 10 && x > 10) {
+        if (scroll_delta > 10) {
             if (scroll_dir > 0) {
                 printf("SCROLL_DOWN\n");
             }
@@ -130,12 +141,22 @@ void handle_event() {
     libinput_dispatch(libinput);
     while ((libinput_event = libinput_get_event(libinput))) {
         int type = libinput_event_get_type(libinput_event);
+        struct libinput_event_gesture *gev = NULL;
+
         switch (type) {
         case LIBINPUT_EVENT_GESTURE_SWIPE_BEGIN:
+            gev = libinput_event_get_gesture_event(libinput_event);
+            swipe_fingers = libinput_event_gesture_get_finger_count(gev);
+            swipe_x = 0;
+            swipe_y = 0;
             break;
         case LIBINPUT_EVENT_GESTURE_SWIPE_UPDATE:
+            gev = libinput_event_get_gesture_event(libinput_event);
+            swipe_x += libinput_event_gesture_get_dx(gev);
+            swipe_y += libinput_event_gesture_get_dy(gev);
             break;
         case LIBINPUT_EVENT_GESTURE_SWIPE_END:
+            handle_swipe(libinput_event_get_gesture_event(libinput_event));
             break;
         case LIBINPUT_EVENT_NONE:
             break;

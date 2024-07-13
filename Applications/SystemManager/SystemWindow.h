@@ -33,6 +33,19 @@
   IBOutlet NSTableView* processList;
   IBOutlet NSTextField* filterText;
 
+  IBOutlet NSButton* devicesSwitch;
+  IBOutlet NSButton* mountsSwitch;
+  IBOutlet NSButton* pathsSwitch;
+  IBOutlet NSButton* socketsSwitch;
+  IBOutlet NSButton* slicesSwitch;
+  IBOutlet NSButton* timersSwitch;
+  IBOutlet NSButton* targetsSwitch;
+  IBOutlet NSButton* servicesSwitch;
+  IBOutlet NSButton* swapsSwitch;
+  IBOutlet NSButton* scopesSwitch;
+
+  IBOutlet NSPopUpButton* statusPopUp;
+
   NSMutableData* buff;
   NSFileHandle* fh;
   NSTask* task;
@@ -48,6 +61,9 @@
 
 - (IBAction) refresh:(id)sender;
 - (IBAction) execute:(id)sender;
+- (IBAction) select:(id) sender;
+- (IBAction) toggleSwitch:(id)sender;
+- (IBAction) toggleStatus:(id)sender;
 
 @end
 

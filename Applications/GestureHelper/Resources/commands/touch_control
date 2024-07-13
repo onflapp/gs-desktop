@@ -1,0 +1,6 @@
+#!/bin/sh
+
+synclient \
+    VertTwoFingerScroll=0 \
+    HorizTwoFingerScroll=0 \
+$@

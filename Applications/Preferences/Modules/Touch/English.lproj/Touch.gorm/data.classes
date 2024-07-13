@@ -58,7 +58,9 @@
 	    window,
 	    image,
 	    scrollReversed,
-	    scrollEnabled
+	    scrollEnabled,
+	    scrollHorizontalEnabled,
+	    scrollVerticalEnabled
 	);
 	Super = NSObject;
     };

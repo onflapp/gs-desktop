@@ -10,8 +10,25 @@ if ($ARGV[0] eq "status") {
   close(IN);
 }
 elsif ($ARGV[0] eq "list") {
-  $f = $ARGV[1];
-  open(IN, "systemctl --all |");
+  $t = $ARGV[1];
+  $s = $ARGV[2];
+  $f = $ARGV[3];
+  
+  if ($t eq "all") {
+    $t = "--all";
+  }
+  else {
+    $t = "--all --type=$t";
+  }
+
+  if ($s eq "all") {
+    $s = "";
+  }
+  else {
+    $s = "--state=$s";
+  }
+
+  open(IN, "systemctl $s $t |");
   while(<IN>) {
     chomp();
     if (/^  UNIT /) {

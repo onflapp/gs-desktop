@@ -7,7 +7,15 @@
 	Outlets = (
 	    panel,
 	    hold3enabled,
-	    hold3command
+	    hold3command,
+	    bottom3command,
+	    left3command,
+	    left3enabled,
+	    bottom3enabled,
+	    right3command,
+	    right3enabled,
+	    top3command,
+	    top3enabled
 	);
 	Super = NSObject;
     };

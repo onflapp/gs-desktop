@@ -64,13 +64,19 @@ static NSBundle                 *bundle = nil;
   [window release];
 
   NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
-  NSDictionary* domain = [defaults persistentDomainForName:NSGlobalDomain];
+  NSDictionary* domain = [defaults persistentDomainForName:@"GestureHelper"];
 
   BOOL val = [[domain valueForKey:@"ScrollEnabled"] boolValue];
   [scrollEnabled setState:val];
 
   val = [[domain valueForKey:@"ScrollReversed"] boolValue];
   [scrollReversed setState:val];
+
+  val = [[domain valueForKey:@"ScrollVerticalEnabled"] boolValue];
+  [scrollVerticalEnabled setState:val];
+
+  val = [[domain valueForKey:@"ScrollHorizontalEnabled"] boolValue];
+  [scrollHorizontalEnabled setState:val];
 }
 
 - (NSView *)view
@@ -99,8 +105,9 @@ static NSBundle                 *bundle = nil;
 
 - (void) advancedConfig:(id) sender
 {
-  NSWorkspace* ws = [NSWorkspace sharedWorkspace];
-  [ws openFile:@"-configure" withApplication:@"GestureHelper"];
+  id app = [NSConnection rootProxyForConnectionWithRegisteredName:@"GestureHelper" 
+                                                             host:@""];
+  [app showPreferences];
 }
 
 - (void) changeConfig:(id) sender
@@ -114,19 +121,26 @@ static NSBundle                 *bundle = nil;
   val = [scrollReversed state];
   [domain setValue:[NSNumber numberWithBool:val] forKey:@"ScrollReversed"];
 
+  val = [scrollVerticalEnabled state];
+  [domain setValue:[NSNumber numberWithBool:val] forKey:@"ScrollVerticalEnabled"];
+
+  val = [scrollHorizontalEnabled state];
+  [domain setValue:[NSNumber numberWithBool:val] forKey:@"ScrollHorizontalEnabled"];
+
   [defaults setPersistentDomain:domain forName:@"GestureHelper"];
   [defaults synchronize];
 
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
   [self performSelector:@selector(_notifyConfigChange) 
              withObject:nil
-             afterDelay:1.0];
+             afterDelay:0.5];
 }
 
 - (void) _notifyConfigChange 
 {
-  NSWorkspace* ws = [NSWorkspace sharedWorkspace];
-  [ws openFile:@"-reconfigure" withApplication:@"GestureHelper"];
+  id app = [NSConnection rootProxyForConnectionWithRegisteredName:@"GestureHelper" 
+                                                             host:@""];
+  [app syncPreferences];
 }
 
 @end
