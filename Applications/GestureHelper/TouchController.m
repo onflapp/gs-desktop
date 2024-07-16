@@ -182,11 +182,11 @@
   
   NSLog(@"start %@ [%@]", exec, args);
   
-  task = [[NSTask alloc] init];
+  cmd = [[NSTask alloc] init];
 
-  [task setLaunchPath:exec];
-  [task setArguments:args];
-  [task launch];
+  [cmd setLaunchPath:exec];
+  [cmd setArguments:args];
+  [cmd launch];
 }
 
 - (void) reconfigure {

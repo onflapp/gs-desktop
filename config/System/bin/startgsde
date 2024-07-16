@@ -31,7 +31,7 @@ function start_windowmanager {
 
   (/System/bin/wmaker $WM_ARGS) &
   WM_PID="$!"
-  sleep 0.5
+  sleep 1
 
   echo "WM is running on $WM_PID"
   echo "$WM_PID" > /tmp/$UID-wm.pid
@@ -40,6 +40,15 @@ function start_windowmanager {
   if [ -f "$HOME/Library/etc/picom.conf" ];then
     echo "about to start picom"
     picom -b --conf $HOME/Library/etc/picom.conf --write-pid-path /tmp/$UID-picom.pid
+    sleep 0.5
+  fi
+}
+
+function refresh_picom {
+  sleep 0.2
+  PID=`cat /tmp/$UID-picom.pid 2>/dev/null`
+  if [ -n "$PID" ];then
+    kill -USR1 "$PID" 2>/dev/null
   fi
 }
 
@@ -54,6 +63,7 @@ function stop_windowmanager {
   if [ -n "$PID" ];then
     echo "stopping WM on $PID"
     pkill -P "$PID" 2>/dev/null
+    sleep 0.5
     kill "$PID"     2>/dev/null
     rm /tmp/$UID-wm.pid
   fi
@@ -64,11 +74,11 @@ function start_helpers {
   /System/Applications/NotMon.app/NotMon -GSSuppressAppIcon YES -autolaunch YES &
   echo "$!" > /tmp/$UID-notmon.pid
 
-  sleep 0.2
+  sleep 0.5
   
   echo "about to start Gesture Helper"
   /System/Applications/GestureHelper.app/GestureHelper -GSSuppressAppIcon YES -autolaunch YES &
-  echo "$!" > /tmp/$UID-gesthelp.pid
+  echo "$!" > /tmp/$UID-ghelper.pid
 
   /Library/bin/nxnotify show-modal-panel --title "GSDE" --info "Launching applications..."
 }
@@ -82,18 +92,18 @@ function start_services {
 
   /Library/bin/gdomap -f &
   echo "$!" > /tmp/$UID-gdomap.pid
-  sleep 0.2
+  sleep 0.5
 
   echo "about to start Notification Center"
   /Library/bin/gdnc --daemon &
   echo "$!" > /tmp/$UID-gdnc.pid
-  sleep 0.2
+  sleep 0.5
 
   show_status "gray20"
   echo "about to start Pasteboard Service"
   /Library/bin/gpbs --daemon &
   echo "$!" > /tmp/$UID-gpbs.pid
-  sleep 0.2
+  sleep 0.3
 
   # needed to start synchronizing the X11 CLIPBOARD
   echo " " | /Library/bin/nxpasteboard --copy
@@ -102,13 +112,13 @@ function start_services {
   echo "about to start fswatcher Service"
   /Library/bin/fswatcher --daemon &
   echo "$!" > /tmp/$UID-fswatcher.pid
-  sleep 0.2
+  sleep 0.3
 
   show_status "gray30"
   echo "about to start ddbd Service"
   /Library/bin/ddbd --daemon &
   echo "$!" > /tmp/$UID-ddbd.pid
-  sleep 0.2
+  sleep 0.3
 
   show_status "gray35"
   echo "making services"
@@ -118,8 +128,9 @@ function start_services {
 function _kill_proc {
   PID=`cat /tmp/$UID-$1.pid 2>/dev/null`
   if [ -n "$PID" ];then
-    kill $PID 2> /dev/null && rm /tmp/$UID-$1.pid
-    sleep 0.1
+    kill $PID 2> /dev/null 
+    rm /tmp/$UID-$1.pid
+    sleep 0.3
   fi
 }
 
@@ -134,7 +145,7 @@ function stop_services {
   _kill_proc notmon
 
   echo "about to stop Gesture Helper"
-  _kill_proc gesthelp
+  _kill_proc ghelper
 
   echo "about to stop Pasteboard Service"
   _kill_proc gpbs
@@ -219,9 +230,9 @@ function start_debug {
 function wait_for_workspace {
   local c=0
   while [ $c -lt 20 ];do
+    sleep 0.5
     (xwininfo -root -tree | grep -e 'File.Viewer.*GWorkspace.*') && break
     c=$((c + 1))
-    sleep 0.2
   done
   sleep 0.5
 }
@@ -232,6 +243,8 @@ function startup_scripts {
   /Library/Scripts/AutoLaunchApps
 
   /Library/bin/nxnotify hide-panel
+
+  refresh_picom
 }
 
 function save_screen {
@@ -265,13 +278,17 @@ function main_process {
 }
 
 function cleanup {
-  echo "cleanup"
-  show_status "black"
+  echo "cleaning up..."
  
   stop_workspace 
   stop_services
   stop_windowmanager
-  exit
+
+  show_status "black"
+  echo -e "\e[3;0;0t\ePtmux;\e\e[3;0;0t\e\\"
+
+  pkill -P "$$"
+  exit 0
 }
 
 if [ "$UID" -eq 0 ];then
@@ -335,7 +352,11 @@ unset XTERM_LOCAL
 source /Developer/Makefiles/GNUstep.sh
 
 WM_ARGS=""
-trap cleanup SIGINT
+
+if [ -t 0 ];then
+  echo "running interactive"
+  trap cleanup SIGINT
+fi
 
 if [ -n "$GS_DESKTOP_SAFEMODE" ];then
   echo "running in SAFE mode"

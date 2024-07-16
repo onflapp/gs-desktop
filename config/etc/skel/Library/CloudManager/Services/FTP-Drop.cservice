@@ -1,4 +1,4 @@
-#!/bin/python3
+#!/usr/bin/env python3
 
 import os
 import subprocess
@@ -9,10 +9,10 @@ from pyftpdlib.servers import FTPServer
 
 def main():
     HOME = os.environ["HOME"]
-    BASEDIR = HOME+"/Library/CloudManager"
+    BASEDIR = HOME+"/Cloud/FTP-Drop"
 
     if not os.path.exists(BASEDIR):
-        os.mkdir(BASEDIR)
+        os.makedirs(BASEDIR)
 
     # Instantiate a dummy authorizer for managing 'virtual' users
     authorizer = DummyAuthorizer()
