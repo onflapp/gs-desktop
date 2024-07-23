@@ -1,7 +1,7 @@
 #!/bin/sh
 
 . ../BUILD_SETTINGS.conf
-exit 0
+
 echo "=================="
 echo " libdispatch"
 echo "=================="
