@@ -1,6 +1,7 @@
 gcc
 gobjc++
 gobjc
+gettext
 systemd-coredump
 libavahi-client-dev
 libavahi-core-dev
