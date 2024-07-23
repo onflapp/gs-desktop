@@ -102,16 +102,32 @@ static NSMutableDictionary      *domain = nil;
   [wheelControlScrollField setMinimumValue:1];
   [wheelControlScrollField setIntegerValue:[mouse wheelControlScrollLines]];
 
+  if ([mouse wheelScrollReverse])
+    [wheelScrollDirection setState:NSOnState];
+
   // Menu Button
   for (id c in [menuMtrx cells])
     [c setRefusesFirstResponder:YES];
   handImage = [[handImageView image] copy];
   
+  /*
   [menuMtrx selectCellWithTag:[mouse isMenuButtonEnabled]];
   if ([mouse menuButton] == NSLeftMouseDown)
     [self setMenuButtonHand:menuLeftBtn];
   else
     [self setMenuButtonHand:menuRightBtn];
+  */
+
+  if ([mouse primaryButton] == 1)
+    {
+      [primaryRightBtn setState:NSOnState];
+      [self setPrimaryButtonHand:primaryRightBtn];
+    }
+  else
+    {
+      [primaryLeftBtn setState:NSOnState];
+      [self setPrimaryButtonHand:primaryLeftBtn];
+    }
 
   // Cursors
   // [cursorsBtn removeAllItems];
@@ -173,9 +189,21 @@ static NSMutableDictionary      *domain = nil;
 }
 - (void)setWheelScroll:(id)sender
 {
-  [mouse setWheelScrollLines:[wheelScrollField intValue]];
-  [mouse setWheelControlScrollLines:[wheelControlScrollField intValue]];
-  [mouse saveToDefaults];
+  if (sender == wheelScrollField)
+    {
+      [mouse setWheelScrollLines:[wheelScrollField intValue]];
+      [mouse setWheelControlScrollLines:[wheelControlScrollField intValue]];
+      [mouse saveToDefaults];
+    }
+  if (sender == wheelScrollDirection)
+    {
+      if ([sender state] == NSOnState)
+        [mouse setWheelScrollReverse:1];
+      else
+        [mouse setWheelScrollReverse:0];
+
+      [mouse saveToDefaults];
+    }
 }
 
 - (NSImage *)_flipImage:(NSImage *)sourceImage
@@ -201,7 +229,7 @@ static NSMutableDictionary      *domain = nil;
 - (void)setMenuButtonHand:(id)sender
 {
   NSEventType button;
-  NSLog(@"Button sender state %li", [sender state]);
+  NSLog(@"Button menu sender state %li", [sender state]);
   if (sender == menuRightBtn && [sender state] == NSOnState)
     {
       [handImageView setImage:handImage];
@@ -215,6 +243,26 @@ static NSMutableDictionary      *domain = nil;
 
   button = (sender == menuLeftBtn) ? NSLeftMouseDown : NSRightMouseDown;
   [mouse setMenuButtonEnabled:YES menuButton:button];
+  [mouse saveToDefaults];
+}
+- (void)setPrimaryButtonHand:(id)sender
+{
+  NSEventType button;
+  NSLog(@"Button primary sender state %li", [sender state]);
+  if (sender == primaryRightBtn && [sender state] == NSOnState)
+    {
+      [handImageView setImage:[self _flipImage:[handImageView image]]];
+    }
+  if (sender == primaryLeftBtn && [sender state] == NSOnState)
+    {
+      [handImageView setImage:handImage];
+    }
+  [sender setState:NSOnState];
+  [(sender == primaryLeftBtn) ? primaryRightBtn : primaryLeftBtn setState:NSOffState];
+
+  button = (sender == primaryLeftBtn) ? 0 : 1;
+  [mouse setMenuButtonEnabled:YES menuButton:NSRightMouseDown];  
+  [mouse setPrimaryButton:button];
   [mouse saveToDefaults];
 }
 - (void)setMenuButtonEnabled:(id)sender

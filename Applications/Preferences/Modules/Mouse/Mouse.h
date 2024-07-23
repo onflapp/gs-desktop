@@ -38,8 +38,11 @@
   id menuMtrx;
   id menuLeftBtn;
   id menuRightBtn;
+  id primaryLeftBtn;
+  id primaryRightBtn;
   id handImageView;
   id wheelScrollField;
+  id wheelScrollDirection;
   id wheelControlScrollField;
   id cursorsBtn;
 }

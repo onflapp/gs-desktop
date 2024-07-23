@@ -132,6 +132,9 @@
   OSEMouse *mouse = [OSEMouse new];
   [mouse setAcceleration:[defs integerForKey:OSEMouseAcceleration]
                threshold:[defs integerForKey:OSEMouseThreshold]];
+  [mouse setPrimaryButton:[defs integerForKey:OSEMousePrimaryButtonHand]];
+  [mouse setWheelScrollReverse:[defs integerForKey:OSEMouseWheelScrollReverse]];
+
   [mouse release];
 
   NSLog(@"Configuring Brightness...");

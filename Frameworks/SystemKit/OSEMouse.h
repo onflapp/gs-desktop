@@ -41,8 +41,10 @@
   NSInteger	doubleClickTime;
   NSInteger	wheelScrollLines;
   NSInteger	wheelControlScrollLines;
+  NSInteger	wheelScrollReverse;
   BOOL		isMenuButtonEnabled;
   NSInteger	menuButtonEvent;
+  NSInteger	primaryButtonEvent;
 }
 
 - (NSInteger)acceleration;
@@ -56,11 +58,16 @@
 - (void)setWheelScrollLines:(NSInteger)lines;
 - (NSInteger)wheelControlScrollLines;
 - (void)setWheelControlScrollLines:(NSInteger)lines;
+- (NSInteger)wheelScrollReverse;
+- (void)setWheelScrollReverse:(NSInteger)reverse;
 
 - (BOOL)isMenuButtonEnabled;
 - (NSUInteger)menuButton;
 - (void)setMenuButtonEnabled:(BOOL)enabled
                   menuButton:(NSUInteger)eventType;
+
+- (NSUInteger)primaryButton;
+- (void)setPrimaryButton:(NSUInteger)eventType;
 
 - (NSPoint)locationOnScreen;
   
@@ -75,7 +82,9 @@ extern NSString *OSEMouseAcceleration;
 extern NSString *OSEMouseThreshold;
 extern NSString *OSEMouseDoubleClickTime;
 extern NSString *OSEMouseWheelScroll;
+extern NSString *OSEMouseWheelScrollReverse;
 extern NSString *OSEMouseWheelControlScroll;
 extern NSString *OSEMouseMenuButtonEnabled;
 extern NSString *OSEMouseMenuButtonHand;
+extern NSString *OSEMousePrimaryButtonHand;
 extern NSString *OSEMouseCursorTheme;

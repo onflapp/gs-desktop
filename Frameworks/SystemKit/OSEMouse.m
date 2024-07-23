@@ -28,9 +28,11 @@ NSString *OSEMouseAcceleration = @"MouseAcceleration";
 NSString *OSEMouseThreshold = @"MouseThreshold";
 NSString *OSEMouseDoubleClickTime = @"MouseDoubleClickTime";
 NSString *OSEMouseWheelScroll = @"MouseWheelScroll";
+NSString *OSEMouseWheelScrollReverse = @"MouseWheelScrollReverse";
 NSString *OSEMouseWheelControlScroll = @"MouseWheelControlScroll";
 NSString *OSEMouseMenuButtonEnabled = @"MenuButtonEnabled";
 NSString *OSEMouseMenuButtonHand = @"MenuButtonHand";
+NSString *OSEMousePrimaryButtonHand = @"PrimaryButtonHand";
 NSString *OSEMouseCursorTheme = @"MouseCursorTheme";
 
 @implementation OSEMouse
@@ -56,6 +58,8 @@ NSString *OSEMouseCursorTheme = @"MouseCursorTheme";
   wheelScrollLines = [self wheelScrollLines];
   isMenuButtonEnabled = [self isMenuButtonEnabled];
   menuButtonEvent = [self menuButton];
+  primaryButtonEvent = [self primaryButton];
+  wheelScrollReverse = [self wheelScrollReverse];
 
   [self saveToDefaults];
   
@@ -173,6 +177,32 @@ NSString *OSEMouseCursorTheme = @"MouseCursorTheme";
   wheelControlScrollLines = lines;
 }
 
+- (NSInteger)wheelScrollReverse
+{
+  wheelScrollReverse = [nxDefaults integerForKey:OSEMouseWheelScrollReverse];
+  return wheelScrollReverse;
+}
+
+- (void)setWheelScrollReverse:(NSInteger)reverse
+{
+  wheelScrollReverse = reverse;
+  [self _execXmodmap];
+}
+
+// Primary Button
+- (NSUInteger)primaryButton
+{
+  NSInteger event;
+  
+  event = [nxDefaults integerForKey:OSEMousePrimaryButtonHand];
+  return event;
+}
+- (void)setPrimaryButton:(NSUInteger)eventType
+{
+  primaryButtonEvent = eventType;
+  [self _execXmodmap];
+}
+
 // Menu button
 - (BOOL)isMenuButtonEnabled
 {
@@ -261,6 +291,30 @@ NSString *OSEMouseCursorTheme = @"MouseCursorTheme";
   return themeName;
 }
 
+- (void)_execXmodmap
+{
+  NSMutableArray *args = [NSMutableArray array];
+  [args addObject:@"-c"];
+  if (primaryButtonEvent > 0)
+    {
+      if (wheelScrollReverse)
+        [args addObject:@"xmodmap -e \"pointer = 3 2 1 5 4\""];
+      else
+        [args addObject:@"xmodmap -e \"pointer = 3 2 1 4 5\""];
+    }
+  else
+    {
+      if (wheelScrollReverse)
+        [args addObject:@"xmodmap -e \"pointer = 1 2 3 5 4\""];
+      else
+        [args addObject:@"xmodmap -e \"pointer = 1 2 3 4 5\""];
+    }
+
+  NSTask* task = [[[NSTask alloc] init] autorelease];
+  [task setLaunchPath:@"/bin/sh"];
+  [task setArguments:args];
+  [task launch];
+}
 
 - (void)_setGSDefaultsObject:(id)object forKey:(NSString *)key
 {
@@ -361,6 +415,14 @@ NSString *OSEMouseCursorTheme = @"MouseCursorTheme";
   if (isMenuButtonEnabled != [nxDefaults boolForKey:OSEMouseMenuButtonEnabled])
     {
       [nxDefaults setBool:isMenuButtonEnabled forKey:OSEMouseMenuButtonEnabled];
+    }
+  if (primaryButtonEvent != [nxDefaults integerForKey:OSEMousePrimaryButtonHand])
+    {
+      [nxDefaults setInteger:primaryButtonEvent forKey:OSEMousePrimaryButtonHand];
+    }
+  if (wheelScrollReverse != [nxDefaults integerForKey:OSEMouseWheelScrollReverse])
+    {
+      [nxDefaults setInteger:wheelScrollReverse forKey:OSEMouseWheelScrollReverse];
     }
 
   // Notify GNUstep backend about mouse preferences change
