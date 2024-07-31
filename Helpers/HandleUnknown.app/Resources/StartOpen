@@ -3,6 +3,10 @@ case "$1" in
     echo "Terminal runCommand:'$1'" | /Library/bin/stexec -
     exit $?
   ;;
+  *.desktop)
+    echo "Terminal runCommand:'$1'" | /Library/bin/stexec -
+    exit $?
+  ;;
   *)
   T=`file "$1"`
   ;;
@@ -14,7 +18,7 @@ case "$T" in
     if [ "$?" -eq 1 ];then
       echo "Terminal runCommand:'$1'" | /Library/bin/stexec -
     else
-      /Library/bin/gopen -a TextEdit -o "$1"
+      /Library/bin/gopen -a TextEdit "$1"
     fi
  
     exit $?
