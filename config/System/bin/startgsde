@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
 function show_status {
-  /System/bin/wmshowstatus "$1" || exit 1
-  if [ -n "$2" ];then
-    xsetroot -solid "$2"
+  if [ -n "$1" ];then
+    echo "status: $1"
+    /System/bin/wmshowstatus "$1" $2 || exit 1
+  else
+    /System/bin/wmshowstatus
   fi
 }
 
@@ -30,7 +32,7 @@ function stop_workspace {
 }
 
 function start_windowmanager {
-  show_status "starting windowmanager"
+  show_status "starting windowmanager" "gray45"
 
   (/System/bin/wmaker $WM_ARGS) &
   WM_PID="$!"
@@ -41,13 +43,14 @@ function start_windowmanager {
   export GS_DESKTOP_WM_PID="$WM_PID"
 
   if [ -f "$HOME/Library/etc/picom.conf" ];then
-    echo "about to start picom"
-    #picom -b --conf $HOME/Library/etc/picom.conf --write-pid-path /tmp/$UID-picom.pid
+    echo "about to start picom" "gray50"
+    picom -b --conf $HOME/Library/etc/picom.conf --write-pid-path /tmp/$UID-picom.pid
     sleep 0.5
   fi
 }
 
 function refresh_picom {
+  show_status
   sleep 0.2
   PID=`cat /tmp/$UID-picom.pid 2>/dev/null`
   if [ -n "$PID" ];then
@@ -55,13 +58,15 @@ function refresh_picom {
   fi
 }
 
-function stop_windowmanager {
+function stop_picom {
   PID=`cat /tmp/$UID-picom.pid 2>/dev/null`
   if [ -n "$PID" ];then
     kill "$PID" 2>/dev/null
     rm /tmp/$UID-picom.pid
   fi
+}
 
+function stop_windowmanager {
   PID=`cat /tmp/$UID-wm.pid 2>/dev/null`
   if [ -n "$PID" ];then
     echo "stopping WM on $PID"
@@ -87,7 +92,7 @@ function start_helpers {
 }
 
 function start_services {
-  show_status "about to start gdomap"
+  show_status "about to start gdomap" "gray15"
   /Library/bin/defaults write NSGlobalDomain NSPortIsMessagePort NO
   /Library/bin/defaults write NSGlobalDomain NSHostNameIsLocalhost YES
 
@@ -95,12 +100,12 @@ function start_services {
   echo "$!" > /tmp/$UID-gdomap.pid
   sleep 0.5
 
-  show_status "about to start Notification Center"
+  show_status "about to start Notification Center" "gray20"
   /Library/bin/gdnc --daemon &
   echo "$!" > /tmp/$UID-gdnc.pid
   sleep 0.5
 
-  show_status "about to start Pasteboard Service"
+  show_status "about to start Pasteboard Service" "gray25"
   /Library/bin/gpbs --daemon &
   echo "$!" > /tmp/$UID-gpbs.pid
   sleep 0.3
@@ -108,17 +113,17 @@ function start_services {
   # needed to start synchronizing the X11 CLIPBOARD
   echo " " | /Library/bin/nxpasteboard --copy
 
-  show_status "about to start fswatcher Service"
+  show_status "about to start fswatcher Service" "gray30"
   /Library/bin/fswatcher --daemon &
   echo "$!" > /tmp/$UID-fswatcher.pid
   sleep 0.3
 
-  show_status "about to start ddbd Service"
+  show_status "about to start ddbd Service" "gray35"
   /Library/bin/ddbd --daemon &
   echo "$!" > /tmp/$UID-ddbd.pid
   sleep 0.3
 
-  show_status "making services"
+  show_status "making services" "gray40"
   /Library/bin/make_services
 }
 
@@ -155,7 +160,7 @@ function stop_services {
 }
 
 function init_config {
-  show_status "init config"
+  show_status "init config" "gray10"
 
   if [ ! -f "$HOME/Library/etc/GSDE.conf" ];then
     echo "init user defaults"
@@ -280,13 +285,15 @@ function main_process {
 function cleanup {
   echo "cleaning up..."
  
+  stop_picom
   stop_workspace 
   stop_services
   stop_windowmanager
 
-  show_status "done" "black"
+  show_status "the end" "black"
   echo -e "\e[3;0;0t\ePtmux;\e\e[3;0;0t\e\\"
 
+  sleep 0.5
   pkill -P "$$"
   exit 0
 }

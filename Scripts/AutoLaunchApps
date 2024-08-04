@@ -7,6 +7,7 @@ $HOME = $ENV{'HOME'};
 @DOCUMENTS = ();
 %INFO = ();
 $INFO_IN = 0;
+$WAIT = 100;
 
 sub lauchproc {
   my ($cmd) = @_;
@@ -36,7 +37,7 @@ sub lauchproc {
             print(STDERR " lauch $CMD\n");
             system("/Library/bin/nxworkspace", "--autolaunch", $CMD);
             $DONE{$CMD} = $CMD;
-            usleep(100);
+            usleep($WAIT);
           }
         }
       }
@@ -67,7 +68,7 @@ while (<$HOME/Library/Startup/*>) {
   else {
     push(@DOCUMENTS, $FILE);
   }
-  usleep(100);
+  usleep($WAIT);
 }
 
 ### Open documents/files
@@ -76,5 +77,5 @@ foreach (@DOCUMENTS) {
   $FILE = $_;
   print(STDERR " open $FILE\n");
   system("/Library/bin/nxworkspace", "--open", $FILE);
-  usleep(100);
+  usleep($WAIT);
 }
