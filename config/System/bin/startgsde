@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 
 function show_status {
-  xsetroot -solid "$1" || exit 1
+  /System/bin/wmshowstatus "$1" || exit 1
+  if [ -n "$2" ];then
+    xsetroot -solid "$2"
+  fi
 }
 
 function start_workspace {
@@ -27,7 +30,7 @@ function stop_workspace {
 }
 
 function start_windowmanager {
-  show_status "gray40"
+  show_status "starting windowmanager"
 
   (/System/bin/wmaker $WM_ARGS) &
   WM_PID="$!"
@@ -39,7 +42,7 @@ function start_windowmanager {
 
   if [ -f "$HOME/Library/etc/picom.conf" ];then
     echo "about to start picom"
-    picom -b --conf $HOME/Library/etc/picom.conf --write-pid-path /tmp/$UID-picom.pid
+    #picom -b --conf $HOME/Library/etc/picom.conf --write-pid-path /tmp/$UID-picom.pid
     sleep 0.5
   fi
 }
@@ -63,7 +66,7 @@ function stop_windowmanager {
   if [ -n "$PID" ];then
     echo "stopping WM on $PID"
     pkill -P "$PID" 2>/dev/null
-    sleep 0.5
+    sleep 1.0
     kill "$PID"     2>/dev/null
     rm /tmp/$UID-wm.pid
   fi
@@ -84,9 +87,7 @@ function start_helpers {
 }
 
 function start_services {
-  show_status "gray15"
-
-  echo "about to start gdomap"
+  show_status "about to start gdomap"
   /Library/bin/defaults write NSGlobalDomain NSPortIsMessagePort NO
   /Library/bin/defaults write NSGlobalDomain NSHostNameIsLocalhost YES
 
@@ -94,13 +95,12 @@ function start_services {
   echo "$!" > /tmp/$UID-gdomap.pid
   sleep 0.5
 
-  echo "about to start Notification Center"
+  show_status "about to start Notification Center"
   /Library/bin/gdnc --daemon &
   echo "$!" > /tmp/$UID-gdnc.pid
   sleep 0.5
 
-  show_status "gray20"
-  echo "about to start Pasteboard Service"
+  show_status "about to start Pasteboard Service"
   /Library/bin/gpbs --daemon &
   echo "$!" > /tmp/$UID-gpbs.pid
   sleep 0.3
@@ -108,20 +108,17 @@ function start_services {
   # needed to start synchronizing the X11 CLIPBOARD
   echo " " | /Library/bin/nxpasteboard --copy
 
-  show_status "gray25"
-  echo "about to start fswatcher Service"
+  show_status "about to start fswatcher Service"
   /Library/bin/fswatcher --daemon &
   echo "$!" > /tmp/$UID-fswatcher.pid
   sleep 0.3
 
-  show_status "gray30"
-  echo "about to start ddbd Service"
+  show_status "about to start ddbd Service"
   /Library/bin/ddbd --daemon &
   echo "$!" > /tmp/$UID-ddbd.pid
   sleep 0.3
 
-  show_status "gray35"
-  echo "making services"
+  show_status "making services"
   /Library/bin/make_services
 }
 
@@ -135,30 +132,30 @@ function _kill_proc {
 }
 
 function stop_services {
-  echo "about to stop ddbd Service"
+  show_status "about to stop ddbd Service"
   _kill_proc ddbd
 
-  echo "about to stop fswatcher Service"
+  show_status "about to stop fswatcher Service"
   _kill_proc fswatcher
 
-  echo "about to stop Notification Monitor"
+  show_status "about to stop Notification Monitor"
   _kill_proc notmon
 
-  echo "about to stop Gesture Helper"
+  show_status "about to stop Gesture Helper"
   _kill_proc ghelper
 
-  echo "about to stop Pasteboard Service"
+  show_status "about to stop Pasteboard Service"
   _kill_proc gpbs
 
-  echo "about to stop Notification Center"
+  show_status "about to stop Notification Center"
   _kill_proc gdnc
 
-  echo "about to stop gdomap"
+  show_status "about to stop gdomap"
   _kill_proc gdomap
 }
 
 function init_config {
-  show_status "gray10"
+  show_status "init config"
 
   if [ ! -f "$HOME/Library/etc/GSDE.conf" ];then
     echo "init user defaults"
@@ -218,6 +215,7 @@ function init_config {
 function start_debug {
   WM_ARGS="--no-autolaunch --static --dont-restore"
 
+  show_status "starting debug session" "black"
   init_config
   main_process
   startup_scripts
@@ -252,12 +250,14 @@ function save_screen {
 }
 
 function restore_screen {
+  show_status "restoring screen"
   autorandr -c
 }
 
 function start_normal {
   WM_ARGS="--no-autolaunch --dont-restore"
- 
+
+  show_status "starting normal session" "black"
   restore_screen
   init_config
   main_process
@@ -284,7 +284,7 @@ function cleanup {
   stop_services
   stop_windowmanager
 
-  show_status "black"
+  show_status "done" "black"
   echo -e "\e[3;0;0t\ePtmux;\e\e[3;0;0t\e\\"
 
   pkill -P "$$"
