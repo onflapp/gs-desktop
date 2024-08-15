@@ -159,8 +159,14 @@ static NSString *menuEntries = @"\
     domain = [[defaults persistentDomainForName: NSGlobalDomain] mutableCopy];
 
     if (sender == firstAlternatePopUp) {
-      if ([modifier isEqualToString:@"NoSymbol"]) [domain removeObjectForKey:@"GSFirstAlternateKey"];
-      else                                        [domain setObject: modifier forKey: @"GSFirstAlternateKey"];
+      if ([modifier isEqualToString:@"NoSymbol"]) {
+        [domain removeObjectForKey:@"GSFirstAlternateKey"];
+        [domain removeObjectForKey:@"GSSecondAlternateKey"];
+      }
+      else {
+        [domain setObject: modifier forKey: @"GSFirstAlternateKey"];
+        [domain setObject: modifier forKey: @"GSSecondAlternateKey"];
+      }
     } else if (sender == firstCommandPopUp) {
       if ([modifier isEqualToString:@"NoSymbol"]) [domain removeObjectForKey:@"GSFirstCommandKey"];
       else                                        [domain setObject: modifier forKey: @"GSFirstCommandKey"];

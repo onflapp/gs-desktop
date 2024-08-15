@@ -6,6 +6,10 @@
     <string>cairo</string>
     <key>NSPortIsMessagePort</key>
     <false/>
+    <key>GSFirstAlternateKey</key>
+    <string>Super_L</string>
+    <key>GSFirstCommandKey</key>
+    <string>Alt_L</string>
     <key>STDefaultEnvironmentDescriptionName</key>
     <string>AppKit</string>
     <key>STDefaultLanguageName</key>
