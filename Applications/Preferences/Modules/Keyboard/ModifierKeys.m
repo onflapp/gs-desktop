@@ -52,37 +52,37 @@ static NSString *menuEntries = @"\
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     NSDictionary *dict = [menuEntries propertyList];
     id entry;
-    
+
     [self setItemsForMenu: firstAlternatePopUp fromDictionary: dict];
     entry = [defaults objectForKey: @"GSFirstAlternateKey"];    
     [self selectItemWithRepresentedObject: entry
                                    inMenu: firstAlternatePopUp]; 
-    
+
     [self setItemsForMenu: firstCommandPopUp fromDictionary: dict];
     entry = [defaults objectForKey: @"GSFirstCommandKey"];    
     [self selectItemWithRepresentedObject: entry
                                    inMenu: firstCommandPopUp]; 
-    
+
     [self setItemsForMenu: firstControlPopUp fromDictionary: dict];
     entry = [defaults objectForKey: @"GSFirstControlKey"];    
     [self selectItemWithRepresentedObject: entry
                                    inMenu: firstControlPopUp]; 
-    
+
     [self setItemsForMenu: secondAlternatePopUp fromDictionary: dict];
     entry = [defaults objectForKey: @"GSSecondAlternateKey"];    
     [self selectItemWithRepresentedObject: entry
                                    inMenu: secondAlternatePopUp]; 
-    
+
     [self setItemsForMenu: secondCommandPopUp fromDictionary: dict];
     entry = [defaults objectForKey: @"GSSecondCommandKey"];    
     [self selectItemWithRepresentedObject: entry
                                    inMenu: secondCommandPopUp]; 
-    
+
     [self setItemsForMenu: secondControlPopUp fromDictionary: dict];
     entry = [defaults objectForKey: @"GSSecondControlKey"];    
     [self selectItemWithRepresentedObject: entry
                                    inMenu: secondControlPopUp]; 
-     
+
     loaded = YES;
   }
 }
@@ -97,13 +97,13 @@ static NSString *menuEntries = @"\
 {
   NSArray *titles = [dict allKeys];
   unsigned i;
-  
+
   [menu removeAllItems];
-  
+
   for (i = 0; i < [titles count]; i++) {
     NSString *title = [titles objectAtIndex: i];
     id <NSMenuItem> item;
-    
+
     [menu addItemWithTitle: title];
     item = [menu lastItem];
     [item setRepresentedObject: [dict objectForKey: title]];
@@ -119,7 +119,7 @@ static NSString *menuEntries = @"\
   for (i = 0; i < [items count]; i++) {
     id <NSMenuItem> item = [items objectAtIndex: i];
     id repobj = [item representedObject];
-  
+
     if (repobj && [repobj isEqual: anobject]) {
       return item;
     }
@@ -152,27 +152,33 @@ static NSString *menuEntries = @"\
   if (modifier) {
     CREATE_AUTORELEASE_POOL(arp);
     NSUserDefaults *defaults;
-	  NSMutableDictionary *domain;
-    
+    NSMutableDictionary *domain;
+
     defaults = [NSUserDefaults standardUserDefaults];
     [defaults synchronize];
     domain = [[defaults persistentDomainForName: NSGlobalDomain] mutableCopy];
 
     if (sender == firstAlternatePopUp) {
-      [domain setObject: modifier forKey: @"GSFirstAlternateKey"];
+      if ([modifier isEqualToString:@"NoSymbol"]) [domain removeObjectForKey:@"GSFirstAlternateKey"];
+      else                                        [domain setObject: modifier forKey: @"GSFirstAlternateKey"];
     } else if (sender == firstCommandPopUp) {
-      [domain setObject: modifier forKey: @"GSFirstCommandKey"];
+      if ([modifier isEqualToString:@"NoSymbol"]) [domain removeObjectForKey:@"GSFirstCommandKey"];
+      else                                        [domain setObject: modifier forKey: @"GSFirstCommandKey"];
     } else if (sender == firstControlPopUp) {
-      [domain setObject: modifier forKey: @"GSFirstControlKey"];
+      if ([modifier isEqualToString:@"NoSymbol"]) [domain removeObjectForKey:@"GSFirstControlKey"];
+      else                                        [domain setObject: modifier forKey: @"GSFirstControlKey"];
     } else if (sender == secondAlternatePopUp) {
-      [domain setObject: modifier forKey: @"GSSecondAlternateKey"];
+      if ([modifier isEqualToString:@"NoSymbol"]) [domain removeObjectForKey:@"GSSecondAlternateKey"];
+      else                                        [domain setObject: modifier forKey: @"GSSecondAlternateKey"];
     } else if (sender == secondCommandPopUp) {
-      [domain setObject: modifier forKey: @"GSSecondCommandKey"];
+      if ([modifier isEqualToString:@"NoSymbol"]) [domain removeObjectForKey:@"GSSecondCommandKey"];
+      else                                        [domain setObject: modifier forKey: @"GSSecondCommandKey"];
     } else if (sender == secondControlPopUp) {
-      [domain setObject: modifier forKey: @"GSSecondControlKey"];
+      if ([modifier isEqualToString:@"NoSymbol"]) [domain removeObjectForKey:@"GSSecondControlKey"];
+      else                                        [domain setObject: modifier forKey: @"GSSecondControlKey"];
     }
 
-	  [defaults setPersistentDomain: domain forName: NSGlobalDomain]; 
+    [defaults setPersistentDomain: domain forName: NSGlobalDomain]; 
     [defaults synchronize];
     RELEASE (domain);
     RELEASE (arp); 
