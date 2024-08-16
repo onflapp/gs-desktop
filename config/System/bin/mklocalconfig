@@ -1,0 +1,56 @@
+#!/usr/bin/env perl
+
+$HOME=$ENV{'HOME'};
+@LANGUAGES = ();
+
+sub check_lang {
+  return -1 if ($LANG eq "");
+
+  my $found = "";
+  open(IN, "locale -a |");
+  while(<IN>) {
+    chomp();
+    if ($_ =~ /^$LANG/) {
+      $found = $_;
+    }
+  }
+  close(IN);
+
+  if ($found) {
+    return 1;
+  }
+  else {
+    return 0;
+  }
+}
+
+open(IN, "/Library/bin/defaults read NSGlobalDomain NSLanguages |");
+while(<IN>) {
+  chomp();
+  next if ($_ =~ /'\($/);
+  next if ($_ =~ /\)'$/);
+
+  $_ =~ s/^\s*//g;
+  $_ =~ s/[\s\,]$//g;
+
+  if ($_ ne "") {
+    push(@LANGUAGES, $_);
+  }
+}
+close(IN);
+
+$N=$LANGUAGES[0];
+
+$LANG="de_DE.utf8" if ($N eq "German");
+$LANG="fr_FR.utf8" if ($N eq "French");
+
+if (check_lang()) {
+  print("LANGUAGE=$LANG\n");
+  print("LANG=$LANG\n");
+  print("LC_ALL=$LANG\n");
+  exit(0);
+}
+else {
+  print(STDERR "lang $LANG not found or installed\n");
+  exit(1);
+}

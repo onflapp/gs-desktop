@@ -23,6 +23,7 @@ flite1-dev
 libcups2-dev
 libgl1-mesa-dev
 util-linux-locales
+locales-all
 picom
 info
 emacs

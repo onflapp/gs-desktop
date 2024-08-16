@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 export DEBUGMODE=1
 exec /System/bin/openapp-xnest $*

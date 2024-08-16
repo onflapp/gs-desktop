@@ -30,7 +30,7 @@
     <key>StartupAction</key>
     <integer>1</integer>
     <key>TerminalFont</key>
-    <string>Keith</string>
+    <string>Keith-Medium</string>
     <key>TerminalFontSize</key>
     <integer>12</integer>
     <key>TerminalFontUseBold</key>

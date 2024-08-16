@@ -203,7 +203,7 @@ Application Controller
   [panel orderFront:self];
 
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
-  [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:5.0];
+  [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:15.0];
 }
 
 - (void) showModalPanelWithTitle:(NSString*) title 
@@ -219,7 +219,7 @@ Application Controller
   [panel orderFront:self];
 
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
-  [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:5.0];
+  [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:15.0];
 
   [self _grabEvents];
 }

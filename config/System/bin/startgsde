@@ -12,7 +12,7 @@ function show_status {
 function start_workspace {
   (/System/Applications/GWorkspace.app/GWorkspace) &
   GW_PID="$!"
-  sleep 1.0
+  sleep 0.5
 
   echo "Workspace is running on $GW_PID"
   echo "$GW_PID" > /tmp/$UID-gw.pid
@@ -36,16 +36,16 @@ function start_windowmanager {
 
   (/System/bin/wmaker $WM_ARGS) &
   WM_PID="$!"
-  sleep 1
+  sleep 0.3
 
   echo "WM is running on $WM_PID"
   echo "$WM_PID" > /tmp/$UID-wm.pid
   export GS_DESKTOP_WM_PID="$WM_PID"
 
   if [ -f "$HOME/Library/etc/picom.conf" ];then
-    echo "about to start picom" "gray50"
+    show_status "about to start picom" "gray50"
+    sleep 0.1
     picom -b --conf $HOME/Library/etc/picom.conf --write-pid-path /tmp/$UID-picom.pid
-    sleep 0.5
   fi
 }
 
@@ -82,13 +82,13 @@ function start_helpers {
   /System/Applications/NotMon.app/NotMon -GSSuppressAppIcon YES -autolaunch YES &
   echo "$!" > /tmp/$UID-notmon.pid
 
-  sleep 0.5
+  sleep 0.2
+  /Library/bin/nxnotify show-modal-panel --title "GSDE" --info "Launching applications..."
   
   echo "about to start Gesture Helper"
   /System/Applications/GestureHelper.app/GestureHelper -GSSuppressAppIcon YES -autolaunch YES &
   echo "$!" > /tmp/$UID-ghelper.pid
 
-  /Library/bin/nxnotify show-modal-panel --title "GSDE" --info "Launching applications..."
 }
 
 function start_services {
@@ -194,6 +194,11 @@ function init_config {
     defaults write NSGlobalDomain "Local Time Zone" $TZ
   fi
 
+  T="/tmp/$UID-gs-desktop.locale"
+  /System/bin/mklocalconfig > "$T"
+  source "$T"
+  echo "desktop locale set to $LANG"
+
   defaults read NSGlobalDomain "GSBackend" 2>&1 > /dev/null
   if [ $? -ne 0 ]; then
     echo "setting default backend to Cairo"
@@ -213,7 +218,7 @@ function init_config {
  
   if [ -f "$HOME/.gsderc" ];then
     echo "sourcing $HOME/.gsderc"
-    . "$HOME/.gsderc"
+    source "$HOME/.gsderc"
   fi
 }
 
@@ -234,14 +239,15 @@ function wait_for_workspace {
   local c=0
   while [ $c -lt 20 ];do
     sleep 0.5
-    (xwininfo -root -tree | grep -e 'File.Viewer.*GWorkspace.*') && break
+    (LANG=C xwininfo -root -tree | grep -e 'File.Viewer.*GWorkspace.*') && break
     c=$((c + 1))
   done
   sleep 0.5
 }
 
 function startup_scripts {
-  wait_for_workspace
+  #wait_for_workspace
+  sleep 2
 
   /Library/Scripts/AutoLaunchApps
 
@@ -338,7 +344,7 @@ if [ "$1" == "--safe-mode" ];then
   exec xterm -xrm '*.allowWindowOps:true' -bg black -fg gray -bd green -geometry 160x24+0+0 -name GSDE-Safe-Mode -e "$0" --safe-mode-continue
 fi
 
-show_status "black"
+show_status "the beginning" "black"
 
 ## clean up
 rm -R "/tmp/GNUstepSecure$UID" 2>/dev/null
