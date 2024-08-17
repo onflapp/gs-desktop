@@ -98,6 +98,8 @@ Application Controller
       NSDictionary* dict = [self parseURL:url];
       NSString* title = [dict valueForKey:@"title"];
       NSString* info = [dict valueForKey:@"info"];
+      NSTimeInterval delay = (NSTimeInterval)[[dict valueForKey:@"delay"] integerValue];
+      if (delay <= 0) delay = 5;
       NSLog(@"show:%@", dict);
 
       [self showPanelWithTitle:title info:info];
@@ -106,9 +108,11 @@ Application Controller
       NSDictionary* dict = [self parseURL:url];
       NSString* title = [dict valueForKey:@"title"];
       NSString* info = [dict valueForKey:@"info"];
+      NSTimeInterval delay = (NSTimeInterval)[[dict valueForKey:@"delay"] integerValue];
+      if (delay <= 0) delay = 5;
       NSLog(@"show:%@", dict);
 
-      [self showModalPanelWithTitle:title info:info];
+      [self showModalPanelWithTitle:title info:info delay:delay];
     }
     else if ([[url host] isEqualToString:@"hide-panel"]) {
       NSLog(@"hide");
@@ -193,6 +197,13 @@ Application Controller
 - (void) showPanelWithTitle:(NSString*) title 
                        info:(NSString*) info
 {
+  [self showPanelWithTitle:title info:info delay:5];
+}
+
+- (void) showPanelWithTitle:(NSString*) title 
+                       info:(NSString*) info
+                      delay:(NSTimeInterval) delay
+{
   [panelTitle setStringValue:title?title:@""];
   [panelInfo setStringValue:info?info:@""];
   [panelProgress animate:self];
@@ -203,11 +214,18 @@ Application Controller
   [panel orderFront:self];
 
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
-  [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:15.0];
+  [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:delay?delay:5];
 }
 
 - (void) showModalPanelWithTitle:(NSString*) title 
                             info:(NSString*) info
+{
+  [self showModalPanelWithTitle:title info:info delay:5];
+}
+
+- (void) showModalPanelWithTitle:(NSString*) title 
+                            info:(NSString*) info
+                           delay:(NSTimeInterval) delay
 {
   [panelTitle setStringValue:title?title:@""];
   [panelInfo setStringValue:info?info:@""];
@@ -216,12 +234,11 @@ Application Controller
   [panel setBecomesKeyOnlyIfNeeded:NO];
   [panel setLevel:NSDockWindowLevel];
   [panel center];
-  [panel orderFront:self];
+  [panel makeKeyAndOrderFront:self];
 
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
-  [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:15.0];
-
-  [self _grabEvents];
+  [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:delay?delay:5];
+  [self performSelector:@selector(_grabEvents) withObject:nil afterDelay:0.5];
 }
 
 - (void) reoderMessages:(id)val {
@@ -267,9 +284,12 @@ Application Controller
   GSDisplayServer *server = GSCurrentServer();
   Display *dpy = (Display *)[server serverDevice];
 
-  XGrabPointer(dpy, win, False,
+  int status = XGrabPointer(dpy, win, True,
 		     PointerMotionMask | ButtonReleaseMask | ButtonPressMask,
 		     GrabModeAsync, GrabModeAsync, win, None, CurrentTime);
+
+  NSLog(@"%d ", status);
+  XFlush(dpy);
 }
 
 

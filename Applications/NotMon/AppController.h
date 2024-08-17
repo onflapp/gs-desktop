@@ -41,10 +41,20 @@
 - (BOOL) application: (NSApplication *)application
 	    openFile: (NSString *)fileName;
 
+- (void) reoderMessages:(id)val;
+
+- (void) showConsoleWithCommand:(NSString*) exec
+                       argument:(NSString*) arg;
 - (void) showPanelWithTitle:(NSString*) title
                        info:(NSString*) info;
+- (void) showPanelWithTitle:(NSString*) title
+                       info:(NSString*) info
+                      delay:(NSTimeInterval) delay;
 - (void) showModalPanelWithTitle:(NSString*) title
                             info:(NSString*) info;
+- (void) showModalPanelWithTitle:(NSString*) title
+                            info:(NSString*) info
+                           delay:(NSTimeInterval) delay;
 - (void) showMessageWithTitle:(NSString*) title
                          info:(NSString*) info;
 - (void) showMessageWithTitle:(NSString*) title

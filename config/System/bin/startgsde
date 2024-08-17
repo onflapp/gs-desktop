@@ -83,7 +83,7 @@ function start_helpers {
   echo "$!" > /tmp/$UID-notmon.pid
 
   sleep 0.2
-  /Library/bin/nxnotify show-modal-panel --title "GSDE" --info "Launching applications..."
+  /Library/bin/nxnotify show-modal-panel --title "GSDE" --info "Launching applications..." --hide-panel 30
   
   echo "about to start Gesture Helper"
   /System/Applications/GestureHelper.app/GestureHelper -GSSuppressAppIcon YES -autolaunch YES &
