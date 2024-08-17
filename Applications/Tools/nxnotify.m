@@ -20,6 +20,16 @@
 #import	<AppKit/AppKit.h>
 #import "nxnotify.h"
 
+@interface NotMonApp
+- (void) showModalPanelWithTitle:(NSString*) title
+                            info:(NSString*) info
+                           delay:(NSTimeInterval) delay;
+- (void) showPanelWithTitle:(NSString*) title
+                       info:(NSString*) info
+                      delay:(NSTimeInterval) delay;
+- (void) hidePanelAfter:(NSTimeInterval) time;
+@end
+
 void printUsage() {
   fprintf(stderr, "Usage: nxnotify\n");
   fprintf(stderr, "\n");
@@ -90,6 +100,7 @@ int main(int argc, char** argv, char** env)
           type = 3;
         }
         else if ([it isEqualToString:@"hide-panel"]) {
+          type = 5;
           hide = 0;
         }
         else if ([it isEqualToString:@"--hide-panel"]) {
@@ -97,17 +108,19 @@ int main(int argc, char** argv, char** env)
         }
       }
 
-      id app = [NSConnection rootProxyForConnectionWithRegisteredName:@"NotMon" host:@""];
+      id app = (NotMonApp*)[NSConnection rootProxyForConnectionWithRegisteredName:@"NotMon" host:@""];
       if (!app) {
         NSLog(@"unable to contact app NotMon");
         exit(1);
       }
 
       if (type == 1) {
-        [app showPanelWithTitle:title info:info];
+        if (hide <= 0) hide = 5.0;
+        [app showPanelWithTitle:title info:info delay:hide];
       }
       else if (type == 4) {
-        [app showModalPanelWithTitle:title info:info];
+        if (hide <= 0) hide = 5.0;
+        [app showModalPanelWithTitle:title info:info delay:hide];
       }
       else if (type == 2) {
         if (cmd) {
@@ -124,7 +137,7 @@ int main(int argc, char** argv, char** env)
       else if (type == 3) {
         [app showConsoleWithCommand:cmd argument:arg];
       }
-      if (hide >= 0) {
+      else if (type == 5) {
         [app hidePanelAfter:hide];
       }
     }

@@ -1,4 +1,5 @@
 {
     DoNotManageDesktopBackground = <*BY>;
+    MouseWheelScrollReverse = <*I0>;
     NXSystemBeep = "/System/Sounds/Bonk.snd";
 }

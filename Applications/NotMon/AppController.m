@@ -214,7 +214,7 @@ Application Controller
   [panel orderFront:self];
 
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
-  [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:delay?delay:5];
+  [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:delay];
 }
 
 - (void) showModalPanelWithTitle:(NSString*) title 
@@ -236,8 +236,10 @@ Application Controller
   [panel center];
   [panel makeKeyAndOrderFront:self];
 
+  if (delay <= 0) delay = 5;
+
   [NSObject cancelPreviousPerformRequestsWithTarget:self];
-  [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:delay?delay:5];
+  [self performSelector:@selector(__hidePanel) withObject:nil afterDelay:delay];
   [self performSelector:@selector(_grabEvents) withObject:nil afterDelay:0.5];
 }
 
@@ -288,7 +290,6 @@ Application Controller
 		     PointerMotionMask | ButtonReleaseMask | ButtonPressMask,
 		     GrabModeAsync, GrabModeAsync, win, None, CurrentTime);
 
-  NSLog(@"%d ", status);
   XFlush(dpy);
 }
 
