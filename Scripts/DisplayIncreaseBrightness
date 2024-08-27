@@ -3,5 +3,5 @@
 exec 100> /tmp/gsde-display-$GS_DESKTOP_ID.lock
 flock -n 100 || exit 1
 
-/Library/bin/nxnotify --show-panel --title "Display Brightness" --info "increase..." --hide-panel 1
+/Library/bin/nxnotify show-panel --title "Display Brightness" --info "increase..." --hide-panel 1
 /Library/bin/nxdisplay --increase
