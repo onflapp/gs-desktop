@@ -148,6 +148,15 @@ static NXTDefaults *defaults = nil;
     [c setRefusesFirstResponder:YES];
 
   [self sectionButtonClicked:sectionsBtn];
+
+  // Function Keys
+  NSInteger val = [defaults integerForKey:OSEKeyboardFNSwap];
+  if (val < 0) val = 0;
+  [swapFNBtn setState:val];
+
+  val = [defaults integerForKey:OSEKeyboardFNforFkeys];
+  if (val < 0) val = 0;
+  [FNforFKeyBtn setState:val];
 }
 
 - (NSView *)view
@@ -188,6 +197,12 @@ static NXTDefaults *defaults = nil;
 //
 // Action methods
 //
+
+- (void)swapFNClicked:(id)sender
+{
+
+}
+
 - (void)sectionButtonClicked:(id)sender
 {
   switch ([[sender selectedItem] tag])
@@ -344,6 +359,24 @@ static NXTDefaults *defaults = nil;
   [mOptions release];
 
   return SUCCESS;
+}
+
+@end
+
+@implementation Keyboard (FunctionKeys)
+
+- (void)swapFNClicked:(id)sender
+{
+  if (sender == swapFNBtn)
+    {
+      [defaults setInteger:[sender state] forKey:OSEKeyboardFNSwap];
+    }
+  if (sender == FNforFKeyBtn)
+    {
+      [defaults setInteger:[sender state] forKey:OSEKeyboardFNforFkeys];
+    }
+
+  [OSEKeyboard configureWithDefaults:defaults];
 }
 
 @end

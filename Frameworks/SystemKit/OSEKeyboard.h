@@ -79,3 +79,5 @@ extern NSString *OSEKeyboardVariants;
 extern NSString *OSEKeyboardModel;
 extern NSString *OSEKeyboardOptions;
 extern NSString *OSEKeyboardNumLockState;
+extern NSString *OSEKeyboardFNSwap;
+extern NSString *OSEKeyboardFNforFkeys;

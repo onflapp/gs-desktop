@@ -8,3 +8,6 @@ after-install::
 
 	chown 0:0 $(GNUSTEP_SYSTEM_LIBRARY)/Frameworks/SystemKit.framework/Resources/gesture_helper
 	chmod 4755 $(GNUSTEP_SYSTEM_LIBRARY)/Frameworks/SystemKit.framework/Resources/gesture_helper
+
+	chown 0:0 $(GNUSTEP_SYSTEM_LIBRARY)/Frameworks/SystemKit.framework/Resources/keyboard_helper
+	chmod 4755 $(GNUSTEP_SYSTEM_LIBRARY)/Frameworks/SystemKit.framework/Resources/keyboard_helper
