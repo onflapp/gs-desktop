@@ -1,6 +1,22 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+while read -r LINE ;do
+    A=( $LINE )
+    eval "${A[0]}=\"${A[2]}\""
+done < <(synclient)
+
+L=$(( RightEdge / 4 ))
+L=$(( RightEdge - L ))
+
+T=$(( BottomEdge / 4 ))
+T=$(( BottomEdge - T ))
 
 synclient \
+    TapButton2=0 \
+    TapButton1=0 \
+    ClickFinger2=0 \
     VertTwoFingerScroll=0 \
     HorizTwoFingerScroll=0 \
+    RightButtonAreaLeft=$L \
+    RightButtonAreaTop=$T \
 $@
