@@ -101,7 +101,7 @@
     Lock = No;
     AutoLaunch = No;
     Command = "-";
-    Position = "160,0";
+    Position = "300,0";
     Forced = No;
     BuggyApplication = No;
   };
@@ -132,11 +132,37 @@
           {
             Forced = No;
             OneShot = No;
-            Name = Lookup.GNUstep;
+            Name = BatMon.GNUstep;
             DropCommand = "";
             BuggyApplication = No;
             AutoLaunch = Yes;
             Position = "2,0";
+            Lock = No;
+            PasteCommand = "";
+            Command = "BatMon";
+            Omnipresent = No;
+          },
+          {
+            Forced = No;
+            OneShot = No;
+            Name = Network.GNUstep;
+            DropCommand = "";
+            BuggyApplication = No;
+            AutoLaunch = Yes;
+            Position = "3,0";
+            Lock = No;
+            PasteCommand = "";
+            Command = "Network";
+            Omnipresent = No;
+          },
+          {
+            Forced = No;
+            OneShot = No;
+            Name = Lookup.GNUstep;
+            DropCommand = "";
+            BuggyApplication = No;
+            AutoLaunch = Yes;
+            Position = "4,0";
             Lock = No;
             PasteCommand = "";
             Command = "/Applications/Utilities/Lookup.app/Lookup";

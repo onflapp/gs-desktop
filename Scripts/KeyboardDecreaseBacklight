@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+exec 100> /tmp/gsde-display-$GS_DESKTOP_ID.lock
+flock -n 100 || exit 1
+
+/Library/bin/nxnotify show-panel --title "Keyboard Backlight" --info "decrease..." --hide-panel 1
+
+dbus-send --system --type=method_call --dest="org.freedesktop.UPower" "/org/freedesktop/UPower/KbdBacklight" "org.freedesktop.UPower.KbdBacklight.SetBrightness" int32:0

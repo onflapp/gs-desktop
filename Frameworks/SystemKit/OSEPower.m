@@ -124,10 +124,21 @@ up_device_removed_cb(UpClient *client, char *object_path, gpointer user_data)
 static void
 up_lid_closed_cb(UpClient *client, gpointer user_data)
 {
+  [NSObject cancelPreviousPerformRequestsWithTarget:power
+                                           selector:@selector(_triggerLidChanged) 
+                                             object:nil];
+
+  [power performSelector:@selector(_triggerLidChanged) 
+              withObject:nil
+              afterDelay:0.5];
+}
+
+- (void)_triggerLidChanged
+{
   NSLog(@"OSEPower: LidClosed property changed");
   [[NSNotificationCenter defaultCenter]
     postNotificationName:OSEPowerLidDidChangeNotification
-                  object:power];
+                  object:self];
 }
 
 // Timer selector

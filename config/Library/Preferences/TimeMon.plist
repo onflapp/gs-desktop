@@ -9,12 +9,12 @@
     <key>NSDefaultOpenDirectory</key>
     <string>/Applications</string>
     <key>NiceColor</key>
-    <string>1.000000 0.000000 1.000000 1.000000</string>
+    <string>0.500000 0.000000 0.500000 1.000000</string>
     <key>ProcessManager</key>
     <string>HtopGS.app</string>
     <key>SystemColor</key>
     <string>0.000000 0.000000 0.000000 1.000000</string>
     <key>UserColor</key>
-    <string>1.000000 0.000000 0.000000 1.000000</string>
+    <string>0.537255 0.850980 0.725490 1.000000</string>
 </dict>
 </plist>
