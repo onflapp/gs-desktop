@@ -29,7 +29,7 @@ fi
 ./autogen.sh
 ./configure --prefix=/System $DEBUG_ARGS \
   LINGUAS="fr de" \
-  --enable-randr --enable-dbus || exit 1
+  --disable-randr --enable-dbus || exit 1
 
 gmake $MKARGS || exit 1
 gmake install || exit 1

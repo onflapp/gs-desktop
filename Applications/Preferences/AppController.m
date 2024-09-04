@@ -112,16 +112,18 @@
 
 - (void) wakeUpAfterSleep
 {
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(configureMouseAndKeyboard) object:nil];
   [self performSelector:@selector(configureMouseAndKeyboard) withObject:nil afterDelay:2.0];
 }
 
 // Notifications
 - (void)screenDidUpdate:(NSNotification *)aNotif
 {
-  [self performSelector:@selector(refreshScreen) withObject:nil afterDelay:1.0];
+  [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(refreshScreen) object:nil];
+  [self performSelector:@selector(refreshScreen) withObject:nil afterDelay:0.5];
 }
 
-- (void) configureMouseAndKeyboard
+- (void)configureMouseAndKeyboard
 {
   NXTDefaults *defs = [NXTDefaults globalUserDefaults];
 
@@ -145,15 +147,15 @@
     }
   }
 
-  NSString* initrc = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"initrc"];
-  NSLog(@"Exec initrc %@ wakeup", initrc);
+  NSString* initrc = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"apply_config"];
+  NSLog(@"Exec apply_config %@ wakeup", initrc);
   [NSTask launchedTaskWithLaunchPath:initrc arguments:[NSArray arrayWithObject:@"keyboard"]];
 }
 
-- (void) refreshScreen
+- (void)refreshScreen
 {
-  NSString* initrc = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"initrc"];
-  NSLog(@"Exec initrc %@ screenchange", initrc);
+  NSString* initrc = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"apply_config"];
+  NSLog(@"Exec apply_config %@ screenchange", initrc);
   [NSTask launchedTaskWithLaunchPath:initrc arguments:[NSArray arrayWithObject:@"screen"]];
 }
 

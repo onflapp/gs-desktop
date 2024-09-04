@@ -189,6 +189,10 @@
     {
       [systemScreen setDisplay:selectedDisplay
                     resolution:[[rateBtn selectedCell] representedObject]];
+
+      [self performSelector:@selector(saveLayoutConfig) 
+                 withObject:nil
+                 afterDelay:3.0];
     }
 }
 
@@ -223,6 +227,13 @@
     {
       [defs removeObjectForKey:OSEDisplayBrightnessKey];
     }
+}
+
+- (void)saveLayoutConfig
+{
+  NSString* initrc = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"apply_config"];
+  NSLog(@"Exec apply_config %@ layout", initrc);
+  [NSTask launchedTaskWithLaunchPath:initrc arguments:[NSArray arrayWithObject:@"layout"]];
 }
 
 //
@@ -299,17 +310,9 @@
   NSLog(@"resolutionClicked: Selected resolution: %@",
         [[rateBtn selectedCell] representedObject]);
   
-  [[NSNotificationCenter defaultCenter] removeObserver:self];
-  
   [self performSelector:@selector(setResolution)
              withObject:nil
              afterDelay:0.1];
-  
-  [[NSNotificationCenter defaultCenter]
-    addObserver:self
-       selector:@selector(screenDidUpdate:)
-           name:OSEScreenDidUpdateNotification
-         object:systemScreen];  
 }
 
 - (IBAction)rateClicked:(id)sender
