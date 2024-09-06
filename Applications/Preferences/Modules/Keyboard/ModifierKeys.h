@@ -44,6 +44,8 @@
 	IBOutlet id secondCommandPopUp;
   IBOutlet id secondControlLabel;  
 	IBOutlet id secondControlPopUp;
+
+  IBOutlet id swapAltCmdBtn;
   
   BOOL loaded;
 }
@@ -58,6 +60,7 @@
                                  inMenu:(id)menu;
 
 - (IBAction)popupsAction:(id)sender;
+- (IBAction)swapAction:(id)sender;
 
 @end
 

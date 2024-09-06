@@ -1,8 +1,15 @@
 {
     "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "swapAction:"
+	);
+	Super = NSObject;
+    };
     ModifierKeys = {
 	Actions = (
-	    "popupsAction:"
+	    "popupsAction:",
+	    "swapAction:"
 	);
 	Outlets = (
 	    secondControlPopUp,
@@ -17,7 +24,8 @@
 	    secondControlLabel,
 	    secondAlternateLabel,
 	    secondCommandLabel,
-	    window
+	    window,
+	    swapAltCmdBtn
 	);
 	Super = NSObject;
     };

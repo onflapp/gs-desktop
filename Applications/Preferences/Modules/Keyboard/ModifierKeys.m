@@ -25,6 +25,9 @@
 #include <AppKit/AppKit.h>
 #include "ModifierKeys.h"
 
+#import <DesktopKit/NXTDefaults.h>
+#import <SystemKit/OSEKeyboard.h>
+
 static NSString *menuEntries = @"\
 {\
 \"None\" = \"NoSymbol\"; \
@@ -85,6 +88,11 @@ static NSString *menuEntries = @"\
 
     loaded = YES;
   }
+
+  NXTDefaults *keydefaults = [NXTDefaults globalUserDefaults];
+  NSInteger val = [keydefaults integerForKey:OSEKeyboardAltCmdSwap];
+  if (val < 0) val = 0;
+  [swapAltCmdBtn setState:val];
 }
 
 - (NSView*) contentView 
@@ -143,6 +151,17 @@ static NSString *menuEntries = @"\
   } else {
     [menu selectItemWithTitle: @"None"];  
   }
+}
+
+- (IBAction)swapAction:(id)sender
+{
+  NXTDefaults *keydefaults = [NXTDefaults globalUserDefaults];
+  if (sender == swapAltCmdBtn)
+    {
+      [keydefaults setInteger:[sender state] forKey:OSEKeyboardAltCmdSwap];
+    }
+
+  [OSEKeyboard configureWithDefaults:keydefaults];
 }
 
 - (IBAction)popupsAction:(id)sender

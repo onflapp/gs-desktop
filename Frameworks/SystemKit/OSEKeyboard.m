@@ -32,6 +32,7 @@ NSString *OSEKeyboardOptions = @"KeyboardOptions";
 NSString *OSEKeyboardNumLockState = @"KeyboardNumLockState";
 NSString *OSEKeyboardFNSwap = @"KeyboardFNSwap";
 NSString *OSEKeyboardFNforFkeys = @"KeyboardFNforFKeys";
+NSString *OSEKeyboardAltCmdSwap = @"OSEKeyboardAltCmdSwap";
 
 @implementation OSEKeyboard : NSObject
 
@@ -85,6 +86,8 @@ NSString *OSEKeyboardFNforFkeys = @"KeyboardFNforFKeys";
     [NSString stringWithFormat:@"%ld", [defs integerForKey:OSEKeyboardFNforFkeys]]];
   [args addObject:
     [NSString stringWithFormat:@"%ld", [defs integerForKey:OSEKeyboardFNSwap]]];
+  [args addObject:
+    [NSString stringWithFormat:@"%ld", [defs integerForKey:OSEKeyboardAltCmdSwap]]];
 
   NSLog(@"exec %@ %@", cmd, args);
   [task setLaunchPath:cmd];
