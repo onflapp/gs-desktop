@@ -114,6 +114,8 @@ static NSBundle                 *bundle = nil;
 {
   NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
   NSMutableDictionary* domain = [[defaults persistentDomainForName:@"GestureHelper"] mutableCopy];
+  if (!domain) 
+    domain = [[NSMutableDictionary new] autorelease];
 
   BOOL val = [scrollEnabled state];
   [domain setValue:[NSNumber numberWithBool:val] forKey:@"ScrollEnabled"];
