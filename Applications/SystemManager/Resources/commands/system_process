@@ -31,10 +31,11 @@ elsif ($ARGV[0] eq "list") {
   open(IN, "systemctl $s $t |");
   while(<IN>) {
     chomp();
+    #print("[$_]\n");
     if (/^  UNIT /) {
       next;
     }
-    if (/^  (.*?)\s+(.*?)\s+(.*?)\s+(.*?)\s+(.*?)$/) {
+    if (/^. (.*?)\s+(.*?)\s+(.*?)\s+(.*?)\s+(.*?)$/) {
       $found = 0;
       $line = "$1\t$2\t$3\t$4\t$5";
       if ($f eq "") {
