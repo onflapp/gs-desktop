@@ -46,6 +46,23 @@
       )
     ),
     (
+      Keyboard,
+      (
+        "Backlight On",
+        SHORTCUT,
+        XF86KbdBrightnessUp,
+        EXEC,
+        "/Library/Scripts/KeyboardIncreaseBacklight"
+      ),
+      (
+        "Backlight Off",
+        SHORTCUT,
+        XF86KbdBrightnessDown,
+        EXEC,
+        "/Library/Scripts/KeyboardDecreaseBacklight"
+      )
+    ),
+    (
       "Grab ScreenShot",
       (Selection, EXEC, "/Library/Scripts/ScreenShotSelection"),
       (Window, EXEC, "/Library/Scripts/ScreenShotWindow"),

@@ -30,6 +30,8 @@ NSString *OSEKeyboardVariants = @"KeyboardVariants";
 NSString *OSEKeyboardModel = @"KeyboardModel";
 NSString *OSEKeyboardOptions = @"KeyboardOptions";
 NSString *OSEKeyboardNumLockState = @"KeyboardNumLockState";
+NSString *OSEKeyboardFNSwap = @"KeyboardFNSwap";
+NSString *OSEKeyboardFNforFkeys = @"KeyboardFNforFKeys";
 
 @implementation OSEKeyboard : NSObject
 
@@ -73,6 +75,21 @@ NSString *OSEKeyboardNumLockState = @"KeyboardNumLockState";
   }
   
   [keyb release];
+
+  // Function Keys
+  NSMutableArray* args = [NSMutableArray array];
+  NSString* cmd = [[NSBundle bundleForClass:[OSEKeyboard class]] pathForResource:@"keyboard_helper" ofType:@""];
+  NSTask* task = [[[NSTask alloc] init] autorelease];
+
+  [args addObject:
+    [NSString stringWithFormat:@"%ld", [defs integerForKey:OSEKeyboardFNforFkeys]]];
+  [args addObject:
+    [NSString stringWithFormat:@"%ld", [defs integerForKey:OSEKeyboardFNSwap]]];
+
+  NSLog(@"exec %@ %@", cmd, args);
+  [task setLaunchPath:cmd];
+  [task setArguments:args];
+  [task launch];
 }
 
 // Converts string like

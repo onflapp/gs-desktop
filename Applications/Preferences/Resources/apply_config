@@ -7,8 +7,19 @@ if [ "$1" == "keyboard" ];then
 fi
 
 if [ "$1" == "screen" ];then
+  PID=`cat /tmp/$UID-wm.pid 2>/dev/null`
+  if [ -n "$PID" ];then
+    pkill -USR1 -P "$PID"
+  fi
+
+  sleep 0.5
+
   PID=`cat /tmp/$UID-picom.pid 2>/dev/null`
   if [ -n "$PID" ];then
     kill -USR1 "$PID" 2>/dev/null
   fi
+fi
+
+if [ "$1" == "layout" ];then
+  autorandr --force -s gsdesktop
 fi

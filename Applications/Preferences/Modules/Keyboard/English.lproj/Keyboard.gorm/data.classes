@@ -10,12 +10,13 @@
 	    "layoutMove:",
 	    "layoutRemove:",
 	    "modelBrowserClicked:",
-	    "select:",
+	    "swapFNClicked:",
 	    "numLockMtrxClicked:",
 	    "numpadMtrxClicked:",
 	    "remove:",
 	    "repeatAction:",
 	    "sectionButtonClicked:",
+	    "select:",
 	    "setLayoutShortcut:",
 	    "showAddLayoutPanel:",
 	    "swapCAMtrxClicked:"
@@ -37,7 +38,8 @@
 	    "capsLockMtrxClicked:",
 	    "swapCAMtrxClicked:",
 	    "numLockMtrxClicked:",
-	    "modelBrowserClicked:"
+	    "modelBrowserClicked:",
+	    "swapFNClicked:"
 	);
 	Outlets = (
 	    window,
@@ -70,7 +72,9 @@
 	    modelBrowser,
 	    modelDescription,
 	    modelBox,
-	    shortcuts
+	    shortcuts,
+	    FNforFKeyBtn,
+	    swapFNBtn
 	);
 	Super = NSObject;
     };

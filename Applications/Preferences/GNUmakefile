@@ -33,7 +33,7 @@ SUBPROJECTS = \
 # Resource files
 #
 $(APP_NAME)_RESOURCE_FILES = \
-	Resources/initrc \
+	Resources/apply_config \
 	Modules/Localization/Localization.preferences \
 	Modules/Font/Font.preferences \
 	Modules/Display/Display.preferences \

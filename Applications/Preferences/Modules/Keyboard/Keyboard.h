@@ -80,6 +80,10 @@
   id swapCAMtrx;
   id capsLockBtn;
   id capsLockMtrx;
+
+  // Function Keys
+  id swapFNBtn;
+  id FNforFKeyBtn;
   
   // Shortcut Modifiers
   id shortcutModifiersBox;
@@ -88,6 +92,10 @@
 
 - (void)sectionButtonClicked:(id)sender;
 
+@end
+
+@interface Keyboard (FunctionKeys)
+- (void)swapFNClicked:(id)sender;
 @end
 
 @interface Keyboard (KeyRepeat)

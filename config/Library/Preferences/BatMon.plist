@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>NSWindow Frame STScriptsPanel</key>
+    <string>456 248 200 316 0 0  1440 900 </string>
+    <key>critical_color</key>
+    <string>1.000000 0.000000 0.000000 1.000000</string>
+    <key>normal_color</key>
+    <string>0.537255 0.850980 0.725490 1.000000</string>
+    <key>outline_color</key>
+    <string>0.333000 0.333000 0.333000 1.000000</string>
+    <key>warning_color</key>
+    <string>1.000000 0.500000 0.000000 1.000000</string>
+</dict>
+</plist>

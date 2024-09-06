@@ -21,6 +21,14 @@ int main(int argc, char** argv, char** env)
 
   NSInteger MAX = [[NSString stringWithContentsOfFile:MAX_FILE] integerValue];
   if (MAX == 0) {
+    BASE_DIR = @"/sys/class/backlight/acpi_video0";
+    MAX_FILE = [BASE_DIR stringByAppendingPathComponent:@"max_brightness"];
+    NOW_FILE = [BASE_DIR stringByAppendingPathComponent:@"actual_brightness"];
+    SET_FILE = [BASE_DIR stringByAppendingPathComponent:@"brightness"];
+  }
+
+  MAX = [[NSString stringWithContentsOfFile:MAX_FILE] integerValue];
+  if (MAX == 0) {
     [pool release];
     return 1;
   }

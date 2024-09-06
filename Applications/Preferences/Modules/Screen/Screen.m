@@ -100,6 +100,7 @@
            name:OSEScreenDidUpdateNotification
          object:systemScreen];
 
+  /*
   // Open/close lid events
   power = [OSEPower new];
   [power startEventsMonitor];
@@ -108,6 +109,7 @@
        selector:@selector(lidDidChange:)
            name:OSEPowerLidDidChangeNotification
          object:power];
+  */
   
   [[NSNotificationCenter defaultCenter]
     addObserver:self
@@ -190,6 +192,10 @@
   display = [systemScreen displayWithName:selectedBox.displayName];
   // [OSEDisplay setMain:] will generate OSEScreenDidChangeNotification.
   [systemScreen setMainDisplay:display];
+
+  [self performSelector:@selector(saveLayoutConfig) 
+             withObject:nil
+             afterDelay:3.0];
 }
 
 - (void)setDisplayState:(id)sender
@@ -206,6 +212,10 @@
     {
       [systemScreen activateDisplay:display];
     }
+
+  [self performSelector:@selector(saveLayoutConfig) 
+             withObject:nil
+             afterDelay:3.0];
 }
 
 - (void)revertArrangement:(id)sender
@@ -325,6 +335,17 @@ NSComparisonResult compareDisplayBoxes(DisplayBox *displayA,
   
   [revertBtn setEnabled:NO];
   [applyBtn setEnabled:NO];
+
+  [self performSelector:@selector(saveLayoutConfig) 
+             withObject:nil
+             afterDelay:3.0];
+}
+
+- (void)saveLayoutConfig
+{
+  NSString* initrc = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"apply_config"];
+  NSLog(@"Exec apply_config %@ layout", initrc);
+  [NSTask launchedTaskWithLaunchPath:initrc arguments:[NSArray arrayWithObject:@"layout"]];
 }
 
 //
@@ -432,6 +453,7 @@ NSComparisonResult compareDisplayBoxes(DisplayBox *displayA,
 - (void)lidDidChange:(NSNotification *)aNotif
 {
   OSEDisplay *builtinDisplay = nil;
+  NSInteger displays = [[systemScreen connectedDisplays] count];
 
   // for (DisplayBox *db in displayBoxList)
   for (OSEDisplay *d in [systemScreen connectedDisplays])
@@ -450,7 +472,7 @@ NSComparisonResult compareDisplayBoxes(DisplayBox *displayA,
           NSLog(@"Screen: activating display %@", [builtinDisplay outputName]);
           [systemScreen activateDisplay:builtinDisplay];
         }
-      else if ([[aNotif object] isLidClosed] && [builtinDisplay isActive])
+      else if ([[aNotif object] isLidClosed] && [builtinDisplay isActive] && displays > 1)
         {
           NSLog(@"Screen: DEactivating display %@",
                 [builtinDisplay outputName]);
