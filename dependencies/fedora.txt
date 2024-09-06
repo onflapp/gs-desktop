@@ -97,6 +97,7 @@ texlive-latex
 texlive-dvips
 texlive-ec
 texinfo
+gettext-devel
 info
 emacs
 NetworkManager-tui

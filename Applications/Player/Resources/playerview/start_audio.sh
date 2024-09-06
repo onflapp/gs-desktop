@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 unset TERM
 #vlc -q -I rc --rc-show-pos --no-playlist-autostart "$1"

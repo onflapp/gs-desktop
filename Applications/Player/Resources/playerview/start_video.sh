@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 unset TERM
 XID="$1"
