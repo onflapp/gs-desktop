@@ -185,6 +185,12 @@ int main(int argc, char** argv, char** env)
         [controller setOutputVolumeMute];
       }
     }
+    else if ([[arguments objectAtIndex:1] isEqualToString:@"--status"]) {
+      SoundController* controller = [[SoundController alloc] init];
+      if ([controller connectAndWait]) {
+        NSLog(@"audio controller:%@", controller);
+      }
+    }
     else {
       printUsage();
       exit(1);

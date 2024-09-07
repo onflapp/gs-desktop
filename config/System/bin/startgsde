@@ -113,6 +113,9 @@ function start_services {
   # needed to start synchronizing the X11 CLIPBOARD
   echo " " | /Library/bin/nxpasteboard --copy
 
+  # needed to start PA audio sever
+  /Library/bin/nxaudio --status
+
   show_status "about to start fswatcher Service" "gray30"
   /Library/bin/fswatcher --daemon &
   echo "$!" > /tmp/$UID-fswatcher.pid
