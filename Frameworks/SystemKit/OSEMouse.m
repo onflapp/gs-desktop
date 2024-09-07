@@ -112,6 +112,7 @@ NSString *OSEMouseCursorTheme = @"MouseCursorTheme";
 
   XChangePointerControl(dpy, changeAcceleration, changeTreshold,
                         speed, 1, pixels);
+  //NSLog(@"change acceleration %d %d %d %d", changeAcceleration, changeTreshold, speed, pixels);
   XCloseDisplay(dpy);
 
   // NEXTSPACE

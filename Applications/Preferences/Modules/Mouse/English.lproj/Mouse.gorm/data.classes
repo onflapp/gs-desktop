@@ -4,10 +4,11 @@
 	Actions = (
 	    "doubleClickMtrxClicked:",
 	    "enableSubpixelChanged:",
-	    "setPrimaryButtonHand:",
+	    "speedMtrxClicked:",
 	    "setCursorTheme:",
 	    "setMenuButtonEnabled:",
 	    "setMenuButtonHand:",
+	    "setPrimaryButtonHand:",
 	    "setTreshold:",
 	    "setWheelScroll:",
 	    "subpixelModeChanged:"
@@ -22,7 +23,8 @@
 	    "setMenuButtonEnabled:",
 	    "setMenuButtonHand:",
 	    "setCursorTheme:",
-	    "setPrimaryButtonHand:"
+	    "setPrimaryButtonHand:",
+	    "speedMtrxClicked:"
 	);
 	Outlets = (
 	    view,
