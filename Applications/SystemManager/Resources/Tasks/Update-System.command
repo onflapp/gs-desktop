@@ -2,6 +2,7 @@
 
 if type apt 2>/dev/null ;then
   sudo apt update
+  sudo apt upgrade
   exit $?
 fi
 

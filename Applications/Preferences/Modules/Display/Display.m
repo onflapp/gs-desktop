@@ -329,9 +329,9 @@
 {
   CGFloat value = [sender floatValue];
 
-  if (saveConfigTimer && [saveConfigTimer isValid]) {
+  if (saveConfigTimer && [saveConfigTimer isValid])
     [saveConfigTimer invalidate];
-  }
+
   saveConfigTimer = [NSTimer
                       scheduledTimerWithTimeInterval:2
                                               target:self
@@ -340,34 +340,29 @@
                                              repeats:NO];
   [saveConfigTimer retain];
   
-  if (sender == gammaSlider) {
-    // NSLog(@"Gamma slider moved");
-    [gammaField setStringValue:[NSString stringWithFormat:@"%.2f", value]];
-      
-    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
-    //               ^{
-                     [selectedDisplay setGamma:value];
-    //               });
-  }
-  else if (sender == brightnessSlider) {
-    // NSLog(@"Brightness slider moved");
-    // if (value > 1.0) value = 1.0;
-    //[brightnessField setIntValue:[sender intValue]];
-    //dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0),
-    //               ^{
-                     if ([selectedDisplay isDisplayBrightnessSupported]) 
-                       {
-                         [selectedDisplay setDisplayBrightness:value];
-                       }
-                     else 
-                       {
-                         [selectedDisplay setGammaBrightness:value/100];
-                       }
-     //              });
-  }
-  else {
-    NSLog(@"Unknown slider moved");
-  }
+  if (sender == gammaSlider) 
+    {
+      // NSLog(@"Gamma slider moved");
+      [gammaField setStringValue:[NSString stringWithFormat:@"%.2f", value]];
+      [selectedDisplay setGamma:value];
+    }
+  else if (sender == brightnessSlider)
+    {
+      // NSLog(@"Brightness slider moved %f", value);
+      if (value > 100) 
+        value = 100;
+
+      [brightnessField setIntValue:[sender intValue]];
+
+      [NSObject cancelPreviousPerformRequestsWithTarget:self];
+      [self performSelector:@selector(__updateDisplayBrigthness:)
+                 withObject:[NSNumber numberWithFloat:value]
+                 afterDelay:0.2];
+    }
+  else 
+    {
+      NSLog(@"Unknown slider moved");
+    }
 }
 
 - (IBAction)managedBackgroundChanged:(id)sender
@@ -456,7 +451,6 @@
           [selectedDisplay setDisplayBrightness:value];
           value = [selectedDisplay displayBrightness];
           [brightnessSlider setFloatValue:value];
-          // [tf setIntValue:[strVal intValue]];
           [tf setFloatValue:value];
         }
       else
@@ -464,14 +458,22 @@
           [selectedDisplay setGammaBrightness:value/100];
           value = [selectedDisplay gammaBrightness]*100;
           [brightnessSlider setFloatValue:value];
-          // [tf setIntValue:[strVal intValue]];
           [tf setFloatValue:value];
         }
     }
 
   // Changes to gamma is not generate XRRScreenChangeNotify event.
   // That's why saving display configuration is here.
-  [systemScreen saveCurrentDisplayLayout];
+  if (saveConfigTimer && [saveConfigTimer isValid])
+    [saveConfigTimer invalidate];
+
+  saveConfigTimer = [NSTimer
+                      scheduledTimerWithTimeInterval:2
+                                              target:self
+                                            selector:@selector(saveDisplayConfig)
+                                            userInfo:nil
+                                             repeats:NO];
+  [saveConfigTimer retain];
 }
 
 // Notifications
@@ -485,5 +487,17 @@
 //
 // Utility methods
 //
-  
+
+- (void)__updateDisplayBrigthness:(NSNumber *)value
+{
+  if ([selectedDisplay isDisplayBrightnessSupported])
+    {
+      [selectedDisplay setDisplayBrightness:[value floatValue]];
+    }
+  else
+    {
+      [selectedDisplay setGammaBrightness:[value floatValue]/100];
+    }
+}
+
 @end
