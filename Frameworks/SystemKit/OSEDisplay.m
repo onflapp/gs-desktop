@@ -940,6 +940,10 @@ find_last_non_clamped(CARD16 array[], int size)
   else if (hasDisplayBrightness == 2) {
     backlight_helper(NULL, "set", ceil(brightness));
   }
+
+  [[NSNotificationCenter defaultCenter]
+    postNotificationName:OSEScreenDidUpdateNotification
+                  object:screen];
 }
 
 #include <unistd.h>
