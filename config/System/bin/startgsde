@@ -200,7 +200,14 @@ function init_config {
   T="/tmp/$UID-gs-desktop.locale"
   /System/bin/mklocalconfig > "$T"
   source "$T"
-  echo "desktop locale set to $LANG"
+  if [ -n "$LANG" ];then
+    echo "desktop locale set to $LANG"
+    export LANG
+  fi
+  if [ -n "$GNUSTEP_STRING_ENCODING" ];then
+    echo "set default encoding to $GNUSTEP_STRING_ENCODING"
+    export GNUSTEP_STRING_ENCODING
+  fi
 
   defaults read NSGlobalDomain "GSBackend" 2>&1 > /dev/null
   if [ $? -ne 0 ]; then

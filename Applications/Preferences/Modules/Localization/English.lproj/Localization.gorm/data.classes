@@ -4,6 +4,7 @@
 	Actions = (
 	    "enableSubpixelChanged:",
 	    "measurementUnitChanged:",
+	    "encodingChanged:",
 	    "subpixelModeChanged:"
 	);
 	Super = NSObject;
@@ -17,7 +18,8 @@
     };
     Localization = {
 	Actions = (
-	    "measurementUnitChanged:"
+	    "measurementUnitChanged:",
+	    "encodingChanged:"
 	);
 	Outlets = (
 	    encodingBtn,

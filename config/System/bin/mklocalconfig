@@ -24,6 +24,39 @@ sub check_lang {
   }
 }
 
+open(IN, "/Library/bin/defaults read NSGlobalDomain NSStringDefaultEncoding |");
+while(<IN>) {
+  chomp();
+  print("GNUSTEP_STRING_ENCODING=NSASCIIStringEncoding\n") if ($_ =~ /ASCII$/);
+  print("GNUSTEP_STRING_ENCODING=NSNonLossyASCIIStringEncoding\n") if ($_ =~ /Non Lossy/);
+  print("GNUSTEP_STRING_ENCODING=NSNEXTSTEPStringEncoding\n") if ($_ =~ /NEXTSTEP/);
+  print("GNUSTEP_STRING_ENCODING=NSMacOSRomanStringEncoding\n") if ($_ =~ /MacOS/);
+  print("GNUSTEP_STRING_ENCODING=NSUTF8StringEncoding\n") if ($_ =~ /UTF8/);
+  print("GNUSTEP_STRING_ENCODING=NSUnicodeStringEncoding\n") if ($_ =~ /Unicode/);
+  print("GNUSTEP_STRING_ENCODING=NSISOLatin1StringEncoding\n") if ($_ =~ /ISO-8859-1/);
+  print("GNUSTEP_STRING_ENCODING=NSISOLatin2StringEncoding\n") if ($_ =~ /ISO-8859-2/);
+  print("GNUSTEP_STRING_ENCODING=NSISOLatin3StringEncoding\n") if ($_ =~ /ISO-8859-3/);
+  print("GNUSTEP_STRING_ENCODING=NSISOLatin4StringEncoding\n") if ($_ =~ /ISO-8859-4/);
+  print("GNUSTEP_STRING_ENCODING=NSISOCyrillicStringEncoding\n") if ($_ =~ /ISO-8859-5/);
+  print("GNUSTEP_STRING_ENCODING=NSISOArabicStringEncoding\n") if ($_ =~ /ISO-8859-6/);
+  print("GNUSTEP_STRING_ENCODING=NSISOGreekStringEncoding\n") if ($_ =~ /ISO-8859-7/);
+  print("GNUSTEP_STRING_ENCODING=NSISOHebrewStringEncoding\n") if ($_ =~ /ISO-8859-8/);
+  print("GNUSTEP_STRING_ENCODING=NSISOLatin5StringEncoding\n") if ($_ =~ /ISO-8859-9/);
+  print("GNUSTEP_STRING_ENCODING=NSISOLatin6StringEncoding\n") if ($_ =~ /ISO-8859-10/);
+  print("GNUSTEP_STRING_ENCODING=NSISOThaiStringEncoding\n") if ($_ =~ /ISO-8859-11/);
+  print("GNUSTEP_STRING_ENCODING=NSISO2022JPStringEncoding\n") if ($_ =~ /ISO-2022/);
+  print("GNUSTEP_STRING_ENCODING=NSWindowsCP1250StringEncoding\n") if ($_ =~ /CP1250/);
+  print("GNUSTEP_STRING_ENCODING=NSWindowsCP1251StringEncoding\n") if ($_ =~ /CP1251/);
+  print("GNUSTEP_STRING_ENCODING=NSWindowsCP1252StringEncoding\n") if ($_ =~ /CP1252/);
+  print("GNUSTEP_STRING_ENCODING=NSWindowsCP1253StringEncoding\n") if ($_ =~ /CP1253/);
+  print("GNUSTEP_STRING_ENCODING=NSWindowsCP1254StringEncoding\n") if ($_ =~ /CP1254/);
+  print("GNUSTEP_STRING_ENCODING=NSKOI8RStringEncoding\n") if ($_ =~ /KOI8-R/);
+  print("GNUSTEP_STRING_ENCODING=NSShiftJISStringEncoding\n") if ($_ =~ /JIS/);
+  print("GNUSTEP_STRING_ENCODING=NSJapaneseEUCStringEncoding\n") if ($_ =~ /EUC/);
+  print("GNUSTEP_STRING_ENCODING=NSSymbolStringEncoding\n") if ($_ =~ /Symbol/);
+}
+close(IN);
+
 open(IN, "/Library/bin/defaults read NSGlobalDomain NSLanguages |");
 while(<IN>) {
   chomp();
@@ -45,9 +78,11 @@ $LANG="de_DE.utf8" if ($N eq "German");
 $LANG="fr_FR.utf8" if ($N eq "French");
 
 if (check_lang()) {
-  print("LANGUAGE=$LANG\n");
-  print("LANG=$LANG\n");
-  print("LC_ALL=$LANG\n");
+  if ($LANG ne "") {
+    print("LANGUAGE=$LANG\n");
+    print("LANG=$LANG\n");
+    print("LC_ALL=$LANG\n");
+  }
   exit(0);
 }
 else {

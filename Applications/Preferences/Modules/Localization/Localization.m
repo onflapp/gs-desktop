@@ -146,6 +146,11 @@ static NSMutableDictionary      *domain = nil;
 
   /* Measurement Units */
   [unitsBtn selectItemWithTitle:[domain objectForKey:@"NSMeasurementUnit"]];
+
+  /* Encoding */
+  NSString *encoding = [domain objectForKey:@"NSStringDefaultEncoding"];
+  if (encoding)
+    [encodingBtn selectItemWithTitle:encoding];
 }
 
 - (NSView *)view
@@ -219,5 +224,13 @@ static NSMutableDictionary      *domain = nil;
   [defaults setPersistentDomain:domain forName:@"NSGlobalDomain"];
   [defaults synchronize];
 }
+
+- (void)encodingChanged:(id)sender
+{
+  [domain setObject:[encodingBtn stringValue] forKey:@"NSStringDefaultEncoding"];
+  [defaults setPersistentDomain:domain forName:@"NSGlobalDomain"];
+  [defaults synchronize];
+}
+
 
 @end
