@@ -3,14 +3,15 @@
     FirstResponder = {
 	Actions = (
 	    "changePassword:",
-	    "newAction:"
+	    "manageUsers:"
 	);
 	Super = NSObject;
     };
     Password = {
 	Actions = (
 	    "changePassword:",
-	    "cancel:"
+	    "cancel:",
+	    "manageUsers:"
 	);
 	Outlets = (
 	    window,
@@ -21,7 +22,10 @@
 	    cancelButton,
 	    okButton,
 	    infoField,
-	    passwordBox
+	    passwordBox,
+	    nameField,
+	    shellField,
+	    userField
 	);
 	Super = NSObject;
     };

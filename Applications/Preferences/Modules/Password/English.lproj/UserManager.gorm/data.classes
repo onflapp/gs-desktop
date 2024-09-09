@@ -1,0 +1,40 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    FirstResponder = {
+	Actions = (
+	    "clearBuffer:",
+	    "newAction:",
+	    "showPanelAndRunManager:",
+	    "} - initWithPreferences:"
+	);
+	Super = NSObject;
+    };
+    TerminalView = {
+	Actions = (
+	    "} - initWithPreferences:",
+	    "clearBuffer:"
+	);
+	Outlets = (
+	);
+	Super = NSView;
+    };
+    UMTerminalView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = TerminalView;
+    };
+    UserManager = {
+	Actions = (
+	    "showPanelAndRunManager:",
+	    "cancel:"
+	);
+	Outlets = (
+	    terminalView,
+	    panel,
+	    view
+	);
+	Super = NSObject;
+    };
+}

@@ -22,6 +22,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <security/pam_appl.h>
+#include <pwd.h>
 
 #import <Foundation/Foundation.h>
 
@@ -41,7 +42,6 @@ static Password         *sharedPassword = nil;
 static pam_handle_t     *PAM_handle = NULL;
 static char             *PAMInput = NULL;
 static BOOL             PAMInputReady = NO;
-//static dispatch_queue_t pam_q;
 
 int PAMConversation(int num_msg, 
                     const struct pam_message **msg,
@@ -144,7 +144,7 @@ int PAMConversation(int num_msg,
   [image release];
   [lockImage release];
   [lockOpenImage release];
-  [passwordField release];
+  [userManager release];
   [super dealloc];
 }
 
@@ -165,6 +165,8 @@ int PAMConversation(int num_msg,
                      initWithContentsOfFile:[bundle pathForResource:@"LockOpen"
                                                              ofType:@"tiff"]];
   sharedPassword = self;
+
+  userManager = [[UserManager alloc]init];
   return self;
 }
 
@@ -176,19 +178,30 @@ int PAMConversation(int num_msg,
   [messageField setStringValue:@""];
   [infoField setStringValue:@""];
 
-  [passwordField retain];
-  [passwordField setStringValue:@"Password Secure"];
   [passwordField setEnabled:NO];
-  [passwordField sendActionOn:NSLeftMouseDownMask];
-
-  secureField = [[NSSecureTextField alloc]
-                  initWithFrame:[passwordField frame]];
-  [secureField setEchosBullets:NO];
-  [secureField setDelegate:self];
+  [passwordField setEchosBullets:YES];
+  [passwordField setDelegate:self];
   
   [okButton setRefusesFirstResponder:YES];
   [cancelButton setRefusesFirstResponder:YES];
   [lockView setRefusesFirstResponder:YES];
+
+  uid_t uid = geteuid();
+  struct passwd *pwd = getpwuid(uid);
+
+  if (pwd) {
+    [nameField setStringValue:[NSString stringWithCString:pwd->pw_name]];
+    [userField setStringValue:[NSString stringWithCString:pwd->pw_gecos]];
+    [shellField setStringValue:[NSString stringWithCString:pwd->pw_shell]];
+  }
+  else {
+    [nameField setStringValue:@"Unknown"];
+  }  
+
+  userManagerView = [userManager view];
+  [view addSubview:userManagerView];
+  [userManagerView setHidden:YES];
+  [userManagerView setFrame:[view frame]];
 }
 
 - (NSView *)view
@@ -215,8 +228,8 @@ int PAMConversation(int num_msg,
 
 - (NSString *)password
 {
-  NSLog(@"Password requested: %@", [secureField stringValue]);
-  return [secureField stringValue];
+  NSLog(@"Password requested: %@", [passwordField stringValue]);
+  return [passwordField stringValue];
 }
 
 - (void)setMessage:(NSString *)text
@@ -239,15 +252,10 @@ int PAMConversation(int num_msg,
     [messageField setStringValue:text];
   }
 
-  if ([secureField superview] == nil) {
-    [passwordBox replaceSubview:passwordField with:secureField];
-    [secureField setDelegate:self];
-  }
-  
   [okButton setEnabled:YES];
   [cancelButton setEnabled:YES];
-  [secureField setEnabled:YES];
-  [[view window] makeFirstResponder:secureField];
+  [passwordField setEnabled:YES];
+  [[view window] makeFirstResponder:passwordField];
 }
 - (void)setInfo:(NSString *)text
 {
@@ -259,6 +267,7 @@ int PAMConversation(int num_msg,
 //
 - (BOOL)changePasswordWithPAM
 {
+  NSAutoreleasePool *pool = [NSAutoreleasePool new];
   struct pam_conv conv;
   int             ret;
   NSString        *infoMessage;
@@ -290,6 +299,7 @@ int PAMConversation(int num_msg,
                          withObject:self
                       waitUntilDone:YES];
 
+  [pool release];
   return (ret == PAM_SUCCESS) ? YES : NO;
 }
 
@@ -299,28 +309,23 @@ int PAMConversation(int num_msg,
     if (fieldTimer != nil && [fieldTimer isValid] != NO) {
       [fieldTimer fire];
     }
-    [secureField setDelegate:self];
-    [passwordBox replaceSubview:passwordField with:secureField];
-    [[view window] makeFirstResponder:secureField];
+    [[view window] makeFirstResponder:passwordField];
     
+    [passwordField setEnabled:YES];
+    [passwordField setStringValue:@""];
     [infoField setStringValue:@""];
     [okButton setTitle:@"Ok"];
     [cancelButton setEnabled:YES];
  
-    //pam_q = dispatch_queue_create("ns.preferences.pam", NULL);  
-    //dispatch_async(pam_q, ^{[self changePasswordWithPAM];});
+    [self performSelectorInBackground:@selector(changePasswordWithPAM) 
+                           withObject:nil];
   }
   else {
-    PAMInput = strdup([[secureField stringValue] cString]);
+    PAMInput = strdup([[passwordField stringValue] cString]);
     PAMInputReady = YES;
     
-    [passwordField setStringValue:@"Checking..."];
-    if ([passwordField superview] == nil) {
-      [secureField setDelegate:nil];
-      [passwordBox replaceSubview:secureField with:passwordField];
-    }
-    [secureField setEnabled:NO];
-    [secureField setStringValue:@""];
+    [passwordField setEnabled:NO];
+    [passwordField setStringValue:@""];
     [messageField setStringValue:@""];
     [infoField setStringValue:@""];
     
@@ -337,13 +342,7 @@ int PAMConversation(int num_msg,
   PAMInput = NULL;
   PAMInputReady = YES;
   [lockView setImage:lockImage];
-  // Password field
-  if ([secureField superview] != nil) {
-    [secureField setDelegate:nil];
-    [passwordBox replaceSubview:secureField with:passwordField];
-  }
-  [passwordField setStringValue:@"Password Secure"];
-  //
+  
   [messageField setStringValue:@""];
   if (sender == cancelButton) {
     [infoField setStringValue:@""];
@@ -355,10 +354,19 @@ int PAMConversation(int num_msg,
                                                 userInfo:nil
                                                  repeats:NO];
   }
+
+  [passwordField setEnabled:NO];
+  [passwordField setStringValue:@""];
   [okButton setTitle:@"Change"];
   [cancelButton setEnabled:NO];
   [okButton setEnabled:YES];
   state = PAMStart;
+}
+
+- (void)manageUsers:(id)sender
+{
+  [userManagerView setHidden:NO];
+  [userManager showPanelAndRunManager:sender];
 }
 
 - (void)emptyFields:(NSTimer *)timer

@@ -21,6 +21,7 @@
 
 #import <AppKit/NSImage.h>
 #import <Preferences.h>
+#import "UserManager.h"
 
 typedef enum {
   PAMStart,
@@ -39,8 +40,11 @@ typedef enum {
   id passwordBox;
   id messageField;
   id passwordField;
-  id secureField;
   id infoField;
+
+  id nameField;
+  id shellField;
+  id userField;
 
   id okButton;
   id cancelButton;
@@ -51,6 +55,9 @@ typedef enum {
   NSTimer *fieldTimer;
 
   PasswordState state;
+
+  UserManager *userManager;
+  id userManagerView;
 }
 
 - (NSString *)password;

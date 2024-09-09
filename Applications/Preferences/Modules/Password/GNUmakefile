@@ -10,19 +10,23 @@ $(BUNDLE_NAME)_STANDARD_INSTALL = no
 
 $(BUNDLE_NAME)_RESOURCE_FILES = \
 	$(wildcard Resources/*.tiff) \
+	Resources/user_manager.sh \
 	Resources/bundle.registry
 
 $(BUNDLE_NAME)_OBJC_FILES= \
-	Password.m
+	Password.m \
+	UserManager.m
 
 $(BUNDLE_NAME)_HEADERS= \
-	Password.h
+	Password.h \
+	UserManager.h
 
 $(BUNDLE_NAME)_LANGUAGES = \
 	English
 
 $(BUNDLE_NAME)_LOCALIZED_RESOURCE_FILES= \
-	Password.gorm
+	Password.gorm \
+	UserManager.gorm
 
 -include GNUmakefile.preamble
 include $(GNUSTEP_MAKEFILES)/bundle.make

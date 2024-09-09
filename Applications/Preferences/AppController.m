@@ -108,6 +108,10 @@
   // this should prevent reseting settings after a display goes to sleep
   KeyboardStatusMonitor* kstat = [[KeyboardStatusMonitor alloc] init];
   [kstat performSelectorInBackground:@selector(processXWindowsEvents:) withObject:self];
+
+  if([NSApp isScriptingSupported]) {
+    [NSApp initializeApplicationScripting];
+  }
 }
 
 - (void) wakeUpAfterSleep

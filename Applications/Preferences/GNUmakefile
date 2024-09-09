@@ -34,6 +34,8 @@ SUBPROJECTS = \
 #
 $(APP_NAME)_RESOURCE_FILES = \
 	Resources/apply_config \
+	Resources/ApplicationScripting.xlp \
+	Resources/ScriptingInfo.plist \
 	Modules/Localization/Localization.preferences \
 	Modules/Font/Font.preferences \
 	Modules/Display/Display.preferences \
@@ -75,6 +77,7 @@ $(APP_NAME)_HEADER_FILES_INSTALL_DIR = $(GNUSTEP_SYSTEM_HEADERS)/apps
 $(APP_NAME)_OBJC_FILES = \
 AppController.m \
 KeyboardStatusMonitor.m \
+STScriptingSupport.m \
 PrefsController.m
 
 #
