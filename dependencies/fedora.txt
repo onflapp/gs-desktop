@@ -15,6 +15,7 @@ picom
 fzf
 cmake
 libtool
+util-linux-user
 pam-libs
 pam-devel
 autoconf
