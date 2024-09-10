@@ -197,6 +197,12 @@
   [[prefsController window] makeKeyAndOrderFront:self];
 }
 
+- (void)showPreferencesForModule:(NSString*) name
+{
+  [self showPreferencesWindow];
+  [prefsController showModule:name];
+}
+
 - (void)showInfoPanel:(id)sender
 {
   if (!infoPanel) {

@@ -1,2 +1,2 @@
-- showNetworkSetup:
-- showConfig:
+- showPreferencesWindow
+- showPreferencesForModule:name

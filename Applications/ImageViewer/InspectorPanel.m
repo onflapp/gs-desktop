@@ -1,5 +1,6 @@
 #import <AppKit/AppKit.h>
 #import "InspectorPanel.h"
+#import "Document.h"
 
 @implementation InspectorPanel
 
@@ -50,7 +51,25 @@ static id sharedInspectorPanel = nil;
   [img_reps removeAllItems];
   for (NSImageRep* rep in [img representations]) {
     NSString* title = [rep description];
+    if ([title hasPrefix:@"<NSCachedImageRep"]) continue;
+
     [img_reps addItemWithTitle:title];
+    [[[img_reps itemArray]lastObject]setRepresentedObject:rep];
+  }
+}
+
+- (void) openRepresentation:(id)sender {
+  NSImageRep* imageRep = [[img_reps selectedItem] representedObject];
+
+  if (imageRep) {
+    NSImage *img = [[NSImage alloc] initWithSize:[imageRep size]];
+    [img addRepresentation:imageRep];
+
+    Document* doc = [[Document alloc] init];
+    [doc setImage:img];
+    [doc showWindow];
+
+    [img release];
   }
 }
 

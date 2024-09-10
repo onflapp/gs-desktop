@@ -101,6 +101,19 @@
   return window;
 }
 
+- (void)showModule:(NSString*) name
+{
+  NSInteger i = 0;
+  for (id it in [iconList cells]) {
+    if ([[it title] hasPrefix:name]) {
+      [iconList selectCellAtRow:0 column:i];
+      [self buttonClicked:iconList];
+      return;
+    }
+    i++;
+  }
+}
+
 //
 // Button matrix
 //

@@ -32,6 +32,7 @@ gnuplot
 discount
 openssl-devel
 texlive-dvipdfmx
+texinfo-tex
 ffcall-devel
 libffi-devel
 libxml2-devel
