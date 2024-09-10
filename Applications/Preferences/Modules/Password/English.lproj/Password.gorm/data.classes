@@ -2,27 +2,17 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     FirstResponder = {
 	Actions = (
-	    "changePassword:",
 	    "manageUsers:"
 	);
 	Super = NSObject;
     };
     Password = {
 	Actions = (
-	    "changePassword:",
-	    "cancel:",
 	    "manageUsers:"
 	);
 	Outlets = (
 	    window,
 	    view,
-	    passwordField,
-	    lockView,
-	    messageField,
-	    cancelButton,
-	    okButton,
-	    infoField,
-	    passwordBox,
 	    nameField,
 	    shellField,
 	    userField

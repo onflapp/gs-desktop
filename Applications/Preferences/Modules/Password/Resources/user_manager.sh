@@ -2,16 +2,30 @@
 
 if [ "$1" = "shell" ];then
   clear
-  echo "Login as user $LOGNAME to continue"
+  echo -e "\e[30;47m                                                      "
+  echo             "            Login as you to continue                  "
+  echo -e          "                                                      \e[0m"
+  echo ""
+
   chsh
+  exit
+fi
+
+if [ "$1" = "passwd" ];then
+  clear
+  echo -e "\e[30;47m                                                      "
+  echo             "            Use your password to continue             "
+  echo -e          "                                                      \e[0m"
+  echo ""
+  passwd
   exit
 fi
 
 if [ $UID -ne 0 ];then
   clear
-  echo -e "\e[33;41m                                     "
-  echo             "   Login as admin user to continue   "
-  echo -e          "                                     \e[0m"
+  echo -e "\e[33;41m                                                      "
+  echo             "            Login as admin user to continue           "
+  echo -e          "                                                      \e[0m"
   echo ""
   export LOGIN="$LOGNAME"
   exec sudo -E $0 $1

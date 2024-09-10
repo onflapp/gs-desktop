@@ -23,45 +23,19 @@
 #import <Preferences.h>
 #import "UserManager.h"
 
-typedef enum {
-  PAMStart,
-  PAMEnterOld,
-  PAMEnterNew,
-  PAMConfirmNew,
-  PAMAbort
-} PasswordState;
-
 @interface Password: NSObject <PrefsModule>
 {
   id window;
   id view;
-  id lockView;
-
-  id passwordBox;
-  id messageField;
-  id passwordField;
-  id infoField;
 
   id nameField;
   id shellField;
   id userField;
 
-  id okButton;
-  id cancelButton;
-
-  NSImage *lockOpenImage;
-  NSImage *lockImage;
   NSImage *image;
-  NSTimer *fieldTimer;
-
-  PasswordState state;
 
   UserManager *userManager;
   id userManagerView;
 }
-
-- (NSString *)password;
-- (void)setMessage:(NSString *)text;
-- (void)setInfo:(NSString *)text;
 
 @end

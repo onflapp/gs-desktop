@@ -74,6 +74,9 @@
   else if ([sender tag] == 20) {
     [terminalView runManager:@"shell"];
   }
+  else if ([sender tag] == 30) {
+    [terminalView runManager:@"passwd"];
+  }
   else {
     [terminalView runManager:@"new"];
   }
