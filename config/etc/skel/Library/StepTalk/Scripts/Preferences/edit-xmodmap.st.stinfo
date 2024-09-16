@@ -1,0 +1,5 @@
+{
+    Default = {
+	Name = "Edit User's Xmodmap";
+    };
+}

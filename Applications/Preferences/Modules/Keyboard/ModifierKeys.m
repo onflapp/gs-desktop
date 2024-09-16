@@ -161,7 +161,8 @@ static NSString *menuEntries = @"\
       [keydefaults setInteger:[sender state] forKey:OSEKeyboardAltCmdSwap];
     }
 
-  [OSEKeyboard configureWithDefaults:keydefaults];
+  //[OSEKeyboard configureWithDefaults:keydefaults];
+  [[NSApp delegate]configureMouseAndKeyboard];
 }
 
 - (IBAction)popupsAction:(id)sender

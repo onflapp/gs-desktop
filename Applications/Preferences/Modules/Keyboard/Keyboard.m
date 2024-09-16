@@ -376,7 +376,8 @@ static NXTDefaults *defaults = nil;
       [defaults setInteger:[sender state] forKey:OSEKeyboardFNforFkeys];
     }
 
-  [OSEKeyboard configureWithDefaults:defaults];
+  //[OSEKeyboard configureWithDefaults:defaults];
+  [[NSApp delegate]configureMouseAndKeyboard];
 }
 
 @end
