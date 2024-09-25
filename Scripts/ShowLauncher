@@ -8,6 +8,7 @@ function show_selector {
   SEL=`cat $T | sort | fzf --no-info --color='hl+:4,hl:4,gutter:-1,bg+:0,fg+:4'`
   if [ -d "$SEL" ];then
     /Library/bin/gopen $SEL
+    sleep 0.3
   fi
 }
 
