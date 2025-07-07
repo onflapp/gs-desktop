@@ -32,7 +32,8 @@ cd "$D"
 cd ./Applications
 ./build_all.sh 2>&1 | tee $D/build_world-apps.log
 
-if ! [ -f "/Applications/GNUMail.app/GNUMail" ];then
+#if ! [ -f "/Applications/GNUMail.app/GNUMail" ];then
+if ! [ -f "/Applications/Mail.app/Mail" ];then
   echo "error building the user apps"
   exit 1
 fi

@@ -4,7 +4,8 @@
 	Actions = (
 	    "showPrefPanel:",
 	    "changeVolume:",
-	    "toggleMic:"
+	    "toggleMic:",
+	    "showAudioPreferences:"
 	);
 	Outlets = (
 	    controlView,
@@ -17,9 +18,10 @@
     FirstResponder = {
 	Actions = (
 	    "changeVolume:",
-	    "toggleMic:",
+	    "showAudioPreferences:",
 	    "orderFrontFontPanel:",
-	    "showPrefPanel:"
+	    "showPrefPanel:",
+	    "toggleMic:"
 	);
 	Super = NSObject;
     };

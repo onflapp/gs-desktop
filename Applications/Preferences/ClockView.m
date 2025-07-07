@@ -52,7 +52,7 @@ static	NSBundle *this_bundle = nil;
 {
   if ([event clickCount] >= 2)
     {
-      [[NSApp delegate] showPreferencesWindow];
+       [[NSApp delegate] showPreferencesWindow:nil];
     }
 }
 

@@ -2,5 +2,5 @@
   type = Preferences;
   mode = Themes;
   class = ThemesPrefs;
-  priority = 3;
+  priority = 2;
 }

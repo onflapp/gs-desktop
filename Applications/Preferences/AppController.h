@@ -34,6 +34,8 @@
 }
 
 - (void)showPreferencesWindow;
+- (void)showPreferencesForModule:(NSString*) name;
+- (void)showPreferencesWindow:(id)sender;
 
 @end
 

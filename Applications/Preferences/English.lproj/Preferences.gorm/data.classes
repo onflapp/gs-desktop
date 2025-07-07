@@ -2,7 +2,8 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     AppController = {
 	Actions = (
-	    "showInfoPanel:"
+	    "showInfoPanel:",
+	    "showPreferencesWindow:"
 	);
 	Outlets = (
 	    infoPanel
@@ -11,6 +12,7 @@
     };
     FirstResponder = {
 	Actions = (
+	    "showPreferencesWindow:",
 	    "showInfoPanel:"
 	);
 	Super = NSObject;

@@ -1,3 +1,22 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
+# initate logout
 /Library/bin/nxworkspace --logout
+sleep 0.5
+
+# we should be logging out now
+/Library/bin/nxworkspace --ping && exit
+
+C=10
+while [ "$C" -ne 0 ];do
+  /Library/bin/nxworkspace --ping || break
+
+  C=$((C - 1))
+  sleep 1
+done
+
+WM_PID=`cat /tmp/$UID-wm.pid`
+sleep 0.5
+if [ -n "$WM_PID" ];then
+  kill -HUP $WM_PID
+fi

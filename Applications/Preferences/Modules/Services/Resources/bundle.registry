@@ -2,5 +2,5 @@
   type = Preferences;
   mode = Services;
   class = ServicesPrefs;
-  priority = 11;
+  priority = 10;
 }

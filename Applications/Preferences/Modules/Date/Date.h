@@ -39,6 +39,7 @@
   IBOutlet NSBox *imageBox;
   MapView *mapView;
   IBOutlet id zoneField;
+  IBOutlet id zonePanel;
   IBOutlet id codeField;
   IBOutlet id commentsField;
   IBOutlet id setButt;
@@ -48,6 +49,8 @@
 - (void)showInfoOfLocation:(MapLocation *)loc;
 
 - (IBAction)setButtAction:(id)sender;
+- (IBAction)lookupButtAction:(id)sender;
+- (IBAction)selectButtAction:(id)sender;
 - (IBAction)toggleTimeFormat:(id)sender;
 
 @end

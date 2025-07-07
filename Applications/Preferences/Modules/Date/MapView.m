@@ -41,8 +41,9 @@ double myrintf(double a)
 {
   RELEASE (mapImage);
   RELEASE (locations);
+  RELEASE (zones);
   
-	[super dealloc];
+  [super dealloc];
 }
 
 - (id)initWithFrame:(NSRect)rect
@@ -56,6 +57,7 @@ double myrintf(double a)
     ASSIGN (mapImage, image);
     pane = apane;
     locations = [NSMutableArray new];
+    zones = [NSMutableArray new];
     [self readZones: path];
   }
   
@@ -143,6 +145,25 @@ double myrintf(double a)
     }
     
     [locations addObject: mapLocation];
+
+    NSRange r = [[mapLocation zone] rangeOfString:@"/"];
+    NSString *name = [[mapLocation zone] substringToIndex:r.location];
+
+    if (name) {
+      MapZone *zone = [self zoneForName:name];
+
+      if (!zone) {
+        zone = [[MapZone alloc] init];
+        [zone setName: name];
+        [zones addObject: zone];
+
+        RELEASE (zone);
+      }
+
+      [zone addLocation: mapLocation];
+      [mapLocation setName: [[mapLocation zone] substringFromIndex:r.location+1]];
+    }
+
     RELEASE (mapLocation);
        
     RELEASE (arp);
@@ -197,6 +218,27 @@ double myrintf(double a)
   }
 }
 
+- (NSString*) zoneAtIndex:(NSInteger) index
+{
+  return [zones objectAtIndex:index];
+}
+
+- (MapZone*) zoneForName:(NSString*) name
+{
+  for (NSInteger z = 0; z < [zones count]; z++) {
+    MapZone *mz = [zones objectAtIndex:z];
+    if ([[mz name] isEqualToString:name]) {
+      return mz;
+    }
+  }
+  return nil;
+}
+
+- (NSInteger) zoneCount
+{
+  return [zones count];
+}
+
 @end
 
 
@@ -206,9 +248,10 @@ double myrintf(double a)
 {
   RELEASE (code);
   RELEASE (zone);
+  RELEASE (name);
   TEST_RELEASE (comments);
   
-	[super dealloc];
+  [super dealloc];
 }
 
 - (NSUInteger)hash
@@ -277,6 +320,62 @@ double myrintf(double a)
   return comments;
 }
 
+- (void)setName:(NSString *)nm
+{
+  ASSIGN (name, nm);
+}
+
+- (NSString *)name
+{
+  return name;
+}
+
 @end
 
+@implementation MapZone
 
+- (id)init
+{
+  self = [super init];
+  
+  if (self) {
+    locations = [NSMutableArray new];
+  }
+
+  return self;
+}
+
+- (void)dealloc
+{
+  RELEASE (name);
+  RELEASE (locations);
+  
+  [super dealloc];
+}
+
+- (void)setName:(NSString *)nm
+{
+  ASSIGN (name, nm);
+}
+
+- (NSString *)name
+{
+  return name;
+}
+
+- (void) addLocation:(MapLocation*) loc
+{
+  [locations addObject:loc];
+}
+
+- (NSInteger) locationCount
+{
+  return [locations count];
+}
+
+- (MapLocation*) locationAtIndex:(NSInteger) index
+{
+  return [locations objectAtIndex:index];
+}
+
+@end

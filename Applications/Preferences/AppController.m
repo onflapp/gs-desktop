@@ -186,6 +186,11 @@
 
 - (void)showPreferencesWindow
 {
+  [self showPreferencesWindow:self];
+}
+
+- (void)showPreferencesWindow:(id)sender
+{
   if (prefsController == nil) {
     if ([NSBundle loadNibNamed:@"PrefsWindow" owner:self] == NO) {
       NSLog(@"Error loading NIB PrefsWindow");
@@ -199,7 +204,7 @@
 
 - (void)showPreferencesForModule:(NSString*) name
 {
-  [self showPreferencesWindow];
+  [self showPreferencesWindow:nil];
   [prefsController showModule:name];
 }
 

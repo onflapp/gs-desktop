@@ -27,7 +27,7 @@ SUBPROJECTS = \
 	Modules/Password \
 	Modules/Date \
 	Modules/Services \
-#	Modules/Power
+	Modules/Power
 
 #
 # Resource files
@@ -48,9 +48,8 @@ $(APP_NAME)_RESOURCE_FILES = \
 	Modules/Expert/Expert.preferences \
 	Modules/Password/Password.preferences \
 	Modules/Services/Services.preferences \
-	Modules/Date/Date.preferences
-
-#	Modules/Power/Power.preferences
+	Modules/Date/Date.preferences \
+	Modules/Power/Power.preferences
 
 #
 # Localization

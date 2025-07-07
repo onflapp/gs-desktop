@@ -3,7 +3,9 @@
     DatePrefs = {
 	Actions = (
 	    "setButtAction:",
-	    "toggleTimeFormat:"
+	    "toggleTimeFormat:",
+	    "lookupButtAction:",
+	    "selectButtAction:"
 	);
 	Outlets = (
 	    window,
@@ -13,19 +15,22 @@
 	    commentsField,
 	    setButt,
 	    imageBox,
-	    timeFormat
+	    timeFormat,
+	    zonePanel
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
 	    "closeMainWindow:",
-	    "toggleTimeFormat:",
+	    "lookupButtAction:",
+	    "selectButtAction:",
 	    "nextButtAction:",
 	    "prevButtAction:",
 	    "runInfoPanel:",
 	    "setButtAction:",
-	    "showAllButtAction:"
+	    "showAllButtAction:",
+	    "toggleTimeFormat:"
 	);
 	Super = NSObject;
     };

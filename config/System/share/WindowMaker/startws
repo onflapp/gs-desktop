@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+export WMAKER_BIN_PID
+/System/bin/startgsde --continue-in-wm

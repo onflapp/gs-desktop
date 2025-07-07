@@ -32,6 +32,8 @@ VolMon_APPLICATION_ICON = VolMon.tiff
 # Resource files
 #
 VolMon_RESOURCE_FILES = \
+Resources/ApplicationScripting.xlp \
+Resources/ScriptingInfo.plist \
 Resources/VolMon.gorm \
 Resources/VolMon.tiff 
 
@@ -41,6 +43,7 @@ Resources/VolMon.tiff
 #
 VolMon_HEADER_FILES = \
 AppController.h \
+STScriptingSupport.h \
 MiniView.h
 
 #
@@ -48,6 +51,7 @@ MiniView.h
 #
 VolMon_OBJC_FILES = \
 AppController.m \
+STScriptingSupport.m \
 MiniView.m
 
 #

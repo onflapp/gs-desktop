@@ -43,6 +43,8 @@ void printUsage() {
   fprintf(stderr, "  --activate            activate the Workspace\n");
   fprintf(stderr, "  --fileviewer          show root file viewer\n");
   fprintf(stderr, "  --logout              logout from Workspace\n");
+  fprintf(stderr, "  --terminate           terminate Workspace and all running apps\n");
+  fprintf(stderr, "  --ping                determine if Workspace is running\n");
   fprintf(stderr, "\n");
 }
 
@@ -143,6 +145,26 @@ int main(int argc, char** argv, char** env)
       id gworkspace = [NSConnection rootProxyForConnectionWithRegisteredName:@"GWorkspace" host:@""];
       if (gworkspace) {
         [gworkspace logout:nil];
+      }
+    }
+    else if ([[arguments objectAtIndex:1] isEqualToString:@"--terminate"]) {
+      id gworkspace = [NSConnection rootProxyForConnectionWithRegisteredName:@"GWorkspace" host:@""];
+      if (gworkspace) {
+        [gworkspace doLogout:nil];
+      }
+    }
+    else if ([[arguments objectAtIndex:1] isEqualToString:@"--ping"]) {
+      id gworkspace = [NSConnection rootProxyForConnectionWithRegisteredName:@"GWorkspace" host:@""];
+      if (gworkspace) {
+        if ([gworkspace isLoggingOut]) {
+          exit(10);
+	}
+	else {
+          exit(0);
+	}
+      }
+      else {
+        exit(1);
       }
     }
     else {

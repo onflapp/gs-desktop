@@ -101,11 +101,11 @@ gmake $MKARGS || exit 1
 gmake install || exit 1
 
 echo "=================="
-echo " GNUMail App"
+echo " Mail App"
 echo "=================="
 
 cd "$D"
-cd ../../gnumail/gnumail || exit 1
+cd ../../gs-mail || exit 1
 
 gmake clean
 

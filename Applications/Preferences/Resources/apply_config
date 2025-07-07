@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
 
-if [ "$1" == "keyboard" ];then
-  if [ -f ~/.Xmodmap ];then
-    xmodmap ~/.Xmodmap
-  fi
-fi
+exec 100> /tmp/gsde-preferences-$GS_DESKTOP_ID.lock
+flock -n 100 || exit 1
 
-if [ "$1" == "screen" ];then
+function update_screen {
   PID=`cat /tmp/$UID-wm.pid 2>/dev/null`
   if [ -n "$PID" ];then
-    pkill -USR1 -P "$PID"
+    kill -USR1 "$PID"
   fi
 
   sleep 0.5
@@ -18,8 +15,22 @@ if [ "$1" == "screen" ];then
   if [ -n "$PID" ];then
     kill -USR1 "$PID" 2>/dev/null
   fi
+
+  xrefresh
+  sleep 1
+}
+
+if [ "$1" = "keyboard" ];then
+  if [ -f ~/.Xmodmap ];then
+    xmodmap ~/.Xmodmap
+  fi
 fi
 
-if [ "$1" == "layout" ];then
+if [ "$1" = "screen" ];then
+  update_screen
+fi
+
+if [ "$1" = "layout" ];then
+  # layout should come after the screen change
   autorandr --force -s gsdesktop
 fi

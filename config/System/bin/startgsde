@@ -9,86 +9,26 @@ function show_status {
   fi
 }
 
-function start_workspace {
-  (/System/Applications/GWorkspace.app/GWorkspace) &
-  GW_PID="$!"
-  sleep 0.5
-
-  echo "Workspace is running on $GW_PID"
-  echo "$GW_PID" > /tmp/$UID-gw.pid
-}
-
-function stop_workspace {
-  PID=`cat /tmp/$UID-gw.pid 2>/dev/null`
-  if [ -n "$PID" ];then
-    echo "stopping all children of Workspace $PID"
-    pkill -P "$PID"
-    sleep 1
-
-    echo "stopping Workspace on $PID"
-    kill -9 $PID 2> /dev/null
-    rm /tmp/$UID-gw.pid
-  fi
-}
-
 function start_windowmanager {
   show_status "starting windowmanager" "gray45"
-
-  (/System/bin/wmaker $WM_ARGS) &
-  WM_PID="$!"
-  sleep 0.3
-
-  echo "WM is running on $WM_PID"
-  echo "$WM_PID" > /tmp/$UID-wm.pid
-  export GS_DESKTOP_WM_PID="$WM_PID"
-
-  if [ -f "$HOME/Library/etc/picom.conf" ];then
-    show_status "about to start picom" "gray50"
-    sleep 0.1
-    picom -b --conf $HOME/Library/etc/picom.conf --write-pid-path /tmp/$UID-picom.pid
-  fi
+  /System/bin/wmaker $WM_ARGS
+  show_status "stopping windowmanager" "gray45"
 }
 
-function refresh_picom {
-  show_status
-  sleep 0.2
-  PID=`cat /tmp/$UID-picom.pid 2>/dev/null`
-  if [ -n "$PID" ];then
-    kill -USR1 "$PID" 2>/dev/null
-  fi
-}
+function continue_in_wm  {
+  echo "windowmanager running on $WMAKER_BIN_PID"
+  echo "$WMAKER_BIN_PID" > /tmp/$UID-wm.pid
 
-function stop_picom {
-  PID=`cat /tmp/$UID-picom.pid 2>/dev/null`
-  if [ -n "$PID" ];then
-    kill "$PID" 2>/dev/null
-    rm /tmp/$UID-picom.pid
-  fi
-}
+  echo "about to autostart apps"
+  /Library/Scripts/AutoLaunchApps
 
-function stop_windowmanager {
-  PID=`cat /tmp/$UID-wm.pid 2>/dev/null`
-  if [ -n "$PID" ];then
-    echo "stopping WM on $PID"
-    pkill -P "$PID" 2>/dev/null
-    sleep 1.0
-    kill "$PID"     2>/dev/null
-    rm /tmp/$UID-wm.pid
-  fi
-}
-
-function start_helpers {
   echo "about to start Notification Monitor"
   /System/Applications/NotMon.app/NotMon -GSSuppressAppIcon YES -autolaunch YES &
   echo "$!" > /tmp/$UID-notmon.pid
 
-  sleep 0.5
-  /Library/bin/nxnotify show-modal-panel --title "GSDE" --info "Launching applications..." --hide-panel 30
-  
   echo "about to start Gesture Helper"
   /System/Applications/GestureHelper.app/GestureHelper -GSSuppressAppIcon YES -autolaunch YES &
   echo "$!" > /tmp/$UID-ghelper.pid
-
 }
 
 function start_services {
@@ -238,32 +178,7 @@ function start_debug {
   show_status "starting debug session" "black"
   init_config
   main_process
-  startup_scripts
-
-  wait $GW_PID
-  sleep 1
   cleanup
-}
-
-function wait_for_workspace {
-  local c=0
-  while [ $c -lt 20 ];do
-    sleep 0.5
-    (LANG=C xwininfo -root -tree | grep -e 'File.Viewer.*GWorkspace.*') && break
-    c=$((c + 1))
-  done
-  sleep 0.5
-}
-
-function startup_scripts {
-  #wait_for_workspace
-  sleep 2
-
-  /Library/Scripts/AutoLaunchApps
-
-  /Library/bin/nxnotify hide-panel
-
-  refresh_picom
 }
 
 function save_screen {
@@ -282,11 +197,6 @@ function start_normal {
   restore_screen
   init_config
   main_process
-  startup_scripts
- 
-  wait $GW_PID
-  sleep 1
-
   save_screen
   cleanup
 }
@@ -294,17 +204,16 @@ function start_normal {
 function main_process {
   start_services
   start_windowmanager
-  start_helpers
-  start_workspace 
 }
 
 function cleanup {
   echo "cleaning up..."
+
+  echo "make sure GWorkspace terminates"
+  /Library/bin/nxworkspace --terminate 2>/dev/null
+  sleep 0.5
  
-  stop_picom
-  stop_workspace 
   stop_services
-  stop_windowmanager
 
   show_status "the end" "black"
   echo -e "\e[3;0;0t\ePtmux;\e\e[3;0;0t\e\\"
@@ -313,6 +222,11 @@ function cleanup {
   pkill -P "$$"
   exit 0
 }
+
+if [ "$1" == "--continue-in-wm" ];then
+  continue_in_wm
+  exit 0
+fi
 
 if [ "$UID" -eq 0 ];then
   echo "GNUstep Desktop cannot run as root"

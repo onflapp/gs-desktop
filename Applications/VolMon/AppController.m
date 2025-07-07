@@ -10,6 +10,7 @@
 
 #import "AppController.h"
 #import "MiniView.h"
+#import "STScriptingSupport.h"
 
 @implementation AppController
 
@@ -51,6 +52,10 @@
   [[[NSApp iconWindow] contentView] addSubview:controlView];
   [controlView setFrame:NSMakeRect(8, 8, 48, 48)];
   [controlView setNeedsDisplay:YES];
+
+  if ([NSApp isScriptingSupported]) {
+    [NSApp initializeApplicationScripting];
+  }
 }
 
 - (BOOL) applicationShouldTerminate: (id)sender
@@ -195,6 +200,14 @@
 
 - (void) showPrefPanel: (id)sender
 {
+}
+
+- (void) showAudioPreferences: (id)sender
+{
+  id preferences = [NSConnection rootProxyForConnectionWithRegisteredName:@"Preferences" host:@""];
+  if (preferences) {
+    [preferences performSelector:@selector(showPreferencesForModule:) withObject:@"Sound"];
+  }
 }
 
 @end

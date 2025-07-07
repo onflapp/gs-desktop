@@ -20,6 +20,7 @@ mkdir -p /Library/Themes 2>/dev/null
 cp -r ./Library/Themes/* /Library/Themes
 
 cp ./System/share/WindowMaker/*.sh /System/share/WindowMaker/
+cp ./System/share/WindowMaker/startws /System/share/WindowMaker/
 cp ./System/share/WindowMaker/Icons/* /System/share/WindowMaker/Icons/
 
 ln -s /System/bin/startgsde-safe /usr/bin/startgsde-safe

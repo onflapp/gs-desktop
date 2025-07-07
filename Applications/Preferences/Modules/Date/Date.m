@@ -129,6 +129,35 @@
   return image;
 }
 
+- (void)browser:(NSBrowser*) brow 
+willDisplayCell:(NSBrowserCell*) cell 
+	  atRow:(NSInteger)row 
+	 column:(NSInteger)col
+{
+  if (col == 0) {
+    [cell setLeaf:NO];
+    [cell setStringValue: [[mapView zoneAtIndex:row] name]];
+  } else {
+    NSString *name = [[brow selectedCellInColumn:0] stringValue];
+    MapZone *zone = [mapView zoneForName:name];
+    MapLocation *loc = [[mapView zoneForName:name] locationAtIndex:row];
+
+    [cell setLeaf:YES];
+    [cell setRepresentedObject:loc];
+    [cell setStringValue:[loc name]];
+  }
+}
+
+- (NSInteger)browser:(NSBrowser*) brow numberOfRowsInColumn:(NSInteger) col
+{
+  if (col == 0) {
+    return [mapView zoneCount];
+  } else {
+    NSString* name = [[brow selectedCellInColumn:0] stringValue];
+    return [[mapView zoneForName:name] locationCount];
+  }
+}
+
 - (void)showInfoOfLocation:(MapLocation *)loc
 {
   if (loc) {
@@ -147,6 +176,17 @@
   NSInteger v = (NSInteger)[sender state];
   [[NXTDefaults globalUserDefaults] setBool:(BOOL)v forKey:@"ClockView24HourFormat"];
   [[NXTDefaults globalUserDefaults] synchronize];
+}
+
+- (IBAction)lookupButtAction:(id)sender
+{
+  [zonePanel orderFront:sender];
+}
+
+- (IBAction)selectButtAction:(id)sender
+{
+  id it = [[sender selectedCell] representedObject]; 
+  [self showInfoOfLocation: it];
 }
 
 - (IBAction)setButtAction:(id)sender

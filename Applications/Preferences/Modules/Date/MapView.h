@@ -30,11 +30,13 @@
 
 @class NSImage;
 @class MapLocation;
+@class MapZone;
 
 @interface MapView : NSView 
 {
   NSImage *mapImage;
   NSMutableArray *locations;
+  NSMutableArray *zones;
   id pane;
 }
 
@@ -47,13 +49,19 @@
 
 - (MapLocation *)locationNearestToPoint:(NSPoint)p;
 
-@end
+- (NSInteger) zoneCount;
 
+- (NSString*) zoneAtIndex:(NSInteger) index;
+
+- (MapZone*) zoneForName:(NSString*) name;
+
+@end
 
 @interface MapLocation : NSObject
 {
   NSString *code;
   NSString *zone;
+  NSString *name;
   float latitude;
   float longitude;
   NSString *comments;
@@ -78,6 +86,28 @@
 - (void)setComments:(NSString *)cm;
 
 - (NSString *)comments;
+
+- (void)setName:(NSString *)nm;
+
+- (NSString *)name;
+
+@end
+
+@interface MapZone : NSObject
+{
+  NSString *name;
+  NSMutableArray* locations;
+}
+                            
+- (void)setName:(NSString *)nm;
+
+- (NSString *)name;
+
+- (void) addLocation:(MapLocation*) loc;
+
+- (NSInteger) locationCount;
+
+- (MapLocation*) locationAtIndex:(NSInteger) index;
 
 @end
 
