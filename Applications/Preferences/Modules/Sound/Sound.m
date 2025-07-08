@@ -163,6 +163,39 @@
                              soundServer.name, soundServer.version,
                              soundServer.userName, soundServer.hostName];
   [soundInfo setStringValue:info];
+
+  [volumePopup removeAllItems];
+  for (SNDDevice *device in [soundServer outputList]) {
+    if ([[device availablePorts] count] == 0) {
+      [volumePopup addItemWithTitle:device.name];
+      [[volumePopup itemWithTitle:device.name] setRepresentedObject:device];
+    }
+    else {
+      for (NSDictionary *port in [device availablePorts]) {
+        NSString* title = [NSString stringWithFormat:@"%@",
+                        [port objectForKey:@"Description"]];
+        [volumePopup addItemWithTitle:title];
+        [[volumePopup itemWithTitle:title] setRepresentedObject:device];
+      }
+    }
+  }
+
+  [micPopup removeAllItems];
+  for (SNDDevice *device in [soundServer inputList]) {
+    if ([[device availablePorts] count] == 0) {
+      [micPopup addItemWithTitle:device.name];
+      [[micPopup itemWithTitle:device.name] setRepresentedObject:device];
+    }
+    else {
+      for (NSDictionary *port in [device availablePorts]) {
+        NSString* title = [NSString stringWithFormat:@"%@",
+                        [port objectForKey:@"Description"]];
+        [micPopup addItemWithTitle:title];
+        [[micPopup itemWithTitle:title] setRepresentedObject:device];
+      }
+    }
+  }
+
   if (soundOut) {
     [muteButton setEnabled:YES];
     [volumeLevel setEnabled:YES];
@@ -319,6 +352,10 @@
     return;
   }
   [defaults setObject:title forKey:@"NXSystemBeepType"];
+}
+
+- (void)changeDefault:(id)sender
+{
 }
 
 - (void)showMixer:(id)sender

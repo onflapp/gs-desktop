@@ -98,6 +98,10 @@
 {
   [self.sink applyActivePort:portName];
 }
+- (void)makeDefault
+{
+  [self.sink makeDefault];
+}
 
 - (NSUInteger)volumeSteps
 {

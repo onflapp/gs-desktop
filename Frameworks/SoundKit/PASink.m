@@ -226,13 +226,25 @@
 }
 
 // --- Actions
+- (void)makeDefault
+{
+  const char   *port = [self.name cString];
+  pa_operation *o;
+
+  o = pa_context_set_default_sink(self.context, port, NULL, NULL);
+  if (o) {
+    pa_operation_unref(o);
+  }
+}
+
 - (void)applyActivePort:(NSString *)portName
 {
   const char   *port;
   pa_operation *o;
 
   for (NSDictionary *p in self.ports) {
-    if ([[p objectForKey:@"Description"] isEqualToString:portName]) {
+    NSString* d = [p objectForKey:@"Description"];
+    if ([d isEqualToString:portName]) {
       port = [[p objectForKey:@"Name"] cString];
       break;
     }

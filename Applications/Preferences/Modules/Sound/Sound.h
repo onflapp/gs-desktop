@@ -42,6 +42,7 @@
   id muteButton;
   id volumeBalance;
   id volumeLevel;
+  id volumePopup;
   
   id beepBrowser;
   id beepAudioRadio;
@@ -49,6 +50,7 @@
   id muteMicButton;
   id micLevel;
   id micBalance;
+  id micPopup;
 
   id soundInfo;
 
