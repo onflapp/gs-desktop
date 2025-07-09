@@ -628,7 +628,6 @@ static NSLock *browserLock = nil;
   SNDDevice *device = [[sender selectedItem] representedObject];
 
   if ([[device availablePorts] count] > 0) {
-    [device makeDefault];
     [device setActivePort:[[sender selectedItem] title]];
   }
 
