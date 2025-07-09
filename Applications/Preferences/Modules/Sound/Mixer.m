@@ -79,10 +79,12 @@ static NSLock *browserLock = nil;
 {
   [cardDescription setTextColor:[NSColor darkGrayColor]];
   [window setFrameAutosaveName:@"Mixer"];
+  [window addChildWindow:cardWindow ordered:NSWindowAbove];
   
   selectedApp = nil;
   browserLock = [NSLock new];
   [appBrowser loadColumnZero];
+
   [self updateDeviceList];
   [self browserClick:appBrowser];
 
@@ -106,6 +108,18 @@ static NSLock *browserLock = nil;
 - (id)window
 {
   return window;
+}
+
+- (void)updateCardList
+{
+  [cardBtn removeAllItems];
+
+  for (SNDDevice *device in [soundServer cardList]) {
+    [cardBtn addItemWithTitle:device.name];
+    [[cardBtn itemWithTitle:device.name] setRepresentedObject:device];
+  }
+
+  [self updateProfileList];
 }
 
 // Fills "Output/Input" group popups
@@ -153,7 +167,6 @@ static NSLock *browserLock = nil;
   }
 
   [self updateDeviceControls];
-  [self updateProfileList];
     
   NSLog(@"Device port selected item: %@ - %@",
         [[[[devicePortBtn selectedItem] representedObject] class] description],
@@ -163,8 +176,15 @@ static NSLock *browserLock = nil;
 
 - (void)updateProfileList
 {
-  SNDDevice *device = [[devicePortBtn selectedItem] representedObject];
-  
+  SNDDevice *device = [[cardBtn selectedItem] representedObject];
+
+  if (device == nil) {
+    [cardDescription setStringValue:@""];
+  }
+  else {
+    [cardDescription setStringValue:[device cardDescription]];
+  }
+ 
   [deviceProfileBtn removeAllItems];
   if (device) {
     NSArray *list = [[device availableProfiles] copy];
@@ -187,11 +207,9 @@ static NSLock *browserLock = nil;
   if (device == nil) {
     [deviceMuteBtn setEnabled:NO];
     [devicePortBtn setEnabled:NO];
-    [deviceProfileBtn setEnabled:NO];
     [deviceVolumeSlider setEnabled:NO];
     [deviceBalance setEnabled:NO];
     
-    [cardDescription setStringValue:@""];
     [deviceMuteBtn setState:NSOffState];
     [deviceVolumeSlider setMaxValue:0];
     [deviceVolumeSlider setIntegerValue:0];
@@ -200,11 +218,9 @@ static NSLock *browserLock = nil;
   else {
     [deviceMuteBtn setEnabled:YES];
     [devicePortBtn setEnabled:YES];
-    [deviceProfileBtn setEnabled:YES];
     [deviceVolumeSlider setEnabled:YES];
     [deviceBalance setEnabled:YES];
     
-    [cardDescription setStringValue:[device cardDescription]];
     [deviceMuteBtn setState:[device isMute]];
     [deviceVolumeSlider setMaxValue:[device volumeSteps]-1];
     [deviceVolumeSlider setIntegerValue:[device volume]];
@@ -432,6 +448,7 @@ static NSLock *browserLock = nil;
     [deviceVolumeLoudImg setImage:[self imageNamed:@"micLoud"]];
   }
   [self updateDeviceList];
+  [self updateCardList];
   [appBrowser reloadColumn:0];
   [self browserClick:appBrowser];
 }
@@ -556,6 +573,12 @@ static NSLock *browserLock = nil;
   selectedApp = nil;
 }
 
+- (void)showCardSettings:(id)sender
+{
+  [self updateCardList];
+  [cardWindow makeKeyAndOrderFront:sender];
+}
+
 - (void)browserClick:(id)sender
 {
   SNDStream *stream = [[sender selectedCellInColumn:0] representedObject];
@@ -600,7 +623,7 @@ static NSLock *browserLock = nil;
     [devicePortBtn selectItemWithTitle:activePort];
   }
   
-  [self updateProfileList];
+  [self updateCardList];
   [self updateDeviceControls];
 }
 
@@ -621,6 +644,23 @@ static NSLock *browserLock = nil;
   [self startObserveStream:stream];
 }
 
+// "Card" popup action
+- (void)setCard:(id)sender
+{
+  SNDDevice *device = [[sender selectedItem] representedObject];
+
+  if (device == nil) {
+    [cardDescription setStringValue:@""];
+  }
+  else {
+    [cardDescription setStringValue:[device cardDescription]];
+  }
+
+  [self updateProfileList];
+  [self updateDeviceControls];
+  [self updateDeviceList];
+}
+
 // --- Output actions
 // "Device" popup action
 - (void)setDevicePort:(id)sender
@@ -631,16 +671,21 @@ static NSLock *browserLock = nil;
     [device setActivePort:[[sender selectedItem] title]];
   }
 
-  [self updateProfileList];
+  [self updateCardList];
   [self updateDeviceControls];
 }
 
 // "Profile" popup action
 - (void)setDeviceProfile:(id)sender
 {
-  SNDDevice *device = [[devicePortBtn selectedItem] representedObject];
+  SNDDevice *device = [[cardBtn selectedItem] representedObject];
 
-  [device setActiveProfile:[[deviceProfileBtn selectedItem] title]];
+  NSString* active = [[deviceProfileBtn selectedItem] title];
+  [device setActiveProfile: active];
+
+  [self setMode: modeButton];
+  //[self updateDeviceList];
+  //[self updateDeviceControls];
 }
 
 - (void)setDeviceMute:(id)sender
@@ -663,9 +708,16 @@ static NSLock *browserLock = nil;
   [device setBalance:[deviceBalance floatValue]];
 }
 
+- (void)refreshInfo:(id)sender
+{
+}
+
 // --- Window delegate
 - (BOOL)windowShouldClose:(id)sender
 {
+  [infoWindow performClose:sender];
+  [cardWindow performClose:sender];
+
   return YES;
 }
 

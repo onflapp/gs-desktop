@@ -12,14 +12,17 @@
 	Actions = (
 	    "appMuteClick:",
 	    "browserClick:",
-	    "setAppVolume:",
+	    "refreshInfo:",
 	    "orderFrontFontPanel:",
+	    "setAppVolume:",
+	    "setCard:",
 	    "setDeviceBalance:",
 	    "setDeviceMute:",
 	    "setDevicePort:",
 	    "setDeviceProfile:",
 	    "setDeviceVolume:",
 	    "setMode:",
+	    "showCardSettings:",
 	    "showPrefPanel:"
 	);
 	Super = NSObject;
@@ -34,7 +37,10 @@
 	    "setDeviceVolume:",
 	    "setDeviceProfile:",
 	    "setMode:",
-	    "setAppVolume:"
+	    "setAppVolume:",
+	    "setCard:",
+	    "showCardSettings:",
+	    "refreshInfo:"
 	);
 	Outlets = (
 	    window,
@@ -54,7 +60,10 @@
 	    deviceBalanceRightImg,
 	    deviceVolumeLoudImg,
 	    deviceVolumeMuteImg,
-	    appVolumeLoudImg
+	    appVolumeLoudImg,
+	    cardBtn,
+	    cardWindow,
+	    infoWindow
 	);
 	Super = NSObject;
     };

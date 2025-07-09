@@ -403,23 +403,28 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   //Z[value getValue:(void *)info];
   info = [value pointerValue];
 
-  for (card in cardList) {
-    if (card.index == info->index) {
-      NSDebugLLog(@"SoundKit", @"[SNDServer] Card Update: %s.", info->name);
+  @try {
+    for (card in cardList) {
+      if (card.index == info->index) {
+        NSDebugLLog(@"SoundKit", @"[SNDServer] Card Update: %s.", info->name);
+        [card updateWithValue:value];
+        isUpdated = YES;
+        break;
+      }
+    }
+
+    if (isUpdated == NO) {
+      SNDDevice *soundDevice;
+      card = [[PACard alloc] init];
+      NSDebugLLog(@"SoundKit", @"[SNDServer] Card Add: %s.", info->name);
+      card.context = _pa_ctx;
       [card updateWithValue:value];
-      isUpdated = YES;
-      break;
+      [cardList addObject:card];
+      [card release];
     }
   }
-
-  if (isUpdated == NO) {
-    SNDDevice *soundDevice;
-    card = [[PACard alloc] init];
-    NSDebugLLog(@"SoundKit", @"[SNDServer] Card Add: %s.", info->name);
-    card.context = _pa_ctx;
-    [card updateWithValue:value];
-    [cardList addObject:card];
-    [card release];
+  @catch(NSException* ex) {
+    NSLog(@"updateCard exception:%@", ex);
   }
   
   //Zfree((void *)info);

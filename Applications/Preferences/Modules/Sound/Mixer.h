@@ -25,11 +25,12 @@
 {
   SNDServer *soundServer;
   id window;
+  id cardWindow;
+  id infoWindow;
   
   //
   id modeButton;
   //
-  id deviceCardBtn;
   id deviceProfileBtn;
   //
   id appBrowser;
@@ -40,6 +41,7 @@
   //
   id deviceBox;
   id cardDescription;
+  id cardBtn;
   id deviceMuteBtn;
   id devicePortBtn;
   id deviceVolumeSlider;
