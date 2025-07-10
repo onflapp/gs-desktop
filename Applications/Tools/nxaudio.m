@@ -139,6 +139,7 @@ void printUsage() {
   fprintf(stderr, "  --mute\n");
   fprintf(stderr, "  --increase\n");
   fprintf(stderr, "  --decrease\n");
+  fprintf(stderr, "  --status\n");
   fprintf(stderr, "\n");
 }
 
@@ -189,6 +190,8 @@ int main(int argc, char** argv, char** env)
       SoundController* controller = [[SoundController alloc] init];
       if ([controller connectAndWait]) {
         NSLog(@"audio controller:%@", controller);
+        [controller->soundOut printDescription];
+        [controller->soundIn printDescription];
       }
     }
     else {

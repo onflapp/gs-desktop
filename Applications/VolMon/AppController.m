@@ -94,6 +94,30 @@
   }
 }
 
+- (void) _updateMenu
+{
+  NSMenu* menu = [audioMenu submenu];
+  [menu removeAllItems];
+
+  NSString *active = [[soundServer defaultOutput] activePort];
+
+NSLog(@">>>%@", active);
+
+  for (SNDDevice *device in [soundServer outputList]) {
+    if ([[device availablePorts] count] > 0) {
+      for (NSDictionary *port in [device availablePorts]) {
+        NSString* title = [NSString stringWithFormat:@"%@",
+                        [port objectForKey:@"Description"]];
+        NSMenuItem* it = [menu addItemWithTitle:title action:@selector(changeDevice:) keyEquivalent:@""];
+        [it setRepresentedObject:device];
+        if ([title isEqualToString:active]) {
+          [it setState:YES];
+        }
+      }
+    }
+  }
+}
+
 // --- Sound subsystem actions
 - (void) serverStateChanged:(NSNotification *)notif
 {
@@ -117,6 +141,7 @@
     NSTimeInterval d = [[NSDate date] timeIntervalSinceReferenceDate] - lastChange;
     if (d > 0.5) {
       [self _updateControls];
+      [self _updateMenu];
     }  
   }
   else if (soundServer.status == SNDServerFailedState ||
@@ -131,21 +156,28 @@
 - (void) deviceDidUpdate:(NSNotification *)aNotif
 {
   id device = [aNotif object]; // SNDOut or SNDIn
+  
+  [soundOut release];
+  soundOut = [[soundServer defaultOutput] retain];
 
-  if ([device isKindOfClass:[SNDOut class]]) {
-    NSTimeInterval d = [[NSDate date] timeIntervalSinceReferenceDate] - lastChange;
+  [self _updateMenu];
 
-    SNDOut *output = (SNDOut *)device;
-    if (output.sink == soundOut.sink && d > 0.5) {
-      NSLog(@"dev update");
-      [muteButton setState:[soundOut isMute]];
-      [volumeSlider setIntegerValue:[soundOut volume]];
+  [soundIn release];
+  soundIn = [[soundServer defaultInput] retain];
+
+  NSTimeInterval d = [[NSDate date] timeIntervalSinceReferenceDate] - lastChange;
+  if (d > 0.5) {
+    if ([device isKindOfClass:[SNDOut class]]) {
+      SNDOut *output = (SNDOut *)device;
+      if (output.sink == soundOut.sink) {
+        [muteButton setState:[soundOut isMute]];
+        [volumeSlider setIntegerValue:[soundOut volume]];
+      }
     }
-  }
-  else if ([device isKindOfClass:[SNDIn class]]) {
-    SNDIn *input = (SNDIn *)device;
-    [micMuteButton setState:[input isMute]];
-    NSLog(@"mic");
+    else if ([device isKindOfClass:[SNDIn class]]) {
+      SNDIn *input = (SNDIn *)device;
+      [micMuteButton setState:[input isMute]];
+    }
   }
 }
 
@@ -153,6 +185,13 @@
 {
   [soundIn setMute:[sender state]];
   lastChange = [[NSDate date] timeIntervalSinceReferenceDate];
+}
+
+- (void) changeDevice: (id)sender
+{
+  SNDDevice *device = [sender representedObject];
+  [device makeDefault];
+  [device setActivePort:[sender title]];
 }
 
 - (void) changeVolume: (id)sender

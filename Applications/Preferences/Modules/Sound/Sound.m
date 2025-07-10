@@ -162,15 +162,23 @@
   NSString *info = [NSString stringWithFormat:@"%@ version %@ on %@@%@",
                              soundServer.name, soundServer.version,
                              soundServer.userName, soundServer.hostName];
+
   [soundInfo setStringValue:info];
+
+  if (soundOut) {
+    NSUInteger v = [soundOut volumeSteps];
+    //if (v > 0) v = v - 1;
+    [volumeLevel setMaxValue:v];
+  }
+  if (soundIn) {
+    NSUInteger v = [soundIn volumeSteps];
+    //if (v > 0) v = v - 1;
+    [micLevel setMaxValue:v];
+  }
 
   [volumePopup removeAllItems];
   for (SNDDevice *device in [soundServer outputList]) {
-    if ([[device availablePorts] count] == 0) {
-      [volumePopup addItemWithTitle:device.name];
-      [[volumePopup itemWithTitle:device.name] setRepresentedObject:device];
-    }
-    else {
+    if ([[device availablePorts] count] > 0) {
       for (NSDictionary *port in [device availablePorts]) {
         NSString* title = [NSString stringWithFormat:@"%@",
                         [port objectForKey:@"Description"]];
@@ -180,13 +188,12 @@
     }
   }
 
+  [volumePopup selectItemWithTitle:[[soundServer defaultOutput] activePort]];
+
   [micPopup removeAllItems];
   for (SNDDevice *device in [soundServer inputList]) {
-    if ([[device availablePorts] count] == 0) {
-      [micPopup addItemWithTitle:device.name];
-      [[micPopup itemWithTitle:device.name] setRepresentedObject:device];
-    }
-    else {
+
+    if ([[device availablePorts] count] > 0 && [[device source] isMonitor] == NO) {
       for (NSDictionary *port in [device availablePorts]) {
         NSString* title = [NSString stringWithFormat:@"%@",
                         [port objectForKey:@"Description"]];
@@ -195,6 +202,8 @@
       }
     }
   }
+
+  [micPopup selectItemWithTitle:[[soundServer defaultInput] activePort]];
 
   if (soundOut) {
     [muteButton setEnabled:YES];
@@ -223,6 +232,7 @@
     [micLevel setEnabled:NO];
     [micBalance setEnabled:NO];
   }
+
 }
 
 // --- Sound subsystem actions
@@ -236,18 +246,16 @@
     soundOut = [[soundServer defaultOutput] retain];
     soundIn = [[soundServer defaultInput] retain];
     
-    if (soundOut) {
-      [volumeLevel setMaxValue:[soundOut volumeSteps]-1];
-    }
-    if (soundIn) {
-      [micLevel setMaxValue:[soundIn volumeSteps]-1];
-    }
+    NSTimeInterval d = [[NSDate date] timeIntervalSinceReferenceDate] - lastChange;
+    if (d > 0.5) {
+      [self _updateControls];
+    }  
+
     [[NSNotificationCenter defaultCenter]
         addObserver:self
            selector:@selector(deviceDidUpdate:)
                name:SNDDeviceDidChangeNotification
              object:nil];
-    [self _updateControls];    
   }
   else if (soundServer.status == SNDServerFailedState ||
            soundServer.status == SNDServerTerminatedState) {
@@ -265,21 +273,43 @@
 {
   id device = [aNotif object]; // SNDOut or SNDIn
 
-  if ([device isKindOfClass:[SNDOut class]]) {
-    SNDOut *output = (SNDOut *)device;
-    if (output.sink == soundOut.sink) {
-      [muteButton setState:[soundOut isMute]];
-      [volumeLevel setIntegerValue:[soundOut volume]];
-      [volumeBalance setFloatValue:[soundOut balance]];
+  [soundOut release];
+  soundOut = [[soundServer defaultOutput] retain];
+
+  [soundIn release];
+  soundIn = [[soundServer defaultInput] retain];
+  
+  NSTimeInterval d = [[NSDate date] timeIntervalSinceReferenceDate] - lastChange;
+  if (d > 0.5) {
+    [self _updateControls];
+
+    if ([device isKindOfClass:[SNDOut class]]) {
+      SNDOut *output = (SNDOut *)device;
+      if (output.sink == soundOut.sink) {
+        [muteButton setState:[soundOut isMute]];
+        [volumeLevel setIntegerValue:[soundOut volume]];
+        [volumeBalance setFloatValue:[soundOut balance]];
+      }
+    }
+    else if ([device isKindOfClass:[SNDIn class]]) {
+      SNDIn *input = (SNDIn *)device;
+      if (input.source == soundIn.source) {
+        [muteMicButton setState:[soundIn isMute]];
+        [micLevel setIntegerValue:[soundIn volume]];
+        [micBalance setFloatValue:[soundIn balance]];
+      }
     }
   }
-  else if ([device isKindOfClass:[SNDIn class]]) {
-    SNDIn *input = (SNDIn *)device;
-    if (input.source == soundIn.source) {
-      [muteMicButton setState:[soundIn isMute]];
-      [micLevel setIntegerValue:[soundIn volume]];
-      [micBalance setFloatValue:[soundIn balance]];
-    }
+}
+
+- (void)setDevicePort:(id)sender
+{
+  SNDDevice *device = [[sender selectedItem] representedObject];
+
+  if ([[device availablePorts] count] > 0) {
+    lastChange = [[NSDate date] timeIntervalSinceReferenceDate];
+    [device makeDefault];
+    [device setActivePort:[[sender selectedItem] title]];
   }
 }
 
@@ -314,17 +344,20 @@
 
 - (void)setMute:(id)sender
 {
+  lastChange = [[NSDate date] timeIntervalSinceReferenceDate];
   SNDDevice *device = (sender == muteButton) ? soundOut : soundIn;
   [device setMute:[sender state]];
 }
 - (void)setVolume:(id)sender
 {
+  lastChange = [[NSDate date] timeIntervalSinceReferenceDate];
   SNDDevice *device = (sender == volumeLevel) ? soundOut : soundIn;
 
   [device setVolume:[sender intValue]];
 }
 - (void)setBalance:(id)sender
 {
+  lastChange = [[NSDate date] timeIntervalSinceReferenceDate];
   SNDDevice *device = (sender == volumeBalance) ? soundOut : soundIn;
   
   [device setBalance:[sender intValue]];
@@ -352,10 +385,6 @@
     return;
   }
   [defaults setObject:title forKey:@"NXSystemBeepType"];
-}
-
-- (void)changeDefault:(id)sender
-{
 }
 
 - (void)showMixer:(id)sender

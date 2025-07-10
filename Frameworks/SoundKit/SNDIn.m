@@ -98,7 +98,10 @@
 {
   [self.source applyActivePort:portName];
 }
-
+- (void)makeDefault
+{
+  [self.source makeDefault];
+}
 - (NSUInteger)volumeSteps
 {
   return self.source.volumeSteps;

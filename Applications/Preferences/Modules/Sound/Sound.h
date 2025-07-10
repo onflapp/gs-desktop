@@ -35,6 +35,7 @@
   NSString	*defaultSound;
   NSDictionary	*soundsList;
   NSInteger	defSoundRow;
+  NSTimeInterval lastChange;
   
   id view;
   id window;

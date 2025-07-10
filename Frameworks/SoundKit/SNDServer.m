@@ -460,30 +460,35 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   //Z[value getValue:(void *)info];
   info = [value pointerValue];
 
-  for (sink in sinkList) {
-    if (sink.index == info->index) {
-      NSDebugLLog(@"SoundKit", @"[SNDServer] Sink Update: %s.", info->name);
-      [sink updateWithValue:value];
-      isUpdated = YES;
-      aNotif = [NSNotification notificationWithName:SNDDeviceDidChangeNotification
-                                             object:[self outputWithSink:sink]];
-      break;
+  @try {
+    for (sink in sinkList) {
+      if (sink.index == info->index) {
+        NSDebugLLog(@"SoundKit", @"[SNDServer] Sink Update: %s.", info->name);
+        [sink updateWithValue:value];
+        isUpdated = YES;
+        aNotif = [NSNotification notificationWithName:SNDDeviceDidChangeNotification
+                                               object:[self outputWithSink:sink]];
+        break;
+      }
     }
-  }
 
-  if (isUpdated == NO) {
-    // Create Sink
-    sink = [[PASink alloc] init];
-    NSDebugLLog(@"SoundKit", @"[SNDServer] Sink Add: %s.", info->name);
-    [sink updateWithValue:value];
-    sink.context = _pa_ctx;
-    [sinkList addObject:sink];
-    [sink release];
-    aNotif = [NSNotification notificationWithName:SNDDeviceDidAddNotification
-                                           object:[self outputWithSink:sink]];
+    if (isUpdated == NO) {
+      // Create Sink
+      sink = [[PASink alloc] init];
+      NSDebugLLog(@"SoundKit", @"[SNDServer] Sink Add: %s.", info->name);
+      [sink updateWithValue:value];
+      sink.context = _pa_ctx;
+      [sinkList addObject:sink];
+      [sink release];
+      aNotif = [NSNotification notificationWithName:SNDDeviceDidAddNotification
+                                             object:[self outputWithSink:sink]];
+    }
+    [[NSNotificationCenter defaultCenter] postNotification:aNotif];
   }
-  [[NSNotificationCenter defaultCenter] postNotification:aNotif];
-  
+  @catch(NSException* ex) {
+    NSLog(@"updateSink: %@", ex);
+  }
+    
   //Zfree((void *)info);  
 }
 - (PASink *)sinkWithIndex:(NSUInteger)index
@@ -526,30 +531,35 @@ NSString *SNDDeviceDidRemoveNotification = @"SNDDeviceDidRemoveNotification";
   //Z[value getValue:(void *)info];
   info = [value pointerValue];
 
-  for (source in sourceList) {
-    if (source.index == info->index) {
-      NSDebugLLog(@"SoundKit", @"[SNDServer] Source Update: %s.", info->name);
-      [source updateWithValue:value];
-      isUpdated = YES;
-      aNotif = [NSNotification notificationWithName:SNDDeviceDidChangeNotification
-                                             object:[self inputWithSource:source]];
-      break;
+  @try {
+    for (source in sourceList) {
+      if (source.index == info->index) {
+        NSDebugLLog(@"SoundKit", @"[SNDServer] Source Update: %s.", info->name);
+        [source updateWithValue:value];
+        isUpdated = YES;
+        aNotif = [NSNotification notificationWithName:SNDDeviceDidChangeNotification
+                                               object:[self inputWithSource:source]];
+        break;
+      }
     }
-  }
 
-  if (isUpdated == NO) {
-    source = [[PASource alloc] init];
-    NSDebugLLog(@"SoundKit", @"[SNDServer] Source Add: %s.", info->name);
-    [source updateWithValue:value];
-    source.context = _pa_ctx;
-    [sourceList addObject:source];
-    [source release];
-    aNotif = [NSNotification notificationWithName:SNDDeviceDidAddNotification
-                                           object:[self inputWithSource:source]];
+    if (isUpdated == NO) {
+      source = [[PASource alloc] init];
+      NSDebugLLog(@"SoundKit", @"[SNDServer] Source Add: %s.", info->name);
+      [source updateWithValue:value];
+      source.context = _pa_ctx;
+      [sourceList addObject:source];
+      [source release];
+      aNotif = [NSNotification notificationWithName:SNDDeviceDidAddNotification
+                                             object:[self inputWithSource:source]];
+    }
+    
+    [[NSNotificationCenter defaultCenter] postNotification:aNotif];
   }
-  
-  [[NSNotificationCenter defaultCenter] postNotification:aNotif];
-  
+  @catch(NSException* ex) {
+    NSLog(@"updateSource:%@", ex);
+  }
+    
   //Zfree((void *)info);  
 }
 - (PASource *)sourceWithIndex:(NSUInteger)index

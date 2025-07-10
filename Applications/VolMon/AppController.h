@@ -20,6 +20,7 @@
   IBOutlet NSSlider* volumeSlider;
   IBOutlet NSButton* muteButton;
   IBOutlet NSButton* micMuteButton;
+  IBOutlet NSMenuItem* audioMenu;
 
   NSTimeInterval lastChange;
   NSInteger lastValue;

@@ -2,7 +2,7 @@
     "## Comment" = "Do NOT change this file, Gorm maintains it";
     FirstResponder = {
 	Actions = (
-	    "changeDefault:",
+	    "setDevicePort:",
 	    "setBalance:",
 	    "setBeep:",
 	    "setBeepRadio:",
@@ -20,7 +20,7 @@
 	    "setVolume:",
 	    "setMute:",
 	    "showMixer:",
-	    "changeDefault:"
+	    "setDevicePort:"
 	);
 	Outlets = (
 	    view,

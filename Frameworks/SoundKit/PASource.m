@@ -229,6 +229,17 @@
 }
 
 // --- Actions
+- (void)makeDefault
+{
+  const char   *port = [self.name cString];
+  pa_operation *o;
+
+  o = pa_context_set_default_source(self.context, port, NULL, NULL);
+  if (o) {
+    pa_operation_unref(o);
+  }
+}
+
 - (void)applyActivePort:(NSString *)portName
 {
   const char   *port;

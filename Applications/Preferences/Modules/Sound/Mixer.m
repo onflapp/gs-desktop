@@ -140,15 +140,14 @@ static NSLock *browserLock = nil;
   }
 
   for (SNDDevice *device in deviceList) {
-    NSLog(@"Device: %@", device.description);
-    if ([[device availablePorts] count] == 0) {
-      [devicePortBtn addItemWithTitle:device.name];
-      [[devicePortBtn itemWithTitle:device.name] setRepresentedObject:device];
+    if ([device isKindOfClass:[SNDIn class]] && [[device source] isMonitor] == YES) {
+      continue;
     }
-    else {
+    if ([[device availablePorts] count] > 0) {
       for (NSDictionary *port in [device availablePorts]) {
         title = [NSString stringWithFormat:@"%@",
                         [port objectForKey:@"Description"]];
+
         [devicePortBtn addItemWithTitle:title];
         [[devicePortBtn itemWithTitle:title] setRepresentedObject:device];
       }
@@ -221,8 +220,11 @@ static NSLock *browserLock = nil;
     [deviceVolumeSlider setEnabled:YES];
     [deviceBalance setEnabled:YES];
     
+    NSUInteger v = [device volumeSteps];
+    //if (v > 0) v = v -1;
+
     [deviceMuteBtn setState:[device isMute]];
-    [deviceVolumeSlider setMaxValue:[device volumeSteps]-1];
+    [deviceVolumeSlider setMaxValue:v];
     [deviceVolumeSlider setIntegerValue:[device volume]];
     [deviceBalance setFloatValue:[device balance]];
   }  
@@ -669,6 +671,7 @@ static NSLock *browserLock = nil;
 
   if ([[device availablePorts] count] > 0) {
     [device setActivePort:[[sender selectedItem] title]];
+    [device makeDefault];
   }
 
   [self updateCardList];
@@ -683,9 +686,7 @@ static NSLock *browserLock = nil;
   NSString* active = [[deviceProfileBtn selectedItem] title];
   [device setActiveProfile: active];
 
-  [self setMode: modeButton];
-  //[self updateDeviceList];
-  //[self updateDeviceControls];
+  [self performSelector:@selector(setMode:) withObject:modeButton afterDelay:0.5];
 }
 
 - (void)setDeviceMute:(id)sender
@@ -696,8 +697,7 @@ static NSLock *browserLock = nil;
 - (void)setDeviceVolume:(id)sender
 {
   SNDDevice *device = [[devicePortBtn selectedItem] representedObject];
-
-  [device setVolume:[deviceVolumeSlider intValue]];
+  [device setVolume:[deviceVolumeSlider integerValue]];
 }
 
 - (void)setDeviceBalance:(id)sender
