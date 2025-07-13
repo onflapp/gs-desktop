@@ -123,6 +123,12 @@
        selector:@selector(screenDidUpdate:)
            name:OSEScreenDidUpdateNotification
          object:systemScreen];
+
+  [[NSNotificationCenter defaultCenter]
+    addObserver:self
+       selector:@selector(screenDidUpdate:)
+           name:OSEDisplayDidUpdateNotification
+         object:nil];
 }
 
 - (NSView *)view
@@ -245,6 +251,7 @@
   NSSize       size;
   NSString     *resolution;
   NSDictionary *r;
+  NSTimeInterval d = [[NSDate date] timeIntervalSinceReferenceDate] - lastChange;
 
   selectedDisplay = [[sender selectedCell] representedObject];
   m = [selectedDisplay allResolutions];
@@ -280,11 +287,14 @@
       [gammaSlider setFloatValue:[gammaString floatValue]];
       [gammaField setStringValue:gammaString];
 
-      // Brightness
-      CGFloat brightness = [selectedDisplay gammaBrightness];
-      [brightnessSlider setFloatValue:brightness * 100];
-      [brightnessField
-        setStringValue:[NSString stringWithFormat:@"%.0f", brightness * 100]];
+      if ([selectedDisplay isDisplayBrightnessSupported] == NO)
+        { 
+          // Brightness
+          CGFloat brightness = [selectedDisplay gammaBrightness];
+          [brightnessSlider setFloatValue:brightness * 100];
+          [brightnessField
+            setStringValue:[NSString stringWithFormat:@"%.0f", brightness * 100]];
+        }
     }
   else
     {
@@ -294,13 +304,13 @@
       [brightnessField setEnabled:NO];
     }
 
-  if ([selectedDisplay isDisplayBrightnessSupported] == YES) 
+  if ([selectedDisplay isDisplayBrightnessSupported] == YES && d > 0.5) 
     {
       // Display Brightness
       CGFloat brightness = [selectedDisplay displayBrightness];
-      [brightnessSlider setFloatValue:brightness];
+      [brightnessSlider setFloatValue:floor(brightness)];
       [brightnessField
-        setStringValue:[NSString stringWithFormat:@"%.0f", brightness]];
+        setStringValue:[NSString stringWithFormat:@"%.0f", floor(brightness)]];
     }
 }
 
@@ -490,6 +500,7 @@
 
 - (void)__updateDisplayBrigthness:(NSNumber *)value
 {
+  lastChange = [[NSDate date] timeIntervalSinceReferenceDate];
   if ([selectedDisplay isDisplayBrightnessSupported])
     {
       [selectedDisplay setDisplayBrightness:[value floatValue]];
@@ -498,6 +509,7 @@
     {
       [selectedDisplay setGammaBrightness:[value floatValue]/100];
     }
+
 }
 
 @end

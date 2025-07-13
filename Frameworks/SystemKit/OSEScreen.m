@@ -68,6 +68,7 @@ NSString *OSEDisplayPropertiesKey = @"Properties";
 // Notifications
 NSString *OSEScreenDidChangeNotification = @"OSEScreenDidChangeNotification";
 NSString *OSEScreenDidUpdateNotification = @"OSEScreenDidUpdateNotification";
+NSString *OSEDisplayDidUpdateNotification = @"OSEDisplayDidUpdateNotification";
 
 static OSEScreen *systemScreen = nil;
 

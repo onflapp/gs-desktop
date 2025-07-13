@@ -170,3 +170,4 @@ extern NSString *OSEDisplayPropertiesKey;
 // Notifications
 extern NSString *OSEScreenDidChangeNotification;
 extern NSString *OSEScreenDidUpdateNotification;
+extern NSString *OSEDisplayDidUpdateNotification;

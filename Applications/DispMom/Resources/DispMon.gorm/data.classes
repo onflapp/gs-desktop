@@ -1,0 +1,38 @@
+{
+    "## Comment" = "Do NOT change this file, Gorm maintains it";
+    AppController = {
+	Actions = (
+	    "showPrefPanel:",
+	    "changeVolume:",
+	    "toggleMic:",
+	    "showAudioPreferences:",
+	    "changeOutput:"
+	);
+	Outlets = (
+	    controlView,
+	    muteButton,
+	    volumeSlider,
+	    micMuteButton,
+	    audioMenu
+	);
+	Super = NSObject;
+    };
+    FirstResponder = {
+	Actions = (
+	    "changeVolume:",
+	    "changeOutput:",
+	    "orderFrontFontPanel:",
+	    "showAudioPreferences:",
+	    "showPrefPanel:",
+	    "toggleMic:"
+	);
+	Super = NSObject;
+    };
+    MiniView = {
+	Actions = (
+	);
+	Outlets = (
+	);
+	Super = NSBox;
+    };
+}

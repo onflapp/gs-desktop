@@ -298,6 +298,12 @@
   // Set initial values to gammaValue and gammaBrightness
   [self _getGamma];
 
+  [[NSDistributedNotificationCenter defaultCenter]
+    addObserver:self
+       selector:@selector(__handleIntenalNotification:)
+           name:@"OSEDisplayInternalNotification"
+         object:nil];
+
   return self;
 }
 
@@ -311,6 +317,8 @@
   
   [properties release];
   self.outputName = nil;
+
+  [[NSDistributedNotificationCenter defaultCenter] removeObserver:self];
 
   [super dealloc];
 }
@@ -898,11 +906,11 @@ find_last_non_clamped(CARD16 array[], int size)
   /* this is very first time we run */
   if (hasDisplayBrightness == -1) 
     { 
-      val = (CGFloat)ceil(xbacklight(NULL, "get", 0));
+      val = (CGFloat)ceil(backlight_helper(NULL, "get", 0));
       if (val < 0)
         {
-          NSLog(@"display %@ does not support xbacklight, try backlight_helper", self);
-          val = (CGFloat)ceil(backlight_helper(NULL, "get", 0));
+          NSLog(@"display %@ does not support backlight_helper, try xbacklight", self);
+          val = (CGFloat)ceil(xbacklight(NULL, "get", 0));
           if (val < 0)
             {
               NSLog(@"display %@ does not support backlight_helper", self);
@@ -910,12 +918,12 @@ find_last_non_clamped(CARD16 array[], int size)
             }
           else
             {
-              hasDisplayBrightness = 2;
+              hasDisplayBrightness = 1;
             }
         }
       else
         {
-          hasDisplayBrightness = 1;
+          hasDisplayBrightness = 2;
         }
     }
   else 
@@ -941,9 +949,9 @@ find_last_non_clamped(CARD16 array[], int size)
     backlight_helper(NULL, "set", ceil(brightness));
   }
 
-  [[NSNotificationCenter defaultCenter]
-    postNotificationName:OSEScreenDidUpdateNotification
-                  object:screen];
+  [[NSDistributedNotificationCenter defaultCenter]
+    postNotificationName:@"OSEDisplayInternalNotification"
+                  object:self.outputName];
 }
 
 #include <unistd.h>
@@ -1211,6 +1219,17 @@ id property_value(Display *dpy,
       
       free(prop);
     }
+}
+
+- (void)__handleIntenalNotification:(NSNotification *)aNotif
+{
+  id displayID = [aNotif object];
+  if ([displayID isEqualToString:self.outputName]) {
+    [[NSNotificationCenter defaultCenter]
+      postNotificationName:OSEDisplayDidUpdateNotification
+                    object:nil];
+
+  }
 }
 
 - (NSDictionary *)properties

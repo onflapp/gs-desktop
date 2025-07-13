@@ -47,6 +47,8 @@
   NSColor    *desktopBackground;
 
   NSTimer    *saveConfigTimer;
+
+  NSTimeInterval lastChange;
 }
 
 //
