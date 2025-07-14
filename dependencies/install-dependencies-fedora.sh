@@ -4,5 +4,5 @@ dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$
 
 for DD in `cat ./fedora.txt` ;do
   echo $DD
-  dnf install -y $DD || exit 1
+  dnf install --skip-broken -y $DD || exit 1
 done

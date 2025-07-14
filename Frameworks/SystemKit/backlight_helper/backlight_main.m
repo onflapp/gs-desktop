@@ -26,6 +26,15 @@ int main(int argc, char** argv, char** env)
     NOW_FILE = [BASE_DIR stringByAppendingPathComponent:@"actual_brightness"];
     SET_FILE = [BASE_DIR stringByAppendingPathComponent:@"brightness"];
   }
+  if (MAX == 0) {
+    NSString *d = [[[NSFileManager defaultManager] directoryContentsAtPath:@"/sys/class/backlight"] firstObject];
+    if (d) {
+      BASE_DIR = [@"/sys/class/backlight" stringByAppendingPathComponent:d];
+      MAX_FILE = [BASE_DIR stringByAppendingPathComponent:@"max_brightness"];
+      NOW_FILE = [BASE_DIR stringByAppendingPathComponent:@"actual_brightness"];
+      SET_FILE = [BASE_DIR stringByAppendingPathComponent:@"brightness"];
+    }
+  }
 
   MAX = [[NSString stringWithContentsOfFile:MAX_FILE] integerValue];
   if (MAX == 0) {

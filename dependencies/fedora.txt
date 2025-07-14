@@ -24,6 +24,8 @@ xorg-x11-xinit
 bindfs
 picom
 xterm
+xvkbd
+xev
 xset
 xsetroot
 xrefresh
@@ -71,6 +73,9 @@ file-devel
 libxkbfile-devel
 xcb-util-devel
 xorg-x11-server-Xnest
+inxi
+xorg-x11-server-Xorg
+xorg-x11-drivers
 libXft-devel
 libart_lgpl-devel
 libXcursor-devel

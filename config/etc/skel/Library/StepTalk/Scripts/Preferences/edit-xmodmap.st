@@ -1,5 +1,7 @@
 Environment loadModule:'SystemShell'.
 
-Shell executeCommand:'touch' withArguments:#('~/.Xmodmap').
+f := ('~/.Xmodmap' stringByExpandingTildeInPath).
 
-NSWorkspace sharedWorkspace openFile:('~/.Xmodmap' stringByExpandingTildeInPath).
+Shell executeCommand:'touch' withArguments:(NSArray new) + f.
+
+NSWorkspace sharedWorkspace openFile:f.

@@ -36,6 +36,7 @@ libtool
 xinit
 bindfs
 x11-xserver-utils
+xvkbd
 libxtst-dev
 gnuplot-x11
 xdotool
