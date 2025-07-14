@@ -84,6 +84,7 @@
 - (void) execTask {
   NSArray* args = [self serviceTaskArguments];
   NSString* exec = [self serviceTaskExec];
+  buff = [[NSMutableData alloc] init];
   
   //NSDate* limit = [NSDate dateWithTimeIntervalSinceNow:0.3];
   //[[NSRunLoop currentRunLoop] runUntilDate: limit];
@@ -132,22 +133,44 @@
 
   [fh closeFile];
   [fh release];
+  [buff release];
   [task release];
   task = nil;
   fh = nil;
+  buff = nil;
 }
 
 - (void) dataReceived:(NSNotification*) not {
   NSData* data = [[not userInfo] objectForKey:NSFileHandleNotificationDataItem];
-  NSString* str = [[NSString alloc] initWithData:data encoding:[NSString defaultCStringEncoding]];
-  
-  NSLog(@"task:[%@]", str);
-  [log appendString:str];
+
+  char* bytes = [data bytes];
+  NSInteger sz = [data length];
+  NSInteger c = 0;
+  NSInteger i;
+
+  for (i = 0; i < sz; i++) {
+    if (*(bytes+i) == '\n') {
+      [buff appendBytes:bytes+c length:i-c];
+      NSString* line = [[NSString alloc] initWithData:buff encoding:[NSString defaultCStringEncoding]];
+      [self processLine:line];
+      [line release];
+      [buff setLength:0];
+      c = i+1;
+    }
+  }
+  if (c < sz) {
+    [buff appendBytes:bytes+c length:sz - c];
+  }
+  [fh readInBackgroundAndNotify];
+}
+
+- (void) processLine:(NSString*) line {
+  NSLog(@"task:[%@]", line);
+  [log appendString:line];
+  [log appendString:@"\n"];
 
   [[NSNotificationCenter defaultCenter]
      postNotificationName:@"serviceStatusHasChanged" object:self];
-
-  [fh readInBackgroundAndNotify];
 }
 
 - (void) startTask {

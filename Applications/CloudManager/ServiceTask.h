@@ -36,6 +36,7 @@
   NSTask* task;
   NSFileHandle* fh;
   NSInteger status;
+  NSMutableData* buff;
 }
 - (id) initWithName:(NSString*) name;
 - (NSString*) name;

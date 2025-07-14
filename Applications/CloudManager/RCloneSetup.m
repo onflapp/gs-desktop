@@ -109,6 +109,8 @@
 
   [[NSNotificationCenter defaultCenter]
      postNotificationName:@"serviceRegistrationHasChanged" object:self];
+
+  [panel performClose:self];
 }
 
 - (void) viewBecameIdle:(NSNotification*) n {
