@@ -1,0 +1,9 @@
+#!/bin/sh
+
+nxdisplay --set 50
+
+if [ -x "/usr/bin/tuned-adm" ];then
+  tuned-adm profile desktop
+else
+  powerprofilesctl performance
+fi

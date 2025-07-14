@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 if type apt 2>/dev/null ;then
   sudo apt update

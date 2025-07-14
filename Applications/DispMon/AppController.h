@@ -12,22 +12,18 @@
 #define _PCAPPPROJ_APPCONTROLLER_H
 
 #import <AppKit/AppKit.h>
-#import <SoundKit/SoundKit.h>
+
+#import <SystemKit/OSEScreen.h>
+#import <SystemKit/OSEDisplay.h>
 
 @interface AppController : NSObject
 {
   IBOutlet NSView* controlView;
-  IBOutlet NSSlider* volumeSlider;
-  IBOutlet NSButton* muteButton;
-  IBOutlet NSButton* micMuteButton;
-  IBOutlet NSMenuItem* audioMenu;
+  IBOutlet NSSlider* brightnessSlider;
 
   NSTimeInterval lastChange;
-  NSInteger lastValue;
 
-  SNDServer	*soundServer;
-  SNDOut	*soundOut;
-  SNDIn		*soundIn;
+  OSEScreen  *systemScreen;
 }
 
 - (id) init;
@@ -35,7 +31,7 @@
 
 - (void) awakeFromNib;
 
-- (void) changeVolume: (id)sender;
+- (void) changeBrightness: (id)sender;
 
 - (void) applicationDidFinishLaunching: (NSNotification *)aNotif;
 - (BOOL) applicationShouldTerminate: (id)sender;

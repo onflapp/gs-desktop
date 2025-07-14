@@ -3,28 +3,21 @@
     AppController = {
 	Actions = (
 	    "showPrefPanel:",
-	    "changeVolume:",
-	    "toggleMic:",
-	    "showAudioPreferences:",
-	    "changeOutput:"
+	    "showDisplayPreferences:",
+	    "changeBrightness:"
 	);
 	Outlets = (
 	    controlView,
-	    muteButton,
-	    volumeSlider,
-	    micMuteButton,
-	    audioMenu
+	    brightnessSlider
 	);
 	Super = NSObject;
     };
     FirstResponder = {
 	Actions = (
-	    "changeVolume:",
-	    "changeOutput:",
+	    "changeBrightness:",
 	    "orderFrontFontPanel:",
-	    "showAudioPreferences:",
-	    "showPrefPanel:",
-	    "toggleMic:"
+	    "showDisplayPreferences:",
+	    "showPrefPanel:"
 	);
 	Super = NSObject;
     };

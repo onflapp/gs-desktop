@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 NMCFG="/etc/NetworkManager/NetworkManager.conf";
 NMCFGT="/tmp/nm_$$.txt";

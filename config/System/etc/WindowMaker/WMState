@@ -120,13 +120,13 @@
             Forced = No;
             OneShot = No;
             Name = TimeMon.GNUstep;
-            DropCommand = "TimeMon %d";
+            DropCommand = "";
             BuggyApplication = No;
             AutoLaunch = Yes;
             Position = "1,0";
             Lock = No;
-            PasteCommand = "TimeMon %s";
-            Command = TimeMon;
+            PasteCommand = "";
+            Command = "TimeMon";
             Omnipresent = No;
           },
           {
@@ -158,11 +158,24 @@
           {
             Forced = No;
             OneShot = No;
-            Name = Lookup.GNUstep;
+            Name = DispMon.GNUstep;
             DropCommand = "";
             BuggyApplication = No;
             AutoLaunch = Yes;
             Position = "4,0";
+            Lock = No;
+            PasteCommand = "";
+            Command = "DispMon";
+            Omnipresent = No;
+          },
+          {
+            Forced = No;
+            OneShot = No;
+            Name = Lookup.GNUstep;
+            DropCommand = "";
+            BuggyApplication = No;
+            AutoLaunch = Yes;
+            Position = "5,0";
             Lock = No;
             PasteCommand = "";
             Command = "/Applications/Utilities/Lookup.app/Lookup";

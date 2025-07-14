@@ -45,10 +45,10 @@
   id del = [NSApp delegate];
 
   if ([event buttonNumber] == 4) {
-    [del performSelector:@selector(increaseVolume:) withObject:self];
+    [del performSelector:@selector(increaseBrightness:) withObject:self];
   }
   else if ([event buttonNumber] == 5) {
-    [del performSelector:@selector(decreaseVolume:) withObject:self];
+    [del performSelector:@selector(decreaseBrightness:) withObject:self];
   }
 }
 
