@@ -17,7 +17,7 @@ if [ "x$CC" = "xgcc" ];then
   export CPPFLAGS="$CPPFLAGS -I$GCC_BASE/include"
 fi
 
-./configure --disable-global-menu-bundle \
+sh ./configure --disable-global-menu-bundle \
             --disable-notification-bundle || exit 1
 
 gmake $MKARGS || exit 1
