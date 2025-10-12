@@ -14,6 +14,17 @@
 #import "RootServiceTask.h"
 #import "NetworkServiceTask.h"
 
+BOOL unmountAllVolumes(OSEUDisksDrive* drive) {
+  NSEnumerator   *e = [[[drive volumes] allValues] objectEnumerator];
+  OSEUDisksVolume *volume;
+
+  while ((volume = [e nextObject]) != nil) {
+    [volume unmount:YES];
+  }
+
+  return YES;
+}
+
 BOOL hasFSTab(NSDictionary* props) {
   NSString* opts = [[props valueForKey:@"org.freedesktop.UDisks2.Block"] valueForKey:@"Configuration"];
   if ([opts hasPrefix:@"[('fstab'"]) {
@@ -401,9 +412,9 @@ BOOL hasFSTab(NSDictionary* props) {
     if ([d isMounted]) {
       if ([d isKindOfClass:[OSEUDisksVolume class]]) {
         OSEUDisksVolume* vol = d;
-        [[vol drive]unmountVolumes:YES];
+      	unmountAllVolumes([vol drive]);
         if ([[vol drive]isEjectable]) {
-          [[vol drive]eject:YES];
+          //[[vol drive]eject:YES]; will cause to remount disk in some cases
           break;
         }
         else {
@@ -427,10 +438,10 @@ BOOL hasFSTab(NSDictionary* props) {
   if ([d isKindOfClass:[OSEUDisksVolume class]]) {
     OSEUDisksVolume* vol = d;
     if ([vol isMounted]) {
-      [[vol drive]unmountVolumes:YES];
+      unmountAllVolumes([vol drive]);
 
       if ([[vol drive]isEjectable]) {
-        [[vol drive]eject:YES];
+        //[[vol drive]eject:YES]; will cause to remount disk in some cases
       }
     }
     else {
